@@ -1,10 +1,13 @@
 # Perceptrons, Neurons & Activation Functions
 
+**Explore as you read.** Edit input coordinates, weights, bias and common scale; move the activation operating point and incoming weight; edit XOR hidden bias and output coefficient. Synchronize contribution bars, boundary distance, hard/smooth outputs, activation value/slope and all four XOR rows. Compare a shared coefficient rescaling with a moved input, and a repaired corner with the remaining corners. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose whether the decision boundary, smooth confidence or local sensitivity needs to change; a one-row repair need not solve the whole task.
+
+
 A handwriting recognizer receives numbers, not the idea of a “7.” It must turn a pattern of pixel intensities into evidence for different digits. A neural network does this with many small calculations: combine some inputs, transform the result, and pass it to other calculations. Training adjusts those combinations.
 
 One such calculation is an **artificial neuron**. The biological name is an analogy; the object we will build is an ordinary mathematical function. Understanding it lets you read a network diagram, construct a model that a single straight boundary cannot express, and judge what changing an activation actually changes.
 
-**First pass:** follow §§1–6, the three short investigations, and practices 1–5. You will build an XOR network by hand and train a small digit recognizer. §7 and practices 6–8 are deeper branches: smooth gates, approximation theory and resource accounting. They are useful extensions, not prerequisites for the next lesson. Allow about 55–70 minutes for reading and worked examples, plus 35–50 minutes for practice and the CPU experiment; the advanced branch adds 25–40 minutes.
+**First pass:** follow §§1–6, the three short investigations, and practices 1–5. You will build an XOR network by hand train a small digit recognizer. §7 and practices 6–8 are deeper branches: smooth gates, approximation theory and resource accounting. They are useful extensions, not prerequisites for the next lesson. Allow about 55–70 minutes for reading and worked examples, plus 35–50 minutes for practice and the CPU experiment; the advanced branch adds 25–40 minutes.
 
 ## 1. A neuron is a weighted question
 
@@ -38,7 +41,7 @@ Our weight vector has length $\sqrt{1.5^2+(-2)^2}=2.5$, so distance is 4/2.5=1.6
 
 If every weight is 0, the output depends only on the bias. There is then no unique separating line or distance to divide by. In more dimensions, the line becomes a **hyperplane**: the same equation, one fewer dimension than the input space.
 
-**InvestigationA — move the evidence.** Before revealing, predict whether doubling all coefficients changes the hard decision, signed distance, or sigmoid output. Commit the three predictions. Then move a point and edit one weight or the bias; compare its product contributions with its position relative to the boundary. For an independent case, start with $x=(1,1)$, $w=(1,-1)$, $b=0$ and move only $x_2$. Explain why the tie and either side receive different decisions.
+**Investigation A — move the evidence.** Change the common coefficient scale and watch the hard decision, signed distance and sigmoid output together. Then move a point or edit one weight or the bias; follow its product contribution and position relative to the boundary. For a changed case, use $x=(1,1)$, $w=(1,-1)$, $b=0$ and move only $x_2$. The live readouts show why the tie and either side receive different decisions.
 
 ## 2. A perceptron learns a boundary from mistakes
 
@@ -132,7 +135,7 @@ This is exact XOR on the four binary inputs, with 0/1 output labels. The first h
 
 [VisualB: input square → two ramp coordinates → output contributions. Give each of the four examples a persistent symbol in all three views; show the (1,1) row as2−2=0. Between binary corners, this is a continuous piecewise-linear function, not a new Boolean truth table.]
 
-**InvestigationB — repair the network.** Start from output weights(1,−1), where the both-active point is wrong. Predict the output at(1,1), then edit the second output weight to make all four truth-table rows correct. Commit before revealing. Next change the second hidden bias from−1 to−0.5 and decide whether changing only that output weight can still repair every row. The answer depends on all rows, not just the one currently highlighted.
+**Investigation B — repair the network.** Start from output weights (1,−1), where the both-active point is wrong. Edit the second output weight while watching all four truth-table rows and their hidden contributions. Next change the second hidden bias from −1 to −0.5. Explore whether any value of that output weight can repair every row: a change that repairs one corner can damage another.
 
 This tiny network demonstrates representation, not successful training: we deliberately chose its weights. Learning those weights from examples is a separate problem.
 
@@ -184,7 +187,7 @@ A sigmoid's 0.25 maximum slope does not imply that every network layer shrinks e
 
 A ReLU whose preactivation is negative for all examples in the current batch receives zero gradient through this activation for those examples. It may be active on another batch. A unit that stays negative on the entire relevant training distribution can be difficult to recover through that path, but parameter momentum, another loss path, or changes in upstream features can change the situation. Diagnose actual activations and gradients rather than using a universal “too many zeros” percentage.
 
-**InvestigationC — predict a local sensitivity.** Choose an activation, edit $z$ and an incoming scalar weight, and predict whether the input sensitivity is negative, zero, between 0 and 1, or at least 1. Then reveal the activation slope and their product. Compare positive ReLU and leaky ReLU: they have the same result there. Move to a negative score to expose the difference. A large activation value is not the same thing as a large derivative.
+**Investigation C — explore local sensitivity.** Choose an activation and edit $z$ and the incoming scalar weight. Watch the activation slope and their product together, including its sign and size. Positive ReLU and leaky ReLU agree; move to a negative score to expose their difference. A large activation value is not the same thing as a large derivative.
 
 ### Output interpretation is a separate choice
 

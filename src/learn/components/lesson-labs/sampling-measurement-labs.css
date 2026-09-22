@@ -352,7 +352,7 @@
 .factorial-board > strong {
   color: #8db9df;
 }
-.factorial-board .fourth-revealed {
+.factorial-board .fourth-live {
   background: #4a3821;
   color: #f6d49e;
 }

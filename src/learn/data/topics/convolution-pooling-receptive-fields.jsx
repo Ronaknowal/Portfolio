@@ -1,1444 +1,333 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const convolutionPoolingRFContent = {
-  title: "Convolution, Pooling & Receptive Fields",
-  readTime: "~38 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        The convolutional neural network is one of the oldest architectures in deep learning, and its design comes almost directly from neurophysiology. In 1962, David Hubel and Torsten Wiesel published "Receptive fields, binocular interaction and functional architecture in the cat's visual cortex" in <em>The Journal of Physiology</em> (volume 160, pages 106–154). They inserted tungsten microelectrodes into the primary visual cortex (area V1) of anesthetized cats and projected bars of light onto a screen while recording which neurons fired. The experiment, which later won them the 1981 Nobel Prize in Physiology or Medicine, produced two foundational findings. First, individual V1 neurons respond only to stimuli in a small region of the visual field — the neuron's <em>receptive field</em>. Second, V1 contains two broad cell classes: <em>simple cells</em> that fire when an oriented edge at a specific orientation and position crosses their receptive field, and <em>complex cells</em> that fire for the same oriented edge but are translation-invariant over a larger region. Simple cells look like linear oriented filters; complex cells look like a pooling operation over nearby simple cells of the same orientation.
-      </Prose>
-
-      <Prose>
-        In 1980, Kunihiko Fukushima at NHK Broadcasting Science Research Laboratories published "Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position" in <em>Biological Cybernetics</em> (volume 36, pages 193–202). The Neocognitron is almost exactly a modern CNN, proposed 35 years before AlexNet. It alternated <em>S-layers</em> (modeled on simple cells: local weighted sums detecting oriented features) with <em>C-layers</em> (modeled on complex cells: max-like pooling operations that introduce translation invariance). Fukushima trained it with an unsupervised competitive learning rule and showed it could recognize handwritten digits robustly to shifts. What it lacked was gradient-based learning — every layer was trained layer-wise rather than end-to-end.
-      </Prose>
-
-      <Prose>
-        That missing piece arrived in 1989. Yann LeCun and colleagues at AT&T Bell Labs published "Backpropagation Applied to Handwritten Zip Code Recognition" in <em>Neural Computation</em> (volume 1, pages 541–551). For the first time, a convolutional network with shared weights and spatial pooling was trained end-to-end with backpropagation on real-world data — 9,298 handwritten ZIP-code digits segmented from US Postal Service mail. The network had three hidden layers, used weight sharing to reduce parameters from ~100,000 to ~2,600, and achieved 1.0% error on the training set and 5.0% error on the test set — competitive with the best classical methods of the time. Every design choice that became standard was already present: local receptive fields, weight sharing across spatial positions, stride-2 subsampling between layers, and gradient training via backprop.
-      </Prose>
-
-      <Prose>
-        By 1998, LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner had refined this into LeNet-5, described in "Gradient-Based Learning Applied to Document Recognition" (<em>Proceedings of the IEEE</em> 86(11), pages 2278–2324). LeNet-5 read ~60 million checks per month through NCR's systems in the late 1990s — the first production CNN deployment. The architecture is almost identical to modern image classifiers: two conv/pool stages, then fully connected layers, trained with backprop. The paper is also the reason everyone in 2026 still says "convolution" when they really mean "cross-correlation" — LeCun's original LeNet papers defined convolution in the cross-correlation sense (no kernel flip), and the terminology stuck.
-      </Prose>
-
-      <Prose>
-        Between 1998 and 2012, CNNs languished. GPUs were not fast enough, datasets were not large enough, and for most problems hand-engineered features plus SVMs beat neural networks. The turning point was September 2012, when Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton at the University of Toronto submitted a CNN to the ImageNet Large Scale Visual Recognition Challenge. Their paper "ImageNet Classification with Deep Convolutional Neural Networks" (NeurIPS 2012) described AlexNet: 5 conv layers, 3 FC layers, 60 million parameters, trained on two GTX 580 GPUs for five to six days on 1.2 million labeled images. It achieved 15.3% top-5 error on ILSVRC 2012 — a 10.8 percentage-point absolute improvement over the second-place entry, which used hand-crafted features. That gap was so large that the entire computer vision research community pivoted within six months. Every subsequent ILSVRC winner was a CNN; hand-crafted features never returned.
-      </Prose>
-
-      <Prose>
-        Everything that followed was a refinement of the same recipe. VGG (2014) showed that deeper stacks of small 3×3 convolutions beat shallower stacks of large ones. GoogLeNet / Inception (2014) introduced 1×1 convolutions for channel bottlenecks and parallel multi-scale branches. ResNet (2015) used residual shortcuts to enable 152-layer networks. MobileNet (2017) popularized depthwise separable convolutions for phones. ConvNeXt (2022) showed that a modernized CNN could match vision Transformers at the same FLOP budget. Across all of them, the three primitives remain the same: convolution for local spatial filtering, pooling for spatial reduction, and receptive-field analysis for reasoning about how much context each output neuron sees.
-      </Prose>
-
-      <Prose>
-        The receptive-field side of the story has its own important chapter. In late 2016, Wenjie Luo, Yujia Li, Raquel Urtasun, and Richard Zemel at the University of Toronto published "Understanding the Effective Receptive Field in Deep Convolutional Neural Networks" (NeurIPS 2016, arXiv 1701.04128). The paper observed that although the <em>theoretical</em> receptive field of a deep CNN grows linearly with depth, the <em>effective</em> receptive field (ERF) — the set of input pixels that actually influence a given output neuron — is much smaller and has a Gaussian-shaped intensity profile. Only a small fraction of theoretically-reachable pixels contribute meaningfully to any output. The practical consequence: just because you stacked enough convs to "see" 200 pixels in theory does not mean the network actually uses 200 pixels of context. This finding reshaped how semantic segmentation, dense prediction, and object detection architectures are designed — dilated convolutions, atrous spatial pyramid pooling, and large-kernel CNNs all attack the ERF gap.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+// Full prepared revision-3 manuscript rendered statically; no Markdown parser in the browser.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { ConvolutionPatchLab, ConvolutionChannelsLab, ConvolutionUpdateLab, ConvolutionGeometryLab, ConvolutionPoolingLab, ConvolutionReceptiveLab, ConvolutionMeasuredLab, ConvolutionInfluenceLab, ConvolutionTransposeLab, ConvolutionShiftLab, ConvolutionPatchMatrixFigure, ConvolutionProgram } from '../../components/lesson-labs/ConvolutionLabs.jsx';
+export default {
+  title: 'Convolution, Pooling & Receptive Fields',
+  readTime: '~65 min read + experiments and practice; optional implementation branches ~30 min',
+  hasIntegratedGuide: true,
+  content: () => <div className="neural-lesson convolution-lesson">
+    <LessonIntro prerequisites="Multiplication, sums and array indexing. Weighted sums, gradients and the objective are refreshed locally; earlier neural and tensor lessons provide deeper prerequisites." sections={[["1-a-small-rule-that-travels","1. A small rule that travels"],["2-channels-are-several-measurements-at-each-location","2. Channels are several measurements at each location"],["3-how-a-shared-filter-learns","3. How a shared filter learns"],["4-plan-the-geometry-before-stacking-layers","4. Plan the geometry before stacking layers"],["5-pooling-summarize-then-notice-what-disappeared","5. Pooling: summarize, then notice what disappeared"],["6-receptive-fields-where-can-this-number-get-information","6. Receptive fields: where can this number get information?"],["7-build-and-inspect-a-real-digit-classifier","7. Build and inspect a real digit classifier"],["8-optional-reach-influence-and-shifts","8. Optional: reach, influence and shifts"],["9-optional-the-reverse-operation-is-a-scatter-not-an-undo","9. Optional: the reverse operation is a scatter, not an undo"],["10-optional-implement-the-same-math-efficiently","10. Optional: implement the same math efficiently"],["implement-the-pullback-and-batch-the-arithmetic","Implement the pullback and batch the arithmetic"],["11-practice-construct-diagnose-transfer","11. Practice: construct, diagnose, transfer"],["references-and-other-ways-to-learn","References and other ways to learn"]]}>Follow one patch, one shared update and a complete digit classifier before the deeper influence, transpose and implementation branches.</LessonIntro>
+<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit image/kernel cells, stride/dilation/padding, pooling inputs, shared-weight targets/rate and receptive-field threshold. Synchronize the selected patch, products, output map, transpose contributions, gradient accumulation and ancestry paths. Geometry edits visibly change output size, alignment and holes rather than only a summary label. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose window geometry and pooling from reach, alignment, information loss and update behavior."}</Prose>
 
-      <Prose>
-        Fully connected layers treat every input feature as independent and every output feature as a distinct linear combination of all inputs. For a 224×224 RGB image that is 150,528 input features per sample. Connecting this to even a modest 1000-unit hidden layer requires 150 million parameters <em>for a single layer</em>, plus no inductive bias at all — the network has to re-discover from scratch that neighboring pixels are related and that a cat in the top-left is the same object as a cat in the bottom-right. Convolution bakes two beliefs about natural images into the architecture: features are <em>local</em> (edges, textures, object parts occupy small spatial neighborhoods) and the <em>same feature matters at every location</em> (a cat ear detector should work whether the ear appears in pixel (10, 10) or pixel (200, 200)).
-      </Prose>
+<Prose>{"A handwritten 7 can move a little to the right and still be a 7. Its strokes are local, but their arrangement matters: a short horizontal stroke and a long diagonal belong together. How can a neural network use those facts instead of learning an unrelated detector for every possible pixel position?"}</Prose>
 
-      <Prose>
-        <strong>Local connectivity.</strong> Each output neuron depends only on a small k×k patch of the input, not the whole image. For a 3×3 conv with 64 input channels and 64 output channels, each output neuron has 3·3·64 = 576 incoming weights, regardless of the image size. A 224×224 feature map and a 7×7 feature map share exactly the same weights. This dramatically reduces parameter count and reflects the reality of images: what matters for detecting an edge in the middle of a photograph is the pixels around that edge, not pixels a hundred positions away.
-      </Prose>
+<Prose>{"Convolution reuses a small calculation across a grid. Pooling summarizes nearby values. A receptive field tells us where one result can obtain information. Together, these ideas let us reason about an image model as a sequence of visible operations."}</Prose>
 
-      <Prose>
-        <strong>Weight sharing and translation equivariance.</strong> A convolutional layer uses the same k×k kernel at every spatial position. If the input shifts by one pixel, the output shifts by one pixel — this property is called <em>translation equivariance</em>. Equivariance is not the same as invariance: the output still moves, it just moves predictably. Invariance (the output does not change at all when the input shifts) comes from pooling or from global pooling at the end of the network. Sharing weights across positions also means gradient updates are <em>averaged</em> across every location the kernel was applied at, giving ~HW times as many effective training examples per weight as a fully connected layer, which is the single biggest reason CNNs generalize well from relatively modest datasets.
-      </Prose>
+<Prose>{""}<strong>{"First pass:"}</strong>{" follow one patch through a filter, learn how that filter changes, plan the sizes, and train the small digit classifier in sections 1–7. You should then be able to build and diagnose a basic CNN. Sections 8–10 are optional deeper routes into influence, reconstruction and efficient execution. The practice separates core readiness from those extensions."}</Prose>
 
-      <Prose>
-        <strong>Stacking grows receptive field.</strong> A single 3×3 conv at the input sees a 3×3 patch. Stack two 3×3 convs and each output neuron sees a 5×5 input patch — the second layer's neighbors on the first feature map each depend on their own 3×3 neighborhood, and those neighborhoods overlap. This compounds: N stacked 3×3 convs give a theoretical receptive field of 2N+1 pixels, the same as a single (2N+1)×(2N+1) kernel — but with roughly N times fewer parameters (N·3²·C² vs. (2N+1)²·C²) and an additional nonlinearity per layer. This is the insight behind VGG: replace AlexNet's 7×7 and 5×5 early convs with stacks of 3×3.
-      </Prose>
+<Prose>{"You need multiplication, sums and array indexing. We refresh neural terminology as it appears: a parameter is a learned number, an activation is a computed value, and a gradient says how a small change affects a chosen result. Our task is to predict one of ten digit labels from an 8×8 intensity image. A dense network is the baseline; convolution is a different useful constraint, not a promise to beat it."}</Prose>
 
-      <Prose>
-        <strong>Pooling reduces spatial resolution and adds invariance.</strong> Max pooling takes the maximum over a k×k window and slides with stride k, halving spatial resolution for the default 2×2/stride 2 configuration. The practical effects are threefold: (1) compute and memory for subsequent layers drop 4× per 2×2 pool, (2) the receptive field grows more quickly because each subsequent conv's window now covers 2× as much input in each direction, (3) small spatial perturbations of the input get smoothed — a feature that appears in pixel (17, 17) or pixel (17, 18) both map to the same pooled output if the window contains both. Average pooling replaces max with mean and is more common at the end of the network (global average pooling as classifier-head replacement).
-      </Prose>
+<H2>{"1. A small rule that travels"}</H2>
 
-      <Prose>
-        <strong>Three ways to grow the receptive field.</strong> There are only three levers: increase kernel size k (more parameters per layer, O(k²) FLOPs), increase stride or insert pooling (reduces spatial resolution, loses fine detail), or use dilation (spacing kernel taps with gaps, same params/FLOPs but larger coverage at the cost of aliasing gaps in what the kernel sees). Modern architectures pick a combination. A ResNet-50 uses stride-2 downsampling four times; a DeepLab segmentation network uses dilated convolutions to grow RF without spatial reduction; a Transformer-style vision model skips local convolution entirely and uses global attention. Each choice trades off RF growth, spatial fidelity, and compute.
-      </Prose>
+<Prose>{"Consider this image and a 2×2 filter:"}</Prose>
 
-      <Callout accent="gold">
-        Mental model: a conv layer is a <em>bank of templates</em> slid across the image. Each output channel is one template's response map. Pooling is a <em>summary over a local window</em>. The receptive field is <em>the set of input pixels any given output neuron could have looked at</em>. The effective receptive field is <em>the set of input pixels that actually matter</em> — almost always a Gaussian blob much smaller than the theoretical RF.
-      </Callout>
+<NeuralTable caption={"1. A small rule that travels"} headers={[<>{"Image"}</>,<>{"Filter"}</>]} rows={[[<>{"1, 2, 0; 0, 1, 3; 2, 1, 0"}</>,<>{"1, −1; 0, 1"}</>]]} />
 
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<Prose>{"Put the filter over the top-left patch. Multiply corresponding cells and add:"}</Prose>
 
-      <H3>3.1 Discrete 2D convolution (cross-correlation)</H3>
+<div className="neural-equation"><MathBlock>{"1(1)+2(-1)+0(0)+1(1)=0."}</MathBlock></div>
 
-      <Prose>
-        Deep learning libraries implement <em>cross-correlation</em> even though they call it "convolution". The true mathematical convolution flips the kernel; cross-correlation does not. Because the kernel is learned, the flip is irrelevant — the optimizer will simply learn the flipped version of whatever true-convolution kernel you meant. What we actually compute for an input feature map <Code>{"x[c, i, j]"}</Code> and a kernel <Code>{"w[c, u, v]"}</Code>:
-      </Prose>
+<Prose>{"Move it one column right, keeping the "}<strong>{"same four weights"}</strong>{":"}</Prose>
 
-      <MathBlock>
-        {"y[i, j] = \\sum_{c=0}^{C_{in}-1} \\sum_{u=0}^{k-1} \\sum_{v=0}^{k-1} x[c, \\, i + u, \\, j + v] \\cdot w[c, u, v]"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"2(1)+0(-1)+1(0)+3(1)=5."}</MathBlock></div>
 
-      <Prose>
-        For a multi-output-channel conv with <Code>{"C_{out}"}</Code> output channels, this extends to a tensor computation over a weight <Code>{"w[c_{out}, c_{in}, u, v]"}</Code>:
-      </Prose>
+<Prose>{"Repeating for the second row produces "}<InlineMath>{"\\begin{bmatrix}0&5\\\\0&-2\\end{bmatrix}"}</InlineMath>{". This output grid is a "}<strong>{"feature map"}</strong>{". A positive value means the weighted pattern has a positive response there. It is not yet a probability or necessarily a meaningful named feature."}</Prose>
 
-      <MathBlock>
-        {"y[c_o, i, j] = b[c_o] + \\sum_{c_i=0}^{C_{in}-1} \\sum_{u=0}^{k-1} \\sum_{v=0}^{k-1} x[c_i, \\, i + u, \\, j + v] \\cdot w[c_o, c_i, u, v]"}
-      </MathBlock>
+<ConvolutionPatchLab />
 
-      <Prose>
-        Each output channel <Code>{"c_o"}</Code> is a different learned filter applied to the full stack of input channels. In plain terms: <em>for every output location, take the element-wise product of the kernel with the corresponding input patch and sum</em>.
-      </Prose>
+<Prose>{"This is the operation deep-learning libraries usually call convolution, although the precise mathematical operation is "}<strong>{"cross-correlation"}</strong>{": the filter is used in the displayed orientation. Mathematical convolution reverses its spatial axes. For learned filters either convention can represent the same family of operations, but matching a fixed filter or an implementation requires knowing the convention. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"}>{"PyTorch Conv2d contract"}</a>{"."}</Prose>
 
-      <H3>3.2 Output size formula</H3>
+<Prose>{"A filter "}<InlineMath>{"[1,0,-1]"}</InlineMath>{" on a one-dimensional signal compares an earlier and a later value. A constant signal gives zero away from padding; an abrupt change gives a response. On an image, a similar pattern can respond to an edge. We do not need to hand-design every detector: training adjusts the weights to reduce the task's errors."}</Prose>
 
-      <Prose>
-        Given input spatial size <Code>{"n_{in}"}</Code>, kernel size <Code>k</Code>, padding <Code>p</Code>, stride <Code>s</Code>, and dilation <Code>d</Code> (the spacing between kernel taps), the output spatial size is:
-      </Prose>
+<Prose>{"Why reuse them? A dense layer connecting 64 input pixels to 512 outputs has 32,768 weights before biases. Eight 3×3 filters on a one-channel image have 72 weights, yet produce eight whole maps. The local pattern detector shares evidence across positions. Dense layers can learn correlations too; they simply do not impose these particular locality and weight-sharing constraints. Positions in overlapping patches are also correlated: they are not hundreds of independent extra training specimens."}</Prose>
 
-      <MathBlock>
-        {"n_{out} = \\left\\lfloor \\frac{n_{in} + 2p - d \\cdot (k - 1) - 1}{s} \\right\\rfloor + 1"}
-      </MathBlock>
+<H2>{"2. Channels are several measurements at each location"}</H2>
 
-      <Prose>
-        The quantity <Code>{"d \\cdot (k-1) + 1"}</Code> is the <em>effective</em> kernel size — a 3×3 kernel with dilation 2 spans 5 input pixels (with gaps). Memorize the three common special cases:
-      </Prose>
+<Prose>{"An RGB image has three channels. A later hidden representation might have eight channels corresponding to eight learned responses. A normal convolution combines a patch from "}<strong>{"every input channel"}</strong>{" to make one output channel."}</Prose>
 
-      <MathBlock>
-        {"\\text{stride 1, pad} \\lfloor k/2 \\rfloor: \\quad n_{out} = n_{in} \\quad \\text{(shape-preserving 'same' conv)}"}
-      </MathBlock>
+<Prose>{"For one output at location "}<InlineMath>{"(u,v)"}</InlineMath>{", with stride one and no padding:"}</Prose>
 
-      <MathBlock>
-        {"\\text{stride 2, pad} \\lfloor k/2 \\rfloor: \\quad n_{out} = \\lceil n_{in}/2 \\rceil \\quad \\text{(downsample by 2)}"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"y_{o,u,v}=b_o+\\sum_{c=0}^{C_{\\rm in}-1}\n\\sum_{a=0}^{k_h-1}\\sum_{b=0}^{k_w-1}\nW_{o,c,a,b}\\,x_{c,u+a,v+b}."}</MathBlock></div>
 
-      <MathBlock>
-        {"\\text{stride 1, pad 0: } \\quad n_{out} = n_{in} - k + 1 \\quad \\text{(valid conv, shrinks by } k-1 \\text{)}"}
-      </MathBlock>
+<Prose>{"Here "}<InlineMath>{"o"}</InlineMath>{" selects an output channel, "}<InlineMath>{"c"}</InlineMath>{" selects an input channel, and "}<InlineMath>{"a,b"}</InlineMath>{" select a location inside its patch. The bias "}<InlineMath>{"b_o"}</InlineMath>{" is added once after combining the channels. Its subscript distinguishes the bias from the column index "}<InlineMath>{"b"}</InlineMath>{"."}</Prose>
 
-      <H3>3.3 Theoretical receptive field recursion</H3>
+<Prose>{"Suppose two single-cell channels contain 2 and 3. An output channel with weights 4 and −1, bias 1, gives "}<InlineMath>{"4(2)-3+1=6"}</InlineMath>{". Another output channel can apply different weights to the same inputs. A 1×1 convolution therefore mixes channels even though it does not combine neighboring spatial positions."}</Prose>
 
-      <Prose>
-        The receptive field of a neuron at layer <Code>{"\\ell"}</Code> is the set of input pixels that could, in principle, influence its activation. Define <Code>{"r_\\ell"}</Code> as the RF size (in input pixels per dimension) and <Code>{"j_\\ell"}</Code> as the <em>jump</em> — the spacing in input pixels between adjacent neurons at layer <Code>{"\\ell"}</Code>. The recursion is:
-      </Prose>
+<ConvolutionChannelsLab />
 
-      <MathBlock>
-        {"r_\\ell = r_{\\ell-1} + (k_\\ell - 1) \\cdot j_{\\ell-1}, \\qquad j_\\ell = j_{\\ell-1} \\cdot s_\\ell"}
-      </MathBlock>
+<Prose>{"For a batch, PyTorch uses logical shape "}<InlineMath>{"[N,C,H,W]"}</InlineMath>{": specimens, channels, height, width. A weight tensor has shape "}<InlineMath>{"[C_{\\rm out},C_{\\rm in},k_h,k_w]"}</InlineMath>{" when groups=1. It has no separate batch or output-location axis because those uses share its values."}</Prose>
 
-      <Prose>
-        with initial values <Code>{"r_0 = 1"}</Code> and <Code>{"j_0 = 1"}</Code>. Equivalently, unrolling the recursion:
-      </Prose>
+<Prose>{""}<strong>{"Grouped convolution"}</strong>{" restricts which input channels connect to which outputs. With two groups, each half of the outputs sees only its corresponding half of the inputs; both channel counts must be divisible by two. A depthwise convolution uses one group per input channel, optionally producing several outputs per input channel. The multiplier need not be one. A later pointwise layer can mix those separate channels. We will study this design properly after the landmark architectures."}</Prose>
 
-      <MathBlock>
-        {"r_L = 1 + \\sum_{\\ell=1}^{L} (k_\\ell - 1) \\cdot \\prod_{i < \\ell} s_i"}
-      </MathBlock>
+<H2>{"3. How a shared filter learns"}</H2>
 
-      <Prose>
-        Each layer contributes <Code>{"k_\\ell - 1"}</Code> extra input pixels to the RF, scaled by the cumulative product of prior strides. Strides and pooling are multiplicative; kernel sizes are additive. A pool of kernel 2 / stride 2 contributes <Code>{"(2-1) \\cdot j_{\\ell-1} = j_{\\ell-1}"}</Code> pixels to RF and doubles <Code>j</Code>, so the next conv sees twice as much input per kernel tap.
-      </Prose>
+<Prose>{"Before fitting an image classifier, use a one-dimensional example small enough to calculate completely. Input "}<InlineMath>{"x=[1,3,2]"}</InlineMath>{", filter "}<InlineMath>{"w=[1,-1]"}</InlineMath>{", no bias, produces "}<InlineMath>{"y=[-2,1]"}</InlineMath>{". Suppose the desired output is "}<InlineMath>{"[0,0]"}</InlineMath>{", and use half the "}<strong>{"sum"}</strong>{" of squared errors:"}</Prose>
 
-      <H3>3.4 Dilated (atrous) convolution RF</H3>
+<div className="neural-equation"><MathBlock>{"L=\\tfrac12((-2)^2+1^2)=2.5."}</MathBlock></div>
 
-      <Prose>
-        Dilation replaces <Code>{"k_\\ell - 1"}</Code> in the recursion with <Code>{"d_\\ell \\cdot (k_\\ell - 1)"}</Code>. A 3×3 conv with dilation 2 contributes the same as a 5×5 conv at the same layer — RF grows quickly without adding parameters or increasing FLOPs. This is why semantic segmentation networks like DeepLab rely on dilation: they need large RF for scene-level context while keeping high spatial resolution (no downsampling).
-      </Prose>
+<Prose>{"The output gradients are "}<InlineMath>{"[-2,1]"}</InlineMath>{". The first weight contributes to both windows, so its gradient adds both contributions:"}</Prose>
 
-      <MathBlock>
-        {"r_\\ell = r_{\\ell-1} + d_\\ell \\cdot (k_\\ell - 1) \\cdot j_{\\ell-1}"}
-      </MathBlock>
-
-      <H3>3.5 Effective receptive field (Luo et al. 2016)</H3>
-
-      <Prose>
-        Luo and colleagues showed that for a stack of <Code>N</Code> convolutional layers with random independent weights, the effective RF — the gradient of the center output pixel with respect to input pixels — is asymptotically Gaussian with standard deviation growing as <Code>{"\\sigma \\propto \\sqrt{N}"}</Code>, not as <Code>N</Code>. This is the central limit theorem applied to the product of random Jacobians that form the gradient path through the stack. Formally, for uniform weights with variance <Code>{"\\sigma_w^2"}</Code>:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{ERF}(u, v) \\approx \\frac{1}{2\\pi \\sigma^2} \\exp\\left(-\\frac{u^2 + v^2}{2\\sigma^2}\\right), \\qquad \\sigma \\sim \\mathcal{O}(\\sqrt{N})"}
-      </MathBlock>
-
-      <Prose>
-        The theoretical RF grows like <Code>N</Code>; the effective RF grows like <Code>{"\\sqrt{N}"}</Code>. Doubling depth adds only a <Code>{"\\sqrt{2} \\approx 1.41"}</Code>× increase to the pixels that actually matter. The practical takeaway: stacking more layers is a diminishing way to grow effective context. The efficient ways are dilation, strided downsampling, and skip connections that aggregate at multiple scales.
-      </Prose>
-
-      <H3>3.6 Parameter count and FLOPs</H3>
-
-      <Prose>
-        A conv layer with kernel <Code>{"k \\times k"}</Code>, input channels <Code>{"C_{in}"}</Code>, and output channels <Code>{"C_{out}"}</Code> has:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{params} = k \\cdot k \\cdot C_{in} \\cdot C_{out} + C_{out} \\text{ (if bias)}"}
-      </MathBlock>
-
-      <Prose>
-        Parameter count does <em>not</em> depend on spatial resolution — the same 3×3 conv has the same weights at any image size. FLOPs, however, scale linearly with the spatial output area. Defining a multiply–accumulate (MAC) as 2 FLOPs:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{FLOPs} = 2 \\cdot H_{out} \\cdot W_{out} \\cdot k^2 \\cdot C_{in} \\cdot C_{out}"}
-      </MathBlock>
-
-      <Prose>
-        For grouped convolution with <Code>g</Code> groups, the sum over input channels is restricted to the group:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{params}_{\\text{grouped}} = k^2 \\cdot \\frac{C_{in}}{g} \\cdot C_{out}, \\qquad \\text{FLOPs}_{\\text{grouped}} = 2 \\cdot H_{out} \\cdot W_{out} \\cdot k^2 \\cdot \\frac{C_{in}}{g} \\cdot C_{out}"}
-      </MathBlock>
-
-      <Prose>
-        Depthwise convolution is the special case <Code>{"g = C_{in} = C_{out}"}</Code>: parameter and FLOP counts both drop by <Code>{"C_{in}"}</Code>×.
-      </Prose>
-
-      <H3>3.7 Backward pass</H3>
-
-      <Prose>
-        The backward pass of convolution is itself a convolution, which is why training is efficient. For the gradient of the loss <Code>L</Code> with respect to the input:
-      </Prose>
-
-      <MathBlock>
-        {"\\frac{\\partial L}{\\partial x[c_i, i, j]} = \\sum_{c_o} \\sum_{u, v} \\frac{\\partial L}{\\partial y[c_o, i-u, j-v]} \\cdot w[c_o, c_i, u, v]"}
-      </MathBlock>
-
-      <Prose>
-        This is a <em>transposed</em> (or "full") convolution of the output gradient with the flipped kernel. For the weight gradient:
-      </Prose>
-
-      <MathBlock>
-        {"\\frac{\\partial L}{\\partial w[c_o, c_i, u, v]} = \\sum_{i, j} \\frac{\\partial L}{\\partial y[c_o, i, j]} \\cdot x[c_i, i+u, j+v]"}
-      </MathBlock>
-
-      <Prose>
-        which is another convolution-like accumulation. Because both passes reduce to matrix multiplications through im2col, the same highly tuned GEMM kernels that make the forward pass fast also make the backward pass fast.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below is executable numpy/PyTorch. Outputs are verbatim stdout captured from local runs.
-      </Prose>
-
-      <H3>4a. Direct 2D convolution with padding, stride, and dilation</H3>
-
-      <Prose>
-        The most transparent implementation uses six nested loops — over batch, output channel, input channel, spatial row, spatial column, and kernel. We collapse the channel/kernel loops into numpy broadcasting so only the two spatial loops remain explicit. Below we implement the conv, then verify it against <Code>F.conv2d</Code> in three configurations: basic, strided, and dilated.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-import torch
-import torch.nn.functional as F
-
-def conv2d_direct(x, w, bias=None, stride=1, padding=0, dilation=1):
-    """Direct 2D cross-correlation.
-      x : (N, Cin, H, W)
-      w : (Cout, Cin, kH, kW)
-    Returns (N, Cout, Hout, Wout) where
-      Hout = floor((H + 2*pad - dil*(kH-1) - 1)/stride) + 1
-    """
-    N, Cin, H, W = x.shape
-    Cout, _, kH, kW = w.shape
-    if padding > 0:
-        xp = np.pad(x, ((0,0),(0,0),(padding,padding),(padding,padding)))
-    else:
-        xp = x
-    Hp, Wp = xp.shape[2], xp.shape[3]
-    eff_kH = (kH - 1) * dilation + 1
-    eff_kW = (kW - 1) * dilation + 1
-    Hout = (Hp - eff_kH) // stride + 1
-    Wout = (Wp - eff_kW) // stride + 1
-
-    out = np.zeros((N, Cout, Hout, Wout), dtype=x.dtype)
-    for i in range(Hout):
-        for j in range(Wout):
-            rs, cs = i * stride, j * stride
-            # Patch indexed with dilation step; shape (N, Cin, kH, kW)
-            patch = xp[:, :, rs:rs+eff_kH:dilation, cs:cs+eff_kW:dilation]
-            # Broadcast multiply against (Cout, Cin, kH, kW), sum over (Cin,kH,kW)
-            out[:, :, i, j] = (patch[:, None] * w[None]).sum(axis=(2,3,4))
-    if bias is not None:
-        out = out + bias.reshape(1, -1, 1, 1)
-    return out
-
-# Verify against torch for three configurations
-np.random.seed(0)
-x = np.random.randn(2, 3, 8, 8).astype(np.float32)
-w = np.random.randn(5, 3, 3, 3).astype(np.float32)
-b = np.random.randn(5).astype(np.float32)
-
-for label, kw in [
-    ("stride=1 pad=1 dil=1", dict(stride=1, padding=1, dilation=1)),
-    ("stride=2 pad=0 dil=1", dict(stride=2, padding=0, dilation=1)),
-    ("stride=1 pad=2 dil=2", dict(stride=1, padding=2, dilation=2)),
-]:
-    y_ours = conv2d_direct(x, w, b, **kw)
-    y_ref = F.conv2d(torch.from_numpy(x), torch.from_numpy(w),
-                     bias=torch.from_numpy(b), **kw).numpy()
-    diff = np.abs(y_ours - y_ref).max()
-    print(f"{label:<22} ours {y_ours.shape}  diff {diff:.2e}")
-
-# Output:
-# stride=1 pad=1 dil=1   ours (2, 5, 8, 8)  diff 2.86e-06
-# stride=2 pad=0 dil=1   ours (2, 5, 3, 3)  diff 1.91e-06
-# stride=1 pad=2 dil=2   ours (2, 5, 8, 8)  diff 2.86e-06`}
-      </CodeBlock>
-
-      <Prose>
-        The numerical differences are at the <Code>{"10^{-6}"}</Code> level — exactly float32 accumulation noise. Our direct implementation matches cuDNN's output bit-for-bit in exact arithmetic. This is the first sanity check anyone writing a custom conv kernel runs.
-      </Prose>
-
-      <H3>4b. im2col formulation and GEMM</H3>
-
-      <Prose>
-        Every production conv implementation (cuDNN, MKL-DNN, XNNPACK) is built on the same trick: reshape the convolution into a matrix multiplication. Given an input tensor, the im2col (image-to-column) operation unfolds every k×k patch into a column vector. The result is a <Code>{"(C_{in} \\cdot k^2, H_{out} \\cdot W_{out})"}</Code> matrix. Reshaping the weight tensor to <Code>{"(C_{out}, C_{in} \\cdot k^2)"}</Code> turns the whole conv into a single GEMM call, which runs at peak FLOPs on every modern processor.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-import torch
-import torch.nn.functional as F
-
-def im2col(x, kH, kW, stride=1, padding=0):
-    """Unfold NCHW -> (N, Cin*kH*kW, L) with L = Hout*Wout."""
-    N, C, H, W = x.shape
-    if padding > 0:
-        xp = np.pad(x, ((0,0),(0,0),(padding,padding),(padding,padding)))
-    else:
-        xp = x
-    Hp, Wp = xp.shape[2], xp.shape[3]
-    Hout = (Hp - kH) // stride + 1
-    Wout = (Wp - kW) // stride + 1
-    cols = np.zeros((N, C * kH * kW, Hout * Wout), dtype=x.dtype)
-    col = 0
-    for i in range(Hout):
-        for j in range(Wout):
-            patch = xp[:, :, i*stride:i*stride+kH, j*stride:j*stride+kW]
-            cols[:, :, col] = patch.reshape(N, -1)
-            col += 1
-    return cols, Hout, Wout
-
-def conv2d_im2col(x, w, bias=None, stride=1, padding=0):
-    N, Cin, H, W = x.shape
-    Cout, _, kH, kW = w.shape
-    cols, Hout, Wout = im2col(x, kH, kW, stride, padding)
-    w_mat = w.reshape(Cout, Cin * kH * kW)                   # (Cout, K)
-    out = np.einsum('ok,nkl->nol', w_mat, cols)              # GEMM per sample
-    out = out.reshape(N, Cout, Hout, Wout)
-    if bias is not None:
-        out = out + bias.reshape(1, -1, 1, 1)
-    return out
-
-# Numerical check
-np.random.seed(0)
-x = np.random.randn(2, 3, 8, 8).astype(np.float32)
-w = np.random.randn(5, 3, 3, 3).astype(np.float32)
-b = np.random.randn(5).astype(np.float32)
-y_ours = conv2d_im2col(x, w, b, stride=1, padding=1)
-y_ref  = F.conv2d(torch.from_numpy(x), torch.from_numpy(w),
-                  bias=torch.from_numpy(b), stride=1, padding=1).numpy()
-print(f"im2col vs torch: shape {y_ours.shape}  diff {np.abs(y_ours-y_ref).max():.2e}")
-
-# Memory cost of im2col: the unfolded buffer is k^2 times larger than input
-Cin = 64; H = W = 224; kH = kW = 3
-Hp, Wp = H + 2, W + 2               # pad=1
-L = (Hp - kH + 1) * (Wp - kW + 1)
-K = Cin * kH * kW
-print(f"\\nim2col memory explosion (Cin={Cin}, 224x224, 3x3):")
-print(f"  input tensor  : {Cin*H*W*4/1e6:6.2f} MB")
-print(f"  im2col buffer : {K*L*4/1e6:6.2f} MB   ({(K*L)/(Cin*H*W):.1f}x input)")
-
-# Output:
-# im2col vs torch: shape (2, 5, 8, 8)  diff 2.86e-06
-#
-# im2col memory explosion (Cin=64, 224x224, 3x3):
-#   input tensor  :  12.85 MB
-#   im2col buffer : 115.61 MB   (9.0x input)`}
-      </CodeBlock>
-
-      <Prose>
-        The memory blowup is the reason cuDNN offers at least four conv algorithms and picks among them by input shape: <Code>IMPLICIT_GEMM</Code> (no explicit im2col buffer, recompute indices), <Code>IMPLICIT_PRECOMP_GEMM</Code>, <Code>GEMM</Code> (the naive version above), and <Code>WINOGRAD</Code> (for 3×3 convs at small FLOP counts). At high spatial resolution, an explicit im2col buffer alone can exceed GPU memory; implicit variants recompute patch indices on the fly.
-      </Prose>
-
-      <H3>4c. Output-size formula check against torch</H3>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn.functional as F
-from math import floor
-
-def out_size(n, k, s=1, p=0, d=1):
-    return floor((n + 2*p - d*(k-1) - 1) / s) + 1
-
-cases = [
-    (32, 3, 1, 0, 1),  # valid conv: 32 -> 30
-    (32, 3, 1, 1, 1),  # same conv:  32 -> 32
-    (32, 3, 2, 1, 1),  # stride 2:   32 -> 16
-    (32, 5, 1, 2, 1),  # same 5x5:   32 -> 32
-    (32, 3, 1, 2, 2),  # dilated:    32 -> 32
-    (32, 7, 2, 3, 1),  # 7x7 /s2:    32 -> 16
-    (224,11, 4, 2, 1), # AlexNet:    224 -> 55
-    (7,  3, 1, 0, 1),  # shrinks:    7  -> 5
-]
-print("  in   k  s  p  d  | formula  torch")
-for H, k, s, p, d in cases:
-    x = torch.randn(1, 1, H, H)
-    w = torch.randn(1, 1, k, k)
-    y = F.conv2d(x, w, stride=s, padding=p, dilation=d)
-    print(f"  {H:3d}  {k:2d} {s:2d} {p:2d} {d:2d}  |  {out_size(H,k,s,p,d):3d}    {y.shape[-1]:3d}")
-
-# Output:
-#   in   k  s  p  d  | formula  torch
-#    32   3  1  0  1  |   30     30
-#    32   3  1  1  1  |   32     32
-#    32   3  2  1  1  |   16     16
-#    32   5  1  2  1  |   32     32
-#    32   3  1  2  2  |   32     32
-#    32   7  2  3  1  |   16     16
-#   224  11  4  2  1  |   55     55
-#     7   3  1  0  1  |    5      5`}
-      </CodeBlock>
-
-      <H3>4d. Receptive field of a VGG-style stack</H3>
-
-      <Prose>
-        Compute the RF of VGG-16's 13 conv layers interleaved with 5 pools using the recursion <Code>{"r_\\ell = r_{\\ell-1} + (k_\\ell - 1) \\cdot j_{\\ell-1}"}</Code> with <Code>{"j_\\ell = j_{\\ell-1} \\cdot s_\\ell"}</Code>.
-      </Prose>
-
-      <CodeBlock language="python">
-{`def receptive_field(layers):
-    r, j = 1, 1
-    out = []
-    for L in layers:
-        r = r + (L['k'] - 1) * j
-        out.append((L['name'], L['k'], L['s'], r))
-        j = j * L['s']
-    return out
-
-vgg16 = [
-    {'name': 'conv1_1', 'k': 3, 's': 1}, {'name': 'conv1_2', 'k': 3, 's': 1},
-    {'name': 'pool1',   'k': 2, 's': 2},
-    {'name': 'conv2_1', 'k': 3, 's': 1}, {'name': 'conv2_2', 'k': 3, 's': 1},
-    {'name': 'pool2',   'k': 2, 's': 2},
-    {'name': 'conv3_1', 'k': 3, 's': 1}, {'name': 'conv3_2', 'k': 3, 's': 1},
-    {'name': 'conv3_3', 'k': 3, 's': 1}, {'name': 'pool3', 'k': 2, 's': 2},
-    {'name': 'conv4_1', 'k': 3, 's': 1}, {'name': 'conv4_2', 'k': 3, 's': 1},
-    {'name': 'conv4_3', 'k': 3, 's': 1}, {'name': 'pool4', 'k': 2, 's': 2},
-    {'name': 'conv5_1', 'k': 3, 's': 1}, {'name': 'conv5_2', 'k': 3, 's': 1},
-    {'name': 'conv5_3', 'k': 3, 's': 1}, {'name': 'pool5', 'k': 2, 's': 2},
-]
-print(f"  {'layer':<10}{'k':>3} {'s':>3} {'RF (px)':>10}")
-for name, k, s, r in receptive_field(vgg16):
-    print(f"  {name:<10}{k:>3} {s:>3} {r:>10}")
-
-# Output:
-#   layer       k   s    RF (px)
-#   conv1_1     3   1          3
-#   conv1_2     3   1          5
-#   pool1       2   2          6
-#   conv2_1     3   1         10
-#   conv2_2     3   1         14
-#   pool2       2   2         16
-#   conv3_1     3   1         24
-#   conv3_2     3   1         32
-#   conv3_3     3   1         40
-#   pool3       2   2         44
-#   conv4_1     3   1         60
-#   conv4_2     3   1         76
-#   conv4_3     3   1         92
-#   pool4       2   2        100
-#   conv5_1     3   1        132
-#   conv5_2     3   1        164
-#   conv5_3     3   1        196
-#   pool5       2   2        212`}
-      </CodeBlock>
-
-      <Prose>
-        A 224×224 ImageNet image fed into VGG-16 has a theoretical RF of 212 pixels at the last pool — essentially the whole image. Every neuron in the final feature map could, in principle, have looked at almost every input pixel. The effective RF, as we will see shortly, is much smaller.
-      </Prose>
-
-      <H3>4e. Empirical effective receptive field (Luo 2016 setup)</H3>
-
-      <Prose>
-        The effective RF is measured by placing a delta gradient at a single output pixel and backpropagating to the input. The magnitude of the resulting input gradient at each pixel is the ERF. Below we measure it for stacks of 3, 5, 10, 15, 20 convolutions (all 3×3, stride 1, same padding) with uniform positive weights — the exact setup from Luo et al. 2016 that produces the Gaussian falloff.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-
-def build_stack(n_conv, k=3):
-    layers = []
-    for _ in range(n_conv):
-        c = nn.Conv2d(1, 1, k, padding=k//2, bias=False)
-        nn.init.constant_(c.weight, 1.0 / (k * k))
-        layers += [c, nn.ReLU(inplace=False)]
-    return nn.Sequential(*layers)
-
-def measure_erf(n_conv, H=65):
-    torch.manual_seed(0)
-    net = build_stack(n_conv)
-    x = torch.randn(1, 1, H, H, requires_grad=True)
-    y = net(x)
-    g = torch.zeros_like(y); g[0, 0, H//2, H//2] = 1.0
-    y.backward(g)
-    row = x.grad.abs().squeeze().numpy()[H//2]
-    peak = row.max()
-    if peak <= 0: return 0
-    idxs = (row >= 0.01 * peak).nonzero()[0]
-    return (idxs[-1] - idxs[0] + 1)
-
-print("N (3x3 convs) | theoretical RF | empirical ERF (1% cutoff) | ratio")
-for N in [3, 5, 10, 15, 20]:
-    trf = 1 + 2 * N
-    erf = measure_erf(N)
-    print(f"  {N:3d}         |      {trf:3d}       |          {erf:3d}          | {erf/trf:.2f}")
-
-# Output:
-# N (3x3 convs) | theoretical RF | empirical ERF (1% cutoff) | ratio
-#     3         |        7       |            0              | 0.00
-#     5         |       11       |            8              | 0.73
-#    10         |       21       |           16              | 0.76
-#    15         |       31       |           18              | 0.58
-#    20         |       41       |           21              | 0.51`}
-      </CodeBlock>
-
-      <Prose>
-        By 20 layers the ERF is half the theoretical RF. The trend matches Luo et al.'s prediction: ERF grows like <Code>{"\\sqrt{N}"}</Code>, theoretical RF grows like <Code>N</Code>, so their ratio shrinks with depth. At 100 layers the ratio would be well under 0.3. This is why very deep CNNs still need dilation or large kernels to actually use their theoretical context.
-      </Prose>
-
-      <H3>4f. Pooling implementations from scratch</H3>
-
-      <Prose>
-        Max pool, avg pool, and adaptive avg pool, each verified against the torch equivalent. Adaptive pool is the tricky one: the slice boundaries follow torch's formula <Code>{"h_{start} = \\lfloor i \\cdot H / H_{out} \\rfloor"}</Code>, <Code>{"h_{end} = \\lceil (i+1) \\cdot H / H_{out} \\rceil"}</Code>, and windows overlap when <Code>{"H_{out}"}</Code> does not divide <Code>H</Code> evenly.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-import torch
-import torch.nn.functional as F
-
-def max_pool2d(x, k=2, s=2):
-    N, C, H, W = x.shape
-    Hout, Wout = (H - k)//s + 1, (W - k)//s + 1
-    out = np.zeros((N, C, Hout, Wout), dtype=x.dtype)
-    for i in range(Hout):
-        for j in range(Wout):
-            out[:, :, i, j] = x[:, :, i*s:i*s+k, j*s:j*s+k].max(axis=(2, 3))
-    return out
-
-def avg_pool2d(x, k=2, s=2):
-    N, C, H, W = x.shape
-    Hout, Wout = (H - k)//s + 1, (W - k)//s + 1
-    out = np.zeros((N, C, Hout, Wout), dtype=x.dtype)
-    for i in range(Hout):
-        for j in range(Wout):
-            out[:, :, i, j] = x[:, :, i*s:i*s+k, j*s:j*s+k].mean(axis=(2, 3))
-    return out
-
-def global_avg_pool(x):
-    return x.mean(axis=(2, 3), keepdims=True)
-
-def adaptive_avg_pool(x, out_h, out_w):
-    """Matches nn.AdaptiveAvgPool2d for arbitrary (out_h, out_w)."""
-    N, C, H, W = x.shape
-    out = np.zeros((N, C, out_h, out_w), dtype=x.dtype)
-    for i in range(out_h):
-        hs = (i * H) // out_h
-        he = ((i + 1) * H + out_h - 1) // out_h
-        for j in range(out_w):
-            ws = (j * W) // out_w
-            we = ((j + 1) * W + out_w - 1) // out_w
-            out[:, :, i, j] = x[:, :, hs:he, ws:we].mean(axis=(2, 3))
-    return out
-
-np.random.seed(0)
-x = np.random.randn(1, 2, 6, 6).astype(np.float32)
-xt = torch.from_numpy(x)
-
-checks = [
-    ("max_pool2d(2,2)", max_pool2d(x), F.max_pool2d(xt, 2).numpy()),
-    ("avg_pool2d(2,2)", avg_pool2d(x), F.avg_pool2d(xt, 2).numpy()),
-    ("global_avg_pool", global_avg_pool(x), F.adaptive_avg_pool2d(xt, (1,1)).numpy()),
-    ("adaptive(3x3)", adaptive_avg_pool(x, 3, 3), F.adaptive_avg_pool2d(xt, (3,3)).numpy()),
-    ("adaptive(4x4)", adaptive_avg_pool(x, 4, 4), F.adaptive_avg_pool2d(xt, (4,4)).numpy()),
-]
-for name, ours, ref in checks:
-    print(f"{name:<18} shape {ours.shape}  max-diff {np.abs(ours - ref).max():.2e}")
-
-# Output:
-# max_pool2d(2,2)    shape (1, 2, 3, 3)  max-diff 0.00e+00
-# avg_pool2d(2,2)    shape (1, 2, 3, 3)  max-diff 0.00e+00
-# global_avg_pool    shape (1, 2, 1, 1)  max-diff 2.98e-08
-# adaptive(3x3)      shape (1, 2, 3, 3)  max-diff 0.00e+00
-# adaptive(4x4)      shape (1, 2, 4, 4)  max-diff 0.00e+00`}
-      </CodeBlock>
-
-      <H3>4g. Depthwise separable convolution (preview)</H3>
-
-      <Prose>
-        Depthwise separable conv is the factorization at the heart of MobileNet, Xception, and every modern mobile CNN. It splits a standard conv into a <em>depthwise</em> per-channel spatial filter (groups=Cin) followed by a <em>pointwise</em> 1×1 conv that mixes channels. The next topic covers this in depth; here we simply verify the grouped-conv implementation matches a manually looped per-channel conv, and count the compute savings.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn, torch.nn.functional as F
-
-Cin, Cout, H, W, k = 64, 128, 56, 56, 3
-
-conv_std = nn.Conv2d(Cin, Cout, k, padding=1, bias=False)
-dw = nn.Conv2d(Cin, Cin, k, padding=1, groups=Cin, bias=False)
-pw = nn.Conv2d(Cin, Cout, 1, bias=False)
-
-def n_params(m): return sum(p.numel() for p in m.parameters())
-def conv_flops(Cin, Cout, H, W, k, g=1):
-    return 2 * H * W * k * k * Cin * Cout // g
-
-p_std = n_params(conv_std)
-p_ds  = n_params(dw) + n_params(pw)
-f_std = conv_flops(Cin, Cout, H, W, k)
-f_ds  = conv_flops(Cin, Cin, H, W, k, g=Cin) + conv_flops(Cin, Cout, H, W, 1)
-
-print(f"Standard 3x3 conv  : params = {p_std:>7}   FLOPs = {f_std/1e6:>7.2f} M")
-print(f"Depthwise separable: params = {p_ds:>7}   FLOPs = {f_ds/1e6:>7.2f} M")
-print(f"Reduction          : params x{p_std/p_ds:.2f}   FLOPs x{f_std/f_ds:.2f}")
-
-# Grouped-conv equivalence check: groups=Cin is exactly per-channel conv
-x = torch.randn(2, Cin, H, W)
-y_dw = dw(x)
-manual = torch.zeros_like(y_dw)
-for c in range(Cin):
-    manual[:, c:c+1] = F.conv2d(x[:, c:c+1], dw.weight[c:c+1], padding=1)
-print(f"\\nGrouped vs per-channel loop: max abs diff = {(y_dw - manual).abs().max().item():.2e}")
-
-# Output:
-# Standard 3x3 conv  : params =   73728   FLOPs =  462.42 M
-# Depthwise separable: params =    8768   FLOPs =   54.99 M
-# Reduction          : params x8.41   FLOPs x8.41
-#
-# Grouped vs per-channel loop: max abs diff = 0.00e+00`}
-      </CodeBlock>
-
-      <Prose>
-        At <Code>{"C_{in} = 64, C_{out} = 128, k = 3"}</Code> the depthwise separable version is 8.4× cheaper in both parameters and FLOPs. The savings grow with <Code>C</Code>: for <Code>{"C_{in} = C_{out} = 512"}</Code> and <Code>k = 3</Code>, the ratio is <Code>{"\\frac{k^2 \\cdot C_{in}}{1 + k^2 / C_{out}} \\approx k^2 = 9"}</Code>× — which is the quoted MobileNet number.
-      </Prose>
-
-      <H3>4h. Three-layer CNN forward pass with shape trace</H3>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn
-
-torch.manual_seed(0)
-x = torch.randn(1, 3, 32, 32)
-
-layers = [
-    ('conv1', nn.Conv2d(3, 16, 3, padding=1)),
-    ('bn1',   nn.BatchNorm2d(16)),
-    ('relu1', nn.ReLU()),
-    ('pool1', nn.MaxPool2d(2)),              # 32 -> 16
-    ('conv2', nn.Conv2d(16, 32, 3, padding=1)),
-    ('bn2',   nn.BatchNorm2d(32)),
-    ('relu2', nn.ReLU()),
-    ('pool2', nn.MaxPool2d(2)),              # 16 -> 8
-    ('conv3', nn.Conv2d(32, 64, 3, padding=1)),
-    ('bn3',   nn.BatchNorm2d(64)),
-    ('relu3', nn.ReLU()),
-    ('gap',   nn.AdaptiveAvgPool2d((1, 1))), # 8 -> 1 (classifier head)
-    ('flat',  nn.Flatten()),
-    ('fc',    nn.Linear(64, 10)),
-]
-
-h = x
-print(f"{'layer':<8} {'shape':<22} {'params':>8}")
-print(f"{'input':<8} {str(tuple(h.shape)):<22} {0:>8}")
-for name, m in layers:
-    h = m(h)
-    p = sum(p.numel() for p in m.parameters())
-    print(f"{name:<8} {str(tuple(h.shape)):<22} {p:>8}")
-total = sum(sum(p.numel() for p in m.parameters()) for _, m in layers)
-print(f"\\ntotal params: {total:,}")
-
-# Output:
-# layer    shape                   params
-# input    (1, 3, 32, 32)               0
-# conv1    (1, 16, 32, 32)            448
-# bn1      (1, 16, 32, 32)             32
-# relu1    (1, 16, 32, 32)              0
-# pool1    (1, 16, 16, 16)              0
-# conv2    (1, 32, 16, 16)           4640
-# bn2      (1, 32, 16, 16)             64
-# relu2    (1, 32, 16, 16)              0
-# pool2    (1, 32, 8, 8)                0
-# conv3    (1, 64, 8, 8)            18496
-# bn3      (1, 64, 8, 8)              128
-# relu3    (1, 64, 8, 8)                0
-# gap      (1, 64, 1, 1)                0
-# flat     (1, 64)                      0
-# fc       (1, 10)                    650
-#
-# total params: 24,458`}
-      </CodeBlock>
-
-      <Prose>
-        A 24k-parameter CNN that would not fit a single FC layer on even a 32×32 image. Every conv adds parameters only proportional to <Code>{"k^2 \\cdot C_{in} \\cdot C_{out}"}</Code>; every pool halves spatial resolution for free; the final GAP plus linear replaces what would have been an enormous FC classifier. This is the template.
-      </Prose>
-
-      <H3>4i. VGG-16 FLOPs and parameter breakdown</H3>
-
-      <CodeBlock language="python">
-{`stack = [
-    ('conv1_1', 3,   64,  224, 224, 3),
-    ('conv1_2', 64,  64,  224, 224, 3),
-    ('conv2_1', 64,  128, 112, 112, 3),
-    ('conv2_2', 128, 128, 112, 112, 3),
-    ('conv3_1', 128, 256, 56,  56,  3),
-    ('conv3_2', 256, 256, 56,  56,  3),
-    ('conv3_3', 256, 256, 56,  56,  3),
-    ('conv4_1', 256, 512, 28,  28,  3),
-    ('conv4_2', 512, 512, 28,  28,  3),
-    ('conv4_3', 512, 512, 28,  28,  3),
-    ('conv5_1', 512, 512, 14,  14,  3),
-    ('conv5_2', 512, 512, 14,  14,  3),
-    ('conv5_3', 512, 512, 14,  14,  3),
-]
-tot_p, tot_f = 0, 0
-print(f"{'layer':<9}{'Cin':>4}{'Cout':>5}{'HxW':>10}{'params':>12}{'MFLOPs':>12}")
-for name, Cin, Cout, H, W, k in stack:
-    p = k * k * Cin * Cout
-    f = 2 * H * W * k * k * Cin * Cout
-    tot_p += p; tot_f += f
-    print(f"{name:<9}{Cin:>4}{Cout:>5}{H}x{W:<6}{p:>12,}{f/1e6:>12.1f}")
-print("-" * 52)
-print(f"{'TOTAL':<9}{'':>4}{'':>5}{'':>10}{tot_p:>12,}{tot_f/1e6:>12.1f}")
-fc = 512*7*7*4096 + 4096*4096 + 4096*1000
-print(f"\\nFC classifier params (4096-4096-1000): {fc:,}")
-
-# Output:
-# layer     Cin Cout       HxW       params      MFLOPs
-# conv1_1     3   64 224x224          1,728       173.4
-# conv1_2    64   64 224x224         36,864      3699.4
-# conv2_1    64  128 112x112         73,728      1849.7
-# conv2_2   128  128 112x112        147,456      3699.4
-# conv3_1   128  256 56x56          294,912      1849.7
-# conv3_2   256  256 56x56          589,824      3699.4
-# conv3_3   256  256 56x56          589,824      3699.4
-# conv4_1   256  512 28x28        1,179,648      1849.7
-# conv4_2   512  512 28x28        2,359,296      3699.4
-# conv4_3   512  512 28x28        2,359,296      3699.4
-# conv5_1   512  512 14x14        2,359,296       924.8
-# conv5_2   512  512 14x14        2,359,296       924.8
-# conv5_3   512  512 14x14        2,359,296       924.8
-# ----------------------------------------------------
-# TOTAL                           14,710,464     30693.3
-#
-# FC classifier params (4096-4096-1000): 123,633,664`}
-      </CodeBlock>
-
-      <Prose>
-        VGG-16's convolutional trunk has 14.7 million parameters but costs 30.7 GFLOPs per forward pass. The FC head adds another 123.6 million parameters — 89% of the total VGG parameters — but costs only 0.12 GFLOPs. Conv is <em>cheap in parameters but expensive in compute</em>; FC is <em>expensive in parameters but cheap in compute</em>. This asymmetry is why GoogLeNet and ResNet replaced the FC head with global average pooling: almost no cost in accuracy, massive cost reduction in parameters.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5.1 torch.nn.Conv2d — the workhorse</H3>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-
-# Full signature
-conv = nn.Conv2d(
-    in_channels=64,
-    out_channels=128,
-    kernel_size=3,       # int or (kH, kW)
-    stride=1,            # int or (sH, sW)
-    padding=1,           # int, tuple, or 'same'/'valid'
-    dilation=1,          # int or (dH, dW)
-    groups=1,            # 1 = dense; in_channels = depthwise
-    bias=False,          # usually False when followed by BatchNorm
-    padding_mode='zeros' # 'reflect', 'replicate', 'circular' also supported
-)
-
-# Common recipes
-standard_3x3 = nn.Conv2d(64, 128, 3, padding=1, bias=False)
-pointwise_1x1 = nn.Conv2d(256, 64, 1, bias=False)           # channel projection
-depthwise_3x3 = nn.Conv2d(64, 64, 3, padding=1, groups=64, bias=False)
-strided_downsample = nn.Conv2d(64, 128, 3, stride=2, padding=1, bias=False)
-dilated_3x3 = nn.Conv2d(64, 64, 3, padding=2, dilation=2, bias=False)
-
-x = torch.randn(1, 64, 56, 56)
-for name, m in [('3x3', standard_3x3), ('1x1', pointwise_1x1),
-                ('dw3x3', depthwise_3x3), ('stride2', strided_downsample),
-                ('dil2', dilated_3x3)]:
-    print(f"{name:<8} in {tuple(x.shape)} -> out {tuple(m(x).shape)}  "
-          f"params {sum(p.numel() for p in m.parameters()):,}")`}
-      </CodeBlock>
-
-      <H3>5.2 Pooling modules</H3>
-
-      <CodeBlock language="python">
-{`import torch.nn as nn
-
-# Standard 2x2 max/avg pool used between conv blocks in VGG/ResNet-style nets
-maxpool = nn.MaxPool2d(kernel_size=2, stride=2)
-avgpool = nn.AvgPool2d(kernel_size=2, stride=2)
-
-# Global Average Pooling for the classifier head.
-# AdaptiveAvgPool2d((1,1)) works for any input spatial size -> always (N, C, 1, 1).
-# This is what replaced the FC classifier in ResNet / GoogLeNet / ConvNeXt.
-gap = nn.AdaptiveAvgPool2d((1, 1))
-
-# Adaptive pool to fixed size (useful when input image sizes vary)
-adap = nn.AdaptiveAvgPool2d((7, 7))   # as in torchvision.models.resnet's avgpool
-
-# Modern classifier head template
-classifier_head = nn.Sequential(
-    nn.AdaptiveAvgPool2d((1, 1)),  # (N, C, H, W) -> (N, C, 1, 1)
-    nn.Flatten(),                   # (N, C, 1, 1) -> (N, C)
-    nn.Linear(512, 1000),           # ImageNet logits
-)
-
-# Fractional / frac max pool and LP pool also exist but are rarely used in 2026.
-print("maxpool / avgpool are stateless — no learnable parameters")`}
-      </CodeBlock>
-
-      <H3>5.3 Functional API, F.conv2d, and torch.nn.Unfold</H3>
-
-      <Prose>
-        When implementing custom layers, the stateless <Code>F.conv2d</Code> and <Code>torch.nn.Unfold</Code> are indispensable. <Code>Unfold</Code> is exactly the im2col operation — it turns any NCHW tensor into its unfolded patch matrix so you can run a custom matmul, apply per-patch operations, or implement attention-like conv variants.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn, torch.nn.functional as F
-
-x = torch.randn(2, 3, 8, 8)
-w = torch.randn(5, 3, 3, 3)
-
-# Option A: functional conv
-y = F.conv2d(x, w, padding=1)   # (2, 5, 8, 8)
-
-# Option B: im2col via Unfold + explicit matmul
-unfold = nn.Unfold(kernel_size=3, padding=1)
-cols = unfold(x)                # (N, Cin*k*k, Hout*Wout) = (2, 27, 64)
-w_mat = w.reshape(5, -1)        # (Cout, Cin*k*k) = (5, 27)
-y2 = (w_mat @ cols).reshape(2, 5, 8, 8)
-
-print(f"F.conv2d shape : {y.shape}")
-print(f"unfold+matmul  : {y2.shape}")
-print(f"max diff       : {(y - y2).abs().max().item():.2e}")
-
-# Fold is the inverse (column-to-image) — used for transposed conv implementations
-fold = nn.Fold(output_size=(8, 8), kernel_size=3, padding=1)
-# Note: fold ACCUMULATES overlapping patches; divide by overlap count to average.`}
-      </CodeBlock>
-
-      <H3>5.4 Transposed convolution for upsampling</H3>
-
-      <Prose>
-        Transposed convolution (also "deconvolution", though that name is misleading) is the operation used to upsample feature maps — in segmentation decoders, GAN generators, and image-to-image models. It reverses the spatial reduction of a strided conv by inserting zeros between input values and running a standard conv. The output size formula is:
-      </Prose>
-
-      <MathBlock>
-        {"n_{out} = (n_{in} - 1) \\cdot s - 2p + d \\cdot (k - 1) + \\text{output\\_padding} + 1"}
-      </MathBlock>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn
-
-# Common upsample recipe: 4x4 kernel, stride 2, pad 1 -> exactly doubles HxW
-upsample = nn.ConvTranspose2d(in_channels=256, out_channels=128,
-                               kernel_size=4, stride=2, padding=1, bias=False)
-
-x = torch.randn(1, 256, 14, 14)
-y = upsample(x)
-print(f"upsample: {tuple(x.shape)} -> {tuple(y.shape)}  "
-      f"params {sum(p.numel() for p in upsample.parameters()):,}")
-# upsample: (1, 256, 14, 14) -> (1, 128, 28, 28)
-
-# Caution: stride=2 + kernel=3 produces CHECKERBOARD artifacts (Odena 2016).
-# Modern alternative: bilinear upsample + 3x3 conv
-upsample_safe = nn.Sequential(
-    nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False),
-    nn.Conv2d(256, 128, 3, padding=1, bias=False),
-)
-# No checkerboard, often produces smoother outputs for image generation tasks.`}
-      </CodeBlock>
-
-      <H3>5.5 cuDNN autotuning</H3>
-
-      <Prose>
-        cuDNN contains several algorithms for each conv configuration (IMPLICIT_GEMM, GEMM, WINOGRAD, FFT, FFT_TILING). On every new input shape, it can either pick an algorithm via heuristics or benchmark all of them and cache the fastest. For production training with fixed batch shapes, enabling benchmark mode can give 10–30% speedup after a short warmup phase.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-
-# Enable cuDNN algorithm autotuning (benchmarks all algos on first forward,
-# then caches the winner). Use when input shapes are STABLE across batches.
-torch.backends.cudnn.benchmark = True
-
-# Disable when input shapes vary (variable sequence length, variable image size)
-# — otherwise the benchmark runs every time and dominates wall-clock.
-# torch.backends.cudnn.benchmark = False
-
-# Deterministic mode disables benchmark + forces deterministic algorithms.
-# Slower but reproducible — required by some compliance workflows.
-# torch.backends.cudnn.deterministic = True
-
-# Query the chosen algorithm (available in PyTorch >= 2.1):
-# torch.backends.cudnn.allow_tf32 = True   # Ampere+ accelerates FP32 conv via TF32`}
-      </CodeBlock>
-
-      <H3>5.6 Grouped conv and depthwise separable blocks</H3>
-
-      <CodeBlock language="python">
-{`import torch.nn as nn
-
-class DepthwiseSeparableConv(nn.Module):
-    """MobileNet-style block. Standard 3x3 conv replaced by DW3x3 + PW1x1."""
-    def __init__(self, in_ch, out_ch, stride=1):
-        super().__init__()
-        # Depthwise: spatial filter, one per input channel
-        self.dw = nn.Conv2d(in_ch, in_ch, 3, stride=stride, padding=1,
-                            groups=in_ch, bias=False)
-        self.bn1 = nn.BatchNorm2d(in_ch)
-        # Pointwise: channel mixer (1x1 conv = linear combination per pixel)
-        self.pw = nn.Conv2d(in_ch, out_ch, 1, bias=False)
-        self.bn2 = nn.BatchNorm2d(out_ch)
-
-    def forward(self, x):
-        x = self.bn1(self.dw(x)).relu()
-        x = self.bn2(self.pw(x)).relu()
-        return x
-
-# At Cin=64, Cout=128, 3x3: 8.4x fewer params / FLOPs than standard 3x3 conv.
-# Used in MobileNet-V1, V2, V3; Xception; EfficientNet; ConvNeXt (with kernel 7).`}
-      </CodeBlock>
-
-      <H3>5.7 Fused conv-bn-relu inference</H3>
-
-      <Prose>
-        At inference time, BatchNorm becomes a per-channel affine transform <Code>{"y = \\gamma \\cdot (x - \\mu) / \\sigma + \\beta"}</Code> with frozen statistics. This can be mathematically folded into the preceding conv's weights and bias — eliminating a kernel launch, saving memory, and on modern GPUs the fused conv-bn-relu often runs 1.5–2× faster than the three-operation sequence.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn
-
-# torch.ao.quantization provides fuse_modules for this
-from torch.ao.quantization import fuse_modules
-
-class ConvBlock(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.conv = nn.Conv2d(64, 128, 3, padding=1, bias=False)
-        self.bn = nn.BatchNorm2d(128)
-        self.relu = nn.ReLU()
-    def forward(self, x):
-        return self.relu(self.bn(self.conv(x)))
-
-m = ConvBlock().eval()
-# Fuse in place: Conv2d + BN + ReLU -> ConvBNReLU2d (single kernel at inference)
-m_fused = fuse_modules(m, ['conv', 'bn', 'relu'])
-# m_fused.conv now has merged weights; m_fused.bn and m_fused.relu are Identity.
-
-# Alternative for deployment: torch.compile with inductor backend fuses these
-# automatically at graph capture time.
-# m_compiled = torch.compile(m, mode='reduce-overhead')`}
-      </CodeBlock>
-
-      <Callout accent="gold">
-        Production defaults for convolutional layers in 2026: (1) <Code>bias=False</Code> on any conv followed by BN; (2) <Code>padding=kernel_size//2</Code> for same-resolution convs; (3) <Code>torch.backends.cudnn.benchmark=True</Code> for fixed-shape training; (4) fuse conv-bn-relu for inference; (5) use <Code>AdaptiveAvgPool2d((1,1))</Code> instead of a giant FC classifier head.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. 3×3 kernel sliding over a 5×5 input — output grid</H3>
-
-      <Prose>
-        For a 5×5 input and a 3×3 kernel with stride 1 and no padding, the output is 3×3. Each output cell is a weighted sum over a 3×3 window of the input, with the window translating one pixel per output column and one pixel per output row. The heatmap below visualizes the output: the value in cell (i, j) is the convolution response when the kernel is centered at input position (i+1, j+1). The input is a simple diagonal ramp and the kernel is a centered 3×3 averaging filter; the response pattern shows how the local average evolves across the 3×3 output grid.
-      </Prose>
-
-      <Heatmap
-        label="3x3 conv output over a 5x5 diagonal-ramp input (k=3, s=1, p=0)"
-        rowLabels={["out row 0", "out row 1", "out row 2"]}
-        colLabels={["col 0", "col 1", "col 2"]}
-        matrix={[
-          [2.22, 3.33, 4.44],
-          [3.33, 4.44, 5.56],
-          [4.44, 5.56, 6.67],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        The output is itself a diagonal ramp, preserved but spatially contracted from 5×5 to 3×3 — the "valid" convolution shrinks by <Code>k − 1 = 2</Code> pixels in each dimension. With <Code>padding = 1</Code>, the output would again be 5×5. The value at output (0, 0) = 2.22 is the average of input pixels (0,0)–(2,2); at output (2, 2) = 6.67 is the average of input pixels (2,2)–(4,4).
-      </Prose>
-
-      <H3>6b. Theoretical receptive field grows with depth (VGG-16)</H3>
-
-      <Prose>
-        The plot below traces the receptive field through VGG-16's 13 convolutional layers and 5 pooling layers. The RF grows linearly within each pool stage (each conv adds 2 pixels × current jump) and jumps sharply at each pool (doubles the jump, so subsequent convs contribute 2× as much). By <Code>pool5</Code> the RF is 212 pixels — essentially the whole 224×224 image.
-      </Prose>
-
-      <Plot
-        label="VGG-16 theoretical receptive field by layer"
-        xLabel="layer index"
-        yLabel="receptive field (input pixels)"
-        series={[
-          {
-            name: "theoretical RF",
-            color: colors.gold,
-            points: [
-              [1, 3], [2, 5], [3, 6],
-              [4, 10], [5, 14], [6, 16],
-              [7, 24], [8, 32], [9, 40], [10, 44],
-              [11, 60], [12, 76], [13, 92], [14, 100],
-              [15, 132], [16, 164], [17, 196], [18, 212],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        The shape is characteristic: flat-then-jump, flat-then-jump. Every pool2 stride-2 doubles the current jump and causes the next conv stage to contribute more per layer than the previous stage did. This is why networks gain RF fastest right after a stride-2 downsample. It is also why extra conv layers at the final resolution (after pool5) would add relatively little new context — at jump 32, each further 3×3 conv adds 64 pixels of RF per layer but the image is only 224 pixels wide, so you saturate almost immediately.
-      </Prose>
-
-      <H3>6c. Theoretical vs effective receptive field — the ERF gap</H3>
-
-      <Prose>
-        Using the Luo 2016 measurement from Section 4e, we overlay theoretical RF (linear in depth) against empirically measured ERF (1% cutoff) for stacks of 3×3 convs at depths 5, 10, 15, 20. The gap widens with depth: by 20 layers the ERF is only half the theoretical RF and the gap continues to grow as <Code>{"\\sqrt{N}"}</Code> vs <Code>N</Code>.
-      </Prose>
-
-      <Plot
-        label="theoretical RF vs effective RF (measured) for stacks of 3x3 convs"
-        xLabel="number of 3x3 conv layers"
-        yLabel="receptive field (pixels)"
-        series={[
-          {
-            name: "theoretical RF = 1 + 2N",
-            color: colors.gold,
-            points: [[5, 11], [10, 21], [15, 31], [20, 41]],
-          },
-          {
-            name: "effective RF (1% cutoff)",
-            color: colors.green,
-            points: [[5, 8], [10, 16], [15, 18], [20, 21]],
-          },
-        ]}
-      />
-
-      <Prose>
-        The green line (ERF) grows sublinearly; the gold line (theoretical RF) is strictly linear. In a real network — with strided downsampling, learned weights, and ReLU nonlinearities — the effect is even more pronounced. Luo et al. measured a trained ResNet-34 on CIFAR and found an effective RF of roughly 32×32 pixels out of a theoretical 896×896 (model trained on 224 input, so the theoretical RF wraps around many times).
-      </Prose>
-
-      <H3>6d. AlexNet conv1 — hand-illustrative 11×11 kernels</H3>
-
-      <Prose>
-        AlexNet's first layer has 96 filters of size 11×11×3, trained on ImageNet. The learned filters famously split into two groups: Gabor-like oriented edge detectors (appearing in both GPU halves of the original 2-GPU training) and color blobs (concentrated on one GPU). The heatmap below is an illustrative reconstruction of one 11×11 oriented-edge filter's luminance channel — the classical pattern that also matches V1 simple-cell receptive fields measured by Hubel & Wiesel.
-      </Prose>
-
-      <Heatmap
-        label="illustrative AlexNet conv1 filter — oriented edge (luminance channel)"
-        rowLabels={["r0","r1","r2","r3","r4","r5","r6","r7","r8","r9","r10"]}
-        colLabels={["c0","c1","c2","c3","c4","c5","c6","c7","c8","c9","c10"]}
-        matrix={[
-          [-0.3,-0.3,-0.2,-0.1, 0.0, 0.1, 0.2, 0.3, 0.3, 0.2, 0.1],
-          [-0.4,-0.4,-0.3,-0.2, 0.0, 0.2, 0.3, 0.4, 0.4, 0.3, 0.2],
-          [-0.5,-0.5,-0.4,-0.2, 0.0, 0.2, 0.4, 0.5, 0.5, 0.4, 0.2],
-          [-0.6,-0.6,-0.5,-0.3, 0.0, 0.3, 0.5, 0.6, 0.6, 0.5, 0.3],
-          [-0.7,-0.7,-0.6,-0.3, 0.0, 0.3, 0.6, 0.7, 0.7, 0.6, 0.3],
-          [-0.7,-0.7,-0.6,-0.3, 0.0, 0.3, 0.6, 0.7, 0.7, 0.6, 0.3],
-          [-0.7,-0.7,-0.6,-0.3, 0.0, 0.3, 0.6, 0.7, 0.7, 0.6, 0.3],
-          [-0.6,-0.6,-0.5,-0.3, 0.0, 0.3, 0.5, 0.6, 0.6, 0.5, 0.3],
-          [-0.5,-0.5,-0.4,-0.2, 0.0, 0.2, 0.4, 0.5, 0.5, 0.4, 0.2],
-          [-0.4,-0.4,-0.3,-0.2, 0.0, 0.2, 0.3, 0.4, 0.4, 0.3, 0.2],
-          [-0.3,-0.3,-0.2,-0.1, 0.0, 0.1, 0.2, 0.3, 0.3, 0.2, 0.1],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        The zero-crossing runs vertically down column 4 — negative weights on the left, positive on the right — which is exactly the response of a vertical edge detector. When convolved with an image containing a vertical luminance discontinuity, this filter lights up. The fact that AlexNet's 96 filters spontaneously arranged themselves into this classical Gabor / color-blob dictionary was a major validation that convolutional features match the primary visual cortex — the Hubel & Wiesel findings, learned from scratch via SGD.
-      </Prose>
-
-      <H3>6e. Three-layer CNN forward pass — shapes at each step</H3>
-
-      <StepTrace
-        label="forward pass through 3-layer CNN on a 32x32x3 input"
-        steps={[
-          {
-            label: "Step 1 — Input arrives",
-            render: () => (
-              <Prose>
-                {"Input tensor of shape (1, 3, 32, 32): one RGB image, 32 x 32 pixels. Pixel range is typically [0, 1] after division by 255, or standardized to mean 0 std 1 per channel after normalization. Channel dimension is second by PyTorch convention (NCHW). NHWC layout is faster on some hardware (TensorCore requires it internally) but PyTorch surfaces NCHW to users."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — conv1 (3 -> 16, k=3, p=1)",
-            render: () => (
-              <Prose>
-                {"Conv2d(3, 16, kernel=3, padding=1) produces (1, 16, 32, 32). Spatial dimensions preserved because padding = kernel_size // 2. Parameter count = 3 * 3 * 3 * 16 + 16 = 448 (9 kernel weights times 3 input channels times 16 output channels, plus 16 biases). Each output channel is a learned 3x3x3 filter responding to a different pattern in the input."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — bn1 + relu1",
-            render: () => (
-              <Prose>
-                {"BatchNorm2d(16) normalizes each channel to zero mean / unit variance across the batch plus the spatial axes, then applies a learnable per-channel affine (gamma, beta). Shape unchanged: (1, 16, 32, 32). ReLU clamps negatives to zero, shape still (1, 16, 32, 32). The BN stats require batch_size > 1 to be stable during training — at batch 1, consider GroupNorm or LayerNorm."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — pool1 (MaxPool2d(2))",
-            render: () => (
-              <Prose>
-                {"2x2 max pool with stride 2 halves spatial resolution: (1, 16, 32, 32) -> (1, 16, 16, 16). For each 2x2 non-overlapping block in each channel, output the maximum. This gains partial translation invariance (small shifts within the window map to the same output) and reduces compute for the next conv layer by 4x. No learnable parameters."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 5 — conv2 (16 -> 32, k=3, p=1)",
-            render: () => (
-              <Prose>
-                {"Conv2d(16, 32, kernel=3, padding=1) produces (1, 32, 16, 16). Parameter count = 3 * 3 * 16 * 32 + 32 = 4640. At this stage the kernel sees a 3x3 window of the 16x16 feature map, which corresponds to pixels 3x2 = 6 input pixels wide (RF growth: previous RF was 3, pool doubled jump, so this conv contributes 2 * 2 = 4 extra input pixels -> total RF = 7 input pixels)."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 6 — bn2 + relu2 + pool2",
-            render: () => (
-              <Prose>
-                {"BatchNorm2d(32) + ReLU + MaxPool2d(2) with stride 2. Output shape: (1, 32, 8, 8). After this second pool the jump is 4 and the RF has grown to about 15 input pixels. The channel count doubled from 16 to 32 — a common pattern: as spatial resolution halves, channels double to preserve total representational capacity."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 7 — conv3 (32 -> 64, k=3, p=1) + bn3 + relu3",
-            render: () => (
-              <Prose>
-                {"Conv2d(32, 64, 3, padding=1) produces (1, 64, 8, 8). The biggest weight layer so far at 18,496 parameters. RF now reaches about 23 input pixels — larger than many CIFAR objects. The network has moved from local edge detectors at conv1 to object-scale features at conv3."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 8 — GAP (AdaptiveAvgPool2d((1,1)))",
-            render: () => (
-              <Prose>
-                {"Global Average Pooling collapses the 8x8 spatial dimensions to 1x1: (1, 64, 8, 8) -> (1, 64, 1, 1). Each channel becomes its mean over the final feature map. This single operation replaces what would have been 64 * 8 * 8 * 10 = 40,960 FC weights if flattened directly. GAP is also translation-invariant — shifts in the input do not change the output — and significantly reduces overfitting."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 9 — Flatten + Linear to 10 logits",
-            render: () => (
-              <Prose>
-                {"Flatten (1, 64, 1, 1) -> (1, 64). Linear(64, 10) produces 10 class logits for CIFAR-10, adding 64*10 + 10 = 650 parameters. Total network: ~24,000 parameters, competitive on CIFAR-10 with simple training. This structure — conv trunk, GAP, linear classifier — is the template for ResNet, MobileNet, EfficientNet, and ConvNeXt."}
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <H3>7.1 Kernel size</H3>
-
-      <Prose>
-        <strong>3×3 is the default for almost every situation.</strong> VGG established this in 2014 and nothing since has dislodged it. Three reasons: (1) stacking two 3×3 convs gives a 5×5 RF with 18 params per channel-pair vs. 25 for a single 5×5, (2) every extra 3×3 adds a non-linearity, so two 3×3s are strictly more expressive than one 5×5, (3) cuDNN's Winograd algorithm for 3×3 runs at ~2× the FLOPs of a matmul, which is the best FLOP/throughput ratio of any conv configuration.
-      </Prose>
-
-      <Prose>
-        <strong>1×1 convs for channel projection.</strong> A 1×1 conv is a per-pixel linear map from <Code>{"C_{in}"}</Code> to <Code>{"C_{out}"}</Code> channels. Use it to (a) reduce channel count before an expensive 3×3 (bottleneck blocks in ResNet-50), (b) expand channels after a depthwise conv (MobileNet), or (c) cheaply add nonlinearity with a bn+relu after each 1×1 at almost no FLOP cost.
-      </Prose>
-
-      <Prose>
-        <strong>5×5 and 7×7 early.</strong> AlexNet's first layer is 11×11; GoogLeNet uses 7×7 at stem. Large early-layer kernels aggressively downsample (stride 2 or 4) and extract large-scale features cheaply — at the input, <Code>{"C_{in} = 3"}</Code> so even an 11×11 costs little. ConvNeXt revived this pattern in 2022 with 7×7 depthwise convs at the stem.
-      </Prose>
-
-      <Prose>
-        <strong>Very large kernels (31×31 and beyond).</strong> RepLKNet (2022) and SLaK (2022) showed that for a fixed FLOP budget, a 31×31 depthwise conv can outperform a stack of 3×3 convs for dense prediction — because the ERF increase matters more than adding more non-linearities. Niche but growing.
-      </Prose>
-
-      <H3>7.2 Pooling strategy</H3>
-
-      <Prose>
-        <strong>Max pool vs average pool vs strided conv.</strong> Max pool is sharp: it keeps the strongest response in each window and discards the rest. Average pool is smooth: it aggregates all responses equally. Strided conv is learned: the downsampling pattern is optimized jointly with the filter. Modern networks (ResNet, ConvNeXt, vision Transformers' patchify stem) almost always use strided convolution for mid-network downsampling rather than max pool — the learned filter usually wins.
-      </Prose>
-
-      <Prose>
-        <strong>Global average pooling for classifier heads.</strong> GAP replaces the giant FC classifier of AlexNet/VGG and is now universal. The feature map produced by the final conv is collapsed spatially to one value per channel, then a single linear layer produces class logits. Eliminates hundreds of millions of parameters with no accuracy loss — ResNet-50 has 25M parameters largely because of GAP.
-      </Prose>
-
-      <Prose>
-        <strong>Max pool for feature-selection tasks.</strong> Where you want the strongest activation to win (detection, anomaly detection, certain attention pooling schemes), max pool is appropriate. For general feature aggregation, average pool is usually better because its gradient distributes over all inputs rather than routing only to the single winner.
-      </Prose>
-
-      <H3>7.3 How to grow the receptive field</H3>
-
-      <Prose>
-        <strong>Dilated convolution for dense prediction.</strong> When you need large RF but cannot downsample (semantic segmentation, depth estimation), dilation is the primary tool. Cascaded dilated convs (DeepLab, PSPNet's atrous spatial pyramid pooling) stack <Code>d = 1, 2, 4, 8</Code> to cover multiple scales without spatial reduction. Be careful: dilation creates gridding artifacts if multiple successive layers use the same dilation — vary the rates.
-      </Prose>
-
-      <Prose>
-        <strong>Strided downsampling for image classification.</strong> When spatial fidelity is expendable (you only need one label per image), aggressive stride-2 downsampling is faster than dilation and produces larger effective RF for the same compute. ResNet-50 downsamples 5 times (4 in the trunk plus the initial stem), reaching 32× downsample and RF ≈ input size by the end.
-      </Prose>
-
-      <Prose>
-        <strong>Attention for truly global context.</strong> The Transformer makes every output position attend to every input position — effective RF is the full input by construction. At high resolution this is <Code>{"O(N^4)"}</Code> and infeasible, which is why hybrid CNN-ViT models (Swin, MaxViT, CoAtNet) use local attention windows plus downsampling.
-      </Prose>
-
-      <H3>7.4 Efficient variants</H3>
-
-      <Prose>
-        <strong>Depthwise separable for mobile.</strong> When the target is a phone or edge device, depthwise separable 3×3 + pointwise 1×1 gives ~9× fewer FLOPs than dense 3×3 at similar accuracy. Every recent mobile architecture (MobileNet, EfficientNet, MobileViT) uses this.
-      </Prose>
-
-      <Prose>
-        <strong>Grouped conv for throughput.</strong> Grouping inputs into <Code>g</Code> parallel subproblems divides FLOPs by <Code>g</Code>. ResNeXt-50-32×4d uses cardinality 32 and improves ImageNet accuracy at the same FLOP budget. Regnet and EfficientNet use moderate grouping as a tunable axis.
-      </Prose>
-
-      <Prose>
-        <strong>Matrix-decomposed kernels.</strong> Replacing a 5×5 with 1×5 + 5×1 saves parameters (10 instead of 25). Inception-V3 used this for 1×7 and 7×1 decompositions. Largely superseded by the 3×3 stacking approach but appears in attention approximations and efficient depthwise designs.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Conv FLOPs dominate training time</H3>
-
-      <Prose>
-        For ResNet-50, roughly 80–90% of forward-pass FLOPs are in the convolutional trunk; the remainder is BN, ReLU, and the final FC. For EfficientNet and MobileNet the ratio is even more conv-dominant because depthwise separable blocks replace the relatively small FC layers. On A100 and H100 GPUs, a 3×3 dense conv at typical vision-model shapes runs at 40–60% of peak FP32 throughput through cuDNN GEMM or Winograd. This is why almost every conv performance optimization — Winograd, FFT, Tensor Cores, mixed precision — targets the conv layer specifically.
-      </Prose>
-
-      <H3>8.2 Winograd for 3×3 convolutions</H3>
-
-      <Prose>
-        Winograd (Lavin & Gray 2016) reduces the number of multiplications in a conv from <Code>{"k^2"}</Code> to <Code>{"(k + r - 1)^2 / r^2"}</Code> for an <Code>r × r</Code> output tile. For 3×3 kernels with 2×2 output tiles (the F(2×2, 3×3) transform), the reduction is 4 multiplications per output pixel per channel pair instead of 9 — a 2.25× theoretical speedup. cuDNN's Winograd algorithm is the default for 3×3 stride-1 convs at input spatial sizes above ~28×28 and below ~512×512, where the transform's constant overhead is amortized. Larger kernels or larger tiles require more additions, so the optimal balance point is F(2×2, 3×3) or F(4×4, 3×3).
-      </Prose>
-
-      <H3>8.3 FFT for large kernels</H3>
-
-      <Prose>
-        For kernel sizes above ~15×15, FFT-based convolution (O(n² log n)) beats direct convolution (O(n² k²)). cuDNN exposes <Code>FFT</Code> and <Code>FFT_TILING</Code> algorithms for these cases. Large-kernel architectures like RepLKNet (31×31 depthwise) rely on FFT at inference. At the small kernel sizes used for most vision models (3×3 to 7×7), FFT's constant factors make it slower than Winograd or direct GEMM.
-      </Prose>
-
-      <H3>8.4 Tensor Cores and mixed precision</H3>
-
-      <Prose>
-        Since Volta (2017), NVIDIA GPUs have contained dedicated matrix-multiply units (Tensor Cores) that run FP16/BF16 matmul at 4–8× the throughput of FP32. Because cuDNN convolution reduces to matmul, Tensor Cores directly accelerate conv layers. Using <Code>torch.cuda.amp.autocast(dtype=torch.bfloat16)</Code> or training with BF16 end-to-end typically delivers 2× throughput on A100 and higher on H100 with negligible accuracy loss for vision models. Ampere added FP8 support via TransformerEngine — widely used for LLM training, less for vision CNN training where the numerical dynamic range is narrower.
-      </Prose>
-
-      <H3>8.5 Structured sparsity (Ampere 2:4)</H3>
-
-      <Prose>
-        NVIDIA A100 and later accelerate matmul by 2× when weight matrices follow a 2:4 sparsity pattern (exactly 2 of every 4 contiguous values are zero). The <Code>torch.sparse</Code> and <Code>apex.contrib</Code> paths can prune a trained conv's weights to 2:4 and re-fine-tune, preserving accuracy while doubling inference throughput. Most production LLM inference stacks now use 2:4 sparsity; vision CNN deployment is catching up.
-      </Prose>
-
-      <H3>8.6 Fused kernels</H3>
-
-      <Prose>
-        At inference, conv + BN + ReLU (and often + residual add) are fused into a single CUDA kernel — one memory read, one kernel launch, one memory write — instead of three or four separate kernels. This removes ~30–40% of memory traffic at small batch sizes where memory bandwidth rather than compute bounds throughput. <Code>torch.compile</Code> and TensorRT both perform this fusion automatically; <Code>torch.ao.quantization.fuse_modules</Code> does it manually.
-      </Prose>
-
-      <H3>8.7 Memory layout (channels-last)</H3>
-
-      <Prose>
-        PyTorch's default is NCHW but Tensor Cores prefer NHWC (channels-last) because it aligns with how the GEMM input matrix is laid out after im2col. Converting a model to <Code>memory_format=torch.channels_last</Code> at training time yields 10–30% additional speedup on H100 for common vision models. Every production training recipe for ResNet/EfficientNet/ConvNeXt uses channels-last.
-      </Prose>
-
-      <Prose>
-        Together, these optimizations (Tensor Cores + BF16 + channels-last + fused conv-bn-relu) give a roughly 4–6× throughput improvement over naive FP32 NCHW on the same hardware. A ResNet-50 ImageNet training that took ~30 minutes per epoch on a 4×V100 system in 2017 now takes ~3 minutes on a single H100 in 2026, and a large fraction of that gap is these conv-specific optimizations.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Forgetting padding — silent shrinkage</H3>
-
-      <Prose>
-        A 3×3 conv with no padding shrinks the feature map by 2 pixels per layer. Stack 10 such convs and a 32×32 input becomes 12×12 — easily forgotten until the final pool or FC layer shape-errors. The fix is always <Code>padding = kernel_size // 2</Code> for odd kernels. For even kernels the padding is asymmetric (pad 1 on one side, 0 on the other) which is why essentially no architecture uses even kernels except for transposed conv upsampling.
-      </Prose>
-
-      <H3>9.2 Stride + pool double downsample</H3>
-
-      <Prose>
-        A common bug in handwritten architectures: a stride-2 conv immediately followed by a 2×2 stride-2 pool drops resolution by 4× in one block instead of 2×, ruining the spatial hierarchy. Pick one downsampling operation per stage — either the conv strides, or the pool strides, but not both. ResNet chose conv striding (cleaner RF growth, learnable); VGG chose pooling; mixing the two inside a single stage leads to aliasing and information loss.
-      </Prose>
-
-      <H3>9.3 Odd vs even kernels — asymmetric padding</H3>
-
-      <Prose>
-        Odd kernels (3, 5, 7) center cleanly: pad <Code>(k-1)/2</Code> on both sides, output has the same spatial center as the input. Even kernels (2, 4) require asymmetric padding because <Code>k/2</Code> is not a whole half-pixel. PyTorch's <Code>padding='same'</Code> handles this by padding 0 on left, 1 on right — but this shifts the spatial center by half a pixel per layer, which compounds and causes subtle misalignment between features at different depths. Use odd kernels unless you have a specific reason not to.
-      </Prose>
-
-      <H3>9.4 Groups must divide channels</H3>
-
-      <Prose>
-        <Code>nn.Conv2d(Cin, Cout, k, groups=g)</Code> requires <Code>g</Code> to divide both <Code>Cin</Code> and <Code>Cout</Code>. If you set <Code>groups=4</Code> on a <Code>Cin=10</Code> layer, PyTorch throws <Code>RuntimeError: in_channels must be divisible by groups</Code> at module construction. This error is caught early; the harder bug is when you forget the divisibility constraint while computing <Code>Cin</Code> dynamically from a prior layer, and the runtime error surfaces only during the first forward pass after hours of training setup.
-      </Prose>
-
-      <H3>9.5 Transposed conv checkerboard artifacts</H3>
-
-      <Prose>
-        In 2016, Augustus Odena, Vincent Dumoulin, and Chris Olah published "Deconvolution and Checkerboard Artifacts" on Distill. They showed that <Code>ConvTranspose2d</Code> with <Code>kernel_size = 3, stride = 2</Code> produces a periodic checkerboard pattern because adjacent output pixels receive contributions from different numbers of kernel taps (some from 2 taps, some from 1). The fix is either (a) kernel size divisible by stride (<Code>kernel_size=4, stride=2</Code> works cleanly), or (b) replace transposed conv with bilinear upsample + 3×3 conv. Every modern GAN and diffusion decoder uses the latter pattern.
-      </Prose>
-
-      <H3>9.6 Pooling is lossy</H3>
-
-      <Prose>
-        Pooling throws away information. A 2×2 max pool keeps only 1 of 4 input pixels' max value per channel; the remaining three are discarded. For classification this is usually fine — the discarded information was redundant — but for dense prediction (segmentation, super-resolution, keypoint detection) any pooling forces you to upsample later, and the upsampled feature map cannot recover the lost detail without a skip connection from the pre-pool feature map. This is why U-Net and FPN architectures carry skip connections across every downsample/upsample pair.
-      </Prose>
-
-      <H3>9.7 Dropout before pool</H3>
-
-      <Prose>
-        Applying dropout to a conv feature map, then max-pooling, is statistically broken. Max pool always selects the maximum, so if dropout randomly zeroed the would-be maximum, the pool silently picks a different value — which is not what dropout was supposed to do. The fix is either (a) dropout after pooling, (b) use SpatialDropout (channel-wise dropout that zeroes entire channels so the pool degrades gracefully), or (c) skip dropout in conv blocks entirely and rely on BatchNorm's implicit regularization, which is what ResNet and nearly all modern CNNs do.
-      </Prose>
-
-      <H3>9.8 Theoretical RF is not effective RF</H3>
-
-      <Prose>
-        Luo et al. 2016's main warning: just because your theoretical RF covers the whole image does not mean your network actually uses that context. Symptom: a 100-layer CNN on 1024×1024 inputs that somehow cannot learn object context spanning more than 200 pixels. Diagnosis: measure the ERF empirically (Section 4e). Remediation: dilation, large-kernel layers, or explicit long-range mechanisms (attention, non-local blocks). Stacking more small-kernel convs is not a path to large effective context.
-      </Prose>
-
-      <H3>9.9 BatchNorm statistics at inference</H3>
-
-      <Prose>
-        Not strictly a conv bug, but coupled: if you forget <Code>model.eval()</Code> before inference, BatchNorm will recompute statistics from the current batch (often batch size 1), produce wildly wrong outputs, and if gradients are still being tracked, leak memory until OOM. The symptom is inference that works on batches of 64 but catastrophically fails on batch 1. Always <Code>model.eval()</Code> and wrap inference in <Code>torch.no_grad()</Code> or use <Code>torch.inference_mode()</Code> (faster than <Code>no_grad</Code> in PyTorch 1.9+).
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        The papers below are the foundational reading for convolution, pooling, and receptive field analysis. Hubel &amp; Wiesel for the neuroscience; Fukushima, LeCun, and Krizhevsky for the architecture lineage; Luo for the effective RF story; Dumoulin &amp; Visin for the formal arithmetic; Yu &amp; Koltun for dilated convolutions.
-      </Prose>
-
-      <Prose>
-        <strong>Hubel, D.H. &amp; Wiesel, T.N. (1962).</strong> "Receptive fields, binocular interaction and functional architecture in the cat's visual cortex." <em>The Journal of Physiology</em>, 160(1), 106–154. The experimental paper identifying simple and complex cells in V1, which forms the neurophysiological inspiration for the CNN's alternation of convolution and pooling. Awarded the 1981 Nobel Prize in Physiology or Medicine (shared with Sperry).
-      </Prose>
-
-      <Prose>
-        <strong>Fukushima, K. (1980).</strong> "Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position." <em>Biological Cybernetics</em>, 36(4), 193–202. The first hierarchical convolutional architecture, alternating S-layers (convolutional feature detectors) with C-layers (pooling / shift invariance). Trained with an unsupervised competitive rule rather than backprop, which arrived nine years later.
-      </Prose>
-
-      <Prose>
-        <strong>LeCun, Y., Boser, B., Denker, J.S., Henderson, D., Howard, R.E., Hubbard, W. &amp; Jackel, L.D. (1989).</strong> "Backpropagation Applied to Handwritten Zip Code Recognition." <em>Neural Computation</em>, 1(4), 541–551. First end-to-end backprop-trained convolutional network on real-world data (USPS ZIP code digits). Introduced weight sharing and local receptive fields as engineering techniques rather than biological principles.
-      </Prose>
-
-      <Prose>
-        <strong>LeCun, Y., Bottou, L., Bengio, Y. &amp; Haffner, P. (1998).</strong> "Gradient-Based Learning Applied to Document Recognition." <em>Proceedings of the IEEE</em>, 86(11), 2278–2324. The LeNet-5 paper. Also a comprehensive tutorial on gradient-based machine learning that fixed terminology across the field. Deployed in production to read ~60M checks/month.
-      </Prose>
-
-      <Prose>
-        <strong>Krizhevsky, A., Sutskever, I. &amp; Hinton, G.E. (2012).</strong> "ImageNet Classification with Deep Convolutional Neural Networks." <em>NeurIPS 2012</em>. AlexNet. The paper that ended classical computer vision by winning ILSVRC 2012 with a 10.8-point lead over hand-crafted features. Introduced ReLU at scale, dropout on fully connected layers, GPU training, and local response normalization.
-      </Prose>
-
-      <Prose>
-        <strong>Luo, W., Li, Y., Urtasun, R. &amp; Zemel, R. (2016).</strong> "Understanding the Effective Receptive Field in Deep Convolutional Neural Networks." <em>NeurIPS 2016</em>, arXiv:1701.04128. Shows that the effective RF of a CNN is much smaller than the theoretical RF, grows like <Code>{"\\sqrt{N}"}</Code> with depth instead of <Code>N</Code>, and has Gaussian spatial profile. Reshaped how dense-prediction architectures are designed.
-      </Prose>
-
-      <Prose>
-        <strong>Dumoulin, V. &amp; Visin, F. (2016).</strong> "A guide to convolution arithmetic for deep learning." arXiv:1603.07285. The definitive reference for output size formulas, padding conventions, transposed convolutions, and dilated convolutions. Thirty-four pages of worked examples with animated figures in the companion GitHub repo (vdumoulin/conv_arithmetic).
-      </Prose>
-
-      <Prose>
-        <strong>Yu, F. &amp; Koltun, V. (2015).</strong> "Multi-Scale Context Aggregation by Dilated Convolutions." arXiv:1511.07122, ICLR 2016. Introduced dilated (atrous) convolutions as a way to grow receptive field exponentially with depth without downsampling. The foundation of DeepLab, WaveNet's causal dilations, and every subsequent dense-prediction architecture that needs multi-scale context.
-      </Prose>
-
-      <Prose>
-        <strong>Further reading worth the time in 2026:</strong> He et al. 2015 "Deep Residual Learning for Image Recognition" (ResNet — covered in the next topic); Simonyan &amp; Zisserman 2014 "Very Deep Convolutional Networks for Large-Scale Image Recognition" (VGG); Szegedy et al. 2014 "Going Deeper with Convolutions" (GoogLeNet / Inception); Howard et al. 2017 "MobileNets" (depthwise separable); Liu et al. 2022 "A ConvNet for the 2020s" (ConvNeXt — modernized CNN matching ViT); Ding et al. 2022 "Scaling Up Your Kernels to 31×31" (RepLKNet, the case for very large kernels). Odena et al. 2016 "Deconvolution and Checkerboard Artifacts" on Distill remains the clearest visual explanation of transposed-conv failure modes.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <H3>Q1 — Output size with padding, stride, and dilation</H3>
-
-      <Prose>
-        An input feature map has spatial size 56×56. A convolution with kernel size 3, padding 2, stride 1, dilation 2 is applied. What is the output spatial size?
-      </Prose>
-
-      <Callout accent="gold">
-        <strong>Answer.</strong> Effective kernel = <Code>{"d \\cdot (k - 1) + 1 = 2 \\cdot 2 + 1 = 5"}</Code>. Plugging into the formula: <Code>{"\\lfloor (56 + 4 - 5) / 1 \\rfloor + 1 = 55 + 1 = 56"}</Code>. The output is 56×56 — dilation 2 with padding 2 preserves spatial size for a 3×3 kernel, analogous to how dilation 1 with padding 1 does. This is the standard "same" configuration for dilated convs.
-      </Callout>
-
-      <H3>Q2 — Receptive field of 3 stacked 3×3 convs</H3>
-
-      <Prose>
-        Three 3×3 convolutions are stacked with stride 1 and appropriate padding. What is the theoretical receptive field of a neuron in the third layer's output? How many parameters are required (ignoring biases) if each conv has <Code>C</Code> input and output channels?
-      </Prose>
-
-      <Callout accent="gold">
-        <strong>Answer.</strong> RF recursion: <Code>{"r_1 = 3, r_2 = r_1 + 2 = 5, r_3 = r_2 + 2 = 7"}</Code>. So the RF is 7×7 — the same as a single 7×7 conv. Parameters: 3 convs × <Code>{"3 \\cdot 3 \\cdot C \\cdot C = 9C^2"}</Code> each = <Code>{"27 C^2"}</Code>. A single 7×7 conv would be <Code>{"49 C^2"}</Code>. Stacking three 3×3s is 45% cheaper <em>and</em> adds 2 extra non-linearities. This is the VGG insight.
-      </Callout>
-
-      <H3>Q3 — Theoretical vs effective receptive field</H3>
-
-      <Prose>
-        You build a CNN with 50 3×3 conv layers, stride 1 throughout, and measure the empirical effective RF at the center of the output. The theoretical RF is 101 pixels. Would you expect the empirical ERF to be much smaller, roughly equal, or much larger? Why?
-      </Prose>
-
-      <Callout accent="gold">
-        <strong>Answer.</strong> Much smaller. Luo et al. 2016 shows that the effective RF grows like <Code>{"\\sqrt{N}"}</Code> while the theoretical RF grows like <Code>N</Code>, so the ERF at depth 50 is on the order of <Code>{"\\sqrt{50} \\approx 7"}</Code> — small dozens of pixels, not 101. The effective RF has a Gaussian spatial profile: most input pixels the output could theoretically see contribute almost nothing. Practical consequence: stacking more small-kernel convs has diminishing returns for enlarging usable context; dilation or large kernels are more effective.
-      </Callout>
-
-      <H3>Q4 — Depthwise separable FLOP savings</H3>
-
-      <Prose>
-        A standard 3×3 convolution with <Code>{"C_{in} = 256, C_{out} = 256"}</Code> operates on a 28×28 feature map. What is its FLOP count? Compared with the depthwise-separable equivalent (depthwise 3×3 then pointwise 1×1), what is the FLOP saving?
-      </Prose>
-
-      <Callout accent="gold">
-        <strong>Answer.</strong> Standard: <Code>{"2 \\cdot 28^2 \\cdot 9 \\cdot 256 \\cdot 256 = 2 \\cdot 784 \\cdot 9 \\cdot 65536 \\approx 924 \\text{ MFLOPs}"}</Code>. Depthwise: <Code>{"2 \\cdot 784 \\cdot 9 \\cdot 256 = 3.6 \\text{ MFLOPs}"}</Code>. Pointwise: <Code>{"2 \\cdot 784 \\cdot 1 \\cdot 256 \\cdot 256 \\approx 103 \\text{ MFLOPs}"}</Code>. Separable total ≈ 107 MFLOPs. Ratio ≈ 8.7×, converging toward <Code>{"k^2 = 9"}</Code> as channel count grows. This is the headline MobileNet number.
-      </Callout>
-
-      <H3>Q5 — Global average pooling vs flatten + FC</H3>
-
-      <Prose>
-        Your classification head takes a feature map of shape <Code>{"(B, 512, 7, 7)"}</Code> and produces 1000 class logits. Compare two options: (A) flatten to <Code>{"(B, 25088)"}</Code> then a single <Code>{"\\text{Linear}(25088, 1000)"}</Code>; (B) global average pool to <Code>{"(B, 512, 1, 1)"}</Code> then <Code>{"\\text{Linear}(512, 1000)"}</Code>. What are the parameter counts and when would you choose each?
-      </Prose>
-
-      <Callout accent="gold">
-        <strong>Answer.</strong> Option A has <Code>{"25088 \\cdot 1000 + 1000 = 25{,}089{,}000"}</Code> parameters. Option B has <Code>{"512 \\cdot 1000 + 1000 = 513{,}000"}</Code> parameters — 49× fewer. Choose B for: image classification (translation-invariant task, enormous parameter savings, minimal accuracy loss — every modern CNN from 2015 onward uses it). Choose A only when spatial position matters to the output (e.g., predicting where an object is rather than what it is) and you have a small spatial grid; but in that case, you would typically use 1×1 conv to logits rather than flatten + FC, which preserves spatial structure even better.
-      </Callout>
-
-    </div>
-  ),
+<div className="neural-equation"><MathBlock>{"\\frac{\\partial L}{\\partial w_0}=(-2)(1)+(1)(3)=1,\\qquad\n\\frac{\\partial L}{\\partial w_1}=(-2)(3)+(1)(2)=-4."}</MathBlock></div>
+
+<Prose>{"Gradient descent with step size 0.1 gives "}<InlineMath>{"w'=[0.9,-0.6]"}</InlineMath>{". New outputs are "}<InlineMath>{"[-0.9,1.5]"}</InlineMath>{", and new loss is 1.53. One output became worse, but the specified total objective improved. Sharing a filter means negotiating all its uses rather than independently fixing each location."}</Prose>
+
+<Prose>{"Gradients also accumulate where windows overlap. The middle input participates with weight −1 in the first window and weight 1 in the second:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{\\partial L}{\\partial x_1}=(-2)(-1)+(1)(1)=3."}</MathBlock></div>
+
+<Prose>{"The full input gradient is "}<InlineMath>{"[-2,3,-1]"}</InlineMath>{". If we had used mean squared error, its denominator would scale the gradients. Weight sharing itself asks us to "}<strong>{"sum"}</strong>{" contributions; averaging comes from the chosen loss reduction."}</Prose>
+
+<ConvolutionUpdateLab />
+
+<Prose>{"This complete program runs the calculation:"}</Prose>
+
+<CodeBlock language={"python"}>{"import torch\nfrom torch.nn import functional as F\n\nx = torch.tensor([1., 3., 2.], dtype=torch.float64, requires_grad=True)\nw = torch.tensor([1., -1.], dtype=torch.float64, requires_grad=True)\ny = F.conv1d(x[None, None], w[None, None]).flatten()\nloss = 0.5 * y.square().sum()\nloss.backward()\nnew_w = w.detach() - 0.1 * w.grad\nnew_y = F.conv1d(x.detach()[None, None], new_w[None, None]).flatten()\nprint(\"output:\", y.detach().tolist(), \"loss:\", loss.item())\nprint(\"weight gradient:\", w.grad.tolist(), \"input gradient:\", x.grad.tolist())\nprint(\"updated:\", new_w.tolist(), \"new loss:\", (0.5 * new_y.square().sum()).item())"}</CodeBlock>
+
+<Prose>{"For classification, hidden convolutions feed activations such as ReLU, "}<InlineMath>{"a=\\max(0,z)"}</InlineMath>{", and a final layer produces one logit per class. Cross-entropy compares those logits with the actual digit. Backpropagation performs the same accumulation through the larger graph. There is no special second optimizer for filters."}</Prose>
+
+<H2>{"4. Plan the geometry before stacking layers"}</H2>
+
+<Prose>{""}<strong>{"Stride"}</strong>{" is the movement between output windows. "}<strong>{"Padding"}</strong>{" supplies values outside the image boundary. "}<strong>{"Dilation"}</strong>{" spaces the sampled positions inside a filter. A three-weight filter with dilation two touches offsets 0, 2 and 4: three learned values spanning five positions."}</Prose>
+
+<Prose>{"For one dimension, let input size be "}<InlineMath>{"n"}</InlineMath>{", kernel size "}<InlineMath>{"k"}</InlineMath>{", dilation "}<InlineMath>{"d"}</InlineMath>{", stride "}<InlineMath>{"s"}</InlineMath>{", and left/right padding "}<InlineMath>{"p_l,p_r"}</InlineMath>{". The sampled span is "}<InlineMath>{"k_{\\rm eff}=d(k-1)+1"}</InlineMath>{". Count the window starts that fit:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"n_{\\rm out}=\\left\\lfloor\\frac{n+p_l+p_r-k_{\\rm eff}}{s}\\right\\rfloor+1."}</MathBlock></div>
+
+<Prose>{"Apply this independently to height and width. The floor means a leftover strip can be unused. A nonpositive result means the requested operation does not fit; it is not a valid zero-sized feature map."}</Prose>
+
+<NeuralTable caption={"4. Plan the geometry before stacking layers"} headers={[<>{"Input"}</>,<>{"Kernel / dilation"}</>,<>{"Padding left,right"}</>,<>{"Stride"}</>,<>{"Output"}</>]} rows={[[<>{"8"}</>,<>{"3 / 1"}</>,<>{"1,1"}</>,<>{"1"}</>,<>{"8"}</>],[<>{"8"}</>,<>{"3 / 1"}</>,<>{"1,1"}</>,<>{"2"}</>,<>{"4"}</>],[<>{"8"}</>,<>{"4 / 1"}</>,<>{"1,2"}</>,<>{"1"}</>,<>{"8"}</>],[<>{"8"}</>,<>{"3 / 2"}</>,<>{"2,2"}</>,<>{"1"}</>,<>{"8"}</>],[<>{"7"}</>,<>{"3 / 1"}</>,<>{"0,0"}</>,<>{"2"}</>,<>{"3"}</>]]} />
+
+<ConvolutionGeometryLab />
+
+<Prose>{"“Same” describes an output-size policy, not a universal padding number. For stride one, total required padding is "}<InlineMath>{"d(k-1)"}</InlineMath>{". With an even effective kernel this may need unequal sides. A four-wide kernel can use left 1/right 2 or left 2/right 1; both preserve width but align outputs differently. In PyTorch 2.14, "}<code>{"padding=\"same\""}</code>{" supports stride one. Explicit "}<code>{"F.pad"}</code>{" handles a chosen asymmetric policy."}</Prose>
+
+<Prose>{"Two other names describe useful boundary choices. With stride and dilation one, "}<strong>{"valid"}</strong>{" uses no padding and produces "}<InlineMath>{"n-k+1"}</InlineMath>{" outputs. "}<strong>{"Full"}</strong>{" uses "}<InlineMath>{"k-1"}</InlineMath>{" padding on each side and produces "}<InlineMath>{"n+k-1"}</InlineMath>{", including windows with only a partial overlap with the original input. Both follow the same window-count formula."}</Prose>
+
+<Prose>{"Zero padding assumes an outside value of zero. Reflection, replication and circular padding impose different boundary conditions; choose them based on what the data means. A periodic signal can justify wrapping. An ordinary photograph does not automatically continue from its right edge to its left."}</Prose>
+
+<Prose>{"Two stride-one 3×3 layers have a five-wide possible input region; three have seven, provided dilation is one. Intermediate nonlinearities make this a different function family from a single wider linear filter. Fewer parameters or greater expressivity depends on channel counts and the precise comparison, not just the number of layers."}</Prose>
+
+<H2>{"5. Pooling: summarize, then notice what disappeared"}</H2>
+
+<Prose>{"A pooling operation normally works independently in each channel. For a 2×2 window "}<InlineMath>{"\\begin{bmatrix}1&4\\\\2&3\\end{bmatrix}"}</InlineMath>{", max pooling gives 4; average pooling gives 2.5. With stride two, the next window starts two cells away."}</Prose>
+
+<Prose>{"Max pooling asks for the strongest response in the window. Average pooling asks for its mean level. Neither is universally better, and either loses information: many different windows share the same maximum or mean. A decoder may learn a plausible reconstruction using other evidence, but that does not make pooling invertible."}</Prose>
+
+<ConvolutionPoolingLab />
+
+<Prose>{"For a sum of max-pool outputs on "}<InlineMath>{"[1,4,3]"}</InlineMath>{", kernel two and stride one, the outputs are "}<InlineMath>{"[4,4]"}</InlineMath>{". The input gradient is "}<InlineMath>{"[0,2,0]"}</InlineMath>{": the middle value wins both windows. At a tie the mathematical maximum has several valid subgradients; the implementation chooses an index. Our CPU fixture on "}<InlineMath>{"[2,2,1]"}</InlineMath>{" yields gradient "}<InlineMath>{"[1,1,0]"}</InlineMath>{". Do not build an argument that depends on a universal tie winner across all backends."}</Prose>
+
+<Prose>{"Padding needs care with negative values. Max-pool padding behaves like negative infinity, so an invented zero cannot beat a real negative input. Average pooling can include or exclude padded zeros from the denominator. With "}<InlineMath>{"[-2,-3]"}</InlineMath>{", kernel three and one padded cell on each side, the two averages are both "}<InlineMath>{"-5/3"}</InlineMath>{" when padding counts, versus "}<InlineMath>{"-5/2"}</InlineMath>{" when it does not. These policies change numbers despite matching output shapes. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.MaxPool2d.html"}>{"MaxPool2d"}</a>{", "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.AvgPool2d.html"}>{"AvgPool2d"}</a>{"."}</Prose>
+
+<Prose>{"Adaptive average pooling specifies an output size instead of one fixed stride. For input length five and output length three, its bins are indices "}<InlineMath>{"[0,2)"}</InlineMath>{", "}<InlineMath>{"[1,4)"}</InlineMath>{", "}<InlineMath>{"[3,5)"}</InlineMath>{". On "}<InlineMath>{"[1,2,3,4,5]"}</InlineMath>{", this gives "}<InlineMath>{"[1.5,3,4.5]"}</InlineMath>{". Bins can overlap; “adaptive” does not mean an exact equal disjoint partition for every size. "}<a href={"https://github.com/pytorch/pytorch/blob/v2.14.0/aten/src/ATen/native/AdaptivePooling.h"}>{"PyTorch's bin-boundary implementation"}</a>{"."}</Prose>
+
+<Prose>{""}<strong>{"Global average pooling"}</strong>{" averages an entire spatial map into one value per channel. It allows a classifier head to receive the same number of features at different spatial sizes. It discards location in that final map, which can be useful or harmful depending on the task. It does not guarantee that the earlier map is unaffected by cropping or shifting."}</Prose>
+
+<Prose>{"This connects to dropout: dropping responses before max pooling changes which value wins, and a sampled zero can exceed a negative activation. That is a particular noisy objective, not an algebraically forbidden ordering. Our comparison below omits dropout so we can inspect the pooling choice clearly."}</Prose>
+
+<H2>{"6. Receptive fields: where can this number get information?"}</H2>
+
+<Prose>{"A first-layer 3×3 output sees a 3×3 patch. A later output sees several earlier outputs, each with its own input region. The receptive field is built by tracing those connections backwards."}</Prose>
+
+<Prose>{"Track three values per spatial axis:"}</Prose>
+
+<ul><li>{""}<InlineMath>{"r"}</InlineMath>{": width of the theoretical bounding region in input coordinates."}</li><li>{""}<InlineMath>{"j"}</InlineMath>{": spacing between adjacent output centers, measured in input pixels."}</li><li>{""}<InlineMath>{"a"}</InlineMath>{": center of the first output, with input pixel centers at "}<InlineMath>{"0.5,1.5,\\ldots"}</InlineMath>{"."}</li></ul>
+
+<Prose>{"Start with "}<InlineMath>{"r=1,j=1,a=0.5"}</InlineMath>{". A layer with "}<InlineMath>{"k,d,s,p_l"}</InlineMath>{" changes them by:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"r'=r+d(k-1)j,\\qquad j'=sj,\\qquad\na'=a+\\left(\\frac{d(k-1)}2-p_l\\right)j."}</MathBlock></div>
+
+<Prose>{"The old "}<InlineMath>{"j"}</InlineMath>{" belongs on the right side of all three equations. A pooling window expands the region too."}</Prose>
+
+<Prose>{"For a 32-wide input:"}</Prose>
+
+<NeuralTable caption={"6. Receptive fields: where can this number get information?"} headers={[<>{"Operation"}</>,<>{"Output width"}</>,<>{""}<InlineMath>{"r"}</InlineMath>{""}</>,<>{""}<InlineMath>{"j"}</InlineMath>{""}</>,<>{"First center "}<InlineMath>{"a"}</InlineMath>{""}</>]} rows={[[<>{"3-wide convolution, pad 1"}</>,<>{"32"}</>,<>{"3"}</>,<>{"1"}</>,<>{"0.5"}</>],[<>{"2-wide pooling, stride 2"}</>,<>{"16"}</>,<>{"4"}</>,<>{"2"}</>,<>{"1"}</>],[<>{"3-wide convolution, pad 1"}</>,<>{"16"}</>,<>{"8"}</>,<>{"2"}</>,<>{"1"}</>],[<>{"2-wide pooling, stride 2"}</>,<>{"8"}</>,<>{"10"}</>,<>{"4"}</>,<>{"2"}</>],[<>{"3-wide convolution, pad 1"}</>,<>{"8"}</>,<>{"18"}</>,<>{"4"}</>,<>{"2"}</>],[<>{"Average over all 8 positions"}</>,<>{"1"}</>,<>{"46"}</>,<>{"4"}</>,<>{"16"}</>]]} />
+
+<Prose>{"A width of 46 on a 32-wide input includes padded coordinates; it does not mean 46 observed pixels or wraparound. For output index "}<InlineMath>{"u"}</InlineMath>{", center is "}<InlineMath>{"a+uj"}</InlineMath>{"; its bounding endpoints are that center plus/minus "}<InlineMath>{"(r-1)/2"}</InlineMath>{". Intersect with actual input coordinates to distinguish observed values from padding."}</Prose>
+
+<ConvolutionReceptiveLab />
+
+<Prose>{"The region can have holes. Two three-wide, dilation-two layers reach offsets "}<InlineMath>{"\\{-4,-2,0,2,4\\}"}</InlineMath>{": bounding width nine, only five positions. Using dilation one followed by two reaches all seven offsets from −3 to 3. A bounding width is not a count of connected pixels."}</Prose>
+
+<Prose>{"For residual additions or concatenated branches, take the union of contributing input regions. Equal tensor shapes do not prove equal spatial alignment. Branches with different center offsets may add features referring to different image locations. The "}<a href={"https://distill.pub/2019/computing-receptive-fields/"}>{"receptive-field coordinate derivation"}</a>{" gives a useful deeper treatment of alignment."}</Prose>
+
+<H2>{"7. Build and inspect a real digit classifier"}</H2>
+
+<Prose>{"Our complete "}<a href={"/learn-code/convolution-pooling-receptive-fields/convolution-experiments.py"}>{"CPU experiment"}</a>{" includes the direct NumPy operation, tensor fixtures, twelve training runs and saved intermediate maps. Keep "}<a href={"/learn-code/convolution-pooling-receptive-fields/digits-400.csv"}>{"the attributed CSV"}</a>{" next to it. Setup from that folder:"}</Prose>
+
+<Prose>{"On Windows PowerShell:"}</Prose>
+
+<CodeBlock language={"powershell"}>{"python -m venv .venv\n.\\.venv\\Scripts\\python.exe -m pip install numpy==2.3.5 scikit-learn==1.9.1 torch==2.14.0\n.\\.venv\\Scripts\\python.exe convolution-experiments.py"}</CodeBlock>
+
+<Prose>{"On macOS/Linux, use "}<code>{"python3 -m venv .venv"}</code>{", then replace each "}<code>{".\\.venv\\Scripts\\python.exe"}</code>{" above with "}<code>{".venv/bin/python"}</code>{". Calling the environment's interpreter directly avoids depending on shell activation."}</Prose>
+
+<Prose>{"It needs no GPU, network-loaded model or unspecified image folder. Installation needs network access; after installation the data and experiment run offline. The author executed it on Python 3.12.14, PyTorch 2.14.0+cpu, one CPU thread."}</Prose>
+
+<ConvolutionProgram file="convolution-experiments.py" title="Read the complete convolution and digit experiment program" />
+
+<Prose>{"The CSV contains 400 actual UCI optical-digit images: first 40 examples of each digit from sklearn's 1,797-row copy of the historical UCI test partition. Values are integers from 0 to 16, divided by 16 using the documented measurement range. A fixed stratified split, seed 22, uses 280 rows to fit and 120 for development comparisons. This is a small educational split, not the official dataset evaluation or evidence of performance on unseen writers. "}<a href={"/learn-code/convolution-pooling-receptive-fields/data-provenance.md"}>{"Data provenance"}</a>{"."}</Prose>
+
+<Prose>{"The main CNN is:"}</Prose>
+
+<CodeBlock language={"text"}>{"[N,1,8,8]\n→ Conv 1→8, 3×3, pad 1 → ReLU       [N,8,8,8]\n→ Pool 2×2, stride 2                [N,8,4,4]\n→ Conv 8→16, 3×3, pad 1 → ReLU      [N,16,4,4]\n→ Pool 2×2, stride 2                [N,16,2,2]\n→ Flatten 64 values → Linear 64→10  [N,10] logits"}</CodeBlock>
+
+<Prose>{"Convolutions provide local weighted sums, ReLU makes the composition nonlinear, pooling reduces spatial size, and the final layer combines the remaining features into class scores. The second convolution's weights have shape "}<InlineMath>{"[16,8,3,3]"}</InlineMath>{", not "}<InlineMath>{"[16,1,3,3]"}</InlineMath>{"."}</Prose>
+
+<Prose>{"We compare four declared configurations: dense 64→32 tanh→10; CNN with max pooling; the same CNN with average pooling; max-pool CNN whose final 2×2 map is globally averaged before a smaller head. The max and average CNNs start with identical weights for each seed. The global-average model shares the initial convolution tensors but has a differently sized head; the dense baseline is a different architecture. All use Adam, learning rate 0.003, 400 full-batch updates, no augmentation, dropout or weight decay. Seeds 1, 2 and 3 were chosen in advance."}</Prose>
+
+<NeuralTable caption={"7. Build and inspect a real digit classifier"} headers={[<>{"Model"}</>,<>{"Parameters"}</>,<>{"Seed 1: CE / correct of 120"}</>,<>{"Seed 2"}</>,<>{"Seed 3"}</>]} rows={[[<>{"Dense baseline"}</>,<>{"2,410"}</>,<>{"0.07949 / 117"}</>,<>{"0.08647 / 118"}</>,<>{"0.09342 / 116"}</>],[<>{"CNN, max pooling"}</>,<>{"1,898"}</>,<>{"0.08332 / 118"}</>,<>{"0.10153 / 116"}</>,<>{"0.05194 / 119"}</>],[<>{"CNN, average pooling"}</>,<>{"1,898"}</>,<>{"0.10358 / 116"}</>,<>{"0.11126 / 118"}</>,<>{"0.13594 / 115"}</>],[<>{"CNN, global-average head"}</>,<>{"1,418"}</>,<>{"0.08249 / 117"}</>,<>{"0.13742 / 113"}</>,<>{"0.17901 / 113"}</>]]} />
+
+<Prose>{"These are actual final-update measurements. Every run fits all 280 training labels. The CNN uses fewer parameters than this dense baseline; it does not win every seed or metric. Accuracy counts and cross-entropy measure different aspects: a few confident mistakes can increase CE even with similar counts. The program retains intermediate train/development traces rather than drawing an imagined smooth learning curve."}</Prose>
+
+<ConvolutionMeasuredLab />
+
+<Prose>{"A deliberately difficult stress check shifts each development image one pixel right or down, fills the exposed edge with zero and keeps its original label. This tests a changed input condition; it can also clip meaningful strokes, so it is not a clean proof of translation behavior on an unlimited canvas."}</Prose>
+
+<Prose>{"For seed 1, the dense model gets 57/120 right-shifted images correct, and the max-pool CNN gets 72/120. Their unshifted counts were 117 and 118. Down-shift counts are 71 and 75. Even the global-average CNN falls from 117 to 63 right-shifted. All twelve stress results are saved. Weight sharing helps organize the model, but does not remove the need to define and validate deployment variation."}</Prose>
+
+<Prose>{""}<strong>{"Before changing the experiment"}</strong>{", write the expected effect, the single change and the metric. An augmentation trial should transform training data only; assess the predeclared development views consistently. Once their outcomes guide choices, these rows remain development data. A final performance claim needs a separate untouched evaluation protocol."}</Prose>
+
+<H2>{"8. Optional: reach, influence and shifts"}</H2>
+
+<Prose>{"The theoretical field says which paths exist. An input gradient "}<InlineMath>{"\\partial z/\\partial x_{u,v}"}</InlineMath>{" says how a particular scalar output changes locally around a particular input, with the current parameters. A ReLU can close a route; two contributions can cancel. A zero gradient does not erase an architectural connection."}</Prose>
+
+<Prose>{"Our exact linear example repeatedly applies the averaging filter "}<InlineMath>{"[1,1,1]/3"}</InlineMath>{", without nonlinearities. At depth two the central output's input weights are "}<InlineMath>{"[1,2,3,2,1]/9"}</InlineMath>{". More paths reach central positions. The support width is "}<InlineMath>{"2L+1"}</InlineMath>{", while the distribution's variance is "}<InlineMath>{"2L/3"}</InlineMath>{": it behaves like a sum of "}<InlineMath>{"L"}</InlineMath>{" independent offsets chosen from −1,0,1 for this mathematical construction."}</Prose>
+
+<ConvolutionInfluenceLab />
+
+<Prose>{"At depth 20, support width is 41; positions with at least 1% of the peak span 21. That threshold is a chosen display rule, not a universal definition of effective receptive field. Learned filters, input-dependent gates and averaging across examples change the profile. The "}<a href={"https://arxiv.org/pdf/1701.04128"}>{"effective receptive field paper"}</a>{" develops qualified Gaussian-like behavior under assumptions and empirical settings; it does not make every individual trained gradient a Gaussian. A completely closed ReLU route should display “zero gradient” rather than normalize zero into a misleading heatmap."}</Prose>
+
+<Prose>{"Now distinguish "}<strong>{"equivariance"}</strong>{", where shifting input shifts the output map correspondingly, from "}<strong>{"invariance"}</strong>{", where output stays identical. Stride-one correlation with circular boundaries commutes with circular shifts. Our exact fixture gives difference zero. Switching that fixture to zero-padded boundaries gives maximum difference one."}</Prose>
+
+<Prose>{"Downsampling introduces a grid phase. Sampling every second element of "}<InlineMath>{"[1,-1,1,-1,1,-1]"}</InlineMath>{" gives "}<InlineMath>{"[1,1,1]"}</InlineMath>{"; shift the input one position first and it gives "}<InlineMath>{"[-1,-1,-1]"}</InlineMath>{". A local two-value average before sampling gives zeros in both cases. This is a simple illustration of aliasing and low-pass filtering, not a claim that blurring makes every classifier invariant."}</Prose>
+
+<Prose>{"Max pooling can tolerate some within-window motion, yet moving a response across a window boundary moves its pooled result. Global averaging is invariant to a permutation of an already-computed map. Input shifts need not produce only a permutation of that map. "}<a href={"https://proceedings.mlr.press/v97/zhang19a.html"}>{"Zhang's anti-aliasing study"}</a>{" investigates this distinction in trained networks."}</Prose>
+
+<ConvolutionShiftLab />
+
+<H2>{"9. Optional: the reverse operation is a scatter, not an undo"}</H2>
+
+<Prose>{"Our one-dimensional filter can be written as a sparse matrix:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"C=\\begin{bmatrix}1&-1&0\\\\0&1&-1\\end{bmatrix},\\qquad y=Cx."}</MathBlock></div>
+
+<Prose>{"The transpose sends each output-side value back along the same connections, adding where they meet. It obeys "}<InlineMath>{"\\langle Cx,g\\rangle=\\langle x,C^\\top g\\rangle"}</InlineMath>{". For "}<InlineMath>{"x=[1,3,2]"}</InlineMath>{", "}<InlineMath>{"g=[2,-3]"}</InlineMath>{", both sides are −7, and "}<InlineMath>{"C^\\top g=[2,-5,3]"}</InlineMath>{"."}</Prose>
+
+<Prose>{"But "}<InlineMath>{"C^\\top Cx=[-2,3,-1]"}</InlineMath>{", not the original input. "}<strong>{"Transposed convolution"}</strong>{" is this structured transpose operation, not an inverse. A constant added to every element of "}<InlineMath>{"x"}</InlineMath>{" disappears under this difference filter, so exact recovery from its output alone is impossible."}</Prose>
+
+<ConvolutionTransposeLab />
+
+<Prose>{"Three input values equal to one, kernel "}<InlineMath>{"[1,1,1]"}</InlineMath>{", stride two, produce coverage "}<InlineMath>{"[1,1,2,1,2,1,1]"}</InlineMath>{". In two dimensions, uneven overlap can multiply into a checkerboard. A kernel divisible by stride can equalize interior coverage, yet learned weights can still make artifacts. Resizing followed by an ordinary convolution offers a different constraint; it is not an unconditional artifact cure. "}<a href={"https://distill.pub/2016/deconv-checkerboard/"}>{"Visual explanation of checkerboard artifacts"}</a>{"."}</Prose>
+
+<Prose>{"For symmetric padding "}<InlineMath>{"p"}</InlineMath>{", transposed output size is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"n_{\\rm out}=(n_{\\rm in}-1)s-2p+d(k-1)+{\\rm output\\_padding}+1."}</MathBlock></div>
+
+<Prose>{"Different input sizes can map to the same strided forward size. "}<code>{"output_padding"}</code>{" selects a compatible output size; it does not mean appending that many zero-valued output cells. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.ConvTranspose2d.html"}>{"ConvTranspose2d"}</a>{"."}</Prose>
+
+<H2>{"10. Optional: implement the same math efficiently"}</H2>
+
+<Prose>{"The retained program's "}<code>{"direct_conv2d"}</code>{" follows the nested sums explicitly, including groups, symmetric padding, stride and dilation. Five float64 cases compare it with PyTorch, including rectangular kernels and depthwise multiplier two, with maximum absolute discrepancy below "}<InlineMath>{"10^{-12}"}</InlineMath>{". This checks this bounded CPU arithmetic; it is not a GPU benchmark."}</Prose>
+
+<Prose>{"An alternative extracts each patch into a column. For the first image, the column matrix is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"P=\\begin{bmatrix}\n1&2&0&1\\\\2&0&1&3\\\\0&1&2&1\\\\1&3&1&0\n\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"Multiplying "}<InlineMath>{"[1,-1,0,1]P"}</InlineMath>{" yields "}<InlineMath>{"[0,5,0,-2]"}</InlineMath>{", then reshape to 2×2. This is often called im2col. It exposes matrix multiplication, but explicitly copying overlapping patches can use substantial memory."}</Prose>
+
+<Prose>{"Folding those columns back adds overlaps. The center input appears four times, an edge-middle twice, a corner once. "}<code>{"Fold(Unfold(x))"}</code>{" therefore equals an overlap-count grid times "}<code>{"x"}</code>{". Dividing by that grid recovers covered positions; an uncovered position with count zero cannot be recovered this way. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.Fold.html"}>{"Fold contract"}</a>{"."}</Prose>
+
+<ConvolutionPatchMatrixFigure />
+
+<Prose>{"Implicit matrix-multiplication algorithms generate patch addresses without materializing the whole expanded matrix. Transform methods such as FFT or Winograd change how the arithmetic is organized. Shape, datatype, hardware and workspace constraints affect the useful choice. These are implementation strategies for the operator, not new learned representations. "}<a href={"https://docs.nvidia.com/deeplearning/performance/dl-performance-convolutional/index.html"}>{"NVIDIA convolution algorithm guide, sections 3–4.2"}</a>{"."}</Prose>
+
+<Prose>{"For groups "}<InlineMath>{"g"}</InlineMath>{", a "}<InlineMath>{"k_h\\times k_w"}</InlineMath>{" layer has"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"C_{\\rm out}(C_{\\rm in}/g)k_hk_w"}</MathBlock></div>
+
+<Prose>{"weights, plus "}<InlineMath>{"C_{\\rm out}"}</InlineMath>{" biases if used. Forward multiply-accumulates per specimen are that weight count times "}<InlineMath>{"H_{\\rm out}W_{\\rm out}"}</InlineMath>{". If counting one multiplication and addition separately, use two FLOPs per MAC, state that convention, and account for other operators separately."}</Prose>
+
+<Prose>{"Our first convolution has 72 weights, 80 parameters including biases, and "}<InlineMath>{"8\\cdot8\\cdot72=4{,}608"}</InlineMath>{" MACs. The second has 1,152 weights, 1,168 parameters and "}<InlineMath>{"4\\cdot4\\cdot1{,}152=18{,}432"}</InlineMath>{" MACs. The head adds 650 parameters and 640 MACs: total 1,898 parameters and 23,680 MACs for these affine operations. Pooling and activations have additional work. The dense baseline has 2,368 MACs despite more parameters. A parameter comparison is not a latency comparison."}</Prose>
+
+<Prose>{"A 3×3 depthwise-plus-pointwise pair with multiplier one uses "}<InlineMath>{"9C_{\\rm in}+C_{\\rm in}C_{\\rm out}"}</InlineMath>{" weights, versus "}<InlineMath>{"9C_{\\rm in}C_{\\rm out}"}</InlineMath>{" for a dense 3×3 layer. The dense-to-separable weight ratio is "}<InlineMath>{"9C_{\\rm out}/(9+C_{\\rm out})"}</InlineMath>{", before biases. It also constrains the computation differently; fewer arithmetic operations do not guarantee proportional wall-clock savings."}</Prose>
+
+<Prose>{"Memory format is another independent choice. PyTorch channels-last storage can preserve the logical "}<InlineMath>{"[N,C,H,W]"}</InlineMath>{" shape while changing strides in memory. It is not the same operation as permuting the tensor's logical axes. "}<a href={"https://docs.pytorch.org/tutorials/intermediate/memory_format_tutorial.html"}>{"Channels-last tutorial"}</a>{"."}</Prose>
+
+<Prose>{"An evaluation-mode convolution followed by BatchNorm with fixed running statistics can be combined algebraically. For output channel "}<InlineMath>{"o"}</InlineMath>{", set"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\alpha_o=\\frac{\\gamma_o}{\\sqrt{v_o+\\epsilon}},\\qquad\nW'_o=\\alpha_o W_o,\\qquad b'_o=\\beta_o+\\alpha_o(b_o-\\mu_o)."}</MathBlock></div>
+
+<Prose>{"Our float64 fixture matches within "}<InlineMath>{"3.4\\times10^{-16}"}</InlineMath>{". Training BatchNorm depends on the current batch, so that fixed folding argument does not apply. ReLU remains nonlinear even if a backend executes it in the same kernel. Memory layout changes, algebraic folding and actual kernel fusion should be evaluated separately when performance becomes the task."}</Prose>
+
+<Prose>{"One useful connection goes beyond recognizing images. A fixed grid stencil "}<InlineMath>{"\\begin{bmatrix}0&1&0\\\\1&-4&1\\\\0&1&0\\end{bmatrix}"}</InlineMath>{" computes a discrete Laplacian numerator. With center temperature 30 and four neighbors at 20, it gives −40: local curvature toward cooler surroundings. For grid spacing "}<InlineMath>{"h"}</InlineMath>{", divide by "}<InlineMath>{"h^2"}</InlineMath>{"; a diffusion equation also needs diffusivity, a time discretization and boundary conditions. This uses the same local weighted-sum mechanism, but the weights represent a specified numerical operator rather than parameters learned from labels."}</Prose>
+
+<H2>{"Implement the pullback and batch the arithmetic"}</H2>
+
+<Prose>{"The direct "}<code>{"direct_conv2d"}</code>{" routine in "}<a href={"/learn-code/convolution-pooling-receptive-fields/convolution-experiments.py"}>{"convolution-experiments.py"}</a>{" is a transparent indexing oracle: every output, input group and tap is visible. Its scalar Python loops are not the final recommendation for processing images. The companion "}<a href={"/learn-code/convolution-pooling-receptive-fields/convolution_pullbacks.py"}>{"convolution_pullbacks.py"}</a>{" retains the spatial-tap loops but performs all examples, channels and output locations together using "}<code>{"einsum"}</code>{". This opens the operation without allocating a full expanded patch matrix."}</Prose>
+
+<Prose>{"For valid dense NCHW cross-correlation, one tap contributes "}<code>{"images[:, :, row:row+OH, col:col+OW]"}</code>{" contracted with "}<code>{"weights[:, :, row, col]"}</code>{". The forward contraction is "}<code>{"bihw,oi->bohw"}</code>{". Given upstream derivative "}<code>{"bohw"}</code>{", the weight gradient contracts "}<code>{"bohw,bihw->oi"}</code>{"; the input gradient contracts "}<code>{"bohw,oi->bihw"}</code>{" and "}<strong>{"adds"}</strong>{" it into the corresponding input slice. Overlapping windows write to the same input, so assignment would lose contributions. Bias gradients sum batch and spatial axes."}</Prose>
+
+<Prose>{"The complete program contains all forward/backward functions and a same-input "}<code>{"F.conv2d"}</code>{" comparison for every derivative. It has the deliberately stated boundary of dense, stride-one, unpadded valid convolution; the earlier general routine still owns grouped, dilated and strided address calculation. Extending this pullback means applying exactly those same addresses in reverse. Autograd can perform that composition in the real classifier, so there is no need to reimplement its engine."}</Prose>
+
+<Prose>{"For B examples, I input channels, O outputs, K spatial taps and P output positions, the arithmetic is O(BIOKP), with activation/parameter/output storage plus a tap-sized contraction temporary; there is no explicit O(BIKP) im2col buffer. The maintained backend can use different kernels and layouts. This cost statement is not a measured speed ranking."}</Prose>
+
+<Prose>{"The same companion implements valid one-dimensional max/average pooling and their pullbacks. "}<code>{"sliding_window_view"}</code>{" exposes windows without copying each one. Maximum routing saves the first maximizing index per window; average routing distributes an upstream value over the window. "}<code>{"np.add.at"}</code>{" accumulates when maxima or average windows share an input. This is the implementation of the overlap diagrams, not an import of an opaque pooling operation. The script checks both with native PyTorch pooling. Padding, adaptive-window geometry and two-dimensional indexing follow the explicit conventions taught earlier; the real model continues to use native pooling."}</Prose>
+
+<Prose>{"Run "}<code>{"python convolution_pullbacks.py"}</code>{" with NumPy and PyTorch. The declared result is equality within float64 tolerances, not a new accuracy measurement. These code paths are separate from the saved digit fits."}</Prose>
+
+<ConvolutionProgram file="convolution_pullbacks.py" title="Read the complete vectorized convolution and pooling pullbacks" />
+
+<Prose>{""}<strong>{"Change the implementation:"}</strong>{" replace the upstream all-ones pooling vector by "}<code>{"[2,−1,3]"}</code>{" for values "}<code>{"[1,4,3,2,−1]"}</code>{", size3, stride1. Then extend the convolution pullback to stride2 by using the original forward sampling slice in both directions."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Max pooling sends each upstream value to one saved winner; mean pooling sends one third to each covered value. A stride changes selected input addresses, not the summation rule."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution and success criteria</summary>
+
+<Prose>{"The max winners are input indices1,1,2, so the derivative is "}<code>{"[0,1,3,0,0]"}</code>{". Mean pooling gives "}<code>{"[2/3,1/3,4/3,2/3,1]"}</code>{". For strided convolution select "}<code>{"row:row+stride*OH:stride"}</code>{" and its analogous column slice; accumulate the input derivative into that same strided slice. Match forward, input, weight and bias derivatives to "}<code>{"F.conv2d(..., stride=2)"}</code>{" on a rectangular image. Equality of outputs alone does not catch a mistaken overlapping scatter."}</Prose>
+
+</details>
+
+<H3>{"Adaptive pooling without a hidden implementation"}</H3>
+
+<Prose>{"The same program implements "}<code>{"adaptive_average1d"}</code>{" and its explicit pullback. For output bin "}<code>{"i"}</code>{", use "}<code>{"start = floor(i*n/m)"}</code>{" and "}<code>{"end = ceil((i+1)*n/m)"}</code>{", then average the half-open input range "}<code>{"[start, end)"}</code>{". These bins can overlap; they are not necessarily a disjoint partition. A prefix sum makes each bin sum a subtraction, for O(n+m) time and storage. The pullback adds "}<code>{"upstream[i] / (end-start)"}</code>{" to every member of that bin; a range-add difference array accumulates this in O(n+m), including overlapping bins. Prefix subtraction can lose relative precision when subtracting two large, almost equal cumulative sums; this float64 teaching implementation is not a guarantee of identical summation error to a native kernel."}</Prose>
+
+<Prose>{"The program compares values and input gradients with "}<code>{"torch.nn.functional.adaptive_avg_pool1d"}</code>{" for 5→3, 3→5 and global 5→1 pooling. The upsampling-shaped case is intentional: adaptive average pooling can create overlapping repeated bins even though no interpolation rule is being applied. "}<strong>{"Changed-input task:"}</strong>{" pool "}<code>{"[1, 2, 3, 4, 5]"}</code>{" into three bins with output cotangent "}<code>{"[1, 2, 3]"}</code>{". The bins are "}<code>{"[0,2)"}</code>{", "}<code>{"[1,4)"}</code>{" and "}<code>{"[3,5)"}</code>{", giving values "}<code>{"[1.5, 3, 4.5]"}</code>{" and input gradient "}<code>{"[1/2, 7/6, 2/3, 13/6, 3/2]"}</code>{". Verify the middle inputs collect all their participating bins, then extend the same construction along both axes for adaptive 2-D average pooling."}</Prose>
+
+<H2>{"11. Practice: construct, diagnose, transfer"}</H2>
+
+<Prose>{"Try the questions before opening the solutions. A correct number without explaining which cells and parameters participated is incomplete."}</Prose>
+
+<ol><li>{""}<strong>{"Changed filter."}</strong>{" On the first 3×3 image, replace the filter by "}<InlineMath>{"\\begin{bmatrix}1&0\\\\0&-1\\end{bmatrix}"}</InlineMath>{". Calculate all outputs. Then increase only the central pixel from 1 to 2 and identify every changed output."}</li><li>{""}<strong>{"Mix channels."}</strong>{" Two input channels have single-cell values 2 and 3. Build two output channels with a 1×1 convolution: first equals their sum, second equals their difference. Supply the complete weight and bias arrays. Which output changes if only channel two increases by one?"}</li><li>{""}<strong>{"A shape is not a coordinate."}</strong>{" Input width 10, kernel four, stride one, dilation one. Choose padding that preserves width. Give both asymmetric choices nearest to symmetry and their first output centers. Explain why equal-sized branches may still be misaligned."}</li><li>{""}<strong>{"Pooling ambiguity."}</strong>{" Give two different 2×2 windows with max four and average two. Can their pooled outputs reconstruct the original window? Then calculate the gradient of the sum of stride-one, size-two max pools on "}<InlineMath>{"[3,1,4]"}</InlineMath>{"."}</li><li>{""}<strong>{"A new receptive field."}</strong>{" Start with a 20-wide input. Apply kernel three/stride two/pad one, then kernel three/dilation two/stride one/pad two. Find output width, "}<InlineMath>{"r,j,a"}</InlineMath>{". Does a bounding width alone establish that all enclosed coordinates connect?"}</li><li>{""}<strong>{"Experiment diagnosis."}</strong>{" A model changes from 118 correct and CE 0.08 to 118 correct and CE 0.16. A colleague says nothing changed because accuracy is identical. Explain what else to inspect. Propose one controlled training change to investigate the observed shift failures, including what data can inform selection."}</li><li>{""}<strong>{"Optional adjoint problem."}</strong>{" Use "}<InlineMath>{"C"}</InlineMath>{" above and output-side values "}<InlineMath>{"[1,1]"}</InlineMath>{". Compute "}<InlineMath>{"C^\\top[1,1]"}</InlineMath>{", and name two distinct inputs with the same forward output."}</li><li>{""}<strong>{"Optional cost problem."}</strong>{" For 16 input and 32 output channels, compare weights in a dense 3×3 convolution with multiplier-one depthwise 3×3 followed by pointwise 1×1. Explain what measurement is still missing before claiming a speedup."}</li></ol>
+
+<details><summary>Hints</summary>
+
+<ol><li>{"Name each window by its top-left coordinate; a pixel can occupy different filter positions. 2. Each output has its own row of input-channel weights. 3. Total padding must equal "}<InlineMath>{"k-1"}</InlineMath>{"; use the center recurrence. 4. A window's sum must be eight. Overlapping gradients add. 5. Update "}<InlineMath>{"r"}</InlineMath>{" using the jump from before the layer. 6. CE depends on confidence in the true label, not just the largest logit. 7. Think about the difference filter acting on a constant. 8. Count separately before dividing; do not equate arithmetic and elapsed time."}</li></ol>
+
+</details>
+
+<details><summary>Worked solutions</summary>
+
+<ol><li>{"Outputs are "}<InlineMath>{"\\begin{bmatrix}0&-1\\\\-1&1\\end{bmatrix}"}</InlineMath>{". After editing the center, they become "}<InlineMath>{"\\begin{bmatrix}-1&-1\\\\-1&2\\end{bmatrix}"}</InlineMath>{". The other windows contain that pixel but multiply it by a zero coefficient, so they stay unchanged."}</li><li>{"Weights, in output/input/spatial order, are "}<InlineMath>{"[[[[1]],[[1]]],[[[1]],[[-1]]]]"}</InlineMath>{", biases "}<InlineMath>{"[0,0]"}</InlineMath>{". Outputs are "}<InlineMath>{"[5,-1]"}</InlineMath>{". Changing the second input to four gives "}<InlineMath>{"[6,-2]"}</InlineMath>{": both change, in opposite directions."}</li><li>{"Padding "}<InlineMath>{"(1,2)"}</InlineMath>{" gives first center 1; "}<InlineMath>{"(2,1)"}</InlineMath>{" gives center 0, using input centers "}<InlineMath>{"0.5,1.5,\\ldots"}</InlineMath>{". Both output widths are ten. Their center grids differ by one input pixel, so elementwise addition would combine different locations."}</li><li>{"Examples are "}<InlineMath>{"\\begin{bmatrix}4&2\\\\1&1\\end{bmatrix}"}</InlineMath>{" and "}<InlineMath>{"\\begin{bmatrix}4&0\\\\2&2\\end{bmatrix}"}</InlineMath>{". Both summaries match although the windows differ. The one-dimensional max outputs are "}<InlineMath>{"[3,4]"}</InlineMath>{"; gradient is "}<InlineMath>{"[1,0,1]"}</InlineMath>{"."}</li><li>{"First layer produces width ten, "}<InlineMath>{"r=3,j=2,a=0.5"}</InlineMath>{". Second preserves width ten and produces "}<InlineMath>{"r=11,j=2,a=0.5"}</InlineMath>{". Bounding widths alone are insufficient in general. Here the first layer's contiguous offsets plus the second layer's spaced offsets reach "}<InlineMath>{"\\{-5,-4,-3,-1,0,1,3,4,5\\}"}</InlineMath>{", leaving holes at −2 and 2 before boundary clipping."}</li><li>{"Inspect per-row true-class probabilities, especially incorrect and nearly tied examples; equal accuracy can hide worse confidence. One controlled trial adds small label-preserving translations to training images while keeping architecture, seed protocol and learning budget fixed. Inspect whether crops remain interpretable, then compare the same declared development conditions. These comparisons cannot be relabeled as untouched final-test evidence."}</li><li>{"The transpose result is "}<InlineMath>{"[1,0,-1]"}</InlineMath>{". Inputs "}<InlineMath>{"[1,3,2]"}</InlineMath>{" and "}<InlineMath>{"[2,4,3]"}</InlineMath>{" both produce "}<InlineMath>{"[-2,1]"}</InlineMath>{", because adding a constant leaves adjacent differences unchanged."}</li><li>{"Dense: "}<InlineMath>{"9(16)(32)=4,608"}</InlineMath>{" weights. Separable: "}<InlineMath>{"9(16)+16(32)=656"}</InlineMath>{", a ratio of about 7.02, excluding biases. Actual latency needs measurement for the target input/output sizes, batch, dtype, layout, backend, device and memory behavior; predictive quality also needs validation."}</li></ol>
+
+</details>
+
+<Prose>{"Core readiness means you can trace one output and update, connect channels correctly, plan spatial sizes and input regions, explain information lost by pooling, and interpret the controlled digit comparison. The optional questions extend that understanding; they are not a hidden requirement to begin the next lesson."}</Prose>
+
+<Prose>{"The next topic in this module is "}<a href={"/learn/path/full-curriculum/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet?module=deep-learning-fundamentals"}>{"Landmark Architectures: LeNet through EfficientNet"}</a>{". It will use these operators to explain architectural choices. Depthwise/dilated designs follow that topic; the route does not skip over an unprepared lesson."}</Prose>
+
+<H2>{"References and other ways to learn"}</H2>
+
+<ul><li>{""}<a href={"https://arxiv.org/pdf/1603.07285"}>{"Dumoulin and Visin, A Guide to Convolution Arithmetic for Deep Learning"}</a>{", v2: a visual reference for padding, stride and transposed operations. Use sections 2–3 after the geometry ruler, section 4 after the scatter example. Its operator arithmetic is durable; library-specific policies are checked separately here."}</li><li>{""}<a href={"https://www.youtube.com/watch?v=bNb2fEVKeEo"}>{"Stanford CS231n, Lecture 5: Convolutional Neural Networks"}</a>{": an alternate spoken introduction to convolution, pooling and the transition from dense layers. The official 2017 syllabus and video description were checked; the full video was not watched for this draft. Historical architecture examples are context, not current performance recommendations."}</li><li>{""}<a href={"https://distill.pub/2019/computing-receptive-fields/"}>{"Araujo, Norris and Sim, Computing Receptive Fields"}</a>{": interactive coordinate and multi-path diagrams, useful after calculating "}<InlineMath>{"r,j,a"}</InlineMath>{". Historical model comparisons do not prove that increasing receptive field alone causes better accuracy."}</li><li>{""}<a href={"https://arxiv.org/pdf/1701.04128"}>{"Luo and colleagues, Understanding the Effective Receptive Field"}</a>{": the advanced analytical and empirical source for distinguishing possible reach from concentration of input gradients. Read the assumptions before generalizing its profile shapes."}</li><li>{""}<a href={"https://distill.pub/2016/deconv-checkerboard/"}>{"Odena, Dumoulin and Olah, Deconvolution and Checkerboard Artifacts"}</a>{": an especially useful visual alternate route through overlap patterns and decoder choices."}</li><li>{""}<a href={"https://proceedings.mlr.press/v97/zhang19a.html"}>{"Zhang, Making Convolutional Networks Shift-Invariant Again"}</a>{": primary research motivating anti-aliasing around downsampling. The abstract was reviewed; the specific experiment results here come from our retained calculation and digit program."}</li><li>{""}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"}>{"PyTorch 2.14 Conv2d"}</a>{", "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.MaxPool2d.html"}>{"MaxPool2d"}</a>{", "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.AvgPool2d.html"}>{"AvgPool2d"}</a>{", "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.ConvTranspose2d.html"}>{"ConvTranspose2d"}</a>{", and "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.Fold.html"}>{"Fold"}</a>{": exact API policies, especially groups, padding, pooling denominators and overlap accumulation."}</li><li>{""}<a href={"https://docs.pytorch.org/tutorials/intermediate/memory_format_tutorial.html"}>{"Channels-last tutorial"}</a>{" and "}<a href={"https://docs.nvidia.com/deeplearning/performance/dl-performance-convolutional/index.html"}>{"NVIDIA convolution guide"}</a>{": optional engineering references for storage and algorithm choices. The NVIDIA examples include older device/software benchmarks; no timings from them are presented as our measurements."}</li><li>{""}<a href={"https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits"}>{"UCI Optical Recognition of Handwritten Digits"}</a>{": original data source, authors and license. Our subset, source IDs and exact split are documented in the adjacent provenance file."}</li></ul>
+  </div>,
 };
-
-export default convolutionPoolingRFContent;

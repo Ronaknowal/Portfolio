@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Conditional Random Fields — content design and continuation
 
 Stable ID `conditional-random-fields-crf`; Classical ML, Probabilistic & Graphical Models; authorized batch position 11. Mode: **research and write only**. Content complete after the author read and calculations below; root owns checkpoint registration. Implementation, formal independent review, rendered/keyboard review and publication are **not started**. User acceptance is separate. Prepared 12 September 2026.

@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-21T16:34:40.404Z",
+  "manifestHash": "5d2cedc67cd081e181fa01bf92fc2c078407e206d1e904afe0ebf8677b3fc460",
+  "changedTopics": [
+    "algorithm-correctness-loop-invariants-termination",
+    "arrays-strings-hash-maps",
+    "backtracking-divide-and-conquer",
+    "bash-scripting-command-line-automation",
+    "binary-search-sorting-two-pointer-patterns",
+    "complexity-analysis-recursion",
+    "computational-geometry-robust-predicates-convex-hulls",
+    "disjoint-sets-union-find",
+    "dynamic-programming-states-transitions-optimization",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+    "greedy-algorithms-exchange-arguments",
+    "k-means-hierarchical-clustering",
+    "learning-rate-schedules-cosine-warmup-onecyclelr",
+    "matrix-calculus-jacobians",
+    "network-flow-minimum-cuts-bipartite-matching",
+    "numerical-pdes-grids-finite-elements-stability",
+    "segment-trees-fenwick-trees-range-queries",
+    "shortest-paths-spanning-trees-topological-ordering",
+    "string-matching-prefix-functions-rolling-hashes",
+    "topology-topological-data-analysis-tda",
+    "vectors-matrices-tensor-operations",
+    "gaussian-processes-gp",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "calibration-conformal-prediction"
+  ],
+  "preservedTopics": 153,
+  "contentComplete": 177,
+  "implementationComplete": 135,
+  "preparedUnimplemented": 42,
+  "published": 231,
+  "reviewedProductionSources": 1701,
+  "reusedOlderSurvey": {
+    "manifestHash": "db8305f889392d46fe2b7e547630748582e7cda694be98031a236acf9d457dcb",
+    "unchangedSources": {
+      "src/learn/components/BPETrainer.jsx": "9c52c5f7c014f6d23b6153d6380c70674d13a0b19773069144867d70226ce076",
+      "src/learn/data/bpe-trainer-model.js": "29a55cb72e7e6a3696cba48e6204008b8ddf91068591c94f6ed6a4e17d24a39a",
+      "src/learn/components/viz/TokenStream.jsx": "4bc7bfd66ed89cbf49fa4b40a8e4cc8df077975513526072f5a1ce280765d228",
+      "src/learn/components/viz/StepTrace.jsx": "35b09f7251f1a79c18df44e1e984bed5a576acc4fdf7b2a2dc82c9254026bdb5",
+      "src/learn/components/topic-content.css": "b88f3fc029d3302727d2847e22f6f3bfeed16ba4c5a0ccee4aa950f57c5d1e66"
+    },
+    "explanation": "The final rebuild changed only two DSA sources; these older-route and shared source checks remain applicable."
+  },
+  "receipts": {
+    "docs/teaching/evidence/programming-dsa-control-review.json": "4a8d4a987a13e99ff2752066332f3925bfbbbfa4933615bc9ba034f519bce189",
+    "docs/teaching/evidence/math-control-affordances-browser.json": "dcab81db01e1fb872647ab338ee456212f041cd9488913b8ec667b5ea550f0d4",
+    "docs/teaching/evidence/classical-control-followup-browser.json": "4ad9b7c7c96346095087d2c4f3b6f11ae4954eb8e36e19266ed3cc28cb29935d",
+    "docs/teaching/evidence/published-lesson-ui-repairs.json": "e0d727374f27e49948795b55c4111947eb3c1612a14817af30c8177b685b4623"
+  }
+}

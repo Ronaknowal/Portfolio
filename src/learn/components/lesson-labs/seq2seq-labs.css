@@ -1,0 +1,29 @@
+.seq2seq-lesson .neural-lab { background: #101010; border-color: #444; }
+.seq2seq-lesson .neural-lab input, .seq2seq-lesson .neural-lab select, .seq2seq-lesson .neural-lab button { background: #191919; border-color: #68645a; color: #f0cd7c; min-height: 44px; }
+.seq2seq-lesson .neural-table-scroll th, .seq2seq-lesson .neural-table-scroll td { border-color: #3b3b3b; }
+.seq2seq-lesson .neural-chart text { fill: #ddd; }
+.seq2seq-lesson .neural-chart > line { stroke: #888; }
+.seq2seq-lesson summary { color: #f0cd7c; cursor: pointer; padding: .75rem 0; }
+.seq2seq-lesson .seq-token-strip { margin: 1.2rem 0; min-width: 0; }
+.seq2seq-lesson .seq-token-strip figcaption { font-weight: 600; line-height: 1.6; }
+.seq2seq-lesson .seq-token-strip ol { display: flex; flex-wrap: wrap; list-style: none; gap: .4rem; padding: 0; }
+.seq2seq-lesson .seq-token-strip li { display: grid; min-width: 32px; text-align: center; gap: .2rem; margin: 0; padding: .3rem .55rem; border: 1px solid #555; background: #202020; }
+.seq2seq-lesson .seq-token-strip li.is-active { border-color: #e4b752; background: #302718; }
+.seq2seq-lesson .seq-token-strip small { font-size: 10px; color: #bbb; }
+.seq2seq-lesson .seq-token-strip span { font: 13px monospace; }
+.seq2seq-lesson .seq-context-bridge, .seq2seq-lesson .seq-result { border-left: 3px solid #e4b752; background: #201d15; padding: 1rem; line-height: 1.7; overflow-wrap: anywhere; }
+.seq2seq-lesson .seq-text-control { display: grid; gap: .5rem; align-content: start; }
+.seq2seq-lesson .seq-text-control input { width: 100%; box-sizing: border-box; }
+.seq2seq-lesson .seq-text-control small { color: #f1bd94; line-height: 1.6; }
+.seq2seq-lesson .seq-state-flow, .seq2seq-lesson .seq-tree { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1rem; margin: 1rem 0; }
+.seq2seq-lesson .seq-state-flow > div { display: grid; gap: .8rem; border: 1px solid #555; padding: 1rem; background: #181818; min-width: 0; overflow-wrap: anywhere; }
+.seq2seq-lesson .seq-probability-bar { height: 15px; background: #555; }
+.seq2seq-lesson .seq-probability-bar > span { display: block; height: 100%; background: #e4b752; }
+.seq2seq-lesson .seq-tree > div { padding: 1rem; border-top: 2px solid #e4b752; background: #1e1e1e; }
+.seq2seq-lesson .seq-tree > div > div { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.seq2seq-lesson .seq-tree p { border-left: 1px solid #888; padding-left: .5rem; }
+.seq2seq-lesson .seq-program pre { max-width: 100%; max-height: 560px; overflow: auto; font-size: 12px; line-height: 1.7; padding: 1rem; background: #111; }
+.seq2seq-lesson .seq-program a { overflow-wrap: anywhere; }
+.seq2seq-lesson .seq-next-probabilities > div { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr) 5.8rem; gap: .5rem; align-items: center; margin: .5rem 0; font-size: 13px; }
+.seq2seq-lesson .seq-next-probabilities > div > div { height: 18px; background: #292929; }
+.seq2seq-lesson .seq-next-probabilities > div > div > span { display: block; height: 100%; background: #e4b752; }

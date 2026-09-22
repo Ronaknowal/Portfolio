@@ -1,827 +1,526 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+// Complete revision-3 prepared manuscript; statically rendered at authoring time.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { CapsuleGrouping, CapsuleVoteLab, CapsuleSquashLab, CapsuleEvidenceLab, CapsuleFrozenInvestigation, CapsuleGeometryFigure, CapsuleEMLab, CapsuleClassicShape, CapsuleProgram, capsuleAsset } from '../../components/lesson-labs/CapsuleLabs.jsx';
+export default {
+ title: 'Capsule Networks',
+ readTime: '~70 min read + code, live investigations and practice; optional deeper mechanics',
+ hasIntegratedGuide: true,
+ content: () => <div className="neural-lesson capsule-lesson"><LessonIntro prerequisites="Vector addition, matrix multiplication, convolution shapes and the idea of learning through a loss. Capsule-specific vocabulary and axes are introduced here." sections={[["1-a-capsule-is-a-bundle-of-properties","1. A capsule is a bundle of properties"],["2-from-a-part-to-a-prediction-about-a-whole","2. From a part to a prediction about a whole"],["3-routing-is-a-short-inference-computation","3. Routing is a short inference computation"],["4-build-the-classifier-and-its-objective","4. Build the classifier and its objective"],["5-run-a-controlled-experiment-on-real-digits","5. Run a controlled experiment on real digits"],["6-geometry-reconstruction-and-a-useful-failure","6. Geometry, reconstruction and a useful failure"],["7-deeper-mechanics-gradients-and-explicit-coordinate-frames","7. Deeper mechanics: gradients and explicit coordinate frames"],["follow-routing-all-the-way-into-a-trainable-program","Follow routing all the way into a trainable program"],["8-architecture-costs-and-alternative-routing-designs","8. Architecture costs and alternative routing designs"],["9-practice-implement-explain-and-compare","9. Practice: implement, explain and compare"],["10-continue-and-learn-another-way","10. Continue and learn another way"]]}>Follow one image from grouped properties to votes, assignments and class vectors. Build the mechanism, train a controlled model, and test what its geometry actually supports.</LessonIntro>
+<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit capsule votes, routing iterations, vector magnitude/direction and supported retained image/latent coordinates. Follow the coupling rows, vote contributions, squash length/direction, current parent vectors and saved/frozen-model outputs. Step routing to inspect its computation, with all current outputs visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish agreement from activation magnitude, pose changes from class evidence and a model intervention from a new empirical result."}</Prose>
 
-const capsuleNetworksContent = {
-  title: "Capsule Networks",
-  readTime: "~35 min",
-  content: () => (
-    <div>
+<Prose>{"A wheel detector firing twice is not enough to recognize a bicycle. The wheels also need a plausible arrangement relative to a frame. A "}<strong>{"capsule network"}</strong>{" tries to combine evidence about a part's presence with a vector or matrix describing its properties, then asks whether several parts inspect a compatible whole."}</Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+<Prose>{"In "}<a href={"/learn/path/full-curriculum/convnext-modern-cnn-designs?module=deep-learning-fundamentals"}>{"ConvNeXt"}</a>{", we changed how a convolutional network mixes spatial and channel information. Here the question changes: "}<strong>{"can the network decide, for this particular input, which higher-level entity should receive each part's evidence?"}</strong>{" We will build that computation, train a small classifier and test what the computation does and does not establish."}</Prose>
 
-      <Prose>
-        Geoffrey Hinton spent most of a decade complaining about one specific operation in convolutional neural networks. In his 2014 MIT AI Lab talk, then again at his 2017 "What is wrong with convolutional neural nets?" lecture, and repeatedly on Twitter and in interviews, he said it plainly: "The pooling operation used in convolutional neural networks is a big mistake, and the fact that it works so well is a disaster." The complaint was not that pooling failed to work. It was that pooling worked for the wrong reason. Max-pooling throws away information about where exactly a feature is and how it is oriented, keeping only the fact that it exists somewhere in the receptive field. That is called translation invariance, and it is useful for classification. But it is the opposite of what a visual system needs to do perceptual inference — where the pose of a part is exactly the signal that lets you reason about the whole.
-      </Prose>
+<Prose>{""}<strong>{"First pass:"}</strong>{" follow sections 1–6, run the small offline program or inspect its saved results, then attempt practice 1–5 and 8. You only need vector addition, matrix multiplication and the idea that a loss guides parameter updates. Sections 7–8 and practice 6–7 develop derivatives, matrix routing and engineering tradeoffs; they are a deeper branch, not a condition for understanding the core lesson."}</Prose>
 
-      <Prose>
-        Hinton had been trying to formalize this alternative since the early 2010s. The proto-capsule idea appeared in Hinton, Krizhevsky, and Wang's 2011 paper "Transforming Auto-encoders" at ICANN. The construction was deliberately different from a standard CNN. Each "capsule" was a small group of neurons whose outputs represented an instantiation parameter of a visual entity: not just whether a nose was present, but its pose — its position, rotation, scale, and deformation. The network was trained to reconstruct a transformed input given the transformation as side information, forcing the capsule to store explicit pose. The paper was quiet, cited slowly, and was most useful as a precursor — a "this is what we mean by capsule" reference.
-      </Prose>
+<H2>{"1. A capsule is a bundle of properties"}</H2>
 
-      <Prose>
-        The idea hit public consciousness six years later. Sara Sabour, Nicholas Frosst, and Geoffrey Hinton published "Dynamic Routing Between Capsules" at NeurIPS 2017 (arXiv:1710.09829). The paper introduced a concrete, trainable architecture — CapsNet — built on three novel pieces: (1) vector-valued capsule outputs whose length encodes probability of entity presence and whose direction encodes pose; (2) a squash activation that maps any vector to the open unit ball while preserving direction; (3) dynamic routing-by-agreement, an iterative procedure in which lower-level capsules vote for which higher-level capsules they belong to, and the agreements tighten across a few iterations. CapsNet hit 99.23% on MNIST and, more interestingly, beat a matched baseline on "MultiMNIST" — a task where two digits overlap and the model has to disentangle both. That last result was the emotional high point of the paper: capsules could segment because they explicitly represented part-whole composition, not just texture.
-      </Prose>
+<Prose>{"Imagine a local image feature represented by the vector "}<InlineMath>{"u=(0.3,0.4)"}</InlineMath>{". Its length is "}<InlineMath>{"0.5"}</InlineMath>{". In a vector-capsule design, length is used as a presence "}<strong>{"score"}</strong>{" and the remaining variation can carry information useful for describing the feature."}</Prose>
 
-      <Prose>
-        The follow-up arrived the next year. Hinton, Sabour, and Frosst published "Matrix Capsules with EM Routing" at ICLR 2018. The new formulation replaced the 8- or 16-dimensional vectors with 4{"\u00d7"}4 pose matrices plus a scalar activation, and replaced dynamic routing with Expectation-Maximization — lower capsules were modeled as data points and higher capsules as Gaussian clusters in pose space. The paper claimed state-of-the-art on smallNORB (a dataset of 3D-rendered toys photographed from many viewpoints), specifically beating CNNs on viewpoint generalization, which was the whole point. Training cost tripled compared to dynamic routing.
-      </Prose>
+<Prose>{"This does not mean coordinate 1 must be “rotation” and coordinate 2 must be “width.” A network can learn mixed, entangled coordinates. Calling a vector a pose vector is an architectural intention; interpreting a coordinate physically requires evidence from controlled input changes or reconstruction experiments."}</Prose>
 
-      <Prose>
-        Ribeiro, Leontidis, and Kollias (AAAI 2019, arXiv:1905.11455) pushed the interpretation further with "Capsule Routing via Variational Bayes," framing routing as variational inference in a mixture model and deriving a principled alternative to EM routing. Ahmed and Torresani's "STAR-Caps" (arXiv:1911.12257) introduced straight-through attention routing, avoiding iterative procedures altogether in favor of a single forward pass. And Paik, Kwak, and Kim's critical review "Capsule Networks Need an Improved Routing Algorithm" (ACML 2019, arXiv:1907.12701) empirically showed that the dynamic routing procedure often does not converge to agreement — the coupling coefficients drift rather than sharpen, and random routing can match trained routing on several benchmarks. That paper was the beginning of the honeymoon ending.
-      </Prose>
+<Prose>{"A usual CNN feature tensor already contains multiple channels at multiple positions. Capsules make a particular grouping and downstream computation explicit:"}</Prose>
 
-      <Prose>
-        Capsules did not take over. Several reasons, all decisive. First, training is slow: routing requires iterating over inner products between every lower capsule and every higher capsule on every forward pass, and the routing coefficients are not differentiable unless you accept a biased gradient. Second, capsules were only ever competitive on small datasets (MNIST, smallNORB, fashionMNIST) — attempts to scale to CIFAR-10 hit 89% at best against a ResNet's 95%+, and ImageNet was never seriously attempted in a published paper with vanilla capsules. Third, and most fatal, the transformer happened. Vaswani et al.'s 2017 NeurIPS paper appeared two months before Sabour's. Within three years, Vision Transformers (Dosovitskiy et al. 2020) demonstrated that attention over patches could match and then exceed CNNs at scale. Attention solved the part-whole composition problem differently — by learning pairwise dependencies directly — and scaled beautifully. Group-equivariant CNNs (Cohen and Welling, 2016, arXiv:1602.07576) filled the equivariance niche with a more mathematically elegant framework. Capsules ended up in the strange place of being theoretically compelling, practically unreliable, and replaced by methods that never tried to solve the same problem.
-      </Prose>
+<NeuralTable caption={"1. A capsule is a bundle of properties"} headers={[<>{"Representation"}</>,<>{"What is stored at one location?"}</>,<>{"How is it combined later?"}</>]} rows={[[<>{"Ordinary feature map"}</>,<>{"Several scalar channel values"}</>,<>{"Fixed learned convolutions or other mixing"}</>],[<>{"Vector capsule"}</>,<>{"A group of coordinates, such as an 8-vector"}</>,<>{"Transform into candidate whole-vectors, then combine by routing"}</>],[<>{"Matrix capsule"}</>,<>{"A pose matrix plus a separate activation scalar"}</>,<>{"Transform into candidate matrices, then estimate agreement and activation"}</>]]} />
 
-      <Callout accent="gold">
-        The lesson of capsules is not that they were wrong — they encoded a real insight that pooling throws away pose. The lesson is that a theoretically attractive inductive bias loses to a less principled method that scales. Attention does not explicitly represent parts and wholes, but it turned out you can learn that representation from enough data without handcoding it. Capsule networks are now mostly of interest as a historical object and as a teaching tool for equivariance and routing-as-inference.
-      </Callout>
+<Prose>{"The distinction is not “CNNs contain no geometry.” Convolutions retain a spatial grid; channels can encode positional or orientation-sensitive information. Pooling can discard some exact detail, but its effect depends on the operation, boundaries and task. Capsule systems commonly begin with ordinary convolutions."}</Prose>
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<Prose>{"A useful mental picture is an "}<strong>{"arrow"}</strong>{", not a glowing neuron: arrow direction carries a multidimensional state and arrow length carries a bounded score. The zero arrow has no direction. Ten class-capsule lengths need not sum to one, so they are not a softmax distribution or automatically calibrated probabilities."}</Prose>
 
-      <H3>2.1 A capsule is a vector, not a scalar</H3>
+<CapsuleGrouping />
 
-      <Prose>
-        A neuron in a standard CNN outputs a single number: how strongly a feature template matches this region. A capsule outputs a vector (in the 2017 paper) or a pose matrix plus a scalar (in the 2018 paper). The length of the vector is interpreted as probability: short means "this entity is probably not here," long (bounded below 1 by the squash) means "this entity is here with high confidence." The direction of the vector is interpreted as the entity's instantiation parameters: pose, orientation, lighting, deformation. One capsule represents one visual entity instance, along with everything you would need to know to re-render it.
-      </Prose>
+<H2>{"2. From a part to a prediction about a whole"}</H2>
 
-      <Prose>
-        This is a fundamentally different representational contract. A standard feature map has shape <Code>{"[B, C, H, W]"}</Code> — a grid of scalars per channel. A capsule layer has shape <Code>{"[B, N_caps, D]"}</Code> — a set of <Code>{"N_caps"}</Code> vectors of dimension <Code>D</Code>. The spatial grid has collapsed into the capsule index, and the channel dimension has become a pose dimension. The shape alone tells you the network is no longer asking "what is here at each location?" but "what entities are in this image, and how are they posed?"
-      </Prose>
+<Prose>{"A front wheel and a back wheel should make different predictions about the bicycle's center. The relation between each part and the whole matters."}</Prose>
 
-      <H3>2.2 Viewpoint equivariance vs translation invariance</H3>
+<Prose>{"For child capsule "}<InlineMath>{"i"}</InlineMath>{" and candidate parent "}<InlineMath>{"j"}</InlineMath>{", learn a transformation matrix "}<InlineMath>{"W_{ij}"}</InlineMath>{". The "}<strong>{"vote"}</strong>{""}</Prose>
 
-      <Prose>
-        The deep pathology of pooling is that it discards a signal we care about in order to gain a property we sometimes want. Max-pooling over a 2{"\u00d7"}2 region reduces the spatial dimension by half and, by keeping only the maximum, makes the feature invariant to small translations. That is useful if you only ever want to classify whether an object is present. It is disastrous if you want to do anything else: reason about the object's orientation, recognize it from a new angle, segment overlapping instances, or re-render it. Pooling bakes invariance into the architecture.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\widehat u_{j|i}=W_{ij}u_i"}</MathBlock></div>
 
-      <Prose>
-        Capsules replace invariance with equivariance. The claim is: if you rotate the input, the capsule representing the rotated object should rotate in its pose space — the vector direction (or pose matrix) should change in a predictable way, not collapse. The length (presence) should stay the same. This is the classical definition of equivariance: the representation transforms in a structured way under input transformations. Equivariance is strictly more informative than invariance, because you can always recover invariance from an equivariant representation (throw away the pose) but you cannot recover pose from an invariant one.
-      </Prose>
+<Prose>{"is child "}<InlineMath>{"i"}</InlineMath>{"'s prediction of parent "}<InlineMath>{"j"}</InlineMath>{"'s representation. If "}<InlineMath>{"u_i"}</InlineMath>{" has 4 coordinates and the parent has 8, "}<InlineMath>{"W_{ij}"}</InlineMath>{" has shape "}<InlineMath>{"8\\times4"}</InlineMath>{". A child has a different vote for each parent. Comparing its untransformed vector directly with every parent would skip the learned relationship."}</Prose>
 
-      <H3>2.3 Routing-by-agreement</H3>
+<Prose>{"Suppose three children send these two-dimensional votes:"}</Prose>
 
-      <Prose>
-        The second half of the capsule idea is how lower-level capsules get combined into higher-level ones. The standard answer in a CNN is: learn a bunch of filters that do weighted sums of the feature map. The capsule answer is: let each lower capsule predict where the higher capsule should be, based on its own pose and a learned transformation, and then weight its contribution by how much it agrees with the other predictions.
-      </Prose>
+<NeuralTable caption={"2. From a part to a prediction about a whole"} headers={[<>{"Child"}</>,<>{"Vote for parent A"}</>,<>{"Vote for parent B"}</>]} rows={[[<>{"1"}</>,<>{""}<InlineMath>{"(2,0)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"(0,1)"}</InlineMath>{""}</>],[<>{"2"}</>,<>{""}<InlineMath>{"(2,0)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"(0,-1)"}</InlineMath>{""}</>],[<>{"3"}</>,<>{""}<InlineMath>{"(0,1)"}</InlineMath>{""}</>,<>{""}<InlineMath>{"(0,2)"}</InlineMath>{""}</>]]} />
 
-      <Prose>
-        The intuition is physical. If a nose-capsule and a mouth-capsule both predict the same pose for a face-capsule — same position, same orientation, same scale — they are probably part of the same face. If they predict wildly different face-poses, they probably belong to different faces or to nothing. The coupling coefficient <Code>{"c_{ij}"}</Code> (lower capsule <Code>i</Code> to higher capsule <Code>j</Code>) is the soft assignment of <Code>i</Code>'s vote to <Code>j</Code>; it is updated iteratively by measuring how well <Code>i</Code>'s prediction matches the current consensus for <Code>j</Code>. A few iterations later, the couplings have sharpened and each lower capsule contributes primarily to one higher capsule.
-      </Prose>
+<Prose>{"This is a constructed arithmetic example, not measured image features. Children 1 and 2 reinforce each other for A but oppose each other for B. Child 3 could support B."}</Prose>
 
-      <H3>2.4 Soft assignment replaces max-pool</H3>
+<Prose>{"We need a way to combine the votes without fixing every connection strength for every image. Define "}<InlineMath>{"c_{ij}"}</InlineMath>{" as child "}<InlineMath>{"i"}</InlineMath>{"'s fraction assigned to parent "}<InlineMath>{"j"}</InlineMath>{". Initially, with two parents, each row is "}<InlineMath>{"(0.5,0.5)"}</InlineMath>{"."}</Prose>
 
-      <Prose>
-        Viewed through this lens, routing-by-agreement is the explicit alternative to max-pooling. Max-pool picks the strongest activation in a region and discards the rest. Routing does something much richer: it computes a soft assignment matrix between lower capsules and higher capsules, then pools <em>predictions</em> rather than activations. The pose of the higher capsule is determined by the consensus of its selected voters, which is an average weighted by agreement. Nothing is discarded — voters that disagree simply carry less weight and may be routed to a different higher capsule.
-      </Prose>
+<Prose>{"The tentative parent inputs are "}<strong>{"weighted sums"}</strong>{":"}</Prose>
 
-      <H3>2.5 Why the vector length is probability</H3>
+<div className="neural-equation"><MathBlock>{"s_j=\\sum_i c_{ij}\\widehat u_{j|i}."}</MathBlock></div>
 
-      <Prose>
-        The squash function <Code>{"v = ||s||^2 / (1 + ||s||^2) \\cdot s / ||s||"}</Code> is carefully chosen so that any input vector gets mapped to a vector whose length lies in <Code>{"[0, 1)"}</Code>. As <Code>{"||s|| \\to 0"}</Code>, the output length approaches 0. As <Code>{"||s|| \\to \\infty"}</Code>, the output length approaches 1 but never reaches it. This makes length an honest probability-like signal that can be directly thresholded, compared, or used as the target of a margin loss. The direction is preserved exactly — the normalization <Code>{"s / ||s||"}</Code> keeps the orientation of <Code>s</Code>, so pose information survives the squashing step.
-      </Prose>
+<Prose>{"Initially "}<InlineMath>{"s_A=(2,0.5)"}</InlineMath>{" and "}<InlineMath>{"s_B=(0,1)"}</InlineMath>{". The weights sum to one "}<strong>{"across parents for each child"}</strong>{". They generally do not sum to one across children for a parent. Therefore this operation is not a weighted average of the incoming votes."}</Prose>
 
-      {/* ======================================================================
-          3. MATH FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<Prose>{"That distinction matters: duplicating two agreeing children can strengthen the parent input. A routing diagram should show both the incoming arrows and their scalar contribution weights, not only a heatmap."}</Prose>
 
-      <H3>3.1 Squash activation</H3>
+<H3>{"Keeping the output length below one"}</H3>
 
-      <Prose>
-        For a pre-activation vector <Code>{"s \\in \\mathbb{R}^d"}</Code>, the squash activation is:
-      </Prose>
+<Prose>{"Use the squash function"}</Prose>
 
-      <MathBlock>{"v = \\frac{\\|s\\|^2}{1 + \\|s\\|^2} \\cdot \\frac{s}{\\|s\\|}"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"v=\\operatorname{squash}(s)=\\frac{r}{1+r^2}s,\\qquad r=\\|s\\|."}</MathBlock></div>
 
-      <Prose>
-        The scalar prefactor <Code>{"\\|s\\|^2 / (1 + \\|s\\|^2)"}</Code> is a sigmoid-like monotonic map <Code>{"[0, \\infty) \\to [0, 1)"}</Code>. The unit-vector term <Code>{"s / \\|s\\|"}</Code> preserves direction. Setting <Code>{"\\|s\\| = 1"}</Code> gives <Code>{"\\|v\\| = 0.5"}</Code>; setting <Code>{"\\|s\\| = 3"}</Code> gives <Code>{"\\|v\\| = 0.9"}</Code>; setting <Code>{"\\|s\\| = 10"}</Code> gives <Code>{"\\|v\\| = 0.99"}</Code>. The verified values in section 4 confirm this to four decimal places.
-      </Prose>
+<Prose>{"Its output length is"}</Prose>
 
-      <H3>3.2 Prediction vectors</H3>
+<div className="neural-equation"><MathBlock>{"\\|v\\|=\\frac{r^2}{1+r^2}."}</MathBlock></div>
 
-      <Prose>
-        Every lower capsule <Code>i</Code> carries its own pose vector <Code>{"u_i \\in \\mathbb{R}^{d_{in}}"}</Code>. To predict what higher capsule <Code>j</Code>'s pose should be given <Code>i</Code>'s pose, the network learns a transformation matrix <Code>{"W_{ij} \\in \\mathbb{R}^{d_{out} \\times d_{in}}"}</Code>. The prediction vector (also called the "vote" from <Code>i</Code> to <Code>j</Code>) is:
-      </Prose>
+<Prose>{"Small inputs become very short; large inputs approach length one. Direction is preserved whenever "}<InlineMath>{"s\\ne0"}</InlineMath>{", and "}<InlineMath>{"\\operatorname{squash}(0)=0"}</InlineMath>{". This form avoids an explicit division by the norm at zero."}</Prose>
 
-      <MathBlock>{"\\hat{u}_{j|i} = W_{ij} \\, u_i"}</MathBlock>
+<Prose>{"For parent B, "}<InlineMath>{"r=1"}</InlineMath>{", so "}<InlineMath>{"v_B=(0,0.5)"}</InlineMath>{". For A, "}<InlineMath>{"r=\\sqrt{4.25}"}</InlineMath>{", giving "}<InlineMath>{"v_A\\approx(0.78535,0.19634)"}</InlineMath>{", length "}<InlineMath>{"0.80952"}</InlineMath>{". A has the stronger initial score."}</Prose>
 
-      <Prose>
-        In the 2017 CapsNet, lower capsules are 8-dimensional (<Code>{"d_{in} = 8"}</Code>) and higher capsules are 16-dimensional (<Code>{"d_{out} = 16"}</Code>), and there are 32{"\u00d7"}6{"\u00d7"}6 = 1152 primary capsules and 10 digit capsules. So <Code>W</Code> has shape <Code>{"[1152, 10, 16, 8]"}</Code>, which alone accounts for 1.47M parameters — the vast majority of CapsNet's total.
-      </Prose>
+<Prose>{"Do not read the output as “an 80.95% probability of a bicycle.” A bounded range and a probabilistic interpretation are different requirements."}</Prose>
 
-      <H3>3.3 Coupling coefficients</H3>
+<CapsuleSquashLab />
 
-      <Prose>
-        The coupling coefficient <Code>{"c_{ij}"}</Code> is a soft assignment of lower capsule <Code>i</Code>'s output to higher capsule <Code>j</Code>. It is derived from unnormalized routing logits <Code>{"b_{ij}"}</Code> (initialized to 0 at the start of each forward pass) via a softmax over the <em>higher</em> capsule index:
-      </Prose>
+<H2>{"3. Routing is a short inference computation"}</H2>
 
-      <MathBlock>{"c_{ij} = \\frac{\\exp(b_{ij})}{\\sum_k \\exp(b_{ik})}"}</MathBlock>
+<Prose>{""}<strong>{"Routing by agreement"}</strong>{" repeatedly revises the connection fractions within one forward pass. This is different from updating model parameters across training examples."}</Prose>
 
-      <Prose>
-        The softmax is over <Code>j</Code> (axis of higher capsules) with <Code>i</Code> fixed, so <Code>{"\\sum_j c_{ij} = 1"}</Code> for every lower capsule <Code>i</Code>. That makes the routing a proper probabilistic assignment: each lower capsule distributes its total influence of 1 across all higher capsules. If you softmax over the wrong axis (over <Code>i</Code> with <Code>j</Code> fixed), you get a very different and incorrect operation — a point we verify in section 9.3.
-      </Prose>
+<Prose>{"Start a logit "}<InlineMath>{"b_{ij}=0"}</InlineMath>{" for each child–parent pair. A logit is an unconstrained score used by softmax. For each routing step:"}</Prose>
 
-      <H3>3.4 Dynamic routing iterations</H3>
+<ol><li>{"Compute "}<InlineMath>{"c_{ij}=\\exp(b_{ij})/\\sum_k\\exp(b_{ik})"}</InlineMath>{", normalizing over candidate parents."}</li><li>{"Sum the weighted votes into "}<InlineMath>{"s_j"}</InlineMath>{", then squash to obtain "}<InlineMath>{"v_j"}</InlineMath>{"."}</li><li>{"If another routing step remains, update "}<InlineMath>{"b_{ij}\\leftarrow b_{ij}+\\widehat u_{j|i}^{\\mathsf T}v_j"}</InlineMath>{"."}</li></ol>
 
-      <Prose>
-        The routing procedure updates <Code>{"b_{ij}"}</Code> across a small number of iterations (3 in the paper) based on how well each prediction <Code>{"\\hat{u}_{j|i}"}</Code> agrees with the current higher-capsule output <Code>{"v_j"}</Code>:
-      </Prose>
+<Prose>{"Subtracting the row maximum before exponentiation gives the same softmax with better numerical stability. The agreement is a "}<strong>{"dot product"}</strong>{": both direction and magnitude affect it. It is not cosine similarity unless the operands are explicitly normalized, which would define a different routing rule."}</Prose>
 
-      <MathBlock>{"s_j = \\sum_i c_{ij} \\, \\hat{u}_{j|i}, \\qquad v_j = \\text{squash}(s_j), \\qquad b_{ij} \\leftarrow b_{ij} + \\hat{u}_{j|i} \\cdot v_j"}</MathBlock>
+<Prose>{"For our first step, child 1's agreements are approximately "}<InlineMath>{"1.5707"}</InlineMath>{" with A and "}<InlineMath>{"0.5"}</InlineMath>{" with B. Child 2 agrees by "}<InlineMath>{"1.5707"}</InlineMath>{" with A and "}<InlineMath>{"-0.5"}</InlineMath>{" with B. Child 3 agrees by "}<InlineMath>{"0.1963"}</InlineMath>{" with A and "}<InlineMath>{"1.0"}</InlineMath>{" with B. Those differences change the next softmax rows."}</Prose>
 
-      <Prose>
-        The update rule is: the logit increases where the prediction matches the consensus (positive dot product) and decreases where it disagrees. After a few iterations, lower capsules concentrate their coupling on higher capsules that their predictions support, and higher capsules' outputs stabilize. One subtle but important detail: during the routing iterations, the predictions <Code>{"\\hat{u}_{j|i}"}</Code> are detached from the computation graph — only the <em>last</em> iteration contributes to gradient flow through <Code>W</Code>. This is the standard PyTorch implementation and is consistent with how the original TensorFlow code was written.
-      </Prose>
+<NeuralTable caption={"3. Routing is a short inference computation"} headers={[<>{"Step"}</>,<>{"Child 1 → A"}</>,<>{"Child 2 → A"}</>,<>{"Child 3 → A"}</>,<>{"A length"}</>,<>{"B length"}</>]} rows={[[<>{"1"}</>,<>{".5000"}</>,<>{".5000"}</>,<>{".5000"}</>,<>{".8095"}</>,<>{".5000"}</>],[<>{"2"}</>,<>{".7447"}</>,<>{".8880"}</>,<>{".3092"}</>,<>{".9150"}</>,<>{".6993"}</>],[<>{"3"}</>,<>{".8996"}</>,<>{".9900"}</>,<>{".1076"}</>,<>{".9346"}</>,<>{".7786"}</>]]} />
 
-      <H3>3.5 Margin loss</H3>
+<Prose>{"Each B fraction is one minus the corresponding A fraction. Both parents can acquire substantial scores because different children support them."}</Prose>
 
-      <Prose>
-        The per-class loss for capsule <Code>k</Code> with target indicator <Code>{"T_k \\in \\{0, 1\\}"}</Code> is:
-      </Prose>
+<CapsuleVoteLab />
 
-      <MathBlock>{"L_k = T_k \\, \\max(0, \\, m^+ - \\|v_k\\|)^2 + \\lambda \\, (1 - T_k) \\, \\max(0, \\, \\|v_k\\| - m^-)^2"}</MathBlock>
+<details>
 
-      <Prose>
-        with <Code>{"m^+ = 0.9"}</Code>, <Code>{"m^- = 0.1"}</Code>, and <Code>{"\\lambda = 0.5"}</Code>. The first term penalizes the target capsule when its length is below 0.9 (wants it closer to 1). The second term penalizes non-target capsules when their length exceeds 0.1 (wants them closer to 0). The <Code>{"\\lambda"}</Code> factor down-weights the negative term to stop early training from collapsing all capsule lengths to zero. The total loss is <Code>{"\\sum_k L_k"}</Code>.
-      </Prose>
+<summary>Worked changed-vote calculation</summary>
 
-      <H3>3.6 Reconstruction regularizer</H3>
+<Prose>{"The computed lengths become approximately .6491 for A and .8585 for B. Explain the cancellation, then explain why child 3's reassignment also matters. Try a different edited vote without being given its answer in advance."}</Prose>
 
-      <Prose>
-        The CapsNet paper adds a reconstruction decoder that takes the 16-dimensional vector of the target capsule (other capsules zeroed via masking) and reconstructs the input image through a small MLP (<Code>{"16 \\to 512 \\to 1024 \\to 784"}</Code> with ReLU then sigmoid). The reconstruction loss is MSE against the original image, added to the margin loss with coefficient <Code>{"\\alpha = 0.0005"}</Code>:
-      </Prose>
+</details>
 
-      <MathBlock>{"L_{total} = L_{margin} + \\alpha \\cdot \\|x - \\hat{x}\\|_2^2"}</MathBlock>
+<Prose>{"Two useful null cases guard against overinterpreting the animation:"}</Prose>
 
-      <Prose>
-        The small <Code>{"\\alpha"}</Code> keeps reconstruction from dominating classification. The decoder is the regularizer: to reconstruct the input, the target capsule's 16 dimensions must contain enough information to re-render the digit, forcing the capsule to represent pose, stroke width, skew, and other instantiation parameters rather than just "is a 7 here."
-      </Prose>
+<ul><li>{"If every vote is zero, every output stays zero and every coupling stays uniform."}</li><li>{"If every child sends exactly the same vote to both parents, symmetry keeps the two parent outputs and each row's fractions equal. Routing cannot invent evidence to break this symmetry."}</li></ul>
 
-      {/* ======================================================================
-          4. FROM-SCRATCH
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
+<Prose>{"Repeated agreement often makes rows increasingly concentrated. It need not change the predicted class, converge to the correct grouping or improve generalization. “Run until certain” is not a valid stopping rule. The number of iterations is part of the model configuration."}</Prose>
 
-      <Prose>
-        Every code block below was executed against PyTorch 2.6 + CUDA. The <Code>{"# Output:"}</Code> comments are the real stdout. We train on a 5000-sample MNIST subset for 3 epochs to keep the run fast, then ablate routing iterations on the trained model.
-      </Prose>
+<H3>{"Where does learning happen?"}</H3>
 
-      <H3>4.1 Squash — verify length mapping</H3>
+<Prose>{"The convolution weights, "}<InlineMath>{"W_{ij}"}</InlineMath>{" and decoder weights are persistent learned parameters. Votes, logits, couplings and parent vectors are input-dependent intermediate values. Our logits restart at zero for each new image and every forward pass; they are not carried from the preceding image."}</Prose>
 
-      <CodeBlock language="python">
-{`import torch
-import torch.nn.functional as F
-
-def squash(s, dim=-1, eps=1e-8):
-    sq_norm = (s ** 2).sum(dim=dim, keepdim=True)
-    scale = sq_norm / (1.0 + sq_norm) / torch.sqrt(sq_norm + eps)
-    return scale * s
-
-for raw_norm in [0.1, 0.5, 1.0, 3.0, 10.0]:
-    v = torch.tensor([raw_norm, 0.0, 0.0])
-    sv = squash(v)
-    theory = raw_norm**2 / (1 + raw_norm**2)
-    print(f"  ||s||={raw_norm:5.2f}  ->  ||v||={sv.norm().item():.4f}"
-          f"  (theory: {theory:.4f})")
-
-# Output:
-#   ||s||= 0.10  ->  ||v||=0.0099  (theory: 0.0099)
-#   ||s||= 0.50  ->  ||v||=0.2000  (theory: 0.2000)
-#   ||s||= 1.00  ->  ||v||=0.5000  (theory: 0.5000)
-#   ||s||= 3.00  ->  ||v||=0.9000  (theory: 0.9000)
-#   ||s||=10.00  ->  ||v||=0.9901  (theory: 0.9901)`}
-      </CodeBlock>
-
-      <Prose>
-        The empirical and theoretical outputs match exactly. Short vectors get squashed close to 0; long vectors saturate near 1; the unit vector is mapped to length 0.5 (the inflection point of the sigmoid-like map). Direction is preserved because <Code>{"s / ||s||"}</Code> is unchanged.
-      </Prose>
-
-      <H3>4.2 Margin loss sanity</H3>
-
-      <CodeBlock language="python">
-{`def margin_loss(v_norm, target, mp=0.9, mm=0.1, lam=0.5):
-    pos = target * F.relu(mp - v_norm) ** 2
-    neg = lam * (1 - target) * F.relu(v_norm - mm) ** 2
-    return (pos + neg).sum(dim=1).mean()
-
-v_good = torch.tensor([[0.95, 0.05, 0.02]])   # correct class, others quiet
-v_bad  = torch.tensor([[0.30, 0.40, 0.30]])   # correct class weak, others loud
-t = torch.tensor([[1.0, 0.0, 0.0]])
-print(f"  good:  L={margin_loss(v_good, t).item():.4f}")
-print(f"  bad :  L={margin_loss(v_bad, t).item():.4f}")
-
-# Output:
-#   good:  L=0.0000
-#   bad :  L=0.4250`}</CodeBlock>
-
-      <Prose>
-        When the target capsule has length 0.95 (above 0.9) and the rest are below 0.1, the margin is achieved on both sides and loss is exactly zero. Shifting into the wrong regime — target weak at 0.3, non-targets at 0.4 — gives a non-trivial loss that the optimizer can reduce.
-      </Prose>
-
-      <H3>4.3 Dynamic routing on a synthetic vote pattern</H3>
-
-      <Prose>
-        We construct 8 lower capsules and 3 higher capsules. Six of the lower capsules "agree" — their prediction vectors all point in the same direction toward higher capsule 0. Two disagree and vote for higher capsule 1. The routing algorithm should discover the majority structure within a few iterations:
-      </Prose>
-
-      <CodeBlock language="python">
-{`torch.manual_seed(42)
-num_in, num_out, d = 8, 3, 4
-
-agree_dir    = torch.tensor([1.0, 0.0, 0.0, 0.0])
-disagree_dir = torch.tensor([0.0, 1.0, 0.0, 0.0])
-u_hat = torch.zeros(1, num_in, num_out, d)
-for i in range(num_in):
-    target_cls = 0 if i < 6 else 1
-    for j in range(num_out):
-        if j == target_cls:
-            u_hat[0, i, j] = 3.0 * (agree_dir if target_cls == 0 else disagree_dir)
-        else:
-            u_hat[0, i, j] = 0.1 * torch.randn(d)
-
-b = torch.zeros(1, num_in, num_out)
-for it in range(5):
-    c = F.softmax(b, dim=2)                         # softmax over OUT caps
-    s = (c.unsqueeze(-1) * u_hat).sum(dim=1)        # [1, num_out, d]
-    v = squash(s, dim=-1)
-    a = (u_hat * v.unsqueeze(1)).sum(dim=-1)        # agreement
-    b = b + a
-    print(f"  iter={it+1}  mean c[i,j]: {c[0].mean(dim=0).tolist()}  "
-          f"||v_j||: {[round(x, 3) for x in v[0].norm(dim=-1).tolist()]}")
-
-# Output:
-#   iter=1  mean c[i,j]: [0.3333, 0.3333, 0.3333]  ||v_j||: [0.973, 0.810, 0.072]
-#   iter=2  mean c[i,j]: [0.6940, 0.2502, 0.0557]  ||v_j||: [0.996, 0.963, 0.003]
-#   iter=3  mean c[i,j]: [0.7470, 0.2498, 0.0033]  ||v_j||: [0.997, 0.972, 0.000]
-#   iter=4  mean c[i,j]: [0.7498, 0.2500, 0.0002]  ||v_j||: [0.997, 0.973, 0.000]
-#   iter=5  mean c[i,j]: [0.7500, 0.2500, 0.0000]  ||v_j||: [0.997, 0.973, 0.000]`}</CodeBlock>
-
-      <Prose>
-        At iteration 1 the coupling is uniform (1/3 each). By iteration 2 the majority class 0 has captured 69% of the mean coupling and class 1 has 25% — exactly matching the 6:2 vote split. By iteration 5 the couplings have converged to 0.75 / 0.25 / 0.00 (the true majorities: 6/8 vote for class 0, 2/8 for class 1, 0 for class 2). This is what routing-by-agreement looks like when it works: a clean softmax-like concentration onto the classes with consistent support.
-      </Prose>
-
-      <H3>4.4 PrimaryCaps and DigitCaps modules</H3>
-
-      <CodeBlock language="python">
-{`import torch.nn as nn
-
-class PrimaryCaps(nn.Module):
-    """Conv output reshaped to [B, num_caps, cap_dim] and squashed."""
-    def __init__(self, in_ch=256, out_caps=32, cap_dim=8, k=9, stride=2):
-        super().__init__()
-        self.conv = nn.Conv2d(in_ch, out_caps * cap_dim, kernel_size=k, stride=stride)
-        self.out_caps = out_caps; self.cap_dim = cap_dim
-
-    def forward(self, x):
-        out = self.conv(x)                       # [B, out_caps*cap_dim, H, W]
-        B, _, H, W = out.shape
-        out = out.view(B, self.out_caps, self.cap_dim, H, W)
-        out = out.permute(0, 1, 3, 4, 2).contiguous()
-        out = out.view(B, self.out_caps * H * W, self.cap_dim)
-        return squash(out)
-
-
-class DigitCaps(nn.Module):
-    """Fully-connected capsule layer with dynamic routing."""
-    def __init__(self, num_in=1152, num_out=10, in_dim=8, out_dim=16, routing_iters=3):
-        super().__init__()
-        self.num_in, self.num_out = num_in, num_out
-        self.in_dim, self.out_dim = in_dim, out_dim
-        self.routing_iters = routing_iters
-        self.W = nn.Parameter(0.01 * torch.randn(1, num_in, num_out, out_dim, in_dim))
-
-    def forward(self, u, iters=None):
-        iters = self.routing_iters if iters is None else iters
-        B = u.size(0)
-        u = u.unsqueeze(2).unsqueeze(-1)                  # [B, num_in, 1, in_dim, 1]
-        u_hat = torch.matmul(self.W, u).squeeze(-1)       # [B, num_in, num_out, out_dim]
-        u_hat_d = u_hat.detach()                           # routing uses detached votes
-
-        b = torch.zeros(B, self.num_in, self.num_out, device=u.device)
-        for it in range(iters):
-            c = F.softmax(b, dim=2)
-            if it == iters - 1:
-                s = (c.unsqueeze(-1) * u_hat).sum(dim=1)   # gradient flows here
-            else:
-                s = (c.unsqueeze(-1) * u_hat_d).sum(dim=1)
-            v = squash(s, dim=-1)
-            if it < iters - 1:
-                a = (u_hat_d * v.unsqueeze(1)).sum(dim=-1)
-                b = b + a
-        return v, c`}</CodeBlock>
-
-      <H3>4.5 Reconstruction decoder</H3>
-
-      <CodeBlock language="python">
-{`class ReconDecoder(nn.Module):
-    def __init__(self, in_dim=16, num_cls=10, hid=(512, 1024), out=28*28):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(in_dim * num_cls, hid[0]), nn.ReLU(inplace=True),
-            nn.Linear(hid[0], hid[1]), nn.ReLU(inplace=True),
-            nn.Linear(hid[1], out), nn.Sigmoid(),
-        )
-
-    def forward(self, v, target_onehot):
-        mask = target_onehot.unsqueeze(-1)    # zero out non-target capsules
-        masked = v * mask
-        return self.net(masked.view(masked.size(0), -1))`}</CodeBlock>
-
-      <H3>4.6 Full CapsNet on MNIST — 5000-sample subset</H3>
-
-      <CodeBlock language="python">
-{`class CapsNet(nn.Module):
-    def __init__(self, routing_iters=3):
-        super().__init__()
-        self.conv1   = nn.Conv2d(1, 256, kernel_size=9, stride=1)
-        self.primary = PrimaryCaps(256, 32, 8, k=9, stride=2)
-        self.digit   = DigitCaps(32*6*6, 10, 8, 16, routing_iters)
-        self.decoder = ReconDecoder()
-
-    def forward(self, x, target_onehot=None, iters=None):
-        h = F.relu(self.conv1(x))
-        u = self.primary(h)
-        v, c = self.digit(u, iters=iters)
-        logits = v.norm(dim=-1)
-        recon = None if target_onehot is None else self.decoder(v, target_onehot)
-        return logits, v, recon, c
-
-# train=5000, test=2000, 3 epochs, Adam 1e-3
-net = CapsNet(routing_iters=3).to("cuda")
-print(f"params={sum(p.numel() for p in net.parameters()):,}")
-# ... training loop ...
-
-# Output:
-#   [setup] device=cuda
-#   [data] train=5000  test=2000
-#   [main] params=8,215,568
-#   [train ep=1/3] loss=0.4457  test_acc=0.8515  dt=6.3s
-#   [train ep=2/3] loss=0.1458  test_acc=0.9510  dt=5.3s
-#   [train ep=3/3] loss=0.0797  test_acc=0.9650  dt=5.5s`}</CodeBlock>
-
-      <Prose>
-        A real CapsNet, trained from scratch on a tiny MNIST subset, reaches 96.5% test accuracy in 3 epochs ({"<"}20 seconds on a GPU). The paper's 99.23% requires the full 60K training set and longer training — our subset result is consistent with the expected trajectory (early-training accuracy in Sabour et al.'s figures crosses 96% around epoch 3 on equivalent data fractions). Total parameters: 8.2M — of which 1.47M live in the <Code>W</Code> tensor of DigitCaps alone.
-      </Prose>
-
-      <H3>4.7 Routing-iterations ablation (same trained weights)</H3>
-
-      <CodeBlock language="python">
-{`# Sweep routing_iters at eval time on the trained model
-for iters in [1, 2, 3, 5]:
-    acc = evaluate(net, test_loader, iters=iters)
-    print(f"   iters={iters}  test_acc={acc:.4f}")
-
-# Output:
-#   iters=1  test_acc=0.9650
-#   iters=2  test_acc=0.9655
-#   iters=3  test_acc=0.9650
-#   iters=5  test_acc=0.9650`}</CodeBlock>
-
-      <Prose>
-        With the same trained weights, varying the number of routing iterations at evaluation changes accuracy by at most 0.05 percentage points. This is consistent with Paik et al. (2019) and with several community reproductions: once the transformations <Code>W</Code> are well-learned, most of the routing signal is captured in the first iteration and additional iterations barely move the needle. This is the single most damning empirical result for the dynamic-routing procedure — it is expensive and does comparatively little at inference time. In theory the benefit comes during training, by providing a more faithful forward pass; in practice the gap is small and usually within noise.
-      </Prose>
-
-      <Callout accent="gold">
-        Paik, Kwak, and Kim (2019) pushed this observation further by showing that even <em>random</em> routing coefficients (never updated) can match dynamic routing on several benchmarks. The implication is that routing-by-agreement may not be what makes CapsNet work — the <Code>W</Code> matrices and the vector representation do most of the job.
-      </Callout>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production patterns</H2>
-
-      <H3>5.1 Nobody ships capsules</H3>
-
-      <Prose>
-        This section is short because the honest answer is: capsule networks are not a production technology. Google Brain never released an official TensorFlow implementation of the 2017 paper. The matrix-capsules paper (2018) has no official code release either. The Sabour et al. paper's experimental code was eventually made available as a research snippet, but it was never maintained, never optimized, and never incorporated into tf.keras, torchvision, or any modern vision library. Every production CNN stack (timm, torchvision, Keras Applications, MediaPipe, TensorRT model zoo) ships zero capsule layers. No foundation model uses capsules. No SOTA benchmark on any major vision task has been held by a capsule network since 2018.
-      </Prose>
-
-      <H3>5.2 Community implementations</H3>
-
-      <CodeBlock language="python">
-{`# PyTorch — most-starred community repo (unofficial):
-#   https://github.com/cedrickchee/capsule-net-pytorch
-# Clean educational implementation of the 2017 paper.
-
-# TensorFlow — dynamic routing:
-#   https://github.com/naturomics/CapsNet-Tensorflow
-# One of the first reproductions, archived.
-
-# EM routing (2018 paper) in TensorFlow:
-#   https://github.com/NAIST-SE/EMcapsnet-Tensorflow
-# Matrix capsules with EM, unmaintained.
-
-# Tutorial / teaching (detailed and readable):
-#   https://github.com/gram-ai/capsule-networks
-# 3-epoch MNIST walkthrough with reconstruction visualization.
-
-# PyTorch official tutorial: does not exist. Capsules were never added.`}</CodeBlock>
-
-      <H3>5.3 What to use instead</H3>
-
-      <CodeBlock>
-{`GOAL                          | MODERN REPLACEMENT
-------------------------------+------------------------------------
-Viewpoint equivariance        | Group-equivariant CNNs (e2cnn, escnn)
-                              |   Cohen & Welling 2016, arXiv:1602.07576
-Part-whole composition        | Vision Transformers with rich positional
-                              |   embeddings (RoPE-2D, CaPE)
-Explicit pose estimation      | Spatial Transformer Networks (2015)
-                              |   or direct regression heads
-Small-data classification     | ViT with DINOv2 / MAE pretraining,
-                              |   then linear probe or LoRA fine-tune
-3D object recognition         | PointNet / PointNet++ / PointTransformer
-                              |   for point clouds; NeRF / GS for rendering
-Segmentation with overlap     | SAM / Mask2Former / DETR`}
-      </CodeBlock>
-
-      <Callout accent="gold">
-        If you are taking a research class on equivariance, capsules are valuable teaching material. If you are shipping a product, reach for Vision Transformers pretrained with DINOv2 or MAE, plus group-equivariant layers if your domain requires geometric invariance (medical imaging, satellite, chemistry). The ROI on hand-crafting capsule layers today is effectively zero.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 Routing iterations — step by step</H3>
-
-      <StepTrace
-        label="Dynamic routing on 8 lower capsules voting over 3 higher capsules"
-        steps={[
-          { label: "Initialize b_ij = 0", render: () => (
-            <Prose>
-              Before the first iteration, the routing logits <Code>{"b_{ij}"}</Code> are all zero. Softmax over <Code>j</Code> gives a uniform <Code>{"c_{ij} = 1/3"}</Code> for every lower capsule. Every lower capsule votes equally for every higher capsule. No information has flowed yet.
-            </Prose>
-          )},
-          { label: "Iter 1: compute u_hat, s_j, v_j", render: () => (
-            <Prose>
-              With uniform coupling, each <Code>{"s_j = \\frac{1}{3} \\sum_i \\hat{u}_{j|i}"}</Code> is just the average of all predictions. Because 6 of 8 capsules predict the same direction for <Code>{"j=0"}</Code>, the average there has length ~3 (squashed to 0.97). For <Code>{"j=1"}</Code>, only 2 capsules predict something coherent so the average length is ~1.2 (squashed to 0.81). For <Code>{"j=2"}</Code>, nothing coherent, length ~0.07.
-            </Prose>
-          )},
-          { label: "Iter 1: update b via agreement", render: () => (
-            <Prose>
-              The agreement <Code>{"a_{ij} = \\hat{u}_{j|i} \\cdot v_j"}</Code> is large positive where <Code>i</Code>'s vote aligns with <Code>j</Code>'s consensus. The 6 majority capsules get a large positive boost to <Code>{"b_{i,0}"}</Code> because their predictions match <Code>{"v_0"}</Code>. The 2 minority capsules get a boost to <Code>{"b_{i,1}"}</Code>. All other <Code>{"b_{i,j}"}</Code> values drift slightly negative.
-            </Prose>
-          )},
-          { label: "Iter 2: coupling sharpens", render: () => (
-            <Prose>
-              After the softmax update, mean <Code>{"c_{ij}"}</Code> per class is approximately <Code>{"[0.69, 0.25, 0.06]"}</Code>. The majority capsules are now routing mostly to <Code>{"j=0"}</Code>; the minority to <Code>{"j=1"}</Code>. <Code>{"v_0"}</Code> has length 0.996 (nearly saturated) and <Code>{"v_1"}</Code> is at 0.963. The "garbage" capsule <Code>{"v_2"}</Code> collapses toward zero because it has no consistent support.
-            </Prose>
-          )},
-          { label: "Iter 3: routing converges", render: () => (
-            <Prose>
-              Mean <Code>{"c_{ij}"}</Code> is <Code>{"[0.747, 0.250, 0.003]"}</Code> — essentially the exact 6:2:0 vote split among lower capsules. Every majority voter has almost all its routing mass on <Code>{"j=0"}</Code>; minority voters are fully on <Code>{"j=1"}</Code>. Further iterations (4, 5) change almost nothing. The routing has found the part-whole assignment.
-            </Prose>
-          )},
-          { label: "Inference: use last v_j", render: () => (
-            <Prose>
-              The final capsule lengths <Code>{"\\|v_0\\| = 0.997"}</Code>, <Code>{"\\|v_1\\| = 0.973"}</Code>, <Code>{"\\|v_2\\| \\approx 0"}</Code> are the classification scores. With a margin loss at <Code>{"m^+ = 0.9"}</Code>, both <Code>{"v_0"}</Code> and <Code>{"v_1"}</Code> pass the threshold — which means the network has correctly identified both "entities" present in this synthetic input.
-            </Prose>
-          )},
-        ]}
-      />
-
-      <H3>6.2 Coupling coefficients after convergence</H3>
-
-      <Prose>
-        Visualizing <Code>{"c_{ij}"}</Code> as a matrix makes the routing structure concrete. In the 6:2 synthetic example, every one of the 8 lower capsules sends its 1-unit routing mass almost entirely to a single higher capsule: the first 6 to class 0, the last 2 to class 1, and class 2 sees essentially nothing. The rows sum to 1 (that is the softmax constraint); the bright-column pattern is the sharpening we get from agreement-based updates.
-      </Prose>
-
-      <Heatmap
-        label="Coupling matrix c_ij after 3 routing iterations (synthetic 6:2 vote split)"
-        rowLabels={["i=0", "i=1", "i=2", "i=3", "i=4", "i=5", "i=6", "i=7"]}
-        colLabels={["j=0", "j=1", "j=2"]}
-        colorScale="gold"
-        cellSize={48}
-        matrix={[
-          [0.99, 0.01, 0.00],
-          [0.99, 0.01, 0.00],
-          [0.99, 0.01, 0.00],
-          [0.99, 0.01, 0.00],
-          [0.99, 0.01, 0.00],
-          [0.99, 0.01, 0.00],
-          [0.01, 0.99, 0.00],
-          [0.01, 0.99, 0.00],
-        ]}
-      />
-
-      <Prose>
-        Lower capsules 0-5 commit ~99% of their routing mass to higher capsule 0 (the "face" analog that got 6 of 8 votes). Lower capsules 6-7 commit ~99% to higher capsule 1. The third column stays dark — capsule 2 had no coherent support and the routing correctly withholds mass from it. This is the picture Hinton wanted routing-by-agreement to produce, and it does, in this clean synthetic case.
-      </Prose>
-
-      <H3>6.3 Accuracy vs routing iterations (trained model)</H3>
-
-      <Plot
-        label="MNIST test accuracy vs routing iterations at inference (trained CapsNet, 5K subset)"
-        xLabel="Routing iterations"
-        yLabel="Test accuracy"
-        series={[
-          { name: "test acc", color: colors.gold, points: [[1, 0.9650], [2, 0.9655], [3, 0.9650], [5, 0.9650]] },
-        ]}
-      />
-
-      <Prose>
-        The measured delta across 1, 2, 3, and 5 routing iterations is 0.0005 — well within noise. This is the empirical justification for Paik et al.'s "Capsule Networks Need an Improved Routing Algorithm" critique: after training, the routing procedure does almost nothing beyond what a single iteration achieves. If you are doing production inference and every millisecond counts, <Code>iters=1</Code> is the right call — and if that is fine, the whole theoretical apparatus of iterative agreement is arguably not doing the work.
-      </Prose>
-
-      <H3>6.4 Capsule activation stream on a digit</H3>
-
-      <Prose>
-        After training, for a single MNIST test image of the digit 0, the 10 DigitCaps lengths <Code>{"\\|v_k\\|"}</Code> are the class scores. The target capsule fires at 0.885 (above the <Code>{"m^+ = 0.9"}</Code> margin target once training has finished a bit more); all others stay well below 0.1 except for capsule 8 ("looks like an 8") which reaches 0.092 — a plausible confusion given the loopy stroke.
-      </Prose>
-
-      <TokenStream
-        label="DigitCaps lengths ||v_k|| on a test-set sample (true=0, predicted=0)"
-        tokens={[
-          { label: "0: 0.885", color: colors.gold, title: "target capsule length 0.885 (~ margin 0.9)" },
-          { label: "1: 0.010", color: "#60a5fa" },
-          { label: "2: 0.003", color: "#60a5fa" },
-          { label: "3: 0.022", color: "#60a5fa" },
-          { label: "4: 0.007", color: "#60a5fa" },
-          { label: "5: 0.066", color: "#60a5fa" },
-          { label: "6: 0.029", color: "#60a5fa" },
-          { label: "7: 0.019", color: "#60a5fa" },
-          { label: "8: 0.092", color: "#c084fc", title: "mild confusion: an 0 can look like an 8" },
-          { label: "9: 0.017", color: "#60a5fa" },
-        ]}
-      />
-
-      <H3>6.5 Training dynamics — margin vs reconstruction loss</H3>
-
-      <Plot
-        label="Per-epoch total loss during CapsNet training on 5K MNIST subset"
-        xLabel="Epoch"
-        yLabel="Loss"
-        series={[
-          { name: "total loss", color: colors.gold, points: [[1, 0.4457], [2, 0.1458], [3, 0.0797]] },
-        ]}
-      />
-
-      <Prose>
-        Total loss (margin + 0.0005 {"\u00d7"} reconstruction) drops from 0.446 at epoch 1 to 0.080 at epoch 3. The margin term is by far the largest contributor early on — reconstruction MSE on a 784-pixel image can easily reach the thousands, but the 0.0005 weighting clamps it down so it does not dominate. If you pick a weight closer to 0.01, reconstruction takes over and classification accuracy collapses — a failure mode we cover in section 9.
-      </Prose>
-
-      <Plot
-        label="Test accuracy per epoch on 5K MNIST subset"
-        xLabel="Epoch"
-        yLabel="Test accuracy"
-        series={[
-          { name: "test acc", color: colors.green, points: [[1, 0.8515], [2, 0.9510], [3, 0.9650]] },
-        ]}
-      />
-
-      <Prose>
-        Accuracy climbs rapidly — 85% after 1 epoch, 95% after 2, 96.5% after 3. With the full 60K training set and 100 epochs, this trajectory extrapolates to the paper's 99.23%. CapsNet learns MNIST fast; that was never the hard part of the capsule debate.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <H3>7.1 When capsules are interesting</H3>
-
-      <CodeBlock>
-{`SITUATION                              | CAPSULES?  | REASON
----------------------------------------+------------+------------------------------
-Research on equivariance               | Worth it   | Canonical, well-studied baseline
-Small dataset with pose variation      | Maybe      | Only if ViT+DINOv2 is unavailable
-Teaching routing-as-inference          | Yes        | The clearest pedagogical case
-Multi-instance seg (overlapping digits)| Useful     | MultiMNIST is where CapsNet shines
-Simple classification benchmark        | No         | CNN / ViT easier and faster
-Production vision system               | No         | No support, no tooling, no scale
-ImageNet-scale training                | No         | Never demonstrated competitively
-3D object recognition                  | Maybe      | smallNORB 2018 result, but PointNet++ wins
-Adversarial robustness (pose attacks)  | Interesting| 2017 paper claims benefits, later disputed`}
-      </CodeBlock>
-
-      <H3>7.2 Capsules vs modern alternatives</H3>
-
-      <CodeBlock>
-{`CAPABILITY                     | CAPSNET     | VIT + DINOv2 | GROUP-EQUIVARIANT CNN
--------------------------------+-------------+--------------+-----------------------
-Pose-aware representation      | Explicit    | Implicit     | Built-in symmetry group
-Scales to 100M+ images         | No          | Yes          | Partial
-Competitive on ImageNet        | No          | Yes          | Partial
-Viewpoint generalization       | Claimed     | Strong       | Strong (by construction)
-Small-data performance         | OK on MNIST | Best w/ pretrain | Best w/ group prior
-Training cost                  | ~3x a CNN   | ~1x (no pretrain) | ~2x a CNN
-Implementation effort          | High        | Low (timm)   | Medium (e2cnn, escnn)
-Production library support     | None        | Universal    | Research-grade
-Theoretical clarity            | Medium      | Low          | High (Lie groups)`}
-      </CodeBlock>
-
-      <H3>7.3 Hybrid usage patterns</H3>
-
-      <Prose>
-        Several papers after 2018 attempted to splice capsule mechanisms into mainstream architectures: capsule-attention hybrids, CNN backbones with a final capsule head, capsule decoders for point clouds. Most of these did not outperform the pure mainstream baseline by enough to justify the complexity. The only consistently useful hybrid is the <em>reconstruction regularizer</em> — using a decoder network that reconstructs the input from the latent representation. That idea works fine without capsules and is now standard in masked autoencoder training (MAE). The specific capsule apparatus is rarely load-bearing.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Routing compute cost</H3>
-
-      <Prose>
-        The cost of dynamic routing is dominated by the agreement computation <Code>{"a_{ij} = \\hat{u}_{j|i} \\cdot v_j"}</Code> repeated across iterations. For <Code>{"N_{lower}"}</Code> lower capsules, <Code>{"N_{higher}"}</Code> higher capsules, output dimension <Code>{"d_{out}"}</Code>, and <Code>r</Code> iterations, the routing step costs:
-      </Prose>
-
-      <MathBlock>{"O(r \\cdot N_{lower} \\cdot N_{higher} \\cdot d_{out})"}</MathBlock>
-
-      <Prose>
-        In CapsNet with <Code>{"N_{lower} = 1152, N_{higher} = 10, d_{out} = 16, r = 3"}</Code>, that is about 550K multiply-adds per image — small compared to the 256{"\u00d7"}20{"\u00d7"}20{"\u00d7"}81 = 33M muladds of the conv1 layer. The routing itself is not the bottleneck. What kills capsules at scale is the prediction computation: <Code>{"W_{ij} u_i"}</Code> has cost <Code>{"O(N_{lower} \\cdot N_{higher} \\cdot d_{in} \\cdot d_{out})"}</Code>. With 1152 lower capsules and 10 higher capsules that is 1.47M muladds per image (plus a 1.47M-parameter <Code>W</Code> tensor). Scaling <Code>{"N_{lower}"}</Code> to match a ViT's 196 patches {"\u00d7"} 32 depth channels (6272 "lower capsules") and pushing <Code>{"N_{higher}"}</Code> to 1000 classes blows this up to 800M muladds and an 800M-parameter <Code>W</Code> — more than any known CapsNet has trained, and most of the cost is routing-adjacent rather than productive representation.
-      </Prose>
-
-      <H3>8.2 Matrix capsules explode</H3>
-
-      <Prose>
-        Hinton's 2018 matrix-capsules paper used 4{"\u00d7"}4 = 16-dim pose matrices plus a scalar activation, keeping parameter counts comparable. The cost is not in <Code>W</Code> but in EM routing's per-iteration Gaussian clustering step, which adds a factor of <Code>{"O(N_{lower} \\cdot N_{higher} \\cdot d_{out}^2)"}</Code> for the covariance estimate. Published numbers put EM routing at roughly 3{"\u00d7"} the training time of dynamic routing per epoch on smallNORB — a tax that is tolerable at research scale and fatal at production scale.
-      </Prose>
-
-      <H3>8.3 No clear scaling law</H3>
-
-      <Prose>
-        The transformer scaling-law literature (Kaplan et al. 2020, Hoffmann et al. 2022) gave us smooth power-law relationships between compute, data, parameters, and loss. No analogous scaling law exists for capsule networks. Published capsule papers have at most a handful of scale points, typically on a single dataset, and almost no paper has attempted systematic scaling beyond a few million parameters. The lack of a scaling law is not a mere gap in the literature — it is a symptom that nobody could make capsules scale cleanly enough to measure the relationship.
-      </Prose>
-
-      <H3>8.4 Parallelization</H3>
-
-      <Prose>
-        Attention parallelizes beautifully: the <Code>QK^T</Code> matmul is one GEMM, softmax is a row-wise op, <Code>softmax(QK^T) V</Code> is another GEMM. All three are tensor-core friendly and saturate modern GPUs. Dynamic routing is harder: each iteration has a data dependency on the previous iteration's <Code>{"v_j"}</Code>, so the iterations themselves cannot be parallelized. Within an iteration, the softmax and weighted-sum operations are parallel across batch and capsule dimensions, but the routing loop serializes over the outer iteration index. For <Code>r = 3</Code> this is a 3{"\u00d7"} latency overhead over a "one-pass" layer.
-      </Prose>
-
-      <H3>8.5 Memory for high-resolution inputs</H3>
-
-      <Prose>
-        The primary capsule layer in CapsNet has shape <Code>{"[B, 32 \\times 6 \\times 6, 8]"}</Code> for 28{"\u00d7"}28 inputs — 1152 lower capsules. Apply the same construction to 224{"\u00d7"}224 ImageNet inputs and the lower-capsule count grows roughly as <Code>{"(224/28)^2 = 64"}</Code>{"\u00d7"} to ~74K. The <Code>W</Code> tensor then has shape <Code>{"[74000, 1000, 16, 8]"}</Code> = 9.5 billion parameters — larger than any CapsNet ever trained. The standard workaround is to pool or crop aggressively before the capsule layer, which defeats the purpose (pooling was the thing capsules were supposed to replace). This is the practical reason capsules are stuck at MNIST-scale resolution.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Too many routing iterations degrades results</H3>
-
-      <Prose>
-        The 2017 paper used <Code>r = 3</Code> routing iterations and noted mild gains over <Code>r = 1</Code>. Follow-up work (Wang and Liu 2018, Paik et al. 2019) found that pushing beyond 3 iterations often hurts — accuracy plateaus, then drops. The likely cause: the routing coefficients can overfit to the specific batch of lower capsules, sharpening too aggressively and producing brittle agreements that fail to generalize. Practical rule: <Code>r = 3</Code> in training, <Code>r = 1</Code> is fine at inference for most deployed-grade tasks. Anything above 5 is hard to justify.
-      </Prose>
-
-      <H3>9.2 Missing squash destroys the probability interpretation</H3>
-
-      <Prose>
-        If you replace squash with tanh, ReLU, or no activation, the vector length is no longer bounded to <Code>{"[0, 1)"}</Code>. Margin loss with <Code>{"m^+ = 0.9"}</Code> and <Code>{"m^- = 0.1"}</Code> then has no principled relationship to the capsule output — the network is free to make all lengths arbitrarily large and "pass" the margin trivially. Training either diverges or plateaus in a way that looks like a learning-rate bug. Always squash before the margin loss. If you want a different bounded activation (e.g. sigmoid on the norm), keep the direction-preserving structure: <Code>{"v = \\sigma(\\|s\\|) \\cdot s / \\|s\\|"}</Code>.
-      </Prose>
-
-      <H3>9.3 Softmax over the wrong axis</H3>
-
-      <Prose>
-        The coupling softmax <Code>{"c_{ij} = \\text{softmax}_j(b_{ij})"}</Code> must be taken over the <em>higher</em> capsule index with the lower index fixed. If you softmax over <Code>i</Code> instead, each <em>higher</em> capsule receives a distribution over lower capsules that sums to 1 — the opposite of what routing requires. Our verification:
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Wrong axis: softmax over num_in (axis=1) instead of num_out (axis=2)
-b = torch.zeros(1, num_in, num_out)
-for it in range(3):
-    c_wrong = F.softmax(b, dim=1)            # WRONG — softmax over LOWER caps
-    row_sum = c_wrong[0].sum(dim=1)          # each row should sum to 1 if axis is right
-    print(f"  iter={it+1}  row-sum of c[i,:]: {row_sum[:3].tolist()}")
-
-# Output:
-#   iter=1  row-sum of c[i,:]: [0.375, 0.375, 0.375]   <-- should be 1.0
-#   iter=2  row-sum of c[i,:]: [0.375, 0.375, 0.375]
-#   iter=3  row-sum of c[i,:]: [0.375, 0.375, 0.375]`}</CodeBlock>
-
-      <Prose>
-        Row sums of 0.375 (= 3 {"\u00d7"} 1/8) instead of 1.0 — each lower capsule is now sending 0.375 units of "routing mass" rather than 1, and the interpretation as a probabilistic assignment is broken. The network still trains, sometimes to plausible accuracy, which is why this bug is hard to catch. Always sanity-check that the <em>rows</em> of <Code>c</Code> (indexed by lower capsule) sum to 1.
-      </Prose>
-
-      <H3>9.4 Reconstruction weight too high drowns classification</H3>
-
-      <Prose>
-        The paper uses <Code>{"\\alpha = 0.0005"}</Code> for the reconstruction term. That specific scaling is load-bearing: the MSE on a 784-pixel image is typically in the 10-100 range early in training, while margin loss is in the 0-1 range. Pick <Code>{"\\alpha = 0.01"}</Code> and reconstruction becomes 100{"\u00d7"} larger than classification — the network spends its capacity learning to re-render the input rather than classify it. Symptom: test accuracy stays at chance while reconstructions look plausible. Fix: tune <Code>{"\\alpha"}</Code> so that <Code>{"\\alpha \\cdot L_{recon}"}</Code> is roughly an order of magnitude smaller than <Code>{"L_{margin}"}</Code> throughout training.
-      </Prose>
-
-      <H3>9.5 Applying capsules to high-resolution inputs</H3>
-
-      <Prose>
-        As described in section 8.5, the parameter count of the <Code>W</Code> tensor grows quadratically with lower-capsule count, which itself grows with input area. Naive attempts to apply CapsNet to 256{"\u00d7"}256 images without pooling produce OOM errors on a single GPU. The community workaround — stack more strided convs before PrimaryCaps — partly defeats the purpose (you are throwing away spatial information before the capsules can represent it). There is no good resolution for this tension in the original formulation; matrix capsules and later variants improve on it but never solve it cleanly.
-      </Prose>
-
-      <H3>9.6 Claimed equivariance does not hold at large transforms</H3>
-
-      <Prose>
-        The 2017 paper argued informally that capsules are equivariant to small pose changes. Empirically, routing-based capsule networks break down under large rotations (beyond ~30 degrees), scale changes beyond ~2{"\u00d7"}, and viewpoint changes beyond the training distribution. Gu et al. (2018, "An Empirical Study of Capsule Networks") and Barham and Isard (2019) documented this: capsules behave like CNNs with slightly better interpolation in pose space, not true equivariance. For genuine equivariance to a symmetry group, group-equivariant CNNs (Cohen and Welling 2016) are the mathematically principled answer.
-      </Prose>
-
-      <H3>9.7 Batch normalization and capsules do not mix well</H3>
-
-      <Prose>
-        The squash function's non-linearity depends on vector length, which means BatchNorm-style normalization of the pre-squash activations distorts the length statistics and the squash output. The 2017 paper uses no batch norm. Community implementations that try to add BN typically see no improvement or mild degradation. For capsule layers, LayerNorm or no normalization is safer. If you need normalization, normalize the input to the capsule layer but not inside it.
-      </Prose>
-
-      <Callout accent="gold">
-        If a capsule model is underperforming, the failure is almost always one of: wrong softmax axis, missing squash, wrong reconstruction weight, or too many routing iterations. The architecture is finicky and small mistakes produce plausible-looking training curves with bad final accuracy. Verify each component independently (squash lengths, margin loss at known inputs, routing convergence on synthetic votes) before trusting the full stack.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        The canonical capsule reading list — in the order that gives the clearest narrative of where the idea came from, what it promised, and how the field eventually assessed it:
-      </Prose>
-
-      <Prose>
-        <strong>Hinton, Krizhevsky, Wang (2011).</strong> "Transforming Auto-encoders." ICANN. The proto-capsule paper. Introduces the idea of neural units that encode both presence and instantiation parameters of visual entities, trained via a transformation-reconstruction objective. Short and readable. Sets the conceptual stage.
-      </Prose>
-
-      <Prose>
-        <strong>Sabour, Frosst, Hinton (2017).</strong> "Dynamic Routing Between Capsules." NeurIPS. arXiv:1710.09829. The paper everyone means when they say "capsule networks." Introduces the vector capsule, squash activation, dynamic routing-by-agreement, margin loss, and reconstruction regularizer. Reports 99.23% on MNIST and shows strong MultiMNIST performance on overlapping-digit recognition. 1500+ citations and the reason the capsule idea briefly dominated Twitter.
-      </Prose>
-
-      <Prose>
-        <strong>Hinton, Sabour, Frosst (2018).</strong> "Matrix Capsules with EM Routing." ICLR. The follow-up using 4{"\u00d7"}4 pose matrices plus scalar activations, and Expectation-Maximization in place of dynamic routing. Reports state-of-the-art on smallNORB viewpoint generalization. Training cost roughly triples vs. dynamic routing. The ICLR reviews are also worth reading as contemporary critique.
-      </Prose>
-
-      <Prose>
-        <strong>Ribeiro, Leontidis, Kollias (2019).</strong> "Capsule Routing via Variational Bayes." AAAI. arXiv:1905.11455. Reformulates routing as variational inference in a mixture model — a principled probabilistic foundation for what EM routing was doing heuristically. Marginal empirical gains but theoretically the cleanest formulation.
-      </Prose>
-
-      <Prose>
-        <strong>Paik, Kwak, Kim (2019).</strong> "Capsule Networks Need an Improved Routing Algorithm." ACML. arXiv:1907.12701. The critical review. Shows experimentally that dynamic routing often fails to converge meaningfully, that random (untrained) routing coefficients can match trained routing on several benchmarks, and that the theoretical justification for routing-by-agreement does not hold up under empirical inspection. A watershed paper for capsule skepticism.
-      </Prose>
-
-      <Prose>
-        <strong>Ahmed, Torresani (2019).</strong> "STAR-Caps: Capsule Networks with Straight-Through Attentive Routing." NeurIPS. arXiv:1911.12257. Replaces iterative routing with a single-pass attention-based routing that keeps the pose-vector representation but avoids the iteration loop. Faster and often more stable.
-      </Prose>
-
-      <Prose>
-        <strong>Cohen, Welling (2016).</strong> "Group Equivariant Convolutional Networks." ICML. arXiv:1602.07576. Not a capsule paper but the mathematically principled alternative for equivariance. Defines convolutions over symmetry groups (rotations, reflections) and produces architectures that are provably equivariant by construction. The modern library realization is <Code>e2cnn</Code> / <Code>escnn</Code>.
-      </Prose>
-
-      <Prose>
-        <strong>Hinton (2017).</strong> "What is wrong with convolutional neural nets?" MIT AI Lab talk. The clearest exposition of Hinton's pooling critique. The talk has been transcribed and summarized widely; it provides the motivation for the capsule line of work in a way the papers themselves do not.
-      </Prose>
-
-      <Prose>
-        <strong>Dosovitskiy et al. (2020).</strong> "An Image is Worth 16x16 Words" (ViT). ICLR 2021. arXiv:2010.11929. Not a capsule paper either, but the architecture that ate capsules' lunch. Demonstrates that attention over patches, given enough data, outperforms CNNs and makes the part-whole composition question largely moot for production vision.
-      </Prose>
-
-      <Prose>
-        <strong>Further reading.</strong> Xiang et al. (2018) "Deep Capsule Networks" tried deeper capsule stacks (limited success); Lenssen, Fey, Libuschewski (2018) "Group Equivariant Capsule Networks" combined the two frameworks; Tsai et al. (2020) "Capsules with Inverted Dot-Product Attention Routing" proposed yet another routing variant. The critical-review line continues with Gu & Tresp (2020) "Improving the Robustness of Capsule Networks to Image Affine Transformations" (shows robustness is weaker than claimed).
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <H3>Q1. Why does the capsule length represent a probability, and what would break if we dropped the squash activation?</H3>
-
-      <Callout accent="gold">
-        The squash function maps any pre-activation vector to an output whose length lies in <Code>{"[0, 1)"}</Code> while preserving direction. The length interpretation as a probability-like presence signal is then consistent with the margin loss (targets of 0.9 for positives and 0.1 for negatives). Without squash, lengths are unbounded — the network can drive every capsule to arbitrary magnitudes, the margin thresholds become meaningless, and training either diverges or exploits the unbounded scale to cheat the loss without learning useful representations. Direction-preserving alternatives (sigmoid on the norm) work, but the key property is the bounded length with a monotonic, direction-preserving map.
-      </Callout>
-
-      <H3>Q2. What does routing-by-agreement actually do, and how does it differ from attention?</H3>
-
-      <Callout accent="gold">
-        Routing-by-agreement iteratively sharpens soft assignments <Code>{"c_{ij}"}</Code> between lower capsules and higher capsules by measuring how well each lower capsule's prediction <Code>{"\\hat{u}_{j|i}"}</Code> matches the current consensus output <Code>{"v_j = \\text{squash}(\\sum_i c_{ij} \\hat{u}_{j|i})"}</Code>. The dot product <Code>{"\\hat{u}_{j|i} \\cdot v_j"}</Code> feeds back into the routing logits, and after a few iterations the coefficients concentrate on <Code>j</Code> values the vote agrees with. Attention also produces soft assignments via a softmax of <Code>{"QK^T"}</Code>, but (a) attention has no iteration — a single forward pass — and (b) attention's "values" are not predictions about where the next layer should be; they are the lower-layer representations themselves, weighted. Routing is explicitly constructive: the higher capsule's pose is determined by the consensus of lower-capsule predictions about its pose, not just a weighted average of lower-capsule features.
-      </Callout>
-
-      <H3>Q3. A capsule model gets 25% accuracy on MNIST after 10 epochs — something is wrong. Walk through the likely causes in order of probability.</H3>
-
-      <Callout accent="gold">
-        Most common: softmax axis bug (softmax over <code>dim=1</code>, the num_in axis, instead of <code>dim=2</code>, the num_out axis). Symptom: row sums of <Code>c</Code> are not 1, training still runs, accuracy stuck around chance or a few x chance. Verify with <Code>{"c.sum(dim=-1)"}</Code>. Second: missing or incorrect squash — gradients flow but the margin loss has no bounded target to chase, training looks like a huge lr problem. Verify squash output norms are in <Code>{"[0, 1)"}</Code>. Third: reconstruction weight <Code>{"\\alpha"}</Code> too high — network optimizes reconstruction and ignores classification; symptom is reconstructions look good, logits look random. Verify <Code>{"\\alpha \\cdot L_{recon} \\ll L_{margin}"}</Code> at epoch 1. Fourth: routing iterations too large (10+) combined with no detach on intermediate predictions, leading to unstable gradients. Fifth: wrong capsule dimensions or <Code>W</Code> initialization — 0.01 * randn is the standard; larger values make the initial predictions too long and squash saturates everything near 1.
-      </Callout>
-
-      <H3>Q4. Why is Paik et al.'s "random routing matches trained routing" result damaging to the capsule narrative?</H3>
-
-      <Callout accent="gold">
-        The original justification for the complexity of dynamic routing was that agreement-based iterative assignment is what let capsules outperform CNNs on pose-aware tasks. If random (never-updated) coupling coefficients produce accuracy within noise of trained routing, then either (a) the routing procedure is not doing useful work, and the improvement over CNNs comes entirely from the vector representation + transformations + squash, or (b) the training benchmarks do not exercise the routing mechanism strongly enough to distinguish. Either way, the theoretical claim that routing-by-agreement implements part-whole composition in a load-bearing way is undermined. The capsule idea survives as "a CNN where each output is a vector with a squash activation and a learned per-lower-per-higher transformation matrix" — which is interesting but much less novel than "parts vote for wholes via iterative agreement."
-      </Callout>
-
-      <H3>Q5. You need viewpoint-generalization to out-of-distribution rotations on a small image dataset. Should you use CapsNet?</H3>
-
-      <Callout accent="gold">
-        Probably not. The first-choice modern answer is a group-equivariant CNN (Cohen and Welling 2016, implemented in <Code>e2cnn</Code> / <Code>escnn</Code>): you explicitly specify the symmetry group (e.g. 8-fold rotations and reflections) and the architecture is equivariant to that group by construction, with proofs. This is strictly stronger than the informal equivariance capsules claim. The second-choice answer is a Vision Transformer pretrained with DINOv2 on a large unlabeled image corpus, then fine-tuned (or linear-probed) on your small dataset — the pretraining provides robust features that generalize well to pose changes without any hand-coded inductive bias. The only case where capsules make sense is if you specifically want to study the dynamic-routing mechanism as a research object, or if your problem is MNIST-scale and you already have working CapsNet code. For anything production-leaning, capsules are a step backward in terms of reliability, tooling, and ceiling performance.
-      </Callout>
-
-    </div>
-  ),
+<Prose>{"A finite sequence of matrix products, softmax, sums and squash operations can be differentiated. Backpropagation can flow through all routing steps. Some implementations detach intermediate routing computations; that preserves the forward numbers for a fixed input but changes the gradient used to learn the parameters. It is a deliberate algorithmic choice, not a requirement imposed by routing."}</Prose>
+
+<Prose>{"The distinction will return in "}<a href={"/learn/path/full-curriculum/rnns-lstms-grus?module=deep-learning-fundamentals"}>{"RNNs, LSTMs and GRUs"}</a>{": repetition inside routing refines assignments for one image, whereas recurrence along a sequence updates state as new observations arrive."}</Prose>
+
+<H2>{"4. Build the classifier and its objective"}</H2>
+
+<Prose>{"Our small model receives one real "}<InlineMath>{"8\\times8"}</InlineMath>{" grayscale digit. Here is the complete shape path; "}<InlineMath>{"B"}</InlineMath>{" means batch size."}</Prose>
+
+<NeuralTable caption={"4. Build the classifier and its objective"} headers={[<>{"Stage"}</>,<>{"Output shape"}</>,<>{"Meaning"}</>]} rows={[[<>{"Image"}</>,<>{""}<InlineMath>{"B\\times1\\times8\\times8"}</InlineMath>{""}</>,<>{"Pixel intensities divided by 16"}</>],[<>{"Conv "}<InlineMath>{"3\\times3"}</InlineMath>{", padding 1; ReLU"}</>,<>{""}<InlineMath>{"B\\times32\\times8\\times8"}</InlineMath>{""}</>,<>{"Local scalar features"}</>],[<>{"Conv "}<InlineMath>{"3\\times3"}</InlineMath>{", stride 2, padding 1"}</>,<>{""}<InlineMath>{"B\\times16\\times4\\times4"}</InlineMath>{""}</>,<>{"Four capsule types, four coordinates each"}</>],[<>{"Regroup and squash"}</>,<>{""}<InlineMath>{"B\\times64\\times4"}</InlineMath>{""}</>,<>{""}<InlineMath>{"4\\cdot4"}</InlineMath>{" locations × 4 types"}</>],[<>{"Learned votes"}</>,<>{""}<InlineMath>{"B\\times64\\times10\\times8"}</InlineMath>{""}</>,<>{"Every child predicts all ten digit classes"}</>],[<>{"Routing and squash"}</>,<>{""}<InlineMath>{"B\\times10\\times8"}</InlineMath>{""}</>,<>{"One vector per class"}</>],[<>{"Vector lengths and argmax"}</>,<>{""}<InlineMath>{"B\\times10"}</InlineMath>{", then "}<InlineMath>{"B"}</InlineMath>{""}</>,<>{"Scores, then predicted digit"}</>]]} />
+
+<Prose>{"Regrouping must preserve the coordinate group. In the supplied program, the primary channels are ordered by capsule type, then coordinate. We reshape to "}<InlineMath>{"B\\times4_{\\text{type}}\\times4_{\\text{coord}}\\times4_H\\times4_W"}</InlineMath>{", permute to location–type–coordinate order, then flatten the child index. Flattening the original tensor indiscriminately could group coordinates from different locations."}</Prose>
+
+<Prose>{"For a true class "}<InlineMath>{"k"}</InlineMath>{", the margin objective encourages its length to reach at least .9 and other lengths to stay at most .1:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"L_{\\text{margin}}\n=\\sum_j\\left[T_j\\max(0,.9-\\|v_j\\|)^2\n+.5(1-T_j)\\max(0,\\|v_j\\|-.1)^2\\right],"}</MathBlock></div>
+
+<Prose>{"where "}<InlineMath>{"T_j=1"}</InlineMath>{" for the actual class and 0 otherwise. Average this sum over images. If the true-class length is .7 and one wrong-class length is .3, with all other wrong lengths at most .1, the loss is "}<InlineMath>{".2^2+.5(.2^2)=.06"}</InlineMath>{"."}</Prose>
+
+<Prose>{"The loss has a zero-penalty region, rather than continually pushing the true length to one. The factor .5 changes the cost of wrong-class activation. This is not cross-entropy, so do not feed the lengths into a cross-entropy API as though they were unconstrained logits."}</Prose>
+
+<H3>{"Reconstruction asks the vector to retain useful detail"}</H3>
+
+<Prose>{"Mask all class vectors except one, flatten the ten 8-vectors into 80 values, and decode through "}<InlineMath>{"80\\to64\\to128\\to64"}</InlineMath>{", using ReLU between layers and sigmoid on the final pixels. During training, select the "}<strong>{"true"}</strong>{" class vector for the auxiliary reconstruction objective:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"L=L_{\\text{margin}}+.0005\\sum_{p=1}^{64}(\\widehat x_p-x_p)^2."}</MathBlock></div>
+
+<Prose>{"The squared errors are summed over pixels and averaged over images. On 64 pixels, this is equivalent to adding "}<InlineMath>{".032"}</InlineMath>{" times pixel-mean MSE. Accidentally using mean MSE with coefficient .0005 makes this term 64 times smaller."}</Prose>
+
+<Prose>{"The decoder is encouraged to retain image detail, but a reconstruction objective does not identify which latent axis must represent which physical factor. At classification time no label is needed: predict with the longest vector. For ordinary reconstruction at inference, mask using that predicted class. A reconstruction conditioned on the known true class is a separate diagnostic with extra information; we report it separately."}</Prose>
+
+<Prose>{"This design has one class capsule for each digit. It cannot separately represent two different instances of the same digit in those ten slots. Representing an image containing two 3s would require additional instance capacity and an appropriate objective; selecting two different class slots does not solve that case."}</Prose>
+
+<H2>{"5. Run a controlled experiment on real digits"}</H2>
+
+<Prose>{"The offline "}<a href={"/learn-assets/capsule-networks/digits-400.csv"}>{"400-image CSV"}</a>{" contains optical handwritten digits from the "}<a href={"https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits"}>{"UCI dataset"}</a>{", attributed to E. Alpaydin and C. Kaynak and distributed under CC BY 4.0. Each row has 64 integer intensities in 0–16 and a digit label. This is not MNIST."}</Prose>
+
+<Prose>{"We take 40 images per class and make a fixed stratified subdivision: 280 training images and 120 development images, using seed 22. The program checks distinct source IDs and complete pixel vectors before splitting. Writer identifiers are absent, so this does not establish performance on independent writers. The development set is used for the comparisons shown here; there is no untouched final test or deployment claim."}</Prose>
+
+<Prose>{"Our baseline is the "}<strong>{"same capsule model with one routing step"}</strong>{". Since every coupling is initially "}<InlineMath>{"1/10"}</InlineMath>{", it is a uniform-routing classifier. Compare it with a separately trained three-step model, keeping architecture, initial common weights, minibatch draws, optimizer and update count paired. This isolates an actionable routing choice more directly than comparing unrelated large CNN and capsule systems."}</Prose>
+
+<Prose>{"Save "}<a href={"/learn-assets/capsule-networks/capsule-learning.py"}>{"capsule-learning.py"}</a>{" beside the CSV. The complete program includes model definitions, input validation, split, training, evaluation and JSON export. It does not download pretrained weights."}</Prose>
+
+<CapsuleProgram /><Prose>The complete source below is deferred until you open it. The CSV, import helper and mechanics program are available beside it; save these linked files in one directory for the documented local commands.</Prose><p><a href={capsuleAsset + "native-verification.json"}>Actual execution, environment and numerical checks</a> · <a href={capsuleAsset + "calculated-inputs.json"}>Complete measured record</a></p>
+
+<CodeBlock language={"bash"}>{"python -m pip install numpy==2.3.5 scikit-learn==1.9.1 torch==2.14.0\npython capsule-learning.py"}</CodeBlock>
+
+<Prose>{"The author run used Python 3.12.14 and PyTorch 2.14.0+cpu, one CPU thread. Choose the CPU package source appropriate to your platform if the general package command offers a different accelerator build. Numerical results can vary with platform or future dependency changes; the saved arrays give an exact reference for this run."}</Prose>
+
+<Prose>{"There are six fits: seeds 1, 2 and 3, each with one or three routing steps. Every fit performs 600 Adam updates, learning rate .003, batch size 64 sampled with replacement. The vote matrices start from a normal distribution with standard deviation .1; other layers use PyTorch's defaults. No augmentation, early stopping or checkpoint selection is used. Both variants contain 47,184 parameters, including the decoder."}</Prose>
+
+<Prose>{"The central routing function is short enough to inspect. Votes have shape "}<InlineMath>{"B,I,J,D"}</InlineMath>{"; the parent axis is 2:"}</Prose>
+
+<CodeBlock language={"python"}>{"def squash(vectors):\n    radius = torch.linalg.vector_norm(vectors, dim=-1, keepdim=True)\n    return vectors * radius / (1 + radius.square())\n\ndef route(votes, iterations=3):\n    logits = votes.new_zeros(votes.shape[:-1])\n    for step in range(iterations):\n        coupling = logits.softmax(dim=2)\n        sums = (coupling[..., None] * votes).sum(dim=1)\n        output = squash(sums)\n        if step < iterations - 1:\n            logits = logits + (votes * output[:, None]).sum(dim=-1)\n    return output"}</CodeBlock>
+
+<Prose>{"The downloaded program adds optional trace capture and an explicitly selected stop-gradient demonstration; training uses the full derivative. The displayed function is the same default computation, with those teaching options removed for readability."}</Prose>
+
+<H3>{"What actually happened?"}</H3>
+
+<Prose>{"All six models classified all 280 training images correctly at the final update. Development performance was:"}</Prose>
+
+<NeuralTable caption={"What actually happened?"} headers={[<>{"Seed"}</>,<>{"Routing during training and evaluation"}</>,<>{"Correct / 120"}</>,<>{"Margin loss"}</>,<>{"Reconstruction MSE using predicted class"}</>]} rows={[[<>{"1"}</>,<>{"1"}</>,<>{"117"}</>,<>{".04680"}</>,<>{".03126"}</>],[<>{"1"}</>,<>{"3"}</>,<>{"117"}</>,<>{".02364"}</>,<>{".03334"}</>],[<>{"2"}</>,<>{"1"}</>,<>{"117"}</>,<>{".04823"}</>,<>{".03103"}</>],[<>{"2"}</>,<>{"3"}</>,<>{"116"}</>,<>{".03311"}</>,<>{".03401"}</>],[<>{"3"}</>,<>{"1"}</>,<>{"117"}</>,<>{".04608"}</>,<>{".03325"}</>],[<>{"3"}</>,<>{"3"}</>,<>{"118"}</>,<>{".02497"}</>,<>{".03552"}</>]]} />
+
+<Prose>{"The three-step model's margin loss is lower in every paired run, but classification ties, loses one example or gains one example. Stronger margins do not necessarily change the largest score. The reconstruction term is not a proxy for classification quality either."}</Prose>
+
+<Prose>{"A training-mean-image baseline has development pixel MSE .07296. Both decoders improve on that crude reconstruction baseline. Their predicted-mask reconstructions differ from their true-label-conditioned reconstructions: for seed 1, the corresponding MSEs are .03126 versus .03041 for one-step routing and .03334 versus .03293 for three steps. The lower diagnostic error uses information unavailable at ordinary inference."}</Prose>
+
+<CapsuleEvidenceLab />
+
+<H3>{"A different question: change routing after fitting"}</H3>
+
+<Prose>{"Hold each trained model fixed and evaluate it with different routing counts:"}</Prose>
+
+<NeuralTable caption={"A different question: change routing after fitting"} headers={[<>{"Seed"}</>,<>{"Steps used to train"}</>,<>{"Evaluate with 1"}</>,<>{"With 2"}</>,<>{"With 3"}</>,<>{"With 5"}</>]} rows={[[<>{"1"}</>,<>{"1"}</>,<>{"117"}</>,<>{"117"}</>,<>{"117"}</>,<>{"116"}</>],[<>{"1"}</>,<>{"3"}</>,<>{"118"}</>,<>{"118"}</>,<>{"117"}</>,<>{"117"}</>],[<>{"2"}</>,<>{"1"}</>,<>{"117"}</>,<>{"117"}</>,<>{"117"}</>,<>{"116"}</>],[<>{"2"}</>,<>{"3"}</>,<>{"118"}</>,<>{"117"}</>,<>{"116"}</>,<>{"116"}</>],[<>{"3"}</>,<>{"1"}</>,<>{"117"}</>,<>{"117"}</>,<>{"117"}</>,<>{"118"}</>],[<>{"3"}</>,<>{"3"}</>,<>{"117"}</>,<>{"118"}</>,<>{"118"}</>,<>{"118"}</>]]} />
+
+<Prose>{"All entries are correct counts out of the same 120 development images. Equal counts need not mean identical predictions: the seed-3 one-step model changes one prediction at inference step 2, although its correct count stays 117."}</Prose>
+
+<Prose>{"This intervention tests sensitivity of "}<strong>{"fixed weights"}</strong>{". It is different from training the model under a new routing configuration. Choosing a preferred inference count after seeing this table consumes the development comparison; it is not an unbiased final evaluation of a new setting."}</Prose>
+
+<Prose>{"The result supports a bounded conclusion: three-step routing was not consistently better for this small experiment. It does not establish that routing never helps. A published controlled investigation similarly emphasizes testing routing against uniform alternatives, but uses different architectures, datasets and procedures. "}<a href={"https://proceedings.mlr.press/v101/paik19a.html"}>{"Paik, Kwak and Kim, ACML 2019"}</a>{""}</Prose>
+
+<H2>{"6. Geometry, reconstruction and a useful failure"}</H2>
+
+<Prose>{"A system can recognize an object despite movement without retaining a predictable geometric representation. Conversely, a representation can move predictably while the final classifier still makes errors."}</Prose>
+
+<ul><li>{""}<strong>{"Invariance:"}</strong>{" "}<InlineMath>{"f(Tx)=f(x)"}</InlineMath>{". The chosen output does not change under transformation "}<InlineMath>{"T"}</InlineMath>{"."}</li><li>{""}<strong>{"Equivariance:"}</strong>{" "}<InlineMath>{"f(Tx)=\\rho(T)f(x)"}</InlineMath>{". The output changes according to a specified corresponding transformation "}<InlineMath>{"\\rho(T)"}</InlineMath>{"."}</li></ul>
+
+<Prose>{"For an image classification label, invariance may be desirable for a small translation that preserves the digit. For a position estimate, translation equivariance is usually necessary: the estimated location should move. A rotation can change the semantic label in some tasks, so desired invariances must come from the task contract."}</Prose>
+
+<Prose>{"A learned capsule vector does not by itself define "}<InlineMath>{"\\rho(T)"}</InlineMath>{". Without that definition and a check of the equality, a higher transformed-image accuracy is evidence about robustness, not a proof of equivariance."}</Prose>
+
+<H3>{"A shift test with no retraining"}</H3>
+
+<Prose>{"Shift every development image one pixel right or down, filling the exposed boundary with zero and discarding pixels that leave the frame. Evaluate with the routing count used for training."}</Prose>
+
+<NeuralTable caption={"A shift test with no retraining"} headers={[<>{"Seed"}</>,<>{"Trained steps"}</>,<>{"Unchanged"}</>,<>{"One pixel right"}</>,<>{"One pixel down"}</>]} rows={[[<>{"1"}</>,<>{"1"}</>,<>{"117"}</>,<>{"69"}</>,<>{"75"}</>],[<>{"1"}</>,<>{"3"}</>,<>{"117"}</>,<>{"61"}</>,<>{"72"}</>],[<>{"2"}</>,<>{"1"}</>,<>{"117"}</>,<>{"66"}</>,<>{"72"}</>],[<>{"2"}</>,<>{"3"}</>,<>{"116"}</>,<>{"60"}</>,<>{"77"}</>],[<>{"3"}</>,<>{"1"}</>,<>{"117"}</>,<>{"72"}</>,<>{"76"}</>],[<>{"3"}</>,<>{"3"}</>,<>{"118"}</>,<>{"65"}</>,<>{"78"}</>]]} />
+
+<Prose>{"The model is highly sensitive to these shifts. The experiment uses small images, stride 2, location-specific vote matrices and no shift augmentation. Cropping can also remove meaningful strokes; inspect individual transformed inputs rather than assuming every transformation perfectly preserves the label. Zero shift reproduces the unchanged predictions."}</Prose>
+
+<Prose>{"This is a useful failure. Routing's internal agreement does not manufacture the missing coverage of transformed data or constrain every preceding layer to respect a symmetry."}</Prose>
+
+<CapsuleFrozenInvestigation />
+
+<H3>{"What can a latent-coordinate experiment tell us?"}</H3>
+
+<Prose>{"Choose one class vector, keep the decoder and mask fixed, and change one coordinate by "}<InlineMath>{"-.1,0,+.1"}</InlineMath>{". Display the three reconstructions at the same intensity scale. This probes how the "}<strong>{"learned decoder"}</strong>{" responds to that coordinate near that specimen."}</Prose>
+
+<Prose>{"It may alter several image properties at once. Even if a change resembles thickness in one image, call it a local observed effect until it recurs under broader controlled tests. A coordinate edit is not guaranteed to lie on the distribution of vectors the encoder actually produces."}</Prose>
+
+<Prose>{"There is also a precise null case: if the decoder mask selects class 4, changing only class 5's vector cannot affect the masked decoder input. Changing a caption's label without changing the actual mask cannot affect any arithmetic."}</Prose>
+
+<H3>{"An unusual application: separate overlapping objects"}</H3>
+
+<Prose>{"Why reconstruct one class at a time? In an image containing two different digits, two class capsules can condition two reconstructions. The auxiliary task asks each selected representation to account for a different component rather than the combined image."}</Prose>
+
+<Prose>{"This requires appropriate paired component targets and a multi-object objective; the single-digit model above was not trained for it. A careful experiment must build training composites from training specimens and held-out composites from held-out specimens. Millions of pairings of a smaller source set do not become millions of independent original specimens. The original capsule work explored this direction on overlapping digits. "}<a href={"https://arxiv.org/abs/1710.09829"}>{"Dynamic Routing Between Capsules"}</a>{""}</Prose>
+
+<Prose>{"The same part-to-whole question can arise in video: frame-level or local motion evidence may support an action occurring over a region and interval. The representation, instance capacity and evaluation unit must then include time. This is a reason to investigate capsules, not evidence that this digit model already solves action localization. The "}<a href={"https://www.crcv.ucf.edu/cvpr2019-tutorial/"}>{"UCF CVPR tutorial"}</a>{" includes a separate video-capsule session for that application."}</Prose>
+
+<H2>{"7. Deeper mechanics: gradients and explicit coordinate frames"}</H2>
+
+<H3>{"Squash changes radial and sideways sensitivity differently"}</H3>
+
+<Prose>{"Write "}<InlineMath>{"s=rq"}</InlineMath>{", where "}<InlineMath>{"q"}</InlineMath>{" is a unit vector. A small change parallel to "}<InlineMath>{"q"}</InlineMath>{" changes length; a perpendicular change initially changes direction. The squash Jacobian has eigenvalues"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\lambda_{\\text{radial}}=\\frac{2r}{(1+r^2)^2},\\qquad\n\\lambda_{\\text{tangent}}=\\frac{r}{1+r^2}."}</MathBlock></div>
+
+<Prose>{"Both approach zero at the origin and at very large radius, at different rates. Consequently, making initial votes arbitrarily tiny or letting summed inputs become huge can reduce useful gradients. The radial output-length curve "}<InlineMath>{"r^2/(1+r^2)"}</InlineMath>{" has its inflection at "}<InlineMath>{"r=1/\\sqrt3"}</InlineMath>{", not at 1."}</Prose>
+
+<Prose>{"For "}<InlineMath>{"s=(.3,.4)"}</InlineMath>{", "}<InlineMath>{"r=.5"}</InlineMath>{", radial sensitivity is .64 and tangent sensitivity .4. For "}<InlineMath>{"s=(3,4)"}</InlineMath>{", "}<InlineMath>{"r=5"}</InlineMath>{", they are approximately .01479 and .19231. A very long vector is much harder to lengthen than to rotate locally."}</Prose>
+
+<Prose>{"The "}<a href={"/learn-assets/capsule-networks/capsule-mechanics.py"}>{"mechanics program"}</a>{" computes the analytical Jacobian and checks it by central differences. At zero the exact derivative is zero; a finite difference has a small step-dependent residual. This is a numerical approximation, not a contradictory derivative."}</Prose>
+
+<Prose>{"For the three-step routing fixture, differentiating the full computation agrees with central differences to about "}<InlineMath>{"1.2\\times10^{-10}"}</InlineMath>{". Detaching earlier routing calculations gives the same scalar loss but a gradient differing by up to .03752. Both can be coded; only the full derivative matches the stated full forward function's derivative."}</Prose>
+
+<H3>{"Why explicit matrices can help—and what they do not guarantee"}</H3>
+
+<Prose>{"Suppose a part really has a homogeneous 2D coordinate frame"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"M_i=\\begin{bmatrix}1&0&2\\\\0&1&3\\\\0&0&1\\end{bmatrix}"}</MathBlock></div>
+
+<Prose>{"and its relation to the whole is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"W_{ij}=\\begin{bmatrix}1&0&-1\\\\0&1&0\\\\0&0&1\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"Then "}<InlineMath>{"M_iW_{ij}"}</InlineMath>{" predicts a whole located at "}<InlineMath>{"(1,3)"}</InlineMath>{". Rotate the entire scene by "}<InlineMath>{"90^\\circ"}</InlineMath>{", using"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"G=\\begin{bmatrix}0&-1&0\\\\1&0&0\\\\0&0&1\\end{bmatrix}."}</MathBlock></div>
+
+<Prose>{"Associativity gives "}<InlineMath>{"(GM_i)W_{ij}=G(M_iW_{ij})"}</InlineMath>{", so the predicted whole moves to "}<InlineMath>{"(-3,1)"}</InlineMath>{" consistently. The part–whole relation stays fixed while the viewing frame changes."}</Prose>
+
+<Prose>{"This is an exact calculation "}<strong>{"because"}</strong>{" these matrices have an explicitly supplied geometric meaning and transform by left multiplication. A learned encoder must still produce frames with the promised transformation behavior. A generic learned "}<InlineMath>{"4\\times4"}</InlineMath>{" array does not automatically become a rigid camera pose."}</Prose>
+
+<CapsuleGeometryFigure />
+
+<Prose>{"For vector votes, a linear map needs"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"W\\rho_{\\text{in}}(T)=\\rho_{\\text{out}}(T)W"}</MathBlock></div>
+
+<Prose>{"to preserve a chosen symmetry. Arbitrary "}<InlineMath>{"W"}</InlineMath>{" need not satisfy it. For "}<InlineMath>{"W=\\operatorname{diag}(2,1)"}</InlineMath>{", "}<InlineMath>{"u=(1,2)"}</InlineMath>{" and a "}<InlineMath>{"90^\\circ"}</InlineMath>{" rotation "}<InlineMath>{"R"}</InlineMath>{", "}<InlineMath>{"WRu=(-4,1)"}</InlineMath>{" while "}<InlineMath>{"RWu=(-2,2)"}</InlineMath>{"."}</Prose>
+
+<Prose>{"Squash itself commutes with an orthogonal rotation because rotation preserves the norm. It does not commute with arbitrary scaling: "}<InlineMath>{"\\operatorname{squash}(2u)\\ne2\\operatorname{squash}(u)"}</InlineMath>{". Exact symmetry is a whole-computation constraint, not a descriptive name. "}<a href={"https://arxiv.org/abs/1602.07576"}>{"Group Equivariant Convolutional Networks"}</a>{" develops architectures that explicitly constrain transformations."}</Prose>
+
+<H3>{"Matrix capsules and EM routing"}</H3>
+
+<Prose>{"Matrix capsules separate an activation scalar "}<InlineMath>{"a_i"}</InlineMath>{" from pose matrix "}<InlineMath>{"M_i"}</InlineMath>{". Votes are "}<InlineMath>{"V_{ij}=M_iW_{ij}"}</InlineMath>{". Flatten the entries of a vote into coordinates "}<InlineMath>{"h"}</InlineMath>{" only for the statistics."}</Prose>
+
+<Prose>{"Instead of repeatedly adding dot-product agreement, a diagonal-Gaussian routing procedure estimates a mean and variance for the votes supporting each parent. Let "}<InlineMath>{"R_{ij}"}</InlineMath>{" be a child's normalized responsibility and "}<InlineMath>{"q_{ij}=a_iR_{ij}"}</InlineMath>{". Then"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"n_j=\\sum_iq_{ij},\\quad\n\\mu_{jh}=\\frac{\\sum_iq_{ij}V_{ijh}}{n_j},\\quad\n\\sigma^2_{jh}=\\frac{\\sum_iq_{ij}(V_{ijh}-\\mu_{jh})^2}{n_j}."}</MathBlock></div>
+
+<Prose>{"The child activation scales its contribution. Each iteration recomputes "}<InlineMath>{"q=aR"}</InlineMath>{"; repeatedly multiplying a previously scaled "}<InlineMath>{"q"}</InlineMath>{" by "}<InlineMath>{"a"}</InlineMath>{" would incorrectly suppress children again and again. A parent with zero effective mass has no identified mean. A numerical denominator guard prevents a crash but does not create evidence; report the no-evidence case. A variance floor similarly prevents singular densities while changing the fitted spread."}</Prose>
+
+<Prose>{"Estimate a parent activation from a coding-cost expression, then revise responsibilities using a Gaussian log density plus log parent activation, normalized over parents. Our complete constructed demonstration uses"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\mathrm{cost}_j=\\sum_h n_j(\\beta_u+\\log\\sigma_{jh}),\\quad\na_j=\\operatorname{sigmoid}\\{\\lambda(\\beta_a-\\mathrm{cost}_j)\\},"}</MathBlock></div>
+
+<div className="neural-equation"><MathBlock>{"R_{ij}=\\operatorname{softmax}_j\\left[\n\\log a_j-\\frac12\\sum_h\\left(\\log(2\\pi\\sigma^2_{jh})\n+\\frac{(V_{ijh}-\\mu_{jh})^2}{\\sigma^2_{jh}}\\right)\\right]."}</MathBlock></div>
+
+<Prose>{"It fixes "}<InlineMath>{"\\beta_u=\\beta_a=0"}</InlineMath>{", variance floor .01 and inverse temperatures .5, .75 and 1. These are declared illustration settings; a trained matrix-capsule model learns cost parameters and uses a chosen schedule."}</Prose>
+
+<Prose>{"For three children with activations "}<InlineMath>{"1,1,.5"}</InlineMath>{", parent-A first coordinates "}<InlineMath>{"0,.2,2"}</InlineMath>{" and parent-B first coordinates "}<InlineMath>{"0,3,3.2"}</InlineMath>{", uniform responsibilities give mass 1.25 per parent. The first means are .48 and 1.84. After three rounds they are approximately .10881 and 2.81927. The second coordinate is zero for every vote, so its variance hits the stated floor. Making the third child inactive makes edits to its votes irrelevant to the estimated means."}</Prose>
+
+<Prose>{"The resemblance to "}<a href={"/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml"}>{"Gaussian-mixture EM"}</a>{" is useful, but each capsule parent sees a differently transformed version of the children, and parent activations do not sum to one. It is not ordinary maximum-likelihood fitting of one common observed dataset. The matrix-capsule paper discusses the change-of-variables issue when comparing densities in different transformed spaces. "}<a href={"https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf"}>{"Matrix Capsules with EM Routing"}</a>{""}</Prose>
+
+<CapsuleEMLab /><CapsuleProgram file="capsule-mechanics.py" title="Read the complete NumPy routing, derivative, geometry and EM program" />
+
+<H2>{"Follow routing all the way into a trainable program"}</H2>
+
+<Prose>{"The runnable scratch route is split by purpose, not by missing work. "}<a href={"/learn-assets/capsule-networks/capsule-mechanics.py"}>{"capsule-mechanics.py"}</a>{" owns NumPy votes, stable softmax, squash, routing iterations and the bounded diagonal-EM illustration. "}<a href={"/learn-assets/capsule-networks/capsule-learning.py"}>{"capsule-learning.py"}</a>{" owns the differentiable Torch routing, "}<code>{"TinyCapsules"}</code>{", margin loss, reconstruction and complete fit. The Torch tensor implementation is the ordinary research route: there is no universal standard capsule layer whose import can replace specifying the routing algorithm. Reusing "}<code>{"einsum"}</code>{", linear layers and autograd does not hide routing; the code explicitly updates its coupling logits and sums weighted votes."}</Prose>
+
+<Prose>{"The paired route compares the same votes and iteration count, not two independently fitted classifiers. "}<code>{"author-checks.py"}</code>{" reconstructs saved encoder/routing/reconstruction outputs through a separate NumPy path. The lesson's gradient branch explains how gradients flow through the iterative computation. Detaching intermediate agreements would change that training algorithm even if its forward result stayed identical. Softmax runs over candidate "}<strong>{"parents for each child"}</strong>{"; moving that axis changes who competes for responsibility."}</Prose>
+
+<CapsuleProgram file="author-checks.py" title="Read the independent NumPy encoder and saved-state comparison" />
+
+<Prose>{"Dynamic routing with B examples, I child capsules, J parents, vote width D and R rounds uses O(BIJD·R) routing arithmetic and O(BIJD) vote storage, apart from the learned vote transforms. Parent-batched contractions are appropriate for the small inspected classifier; manufacturing an extra all-pairs child tensor is not. Diagonal EM has a different Gaussian/statistical meaning and stays explicitly a small illustrative calculation, not an implementation claim for the complete Matrix Capsules paper or its convolutional pose system."}</Prose>
+
+<Prose>{""}<strong>{"Implementation exercise:"}</strong>{" add a positive routing temperature τ by replacing "}<code>{"softmax(logits)"}</code>{" with "}<code>{"softmax(logits/τ)"}</code>{", leaving the agreement update unscaled. Compare τ0.5,1 and2 with fixed votes and R. Do not divide both the logits and every agreement update unless you mean a different algorithm. The worked two-parent logits[0,2] give shares approximately[0.1192,0.8808] atτ1, [0.0180,0.9820] atτ0.5, and[0.2689,0.7311] atτ2. Check each child row sums to one and that a single candidate parent always receives share one. Trace actual vector outputs as well as shares; sharper assignments do not guarantee better classification. At finite nonzero votes this remains differentiable, while τ must remain strictly positive."}</Prose>
+
+<H2>{"8. Architecture costs and alternative routing designs"}</H2>
+
+<Prose>{"The classic vector CapsNet uses a larger shape chain than our experiment:"}</Prose>
+
+<CapsuleClassicShape />
+
+<div className="neural-equation"><MathBlock>{"28^2\\to256\\times20\\times20\n\\to32\\text{ types}\\times6\\times6\\times8\\text{ coordinates}\n\\to10\\times16."}</MathBlock></div>
+
+<Prose>{"Both convolutions have "}<InlineMath>{"9\\times9"}</InlineMath>{" kernels; the second has stride 2. There are 1,152 primary capsules. With a masked 160-value decoder input and decoder widths 512, 1,024 and 784, the parameter accounting is:"}</Prose>
+
+<NeuralTable caption={"8. Architecture costs and alternative routing designs"} headers={[<>{"Component"}</>,<>{"Parameters"}</>]} rows={[[<>{"First convolution"}</>,<>{"20,992"}</>],[<>{"Primary-capsule convolution"}</>,<>{"5,308,672"}</>],[<>{"Vote transformations"}</>,<>{"1,474,560"}</>],[<>{"Reconstruction decoder"}</>,<>{"1,411,344"}</>],[<>{"Total"}</>,<>{"8,215,568"}</>]]} />
+
+<Prose>{"The primary convolution, not the vote matrices, owns the largest share here. Disabling the decoder removes its parameters. A decoder that receives only the selected 16-vector is another design with different counts; do not mix that count with the masked-160 implementation."}</Prose>
+
+<Prose>{"For historical context, the vector-capsule paper reports .25% ordinary MNIST test error for its three-routing-step reconstruction model. Its 99.23% MNIST accuracy belongs to a different, expanded-canvas model used in the affNIST transfer comparison. Those are not interchangeable results. Matrix-capsule experiments also use smallNORB: photographs of physical toy objects under controlled views and lighting, not rendered 3D objects. Its separation of physical training and test instances is material to interpreting generalization. "}<a href={"https://arxiv.org/pdf/1710.09829"}>{"Vector-capsule experiments"}</a>{", "}<a href={"https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf"}>{"matrix-capsule experiments"}</a>{"."}</Prose>
+
+<Prose>{"For "}<InlineMath>{"I"}</InlineMath>{" children, "}<InlineMath>{"J"}</InlineMath>{" parents, child dimension "}<InlineMath>{"d"}</InlineMath>{", parent dimension "}<InlineMath>{"D"}</InlineMath>{" and "}<InlineMath>{"r"}</InlineMath>{" routing steps:"}</Prose>
+
+<ul><li>{"Dense vote parameters and vote products scale with "}<InlineMath>{"IJdD"}</InlineMath>{"."}</li><li>{"Stored votes scale with "}<InlineMath>{"BIJD"}</InlineMath>{", where "}<InlineMath>{"B"}</InlineMath>{" is batch size."}</li><li>{"Weighted sums at all "}<InlineMath>{"r"}</InlineMath>{" steps plus agreements at the first "}<InlineMath>{"r-1"}</InlineMath>{" steps require "}<InlineMath>{"(2r-1)BIJD"}</InlineMath>{" scalar product-and-accumulate terms, excluding softmax, squash and other operations."}</li></ul>
+
+<Prose>{"At batch 32, the classic vote tensor alone occupies 23,592,960 bytes in float32, about 22.5 MiB. Backpropagation retains additional state. Arithmetic counts do not predict latency without measuring memory movement, kernels, hardware and backward computation."}</Prose>
+
+<Prose>{"Naively expanding the original valid-convolution topology to "}<InlineMath>{"224\\times224"}</InlineMath>{" gives a "}<InlineMath>{"104\\times104"}</InlineMath>{" primary grid, or 346,112 children. Fully connecting these to 1,000 parents with dimensions 8→16 would require 44,302,336,000 vote parameters. This is a warning about that particular expansion, not a lower bound for every capsule architecture. Local capsule receptive fields and shared type-to-type transforms change the scaling."}</Prose>
+
+<Prose>{"Matrix multiplication of a "}<InlineMath>{"4\\times4"}</InlineMath>{" pose by a learned "}<InlineMath>{"4\\times4"}</InlineMath>{" relation uses 16 learned parameters per relation. An unrestricted linear map of a flattened 16-vector to another 16-vector uses 256. That parameter reduction imposes structure; it is not a free replacement for every arbitrary vector map."}</Prose>
+
+<Prose>{"Three alternative directions answer different shortcomings:"}</Prose>
+
+<NeuralTable caption={"8. Architecture costs and alternative routing designs"} headers={[<>{"Direction"}</>,<>{"Mechanism"}</>,<>{"What to examine"}</>]} rows={[[<>{"Diagonal EM routing"}</>,<>{"Estimate vote clusters, spread and activation separately"}</>,<>{"Variance floors, negligible mass, log-domain numerics, local sharing"}</>],[<>{"Variational-Bayes routing"}</>,<>{"Maintain approximate uncertainty over mixture parameters and assignments with priors"}</>,<>{"Prior strength, approximation assumptions, whether variance-collapse behavior improves"}</>],[<>{"STAR-Caps"}</>,<>{"Use learned attentive coefficients and binary routing gates with a straight-through gradient estimator"}</>,<>{"Discrete forward choices versus surrogate gradients, actual sparse execution and measured cost"}</>]]} />
+
+<Prose>{"The "}<a href={"https://ojs.aaai.org/index.php/AAAI/article/view/5785"}>{"AAAI 2020 variational-routing paper"}</a>{" and "}<a href={"https://karim-ahmed.github.io/publications/starcaps.pdf"}>{"NeurIPS 2019 STAR-Caps paper"}</a>{" are distinct algorithms, not extra loop counts for the vector-routing function above. STAR-Caps includes ImageNet experiments, so “capsules have never been tried on ImageNet” is incorrect. Historical results should be read with their architecture, data and training conditions, not used as an undated ranking."}</Prose>
+
+<Prose>{"For matrix capsules, "}<strong>{"spread loss"}</strong>{" is another objective:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"L=\\sum_{i\\ne t}\\max(0,m-(a_t-a_i))^2."}</MathBlock></div>
+
+<Prose>{"It asks the true activation to exceed each wrong activation by a margin "}<InlineMath>{"m"}</InlineMath>{", often increased during training. Unlike the earlier independent thresholds .9 and .1, it penalizes a relative activation gap."}</Prose>
+
+<Prose>{"Applications involving geometric structure or overlapping instances can justify capsule experiments. They still need matched baselines, valid splits and a specific failure hypothesis. Neither an attractive reconstruction nor resistance to one attack proves general robustness. A 3D viewpoint change can reveal or hide surfaces; it is not always an invertible 2D image transform."}</Prose>
+
+<H2>{"9. Practice: implement, explain and compare"}</H2>
+
+<H3>{"1. Repeated evidence is not an average"}</H3>
+
+<Prose>{"There are two identical children. Each sends "}<InlineMath>{"(1,0)"}</InlineMath>{" to both of two parents. What is each parent's length after one step? Add two more identical children. What changes, and will further routing break the symmetry?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Each child splits its own contribution in half. Sum contributions at a parent before applying squash."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"Two children give "}<InlineMath>{"s=(1,0)"}</InlineMath>{", so the length is .5. Four give "}<InlineMath>{"s=(2,0)"}</InlineMath>{", so the length is .8. Both parents are identical at every step and each row remains "}<InlineMath>{"(.5,.5)"}</InlineMath>{". More evidence changes magnitude; it does not create a reason to prefer either parent."}</Prose>
+
+</details>
+
+<H3>{"2. A positive agreement can still lose share"}</H3>
+
+<Prose>{"A child currently has logits "}<InlineMath>{"(0,0)"}</InlineMath>{". The next agreements are "}<InlineMath>{"(1,2)"}</InlineMath>{". Did the first parent gain or lose coupling, even though its agreement was positive?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Softmax compares scores within the same row. Compute the first fraction from the updated logits."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"Its coupling falls from .5 to "}<InlineMath>{"e^1/(e^1+e^2)=1/(1+e)\\approx.26894"}</InlineMath>{". A positive absolute update is not necessarily a relative gain."}</Prose>
+
+</details>
+
+<H3>{"3. Change the loss convention correctly"}</H3>
+
+<Prose>{"A "}<InlineMath>{"16\\times16"}</InlineMath>{" reconstruction uses .0005 times summed squared error. Your API returns mean squared error over pixels. What coefficient preserves the objective? If the true class has length .8 and two wrong classes have lengths .2 and .4, compute the margin loss."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"There are 256 pixels. The true-class shortfall and the two wrong-class excesses use different weights."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"Use "}<InlineMath>{".0005\\cdot256=.128"}</InlineMath>{" times pixel MSE. The margin terms are "}<InlineMath>{"(.9-.8)^2+.5(.2-.1)^2+.5(.4-.1)^2=.01+.005+.045=.06"}</InlineMath>{", assuming all other wrong lengths are at most .1."}</Prose>
+
+</details>
+
+<H3>{"4. Repair a leaking reconstruction report"}</H3>
+
+<Prose>{"A program evaluates classification without labels, but reconstructs every development image using its known true class and labels the result “inference reconstruction.” Rewrite the protocol and specify which numbers to retain."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Separate the decision available to the deployed model from an optional diagnostic that conditions on the answer."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"Select the longest class capsule to compute ordinary inference reconstruction. Retain the true-label-masked reconstruction under an explicit “label-conditioned diagnostic” label. Report both MSEs and classification errors if the distinction is useful. Neither reconstruction should change classification scores. Do not supply the true label to select a capsule in a claimed label-free system."}</Prose>
+
+</details>
+
+<H3>{"5. Design a new routing comparison"}</H3>
+
+<Prose>{"You want to know whether routing helps with left-shifted digits. The existing table contains only right and downward shifts. Specify a comparison that does not treat those table rows as a new untouched test, then make and check a prediction with the program."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"State which weights are fixed, how pixels leaving the image are handled, which labels remain valid, and what data have already influenced your choices."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"One valid development investigation holds each of the six models fixed, applies a one-pixel left shift with zero fill, inspects label-preservation failures and compares paired one-step/three-step training configurations. Show the current computed result and its contributing terms immediately. The result is exploratory because the dataset and models have already been studied. A subsequent final claim needs a separately reserved, relevant evaluation set and a frozen protocol. The numeric left-shift result is intentionally not supplied: generate it, retain the changed inputs and explain both counts and disagreement cases."}</Prose>
+
+</details>
+
+<H3>{"6. Disprove an equivariance claim"}</H3>
+
+<Prose>{"An engineer says any learned linear vote map preserves rotation because it is a matrix. Use "}<InlineMath>{"u=(1,0)"}</InlineMath>{", "}<InlineMath>{"W=\\operatorname{diag}(3,1)"}</InlineMath>{" and a "}<InlineMath>{"90^\\circ"}</InlineMath>{" rotation to test the claim. What must replace that assertion?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Compare transforming before the vote map with transforming afterward."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{""}<InlineMath>{"WRu=W(0,1)=(0,1)"}</InlineMath>{", while "}<InlineMath>{"RWu=R(3,0)=(0,3)"}</InlineMath>{". The diagram does not commute. Specify input/output group actions and constrain "}<InlineMath>{"W\\rho_{\\text{in}}=\\rho_{\\text{out}}W"}</InlineMath>{"; also verify the encoder, nonlinearities, routing and readout preserve the intended transformation contract."}</Prose>
+
+</details>
+
+<H3>{"7. A low-activation child and diagonal EM"}</H3>
+
+<Prose>{"For one parent, two scalar votes are 0 and 4. Responsibilities are both .5; child activations are 1 and .25. Calculate effective mass, mean and variance before a variance floor. Why is repeatedly multiplying the responsibilities by activation in place wrong?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Use effective weights .5 and .125. Variance measures squared distance from the weighted mean."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"Mass is .625, mean is "}<InlineMath>{".125\\cdot4/.625=.8"}</InlineMath>{", and variance is "}<InlineMath>{"[.5(.8)^2+.125(3.2)^2]/.625=2.56"}</InlineMath>{". Repeated in-place multiplication would turn the second activation factor into .25², .25³ and so on, changing the specified model. Each iteration uses the new normalized "}<InlineMath>{"R"}</InlineMath>{" and multiplies by the unchanged "}<InlineMath>{"a"}</InlineMath>{" once."}</Prose>
+
+</details>
+
+<H3>{"8. Explain a reconstruction edit without inventing semantics"}</H3>
+
+<Prose>{"Use either saved image and the fixed seed-1 three-step model. Change a selected class-vector coordinate by a value other than the demonstrated ±.1. Predict what changes and what must remain invariant. What evidence would justify naming the coordinate “stroke thickness”?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Separate encoder scores, decoder inputs, mask selection and visual interpretation."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution</summary>
+
+<Prose>{"A decoder-only edit leaves the original encoder's scores unchanged unless you explicitly recompute a score from the edited vector. Editing a masked-out class leaves reconstruction unchanged; editing the selected class can change it. Record the exact coordinate, delta, mask and image difference. Naming a physical factor requires consistent, controlled changes across relevant images and checks for confounded properties, not one appealing morph."}</Prose>
+
+</details>
+
+<Prose>{""}<strong>{"Readiness:"}</strong>{" you can follow one image through grouping, voting, routing, scoring and reconstruction; explain why routing normalizes over parents for each child; distinguish input-dependent assignments from trained weights; and design a comparison whose conclusion matches the data. For the deeper branch, derive a squash sensitivity, check a transformation identity and trace one EM update."}</Prose>
+
+<H2>{"10. Continue and learn another way"}</H2>
+
+<Prose>{"Next in the module is "}<a href={"/learn/path/full-curriculum/rnns-lstms-grus?module=deep-learning-fundamentals"}>{"RNNs, LSTMs and GRUs"}</a>{". We move from repeated assignment refinement for one image to a state updated over observations in time. The connection is repeated computation; the purpose and state lifetime are different."}</Prose>
+
+<Prose>{"Useful references and alternate routes:"}</Prose>
+
+<ul><li>{""}<a href={"https://arxiv.org/abs/1710.09829"}>{"Dynamic Routing Between Capsules — Sabour, Frosst and Hinton"}</a>{". Read the routing procedure with the child/parent axes beside it, then the reconstruction experiment. Its ordinary MNIST result and the separately trained affNIST-transfer model are different protocols; do not merge their scores."}</li><li>{""}<a href={"https://www.cs.toronto.edu/~saaraa/CapsuleSlides.pdf"}>{"Introduction to Capsules — Sara Sabour's slides"}</a>{". A visual route through coordinate frames, agreement and assignment, especially slides 10–40. Some slides use cosine terminology; the implemented vector-routing agreement in this lesson is the dot product."}</li><li>{""}<a href={"https://www.crcv.ucf.edu/cvpr2019-tutorial/"}>{"Capsule Networks for Computer Vision — UCF CVPR 2019 tutorial"}</a>{". The historical university index links talks and slides (it returned a gateway error during the September2026 implementation check; use the accessible author slides above if unavailable), including Sabour's introduction, a survey, video capsules and segmentation. It is historical research teaching, with separate prerequisites for the application sessions; the full video was not watched for this packet."}</li><li>{""}<a href={"https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf"}>{"Matrix Capsules with EM Routing"}</a>{". Follow the pose/activation distinction and algorithm, then Appendix A for why transforming Gaussian votes differ from fitting an ordinary mixture."}</li><li>{""}<a href={"https://proceedings.mlr.press/v101/paik19a.html"}>{"Capsule Networks Need an Improved Routing Algorithm"}</a>{". An alternative reading centered on controlled comparisons and assignment polarization. Its experiments are evidence under those configurations, not a universal impossibility theorem."}</li><li>{""}<a href={"https://ojs.aaai.org/index.php/AAAI/article/view/5785"}>{"Capsule Routing via Variational Bayes"}</a>{". A deeper probabilistic route; read after the local EM bridge and prior Gaussian-mixture material."}</li><li>{""}<a href={"https://karim-ahmed.github.io/publications/starcaps.pdf"}>{"STAR-Caps"}</a>{". Study the distinction between a discrete routing decision and its straight-through training gradient before attempting to reproduce this architecture."}</li><li>{""}<a href={"/learn-assets/capsule-networks/data-provenance.md"}>{"Data and calculation provenance"}</a>{", "}<a href={"/learn-assets/capsule-networks/capsule-learning.py"}>{"complete learning program"}</a>{", "}<a href={"/learn-assets/capsule-networks/capsule-mechanics.py"}>{"constructed mechanics program"}</a>{" and its "}<a href={"/learn-assets/capsule-networks/capsule_learning_import.py"}>{"small import helper"}</a>{". The first trains the offline model; the second supplies exact routing, geometry, derivative and EM fixtures. No browser lab is required to inspect the underlying arithmetic."}</li></ul>
+</div>
 };
-
-export default capsuleNetworksContent;

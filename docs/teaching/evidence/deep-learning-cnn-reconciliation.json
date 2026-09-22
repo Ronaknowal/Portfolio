@@ -1,0 +1,147 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T00:09:22.517Z",
+  "topics": [
+    {
+      "id": "weight-initialization-xavier-kaiming-p",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 12
+    },
+    {
+      "id": "residual-connections-skip-connections",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 10
+    },
+    {
+      "id": "dropout-droppath-stochastic-depth",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 11
+    },
+    {
+      "id": "convolution-pooling-receptive-fields",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 10
+    },
+    {
+      "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 13
+    }
+  ],
+  "unchangedOtherRows": 172,
+  "receipts": [
+    {
+      "path": "docs/teaching/evidence/weight-initialization-author.json",
+      "sha256": "336ecd0edecd8ee7122240ed3eeeab30f98595e8afb66837adedbb8abd00e11c"
+    },
+    {
+      "path": "docs/teaching/evidence/weight-initialization-native.json",
+      "sha256": "b3bdb84a93ac50df4535916514467cbb0238c3c505c9a20eb55d80bdeb2a4cbf"
+    },
+    {
+      "path": "docs/teaching/evidence/initialization-independent-native.json",
+      "sha256": "2afddcbc05d8ec37a16f907b25feb2792a838476cba1157aa7d704afba25e938"
+    },
+    {
+      "path": "docs/teaching/evidence/initialization-independent-review.json",
+      "sha256": "540928bd9dd741cdceb94873135781c2bf57aac011f0f730f704cfe945107ac1"
+    },
+    {
+      "path": "docs/teaching/evidence/weight-initialization-browser/report.json",
+      "sha256": "4190b6f77af60c1212284077cb1322c5e71dcfd67cf5ac8020ab78be0aa48bef"
+    },
+    {
+      "path": "docs/teaching/evidence/residual-connections-author.json",
+      "sha256": "6887e8d35ed19d53e0871274fb1149f5fa253ce3e6342d6bfcce87f926f78336"
+    },
+    {
+      "path": "docs/teaching/evidence/residual-connections-independent-native.json",
+      "sha256": "fcd8c63bd3f8f26f1f5ea7f0fc60d3978231f395811cbdf57583fccfb15167b3"
+    },
+    {
+      "path": "docs/teaching/evidence/residual-connections-independent-review.json",
+      "sha256": "de6116e6a6fc0d4e2f15127dc64d1af41a729f5eb62af0f3f7fb9f07dedb712e"
+    },
+    {
+      "path": "docs/teaching/evidence/residual-connections/browser.json",
+      "sha256": "dcda15a8dc71e809a0b52060f75b35c5e6145842c73f5a79c1b68ff10b17f8b5"
+    },
+    {
+      "path": "docs/teaching/evidence/dropout-implementation/author.json",
+      "sha256": "9e458184f5bd9774ead6cf2ca956670e6d7c1c978ba559c5847e988221891ecc"
+    },
+    {
+      "path": "docs/teaching/evidence/dropout-implementation/independent-native.json",
+      "sha256": "841cc13c52aa8b06bb51ed5961897c6af3bb9bb4f85dafdfbfac9d139f413f57"
+    },
+    {
+      "path": "docs/teaching/evidence/dropout-implementation/independent-model.json",
+      "sha256": "ead849d7a8e2c920b02a7a7e18ae77fe7b970866b07e2aa6dab9c350ee2bdfa5"
+    },
+    {
+      "path": "docs/teaching/evidence/dropout-implementation/independent-review.json",
+      "sha256": "cb6bda850be55e66cce1bee7f7881c1bac1a720f75479414d7a9fda2644fe929"
+    },
+    {
+      "path": "docs/teaching/evidence/dropout-implementation/browser.json",
+      "sha256": "541f515d75308b61a91e8c8a51bfc41694d0d3652927fc4e1782361e6917ca19"
+    },
+    {
+      "path": "docs/teaching/evidence/convolution-author-checks.json",
+      "sha256": "a636f3627f1b0aba0209c9245f6f7446181962a1e93b5889eb074de307c4a475"
+    },
+    {
+      "path": "docs/teaching/evidence/convolution-independent-native.json",
+      "sha256": "0ca6f4b4162d6ebb5069851be7fc5f19b468137de7e03ead9130ae6f8541d3cf"
+    },
+    {
+      "path": "docs/teaching/evidence/convolution-independent-model.json",
+      "sha256": "5c2452fe463138fddd89674503bcfef983b3592e42a09d7c5c57487692be2f62"
+    },
+    {
+      "path": "docs/teaching/evidence/convolution-independent-review.json",
+      "sha256": "2e35de9cfaa80b56d4f74d4a08a54386316583f633aabce171372c1f16a04f45"
+    },
+    {
+      "path": "docs/teaching/evidence/convolution-browser/report.json",
+      "sha256": "70a13aa4b7515e6a973b0a07795647d9fa3ed56cb3741e3d26ec29160eaa8de0"
+    },
+    {
+      "path": "docs/teaching/evidence/landmark-architecture-author.json",
+      "sha256": "1e5a17494361f53488bc8110f45f8572a5296e2af6e3cf0dce3546f1f31c3348"
+    },
+    {
+      "path": "docs/teaching/evidence/landmark-architecture-native.json",
+      "sha256": "28b4e0d2c3ad324c42edcb79abf45795b595ac5e2a5bfd056cfb5c75748b2a42"
+    },
+    {
+      "path": "docs/teaching/evidence/landmark-architectures-independent-native.json",
+      "sha256": "3383ef1234696a8cf7df97b207d411fd57defde57824348ad45235c90b8530a4"
+    },
+    {
+      "path": "docs/teaching/evidence/landmark-architectures-independent-review.json",
+      "sha256": "c3b8a45e0e44d585cb9349ddcd33243d9ddeac43d47dc9067c47a7a4d08e1064"
+    },
+    {
+      "path": "docs/teaching/evidence/landmark-architecture-browser/report.json",
+      "sha256": "81aa89da0517af4ab3cdc58dcafc358896a1a660b5cf033c671dae7ebde9a120"
+    },
+    {
+      "path": "docs/teaching/evidence/deep-learning-cnn-production-integration.json",
+      "sha256": "85a09cbf227f782ffe8275e66250a82d4403737c3c475a5b633c84380be596fc"
+    }
+  ],
+  "contentComplete": 177,
+  "implementationComplete": 145,
+  "preparedRemaining": 32
+}

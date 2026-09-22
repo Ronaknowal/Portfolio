@@ -1,0 +1,32 @@
+# Completed implementation-depth revisions
+
+22 September 2026. The user's request to complete remaining from-scratch work in already improved, implemented lessons is complete for the **35 recorded follow-ups**. This closes the eleven concrete foundation library gaps, nineteen foundation deeper-review dispositions, three Classical ML specialist bridges, and two additional Logistic Regression/GP convention comparisons. The previous seven focused revisions remain complete. The 37 prepared but unimplemented Deep Learning packets retain their separate phase boundary.
+
+## What changed
+
+| Scope | Result | Author record | Independent review |
+| --- | --- | --- | --- |
+| Ten DSA lessons | Preserve the taught algorithms; connect them to ordinary ordered-set, graph, range-query, string, sampling, flow, geometry, persistence and database tools. Add a bounded streaming external sorter and changed-contract practice. | [DSA](DSA-REMEDIATION.md) | [DSA review](DSA-REMEDIATION-INDEPENDENT.md) |
+| Seven mathematics library routes | Matched SVD, five optimizer families, actual NUTS/ADVI, spectral clustering, kernel ridge and persistent-homology comparisons, with state/settings and numerical limits explained. | [Library routes](MATH-LIBRARY-REMEDIATION.md) | [Library review](MATH-LIBRARY-REMEDIATION-INDEPENDENT.md) |
+| Thirteen mathematics depth dispositions | Ten new derivative/solver/statistical/process/numerical bridges; one actual prerequisite reuse; two retained mechanisms with explicit production boundaries. | [Depth assessment](MATH-DEPTH-REMEDIATION.md) | [Depth review](MATH-DEPTH-REMEDIATION-INDEPENDENT.md) |
+| Five Classical ML lessons | Runnable UMAP graph/update, CRFsuite and specialist active-learning bridges; exact scratch-to-estimator penalty mapping for logistic regression and posterior/noise mapping for GP. | [Classical ML](CLASSICAL-REMEDIATION.md) | [Classical review](CLASSICAL-REMEDIATION-INDEPENDENT.md) |
+
+There are 31 complete code disclosures across 30 revised topics, two inline estimator comparisons, and three explicit reuse/boundary additions. Canonical programs are directly downloadable and fetched only when opened. Existing lessons, visual investigations, exercises and real-data experiments are preserved. The abstraction boundary is explicit: arrays, linear solves or an earlier algorithm remain valid primitives when they are not the current mechanism being taught. A theorem or operational workflow does not need an artificial package counterpart.
+
+## Evidence and corrections
+
+Native author checks execute the actual learner programs and record versions and outputs. Independent reviewers used different fixtures/oracles: DSA has 20 complementary groups; the thirteen-topic mathematics assessment has ten; the seven-library review has fifteen, including 110 optimizer-state events. Classical author checks finish with nineteen groups and a separate specialist review. These counts describe different bounded tests; they are not a single universal correctness score.
+
+Closed findings include the optimizer-family omission, CRF feature/penalty wording and lesson flow, UMAP representability and copied-output memory cost, MMD block accumulation, incorrect prerequisite URLs, a stale prediction-first sentence, and two long helper links that overflowed at 320px. All added practice follows the current no-prediction-gate policy. Numerical conventions and resource limits are explained rather than hidden behind nominally matching API names.
+
+[Production browser evidence](../evidence/depth-remediation-browser.json) passes all 35 revised lessons and the three earlier DL users of the shared code disclosure. Each page was checked at 1366, 390 and 320px. The checks require the reviewed program URLs or explicit inline/reuse sections, exact displayed/downloaded source bytes, lazy loading, keyboard open/close and measured horizontal scrolling, gold theme links, page containment and no runtime/math error nodes. Thirty-eight retained phone captures were visually inspected. The earlier Python default remains intact while the range-library example is correctly labeled C++.
+
+The [link/setup review](REMEDIATION-LINKS-REVIEW.md) checks all 35 lesson bodies, ten imported bridges, actual prerequisite destinations, 50 distinct local asset references and companion downloads. Its reported browser-verifier gaps were repaired before the final campaign: retained evidence is bound to per-topic build/checker/source/expectation hashes, missing sections cannot pass, source loading cannot race against recorded output, and overall success requires the entire scope. No historical expensive experiment was rerun solely to repeat unchanged evidence.
+
+The production build passes. Its existing large catalogue-chunk warning remains; no claim is made that this revision removes that unrelated cost. Curriculum, generated artifacts, import boundaries, runtime organization and phase/source reconciliation are recorded in the [final integration receipt](../evidence/implementation-depth-remediation-integration.json).
+
+## Phase history and continuation
+
+The [baseline](../evidence/implementation-depth-remediation-baseline.json) preserves the previous rows. Each of the 35 lessons has a new completed revision with its earlier checkpoints retained. Three older DL rows receive only a compatibility-verified shared-component source-binding update. The other 139 rows are unchanged. Totals remain **177 complete content checkpoints, 140 complete implementations, 37 prepared implementations, 231 published lessons and 1,460 stable topic IDs**. Module order, published IDs and learner progress are conserved.
+
+This report supersedes pending integration language in dated author checkpoints and the earlier foundation/Classical gap dispositions for these 35 IDs. Final documentation-only status amendments are distinguished from the immutable numerical evidence in the integration receipt. The five specialist-route notes for prepared DL lessons remain inputs to their later authorized implementation. The current teaching standard/preflight continues to require explicit implementation ownership, scratch and ordinary-tool routes, same-state comparisons, customization practice, stable efficient algorithms and truthful limits. This is closure of the identified work, not a claim that every possible secondary algorithm or hardware workload has been certified. No new topic queue is authorized. User acceptance remains separate.

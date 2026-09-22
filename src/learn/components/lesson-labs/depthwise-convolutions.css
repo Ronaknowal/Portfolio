@@ -1,0 +1,50 @@
+.depthwise-lesson { --depthwise-accent: #e4b752; }
+.depthwise-lesson .neural-lab { background: #101010; border-color: #444; }
+.depthwise-lesson .neural-lab input, .depthwise-lesson .neural-lab select, .depthwise-lesson .neural-lab button { background: #191919; border-color: #68645a; color: #f0cd7c; }
+.depthwise-lesson .neural-table-scroll th, .depthwise-lesson .neural-table-scroll td { border-color: #3b3b3b; }
+.depthwise-lesson summary { color: #f0cd7c; cursor: pointer; padding: .75rem 0; }
+.depthwise-lesson .depthwise-lanes, .depthwise-lesson .depthwise-branches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 1.2rem; }
+.depthwise-lesson .depthwise-lane, .depthwise-lesson .depthwise-branches > div { padding: 1rem; background: #151515; border: 1px solid #3a3a3a; min-width: 0; }
+.depthwise-lesson .depthwise-values { margin: 1rem 0; padding: .8rem; border: 1px solid #444; min-width: 0; }
+.depthwise-lesson .depthwise-values > div { display: flex; flex-wrap: wrap; gap: .6rem; }
+.depthwise-lesson .depthwise-values > div > div { width: 86px; padding: .3rem; border: 1px solid transparent; }
+.depthwise-lesson .depthwise-values .neural-number { margin: 0; min-width: 0; width: 100%; }
+.depthwise-lesson .depthwise-values input { width: 100%; }
+.depthwise-lesson .depthwise-values label { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
+.depthwise-lesson .depthwise-selected { outline: 2px solid var(--depthwise-accent); outline-offset: -2px; }
+.depthwise-lesson .depthwise-connector { display: block; color: var(--depthwise-accent); text-align: center; }
+.depthwise-lesson .depthwise-result { padding: 1rem; background: #1b1914; border-left: 3px solid var(--depthwise-accent); overflow-wrap: anywhere; }
+.depthwise-lesson .depthwise-taps { display: flex; flex-wrap: wrap; gap: .8rem; }
+.depthwise-lesson .depthwise-taps > div { display: grid; gap: .4rem; flex: 1 1 150px; padding: 1rem; border: 1px solid var(--depthwise-accent); }
+.depthwise-lesson .depthwise-taps .is-padding { border-style: dashed; border-color: #aaa; }
+.depthwise-lesson .depthwise-offset-scroll { overflow: auto; padding: .8rem 0; }
+.depthwise-lesson .depthwise-offset-layer > div { display: grid; margin: .3rem 0 1rem; gap: 1px; }
+.depthwise-lesson .depthwise-offset-layer > div > span { font: 11px monospace; text-align: center; background: #292929; color: #999; padding: 5px 0; }
+.depthwise-lesson .depthwise-offset-layer .is-reachable, .depthwise-lesson .depthwise-branch-reads .is-reachable { background: #e4b752; color: #151515; }
+.depthwise-lesson .depthwise-lattice { width: min(100%, 290px); margin: 1rem 0; }
+.depthwise-lesson svg.depthwise-chart { display: block; width: 100%; height: auto; margin-top: 1rem; }
+.depthwise-lesson .depthwise-finite-grid, .depthwise-lesson .depthwise-digit-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); width: min(100%, 352px); gap: 3px; margin: 1rem 0; }
+.depthwise-lesson .depthwise-finite-grid button, .depthwise-lesson .depthwise-digit-grid button { width: 100%; min-width: 0; padding: 0; min-height: 26px; aspect-ratio: 1; font-size: 12px; border-radius: 0; }
+.depthwise-lesson .depthwise-digit-grid button[aria-pressed="true"] { outline: 3px solid #e4b752; outline-offset: -3px; }
+.depthwise-lesson .depthwise-branch-reads { display: grid; grid-template-columns: repeat(9, 1fr); gap: 2px; }
+.depthwise-lesson .depthwise-branch-reads span { padding: .3rem 0; text-align: center; background: #303030; font: 12px monospace; }
+.depthwise-lesson .depthwise-architecture { margin: 1.5rem 0; padding: 1rem; border: 1px solid #555; }
+.depthwise-lesson .depthwise-architecture > div { display: flex; flex-wrap: wrap; gap: .8rem; }
+.depthwise-lesson .depthwise-architecture > div > span { flex: 1 1 130px; padding: .8rem; border-top: 2px solid #e4b752; background: #1e1e1e; }
+.depthwise-lesson .depthwise-program pre { max-height: 560px; max-width: 100%; overflow: auto; font-size: 12px; line-height: 1.7; padding: 1rem; background: #111; }
+.depthwise-lesson .depthwise-program a { overflow-wrap: anywhere; }
+.depthwise-lesson .depthwise-logits > div { display: grid; grid-template-columns: 1.5rem 1fr; align-items: center; gap: .5rem; margin: .4rem 0; }
+.depthwise-lesson .depthwise-logit-track { position: relative; height: 24px; background: #242424; }
+.depthwise-lesson .depthwise-logit-track::after { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: #999; }
+.depthwise-lesson .depthwise-logit-track > span { position: absolute; height: 35%; box-sizing: border-box; }
+.depthwise-lesson .depthwise-logit-track .is-dense { background: #e4b752; }
+.depthwise-lesson .depthwise-logit-track .is-compressed { border: 1px solid #ddd; background: #555; }
+.depthwise-lesson .depthwise-kernel-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .3rem; }
+.depthwise-lesson .depthwise-kernel-grid > span { padding: .6rem .15rem; border: 1px solid #b8994f; background: #262216; font: 12px monospace; text-align: center; }
+.depthwise-lesson .depthwise-kernel-grid .is-negative { background: #252525; border-style: dashed; border-color: #aaa; }
+.depthwise-lesson .depthwise-architecture > .depthwise-budget { display: flex; flex-wrap: nowrap; gap: 0; width: 100%; height: 25px; background: #292929; }
+.depthwise-lesson .depthwise-architecture > .depthwise-budget > span { display: block; flex: 0 0 auto; padding: 0; border-top: 0; box-sizing: border-box; background: #e4b752; }
+.depthwise-lesson .depthwise-architecture > .depthwise-budget > .is-mixing { border: 1px solid #ddd; background: #555; }
+.depthwise-lesson svg.depthwise-swish { max-width: 380px; }
+@media (max-width: 520px) { .depthwise-lesson .depthwise-lane, .depthwise-lesson .depthwise-branches > div { padding: .7rem; } .depthwise-lesson .depthwise-values { padding: .5rem; } .depthwise-lesson .depthwise-values > div > div { width: 70px; } }
+.depthwise-lesson .neural-lab select { min-height: 44px; }

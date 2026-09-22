@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-09-21T06:08:49.634Z",
+  "base": "http://127.0.0.1:4184",
+  "passed": true,
+  "cases": [
+    "Absolute convention: every table maximum is nonnegative and averages to the displayed .5; average-first uses the same convention.",
+    "Editable integer outputs 2 and 0 retain their actual values in prediction choices.",
+    "Zero budget and zero signed sum: unique origin, zero optimum, zero complexity, and correct equality explanation.",
+    "First-input preset preserves three- and five-row observation/label alignment.",
+    "Margin scale comparison starts from learner-committed nondefault inputs; an out-of-ball coefficient cannot receive a vacuous/unchanged verdict.",
+    "Manual zero candidate does not disclose its assessment errors before the selection commitment.",
+    "Other-entity null remains a null when querying sensor B; translation refuses a preset exceeding the value editor range.",
+    "An unfinished exchange is retired by typed and preset capacity changes before membership can become invalid.",
+    "Measured capacity 50→25 gives .48; subsequent reversal preserves both membership and precision against the actual previous state."
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/screenshots/classical-final-rademacher-absolute-desktop.png",
+    "docs/teaching/evidence/screenshots/classical-final-rademacher-zero-budget-desktop.png",
+    "docs/teaching/evidence/screenshots/classical-final-rademacher-zero-budget-320.png",
+    "docs/teaching/evidence/screenshots/classical-final-formulation-other-entity-320.png",
+    "docs/teaching/evidence/screenshots/classical-final-formulation-membership-null-desktop.png",
+    "docs/teaching/evidence/screenshots/classical-final-formulation-membership-null-320.png"
+  ],
+  "pageErrors": []
+}

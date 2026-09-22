@@ -73,7 +73,7 @@ export function SearchInvariantLab() {
   };
   return <section className="proof-lab" data-lab="search-invariant" aria-label="Search invariant investigation">
     <h3>Which positions have actually been ruled out?</h3>
-    <p>Predict the first match. Follow the growing rejected prefix, then try the faulty two-position jump. Changing the claim below changes the proof question, not the running algorithm. Use up to eight integers from −20 to 20; an empty list is allowed.</p>
+    <p>Inspect the first match. Follow the growing rejected prefix, then try the faulty two-position jump. Changing the claim below changes the proof question, not the running algorithm. Use up to eight integers from −20 to 20; an empty list is allowed.</p>
     <form onSubmit={apply} className="proof-inputs">
       <label>Search values<input value={draft} onChange={event => setDraft(event.target.value)} placeholder="Empty list is allowed" /></label>
       <label>Target<input value={targetDraft} onChange={event => setTargetDraft(event.target.value)} /></label>
@@ -156,7 +156,7 @@ export function CompactionInvariantLab() {
   }
   return <section className="proof-lab" data-lab="compaction-invariant" aria-label="Stable compaction invariant investigation">
     <h3>Overwrite only storage that is no longer needed</h3>
-    <p>Each # label is an original occurrence, so the two 5s remain distinguishable. Predict the destination of the next kept occurrence. The upper row is a teaching reference; the native algorithm does not make that copy. Use up to eight integers from −20 to 20, or an empty list.</p>
+    <p>Each # label is an original occurrence, so the two 5s remain distinguishable. Inspect the destination of the next kept occurrence. The upper row is a teaching reference; the native algorithm does not make that copy. Use up to eight integers from −20 to 20, or an empty list.</p>
     <form onSubmit={apply} className="proof-inputs">
       <label>Compaction values<input value={draft} onChange={event => setDraft(event.target.value)} /></label>
       <label>Value to remove<input value={removedDraft} onChange={event => setRemovedDraft(event.target.value)} /></label>
@@ -258,7 +258,7 @@ export function EuclidTerminationLab() {
   }
   return <section className="proof-lab" data-lab="euclid-termination" aria-label="Euclid invariant and termination investigation">
     <h3>Preserve the answer while shrinking the question</h3>
-    <p>Predict the remainder, then advance to (b,remainder). The divisor list stays the same while the second coordinate decreases. Use integers from 0 to 96 with at least one positive value, so every divisor stays visible; (0,0) is handled separately in the native example.</p>
+    <p>Inspect the remainder, then advance to (b,remainder). The divisor list stays the same while the second coordinate decreases. Use integers from 0 to 96 with at least one positive value, so every divisor stays visible; (0,0) is handled separately in the native example.</p>
     <form onSubmit={apply} className="proof-inputs">
       <label>First integer<input value={firstDraft} onChange={event => setFirstDraft(event.target.value)} /></label>
       <label>Second integer<input value={secondDraft} onChange={event => setSecondDraft(event.target.value)} /></label>

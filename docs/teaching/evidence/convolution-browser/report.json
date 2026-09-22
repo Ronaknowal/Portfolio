@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-21T23:50:23.132Z",
+  "base": "http://127.0.0.1:4194",
+  "groups": [
+    "Editable patch/product/output correspondence, invalid input, zero null and reset",
+    "Target-dependent derivatives, overshoot/descent, real keyboard and pointer slider gestures",
+    "Geometry shape/alignment distinction and impossible-operation feedback",
+    "Sparse ancestry, boundary contrast and updated transpose identity",
+    "Deferred real measurements, exact metric rendering and separate saved-map provenance",
+    "Both canonical source programs fetch only on demand, show exact bytes and unmount",
+    "All ten labs readable without page overflow or clipped controls at 1366px",
+    "All ten labs readable without page overflow or clipped controls at 390px",
+    "All ten labs readable without page overflow or clipped controls at 320px"
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/convolution-browser/patch-1366.png",
+    "docs/teaching/evidence/convolution-browser/measured-1366.png",
+    "docs/teaching/evidence/convolution-browser/patch-390.png",
+    "docs/teaching/evidence/convolution-browser/receptive-390.png",
+    "docs/teaching/evidence/convolution-browser/patch-320.png",
+    "docs/teaching/evidence/convolution-browser/receptive-320.png"
+  ],
+  "errors": [],
+  "verifierHash": "acc715855312a59a55f4b9dca095f21ef1b34bd967f1885db520f5586cf2ab70"
+}

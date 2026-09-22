@@ -1,5 +1,8 @@
 # Hyena & Long Convolution Models
 
+**Explore as you read.** Edit convolution signals/kernels, gate vectors, causal/circular mode, recurrence poles/residues, chunk cut and supported biological-sequence symbols. Show dependency ranges, computed outputs, gated operator entries, retained state and exact frozen-model responses as edits apply. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to diagnose future leakage, choose effective context and distinguish exact recurrence carry from truncating the filter.
+
+
 A short convolution asks what happened nearby. A long convolution lets a distant event still contribute to what happens now. Hyena adds a further choice: the input controls what gets transmitted through that long filter and how the receiver uses it.
 
 Imagine a sensor that produces a sharp pulse. A filter can make that pulse leave a fading echo. Now imagine a sequence of symbols in which some events are useful and others should be suppressed. A fixed echo pattern cannot make that decision by itself. Gates derived from the symbols supply the missing input dependence. Hyena combines these operations into a sequence mixer that can process a whole sequence with fast convolution algorithms.
@@ -109,7 +112,7 @@ print(np.allclose(direct, fast, atol=1e-12))
 
 The arrays both display `[1. 2.5 4.25 6.125]`, followed by `True`. The underlying floating-point arrays need not be bit-for-bit identical. In the saved calculation the first FFT output is `0.9999999999999996`. That numerical roundoff is distinct from the large semantic wraparound error above. Always pass the intended inverse-transform length, especially for odd sizes; make normalization conventions agree. The [PyTorch FFT documentation](https://docs.pytorch.org/docs/main/generated/torch.fft.rfft.html) explains normalization and device/dtype restrictions.
 
-**Investigation HA — Find the future leak.** Start with a fresh editable signal `[2,-1,3,0,1]` and filter `[0.5,1,-0.25]`. Before running, predict which outputs can change when you edit the final input. Compare direct, correctly padded FFT and intentionally circular computation. Repair the padding, then construct a different signed filter for which the circular result happens to agree at one output. Explain why one matching number does not establish causality. The impulse and identity-filter views help distinguish lag direction from wraparound.
+**Investigation HA — Find the future leak.** Start with a fresh editable signal `[2,-1,3,0,1]` and filter `[0.5,1,-0.25]`. Before running, inspect which outputs can change when you edit the final input. Compare direct, correctly padded FFT and intentionally circular computation. Repair the padding, then construct a different signed filter for which the circular result happens to agree at one output. Explain why one matching number does not establish causality. The impulse and identity-filter views help distinguish lag direction from wraparound.
 
 ## 4. Gates make the mixing depend on the input
 
@@ -169,7 +172,7 @@ The sum over $m$ is the new feature: an input can reach the receiver through sev
 
 Terminology differs across descriptions. The original paper’s formal $N$-stage hierarchy counts alternating filter/gate stages. HyenaDNA’s common `order=2` implementation has three projected streams, two gates and one long convolution after their short preprocessing. In this lesson the practical model is explicitly a **one-long-filter Hyena-style block**, stacked twice. Inspect the actual equation or code rather than infer the computation from “order two.” [HyenaDNA’s method](https://arxiv.org/html/2306.15794v2) and [the authors’ standalone code](https://github.com/HazyResearch/hyena-dna/blob/main/standalone_hyenadna.py) show this convention.
 
-**Investigation HB — Build a selective route.** You receive editable values `[2,-1,3,1]`, sending gates `[0.5,1,0,-1]`, receiving gates `[1,-0.5,2,1]`, and a signed filter `[1,-0.25,0.5,0]`. Predict which outputs respond when the zero sending gate becomes one. Run, inspect the signed matrix and create a different arrangement that suppresses one sender while preserving another. Add an optional preceding filter `[1,-0.5,0,0]` and reason about the new intermediate paths. Your prediction is recorded before each changed-input result.
+**Investigation HB — Build a selective route.** You receive editable values `[2,-1,3,1]`, sending gates `[0.5,1,0,-1]`, receiving gates `[1,-0.5,2,1]`, and a signed filter `[1,-0.25,0.5,0]`. Inspect which outputs respond when the zero sending gate becomes one. Run, inspect the signed matrix and create a different arrangement that suppresses one sender while preserving another. Add an optional preceding filter `[1,-0.5,0,0]` and reason about the new intermediate paths. the retained baseline is recorded before each changed-input result.
 
 ## 5. Generate the filter from position
 
@@ -315,7 +318,7 @@ This establishes that the fitted model is sensitive to that edit. It does not pr
 
 **Investigation HC — Which context changes this model’s answer?** Start from the different validation source row 4. Record whether editing a chosen base or short span will change the leading class, and explain why. Edit any of the 60 characters, run the fixed saved model, and inspect the class outputs. Compare an edit near the boundary with an equally sized distant edit. You can also restrict the learned long filter to lags 0–4 or turn off its gates to investigate the internal route. Those controls modify the fitted computation; they do not retrain an alternative architecture. Restore the exact original to check that its result returns. An all-`N` input is a useful uncertainty probe: this model still strongly predicts class N, about 0.95478, illustrating why absence of informative input need not produce uniform probabilities.
 
-A causal network can classify this *whole observed window* using its final position because that position has access to all 60 bases. It does not forecast a central boundary before the right-hand context arrives. If your application requires a decision at the boundary in a live stream, redesign the information available at prediction time and evaluate that different task.
+A causal network can classify this *whole observed window* using its final position because that position has access to all 60 bases. It does not forecast a central boundary before the right-hand context arrives. If your application Show current outputs with each valid input change.
 
 ## 8. Deeper route: long filters, streaming and compact state
 
@@ -335,6 +338,71 @@ These counts exclude projections, gates and feed-forward layers. A fixed-$K$ buf
 Split inputs `[1,2,3,4]` into `[1,2]` and `[3,4]`. Convolve each block with the filter, shift the second result by two positions, then **add the overlapping outputs**. This overlap-add construction gives the same linear convolution. If each chunk is filtered independently and only its first two outputs are retained, contributions crossing the chunk boundary vanish.
 
 **Figure H15 — Overlap is information.** Put the full convolutions of the two blocks on separate rows, aligned to their original starts. Shade the overlap region and sum its contributions into the output strip. Contrast with an explicitly crossed-out reset-at-boundary result. When used for an autoregressive model, note that future input blocks cannot be computed before their tokens exist.
+
+### Complete the blocked FFT route before choosing a package
+
+The preceding `overlap_add` oracle uses direct convolution in each block. It makes the overlap ledger clear but does not acquire FFT complexity just because the blocks are small. [blocked_convolution.py](blocked_convolution.py) supplies the corresponding efficient transform route: transform the kernel once, zero-pad each input block to prevent circular wraparound, multiply spectra, inverse-transform, and add the entire valid tail into its correct global positions. It never constructs a dense Toeplitz matrix.
+
+Keep it beside [convolution_mechanisms.py](convolution_mechanisms.py), then run `python blocked_convolution.py` with NumPy 2.3.5 and SciPy 1.18.1. The ordinary comparison uses `scipy.signal.oaconvolve(values, kernel, mode="full")[:len(values)]`. The `same` mode is centered, so replacing the causal slice by `mode="same"` changes alignment. [SciPy's mode and overlap-add contract](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.oaconvolve.html).
+
+```python
+"""Bounded FFT blocks, a reusable filter spectrum, and the ordinary SciPy route.
+
+NumPy 2.3.5 and SciPy 1.18.1 targets. Real, finite, nonempty 1-D arrays.
+The output is the first len(values) samples of linear causal convolution.
+"""
+import numpy as np
+from scipy.signal import oaconvolve
+from convolution_mechanisms import direct, overlap_add
+
+
+def overlap_add_fft(values, kernel, block_size):
+    values, kernel = np.asarray(values, dtype=float), np.asarray(kernel, dtype=float)
+    if values.ndim != 1 or kernel.ndim != 1 or min(len(values), len(kernel)) == 0:
+        raise ValueError("Need two nonempty vectors")
+    if block_size < 1:
+        raise ValueError("block_size must be positive")
+    size = 1 << (block_size + len(kernel)-2).bit_length()
+    filter_spectrum = np.fft.rfft(kernel, n=size)
+    # All requested output samples must be retained; no all-pairs Toeplitz matrix.
+    output = np.zeros(len(values))
+    for start in range(0, len(values), block_size):
+        block = values[start:start+block_size]
+        transformed = np.fft.rfft(block, n=size)
+        convolved = np.fft.irfft(transformed*filter_spectrum, n=size)
+        count = min(len(block)+len(kernel)-1, len(values)-start)
+        output[start:start+count] += convolved[:count]
+    return output
+
+
+def main():
+    values = np.array([2., -1., 3., 0., 1., 2., -.5])
+    kernel = np.array([.5, 1., -.25, .125])
+    expected = direct(values, kernel)
+    library = oaconvolve(values, kernel, mode="full")[:len(values)]
+    np.testing.assert_allclose(library, expected, atol=1e-12)
+    for block_size in (1, 2, 3, 8):
+        actual = overlap_add_fft(values, kernel, block_size)
+        np.testing.assert_allclose(actual, expected, atol=1e-12)
+        np.testing.assert_allclose(actual, overlap_add(values, kernel, block_size), atol=1e-12)
+        print("block", block_size, "output", actual, "maximum error", abs(actual-expected).max())
+
+
+if __name__ == "__main__":
+    main()
+```
+
+For input length N, filter length M, block size B and transform length F≥B+M−1, work is O(F log F + ceil(N/B) F log F). Retained workspace beyond the O(N) returned output is O(F); the transformed kernel is reused. This bound describes this program, not a measured speed victory. Very short kernels can favor direct convolution; unsuitable B can waste work. The authoring probe's seven-sample fixture gives `[1, 1.5, 0, 3.5, −.375, 2.375, 1.5]` at B=1,2,3,8, with maximum observed float64 difference 4.45×10⁻¹⁶ from the direct oracle. No training run or speed measurement was added.
+
+The trainable ordinary workflow remains `splice_models.py::causal_convolution`, `ImplicitFilter` and `SequenceBlock`: Torch FFT operations preserve the gradient path into the filter-generating network and both input-dependent gates. NumPy/SciPy are useful numeric references, not differentiable replacements inside that Torch training graph. The two-gate block is an explicitly scoped Hyena-style operation; StripedHyena's other filters/attention layers and pretrained checkpoints remain distinct family examples.
+
+**Change the contract.** Use a ten-sample signal, a five-tap signed filter and B=3; compare the whole output including the incomplete last block. Then change a future input only.
+
+<details><summary>Hint and reasoned solution</summary>
+
+Choose F≥7, hence F=8 for this power-of-two implementation. The final input block contains one real sample; its convolution still has up to five valid terms, of which only positions inside the requested ten-sample output are returned. Add tails rather than overwrite them. A changed input at index j must leave output indices below j unchanged to rounding precision. A centered `same` slice or an undersized transform can violate that causality. The all-zero kernel is a useful null; B>N must still match the direct oracle. To stream output instead of retaining N samples, emit only a block's finalized prefix and carry the overlapping tail, taking care when M−1 exceeds B.
+
+</details>
 
 ### Some long filters are exactly recurrent
 
@@ -398,7 +466,7 @@ Truncate our six-coefficient example after lag 1. Its omitted coefficient sum is
 
 For a deeper connection, extend this known analytic two-mode filter through lag 10 and arrange its coefficients into a **Hankel matrix**, whose entries are constant on anti-diagonals: $A_{ij}=h_{i+j}$. For a sum of $d$ exponential modes, $A_{ij}=\sum_n R_n\lambda_n^i\lambda_n^j$, so it is a sum of at most $d$ rank-one matrices. Our 6×6 example has two substantive singular values, about 1.08698 and 0.13949; the others are numerical roundoff below $10^{-16}$. A rapidly decaying Hankel spectrum suggests that a smaller state may approximate a filter. It does not say that every neural filter has low rank or that one finite matrix certifies all future lags. The full system-realization theory refines the indexing, assumptions and minimal-state statement.
 
-**Investigation HD — Preserve the past, or approximate it deliberately.** Use fresh inputs `[2,0,-1,3,1,-0.5]` with the two-mode filter. Predict whether changing a chunk boundary, resetting the state or truncating the filter should change the output. Edit inputs, residues and poles; compare direct convolution, full recurrence and carried chunks. Now choose a shorter finite approximation and compare its observed error with the finite-horizon bound. Design a nonzero example with zero truncation error at a chosen position, and explain why that does not establish equality everywhere.
+**Investigation HD — Preserve the past, or approximate it deliberately.** Use fresh inputs `[2,0,-1,3,1,-0.5]` with the two-mode filter. Observe whether changing a chunk boundary, resetting the state or truncating the filter should change the output. Edit inputs, residues and poles; compare direct convolution, full recurrence and carried chunks. Now choose a shorter finite approximation and compare its observed error with the finite-horizon bound. Design a nonzero example with zero truncation error at a chosen position, and explain why that does not establish equality everywhere.
 
 ## 9. Deeper route: what the family adds
 

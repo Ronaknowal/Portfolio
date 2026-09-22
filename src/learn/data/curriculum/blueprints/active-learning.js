@@ -25,7 +25,7 @@ export default {
   visual: {
     type: 'Annotation lanes, aligned threshold rulers, probability strips, entropy decomposition, equal-scale geometry and measured acquisition curves',
     question: 'Which question separates plausible explanations, and what benefit does its acquisition criterion actually measure?',
-    interaction: 'Edit candidate thresholds and weights, committee probabilities, anchor/candidate geometry and a chosen batch. Record a prediction before revealing calculations; inspect null and contradiction cases. Replay saved experimental query records without browser training.',
+    interaction: "Change query to see both possible survivor counts before an actual oracle acquisition. Redistribute each committee probability vector with a slider that preserves row sum. Move geometry/probabilities and select a real candidate batch to compare coverage and entropy-based choices live. Results update directly on valid edits, with reset and explicit comparison snapshots; no learner prediction inputs or grading gates.",
   },
   practice: {
     task: 'Predict uneven-family query value, compare tied uncertainty and distinct disagreement, diagnose coincident batches and final-fit errors, then run a 15-query development-only experiment.',
@@ -34,5 +34,5 @@ export default {
   misconceptions: ['High confidence guarantees a small update', 'Committee agreement proves labels cannot help', 'Diverse geometry guarantees classification accuracy', 'Queried training examples are a representative evaluation sample', 'The last acquisition is included without a final refit'],
   sources: ['https://burrsettles.com/pub/settles.activelearning.pdf', 'https://cseweb.ucsd.edu/~dasgupta/papers/twoface.pdf', 'https://mlg.eng.cam.ac.uk/pub/pdf/HouHusGha11a.pdf', 'https://arxiv.org/abs/1708.00489', 'https://arxiv.org/abs/1906.03671', 'https://archive.ics.uci.edu/dataset/267/banknote+authentication'],
   depth: 'core',
-  reviewFocus: 'Independent acquisition arithmetic, no answer leakage before commitment, final refit, matched budgets and data splits, exact native outputs, all visual states and source-bound review.',
+  reviewFocus: "Independent acquisition arithmetic, live control-to-output updates with valid-input recovery, final refit, matched budgets and data splits, exact native outputs, all visual states and source-bound review.",
 };

@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T18:04:26.910Z",
+  "topics": [
+    {
+      "id": "perceptrons-neurons-activation-functions",
+      "revision": 2,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 20
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "revision": 2,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 16
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "revision": 2,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 26
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "revision": 2,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 26
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "revision": 2,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 20
+    }
+  ],
+  "receipts": [
+    {
+      "file": "docs/teaching/evidence/perceptron-browser.json",
+      "sha256": "db232f8eaf152951563d627a2561151689a6afdc36b5178b057242414fa00efe"
+    },
+    {
+      "file": "docs/teaching/evidence/backprop-browser.json",
+      "sha256": "c8894107aab6c594e76bcfaf0eab9f719323540f618bff423938f933e921ac65"
+    },
+    {
+      "file": "docs/teaching/evidence/loss-normalization-browser-production.json",
+      "sha256": "dc0def399b05baf846592b8324a677cceca537aa873de4cce170176e89139b02"
+    },
+    {
+      "file": "docs/teaching/evidence/transfer-learning-production-browser.json",
+      "sha256": "e52c6692bf4d3e44a67e40ec363d194d3779997dced7a96a9661c87f6db4a9f9"
+    },
+    {
+      "file": "docs/teaching/evidence/deep-learning-core-production-integration.json",
+      "sha256": "08e99fdad1a30d7f868938d2aefc3a90aef31794518b47e0ec75fb23974978f3"
+    }
+  ],
+  "unchangedOtherRows": 172,
+  "manifestHash": "93b1794149431bcade4d2d5b2dabb497e6eff00e74f5b0d33b9ef733af326bf7",
+  "contentComplete": 177,
+  "implementationComplete": 140,
+  "preparedRemaining": 37
+}

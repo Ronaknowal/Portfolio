@@ -1,0 +1,15 @@
+# Authoring notes: Boltzmann Machines & Restricted Boltzmann Machines
+
+Canonical topic ID: boltzmann-machines-restricted-boltzmann-machines-rbm
+
+## 2026-09-22 — Connect exact mechanisms to BernoulliRBM use
+
+- Status: open
+- Origin: [prepared Deep Learning implementation-depth triage](../implementation-depth/PREPARED-DEEP-LEARNING.md).
+- Original triage finding (before this content revision): The complete prepared `rbm-study.py:22–59` opens free energy, exact hidden marginal, positive/negative sufficient statistics and Gibbs transitions. Manuscript line586 correctly describes BernoulliRBM PCD/SML and pseudo-likelihood but contains no package fit/transform example.
+- Original triage request: After exact and contrastive/persistent learning, add a compact ordinary BernoulliRBM fit/transform/Gibbs route on the same declared binary representation. Map components_, intercept_hidden_ and intercept_visible_ to the scratch W/b/a orientation; explain whether API output is hidden probabilities or samples. Keep the existing exact study and its measured results.
+- Verification and customization contract: On a tiny fixed-parameter model, compare hidden probabilities or free-energy arithmetic where supported. Do not compare random-bit pseudo-likelihood directly to exact log likelihood or call PCD an exact negative phase. Check altered visible input and reproducible random state; explain why 2^hidden enumeration belongs only to the small oracle.
+- Evidence and uncertainty: [scikit-learn BernoulliRBM API](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.BernoulliRBM.html), already cited by the manuscript. The bridge now names its inspected API and version. Its tiny same-parameter author probe is recorded below; independent implementation/source-display verification remains deferred.
+- Content disposition: prepared on 22 September 2026. The [new complete bridge section](../drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/lesson.md#use-a-fitted-library-rbm-without-changing-the-probability-question) and [bernoulli_rbm_bridge.py](../drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py) now contain actual fit/transform/Gibbs code, the W/a/b mapping, exact finite-state normalization/transition oracle and a changed-bias/seed exercise with solution. The existing full scratch study remains the mechanism owner. A small constructed authoring probe passed; no new digit benchmark was run.
+- Resolution: the missing **content** is written. Overall status remains open for phase two: execute/source-bind the final program as needed, implement its presentation, independently check the affected models and complete browser/integration verification. No further core algorithm or API example needs to be invented during finishing.
+- Implementation/verification links: [current design and ownership map](../drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/design.md), [specialist content revision](../implementation-depth/PREPARED-SPECIALISTS-WRITING.md). Website implementation is not complete.

@@ -1,5 +1,8 @@
 # Ring Attention & Sequence Parallelism: one sequence, several devices
 
+**Explore as you read.** Edit tiny Q/K/V and block ownership, merger order, causal positions, communication budgets and supported trajectory points. Show stable summary accumulation, legal work grid, circulating ownership, payload timeline and current output/error against the dense reference. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate mathematical equivalence from communication cost and identify invalid identity, masking or state-carry changes.
+
+
 Suppose four devices must read one long document. Giving each device a different quarter is easy. Letting a word near the end use information from the beginning is harder: that information now lives elsewhere.
 
 **Ring Attention keeps each device's questions in place and circulates the information those questions need.** Each device gradually builds the same attention result it would obtain if the entire sequence were available locally. The main change is where data lives and when it moves.
@@ -108,7 +111,7 @@ The rescaling line changes the representation without changing its average. The 
 
 Initialize m=−∞, ℓ=0, u=0. The first valid block gets α=0. A completely masked block contributes nothing. If a query has no valid key in any block, softmax is undefined as a probability distribution: explicitly return the chosen zero-output convention and mark the row invalid, rather than turn 0/0 into a meaningful prediction. The reference program uses zero output and log-normalizer −∞ for that case.
 
-**Investigation — summary merger.** Edit actual scores and values, predict the final weighted average, then reveal block denominators and numerator contributions. Rearrange block arrival order or add 1000 to every score as null controls. A second unsolved case uses scores [ln3,0,ln2,0] and values [4,−1,7,2]. The interface should compute from the edited records, not replay a canned output.
+**Investigation — summary merger.** Edit actual scores and values, inspect the final weighted average, and show immediately block denominators and numerator contributions. Rearrange block arrival order or add 1000 to every score as null controls. A second unsolved case uses scores [ln3,0,ln2,0] and values [4,−1,7,2]. The interface should compute from the edited records, not replay a canned output.
 
 ## 4. Global meaning must survive local storage
 
@@ -173,7 +176,7 @@ Does exact pair balance guarantee the best kernel? No. In our deliberately simpl
 
 We count a whole tile whenever any cell is valid, with no special triangular kernel optimization. At 4×4 granularity, all layouts have the same critical executed-cell count. These numbers are exact for this defined toy scheduler. They are not GPU timings, and a production kernel's treatment of diagonal tiles may differ.
 
-**Investigation — causal workbench.** Move labeled positions among equal-size owners. Keep a global causal grid alongside the storage-order grid, round timeline and per-owner counts. Predict whether the change lowers the busiest round's work. Change tile size to see which apparent savings the kernel can actually exploit. Restoring the same ownership under renamed ranks is a null; discarding position labels is a semantic bug, not an optimization.
+**Investigation — causal workbench.** Move labeled positions among equal-size owners. Keep a global causal grid alongside the storage-order grid, round timeline and per-owner counts. Observe whether the change lowers the busiest round's work. Change tile size to see which apparent savings the kernel can actually exploit. Restoring the same ownership under renamed ranks is a null; discarding position labels is a semantic bug, not an optimization.
 
 ## 6. Communication can overlap computation, but it takes time
 
@@ -218,7 +221,7 @@ Memory accounting needs equally explicit boundaries. For c=1024 in this example,
 
 That is a **forward allocation model**. Aliasing or kernel fusion can change it; backward may retain owned K/V separately and requires gradients and saved/recomputed activations. The CPU reference stores entire arrays and whole local score blocks, so it does not achieve this modeled device footprint. Neither calculation is measured peak GPU memory.
 
-**Investigation — schedule and capacity calculator.** Edit actual dimensional and hypothetical hardware parameters, predict which lane limits a round, then inspect the dependency timeline and byte inventory. A “keep global length fixed” mode must reduce c as P rises. A “keep local length fixed” mode must visibly increase global length. Never label a calculated line “benchmark” or use a real GPU name with guessed measurements.
+**Investigation — schedule and capacity calculator.** Edit actual dimensional and hypothetical hardware parameters, inspect which lane limits a round, then inspect the dependency timeline and byte inventory. A “keep global length fixed” mode must reduce c as P rises. A “keep local length fixed” mode must visibly increase global length. Never label a calculated line “benchmark” or use a real GPU name with guessed measurements.
 
 ## 7. What scales when we add devices?
 
@@ -320,7 +323,7 @@ Both classifications are wrong. That is useful evidence: correct systems executi
 
 Next change trajectory 77's frame-23 x coordinate by +0.10 within [0,1]. The maximum class-probability change is about 0.00960; the attention values change as well. Recompute **both** dense and partitioned paths from the edited points and compare again. For a different task, edit trajectory 20's frame-10 x coordinate by −0.15; its maximum probability change is about 0.00394. Neither activity should automatically declare the original label valid after an arbitrary coordinate edit.
 
-**Investigation — follow a real query around the ring.** The trajectory plot and Q/K/V owner cards refer to the same editable points. Select a head and query; inspect incoming key positions, weighted contributions and the accumulated output. Prediction starts empty: ask whether a given edit should preserve execution equivalence, and whether the model output itself will change. Separately reveal those two answers. Switching direction or ownership is a null for the model's function; moving a real point usually is not.
+**Investigation — follow a real query around the ring.** The trajectory and Q/K/V owner cards share editable points. Select a head/query and follow incoming keys, weighted contributions and accumulated output. Show two separate live comparisons: changed model output versus the original, and dense/ring disagreement for the same input. Changing direction or ownership preserves the function; moving a real point usually does not.
 
 This CPU experiment makes no GPU throughput or memory claim. It tests two selected real trajectories and controlled edits, not every input a future implementation might receive.
 
@@ -446,6 +449,157 @@ For a real backend, begin with its maintained end-to-end example. The PyTorch co
 If writing lower-level communication, PyTorch 2.14's `batch_isend_irecv` takes a list of `P2POp` records and returns request objects; it does not take an `async_op=True` parameter. Requests, stream dependencies and buffer lifetimes must be respected. Blocking “send to next, then receive from previous” on every rank can deadlock in a cycle. Separate the correctness of a communication schedule from its hoped-for overlap. The installed API documentation was inspected for this lesson. [PyTorch distributed documentation](https://docs.pytorch.org/docs/stable/distributed.html)
 
 The independent ring-flash-attention project supplies several attention layouts and packed-sequence APIs, but its README also records numerical/buffer limitations and unsupported dropout/window settings. Read those restrictions and the actual version's tests before adoption; a method name does not prove that every mask, dtype or head configuration works. [Project README and tests](https://github.com/zhuzilin/ring-flash-attention)
+
+### Move the buffers between real processes
+
+The arithmetic reference above is deliberately single-process. [distributed_ring.py](distributed_ring.py) is the complete next implementation step: separate PyTorch processes keep local Q/K/V, send K/V to the next rank, receive from the previous rank, and return accumulated key/value gradients to their owners. It uses ordinary `torch.distributed` primitives; it does not import an opaque Ring Attention function. This small CPU/Gloo protocol is also the lowest useful abstraction for learning buffer ownership before a fused GPU backend.
+
+Use a PyTorch 2.14.0 environment with Gloo support and run `torchrun --standalone --nproc-per-node=3 distributed_ring.py` on one machine. The example uses two heads, equal Q/K/V width three, a single causal sequence and no dropout; the sequence length is `2*world_size+1`, making ownership uneven. Each rank knows shard lengths from `all_gather`; global starts determine the causal mask. Padded packets have a common shape for transport, but only the owner's valid rows enter the attention calculation. The complete authored program below has not yet undergone its multi-process implementation run; it does not supply invented output or timing results.
+
+Forward processing needs P block visits and P−1 transfers. Backward processing makes P visits **and P transfers**: the packet contains K, V, dK and dV, and after a complete circuit its partial sums are back at the original owner. dQ stays with its query owner. This is the exact missing operation in a backward implementation that only passes forward parity. The externally supplied `upstream` is ∂L/∂O; a model layer would pass these Q/K/V derivatives through its projection weights using the already taught chain rule.
+
+```python
+"""Explicit CPU/Gloo ring attention and owner-returning manual backward.
+
+Launch: torchrun --standalone --nproc-per-node=3 distributed_ring.py
+PyTorch 2.14.0 target; float64, one sequence, equal Q/K/V head width,
+contiguous possibly uneven nonempty shards, global causal mask, no dropout.
+This readable synchronous protocol makes no overlap or throughput claim.
+"""
+from datetime import timedelta
+import torch
+import torch.distributed as dist
+from torch.nn import functional as F
+
+
+def rotate(packet):
+    """Send owned bytes onward; receive into distinct storage before reuse."""
+    world, rank = dist.get_world_size(), dist.get_rank()
+    if world == 1:
+        return packet
+    received = torch.empty_like(packet)
+    requests = dist.batch_isend_irecv([
+        dist.P2POp(dist.isend, packet, (rank+1) % world),
+        dist.P2POp(dist.irecv, received, (rank-1) % world),
+    ])
+    for request in requests:
+        request.wait()
+    return received
+
+
+def layout(local_length):
+    sizes = [torch.empty(1, dtype=torch.int64) for _ in range(dist.get_world_size())]
+    dist.all_gather(sizes, torch.tensor([local_length], dtype=torch.int64))
+    counts = [int(size.item()) for size in sizes]
+    if min(counts) < 1:
+        raise ValueError("Every rank needs a nonempty shard")
+    starts = [sum(counts[:rank]) for rank in range(len(counts))]
+    return counts, starts
+
+
+def block_scores(query, keys, query_start, key_start):
+    scores = query @ keys.transpose(-1, -2) / query.shape[-1]**.5
+    q_positions = query_start + torch.arange(query.shape[1])
+    k_positions = key_start + torch.arange(keys.shape[1])
+    return scores.masked_fill(k_positions[None, :] > q_positions[:, None], -torch.inf)
+
+
+def pack(key, value, maximum, with_gradients=False):
+    packet = key.new_zeros((4 if with_gradients else 2, key.shape[0], maximum, key.shape[-1]))
+    packet[0, :, :key.shape[1]] = key
+    packet[1, :, :value.shape[1]] = value
+    return packet
+
+
+@torch.no_grad()
+def ring_forward(query, key, value, counts, starts):
+    rank, world = dist.get_rank(), dist.get_world_size()
+    maximum = query.new_full(query.shape[:-1], -torch.inf)
+    mass = torch.zeros_like(maximum)
+    numerator = torch.zeros_like(query)
+    packet = pack(key, value, max(counts))
+    for step in range(world):
+        owner = (rank-step) % world
+        keys, values = packet[:2, :, :counts[owner]]
+        scores = block_scores(query, keys, starts[rank], starts[owner])
+        updated = torch.maximum(maximum, scores.amax(-1))
+        safe = torch.where(torch.isfinite(updated), updated, 0.)
+        correction = torch.exp(maximum-safe)
+        probabilities = torch.exp(scores-safe[..., None])
+        numerator = correction[..., None]*numerator + probabilities @ values
+        mass = correction*mass + probabilities.sum(-1)
+        maximum = updated
+        if step+1 < world:
+            packet = rotate(packet)
+    # The global causal contract gives each query at least its own key.
+    output = numerator/mass[..., None]
+    return output, maximum+mass.log()
+
+
+@torch.no_grad()
+def ring_backward(query, key, value, output, logsumexp, upstream, counts, starts):
+    rank, world = dist.get_rank(), dist.get_world_size()
+    query_gradient = torch.zeros_like(query)
+    packet = pack(key, value, max(counts), with_gradients=True)
+    correction = (upstream*output).sum(-1, keepdim=True)
+    for step in range(world):
+        owner = (rank-step) % world
+        length = counts[owner]
+        keys, values = packet[:2, :, :length]
+        scores = block_scores(query, keys, starts[rank], starts[owner])
+        probabilities = torch.exp(scores-logsumexp[..., None])
+        score_gradient = probabilities*(upstream @ values.transpose(-1, -2)-correction)
+        query_gradient += score_gradient @ keys / query.shape[-1]**.5
+        packet[2, :, :length] += score_gradient.transpose(-1, -2) @ query / query.shape[-1]**.5
+        packet[3, :, :length] += probabilities.transpose(-1, -2) @ upstream
+        # P transfers, not P-1: complete sums must return to their original owner.
+        packet = rotate(packet)
+    return query_gradient, packet[2, :, :key.shape[1]], packet[3, :, :value.shape[1]]
+
+
+def main():
+    dist.init_process_group("gloo", timeout=timedelta(seconds=60))
+    try:
+        rank, world = dist.get_rank(), dist.get_world_size()
+        torch.set_num_threads(1)
+        # A small full oracle is created solely for validation, not in either ring routine.
+        generator = torch.Generator().manual_seed(71)
+        length, heads, width = 2*world+1, 2, 3
+        full = [torch.randn(heads, length, width, generator=generator, dtype=torch.float64)
+                for _ in range(4)]
+        partitions = torch.tensor_split(torch.arange(length), world)
+        indices = partitions[rank]
+        query, key, value, upstream = [tensor[:, indices].contiguous() for tensor in full]
+        counts, starts = layout(len(indices))
+        actual, lse = ring_forward(query, key, value, counts, starts)
+        gradients = ring_backward(query, key, value, actual, lse, upstream, counts, starts)
+        oracle_inputs = [tensor.clone().requires_grad_() for tensor in full[:3]]
+        oracle = F.scaled_dot_product_attention(*oracle_inputs, is_causal=True, dropout_p=0.)
+        expected_gradients = torch.autograd.grad((oracle*full[3]).sum(), oracle_inputs)
+        torch.testing.assert_close(actual, oracle[:, indices], rtol=1e-11, atol=1e-11)
+        for actual_gradient, expected in zip(gradients, expected_gradients):
+            torch.testing.assert_close(actual_gradient, expected[:, indices], rtol=1e-11, atol=1e-11)
+        print("rank", rank, "positions", indices.tolist(), "forward maximum error",
+              (actual-oracle[:, indices]).abs().max().item(), flush=True)
+    finally:
+        dist.destroy_process_group()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+The local score tile uses O(H c c_max) memory, with O(H c d) local queries/output and O(H c_max d) circulating packet storage. Per-rank full-sequence arithmetic remains O(H c L d); distributing storage does not make dense attention subquadratic. Backward recomputes score tiles instead of retaining all probabilities. The tiny validator separately creates full arrays and uses `scaled_dot_product_attention` plus autograd as an independent oracle; those deliberately small validation allocations are not part of the ring routines' storage bound. No package parity result is claimed until the program actually runs.
+
+`rotate` submits paired send/receive requests together, waits for completion, and only then returns new storage. The immediate wait makes the schedule synchronous; calling an asynchronous API is not evidence of communication overlap. Gloo/CPU proves a different engineering claim from NCCL/CUDA streams, fused kernels or multi-node performance. Those remain specialized production extensions. The concrete transport API and request-lifetime contract are in [PyTorch's distributed reference](https://docs.pytorch.org/docs/2.14/distributed.html).
+
+**Take control.** Run one, two and three ranks. Then change the validation sequence length to eight at three ranks and retain the uneven-shard checks. Finally remove only the last backward rotation to see which owner receives whose partial sums. Repair the error before introducing any faster kernel.
+
+<details><summary>Hint and reasoned solution</summary>
+
+One rank requires no actual transfer but still computes a complete local forward/backward. The shard counts and offsets must change with eight positions; no rank may attend to padded positions. With P−1 backward transfers the packet at a rank is not its original packet after a full circuit, and it is missing the final return even when every query contribution was added. Matching a global gradient sum is insufficient: compare each owner's dK/dV against its exact logical indices, using nonuniform upstream gradients as supplied. A valid extension to packed documents carries document identities and combines a same-document condition with the global causal comparison; using a local triangle alone fails. This change requires explicit metadata transport, not just a new drawing.
+
+</details>
 
 ## 12. Long-input applications and one-token decoding
 

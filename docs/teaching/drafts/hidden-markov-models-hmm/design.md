@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Hidden Markov Models — content design and handoff
 
 Stable ID: hidden-markov-models-hmm. Classical ML position 27, batch position 9. Research/write complete; implementation not started. Root took ownership before any packet files were written; the feature author confirmed no prior HMM work. This packet is part of the authorized 30-topic content-only scope.

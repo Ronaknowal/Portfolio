@@ -5,9 +5,10 @@ import { DsaPractice } from '../../components/lesson-labs/DsaPractice.jsx';
 import { ConvexHullLab, HullEnvelopeFigure, OrientationLab, PolygonQueryLab, PredicatePrecisionLab, SegmentIntersectionLab } from '../../components/lesson-labs/ComputationalGeometryLabs.jsx';
 import { computationalGeometryExamples } from '../computational-geometry-examples.js';
 import geometryPractice from '../practice/computational-geometry-robust-predicates-convex-hulls.js';
+import GeometryLibraryBridge from '../../components/lesson-labs/GeometryLibraryBridge.jsx';
 export default {
   title: 'Computational Geometry, Robust Predicates & Convex Hulls',
-  readTime: '~65 min read + 2–3 hours practice',
+  readTime: '~75 min read + 2–3 hours practice',
   hasIntegratedGuide: true,
   content: () => <div className="lesson-pilot computational-geometry-lesson">
     <LessonIntro prerequisites="Coordinate pairs, comparisons, loops, lists/stacks and sorting. We rebuild signed area, convexity and the needed numerical distinctions locally; a prior geometry course or geometry library is unnecessary." sections={[['1-make-a-geometric-decision', 'Coordinates and turns'], ['2-test-segments-with-a-boundary-contract', 'Segments and contact'], ['3-keep-the-sign-reliable', 'Precision and exactness'], ['4-wrap-a-point-set-with-a-convex-hull', 'Hull construction'], ['5-query-a-polygon-without-erasing-its-shape', 'Area and containment'], ['6-use-the-geometry-with-a-clear-contract', 'Applications and transfer'], ['7-practise-changed-geometric-cases', 'Independent practice'], ['guided-dsa-practice', 'LeetCode practice']]}>You have points from a floor plan. Which side of a wall is a point on? Do two segments meet? Which locations form the outer envelope? A reliable answer needs both a geometric rule and arithmetic that preserves its decisions. Build those rules from one small signed calculation, then combine them into complete algorithms.</LessonIntro>
@@ -102,6 +103,7 @@ D(A,B,C) = u.x × v.y − u.y × v.x
     <Prose>For u distinct locations, the routine performs O(u²) pair/group operations and uses O(u) extra state per anchor, plus the input multiplicity map. GCD and large-integer hashing have additional bit costs; dictionary operations have their usual expected-cost assumptions. The official Max Points task has unique locations, while this version deliberately defines duplicate records and empty input as well.</Prose>
     <Prose>This lesson's finish line is reliable planar decisions, a verified hull and their segment/polygon uses. It is not a complete implementation of Delaunay triangulation, Voronoi diagrams, sweep-line arrangements, spatial indexes, spherical geometry or 3D hulls. Those need further predicates, representation and proofs. The robust-predicate distinction remains relevant when you learn them.</Prose>
 
+    <GeometryLibraryBridge />
     <H2>7. Practise changed geometric cases</H2>
     <Prose>Work from the contracts before opening hints. For implementations, keep exact inputs, state the boundary policy and check adversarial cases as well as ordinary examples.</Prose>
     <div className="lesson-check"><p><strong>1. A new directed triangle.</strong> A=(−2,1), B=(4,4), C=(1,5). Compute the turn and area. Translate all points by (10,−7), then reverse A/B. Explain which values change.</p><details><summary>Hint</summary><Prose>Subtract A first; the displacements are (6,3) and (3,4).</Prose></details><details><summary>Worked solution</summary><Prose>D=6×4−3×3=15, a left turn with area 15/2. Translation preserves both displacement vectors, hence D and area. Reversal produces −15 and the same area. The location of the origin is irrelevant to this relative-side decision.</Prose></details></div>

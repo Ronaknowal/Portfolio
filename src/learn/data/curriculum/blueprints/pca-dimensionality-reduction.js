@@ -22,8 +22,8 @@ export default {
   ],
   visual: {
     type: 'Projection workbench with editable points, rotating ruler, residual right triangles and a score strip; conserved-total bars; matrix-shape trace; unit-and-metric rectangle experiment with variance bars; real Wine variance, score and signed-coefficient views; validation error-budget curve with per-record residual inspection; variance-versus-label strip; simulated Gaussian spectrum; residual-alarm schematic',
-    question: 'Which direction loses least, what changed when the unit changed, which count meets my budget, and does the retained coordinate still carry the label? Predict before touching each control.',
-    interaction: 'Record a prediction; rotate or fit a direction on points you edit; apply a unit multiplier or standardization; commit a component count against a budget you set, then inspect one validation wine; change spreads and label rules and see which retained coordinates collide.'
+    question: "Which direction loses least, what changed when the unit changed, which count meets my budget, and does the retained coordinate still carry the label?",
+    interaction: "Rotate or fit a direction on editable points and follow scores, residual segments and squared loss immediately; change units or standardization and inspect the leading direction; move an error budget and inspect the first qualifying count and individual validation wines; vary spreads and label rules and inspect retained-coordinate collisions."
   },
   practice: {
     task: 'Compute a new fit and new-observation reconstruction; retain the second direction instead of the first; repair a misleading scaling conclusion; rerun the Wine budget at 6%; diagnose a pipeline leak; audit a storage promise; separate uncorrelated from independent; interpret a noise-only spectrum; complete a one-purpose mini-project on the supplied Wine data.',

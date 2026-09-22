@@ -1,0 +1,9 @@
+1 bce [[107, 1], [2, 10]] AP=0.979070 Brier=0.012382 logloss=0.042302
+1 positive_weight_9 [[107, 1], [1, 11]] AP=0.976389 Brier=0.013921 logloss=0.047416
+1 focal_gamma_2 [[107, 1], [2, 10]] AP=0.979070 Brier=0.017337 logloss=0.085298
+2 bce [[107, 1], [2, 10]] AP=0.979070 Brier=0.011961 logloss=0.043178
+2 positive_weight_9 [[107, 1], [1, 11]] AP=0.986645 Brier=0.011386 logloss=0.042535
+2 focal_gamma_2 [[107, 1], [1, 11]] AP=0.979070 Brier=0.019137 logloss=0.097343
+3 bce [[107, 1], [2, 10]] AP=0.979070 Brier=0.012168 logloss=0.040372
+3 positive_weight_9 [[107, 1], [0, 12]] AP=0.979070 Brier=0.010817 logloss=0.042596
+3 focal_gamma_2 [[107, 1], [1, 11]] AP=0.979070 Brier=0.015298 logloss=0.073454

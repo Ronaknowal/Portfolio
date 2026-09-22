@@ -1,0 +1,1215 @@
+{
+  "scope": "Post-hoc diagnostics of fixed constructed fixtures; no model selection or temperature refit.",
+  "torch_version": "2.14.0+cpu",
+  "temperature": 0.049787068367863944,
+  "weights_sha256": "817b8bdd1260faaaa443efa590a478f5f4342eba678a0ed3ebdbe9547f32d904",
+  "definitions": {
+    "coverage": "Fraction acted on rather than reviewed.",
+    "selective_risk": "Observed error fraction among acted cases; null if none.",
+    "cost": "Wrong action costs 10, correct action zero; review assumed perfect at its fixed cost.",
+    "sweep": "Diagnostic counterfactuals on the fixed test set, not threshold tuning recommendations."
+  },
+  "splits": {
+    "test": {
+      "raw": {
+        "n": 18,
+        "accuracy": 0.666667,
+        "nll": 2.047912,
+        "brier_sum": 0.548923,
+        "examples": [
+          {
+            "id": "test-0-0-0",
+            "state": "this request concerns invoice",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9995398002921446,
+              "access": 0.0004401671387758746,
+              "delivery": 2.0032569079345663e-05
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-0-1-0",
+            "state": "my unresolved case is about invoice",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.8709825133977278,
+              "access": 2.4849145016071385e-05,
+              "delivery": 0.12899263745725623
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-0-0-1",
+            "state": "this request concerns refund",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9990349911630237,
+              "access": 0.0009493007812509507,
+              "delivery": 1.570805572524918e-05
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-0-1-1",
+            "state": "my unresolved case is about refund",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9996553147751014,
+              "access": 0.0002079075289430058,
+              "delivery": 0.00013677769595560918
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-0-0-2",
+            "state": "this request concerns payment",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.99967129721504,
+              "access": 0.0003082933461872927,
+              "delivery": 2.0409438772837952e-05
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-0-1-2",
+            "state": "my unresolved case is about payment",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9510371975627175,
+              "access": 4.961677081652258e-05,
+              "delivery": 0.04891318566646593
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-1-0-0",
+            "state": "this request concerns login",
+            "target_id": "access",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.797498854797106,
+              "access": 0.2024995371399453,
+              "delivery": 1.6080629487713706e-06
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-1-1-0",
+            "state": "my unresolved case is about login",
+            "target_id": "access",
+            "chosen_id": "access",
+            "probabilities": {
+              "billing": 0.0007590476637600444,
+              "access": 0.9992408711531903,
+              "delivery": 8.118304969666371e-08
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-1-0-1",
+            "state": "this request concerns password",
+            "target_id": "access",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.5383134697270521,
+              "access": 0.46168079566802406,
+              "delivery": 5.734604923853685e-06
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-1-1-1",
+            "state": "my unresolved case is about password",
+            "target_id": "access",
+            "chosen_id": "access",
+            "probabilities": {
+              "billing": 7.554732651637856e-05,
+              "access": 0.9999244338294961,
+              "delivery": 1.8843987609873194e-08
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-1-0-2",
+            "state": "this request concerns account",
+            "target_id": "access",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9995670387207235,
+              "access": 0.00041950425351559135,
+              "delivery": 1.3457025760703185e-05
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-1-1-2",
+            "state": "my unresolved case is about account",
+            "target_id": "access",
+            "chosen_id": "access",
+            "probabilities": {
+              "billing": 3.264146925156366e-05,
+              "access": 0.9999651440689937,
+              "delivery": 2.214461754536589e-06
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-2-0-0",
+            "state": "this request concerns parcel",
+            "target_id": "delivery",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9989476670922333,
+              "access": 0.0008914514590852041,
+              "delivery": 0.00016088144868172408
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-2-1-0",
+            "state": "my unresolved case is about parcel",
+            "target_id": "delivery",
+            "chosen_id": "delivery",
+            "probabilities": {
+              "billing": 1.6896340563105691e-10,
+              "access": 2.7077970062496833e-10,
+              "delivery": 0.9999999995602569
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-2-0-1",
+            "state": "this request concerns tracking",
+            "target_id": "delivery",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9986962294044861,
+              "access": 0.00039964782028819316,
+              "delivery": 0.0009041227752256686
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-2-1-1",
+            "state": "my unresolved case is about tracking",
+            "target_id": "delivery",
+            "chosen_id": "delivery",
+            "probabilities": {
+              "billing": 1.589574419673849e-05,
+              "access": 4.343373364761918e-09,
+              "delivery": 0.9999840999124298
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-2-0-2",
+            "state": "this request concerns delivery",
+            "target_id": "delivery",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9997706660696185,
+              "access": 0.00020855083536624837,
+              "delivery": 2.0783095015271117e-05
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-2-1-2",
+            "state": "my unresolved case is about delivery",
+            "target_id": "delivery",
+            "chosen_id": "delivery",
+            "probabilities": {
+              "billing": 5.362407497606728e-07,
+              "access": 1.1604326064353631e-09,
+              "delivery": 0.9999994625988177
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          }
+        ],
+        "confusion": {
+          "rows": "true",
+          "columns": "chosen",
+          "labels": [
+            "billing",
+            "access",
+            "delivery"
+          ],
+          "counts": [
+            [
+              6,
+              0,
+              0
+            ],
+            [
+              3,
+              3,
+              0
+            ],
+            [
+              3,
+              0,
+              3
+            ]
+          ]
+        },
+        "reliability": {
+          "definition": "Top-choice confidence versus top-choice accuracy; equal-width bins; empty bins null.",
+          "ece": 0.2862127250744532,
+          "bins": [
+            {
+              "lower_inclusive": 0.0,
+              "upper": 0.2,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.2,
+              "upper": 0.4,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.4,
+              "upper": 0.6,
+              "upper_inclusive": false,
+              "count": 1,
+              "mean_confidence": 0.5383134697270521,
+              "accuracy": 0.0
+            },
+            {
+              "lower_inclusive": 0.6,
+              "upper": 0.8,
+              "upper_inclusive": false,
+              "count": 1,
+              "mean_confidence": 0.797498854797106,
+              "accuracy": 0.0
+            },
+            {
+              "lower_inclusive": 0.8,
+              "upper": 1.0,
+              "upper_inclusive": true,
+              "count": 16,
+              "mean_confidence": 0.988501045426,
+              "accuracy": 0.75
+            }
+          ]
+        },
+        "policy_sweep": [
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.0,
+            "acted": 0,
+            "reviewed": 18,
+            "coverage": 0.0,
+            "selective_risk": null,
+            "realized_mean_cost": 0.0,
+            "estimated_mean_cost": 0.0
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.25,
+            "acted": 14,
+            "reviewed": 4,
+            "coverage": 0.7777777777777778,
+            "selective_risk": 0.2857142857142857,
+            "realized_mean_cost": 2.2777777777777777,
+            "estimated_mean_cost": 0.05889054674691358
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.5,
+            "acted": 15,
+            "reviewed": 3,
+            "coverage": 0.8333333333333334,
+            "selective_risk": 0.26666666666666666,
+            "realized_mean_cost": 2.3055555555555554,
+            "estimated_mean_cost": 0.11386988143429273
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 1.0,
+            "acted": 15,
+            "reviewed": 3,
+            "coverage": 0.8333333333333334,
+            "selective_risk": 0.26666666666666666,
+            "realized_mean_cost": 2.388888888888889,
+            "estimated_mean_cost": 0.19720321476762603
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 2.0,
+            "acted": 16,
+            "reviewed": 2,
+            "coverage": 0.8888888888888888,
+            "selective_risk": 0.25,
+            "realized_mean_cost": 2.4444444444444446,
+            "estimated_mean_cost": 0.3244351517688884
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 5.0,
+            "acted": 18,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.3333333333333333,
+            "realized_mean_cost": 3.3333333333333335,
+            "estimated_mean_cost": 0.47120608258880065
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 10.0,
+            "acted": 18,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.3333333333333333,
+            "realized_mean_cost": 3.3333333333333335,
+            "estimated_mean_cost": 0.47120608258880065
+          }
+        ]
+      },
+      "calibrated": {
+        "n": 18,
+        "accuracy": 0.666667,
+        "nll": 39.975479,
+        "brier_sum": 0.657157,
+        "examples": [
+          {
+            "id": "test-0-0-0",
+            "state": "this request concerns invoice",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 3.883944130022653e-68,
+              "delivery": 4.333843779413901e-95
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-0-1-0",
+            "state": "my unresolved case is about invoice",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 5.2155583970019625e-92,
+              "delivery": 2.1885758645804515e-17
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-0-0-1",
+            "state": "this request concerns refund",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 1.9858894237214468e-61,
+              "delivery": 3.3110186892065424e-97
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-0-1-1",
+            "state": "my unresolved case is about refund",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 1.1103336505698698e-74,
+              "delivery": 2.4705834652903837e-78
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-0-0-2",
+            "state": "this request concerns payment",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 3.0326869735971267e-71,
+              "delivery": 6.285015997718936e-95
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-0-1-2",
+            "state": "my unresolved case is about payment",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 9.60068162741981e-87,
+              "delivery": 1.3011619397097987e-26
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-1-0-0",
+            "state": "this request concerns login",
+            "target_id": "access",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.999999999998896,
+              "access": 1.103973603268652e-12,
+              "delivery": 4.020594227452661e-115
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-1-1-0",
+            "state": "my unresolved case is about login",
+            "target_id": "access",
+            "chosen_id": "access",
+            "probabilities": {
+              "billing": 2.213875508108829e-63,
+              "access": 1.0,
+              "delivery": 3.8853410339713206e-143
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-1-0-1",
+            "state": "this request concerns password",
+            "target_id": "access",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9562480832956702,
+              "access": 0.043751916704329846,
+              "delivery": 1.2723325535175818e-100
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-1-1-1",
+            "state": "my unresolved case is about password",
+            "target_id": "access",
+            "chosen_id": "access",
+            "probabilities": {
+              "billing": 1.6310855347582697e-83,
+              "access": 1.0,
+              "delivery": 6.97200101627856e-156
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-1-0-2",
+            "state": "this request concerns account",
+            "target_id": "access",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 1.4778290147467565e-68,
+              "delivery": 1.465900601141529e-98
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-1-1-2",
+            "state": "my unresolved case is about account",
+            "target_id": "access",
+            "chosen_id": "access",
+            "probabilities": {
+              "billing": 7.797577434964214e-91,
+              "access": 1.0,
+              "delivery": 2.6422832738838206e-114
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-2-0-0",
+            "state": "this request concerns parcel",
+            "target_id": "delivery",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 5.626769404625655e-62,
+              "delivery": 6.52859805191595e-77
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-2-1-0",
+            "state": "my unresolved case is about parcel",
+            "target_id": "delivery",
+            "chosen_id": "delivery",
+            "probabilities": {
+              "billing": 5.247694529355598e-197,
+              "access": 6.822719196324862e-193,
+              "delivery": 1.0
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-2-0-1",
+            "state": "this request concerns tracking",
+            "target_id": "delivery",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 5.678677146307509e-69,
+              "delivery": 7.5088513523581465e-62
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-2-1-1",
+            "state": "my unresolved case is about tracking",
+            "target_id": "delivery",
+            "chosen_id": "delivery",
+            "probabilities": {
+              "billing": 4.123712061970205e-97,
+              "access": 1.1000373667129253e-168,
+              "delivery": 1.0
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          },
+          {
+            "id": "test-2-0-2",
+            "state": "this request concerns delivery",
+            "target_id": "delivery",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 1.1786805242448412e-74,
+              "delivery": 9.030182324833316e-95
+            },
+            "state_word_count": 4,
+            "state_unknown_word_count": 1
+          },
+          {
+            "id": "test-2-1-2",
+            "state": "my unresolved case is about delivery",
+            "target_id": "delivery",
+            "chosen_id": "delivery",
+            "probabilities": {
+              "billing": 1.1241640479963394e-126,
+              "access": 3.3736360992924705e-180,
+              "delivery": 1.0
+            },
+            "state_word_count": 6,
+            "state_unknown_word_count": 2
+          }
+        ],
+        "confusion": {
+          "rows": "true",
+          "columns": "chosen",
+          "labels": [
+            "billing",
+            "access",
+            "delivery"
+          ],
+          "counts": [
+            [
+              6,
+              0,
+              0
+            ],
+            [
+              3,
+              3,
+              0
+            ],
+            [
+              3,
+              0,
+              3
+            ]
+          ]
+        },
+        "reliability": {
+          "definition": "Top-choice confidence versus top-choice accuracy; equal-width bins; empty bins null.",
+          "ece": 0.3309026712941425,
+          "bins": [
+            {
+              "lower_inclusive": 0.0,
+              "upper": 0.2,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.2,
+              "upper": 0.4,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.4,
+              "upper": 0.6,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.6,
+              "upper": 0.8,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.8,
+              "upper": 1.0,
+              "upper_inclusive": true,
+              "count": 18,
+              "mean_confidence": 0.9975693379608092,
+              "accuracy": 0.6666666666666666
+            }
+          ]
+        },
+        "policy_sweep": [
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.0,
+            "acted": 0,
+            "reviewed": 18,
+            "coverage": 0.0,
+            "selective_risk": null,
+            "realized_mean_cost": 0.0,
+            "estimated_mean_cost": 0.0
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.25,
+            "acted": 17,
+            "reviewed": 1,
+            "coverage": 0.9444444444444444,
+            "selective_risk": 0.29411764705882354,
+            "realized_mean_cost": 2.7916666666666665,
+            "estimated_mean_cost": 0.013888888889502226
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.5,
+            "acted": 18,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.3333333333333333,
+            "realized_mean_cost": 3.3333333333333335,
+            "estimated_mean_cost": 0.02430662039190765
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 1.0,
+            "acted": 18,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.3333333333333333,
+            "realized_mean_cost": 3.3333333333333335,
+            "estimated_mean_cost": 0.02430662039190765
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 2.0,
+            "acted": 18,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.3333333333333333,
+            "realized_mean_cost": 3.3333333333333335,
+            "estimated_mean_cost": 0.02430662039190765
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 5.0,
+            "acted": 18,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.3333333333333333,
+            "realized_mean_cost": 3.3333333333333335,
+            "estimated_mean_cost": 0.02430662039190765
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 10.0,
+            "acted": 18,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.3333333333333333,
+            "realized_mean_cost": 3.3333333333333335,
+            "estimated_mean_cost": 0.02430662039190765
+          }
+        ]
+      },
+      "lexical": {
+        "n": 18,
+        "accuracy": 1.0,
+        "nll": 0.551445,
+        "brier_sum": 0.269515
+      },
+      "option_order": {
+        "permutations_including_identity": 108,
+        "max_probability_change": 0.9989120960235596,
+        "choice_change_fraction": 0.05555555555555555,
+        "temperature": 1.0,
+        "claim": "Measured sensitivity, not guaranteed permutation invariance."
+      },
+      "id_renaming": {
+        "max_logit_change": 0.0,
+        "claim": "IDs are outside encoded text; renaming must preserve logits."
+      }
+    },
+    "stress": {
+      "raw": {
+        "n": 3,
+        "accuracy": 0.333333,
+        "nll": 4.403809,
+        "brier_sum": 0.904362,
+        "examples": [
+          {
+            "id": "stress-money",
+            "state": "money left my bank twice",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9985241075144442,
+              "access": 0.000756015109077047,
+              "delivery": 0.0007198773764787344
+            },
+            "state_word_count": 5,
+            "state_unknown_word_count": 4
+          },
+          {
+            "id": "stress-access",
+            "state": "the site will not let me sign in",
+            "target_id": "access",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.5970335088440387,
+              "access": 0.4027597988991902,
+              "delivery": 0.00020669225677115853
+            },
+            "state_word_count": 8,
+            "state_unknown_word_count": 7
+          },
+          {
+            "id": "stress-delivery",
+            "state": "the box never arrived at my door",
+            "target_id": "delivery",
+            "chosen_id": "access",
+            "probabilities": {
+              "billing": 2.1991882678965533e-05,
+              "access": 0.9999734588032365,
+              "delivery": 4.549314084520926e-06
+            },
+            "state_word_count": 7,
+            "state_unknown_word_count": 5
+          }
+        ],
+        "confusion": {
+          "rows": "true",
+          "columns": "chosen",
+          "labels": [
+            "billing",
+            "access",
+            "delivery"
+          ],
+          "counts": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ]
+        },
+        "reliability": {
+          "definition": "Top-choice confidence versus top-choice accuracy; equal-width bins; empty bins null.",
+          "ece": 0.5318436917205731,
+          "bins": [
+            {
+              "lower_inclusive": 0.0,
+              "upper": 0.2,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.2,
+              "upper": 0.4,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.4,
+              "upper": 0.6,
+              "upper_inclusive": false,
+              "count": 1,
+              "mean_confidence": 0.5970335088440387,
+              "accuracy": 0.0
+            },
+            {
+              "lower_inclusive": 0.6,
+              "upper": 0.8,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.8,
+              "upper": 1.0,
+              "upper_inclusive": true,
+              "count": 2,
+              "mean_confidence": 0.9992487831588404,
+              "accuracy": 0.5
+            }
+          ]
+        },
+        "policy_sweep": [
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.0,
+            "acted": 0,
+            "reviewed": 3,
+            "coverage": 0.0,
+            "selective_risk": null,
+            "realized_mean_cost": 0.0,
+            "estimated_mean_cost": 0.0
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.25,
+            "acted": 2,
+            "reviewed": 1,
+            "coverage": 0.6666666666666666,
+            "selective_risk": 0.5,
+            "realized_mean_cost": 3.4166666666666665,
+            "estimated_mean_cost": 0.08834144560773094
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.5,
+            "acted": 2,
+            "reviewed": 1,
+            "coverage": 0.6666666666666666,
+            "selective_risk": 0.5,
+            "realized_mean_cost": 3.5,
+            "estimated_mean_cost": 0.17167477894106428
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 1.0,
+            "acted": 2,
+            "reviewed": 1,
+            "coverage": 0.6666666666666666,
+            "selective_risk": 0.5,
+            "realized_mean_cost": 3.6666666666666665,
+            "estimated_mean_cost": 0.33834144560773094
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 2.0,
+            "acted": 2,
+            "reviewed": 1,
+            "coverage": 0.6666666666666666,
+            "selective_risk": 0.5,
+            "realized_mean_cost": 4.0,
+            "estimated_mean_cost": 0.6716747789410643
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 5.0,
+            "acted": 3,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.6666666666666666,
+            "realized_mean_cost": 6.666666666666667,
+            "estimated_mean_cost": 1.3482297494609352
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 10.0,
+            "acted": 3,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.6666666666666666,
+            "realized_mean_cost": 6.666666666666667,
+            "estimated_mean_cost": 1.3482297494609352
+          }
+        ]
+      },
+      "calibrated": {
+        "n": 3,
+        "accuracy": 0.333333,
+        "nll": 84.989662,
+        "brier_sum": 1.332842,
+        "examples": [
+          {
+            "id": "stress-money",
+            "state": "money left my bank twice",
+            "target_id": "billing",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 1.0,
+              "access": 2.0724896839898294e-63,
+              "delivery": 7.748789169125401e-64
+            },
+            "state_word_count": 5,
+            "state_unknown_word_count": 4
+          },
+          {
+            "id": "stress-access",
+            "state": "the site will not let me sign in",
+            "target_id": "access",
+            "chosen_id": "billing",
+            "probabilities": {
+              "billing": 0.9996317307608276,
+              "access": 0.00036826923917245556,
+              "delivery": 3.09267718336579e-70
+            },
+            "state_word_count": 8,
+            "state_unknown_word_count": 7
+          },
+          {
+            "id": "stress-delivery",
+            "state": "the box never arrived at my door",
+            "target_id": "delivery",
+            "chosen_id": "access",
+            "probabilities": {
+              "billing": 2.7994401067372643e-94,
+              "access": 1.0,
+              "delivery": 5.037407500128375e-108
+            },
+            "state_word_count": 7,
+            "state_unknown_word_count": 5
+          }
+        ],
+        "confusion": {
+          "rows": "true",
+          "columns": "chosen",
+          "labels": [
+            "billing",
+            "access",
+            "delivery"
+          ],
+          "counts": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ]
+        },
+        "reliability": {
+          "definition": "Top-choice confidence versus top-choice accuracy; equal-width bins; empty bins null.",
+          "ece": 0.6665439102536093,
+          "bins": [
+            {
+              "lower_inclusive": 0.0,
+              "upper": 0.2,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.2,
+              "upper": 0.4,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.4,
+              "upper": 0.6,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.6,
+              "upper": 0.8,
+              "upper_inclusive": false,
+              "count": 0,
+              "mean_confidence": null,
+              "accuracy": null
+            },
+            {
+              "lower_inclusive": 0.8,
+              "upper": 1.0,
+              "upper_inclusive": true,
+              "count": 3,
+              "mean_confidence": 0.9998772435869426,
+              "accuracy": 0.3333333333333333
+            }
+          ]
+        },
+        "policy_sweep": [
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.0,
+            "acted": 0,
+            "reviewed": 3,
+            "coverage": 0.0,
+            "selective_risk": null,
+            "realized_mean_cost": 0.0,
+            "estimated_mean_cost": 0.0
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.25,
+            "acted": 3,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.6666666666666666,
+            "realized_mean_cost": 6.666666666666667,
+            "estimated_mean_cost": 0.0012275641305747875
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 0.5,
+            "acted": 3,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.6666666666666666,
+            "realized_mean_cost": 6.666666666666667,
+            "estimated_mean_cost": 0.0012275641305747875
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 1.0,
+            "acted": 3,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.6666666666666666,
+            "realized_mean_cost": 6.666666666666667,
+            "estimated_mean_cost": 0.0012275641305747875
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 2.0,
+            "acted": 3,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.6666666666666666,
+            "realized_mean_cost": 6.666666666666667,
+            "estimated_mean_cost": 0.0012275641305747875
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 5.0,
+            "acted": 3,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.6666666666666666,
+            "realized_mean_cost": 6.666666666666667,
+            "estimated_mean_cost": 0.0012275641305747875
+          },
+          {
+            "wrong_cost": 10.0,
+            "review_cost": 10.0,
+            "acted": 3,
+            "reviewed": 0,
+            "coverage": 1.0,
+            "selective_risk": 0.6666666666666666,
+            "realized_mean_cost": 6.666666666666667,
+            "estimated_mean_cost": 0.0012275641305747875
+          }
+        ]
+      },
+      "lexical": {
+        "n": 3,
+        "accuracy": 0.333333,
+        "nll": 1.098612,
+        "brier_sum": 0.666667
+      },
+      "option_order": {
+        "permutations_including_identity": 18,
+        "max_probability_change": 0.9999772906303406,
+        "choice_change_fraction": 0.4444444444444444,
+        "temperature": 1.0,
+        "claim": "Measured sensitivity, not guaranteed permutation invariance."
+      },
+      "id_renaming": {
+        "max_logit_change": 0.0,
+        "claim": "IDs are outside encoded text; renaming must preserve logits."
+      }
+    }
+  },
+  "latency": {
+    "runs": 50,
+    "warmups": 10,
+    "batch_size": 1,
+    "cpu_threads": 1,
+    "median_ms": 0.9389999904669821,
+    "p95_nearest_rank_ms": 1.5531000681221485,
+    "scope": "Warm CPU forward only; excludes tokenization, loading, JSON, network and queuing. Not a service benchmark."
+  }
+}

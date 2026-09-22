@@ -1,0 +1,280 @@
+{
+  "passed": true,
+  "source_excerpt_count": 17,
+  "concept_links": 31,
+  "unique_concepts": 24,
+  "planned_concepts": [
+    "contextual-embeddings-elmo-bert-variants",
+    "model-serving-api-frameworks",
+    "model-monitoring-drift-detection"
+  ],
+  "sources": [
+    {
+      "component": "mechanism-depth.jsx",
+      "title": "Read vocabulary construction, encoding and batch assembly",
+      "source": "typed_decision.py",
+      "characters": 1526
+    },
+    {
+      "component": "mechanism-depth.jsx",
+      "title": "Inspect the input contract before tensors are allocated",
+      "source": "typed_decision.py",
+      "characters": 1503
+    },
+    {
+      "component": "mechanism-depth.jsx",
+      "title": "Inspect exactly how accuracy, log loss and Brier sum are measured",
+      "source": "typed_decision.py",
+      "characters": 528
+    },
+    {
+      "component": "research-depth.jsx",
+      "title": "Trace the actual tensors and verify one weight update",
+      "source": "research_tools.py",
+      "characters": 3871
+    },
+    {
+      "component": "research-depth.jsx",
+      "title": "Read the implemented reliability, policy and perturbation diagnostics",
+      "source": "research_tools.py",
+      "characters": 5139
+    },
+    {
+      "component": "research-depth.jsx",
+      "title": "Library route: construct tokens, marker positions and masks",
+      "source": "pretrained_decision.py",
+      "characters": 3128
+    },
+    {
+      "component": "research-depth.jsx",
+      "title": "Library route: load the encoder and gather candidate representations",
+      "source": "pretrained_decision.py",
+      "characters": 2185
+    },
+    {
+      "component": "research-depth.jsx",
+      "title": "Library route: train, calibrate and evaluate with the shared fixture",
+      "source": "pretrained_decision.py",
+      "characters": 2673
+    },
+    {
+      "component": "research-depth.jsx",
+      "title": "Library route: save and reload all parts of the decision model",
+      "source": "pretrained_decision.py",
+      "characters": 1883
+    },
+    {
+      "component": "content.jsx",
+      "title": "Inspect the complete constructed dataset",
+      "source": "typed_decision.py",
+      "characters": 1520
+    },
+    {
+      "component": "content.jsx",
+      "title": "Read the lexical baseline",
+      "source": "typed_decision.py",
+      "characters": 212
+    },
+    {
+      "component": "content.jsx",
+      "title": "Read the complete attention blocks and candidate head",
+      "source": "typed_decision.py",
+      "characters": 2477
+    },
+    {
+      "component": "content.jsx",
+      "title": "Read stable cross-entropy from the executable source",
+      "source": "typed_decision.py",
+      "characters": 251
+    },
+    {
+      "component": "content.jsx",
+      "title": "Inspect the complete training and artifact-writing loop",
+      "source": "typed_decision.py",
+      "characters": 2824
+    },
+    {
+      "component": "content.jsx",
+      "title": "Read the held-out temperature fit",
+      "source": "typed_decision.py",
+      "characters": 459
+    },
+    {
+      "component": "content.jsx",
+      "title": "Read the explicit act-or-review policy",
+      "source": "typed_decision.py",
+      "characters": 603
+    },
+    {
+      "component": "content.jsx",
+      "title": "Inspect artifact loading and validated JSON inference",
+      "source": "typed_decision.py",
+      "characters": 1106
+    }
+  ],
+  "links": [
+    {
+      "id": "ml-problem-formulation-baselines-data-leakage",
+      "status": "published",
+      "title": "ML Problem Formulation, Baselines & Data Leakage"
+    },
+    {
+      "id": "decision-theory-risk-cost-sensitive-decisions",
+      "status": "published",
+      "title": "Decision Theory, Risk & Cost-Sensitive Decisions"
+    },
+    {
+      "id": "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+      "status": "published",
+      "title": "Byte-Pair Encoding (BPE), WordPiece, SentencePiece, Unigram"
+    },
+    {
+      "id": "vectors-matrices-tensor-operations",
+      "status": "published",
+      "title": "Vectors, Matrices & Tensor Operations"
+    },
+    {
+      "id": "cross-validation-hyperparameter-tuning",
+      "status": "published",
+      "title": "Cross-Validation & Hyperparameter Tuning"
+    },
+    {
+      "id": "testing-debugging-dependency-management",
+      "status": "published",
+      "title": "Testing, Debugging & Dependency Management"
+    },
+    {
+      "id": "reproducible-notebooks-experiment-structure",
+      "status": "published",
+      "title": "Reproducible Notebooks & Experiment Structure"
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "status": "published",
+      "title": "Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE)"
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "status": "published",
+      "title": "Self-Attention & Multi-Head Attention"
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "status": "published",
+      "title": "Batch, Layer, Group & RMS Normalization"
+    },
+    {
+      "id": "transformer-block-architecture",
+      "status": "published",
+      "title": "Transformer Block Architecture"
+    },
+    {
+      "id": "tensor-algebra-einsum-notation",
+      "status": "published",
+      "title": "Tensor Algebra & Einsum Notation"
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "status": "published",
+      "title": "Backpropagation & Automatic Differentiation"
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "status": "published",
+      "title": "Loss Functions (CE, MSE, Focal, Contrastive, Triplet)"
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "status": "published",
+      "title": "Backpropagation & Automatic Differentiation"
+    },
+    {
+      "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "status": "published",
+      "title": "Gradient Descent Variants (SGD, Adam, AdaGrad, RMSProp, LAMB, LARS)"
+    },
+    {
+      "id": "learning-rate-schedules-cosine-warmup-onecyclelr",
+      "status": "published",
+      "title": "Learning Rate Schedules (Cosine, Warmup, OneCycleLR)"
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "status": "published",
+      "title": "Batch, Layer, Group & RMS Normalization"
+    },
+    {
+      "id": "cross-validation-hyperparameter-tuning",
+      "status": "published",
+      "title": "Cross-Validation & Hyperparameter Tuning"
+    },
+    {
+      "id": "bias-variance-tradeoff-learning-curves",
+      "status": "published",
+      "title": "Bias-Variance Tradeoff & Learning Curves"
+    },
+    {
+      "id": "calibration-conformal-prediction",
+      "status": "published",
+      "title": "Calibration & Conformal Prediction"
+    },
+    {
+      "id": "ml-problem-formulation-baselines-data-leakage",
+      "status": "published",
+      "title": "ML Problem Formulation, Baselines & Data Leakage"
+    },
+    {
+      "id": "decision-theory-risk-cost-sensitive-decisions",
+      "status": "published",
+      "title": "Decision Theory, Risk & Cost-Sensitive Decisions"
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "status": "published",
+      "title": "Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE)"
+    },
+    {
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "status": "published",
+      "title": "End-to-End Supervised Learning & Error Analysis"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "status": "published",
+      "title": "Hypothesis Testing & Confidence Intervals"
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "status": "published",
+      "title": "Transfer Learning & Fine-Tuning: Reuse, Adapt, and Verify"
+    },
+    {
+      "id": "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+      "status": "published",
+      "title": "Byte-Pair Encoding (BPE), WordPiece, SentencePiece, Unigram"
+    },
+    {
+      "id": "contextual-embeddings-elmo-bert-variants",
+      "status": "planned",
+      "title": "Contextual Embeddings (ELMo, BERT Variants)"
+    },
+    {
+      "id": "model-serving-api-frameworks",
+      "status": "planned",
+      "title": "Model Serving & API Frameworks"
+    },
+    {
+      "id": "model-monitoring-drift-detection",
+      "status": "planned",
+      "title": "Model Monitoring & Drift Detection"
+    }
+  ],
+  "source_sha256": {
+    "src/learn/data/projects/typed-decision-model/mechanism-depth.jsx": "c4e4deb3c992bda2c563c9ef9b50bc3e0d33660e96d71b3df2463745f4d5d441",
+    "public/learn-projects/typed-decision-model/typed_decision.py": "edaf1c9e3c7b867a0e982e70b13970be615e180fce7693872ca6d373ad4d779b",
+    "src/learn/data/projects/typed-decision-model/research-depth.jsx": "baa3bdcc5963ae045d477c96b9776b7eee26fbc4d997a2c6c75aa099aaa9bcf5",
+    "public/learn-projects/typed-decision-model/research_tools.py": "e704f4bb3c760246f7ac434ec55b675812ccf8ea338bdc4217a4eb4b1de582a9",
+    "public/learn-projects/typed-decision-model/pretrained_decision.py": "6e677db8db66f3ec0ce19902c39d4a2e6484bcd60fe1ede1cbc2affada550571",
+    "src/learn/data/projects/typed-decision-model/content.jsx": "41656a6dcfd36d4e52e1662be435441263e172658400944e010b89216a65846c"
+  }
+}

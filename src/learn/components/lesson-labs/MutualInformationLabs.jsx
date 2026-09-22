@@ -45,7 +45,7 @@ export function JointInformationLab() {
   return <section className="mi-lab" role="region" aria-label="Joint information investigation">
     <p className="mi-kicker">Observed pairing → independent reference</p>
     <h3>Same marginals, different pairings</h3>
-    <p>Predict the information at flip probability ½. Then compare the actual joint with the independent table built from its own marginal probabilities.</p>
+    <p>Inspect the information at flip probability ½. Then compare the actual joint with the independent table built from its own marginal probabilities.</p>
     <div className="mi-controls"><Range label="Probability of X=1" value={prevalence} onChange={setPrevalence} /><Range label="Channel flip probability" value={error} onChange={setError} /></div>
     <div className="mi-joint-pair">{['Actual joint p(x,y)', 'Independent reference p(x)p(y)'].map((title, table) => <table key={title} className="mi-joint"><caption>{title}</caption><thead><tr><th>X ↓ / Y →</th><th>0</th><th>1</th></tr></thead><tbody>{state.cells.map((row, i) => <tr key={i}><th scope="row">{i}</th>{row.map((item, j) => <td key={j} style={{
               backgroundColor: `rgba(241,188,83,${0.05 + 0.45 * (table ? item.independent : item.mass)})`
@@ -75,7 +75,7 @@ export function ConditionalInformationLab() {
   const labels = reveal === 'both' ? ['A0 B0', 'A0 B1', 'A1 B0', 'A1 B1'] : [`${reveal.toUpperCase()}0`, `${reveal.toUpperCase()}1`];
   return <section className="mi-lab" role="region" aria-label="Conditional information investigation">
     <p className="mi-kicker">Individual clues → joint answer</p><h3>Two unhelpful clues can solve the problem together</h3>
-    <p>A is a fair bit. The label is 1 when A and B differ. Predict the result of revealing one bit, then both.</p>
+    <p>A is a fair bit. The label is 1 when A and B differ. Compare the information available from one observed bit with that from both.</p>
     <div className="mi-controls"><label className="mi-control">Reveal<select aria-label="Revealed feature" value={reveal} onChange={event => setReveal(event.target.value)}><option value="a">A alone</option><option value="b">B alone</option><option value="both">A and B together</option></select></label><Range label="Probability of B=1" min={0.05} max={0.95} value={bias} onChange={setBias} /></div>
     <Table caption="Every possible pairing and its label" headings={['A', 'B', 'Y=A xor B', 'Probability']} rows={state.rows.map(row => [row.a, row.b, row.y, format(row.mass)])} />
     <div className="mi-reveal-groups">{state.conditional.map((row, i) => <BinaryStrip key={i} description={`After observing ${labels[i]}`} probabilities={row} names={['Y0', 'Y1']} />)}</div>
@@ -126,7 +126,7 @@ export function InformationBottleneckLab() {
   const curve = bottleneckCurve(0.1, beta);
   return <section className="mi-lab" role="region" aria-label="Information bottleneck representation investigation">
     <p className="mi-kicker">Information retained → task information retained</p><h3>Which distinctions deserve space in the code?</h3>
-    <p>X contains two independent fair bits: signal S and nuisance N. The label equals S with probability .9. Predict what retaining N changes.</p>
+    <p>X contains two independent fair bits: signal S and nuisance N. The label equals S with probability .9. Inspect what retaining N changes.</p>
     <div className="mi-controls"><label className="mi-control">Representation<select aria-label="Representation choice" value={mode} onChange={event => setMode(event.target.value)}>{Object.entries(representationNames).map(([value, name]) => <option key={value} value={value}>{name}</option>)}</select></label><Range label="Relevance weight beta" value={beta} min={0} max={8} step={0.5} onChange={setBeta} />{mode === 'noisy' && <Range label="Encoder flip probability" value={noise} min={0} max={0.5} step={0.01} onChange={setNoise} />}</div>
     <div className="mi-plane-layout"><div><h4>Code probabilities for the same four inputs</h4>{state.encoder.map((row, i) => <BinaryStrip key={i} description={SIGNAL_INPUTS[i]} probabilities={row} names={row.map((_, z) => `Z${z}`)} />)}</div><InformationPlane state={state} curve={curve} /></div>
     <Readouts values={[["Rate I(X;Z), bits", state.rate], ['Relevance I(Y;Z), bits', state.relevance], ['J = rate − beta × relevance', state.objective]]} />
@@ -150,7 +150,7 @@ export function BottleneckIterationLab() {
   const state = trace.rows[step];
   return <section className="mi-lab" role="region" aria-label="Bottleneck update investigation">
     <p className="mi-kicker">Soft assignments → representative predictions → new assignments</p><h3>Watch inputs group by their label distributions</h3>
-    <p>Each strip assigns one input to two codewords. A complete update recalculates assignments, codeword probabilities and label predictions. Predict which inputs will become indistinguishable.</p>
+    <p>Each strip assigns one input to two codewords. A complete update recalculates assignments, codeword probabilities and label predictions. Inspect which inputs will become indistinguishable.</p>
     <div className="mi-controls"><label className="mi-control">Starting encoder<select aria-label="Starting encoder" value={initialization} onChange={event => {
           setInitialization(event.target.value);
           setStep(0);
@@ -180,7 +180,7 @@ export function VariationalInformationLab() {
   const ticks = [minimum, ...(x(0) - x(minimum) > 50 && x(maximum) - x(0) > 50 ? [0] : []), maximum];
   return <section className="mi-lab" role="region" aria-label="Variational information bound investigation">
     <p className="mi-kicker">Fixed representation → adjustable bound</p><h3>A looser bound can move while the information stays fixed</h3>
-    <p>The encoder still flips S with probability .2. Only the reference distribution and decoder change. Predict whether actual rate and relevance should move.</p>
+    <p>The encoder still flips S with probability .2. Only the reference distribution and decoder change. Inspect whether actual rate and relevance should move.</p>
     <div className="mi-controls"><Range label="Reference probability of Z=1" value={reference} min={0.02} max={0.98} step={0.02} onChange={setReference} /><Range label="Decoder flipped-label probability" value={decoder} min={0.02} max={0.98} step={0.02} onChange={setDecoder} /></div>
     <figure className="mi-chart mi-bound-chart"><svg viewBox="0 0 320 225" role="img" aria-label={`Exact rate ${format(state.rate)}, upper bound ${format(state.rateUpper)}. Exact relevance ${format(state.relevance)}, lower bound ${format(state.predictiveLower)}. All values in bits.`}>
       <text x="25" y="24">Rate: upper bound</text><line x1={x(state.rate)} x2={x(state.rateUpper)} y1="68" y2="68" className="mi-bound-gap" /><circle cx={x(state.rate)} cy="68" r="7" className="mi-exact-dot" /><rect x={x(state.rateUpper) - 6} y="62" width="12" height="12" className="mi-bound-dot" />
@@ -236,7 +236,7 @@ export function InformationEstimationLab() {
   const chartX = value => 48 + value / maxInformation * 245;
   return <section className="mi-lab" role="region" aria-label="Mutual information estimation investigation">
     <p className="mi-kicker">Known population → finite observations</p><h3>Sparse counts can invent an apparent relationship</h3>
-    <p>Start with independently drawn X and Y. Their population MI is exactly 0. Predict what happens when you spread the same small sample over more categories.</p>
+    <p>Start with independently drawn X and Y. Their population MI is exactly 0. Inspect what happens when you spread the same small sample over more categories.</p>
     <div className="mi-controls"><label className="mi-control">Population law<select aria-label="Population law" value={mode} onChange={event => setMode(event.target.value)}><option value="independent">Independent categories</option><option value="channel">20% symmetric channel errors</option></select></label><label className="mi-control">Categories per variable<select aria-label="Categories per variable" value={categories} onChange={event => setCategories(Number(event.target.value))}>{[2, 4, 8].map(value => <option key={value}>{value}</option>)}</select></label><label className="mi-control">Observation count<select aria-label="Observation count" value={count} onChange={event => setCount(Number(event.target.value))}>{[20, 100, 500, 2000].map(value => <option key={value}>{value}</option>)}</select></label><form onSubmit={event => {
         event.preventDefault();
         const parsed = Number(draft);

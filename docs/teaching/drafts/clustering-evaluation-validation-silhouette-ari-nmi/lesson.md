@@ -1,5 +1,7 @@
 # Clustering Evaluation & Validation (Silhouette, ARI, NMI)
 
+> Current lab UX, 21 September 2026: controls show live calculations and topic-specific visuals without learner prediction entry, grading or guess-to-reveal screens. Genuine algorithm steps, separate practice and data-role boundaries remain. See [the current migration record](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md).
+
 *Content-first manuscript, 12 September 2026. Visual markers refer to the accompanying specifications. Author status: expected numerical results are derived or calculated from the specified fixtures; complete displayed-program verification and runtime/visual implementation are deferred. Approximately 65–80 minutes of reading, plus 60–100 minutes of practice.*
 
 ## 1. Two groups look cleaner. Three groups match the species better. Which result should we keep?
@@ -113,7 +115,7 @@ Multiplying every distance by the same positive constant leaves s unchanged: tha
 
 ### Investigation: change a membership, then explain every moving bar
 
-**[Lab L1: editable points and memberships, committed prediction, distance fan and silhouette plot.]** Record a prediction for a selected point's sign or for the direction of the overall mean before applying an edit. You can move a point or assign it to another group; the lab then compares the prediction with the calculated result. Follow the links from that point to the observations contributing to a and b. Reset and apply a common scale change as a control experiment.
+**[Lab L1: editable points and memberships, distance fan and live silhouette plot.]** Move a point or assign it to another group and follow its silhouette and the overall mean immediately. Follow the links from that point to the observations contributing to a and b. Reset and apply a common scale change as a control experiment.
 
 Try an input of your own rather than only the presets. Which bars change when one point changes groups? The edited observation is only part of the answer: other points now average over different neighbors too.
 
@@ -257,7 +259,7 @@ A cell containing m observations contributes m(m−1)/2 pairs that are together 
 
 Here S=3+3=6, A=B=6+6=12 and M=28. Thus TP=S=6, FN=A−S=6, FP=B−S=6, and TN=M−A−B+S=10. RI=16/28=4/7≈.571429.
 
-**[Lab L2: same-ID membership editor connected to contingency cells and a triangular 28-pair board. Record a score-change prediction before renaming, swapping or splitting groups.]**
+**[Lab L2: same-ID membership editor connected to contingency cells and a triangular 28-pair board. Rename, swap or split groups and follow the score and pair-board changes immediately.]**
 
 ### Why RI's natural chance baseline is not zero
 
@@ -374,7 +376,7 @@ Keep both partitions' group sizes and randomly permute one partition over the ID
 
 This uses the arithmetic convention too. AMI can be negative, equals 1 for identical partitions, and has zero expectation under the nondegenerate fixed-margin null. It is neither a probability nor a significance test. Choose adjustment when comparison against that null is part of the question; choose a declared unadjusted normalization when that is the required descriptive quantity. There is no k=10 boundary at which the meaning suddenly changes.
 
-**[Lab L3: construct two labelings, commit a predicted sign/ranking, then compare observed MI/NMI/AMI with the complete finite permutation distribution for eight IDs.]**
+**[Lab L3: construct two labelings and directly compare observed MI/NMI/AMI with the complete finite permutation distribution for eight IDs.]**
 
 For balanced two-by-two margins on eight IDs there are C(8,4)=70 assignments of the four V0 labels. The overlap of U0 and V0 can be 0,1,2,3,4, occurring 1,16,36,16,1 times. Equal overlap 2 gives an exactly independent table and NMI=0. Complete agreement at overlap 0 or 4 gives NMI=1. Averaging all 70 NMI values gives about .114844, while the mean ARI and AMI are zero. The positive unadjusted baseline emerges from the entire distribution, not a fixed penalty for “many clusters.”
 
@@ -517,7 +519,7 @@ white2 3 sil=0.479638 ARI=0.580252 AMI=0.611417 negative=1
 
 Return to the opening question. In raw measurement space, k=2 has silhouette .681046 versus .552819 for k=3. But species agreement rises from ARI .539922 to .730238. If the task is agreement with species, the three-group result is stronger on these data. If the task is a compact two-prototype summary, the two-group result answers that different constraint. A report should retain the disagreement and explain which decision it serves.
 
-The standardized and two-PC k=3 fits give the same partition up to names in this fixture, even though their silhouettes differ. Comparing their aligned label arrays directly gives ARI=1; every pair has the same together/apart status. Equal agreement with species alone would not establish that identity. The labels used for the external comparison have not changed; the distances used for silhouette have. This makes the rescore/refit distinction tangible. In the lab, freeze the standardized partition and choose your own positive weight for petal width. Record a prediction before rescoring. Then use a common multiplier on every weight as the null control: silhouette should stay fixed.
+The standardized and two-PC k=3 fits give the same partition up to names in this fixture, even though their silhouettes differ. Comparing their aligned label arrays directly gives ARI=1; every pair has the same together/apart status. Equal agreement with species alone would not establish that identity. The labels used for the external comparison have not changed; the distances used for silhouette have. This makes the rescore/refit distinction tangible. In the lab, freeze the standardized partition and choose your own positive weight for petal width. Watch the silhouette contributions update as the frozen partition is rescored. Then use a common multiplier on every weight as the null control: silhouette should stay fixed.
 
 After examining the aggregate scores, sort silhouette bars within each group and open the species contingency table. Which species gets split? Which candidate group merges reference categories? Read individual specimen IDs and measurements for the low bars. Raw size and representative measurements are often more interpretable than another decimal place in a global score.
 
@@ -566,7 +568,7 @@ Consider the fixed probe locations `[0,1,4,5,8,9]`. Fit two one-dimensional grou
 
 The locations are unchanged. Changing which ones occur more often shifts the best representation and moves the middle pair's group assignment. Comparing the resample's row positions would obscure this mechanism. Comparing predictions on the six fixed IDs shows it.
 
-**[Lab L5: editable multiplicities feed two weighted fits, then two aligned prediction strips on a shared probe ruler. Prediction starts unset; commit whether a selected probe pair remains together before applying a weight edit.]**
+**[Lab L5: editable multiplicities feed two weighted fits, then two aligned prediction strips on a shared probe ruler. Edit a weight and follow the selected pair’s membership and aligned comparison immediately.]**
 
 The lab also permits k=1. Both fits then assign every probe to the same group and have perfect partition agreement. This null case explains why maximizing stability alone can prefer a trivial answer. The useful question is whether a nontrivial grouping with the needed resolution survives justified perturbations.
 

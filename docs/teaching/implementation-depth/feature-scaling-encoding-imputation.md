@@ -1,0 +1,7 @@
+# Feature preparation: construct and reuse fitted state
+
+22 September 2026. This focused revision adds `fittedStateParity` in `src/learn/data/scaling-examples.js` and the **Build the saved state, then recognize it in the library** section. The NumPy implementation learns training medians, means, scales and vocabulary, then transforms later rows without refitting. The same fixture is compared with SimpleImputer, StandardScaler and OneHotEncoder, with exact fitted-attribute mapping and a missingness-indicator extension.
+
+The [Classical ML source audit](CLASSICAL-ML.md) explains the discovered gap and broader limits. Existing real-data and cross-fit programs are preserved. Author evidence `../evidence/scaling-native.json` includes 37 native checks; the independent owner checked exact displayed output, row permutation, joint train/query translation, frozen state and independently calculated extension coordinates in `../evidence/implementation-depth-scaling-independent.json`. Final responsive rendering is recorded in `../evidence/implementation-depth-browser.json`.
+
+The dense reference declares moderate-value numeric and one-column categorical contracts, rejects invalid schema/reserved sentinel/overflow cases, and explains dense one-hot memory cost and the library's sparse alternative. It does not claim to reproduce every near-constant floating-point rule, weighted fit or category pooling feature. New preprocessing decisions should modify the fitted state deliberately and keep the training/evaluation boundary intact.

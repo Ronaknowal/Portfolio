@@ -1,5 +1,8 @@
 # xLSTM: learn what to keep, and how to read it back
 
+**Explore as you read.** Edit evidence gates/values, address vectors, chunk boundaries/state carry and supported digit pixels. Update stabilized scalar numerator/denominator, matrix-address contributions, causal chunk states and exact model outputs together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish a probability normalization from signed matrix addressing and identify what state must cross a chunk boundary.
+
+
 A handwritten digit can be read one horizontal strip at a time. After the first strip, the model has a few strokes. After the fourth, it has more evidence. After the eighth, it must classify the complete image. If the original strips are no longer available, what should the model carry forward?
 
 In [Modern Hopfield Networks](/learn/path/full-curriculum/modern-hopfield-networks?module=deep-learning-fundamentals), a query could inspect an explicit bank of patterns. xLSTM explores a different storage choice: continually combine incoming information into a fixed-size state, and learn the rules for writing, retaining and reading that state. One variant maintains normalized scalar memories. Another maintains matrices of associations between keys and values.
@@ -136,9 +139,9 @@ As a second worked comparison, use candidates `[-0.4, 0.7, −0.2]`, weights `[2
 
 The original final output is about `−0.124082`; after that edit it is about `−0.006957`. Earlier positive content has more influence. Now set every candidate to `0.6`. Changing positive write weights and retention does not change the normalized estimate; with output gate `0.8`, every output is `0.48`. This is a useful null experiment: the weights changed, but all the available evidence agreed.
 
-The investigation starts with a separate four-observation problem. Edit its actual candidates or gate inputs and record a prediction before revealing the resulting trace; the worked examples remain available under a separate reset control.
+The investigation starts with a separate four-observation problem. Edit its actual candidates or gate inputs and Show the current computed result and its contributing terms immediately.
 
-[Investigation XA: editable candidate rows, write log-weights and retention; raw/stabilized state trace, contribution mass and recorded prediction. A separate advanced control adds a common 1,000 to all write log-weights from an empty state. The stable output remains unchanged to rounding while direct raw exponentiation would overflow.]
+[Investigation XA: editable candidate rows, write log-weights and retention; raw/stabilized state trace, contribution mass and Show the current computed result and its contributing terms immediately. A separate advanced control adds a common 1,000 to all write log-weights from an empty state. The stable output remains unchanged to rounding while direct raw exponentiation would overflow.]
 
 The scale shift null is a property of this normalized scalar read from an empty ledger. It is not a blanket invariance of every downstream architecture or of the matrix read's fixed floor.
 
@@ -410,15 +413,31 @@ For the worked image at training-file source ID 3451, the true digit is one. The
 
 These intermediate predictions come from applying the classifier at each prefix. The model was trained only on final-row loss. A changing prefix score is a view of its computation, not a separately validated early-exit classifier or a calibrated measure of understanding.
 
-[Figure X17: the worked digit, current scan line, class-score trajectory and state summary. The clean and edited paths coincide until the first changed row. Reveal the true label after the prediction step in the investigation.]
+[Figure X17: the worked digit, current scan line, class-score trajectory and state summary. The clean and edited paths coincide until the first changed row. Reveal the true label step in the investigation.]
 
-The fresh investigation starts from a different image, source ID 187. Before running it, choose which rows to alter and predict whether the final class or only intermediate confidence will change. Edit the actual 0–16 pixel values, not just a decorative corruption slider. Compare a scalar-state trace with the matrix state's changing key-by-value grid. These learned channels do not have inherent names such as “loop detector”; any such interpretation would require separate evidence.
+The fresh investigation starts from a different image, source ID 187. Before running it, choose which rows to alter and observe whether the final class or only intermediate confidence will change. Edit the actual 0–16 pixel values, not just a decorative corruption slider. Compare a scalar-state trace with the matrix state's changing key-by-value grid. These learned channels do not have inherent names such as “loop detector”; any such interpretation would require separate evidence.
 
 [Investigation XD: editable 8×8 pixel canvas with numeric keyboard editing, eight-step scan, selected model/seed, class scores, state view and carry/reset comparison.]
 
 A useful computational null is to process rows one through three, retain the complete recurrent state, and continue with rows four through eight. The logits should match processing all eight at once to floating-point tolerance. An intentional reset before row four can change them. A blank image need not produce uniform scores because the model has learned biases and its transitions still run; in seed 19, the scalar model predicts nine on the blank fixture. That is a model output without digit evidence, not a genuine recognition success.
 
 For a practical extension, define an occlusion or scan-order augmentation using fitting data, select any new settings with validation, and assess once on a reserved test protocol. Do not tune an augmentation on the test errors in the table and then call the same table an untouched final test.
+
+### Choose the implementation that owns the promised operation
+
+The scratch source [memory_mechanisms.py](memory_mechanisms.py) supplies scalar and matrix scans, the dense parallel form and an explicitly moderate-input chunk form. These are complete operators, not pseudocode pointing to an unspecified package. The practical tensor route is [row_sequence_models.py](row_sequence_models.py): `ScalarMemory` learns its input/recurrent gates; `MatrixMemory` learns Q/K/V and gates while carrying C, n and m; `DigitReader` supplies projections, normalization, residual/FFN composition, logits and the loss/optimizer loop. Autograd is reused from the earlier [implemented differentiation lesson](/learn/path/full-curriculum/backpropagation-automatic-differentiation?module=deep-learning-fundamentals), whose actual engine and library bridge are available there. Rebuilding that engine inside a memory cell would obscure the new recurrence.
+
+Map the two sources before changing them. The NumPy C has key rows and value columns, so the batched Torch read is `einsum("bkv,bk->bv", C, q)`. Query scaling belongs in one place; the Torch network also applies an output gate and RMS normalization that the bare memory oracle does not. `MatrixMemory` bounds its learned gate preactivations with a tanh transform, a declared architectural choice for this experiment. The scalar model carries the previous hidden output as well as c/n/m because it affects later gates. Its full-versus-carried execution comparisons therefore need every state component and the same fitted weights.
+
+The output of a bare NumPy cell is not supposed to equal the full network's logits. First compare the matching cell equations, then carry those cell outputs through the same added projections and readout. The retained raw/stabilized, dense/recurrent, chunk-carry and gradient calculations in `memory_mechanisms.py` and `author_calculations.py` make these comparisons explicit. Recurrent matrix work is O(T d_k d_v), with O(d_k d_v+d_k) carried state per head. The dense form stores O(T²) coefficient information. Chunking balances retained matrix state and local chunk scores; the supplied unscaled chunk oracle is restricted to moderate log-gates, so use the stabilized recurrent route for the extreme-log investigation.
+
+**Control the state boundary.** Change the split of an eight-row input from 3/5 to 5/3 without changing weights. Compare every prefix logit and every returned state component with an unsplit pass. Then deliberately reset only n at the boundary.
+
+<details><summary>Hint and reasoned solution</summary>
+
+For the valid continuation, pass the complete returned state into the suffix and concatenate outputs along time. In evaluation mode with fixed preprocessing this changes execution grouping, not the mathematical recurrence. Resetting n while retaining C/c changes normalization and therefore the read; it is not a harmless cache optimization. For the scalar cell retain h as well: resetting it can alter later gates even if c/n/m were preserved. Compare state tensors as well as class predictions, because a classifier can keep the same winning class despite a changed internal function. This construction is a complete small trainable sLSTM/mLSTM route; it is not a port of every released xLSTM block or checkpoint.
+
+</details>
 
 ## 8. Distinguish a cell family from a published model
 

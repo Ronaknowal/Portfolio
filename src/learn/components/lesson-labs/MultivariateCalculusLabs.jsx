@@ -158,7 +158,7 @@ export function LocalGradientLab() {
     if (state.gradientNorm) setAngle(((Math.atan2(state.gradient[1], state.gradient[0]) * 180 / Math.PI + offset) % 360 + 360) % 360);
   };
   return <Investigation name="local-gradient" title="Which way is uphill at this point?">
-    <p>Predict the rate before rotating the direction. Then shrink the signed step: does the slope change, or only the finite prediction error? The function stays f=x²+2y².</p>
+    <p>Rotate the direction and watch the directional rate update. Then shrink the signed step: does the slope change, or only the finite prediction error? The function stays f=x²+2y².</p>
     <form className="multivariate-controls" onSubmit={changeBase}>
       {['x', 'y'].map((axis, index) => <label key={axis}>Base {axis}<input inputMode="decimal" value={draft[index]} onChange={event => setDraft(draft.map((value, position) => position === index ? event.target.value : value))} /></label>)}
       <button type="submit">Apply base point</button>
@@ -215,7 +215,7 @@ export function ApproachPathsLab() {
   const [coefficient, setCoefficient] = useState(1);
   const state = approachState(kind, coefficient);
   return <Investigation name="approach-paths" title="Can every straight approach look safe?">
-    <p>At the origin define g=0; elsewhere g=x²y/(x⁴+y²). Predict whether a line and a parabola approach the same output. The table approaches from positive x; a single conflicting path is enough to disprove a limit. Values are rounded, with scientific notation preserving tiny nonzero inputs.</p>
+    <p>At the origin define g=0; elsewhere g=x²y/(x⁴+y²). Inspect whether a line and a parabola approach the same output. The table approaches from positive x; a single conflicting path is enough to disprove a limit. Values are rounded, with scientific notation preserving tiny nonzero inputs.</p>
     <div className="multivariate-controls"><label>Approach path<select value={kind} onChange={event => setKind(event.target.value)}><option value="axis">x axis: y=0</option><option value="line">Straight line: y=cx</option><option value="parabola">Parabola: y=cx²</option></select></label><label>Coefficient c<select value={coefficient} disabled={kind === 'axis'} onChange={event => setCoefficient(Number(event.target.value))}>{[-2, -1, -0.5, 0, 0.5, 1, 2].map(value => <option key={value} value={value}>{value}</option>)}</select></label><button onClick={() => {
         setKind('axis');
         setCoefficient(1);
@@ -239,7 +239,7 @@ export function CircleGradientLab() {
     length: 121
   }, (_, index) => [Math.cos(index * Math.PI / 60), Math.sin(index * Math.PI / 60)]);
   return <Investigation name="circle-gradient" title="Uphill in the plane, but unable to leave the circle">
-    <p>Maximize f=2x+y while x²+y²=1. Predict where motion around the circle stops changing f, even though ∇f=(2,1) never vanishes. Angle is displayed in degrees; the calculated rate is per radian.</p>
+    <p>Maximize f=2x+y while x²+y²=1. Inspect where motion around the circle stops changing f, even though ∇f=(2,1) never vanishes. Angle is displayed in degrees; the calculated rate is per radian.</p>
     <div className="multivariate-controls"><label>Position angle: {number(angle)}°<input type="range" min="0" max="360" step="any" value={angle} onChange={event => setAngle(Number(event.target.value))} /></label><button onClick={() => setAngle(state.maximumAngle)}>Maximum candidate</button><button onClick={() => setAngle(state.maximumAngle + 180)}>Minimum candidate</button><button onClick={() => setAngle(0)}>Reset</button></div>
     <div className="multivariate-linked"><div><h4>Allowed velocity is tangent</h4><CartesianPlot label="Unit circle, point, tangent direction and fixed objective gradient" domain={[-2.4, 2.4]} curves={[{
           points: circle
@@ -268,7 +268,7 @@ export function CurvatureSlicesLab() {
   const [angle, setAngle] = useState(0);
   const state = curvatureState(preset, angle);
   return <Investigation name="curvature-slices" title="Does this stationary point curve up in every direction?">
-    <p>Every example has zero gradient at the origin. Predict the classification before rotating a slice; then compare the two quartic cases, whose Hessians are identical.</p>
+    <p>Every example has zero gradient at the origin. Inspect the classification while rotating a slice; then compare the two quartic cases, whose Hessians are identical.</p>
     <div className="multivariate-controls"><label>Function at the origin<select value={preset} onChange={event => setPreset(event.target.value)}>{Object.entries(curvaturePresets).map(([key, model]) => <option key={key} value={key}>{model.title}</option>)}</select></label><label>Slice direction: {angle}°<input type="range" min="0" max="360" step="15" value={angle} onChange={event => setAngle(Number(event.target.value))} /></label><button onClick={() => {
         setPreset('bowl');
         setAngle(0);
@@ -306,7 +306,7 @@ export function GradientDescentLab() {
     }
   };
   return <Investigation name="gradient-descent" title="Trace the update, including a rate that fails">
-    <p>Start at (3,−2) on f=x²+2y². Predict the next point before stepping. Changing the learning rate restarts the same initial condition so the comparison is controlled.</p>
+    <p>Start at (3,−2) on f=x²+2y². Inspect the next point as you step. Changing the learning rate restarts the same initial condition so the comparison is controlled.</p>
     <form className="multivariate-controls" onSubmit={applyRate}><label>Learning rate η<input inputMode="decimal" value={draft} onChange={event => setDraft(event.target.value)} /></label><button type="submit">Apply rate</button><button type="button" onClick={() => changeRate(0.1)}>Reset</button></form>
     {error && <p role="alert">{error} The active trajectory is unchanged.</p>}
     <div className="multivariate-controls">{[0.01, 0.1, 0.49, 0.5, 0.6].map(value => <button key={value} onClick={() => changeRate(value)}>η={value}</button>)}<button disabled={steps === 0} onClick={() => setSteps(steps - 1)}>Previous step</button><button disabled={steps === 12} onClick={() => setSteps(steps + 1)}>Next step</button><button disabled={steps === 12} onClick={() => setSteps(12)}>Run 12 steps</button></div>

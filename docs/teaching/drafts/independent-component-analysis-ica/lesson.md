@@ -1,5 +1,7 @@
 # Independent Component Analysis (ICA)
 
+> Current lab UX, 21 September 2026: controls show live calculations and topic-specific visuals without learner prediction entry, grading or guess-to-reveal screens. Genuine algorithm steps, separate practice and data-role boundaries remain. See [the current migration record](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md).
+
 Two sensors can both contain the same two signals in different proportions. A loud pulse in one recording might come from the event you care about, an interfering source, or both. Instead of keeping the direction with the largest variation, can we find combinations that separate the contributions?
 
 **Independent component analysis** estimates a linear representation whose component signals are as statistically independent as its model and estimation method can make them. We will first separate an exact four-state mixture. Then we will ask a narrower, measurable question of a real electrical recording: does an ICA component track a simultaneously recorded reference more closely than an original channel or a principal component?
@@ -154,9 +156,9 @@ Kurtosis is only one diagnostic. A non-Gaussian variable taking $0$ with probabi
 
 ### Investigation: rotate a distribution, not just its covariance
 
-In the rotation investigation, record whether your proposed new projection will have greater, equal or smaller absolute excess kurtosis than the active one. Enter an angle of your own before revealing the result. The covariance remains $I$ under every orthogonal rotation, while the joint support and fourth moment can change.
+In the rotation investigation, enter an angle of your own and follow the absolute excess kurtosis and joint geometry immediately. Compare source-aligned and intermediate directions. The covariance remains $I$ under every orthogonal rotation, while the joint support and fourth moment can change.
 
-Start with the binary source distribution above. Try a projection halfway between its source directions, then a direction near one source. Return with the Gaussian population selected. Explain what the Gaussian null case removes from the search. This activity’s exact statistic, source-family controls and prediction rules are specified in [the visual packet](visual-specifications.md#r1-rotation-investigation).
+Start with the binary source distribution above. Try a projection halfway between its source directions, then a direction near one source. Return with the Gaussian population selected. Explain what the Gaussian null case removes from the search. This activity’s exact statistic, source-family controls and live comparison rules are specified in [the visual packet](visual-specifications.md#r1-rotation-investigation).
 
 ### A broader objective
 
@@ -351,7 +353,7 @@ $$
 
 At the worked instant $s=(1,-1)^T$, observed $x=(1,-1)^T$. Component 2 contributes $(-1,-2)^T$; subtracting that contribution leaves $(2,1)^T$, the first source’s contribution. The altered result is not expected to equal the original sensors.
 
-**Investigation C1 — edit a contribution.** Enter a new two-source amplitude pair and choose which component to keep. Record a predicted sensor amplitude before reconstructing. Observe the contribution vectors, their sum, and the removed difference. Then rescale a source and inversely rescale its mixing column: the reconstructed observations should stay fixed. See [the full contract](visual-specifications.md#c1-component-contribution-investigation).
+**Investigation C1 — edit a contribution.** Enter a new two-source amplitude pair and choose which component to keep. Watch the sensor reconstruction update as you edit. Observe the contribution vectors, their sum, and the removed difference. Then rescale a source and inversely rescale its mixing column: the reconstructed observations should stay fixed. See [the full contract](visual-specifications.md#c1-component-contribution-investigation).
 
 In EEG/MEG practice, a component’s time course, spatial pattern and relationship to an auxiliary eye or cardiac channel can help identify an artifact candidate. A statistical component label such as “blink-like” is an interpretation based on this evidence. It is not an anatomical source location or guaranteed neurophysiological cause. Removing a component also removes any wanted activity it contains, which is why before/after task-signal checks and sensitivity to exclusion choices matter. [MNE’s artifact tutorial](https://mne.tools/stable/auto_tutorials/preprocessing/40_artifact_correction_ica.html) shows this inspect–exclude–reconstruct workflow. Detailed filtering, referencing, rank changes and experimental leakage belong to the planned [Neural Preprocessing, Artifact Rejection and Leakage-Safe Pipelines](/learn/path/full-curriculum/neural-preprocessing-artifact-rejection-and-leakage-safe-pipelines?module=computational-neuroscience) lesson.
 

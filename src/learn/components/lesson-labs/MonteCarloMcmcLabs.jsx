@@ -90,7 +90,7 @@ export function IndependentMonteCarloLab() {
     setGroup(1);
     setResetCount(value => value + 1);
   };
-  return <section className="mcmc-lab" aria-label="Independent Monte Carlo investigation"><h3>One question, many random contributions</h3><p>Estimate the average of U² for U uniform on [0,1]. Predict whether pairing U with 1−U can reduce error at the same number of function evaluations. The dashed line is the analytically known answer, 1/3.</p>
+  return <section className="mcmc-lab" aria-label="Independent Monte Carlo investigation"><h3>One question, many random contributions</h3><p>Estimate the average of U² for U uniform on [0,1]. Inspect whether pairing U with 1−U can reduce error at the same number of function evaluations. The dashed line is the analytically known answer, 1/3.</p>
     <div className="mcmc-controls"><label>Evaluation budget<select aria-label="Evaluation budget" value={evaluations} onChange={event => {
           setEvaluations(Number(event.target.value));
           setGroup(1);
@@ -291,7 +291,7 @@ export function CorrelatedPrecisionLab() {
     draws
   });
   const retained = states.filter((_, i) => (i + 1) % thin === 0);
-  return <section className="mcmc-lab" aria-label="Correlated precision investigation"><h3>Same number of transitions, different information</h3><p>A stationary two-state chain targets 0 and 1 equally. It flips with probability (1−ρ)/2. Positive ρ produces runs; negative ρ encourages alternation. Predict what keeping every second draw does when ρ=−.8.</p>
+  return <section className="mcmc-lab" aria-label="Correlated precision investigation"><h3>Same number of transitions, different information</h3><p>A stationary two-state chain targets 0 and 1 equally. It flips with probability (1−ρ)/2. Positive ρ produces runs; negative ρ encourages alternation. Inspect what keeping every second draw does when ρ=−.8.</p>
     <div className="mcmc-controls"><Range label="Lag-one correlation" min={-.9} max={.9} step={.1} value={rho} onChange={setRho} /><label>Transition budget<select aria-label="Transition budget" value={draws} onChange={event => setDraws(Number(event.target.value))}><option value="50">50 transitions</option><option value="100">100 transitions</option><option value="200">200 transitions</option></select></label><label>Keep every kth state<select aria-label="Keep every kth state" value={thin} onChange={event => setThin(Number(event.target.value))}><option value="1">Every state · k=1</option><option value="2">Every second · k=2</option><option value="5">Every fifth · k=5</option><option value="10">Every tenth · k=10</option></select></label></div>
     <Seed key={resetCount} seed={seed} name="Precision" onApply={setSeed} />
     <div className="mcmc-bits" aria-label="Resulting states; outlined states retained">{states.map((value, i) => <span key={i} className={`${value ? 'one' : 'zero'} ${(i + 1) % thin === 0 ? 'retained' : 'omitted'}`} title={`Transition ${i + 1}: ${value}${(i + 1) % thin === 0 ? ', retained' : ', omitted'}`}>{value}</span>)}</div><p>Each digit is one transition's resulting state. Outlined digits are retained. The initial state is drawn from the known stationary distribution, so the exact variance comparison below includes no initialization bias.</p>

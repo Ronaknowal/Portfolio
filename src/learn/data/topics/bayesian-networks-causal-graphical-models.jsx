@@ -147,8 +147,8 @@ const bayesianNetworksContent = {
       of {num(bothCalls.posterior)}, watch that number collapse to {num(withEarthquake.posterior)} when an earthquake
       turns up, find a clue that changes it by exactly nothing, decide by hand which observation sets a graph
       guarantees independence for, and then take four chemical measurements on {provenance.specimens} real wine
-      specimens and ask which one is worth buying. Every investigation asks for a recorded prediction before it
-      calculates anything, and retires that prediction the moment an input changes.
+      specimens and ask which one is worth buying. Change valid controls to see the relevant posterior,
+      path or decision update immediately, with the information available to the model kept explicit.
     </LessonIntro>
 
     <div className="bn-route"><Prose><strong>First pass.</strong> Read sections 1–6 and do practice 1–6. That route

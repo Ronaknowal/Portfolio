@@ -1,0 +1,91 @@
+{
+  "checkedAt": "2026-09-20T07:15:05.005049+00:00",
+  "stage": "native execution of the lesson's programs; browser, independent and integration review are separate",
+  "extraction": "verbatim from frozen sources: two manuscript bash fences located by their surrounding sentence, and three function definitions extracted from the packet programs by parsing them with ast.get_source_segment. Each is pinned by the SHA-256 of the exact bytes read.",
+  "manuscript": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/lesson.md",
+  "manuscriptSha256": "a3a938040b9992076d0cd8bba500ec67149a0eda166bd7af7ae893496f77aef4",
+  "programSha256": {
+    "complexity_calculations.py": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+    "bounded_norm_experiment.py": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836"
+  },
+  "packetResultHashes": {
+    "checked-results.json": "aa990e932d68b371ca1e680b9ee52e97fec81bfbf17cb5dcf52ded190f8fcc6b",
+    "experiment-results.json": "26caac6ec64c9223a1ee225c01d7fe8adaf74e6e023fb1e6440ed88be1648c20"
+  },
+  "regeneratedByteIdentical": {
+    "checked-results.json": true,
+    "experiment-results.json": true
+  },
+  "blasThreadingSensitivity": {
+    "largestRelativeDrift": 8.881784197001252e-16,
+    "note": "Rerunning with OMP/OPENBLAS/MKL pinned to one thread moves the last bit of one fitted coefficient, so the byte-identity check above runs under the default threading the author used. Every mistake count, ramp mean and the selected budget are unchanged."
+  },
+  "source": "src/learn/data/rademacher-examples.js",
+  "sourceHash": "f664f16c0bdb73aeddb2163d6f42505eaa18935f84a90de7a6716124f5c9398f",
+  "verifier": "scripts/verify-rademacher-examples.py",
+  "verifierHash": "2e08e6dc31da503e6649afe7cb864a09bd89ac1d3ca3455cf89bc79bce8dd9e3",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1",
+    "isolatedEnvironment": "none created: this packet has no optional-library program, and both programs run on the shared runtime's recorded versions"
+  },
+  "programs": {
+    "runCalculations": {
+      "file": "complexity_calculations.py",
+      "origin": "manuscript bash fence, section 7",
+      "codeHash": "ebfb3c804b6eeeaeaadae3f9cf3b90e19e0672cfd97dae4a41f2cce796db57b4",
+      "stdoutHash": "940af1e0ab103a6ad925bfabdc89aab3487bfbb5257d939dd1999a4cf8ddcd96",
+      "executed": true,
+      "displayedOnPage": true
+    },
+    "runExperiment": {
+      "file": "bounded_norm_experiment.py",
+      "origin": "manuscript bash fence, section 8",
+      "codeHash": "12e1b2a4eaad9d430104a65cf81e2ffa85e4b4e08bb110928a2c162029b9be62",
+      "stdoutHash": "d10ece16414682e68d16419cf8e6eee183242abaea70fd72f3245f6a99335a4a",
+      "executed": true,
+      "displayedOnPage": true
+    }
+  },
+  "excerpts": {
+    "finiteComplexity": {
+      "file": "complexity_calculations.py",
+      "origin": "ast.get_source_segment of finite_complexity",
+      "codeHash": "ee20423a9b598737c46be991553b297d699652c2b4c37060d790cb779bc8307b",
+      "lines": 12,
+      "executed": "as part of its program",
+      "displayedOnPage": true
+    },
+    "thresholdValues": {
+      "file": "complexity_calculations.py",
+      "origin": "ast.get_source_segment of threshold_values",
+      "codeHash": "a6a65ed2dc4e44b55a5f520438917c6ddb5290c68769737479a885c3c7a6f157",
+      "lines": 8,
+      "executed": "as part of its program",
+      "displayedOnPage": true
+    },
+    "fitBall": {
+      "file": "bounded_norm_experiment.py",
+      "origin": "ast.get_source_segment of fit_ball",
+      "codeHash": "ce60d0a72fb26b4ea2bb0134261561dd955ae66d56dac2988efe38b43a0ccb33",
+      "lines": 24,
+      "executed": "as part of its program",
+      "displayedOnPage": true
+    }
+  },
+  "oracles": 76,
+  "notes": [
+    "Both programs were copied into scratch/rademacher-programs beside a copy of the SERVED dataset and run there. The check is that each reproduces the packet's frozen result file byte for byte, so the page's numbers and the packet's numbers cannot drift apart.",
+    "No network access was used by any program.",
+    "The three displayed excerpts are extracted by parsing, never retyped, so what a reader copies off the page is what executed."
+  ],
+  "limits": [
+    "Library floating-point results can differ on other versions; the resolved versions are recorded above and are checked against the versions the packet recorded.",
+    "The experiment is one small fixed subset drawn without replacement from a finite corpus, not a benchmark and not an iid sample from a deployment population.",
+    "Stdout equality is checked for the two displayed fences; the browser's own rendering of that text is checked by scripts/verify-rademacher-browser.cjs."
+  ],
+  "passed": true,
+  "failureNotes": []
+}

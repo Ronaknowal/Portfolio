@@ -95,6 +95,51 @@ relative to each time: [[-1.0, 1.0], [-1.0, 1.0], [-1.0, 1.0]]
 all readings: 25.0
 sensor A maximum at time: 2`,
   },
+  loopReference: {
+    filename: 'numpy_loop_reference.py',
+    code: `import numpy as np
+
+# Nonempty rectangular readings; one finite offset per sensor.
+readings = [[18.0, 20.0], [24.0, 26.0], [30.0, 32.0]]
+offsets = [2.0, 4.0]
+times, sensors = len(readings), len(offsets)
+corrected = []
+for time in range(times):
+    row = []
+    for sensor in range(sensors):
+        row.append(readings[time][sensor] - offsets[sensor])
+    corrected.append(row)
+
+means = []
+for sensor in range(sensors):
+    total = 0.0
+    for time in range(times):
+        total += corrected[time][sensor]
+    means.append(total / times)
+
+def calibrate_sensor_means(readings, offsets):
+    array = np.asarray(readings, dtype=np.float64)
+    offset = np.asarray(offsets, dtype=np.float64)
+    if (array.ndim != 2 or 0 in array.shape or offset.ndim != 1
+            or offset.size != array.shape[1]):
+        raise ValueError("expected a nonempty table and one offset per sensor")
+    if not (np.isfinite(array).all() and np.isfinite(offset).all()):
+        raise ValueError("readings and offsets must be finite")
+    calibrated = array - offset
+    return calibrated, calibrated.mean(axis=0)
+
+vectorized, array_means = calibrate_sensor_means(readings, offsets)
+np.testing.assert_allclose(vectorized, corrected, rtol=1e-12, atol=1e-12)
+np.testing.assert_allclose(array_means, means, rtol=1e-12, atol=1e-12)
+print("loop corrected:", corrected)
+print("loop sensor means:", means)
+print("same shape:", vectorized.shape == (times, sensors))
+print("array sensor means:", array_means.tolist())`,
+    output: `loop corrected: [[16.0, 16.0], [22.0, 22.0], [28.0, 28.0]]
+loop sensor means: [22.0, 22.0]
+same shape: True
+array sensor means: [22.0, 22.0]`,
+  },
   shapes: {
     code: `import numpy as np
 

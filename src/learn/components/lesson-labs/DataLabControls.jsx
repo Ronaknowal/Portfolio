@@ -7,6 +7,3 @@ export function DataStepControls({ step, count, setStep, reset }) {
   </div>;
 }
 
-export function DataPrediction({ id, children }) {
-  return <label className="data-prediction" htmlFor={id}>{children}<input id={id} placeholder="Make a prediction before revealing the result" /></label>;
-}

@@ -1,0 +1,185 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T05:49:44.968Z",
+  "base": "http://127.0.0.1:4194",
+  "groups": [
+    "Depthwise channel perturbation, zero/reset and actual pointer/keyboard weighted-sum controls",
+    "Depthwise editable two-factor identity and dependent-probe counterexample",
+    "Depthwise sampled/unsampled edit, boundary padding and zero-tap null",
+    "Depthwise even holes, gap-free and largest four-layer support; full-size finite-map coordinate route",
+    "Parallel context far-cell influence, projected zero and reset",
+    "Deferred digit weights, network failure/retry, both native-verified interventions, rank/model/specimen/kernel controls and pixel coordinate editing",
+    "Depthwise deferred source failure/retry and exact canonical code",
+    "Depthwise production1366/390/320 exact painted cost ratios, distinct segment colors,44px coordinate controls, overflow/math/theme and viewport captures",
+    "ConvNeXt saved-model error and successful retry",
+    "ConvNeXt axis-specific shift null, shared-statistic contrast, invalid-value guard and cell intervention",
+    "ConvNeXt exact V1/V2/practice budgets and real slider dragging/keyboard",
+    "GRN competing-channel removal, identity scales and reset",
+    "Real masked reconstruction hidden-target null and visible intervention, full-size coordinate editing, both model/specimen controls",
+    "All continuous ConvNeXt control families preserve typed0.123 exactly in numeric/range/model state",
+    "Exact branch folding versus real nonlinear counterexample, signed edit, seed and block topology controls",
+    "ConvNeXt source error/retry and complete canonical program bytes",
+    "ConvNeXt production1366/390/320 layout, math, theme,44px coordinates and viewport captures"
+  ],
+  "geometry": [
+    {
+      "topic": "depthwise",
+      "width": 1366,
+      "bars": [
+        {
+          "width": 726,
+          "segments": [
+            {
+              "width": 726,
+              "color": "rgb(228, 183, 82)"
+            }
+          ]
+        },
+        {
+          "width": 726,
+          "segments": [
+            {
+              "width": 5.671875,
+              "color": "rgb(228, 183, 82)"
+            },
+            {
+              "width": 80.65625,
+              "color": "rgb(85, 85, 85)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "depthwise",
+      "width": 390,
+      "bars": [
+        {
+          "width": 316,
+          "segments": [
+            {
+              "width": 316,
+              "color": "rgb(228, 183, 82)"
+            }
+          ]
+        },
+        {
+          "width": 316,
+          "segments": [
+            {
+              "width": 2.46875,
+              "color": "rgb(228, 183, 82)"
+            },
+            {
+              "width": 35.109375,
+              "color": "rgb(85, 85, 85)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "depthwise",
+      "width": 320,
+      "bars": [
+        {
+          "width": 246,
+          "segments": [
+            {
+              "width": 246,
+              "color": "rgb(228, 183, 82)"
+            }
+          ]
+        },
+        {
+          "width": 246,
+          "segments": [
+            {
+              "width": 1.921875,
+              "color": "rgb(228, 183, 82)"
+            },
+            {
+              "width": 27.328125,
+              "color": "rgb(85, 85, 85)"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "captures": [
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/depthwise-cost-1366.png",
+      "bytes": 200353,
+      "sha256": "bd71cda2d4c72b6421f414440154348f11d8ab32b2d64c8f85804e478176b426"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/depthwise-digit-1366.png",
+      "bytes": 154378,
+      "sha256": "51bc714ab942dd3b4f8e07fc6a4d5c48ee9b65585fe8082151b57e161b19f6ef"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/depthwise-cost-390.png",
+      "bytes": 88271,
+      "sha256": "a35dba79aceb2a464b3c4f91ab7aa97756e2468f863852ae4ec53c5e11ecb843"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/depthwise-digit-390.png",
+      "bytes": 43071,
+      "sha256": "f7d2d607f6c2b256e0d5496a0b9a502a083c43ac756779736bf22810c09a9e83"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/depthwise-cost-320.png",
+      "bytes": 70319,
+      "sha256": "07447e37dfff73c5e7444b23c2e3d30720f8e47f06cc9bc5972951f139f095d8"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/depthwise-digit-320.png",
+      "bytes": 42434,
+      "sha256": "9cbb23f9caac5af53c1c8c763d0eab8f07e578f198e7c8ab244a328c5a4e7fb6"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/convnext-normalization-1366.png",
+      "bytes": 169618,
+      "sha256": "5ac62c65423b5b8a5576ab4ccddd43dbd6af2153151be6b611f4351004ee2481"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/convnext-mask-1366.png",
+      "bytes": 159446,
+      "sha256": "c1f1f8a52a7b1d5c9a1dfd37959bc06ad19d06b5d1c782bc3274e166a568d1f1"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/convnext-normalization-390.png",
+      "bytes": 56179,
+      "sha256": "d1aa8b7efcd00959c5fc0590a71f18a41cf8d5c3f879dae11efe2984da6c15ec"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/convnext-mask-390.png",
+      "bytes": 51566,
+      "sha256": "e154c329bc146a1c559f3fa7db890cbf861d220c7cbdc6c9378ce28d2094f359"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/convnext-normalization-320.png",
+      "bytes": 54050,
+      "sha256": "292b931e1033c6fe7f8a7baaa3675bdd80d4a84d2af53f6fa700c5ee4d3ed874"
+    },
+    {
+      "file": "docs/teaching/evidence/modern-convolution-browser/convnext-mask-320.png",
+      "bytes": 47318,
+      "sha256": "d592b799a1f98b4c6fc22c45563999ec71f85a2c8397d4ecd1499c6471380953"
+    }
+  ],
+  "errors": [],
+  "sources": {
+    "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx": "191a8472e294d88d23ae8121b80c5b0aff263294173c68c154125868a504f791",
+    "src/learn/components/lesson-labs/ConvNeXtLabs.jsx": "2f9ff9755b0d3e9c3ef645be6ed67c83b3d5cc9dad0c5e48b09b9c9d37d0792c",
+    "src/learn/components/lesson-labs/depthwise-convolutions.css": "b91f08bbb7ff3a8f974f48f0e796e2e530dd188455e349e0967ad325228ddc2d",
+    "src/learn/components/lesson-labs/convnext.css": "befbaa5b4d07c0da12cc17ceb7adfe8f94be7986564de61dcc85307def107ce2",
+    "src/learn/data/depthwise-convolution-models.js": "3ab5780ba00a4cff9a9a6d378246ca6c2df506bd512cedac51c84595682efdee",
+    "src/learn/data/convnext-models.js": "c19b8aa44bcb736828ae978e8f1efb8904571d2a854e8ae3621400491be9642b",
+    "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "e996d422c08ef8acc3ae71bc2a445743fcab42c0c56574edd89ac3ec51fef38f",
+    "src/learn/data/topics/convnext-modern-cnn-designs.jsx": "bfedbb1e54cd1397ef1b0c27c05c671787f86d6d7579ac837e5facd4924a8e73",
+    "scripts/verify-modern-convolution-browser.cjs": "409b43e35b64a1060642101ac51be9f7e448b2075316574368b972174d45d389"
+  },
+  "limits": "Scoped actual browser checks; screenshot inspection is separately recorded. Native algorithm correctness is recorded by complementary topic-specific checks."
+}

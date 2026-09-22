@@ -1,5 +1,8 @@
 # Batch, Layer, Group, and RMS Normalization: Which Values Belong Together?
 
+**Explore as you read.** Edit tensor cells, normalization method/group count, offset/scale, epsilon, affine values, mode and running-statistic parameters. Highlight each statistic membership set and show all affected outputs, means/variances and running buffers immediately. Compare changing another example with changing a member of the same group. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a normalizer and mode by its information dependencies, batch sensitivity and inference state.
+
+
 A neural layer may receive numbers whose typical size changes as earlier layers learn. A tanh unit that used to receive values near zero can start receiving values near ten, where its output barely changes and its derivative is small. Normalization layers deliberately rescale collections of intermediate values. Their most important design decision is **which values share the calculation**.
 
 The preceding loss lesson explained how predictions are judged. Here we inspect the intermediate activations that produce those predictions. We will follow a small collection of numbers through normalization, connect the operation to gradients, and compare real training runs.
@@ -53,7 +56,7 @@ Consider \((N,C,H,W)=(2,4,1,2)\). The first example contains channel rows \([1,2
 
 **Investigation — who shares my ruler?** Select the first value, one. Highlight every value used in its mean and variance. For BatchNorm, the group is \([1,2,9,10]\). For the declared LayerNorm, it is \([1,\ldots,8]\). For GroupNorm with two groups, it is \([1,2,3,4]\). For InstanceNorm, it is \([1,2]\).
 
-Now change only the value nine to nineteen, in the second example. Predict which methods change the normalized first example. Only training BatchNorm does: its shared reference group crossed the batch axis. In the executed fixture, the largest first-example output change is about .150221 for BatchNorm and exactly zero for the other three methods.
+Now change only the value nine to nineteen, in the second example. Inspect which methods change the normalized first example. Only training BatchNorm does: its shared reference group crossed the batch axis. In the executed fixture, the largest first-example output change is about .150221 for BatchNorm and exactly zero for the other three methods.
 
 This is a dependency question, not a claim that BatchNorm is worse. Sharing across examples provides different statistical information and also introduces batch-composition dependence. The [Group Normalization paper's formulation and Figure 2](https://arxiv.org/pdf/1803.08494) offer another useful view of these grouping choices.
 
@@ -88,7 +91,7 @@ With identity affine parameters and \(\epsilon=10^{-5}\):
 
 These values were calculated by the accompanying program. RMSNorm retains information about the vector's common offset relative to its magnitude; LayerNorm removes a common offset. Both reduce sensitivity to positive overall scaling, exactly when epsilon is zero and denominators are nonzero, approximately when epsilon is small compared with the relevant squared scale. Negative scaling reverses signs rather than leaving outputs unchanged.
 
-**Investigation — change brightness or contrast?** Edit an actual two-feature vector, first by adding the same offset to both entries, then by multiplying both by a positive scale. Predict which outputs remain unchanged. Use the zero-mean vector as a null comparison where the two methods agree. For values close to zero, increase epsilon and observe why the approximate scale invariance weakens.
+**Investigation — change brightness or contrast?** Edit an actual two-feature vector, first by adding the same offset to both entries, then by multiplying both by a positive scale. Inspect which outputs remain unchanged. Use the zero-mean vector as a null comparison where the two methods agree. For values close to zero, increase epsilon and observe why the approximate scale invariance weakens.
 
 For a causal sequence model, an output at position \(t\) must not depend on future inputs. Per-token normalization over \(D\) respects that boundary. Normalizing over \((T,D)\) mixes token positions and can introduce a future dependency even if attention itself has a causal mask. Padding included in a reduction can likewise change its statistics. Check the axes rather than assuming the layer's name guarantees the desired dependencies.
 
@@ -113,7 +116,7 @@ Start with running mean zero and running variance one. A channel contains \([1,3
 
 Calling `eval()` does not force these two functions to agree. It switches to the stored estimates, which are still immature after one pass. A mode bug, insufficiently representative running statistics, a distribution change, and incorrect preprocessing are different diagnoses.
 
-**Investigation — follow the state:** predict the next running mean and variance before applying a batch. Change a batch's measurements or momentum, commit the prediction, then inspect the current-batch output and the updated memory. Switch to evaluation and verify that another forward pass leaves that memory unchanged.
+**Investigation — follow the state:** inspect the next running mean and variance before applying a batch. Change a batch's measurements or momentum, Show the current computed result and its contributing terms immediately. Switch to evaluation and verify that another forward pass leaves that memory unchanged.
 
 ### One image is not always one value
 
@@ -164,7 +167,7 @@ python -m venv .venv
 .venv\Scripts\python normalization-experiments.py
 ```
 
-Use `.venv/bin/python` on macOS/Linux. The author used Python 3.12.14, torch 2.14.0+cpu, and one CPU thread. A clean-environment replay remains part of later implementation review.
+Use `.venv/bin/python` on macOS/Linux. The recorded run used Python 3.12.14, torch 2.14.0+cpu, and one CPU thread. Implementation replay in the declared existing environment reproduced all saved results exactly; no fresh package installation was needed.
 
 The real data has 400 UCI handwritten digit specimens, 40 per class, each with 64 pixel values from zero to 16. We divide by 16 and use the same stratified 280/120 development split as the earlier neural lessons. The [provenance record](data-provenance.md) explains why this is not an official UCI or writer-independent benchmark.
 
@@ -240,6 +243,71 @@ An activation normalization examines order one value per element, with reduction
 Fused implementations can reduce intermediate allocations and memory traversals. The exact passes and runtime depend on kernel, shape, dtype, hardware and compiler. RMSNorm's simpler statistic can save work, but fewer source-code operations do not establish a universal percentage improvement.
 
 InstanceNorm's per-image, per-channel grouping has a useful connection to stylization: changing global contrast or channel offsets need not change normalized patterns. That property helps some image transformations but can erase intensity information needed elsewhere. [Ulyanov et al.](https://arxiv.org/abs/1607.08022) introduced the method in a fast-stylization setting. Weight normalization is a different family: it writes a weight vector as \(w=g\,v/\|v\|\), separating magnitude and direction rather than computing activation statistics. [Salimans and Kingma](https://arxiv.org/abs/1602.07868) is an alternate deeper route.
+
+## Implement the derivative and connect it to the module
+
+The [complete experiment above](normalization-experiments.py) already implements centered normalization, RMS normalization, grouped reshaping and BatchNorm's train/eval running-state update from tensor primitives. Read those functions before the model-fitting code. They own the forward mechanism: no normalization module is called inside them. The reference modules in the fixture section check the result, including BatchNorm's different training and stored variance denominators. We do not need to recopy that forward implementation into another neural architecture lesson.
+
+The remaining piece is an explicit backward operation. Let \(h\) be the normalized values, \(r\) the inverse scale, and \(g\) the gradient arriving **after multiplying by the affine scale**. For a centered collection, the input gradient is
+\[
+dx=r\bigl(g-\operatorname{mean}(g)-h\operatorname{mean}(gh)\bigr).
+\]
+The direct path contributes \(g\). Changing the shared mean contributes the subtraction of its mean. Changing the shared variance contributes the last correction. Each mean is over exactly the same collection as the forward operation. For RMSNorm there is no centering path, so omit \(\operatorname{mean}(g)\), retaining the scale correction. The formula includes epsilon through \(h\) and \(r\); it does not assume that epsilon is zero.
+
+```python
+import numpy as np
+
+def normalize(values, axes, epsilon=1e-5, centered=True):
+    mean = values.mean(axis=axes, keepdims=True) if centered else 0.
+    deviation = values - mean
+    inverse_scale = 1 / np.sqrt((deviation ** 2).mean(axis=axes, keepdims=True) + epsilon)
+    normalized = deviation * inverse_scale
+    return normalized, (normalized, inverse_scale, axes, centered)
+
+def backward(upstream, cache):
+    normalized, inverse_scale, axes, centered = cache
+    correlated = (upstream * normalized).mean(axis=axes, keepdims=True)
+    gradient = upstream - normalized * correlated
+    if centered:
+        gradient = gradient - upstream.mean(axis=axes, keepdims=True)
+    return inverse_scale * gradient
+
+x = np.array([[1., 3., -2.]])
+h, cache = normalize(x, (1,))
+dx = backward(np.array([[.3, -.2, .8]]), cache)
+print(np.round(h, 6))
+print(np.round(dx.sum(axis=1), 12))  # [0.]
+```
+
+These are vector-Jacobian products: the routine computes the effect of one incoming gradient without constructing a dense Jacobian. For \(M\) input values it uses \(O(M)\) arithmetic and stored normalized activations; a dense \(M\times M\) derivative matrix would waste space. Broadcasting keeps the group means small. NumPy's reductions and elementwise operations are the stated primitive boundary; this is not a custom GPU kernel or a mixed-precision emulation.
+
+For \(y=\gamma h+\beta\), send `upstream * gamma` into the normalization VJP. The scale gradient sums `upstream * h` over the positions that share each scale parameter, and the shift gradient sums `upstream` over those same positions. Those parameter-sharing axes need not equal the normalization axes. A token LayerNorm with one scale per feature sums parameter gradients over tokens, while its normalization statistics reduce features. Conflating these reductions gives a plausible-looking tensor with the wrong derivative.
+
+Download [normalization-backward.py](normalization-backward.py), use the earlier environment, and run `python normalization-backward.py`. It supplies all fixtures, matches forward values and manual input gradients against BatchNorm, LayerNorm, GroupNorm, InstanceNorm and RMSNorm, and compares the LayerNorm affine gradients. It also checks the manual derivative by finite differences, independently of PyTorch's backward engine. [Recorded output](normalization-backward-output.json) gives the actual errors. The existing forward experiment remains the owner of running mean/variance and evaluation-mode checks.
+
+| Choice in the scratch route | Corresponding module decision |
+| --- | --- |
+| NCHW axes `(0, 2, 3)` | BatchNorm2d training statistics; evaluation uses stored statistics instead |
+| NCHW axes `(1, 2, 3)` | LayerNorm with normalized shape `(C, H, W)` |
+| Reshape channels into groups; reduce channels-per-group and spatial axes | GroupNorm with a divisor of channel count |
+| NCHW axes `(2, 3)` | InstanceNorm2d without running-stat evaluation |
+| Last feature axis, no mean subtraction | RMSNorm with matching normalized shape and explicit epsilon |
+
+The VJP above describes **statistics computed from the current input**. BatchNorm in evaluation mode has fixed stored statistics: its input gradient is upstream times affine scale divided by \(\sqrt{\text{running variance}+\epsilon}\). Do not apply the training VJP to evaluation. The variance-buffer update itself is not a differentiable parameter update. The [BatchNorm contract](https://docs.pytorch.org/docs/2.14/generated/torch.nn.BatchNorm2d.html) and [RMSNorm contract](https://docs.pytorch.org/docs/2.14/generated/torch.nn.RMSNorm.html) explain the relevant library choices; the programs set epsilon explicitly and compare in float64.
+
+**Extension — fit an affine scale manually.** For the two-token fixture in the downloaded program, take one small gradient step on gamma and beta using its explicit gradients, hold the input fixed and compare the new output with a LayerNorm module whose parameters received the same update. Then switch to RMSNorm and remove the centering correction. Compare both the input derivative and its sum; the LayerNorm zero-sum property should not be assumed for RMSNorm.
+
+<details><summary>Hint</summary>
+
+The loss used for the gradient check is the sum of output times the fixed incoming coefficients. Its derivative with respect to output is those coefficients, not an additional mean-reduction factor.
+
+</details>
+
+<details><summary>Worked solution</summary>
+
+**Solution:** use `gamma_next = gamma - learning_rate * (incoming * h).sum(0)` and `beta_next = beta - learning_rate * incoming.sum(0)`. The new output is `gamma_next * h + beta_next`. Copy these into the module before comparing. In the RMS variant, recompute `h` without centering and call the uncentered backward rule; do not reuse the old centered cache. Rebuilding a whole autodiff engine would obscure this new dependency, so reuse [the preceding Backpropagation lesson](/learn/path/full-curriculum/backpropagation-automatic-differentiation?module=deep-learning-fundamentals) for graph composition.
+
+</details>
 
 ## Practice and diagnosis
 

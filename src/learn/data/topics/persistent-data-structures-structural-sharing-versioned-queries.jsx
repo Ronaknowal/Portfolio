@@ -5,6 +5,7 @@ import { DsaPractice } from '../../components/lesson-labs/DsaPractice.jsx';
 import { StackSharingFigure, PathCopyFigure, PathCopyLab, HistoryLookupLab, PrefixRankLab } from '../../components/lesson-labs/PersistentStructuresLabs.jsx';
 import { persistentStructuresExamples as examples } from '../persistent-structures-examples.js';
 import practice from '../practice/persistent-data-structures-structural-sharing-versioned-queries.js';
+import PersistentMapLibraryBridge from '../../components/lesson-labs/PersistentMapLibraryBridge.jsx';
 
 function PracticeTask({ prompt, hint, children }) {
   return <div className="lesson-check persistent-practice-task">
@@ -16,7 +17,7 @@ function PracticeTask({ prompt, hint, children }) {
 
 export default {
   title: 'Persistent Data Structures, Structural Sharing & Versioned Queries',
-  readTime: '~65 min read + 3–4 hours practice',
+  readTime: '~75 min read + 3–4 hours practice',
   hasIntegratedGuide: true,
   content: () => <div className="lesson-pilot persistent-structures-lesson">
     <LessonIntro prerequisites="Tree nodes, references and recursive descent; correctness invariants; the idea of combining interval summaries. Range Queries supplies the segment-tree background, which we briefly rebuild here. Binary search is needed for the compact-history alternative. Optional order statistics introduces its own frequency/rank notation."
@@ -101,6 +102,7 @@ export default {
     <Prose>Releasing a root handle does not automatically free every node reachable from it. Another root may still reach some or all of them. An object becomes reclaimable only when no retained root or other live reference reaches it. Open the ownership experiment in the lab and release v0 while keeping v1. Objects shared with v1 remain needed; objects unique to v0 become logically unreachable. The demo retains an inspection arena, so its readout is a reachability calculation, not an observed garbage-collector event.</Prose>
     <Prose>Persistence also differs from <strong>rollback</strong>. An undo log can restore earlier state by reversing changes, often efficiently in a last-in-first-out order. It normally does not make arbitrary old and new states simultaneously readable without restoring or replaying something. Choose the interface you actually need. If only one state is live and historical access is rare, copying, replay or rollback can be simpler than a persistent structure.</Prose>
 
+    <PersistentMapLibraryBridge />
     <H2>5. Use a timeline when branching is unnecessary</H2>
     <Prose>Suppose updates always change today's working array, and saved snapshots need only <Code>get(index, snapshot)</Code>. A full aggregate tree can solve it, but there is a simpler partial-history design: keep a sorted list of writes for each index. Each record says “starting at snapshot s, this index has value x.” Saving a snapshot advances an ID; it does not copy every array entry.</Prose>
     <Prose>For index 0, use records (0,0), (1,5), (3,9). At snapshot 2, the answer is 5: time 1 is the latest recorded change no later than 2. At snapshot 4, the answer is 9. Index 2 has only (0,0), so every saved snapshot sees zero there. The initial record supplies the before-first-write value.</Prose>

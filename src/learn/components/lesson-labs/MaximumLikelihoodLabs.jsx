@@ -79,7 +79,7 @@ export function BernoulliLikelihoodLab() {
   };
   return <section className="mle-lab" aria-label="Bernoulli likelihood investigation">
     <h3>Hold the observations still. Move the candidate.</h3>
-    <p>Predict whether p = 1 can explain three successes <em>and one failure</em>. Then move the white candidate line. Applied observations stay fixed until you apply a new draft.</p>
+    <p>Inspect whether p = 1 can explain three successes <em>and one failure</em>. Then move the white candidate line. Applied observations stay fixed until you apply a new draft.</p>
     <label>Binary observations<textarea aria-label="Binary observations" value={draft} onChange={event => setDraft(event.target.value)} /></label>
     <div className="mle-actions"><button onClick={apply}>Apply observations</button><button onClick={reset}>Reset binary experiment</button></div>
     {error && <p role="alert">{error}</p>}
@@ -151,7 +151,7 @@ export function BetaMapLab() {
   const mle = s + f ? s / (s + f) : null;
   return <section className="mle-lab" aria-label="Prior and posterior investigation">
     <h3>Evidence changes a distribution before you choose a point</h3>
-    <p>Predict what happens if four successes have no failures. Compare the highest posterior density with the chance of the next success.</p>
+    <p>Inspect what happens if four successes have no failures. Compare the highest posterior density with the chance of the next success.</p>
     <div className="mle-controls"><Range label="Successes" value={s} onChange={setS} max={20} step={1} /><Range label="Failures" value={f} onChange={setF} max={20} step={1} /><Range label="Prior alpha" value={a} onChange={setA} min={1} max={12} step={1} /><Range label="Prior beta" value={b} onChange={setB} min={1} max={12} step={1} /></div>
     <div className="mle-actions"><button onClick={() => {
         setS(4);

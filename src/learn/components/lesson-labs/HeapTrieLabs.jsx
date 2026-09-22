@@ -99,7 +99,7 @@ export function HeapOperationsLab() {
     setError('');
   };
   return <Investigation name="heap-operations" eyebrow="COMPLETE SHAPE + PARENT ORDER" title="Repair one path, not the whole array">
-    <p>Predict where pushing 0 will end. Follow each comparison and swap in both views. The array index stays in place while its value changes.</p>
+    <p>Inspect where pushing 0 will end. Follow each comparison and swap in both views. The array index stays in place while its value changes.</p>
     <form className="heap-trie-controls" onSubmit={run}><label className="heap-trie-wide-control">Starting array · up to 12 integers<input value={draft} onChange={event => setDraft(event.target.value)} /></label><label>Operation<select value={operation} onChange={event => setOperation(event.target.value)}><option value="push">Push one value</option><option value="pop">Pop the minimum</option><option value="build">Build a heap</option></select></label>{operation === 'push' && <label>Value to push<input inputMode="numeric" value={key} onChange={event => setKey(event.target.value)} /></label>}<button type="submit">Run heap operation</button></form>
     <div className="heap-trie-presets"><button type="button" onClick={() => preset(HEAP_SAMPLE)}>Valid min-heap</button><button type="button" onClick={() => preset(HEAP_RAW_SAMPLE, 'build')}>Unordered array → build</button><button type="button" onClick={() => preset([])}>Empty heap</button></div>
     {error && <p className="heap-trie-error" role="alert">{error} The active trace was kept.</p>}
@@ -141,7 +141,7 @@ export function TopKStreamLab() {
     setError('');
   };
   return <Investigation name="top-k-stream" eyebrow="KEEP THE BOUNDARY THAT CAN STILL MATTER" title="The smallest retained value guards the largest k">
-    <p>Predict whether the second 9 replaces another value. We retain occurrences, so two separate 9s can both belong in the largest three.</p>
+    <p>Inspect whether the second 9 replaces another value. We retain occurrences, so two separate 9s can both belong in the largest three.</p>
     <form className="heap-trie-controls" onSubmit={run}><label className="heap-trie-wide-control">Stream · up to 16 integers<input value={draft} onChange={event => setDraft(event.target.value)} /></label><label>k · number of occurrences<input inputMode="numeric" value={draftK} onChange={event => setDraftK(event.target.value)} /></label><button type="submit">Read this stream</button></form>
     {error && <p className="heap-trie-error" role="alert">{error} The active stream was kept.</p>}
     <p className="heap-trie-note">Edits apply with Read this stream. Active k = {state.k}; {state.processed} of {state.stream.length} occurrences committed. Inspecting a candidate does not yet include it in the prefix result.</p>
@@ -209,7 +209,7 @@ export function TriePrefixLab() {
     setError('');
   };
   return <Investigation name="trie-prefix" eyebrow="FOLLOW A PREFIX, THEN ASK WHETHER IT ENDS A WORD" title="A shared path is not the same as a stored word">
-    <p>Predict exact lookup for ca, then try prefix lookup for ca. Both follow the same edges. The terminal marker decides whether ca itself is stored.</p>
+    <p>Inspect exact lookup for ca, then try prefix lookup for ca. Both follow the same edges. The terminal marker decides whether ca itself is stored.</p>
     <form className="heap-trie-controls" onSubmit={run}><label className="heap-trie-wide-control">Starting words · comma-separated<input value={draftWords} onChange={event => setDraftWords(event.target.value)} /></label><label>Operation<select value={operation} onChange={event => setOperation(event.target.value)}><option value="exact">Exact word lookup</option><option value="prefix">Prefix suggestions</option><option value="insert">Insert a word</option><option value="delete">Delete a word</option></select></label><label>Word or prefix<input value={query} onChange={event => setQuery(event.target.value)} /></label><button type="submit">Trace these characters</button></form>
     {error && <p className="heap-trie-error" role="alert">{error} The active trie was kept.</p>}
     <p className="heap-trie-note">Inputs apply with Trace these characters. Each run starts from the starting word set; insertion/deletion changes this trace's result. Active operation: <strong>{state.operation}</strong>, query <strong>{wordLabel(state.query)}</strong>. Blank query is the empty string; use ε in the word list to store it.</p>

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "reviewer": "root; author initialization_implementation",
+  "groups": [
+    "Six changed JS derivative cases equal independently executed native autograd",
+    "12 directional/depth configurations independently checked by128direction angular averaging",
+    "Four moments cases checked by pairwise-distance variance identity",
+    "Changed noninteger width multiplier matches separate native package bridge"
+  ],
+  "reviewedFiles": {
+    "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx": "df4a690ce487db087ea394ade5514767103f3681fd021a38965f2c9437f28148",
+    "src/learn/data/curriculum/blueprints/weight-initialization-xavier-kaiming-p.js": "ee7896fc1c5eb1b01e2d21b452b91fd43e4b4e696c03283242cbe76a0bf38cae",
+    "src/learn/components/lesson-labs/WeightInitializationLabs.jsx": "5120b360a3d20199195227101844b76700b6771f2d386de11c8182e86a8314b4",
+    "src/learn/components/lesson-labs/weight-initialization.css": "3eb8ac965ed1d22cd1d5af63dceeedd6d92dc138f5fcf7528261a109d86caa52",
+    "src/learn/data/weight-initialization-models.js": "20bd9cafc4fe19495a2804a9e864adff5190458f8c465c08e70890fb3409688f",
+    "src/learn/data/weight-initialization-measurements.json": "5e363fcad6069ab59776512459f2a1049e98365a2f98405fb7a1471792e0eb1e",
+    "scripts/generate-weight-initialization-lesson.mjs": "d1917f90566fadb6b433ad07165b19e604d506f837a863e5d40576bdf7da4d04",
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/initialization-experiments.py": "8344ad0418e70c2b766bf8d9d3c3afb3ce85805fb101b25465487b06b8cc164b",
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/initialization_library_bridge.py": "a23b106f241159e7e642d9663f26bee8407985eb2f2de4886c203409c96bf37a",
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/calculated-inputs.json": "5eb7934b301fb95d6bb35c875c84a6dcdff94a80d4c7882f28ab1982139b7c84",
+    "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/lesson.md": "96a1d170ec39ffc24219c841bef09179a3e7cdbb85a12af94b8643c5055839bb",
+    "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/visual-specifications.md": "60f8012ce301413a764cc73cd3af0fcb26c18c683648480b5c3d0562d57b0254"
+  },
+  "limits": "Pedagogical review in INITIALIZATION-INDEPENDENT-REVIEW.md; production browser closure is separate."
+}

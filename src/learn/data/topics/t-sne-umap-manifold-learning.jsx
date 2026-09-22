@@ -5,6 +5,8 @@ import { RunnableExample } from '../../components/lesson-labs/RunnableExample.js
 import { ManifoldRouteFigure, ManifoldNeighborFigure, ManifoldProbabilityFigure, ManifoldForceFigure, ManifoldFuzzyGraphFigure, ManifoldDigitsFigure, ManifoldMdsFigure, ManifoldLleFigure, ManifoldTopologyFigure } from '../../components/lesson-labs/ManifoldFigures.jsx';
 import { ManifoldGraphLab, ManifoldProbabilityLab, ManifoldFuzzyLab, ManifoldDigitLab } from '../../components/lesson-labs/ManifoldLabs.jsx';
 import { manifoldExamples } from '../manifold-examples.js';
+import MechanismProgram from '../../components/lesson-labs/MechanismProgram.jsx';
+import manifoldMechanismProgram from '../manifold-mechanism-program.js';
 import '../../components/lesson-labs/manifold-lesson.css';
 
 const headings = [
@@ -71,7 +73,7 @@ const manifoldContent = {
 
     <Prose>{"In the U example, connect distinct points whose distance is at most a radius ε. At ε = 1, only the six consecutive unit edges appear, so the A–G graph distance is 6. At ε = 2, the graph contains the direct A–G edge and the distance becomes 2. At ε = 0.75, no distinct points connect; no finite A–G graph distance exists. These are three different graphs built from exactly the same observations."}</Prose>
 
-    <Prose><strong>{"Investigation A — Build a route before flattening it."}</strong>{" Choose endpoints, edit one point's coordinates, and commit your prediction about whether a proposed radius leaves a route and how its length changes. Apply the radius, trace the resulting shortest path, then explain which edge caused your result. Try an unfamiliar coordinate edit, not only the supplied U."}</Prose>
+    <Prose><strong>{"Investigation A — Build a route before flattening it."}</strong>{" Choose endpoints and edit the radius or one point's coordinates. Follow the resulting shortest path and its length immediately, then inspect which edge caused the change. Try an unfamiliar coordinate edit, not only the supplied U."}</Prose>
 
     <ManifoldGraphLab />
 
@@ -130,7 +132,7 @@ const manifoldContent = {
 
     <Prose>{"For this row, σ = 0.5 gives perplexity 1.0175; σ = 2 gives 2.7864. A binary search can adjust σ until the desired entropy is reached. In a sparse region, the needed σ can be larger than in a dense region. This is one mechanism behind the map-reading contract's density issue."}</Prose>
 
-    <Prose><strong>{"Investigation B — Change who receives the probability."}</strong>{" Edit the three candidate distances and commit a prediction about the closest candidate's probability or the change in perplexity before applying a bandwidth. The equal-distance fixture is a useful test: all three candidates get 1/3 for every positive bandwidth, so no bandwidth can make its perplexity 2. A tie among m equally closest candidates likewise places a lower limit m on achievable perplexity as bandwidth approaches zero. A search tolerance cannot create information that the distances do not contain."}</Prose>
+    <Prose><strong>{"Investigation B — Change who receives the probability."}</strong>{" Edit the three candidate distances or the bandwidth and follow the closest candidate's probability and the perplexity together. The equal-distance fixture is a useful test: all three candidates get 1/3 for every positive bandwidth, so no bandwidth can make its perplexity 2. A tie among m equally closest candidates likewise places a lower limit m on achievable perplexity as bandwidth approaches zero. A search tolerance cannot create information that the distances do not contain."}</Prose>
 
     <ManifoldProbabilityLab />
 
@@ -198,7 +200,7 @@ const manifoldContent = {
 
     <ManifoldFuzzyGraphFigure />
 
-    <Prose><strong>{"Investigation C — Build and inspect one fuzzy connection."}</strong>{" Edit distances and local scales for two neighborhoods. Predict the merged edge strength before applying the edit. Then inspect an idealized single-pair attraction/repulsion cost as you choose a candidate map separation. One control changes graph input; another changes the map. They must not silently overwrite each other."}</Prose>
+    <Prose><strong>{"Investigation C — Build and inspect one fuzzy connection."}</strong>{" Edit distances and local scales for two neighborhoods. Follow the merged edge strength as each input changes. Then inspect an idealized single-pair attraction/repulsion cost as you choose a candidate map separation. One control changes graph input; another changes the map. They must not silently overwrite each other."}</Prose>
 
     <ManifoldFuzzyLab />
 
@@ -223,6 +225,14 @@ const manifoldContent = {
     <CodeBlock language={"text"}>{"Choose an input metric and neighborhood size.\nFind neighbors; fit local rho and sigma; form directed memberships.\nMerge reciprocal memberships into the weighted graph.\nInitialize map coordinates, commonly from a spectral graph embedding.\nSchedule positive edges using their membership strengths.\nFor each scheduled edge: attract its endpoint coordinates.\nFor sampled other vertices: apply repulsive updates.\nDecrease the step size over the epoch schedule; return the coordinates."}</CodeBlock>
 
     <Prose>{"UMAP's topological construction motivates this procedure. Moving a finite graph into two dimensions adds graph estimation and optimization choices, so the map-reading contract still applies. The original mathematical framework is a deeper reading, not a guarantee about every practical plot. "}<a href={"https://arxiv.org/html/1802.03426v3"}>{"UMAP paper, algorithm and theoretical framework"}</a>{"."}</Prose>
+    <H3>Build the graph and take an explicit layout step</H3>
+    <Prose>The complete program below opens the mechanism behind those steps. NumPy arithmetic and SciPy sparse storage are primitives; neither constructs the UMAP graph for us. For each row, retain itself plus three nearest neighbors, place self first, and break equal-distance ties by row ID. Find the first positive distance for <Code>rho</Code>, then bisect <Code>sigma</Code> until the nonself membership sum approaches <Code>log2(4)=2</Code>. The six-row fixture produces the first directed row <Code>[0, 1, 0.678, 0.322, 0, 0]</Code>. Fuzzy union then admits evidence from either direction. If coordinate subtraction, squared distances or conversion to the package's float32 distances underflows or overflows, the reference asks you to rescale instead of silently constructing an invalid graph.</Prose>
+    <Prose><Code>fuzzy_simplicial_set</Code> checks the same supplied neighbor arrays; <Code>UMAP(...).fit(x).graph_</Code> checks the ordinary estimator's graph. Both use local connectivity one, union mixing one and the same neighborhood size. The tolerance allows float32 package arithmetic. Duplicates contribute unit-strength edges. Too many duplicates or too few finite neighbors can make the target mass unattainable: a bounded search and a distance-scale floor replace an imaginary exact root. Removed neighbors use <Code>-1</Code> and infinity and contribute no directed edge. Package boundary behavior outside the matched fixture must be checked against its installed version.</Prose>
+    <Prose>Two updates follow. <Code>full_pair_loss_gradient</Code> differentiates the ideal unordered-pair cost with <Code>a=b=1</Code>; a small step lowers it from 7.991337 to 7.883388. <Code>sampled_edge_step</Code> instead exposes the package-style positive attraction, supplied negative samples, repulsion stabilizer and coordinate clipping. Both positive endpoints move, while only the head moves for a negative sample. The caller supplies the schedule. This single step is not the full scheduler, initialization or annealing, and its path need not decrease the ideal cost. Use the estimator in section 7 for ordinary training.</Prose>
+    <CodeBlock language="sh">{'python -m pip install numpy==2.3.5 scipy==1.18.1 umap-learn==0.5.12\npython umap-mechanism.py'}</CodeBlock>
+    <MechanismProgram {...manifoldMechanismProgram} title="Read the complete UMAP graph and update program" />
+    <Prose>Exact neighbor search handles one distance row at a time, partitions at the retention boundary and sorts only retained neighbors: O(n²d + nk log k) work and O(nd + nk) peak storage for n rows, d features and k entries. Membership search costs O(64nk), and graph storage stays sparse. Large data needs an appropriate exact or approximate neighbor index. The ideal pair update costs O(n²q) for q coordinates. Sampled edge arithmetic costs O((1+s)q) for s supplied negatives, but this nonmutating reference first copies the complete coordinates, adding O(nq) work and storage per call. A production loop updates an owned coordinate array in place instead of making that copy for every edge. This reference exposes the mechanisms without claiming production neighbor-search performance.</Prose>
+    <details className="lesson-solution"><summary>Implementation practice: change the graph without changing the layout rule</summary><Prose>Run with k=3. Then restore k=4 and multiply input distances by five. Compare graph values and the same update from the same coordinates. Add an assertion that the rescaled graph is unchanged within tolerance. Finally set the update rate to zero.</Prose><details><summary>Hint and reasoned solution</summary><Prose>Changing k changes retained edges and the mass target. Uniform scaling changes rho and sigma together, preserving their ratio in each exponential and thus the graph, up to search tolerance. The scale-relative floor preserves this relation. With the graph, initial coordinates and negative IDs fixed, the update stays unchanged. Zero rate must preserve every coordinate, not just total loss. This separates distance calibration, neighborhood selection and step size.</Prose></details></details>
 
     <H2>{headings[6]}</H2>
 
@@ -246,7 +256,7 @@ const manifoldContent = {
 
     <Prose>{"For this collection and metric, all three t-SNE settings retain more of the original ten-neighbor selections than PCA in two dimensions. Perplexity 30 retains about 77.0%, so roughly 23.0% of directed ten-neighbor selections change. T₁₀ ≈ 0.9901 is high despite that difference: many replacements were not extremely remote in input rank. This is why the rank-weighted score and the direct retention fraction answer complementary questions."}</Prose>
 
-    <Prose><strong>{"Investigation D — Audit an image's neighbors."}</strong>{" Choose an image before choosing its map. Predict how many of its k input neighbors a candidate map will retain, then reveal the image tiles and identity-matched neighbor edges. Change k to 5 or 20 and explain whether your previous conclusion still applies. A good investigation can find an image for which a globally stronger map has lower local retention. That query is an opportunity to inspect the data rather than a reason to hide it."}</Prose>
+    <Prose><strong>{"Investigation D — Audit an image's neighbors."}</strong>{" Choose an image before choosing its map. Inspect how many of its k input neighbors each candidate map retains using the visible image tiles and identity-matched neighbor edges. Change k to 5 or 20 and explain whether your previous conclusion still applies. A good investigation can find an image for which a globally stronger map has lower local retention. That query is an opportunity to inspect the data rather than a reason to hide it."}</Prose>
 
     <ManifoldDigitLab />
 
@@ -502,7 +512,7 @@ const manifoldContent = {
 
     <H3>{"7. Independent digits audit"}</H3>
 
-    <Prose>{"Use the supplied collection, choose k from {5,10,20}, and pick one image by its source-row identifier before inspecting its maps. Compare PCA with two t-SNE perplexities. Record a prediction, its actual retained neighbor identities, and one visually tempting inference you can test in pixel space. Then choose a second image with a different writing style and repeat without changing your metric."}</Prose>
+    <Prose>{"Use the supplied collection, choose k from {5,10,20}, and pick one image by its source-row identifier before inspecting its maps. Compare PCA with two t-SNE perplexities. Record the actual retained neighbor identities and test one visually tempting inference in pixel space. Then choose a second image with a different writing style and repeat without changing your metric."}</Prose>
 
     <details>
 

@@ -6,10 +6,11 @@ import { MovingMaximumLab, SignedShortestRangeLab } from '../../components/lesso
 import { DsaPractice } from '../../components/lesson-labs/DsaPractice.jsx';
 import { rangeQueryExamples } from '../range-query-examples.js';
 import rangePractice from '../practice/segment-trees-fenwick-trees-range-queries.js';
+import RangeQueryLibraryBridge from '../../components/lesson-labs/RangeQueryLibraryBridge.jsx';
 
 export default {
   title: 'Segment Trees, Fenwick Trees & Range Queries',
-  readTime: '~85 min read + 3–5 hours practice',
+  readTime: '~95 min read + 3–5 hours practice',
   hasIntegratedGuide: true,
   content: () => <div className="lesson-pilot range-query-lesson">
     <LessonIntro prerequisites="Arrays and half-open intervals; the earlier tree/heap indexed layouts; Complexity's invariants and aggregate cost; Binary Search/Sorting's prefix sums and window limitations; Backtracking's combined subarray summaries; the preceding DP lesson's state and witness reasoning. Low bits, lazy maps and deque dominance are derived here before use."
@@ -121,6 +122,7 @@ export default {
       <Prose>Both have length 2 and sum 4, but their squared sums are 10 and 8. Sum and length do not determine the updated summary. Additional information may support a particular restricted family, but renaming the tag does not create the missing information. Similarly, arbitrary range minimum-capping with sums is not justified by the add/set proof; specialized methods need richer metadata and their own bounds.</Prose>
     </Checkpoint>
 
+    <RangeQueryLibraryBridge />
     <H2>6. Use the workload to choose</H2>
     <Prose>If the array never changes and the question is minimum, a <strong>sparse table</strong> provides another useful tradeoff. Store the minimum for every valid starting position at lengths 1,2,4,8,… . A length-2ᵏ interval is two adjacent length-2ᵏ⁻¹ intervals, so each level is built from the preceding one. There are O(log n) levels with O(n) entries each.</Prose>
     <Prose>For a nonempty query of length L, choose b as the largest power of two at most L. Take one block of length b starting at left and one ending at right. Since b≤L&lt;2b, these blocks cover the entire query and may overlap. Minimum is <strong>idempotent</strong>: min(x,x)=x. Seeing a value twice cannot change a minimum, so combining these two stored minima gives the answer.</Prose>

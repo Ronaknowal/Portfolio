@@ -67,7 +67,7 @@ export function EquationStepsLab() {
     }
   }
   const frame = state.frames[step];
-  return <section className="algebra-lab" aria-label="Equation steps investigation"><h3>Do the same reversible operation to both sides</h3><p>Predict the answer before stepping. Draft edits take effect only after Apply equation. The active equation stays intact after an invalid edit.</p>
+  return <section className="algebra-lab" aria-label="Equation steps investigation"><h3>Do the same reversible operation to both sides</h3><p>Inspect the answer as you step. Draft edits take effect only after Apply equation. The active equation stays intact after an invalid edit.</p>
     <form onSubmit={event => {
       event.preventDefault();
       apply();
@@ -111,7 +111,7 @@ export function FunctionProbeLab() {
 export function CompositionLab() {
   const [input, setInput] = useState(2);
   const state = compositionState(input);
-  return <section className="algebra-lab" aria-label="Function composition investigation"><h3>Feed the output into the next rule</h3><p>Here A(x)=2x+1 and S(x)=x² are dimensionless rules. Predict which ordering gives the larger result; the answer can change with x.</p><Range label="Composition input" value={input} onChange={setInput} min={-4} max={4} step={0.25} />
+  return <section className="algebra-lab" aria-label="Function composition investigation"><h3>Feed the output into the next rule</h3><p>Here A(x)=2x+1 and S(x)=x² are dimensionless rules. Inspect which ordering gives the larger result; the answer can change with x.</p><Range label="Composition input" value={input} onChange={setInput} min={-4} max={4} step={0.25} />
     <div className="algebra-pipeline"><strong>S(A(x))</strong><span>{fmt(input)}</span><b>→ A →</b><span>{fmt(state.affine)}</span><b>→ S →</b><span>{fmt(state.squareAfterAffine)}</span></div>
     <div className="algebra-pipeline second"><strong>A(S(x))</strong><span>{fmt(input)}</span><b>→ S →</b><span>{fmt(state.square)}</span><b>→ A →</b><span>{fmt(state.affineAfterSquare)}</span></div>
     <p className="algebra-result" aria-live="polite">Square after affine: {fmt(state.squareAfterAffine)}. Affine after square: {fmt(state.affineAfterSquare)}.</p><p>Undo just A in reverse order: {fmt(state.affine)} → subtract 1 → {fmt(state.affine - 1)} → divide by 2 → {fmt(state.recovered)}. Reversing the entire square pipeline also needs a valid square-root branch.</p><p className="lesson-note">Every intermediate is evaluated from the same input. Transfer: test x=−1 and x=0; equality at a few inputs does not make two functions identical.</p>
@@ -124,7 +124,7 @@ export function QuadraticLab() {
   const values = Array.from({
     length: 181
   }, (_, i) => -6 + i / 12).map(x => [x, (x - h) ** 2 + k]);
-  return <section className="algebra-lab" aria-label="Quadratic roots investigation"><h3>Move the vertex; watch the roots appear or disappear</h3><p>The curve y=(x−h)²+k always opens upward. Predict how many times it meets y=0 before changing the height k.</p><div className="algebra-controls"><Range label="Vertex h" value={h} onChange={setH} min={-2} max={4} step={0.5} /><Range label="Vertex k" value={k} onChange={setK} min={-9} max={4} step={0.5} /></div>
+  return <section className="algebra-lab" aria-label="Quadratic roots investigation"><h3>Move the vertex; watch the roots appear or disappear</h3><p>The curve y=(x−h)²+k always opens upward. Explore how many times it meets y=0 while changing the height k.</p><div className="algebra-controls"><Range label="Vertex h" value={h} onChange={setH} min={-2} max={4} step={0.5} /><Range label="Vertex k" value={k} onChange={setK} min={-9} max={4} step={0.5} /></div>
     <Plot label="Parabola with its vertex and real zero crossings" xRange={[-6, 9]} yRange={[-10, 16]} curves={[{
       values
     }]} points={[{

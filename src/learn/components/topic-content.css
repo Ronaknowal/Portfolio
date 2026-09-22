@@ -3,6 +3,56 @@
   text-underline-offset: .2em;
 }
 .reader-article a:where([href]):hover { color: #ffe0a0; }
+/* Long inline API names and URLs must reflow without changing copied text.
+   Preformatted code keeps its own whitespace/scrolling behavior. */
+:where(.reader-article code) { overflow-wrap: anywhere; }
+
+/* A lesson's inline figures need the same usable defaults as its labs.
+   Zero specificity lets topic-specific controls (matrix cells, graph nodes,
+   semantic colours) keep their own geometry and encodings. */
+:where(.reader-article button) {
+  font: inherit;
+  color: #e2b55a;
+  background: #14130f;
+  border: 1px solid #746138;
+  border-radius: 4px;
+  padding: .5rem .8rem;
+  min-height: 44px;
+  max-width: 100%;
+  white-space: normal;
+  cursor: pointer;
+}
+/* Outrank the app's bare `button { color: inherit }` reset, while keeping
+   topic `.topic button` and inline semantic colours in charge. */
+.reader-article :where(button) { color: #e2b55a; }
+:where(.reader-article button:hover:not(:disabled)) { background: #282216; }
+:where(.reader-article button[aria-pressed="true"], .reader-article button.is-selected) {
+  background: #302818;
+  border-color: #e2b55a;
+  color: #ffe0a0;
+}
+:where(.reader-article button:disabled) { opacity: .45; cursor: default; }
+:where(.reader-article input, .reader-article select, .reader-article textarea) {
+  font: inherit;
+  color-scheme: dark;
+  accent-color: #e2b55a;
+}
+:where(.reader-article input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+  .reader-article select, .reader-article textarea) {
+  color: #e8e8e8;
+  background: #101311;
+  border: 1px solid #5b6157;
+  border-radius: 3px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: .4rem .55rem;
+}
+:where(.reader-article input[type="range"]) { min-height: 44px; cursor: ew-resize; }
+:where(.reader-article button, .reader-article input, .reader-article select,
+  .reader-article textarea, .reader-article [role="slider"]):focus-visible {
+  outline: 2px solid #e2b55a;
+  outline-offset: 3px;
+}
 
 .reader-prerequisites { margin: 0 0 24px; color: #aaa89e; font-size: 14px; line-height: 1.7; }
 .reader-prerequisites summary { cursor: pointer; color: #c8bc9a; }

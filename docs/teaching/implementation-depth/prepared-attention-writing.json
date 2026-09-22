@@ -1,0 +1,1261 @@
+{
+  "date": "2026-09-22",
+  "status": "content-prepared",
+  "scope": "12 already prepared Attention/graph packets; content-only revision",
+  "sources": [
+    {
+      "url": "https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GCNConv.html",
+      "contract": "PyG2.9 receiving-degree, loops, cached=False, weight orientation"
+    },
+    {
+      "url": "https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.SAGEConv.html",
+      "contract": "PyG2.9 mean/root/projection/normalization options"
+    },
+    {
+      "url": "https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GATConv.html",
+      "contract": "PyG2.9 edge source/target, one head, residual and dropout options"
+    },
+    {
+      "url": "https://pytorch-geometric.readthedocs.io/en/latest/_modules/torch_geometric/nn/conv/gps_conv.html",
+      "contract": "PyG2.9 full local/global/MLP composition and batching source"
+    },
+    {
+      "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html",
+      "contract": "Explicit scale, boolean/additive mask, dropout and grouped-query interface"
+    },
+    {
+      "url": "https://github.com/BlinkDL/ChatRWKV/blob/main/API_DEMO.py",
+      "contract": "Official rwkv forward/state, environment setup, strategy and tokenizer example; no weights executed"
+    },
+    {
+      "url": "https://docs.pytorch.org/vision/stable/_modules/torchvision/models/swin_transformer.html",
+      "contract": "Torchvision0.29 relative-bias layout, V1 merge, finite window boundary penalty and padding"
+    }
+  ],
+  "topics": [
+    {
+      "id": "rwkv-linear-attention-models",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/rwkv-linear-attention-models/design.md",
+        "docs/teaching/drafts/rwkv-linear-attention-models/lesson.md",
+        "docs/teaching/drafts/rwkv-linear-attention-models/rwkv_checkpoint_state.py",
+        "docs/teaching/drafts/rwkv-linear-attention-models/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/rwkv-linear-attention-models/author-checks.json",
+        "docs/teaching/drafts/rwkv-linear-attention-models/author_calculations.py",
+        "docs/teaching/drafts/rwkv-linear-attention-models/data-provenance.md",
+        "docs/teaching/drafts/rwkv-linear-attention-models/design.md",
+        "docs/teaching/drafts/rwkv-linear-attention-models/investigation-checks.json",
+        "docs/teaching/drafts/rwkv-linear-attention-models/lesson.md",
+        "docs/teaching/drafts/rwkv-linear-attention-models/linear_memory_mechanisms.py",
+        "docs/teaching/drafts/rwkv-linear-attention-models/mechanism-results.json",
+        "docs/teaching/drafts/rwkv-linear-attention-models/movement_libras.data",
+        "docs/teaching/drafts/rwkv-linear-attention-models/movement_libras.names",
+        "docs/teaching/drafts/rwkv-linear-attention-models/rwkv_checkpoint_state.py",
+        "docs/teaching/drafts/rwkv-linear-attention-models/trajectory-memory-fits.npz",
+        "docs/teaching/drafts/rwkv-linear-attention-models/trajectory-results.json",
+        "docs/teaching/drafts/rwkv-linear-attention-models/trajectory_memory_models.py",
+        "docs/teaching/drafts/rwkv-linear-attention-models/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/rwkv-linear-attention-models/author-checks.json": "972cdf3f179b86d44562560060eb9ae7ae62300a1e128260041105b48f7b216a",
+        "docs/teaching/drafts/rwkv-linear-attention-models/author_calculations.py": "f9762f0c2ce21c692211adedca4e3467e3eb44cdf8bcb27fbe942e99e3ddc34d",
+        "docs/teaching/drafts/rwkv-linear-attention-models/data-provenance.md": "1c505c71d7c4e606ea0c3e5c5ffe0e4fc525cb2a7477e28f341e5c9b73e429e2",
+        "docs/teaching/drafts/rwkv-linear-attention-models/design.md": "a9c049225f632b545f8c0ed4e57637abf9a1c3058784879c9ca2eb7a628d3555",
+        "docs/teaching/drafts/rwkv-linear-attention-models/investigation-checks.json": "0064599a8f8eca9de5342210deb68216b2bd3f3d9ee7036c24687060aaab7005",
+        "docs/teaching/drafts/rwkv-linear-attention-models/lesson.md": "b1aab66f9f790bd1101b8bef4a290e0fe8fc0a933d3a515bb831751d03db9fc0",
+        "docs/teaching/drafts/rwkv-linear-attention-models/linear_memory_mechanisms.py": "ce8505c18962b925152b5a133488e9063bd6cf102dc637788b60b442fdda8e49",
+        "docs/teaching/drafts/rwkv-linear-attention-models/mechanism-results.json": "918d9e85647f944ae73ee6dc21c5dcbebdd0c5fd47db5a932f35bbf6251cab6d",
+        "docs/teaching/drafts/rwkv-linear-attention-models/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/rwkv-linear-attention-models/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/rwkv-linear-attention-models/rwkv_checkpoint_state.py": "e26716574f0fe08bfdac0e8c06fe55c5e5693abe160b4160af69b7c1fe6c334c",
+        "docs/teaching/drafts/rwkv-linear-attention-models/trajectory-memory-fits.npz": "08856481078f012d0f22b793defb28c57941b24235290491d8bfadc9f7f106b5",
+        "docs/teaching/drafts/rwkv-linear-attention-models/trajectory-results.json": "8e7dda0f7f6b41d952df8d49cb598a6fcff8ce026bbedcb64de693ab0c70fb3f",
+        "docs/teaching/drafts/rwkv-linear-attention-models/trajectory_memory_models.py": "a966ae1b5378e73fd85326f3a25a70d1fb571cd353769b697f2a23881c0af344",
+        "docs/teaching/drafts/rwkv-linear-attention-models/visual-specifications.md": "9a431086b8ebd46e46cb965df1be0380f4c89a2a2c95c8d8d3cda593c933ea12"
+      },
+      "coverage": [
+        {
+          "outcome": "Positive-kernel causal state and chunks",
+          "scratch": "linear_memory_mechanisms.py::positive_recurrent; lesson \u00a7\u00a72\u20133",
+          "library": "trajectory_memory_models.py::MemoryMixer positive_kernel branch",
+          "bridge": "Matrix/reference versus chunks 1/2/3/4/8; full/carry feature identity",
+          "practice": "Uneven chunk boundaries, zero overlap policy, weighted readout practice 1/2/7",
+          "scope": "Local; dense matrix only an independent small oracle, O(m dv) recurrent state"
+        },
+        {
+          "outcome": "RWKV-4 weighted read, stable state, token/channel shifts",
+          "scratch": "linear_memory_mechanisms.py::rwkv_stable; lesson \u00a7\u00a74\u20135",
+          "library": "MemoryMixer, MemoryBlock, TrajectoryMemoryClassifier and complete Adam fit",
+          "bridge": "Same read/write timing, bonus outside state, complete shift-state continuation",
+          "practice": "Common +1000 key offset, reset versus carry, bonus edit and constant-value null",
+          "scope": "Local; vector recurrence differs from matrix-state later versions"
+        },
+        {
+          "outcome": "Delta correction, row-gated memory, RWKV-7 update",
+          "scratch": "linear_memory_mechanisms.py::additive_and_delta, gated_memory, rwkv7_step; lesson \u00a76",
+          "library": "Torch autograd local-delta check in author_calculations.py; nn.Module composition route explained",
+          "bridge": "Value-by-key orientation, diagonal retention versus rank-one removal/write",
+          "practice": "Nonunit/correlated key practice 5/6; unchanged other address versus interference",
+          "scope": "Local mathematical update; versions5/6 equations and transient bonus mapped; released full models not claimed identical"
+        },
+        {
+          "outcome": "Released-model state continuation",
+          "scratch": "Existing complete scratch MemoryBlock continuation, lesson \u00a78",
+          "library": "rwkv_checkpoint_state.py using official rwkv forward and supplied local tokenizer/checkpoint",
+          "bridge": "One call versus chunk/tokenwise final logits, independent branch copies, state-byte inventory",
+          "practice": "Change split point, compare reset, invalidate after checkpoint/tokenizer/prefix changes",
+          "scope": "Local optional package program written; checkpoint execution deferred, no timing/quality claims"
+        },
+        {
+          "outcome": "Random features, sequence compression and accelerated kernels",
+          "scratch": "Local explanation; actual prepared Sparse/Linear lesson \u00a7\u00a74\u20135 owns Gaussian features and Linformer/Nystr\u00f6m",
+          "library": "Kernel/backend construction belongs to planned GPU owner; model inference route above is supplied here",
+          "bridge": "Do not call an ELU kernel exact softmax or fixed state complete model memory",
+          "practice": "Critical evidence and resource comparisons in practice 8\u201310",
+          "scope": "Named-family bridge; full accelerator kernels are a later engineering outcome, not missing recurrence code"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/rwkv-linear-attention-models/author_calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/rwkv-linear-attention-models/linear_memory_mechanisms.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/rwkv-linear-attention-models/rwkv_checkpoint_state.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/rwkv-linear-attention-models/trajectory_memory_models.py",
+          "status": "passed"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/self-attention-multi-head-attention/design.md",
+        "docs/teaching/drafts/self-attention-multi-head-attention/lesson.md",
+        "docs/teaching/drafts/self-attention-multi-head-attention/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/self-attention-multi-head-attention/additional-calculations.py",
+        "docs/teaching/drafts/self-attention-multi-head-attention/additional-fixtures.json",
+        "docs/teaching/drafts/self-attention-multi-head-attention/attention-model.json",
+        "docs/teaching/drafts/self-attention-multi-head-attention/author-calculations.py",
+        "docs/teaching/drafts/self-attention-multi-head-attention/author-results.json",
+        "docs/teaching/drafts/self-attention-multi-head-attention/data-provenance.md",
+        "docs/teaching/drafts/self-attention-multi-head-attention/design.md",
+        "docs/teaching/drafts/self-attention-multi-head-attention/lesson.md",
+        "docs/teaching/drafts/self-attention-multi-head-attention/movement_libras.data",
+        "docs/teaching/drafts/self-attention-multi-head-attention/movement_libras.names",
+        "docs/teaching/drafts/self-attention-multi-head-attention/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/self-attention-multi-head-attention/additional-calculations.py": "b6cb8b4443b5dfc0fcfba17639ea95e2d214f7cd6e6c0b91a9c488edf36b8bca",
+        "docs/teaching/drafts/self-attention-multi-head-attention/additional-fixtures.json": "4d8c7d340a10281f888d749a36b89153cc047caf463d54931c7d74cec047abac",
+        "docs/teaching/drafts/self-attention-multi-head-attention/attention-model.json": "1c4f90ac50b9759cf6a7b38c2291c243e27a21fd56d55e61e19493b7958eacaf",
+        "docs/teaching/drafts/self-attention-multi-head-attention/author-calculations.py": "62bf46fd8b2c97173c5cb2cf5bfa39e9e629e2834391c33286f80e231f978fc1",
+        "docs/teaching/drafts/self-attention-multi-head-attention/author-results.json": "168c0cb0504ceae9f0638825a6a2c7427364ee5a25e5ad49aaf0b62898aa95c4",
+        "docs/teaching/drafts/self-attention-multi-head-attention/data-provenance.md": "addb7421f4812ab6321f7fc58cef8d2637722288f6768a995c52defba89079d8",
+        "docs/teaching/drafts/self-attention-multi-head-attention/design.md": "b7e2896c0ae4380f912f6bf86dcf5cfe904edffe8f4c9294930938e0874b2160",
+        "docs/teaching/drafts/self-attention-multi-head-attention/lesson.md": "19e4a558b2c02badaef6e0dbd341ef042a85e965b8ebae946ba3ff691eb84675",
+        "docs/teaching/drafts/self-attention-multi-head-attention/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/self-attention-multi-head-attention/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/self-attention-multi-head-attention/visual-specifications.md": "6faffc8707fe9e1139e9caae68318dbca0f5a26e0e31b0d7bb86452fa3cd7354"
+      },
+      "coverage": [
+        {
+          "outcome": "Scaled masked attention and multiple heads",
+          "scratch": "lesson \u00a75 complete SelfAttention and attention; same owner in author-calculations.py",
+          "library": "nn.MultiheadAttention and AttentionCore using functional SDPA",
+          "bridge": "Copied packed Q/K/V/output weights; True-allowed versus True-blocked; outputs and head weights",
+          "practice": "Packed-document mask and same-output/different-weights practice",
+          "scope": "Local, exact materialized attention; output-only backend avoids requiring a heatmap"
+        },
+        {
+          "outcome": "Attention gradients and one learning update",
+          "scratch": "lesson \u00a77 derivative derivation and extended \u00a75 complete runnable program",
+          "library": "MHA on identical input/weights and nonuniform cotangent",
+          "bridge": "All projection/input gradients and equal .02 SGD step",
+          "practice": "Change block mask and cotangent; diagnose illegal information flow",
+          "scope": "Local; float64 bounded author probe passed"
+        },
+        {
+          "outcome": "Real set classification and interpretation",
+          "scratch": "TrajectoryClassifier and full dataset protocol in author-calculations.py; lesson \u00a76",
+          "library": "nn.Module, optimizer, loss and state_dict workflow",
+          "bridge": "Output permutation/duplicate-point invariants versus actual classification errors",
+          "practice": "Change replication and order; distinguish donor weights from causal attribution",
+          "scope": "Local; retained real fits not rerun"
+        },
+        {
+          "outcome": "Online softmax/resource selection",
+          "scratch": "lesson \u00a79 derivation and practice7 block-combination solution",
+          "library": "Existing SDPA route delegates fused execution",
+          "bridge": "Maximum, denominator and numerator reweighting before combining blocks",
+          "practice": "Split unequal blocks; verify against full mixture",
+          "scope": "Arithmetic owned locally; GPU FlashAttention kernel code is later GPU Systems work, not promised by this tensor lesson"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/self-attention-multi-head-attention/additional-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/self-attention-multi-head-attention/author-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "bounded numerical author probe",
+          "status": "passed",
+          "receipt": "docs/teaching/implementation-depth/prepared-attention-writing-author-checks.json",
+          "entry": "self-attention-multi-head-attention"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "transformer-block-architecture",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/transformer-block-architecture/design.md",
+        "docs/teaching/drafts/transformer-block-architecture/lesson.md",
+        "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py",
+        "docs/teaching/drafts/transformer-block-architecture/additional-fixtures.json",
+        "docs/teaching/drafts/transformer-block-architecture/author-calculations.py",
+        "docs/teaching/drafts/transformer-block-architecture/author-results.json",
+        "docs/teaching/drafts/transformer-block-architecture/block-models.json",
+        "docs/teaching/drafts/transformer-block-architecture/data-provenance.md",
+        "docs/teaching/drafts/transformer-block-architecture/design.md",
+        "docs/teaching/drafts/transformer-block-architecture/lesson.md",
+        "docs/teaching/drafts/transformer-block-architecture/movement_libras.data",
+        "docs/teaching/drafts/transformer-block-architecture/movement_libras.names",
+        "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py": "8fb20ccbde4ce37ce2e3c465ba839361920a3be079e777d1b61b20d844a63ee3",
+        "docs/teaching/drafts/transformer-block-architecture/additional-fixtures.json": "c4808ad9a2771c7a70d1e9f41b11b4a992274646ef168aac3ee184da6f01c044",
+        "docs/teaching/drafts/transformer-block-architecture/author-calculations.py": "20573e53ec605fff96da66960dddd13cc220418779b1d98a691c7100e2ce9f67",
+        "docs/teaching/drafts/transformer-block-architecture/author-results.json": "fecdac6270d9dd94eecf7cc215c4036282cabe68855d43f48a41f2c5fa2df2fd",
+        "docs/teaching/drafts/transformer-block-architecture/block-models.json": "317af257bf27b48ef0161b7109c12a68c723a08394459606bd888759fa6c2d3d",
+        "docs/teaching/drafts/transformer-block-architecture/data-provenance.md": "10a1de92fcfdc7b8e61eb72d34c039862c294d5f42a56c51d3e9acf11f647ebd",
+        "docs/teaching/drafts/transformer-block-architecture/design.md": "e88822449064e999124286aeb536145aeb13386ea996bf218ff30d0afd7378d9",
+        "docs/teaching/drafts/transformer-block-architecture/lesson.md": "d99fc4cf1a349431fc6a446446da5f1ac70d02f4ac8b6bdfbc0d8d0ae9077dc5",
+        "docs/teaching/drafts/transformer-block-architecture/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/transformer-block-architecture/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/transformer-block-architecture/visual-specifications.md": "6ee0a05b97662a21f0ed90f0d9106d91fe32e08b81106229b48d9cbd82e78322"
+      },
+      "coverage": [
+        {
+          "outcome": "Pre/post normalization block wiring",
+          "scratch": "lesson \u00a75 complete TransformerBlock; author-calculations.py::TransformerBlock",
+          "library": "nn.TransformerEncoderLayer with explicit norms, activation, widths, dropout and batch_first",
+          "bridge": "Attention/norm/FFN state mapping, output, input/parameter gradients and equal update for both placements",
+          "practice": "Matched epsilon change then single-side mismatch; zero-branch diagnostic",
+          "scope": "Local wiring; attention reused from prepared Self-Attention \u00a75, normalization from implemented Normalization"
+        },
+        {
+          "outcome": "GELU FFN, RMSNorm and SwiGLU branch",
+          "scratch": "lesson \u00a7\u00a74/8 complete tensor/module branches",
+          "library": "nn.Linear/GELU and deliberate custom nn.Module for the branch",
+          "bridge": "Row/feature orientation, gate multiplication and residual width",
+          "practice": "Change one feature detector/write direction; count matched-parameter widths",
+          "scope": "Local composition; primitives have actual earlier owners, no separate fashionable package required"
+        },
+        {
+          "outcome": "Sequence model, readout and optimization",
+          "scratch": "MovementClassifier plus full offline experiment in author-calculations.py; lesson \u00a76",
+          "library": "PyTorch optimizer/loss/state_dict and standard module workflow",
+          "bridge": "Same time-tag protocol and full block state; fit versus gradient probe distinction",
+          "practice": "Shuffle storage with tags, reverse coordinates, test informative gradient contrast",
+          "scope": "Local; retained fits conserved"
+        },
+        {
+          "outcome": "Task architectures and distribution",
+          "scratch": "lesson \u00a78 decoder/encoder/cross-attention layout; \u00a79 count model",
+          "library": "Attention/cache operations reused; distributed execution owned by planned Tensor Parallelism",
+          "bridge": "Mask/source roles differ from wiring; MACs, FLOPs and time distinct",
+          "practice": "Copy-task loss denominator and parallel branch practice",
+          "scope": "Architecture/resource reasoning locally; full distributed kernel not a claimed outcome"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/transformer-block-architecture/additional-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/transformer-block-architecture/author-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "bounded numerical author probe",
+          "status": "passed",
+          "receipt": "docs/teaching/implementation-depth/prepared-attention-writing-author-checks.json",
+          "entry": "transformer-block-architecture"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py": "788f4e3813add1275e183601b7336cec53a84fa1cead97ff7b6b6be286997063",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-results.json": "c8e7329e2348a6040d6588167ed0f531dbfe915b7317f78ce1892e67088f90f0",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/data-provenance.md": "365ce409e2d3ce2609ce9928b0a47fb4e2d20ebb50d65ff2a033868e6275f479",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/design.md": "0c2b1e670401d337908f012be3d40626c1d22de259afc770a066f1ea9837c33e",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/lesson.md": "90c5849356fcecd221d7df9905948cb71a0bb7041d1ed82f3c75d5d69e8f7d42",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py": "a2821578a99d41050c6cd12fedb24a63afbc5b213f3ed110f86098e69849cd19",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-fixtures.json": "2cfd90c591fa862d3ec991f436c6219197801757c04818554b46f75dae7e3f95",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position-models.json": "b2efd301b3c51ef9b24462a3f9c2c0e2bc679b973eeefb623c376adb429a73de",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py": "4be6b63570bac532ed111ab82c105374696b7b6795b7c65de7507fe59bdc51b7",
+        "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/visual-specifications.md": "b7e881df08cd0ca6c07ff3fc2841315361091815ca0bbcb311046ca2d1519e61"
+      },
+      "coverage": [
+        {
+          "outcome": "Sinusoidal and learned absolute positions",
+          "scratch": "lesson \u00a77 complete sinusoidal/learned_positions; PositionClassifier in author-calculations.py",
+          "library": "nn.Embedding demonstrated in position_library_bridge.py",
+          "bridge": "Lookup equals indexing; repeated ID accumulates gradients, unused IDs stay unchanged",
+          "practice": "Repeated ID edit and shifted position exercise",
+          "scope": "Local fixed features versus learned parameter table distinguished"
+        },
+        {
+          "outcome": "RoPE, ALiBi and cached coordinate contracts",
+          "scratch": "lesson \u00a77 rotate/slopes/mix and mechanism-calculations.py",
+          "library": "position_library_bridge.py composing transformed Q/K or additive bias with SDPA",
+          "bridge": "Explicit query/key IDs, legal masks, scale, zero dropout; same forward/input gradients",
+          "practice": "Common shift, query-only shift and cache-frequency mismatch",
+          "scope": "Local standard adjacent pairs; checkpoint-specific variants explicitly different"
+        },
+        {
+          "outcome": "Relative buckets and context scaling",
+          "scratch": "mechanism-calculations.py::t5_bucket and \u00a78 frequency calculations; lesson \u00a7\u00a73/5/8",
+          "library": "Torch formulas and configuration-aware model composition; no universal one-call RoPE API implied",
+          "bridge": "Shaw vector versus T5 scalar bias; PI/base/YaRN/XPos equations retain their exact conventions",
+          "practice": "Directional encoder, scaling claims and partial-rotation temperature practice",
+          "scope": "Local mechanism comparison; full checkpoint re-training/quality is not claimed by an angle plot"
+        },
+        {
+          "outcome": "Real movement direction experiment",
+          "scratch": "PositionClassifier plus full five-model fitting protocol",
+          "library": "PyTorch modules/optimizer and retained parameter states",
+          "bridge": "Position-only and input-order interventions preserve stated data boundary",
+          "practice": "Reverse path directly and inspect actual model output",
+          "scope": "Local; no prediction gate, retained fits conserved"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/author-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/mechanism-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py",
+          "status": "passed"
+        },
+        {
+          "kind": "bounded numerical author probe",
+          "status": "passed",
+          "receipt": "docs/teaching/implementation-depth/prepared-attention-writing-author-checks.json",
+          "entry": "positional-encodings-sinusoidal-learned-rope-alibi"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/design.md",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/lesson.md",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/design.md",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/lesson.md",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py": "e5fdc0cf45e07ebd2a308c5ea183c3324958b7964f2e1a393a9f9cc933c2561e",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-results.json": "a69e6e932bd11d6bf7a0323a10ee875623e94f39ee1b7ec074875d5d8da435f7",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/data-provenance.md": "5bdd2638d5d44e66377f864a8be873da74d1efeb7abbb49d74450b49361e8fdc",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/design.md": "d7dba8fc00c75fbb7634f01d4efac6183bf69100ed58de28858c023339dade39",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/forecast-models.json": "e844d4f22e958eaed49aeccb6be4ccc47147849279ebcb96ab0b45f9ea354247",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/lesson.md": "69b36001d0e0df13e94112c325bfbb1f0d75a86f8b8b078cbedee24a1b5cee55",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py": "c733674672e86c240b3ffc586c0c743b562f14e46e6c07933b64625ebcd5755f",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-fixtures.json": "3166b2234c2bbed981b0d6a8dc6c6002752aa04eff65471ed73cc0756edb72f5",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/visual-specifications.md": "ab3689b25e36a8a2b3ce4d9a188902f511de643a9c1f297a0a83518578f454cc"
+      },
+      "coverage": [
+        {
+          "outcome": "Query-to-KV grouping and compact memory",
+          "scratch": "lesson \u00a75 grouped_attention; mechanism-calculations.py",
+          "library": "SDPA enable_gqa=True and same grouped tensors",
+          "bridge": "Contiguous group map, native head count, dk scale, rectangular logical mask",
+          "practice": "Six queries/two memories with unequal value width",
+          "scope": "Local; repeated tensors are semantic oracle, not compact-memory evidence"
+        },
+        {
+          "outcome": "Shared gradients and MHA conversion",
+          "scratch": "mechanism-calculations.py shared-value gradient; complete forecasting program in author-calculations.py",
+          "library": "PyTorch tied projections, optimizer, copied weights and controlled uptraining",
+          "bridge": "Sum per-reader gradients; mean pooling is initialization not function preservation",
+          "practice": "Top-left mask bug; pooled-head nonlinear counterexample; changed group count",
+          "scope": "Local; checkpoint conversion defined at actual parameter maps"
+        },
+        {
+          "outcome": "Incremental model inference",
+          "scratch": "Complete forecaster full/cache path; lesson \u00a7\u00a74/6",
+          "library": "Ordinary PyTorch state/projection route and SDPA operator",
+          "bridge": "Compact K/V with logical IDs; changed prefix invalidates cache",
+          "practice": "Reflect an observed point, compare earlier null and later effect",
+          "scope": "Local; no assertion about fused kernel allocation or distributed replication"
+        },
+        {
+          "outcome": "Distributed cache and performance",
+          "scratch": "lesson \u00a77 formula/resource reasoning",
+          "library": "Planned Tensor Parallelism owns rank partitioning; GPU kernel owner owns dispatch measurements",
+          "bridge": "Logical sharing versus physical replication; byte count versus time",
+          "practice": "Explicit replica and Amdahl exercises",
+          "scope": "Later engineering owner; no implementation deferred for the local grouped operator"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/author-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/grouped-query-attention-gqa-multi-query-attention-mqa/mechanism-calculations.py",
+          "status": "passed"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/multi-head-latent-attention-mla/design.md",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/lesson.md",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/multi-head-latent-attention-mla/author-calculations.py",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/author-results.json",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/data-provenance.md",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/design.md",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/forecast-model.json",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/lesson.md",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-calculations.py",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-fixtures.json",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.data",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.names",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/practice-calculations.py",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/practice-fixtures.json",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/multi-head-latent-attention-mla/author-calculations.py": "11a1d848011ae5e14121e70d7a6295abfca5d995e4ef1b492fc9d5ef5439e050",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/author-results.json": "ae90f897e3773387e874df3d4ff74ec0dc5da3bfdd964b3dd081ae814587d07d",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/data-provenance.md": "c3959ca4d11ac04974386661e7db092e0237ff48a9461a52682c0c7f6ac4494f",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/design.md": "d52ee8133d4e5058587adeb530a31938122e83aad36350312c5989e42aa2bdfd",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/forecast-model.json": "a516d590c4119511dbc965a4eb1832d750402ecf77569f8d5b0f0fe875745baa",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/lesson.md": "2092dc56dfcacaa1b0ce5078dd22fcdea305f287d03a4ab1e314098ec7346d0d",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-calculations.py": "85701e319406bf25e940aaddf6e576a0fcf6068cff651748ee3752cb782ab903",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-fixtures.json": "da2a73b801bc891d9e0a3b5d6eedfb4a60ee880746afd98a60d8b57ad3ae3fc0",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/practice-calculations.py": "41775434b5695361ded32290a674b3980b69d31c232f21a0892913a8d9756f35",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/practice-fixtures.json": "67aa008b575242064698801b5ecf1a3c7b0109c7dc928db1f0a06d92f72abaa1",
+        "docs/teaching/drafts/multi-head-latent-attention-mla/visual-specifications.md": "9f4c4651be33c1d81c7c4928a20d8813d15c1f2e8e7139b7ef13edaad20ce67b"
+      },
+      "coverage": [
+        {
+          "outcome": "Expanded and absorbed MLA",
+          "scratch": "lesson \u00a75 complete reference; mechanism-calculations.py::attention; LatentForecaster",
+          "library": "mla_sdpa_bridge.py complete functional SDPA route",
+          "bridge": "Concatenated effective/rotary query, shared latent+rotary key, latent value; explicit original scale",
+          "practice": "Change latent width while preserving P+R scale",
+          "scope": "Local operator, not a whole DeepSeek checkpoint or specialized MLA kernel"
+        },
+        {
+          "outcome": "Gradients, factor state and update",
+          "scratch": "author-calculations.py::gradient_equivalence; new SDPA bridge",
+          "library": "Torch autograd over all latent/up-map inputs and complete model training",
+          "bridge": "Expanded/absorbed parameter derivatives; direct/API six-factor gradients and one update",
+          "practice": "Nonlinear value obstruction and rank-truncation change",
+          "scope": "Local; bounded new gradient/update probe passed, retained training conserved"
+        },
+        {
+          "outcome": "Compact positioned cache and learned forecasting",
+          "scratch": "LatentForecaster full/cache and preserved model program",
+          "library": "nn.Module optimizer/state_dict plus current tensor API route",
+          "bridge": "Model/basis/prefix/position identity, separate rotary field",
+          "practice": "Corrupt query ID, then repair; change latent basis consistently",
+          "scope": "Local; no graph of fabricated memory-speed rankings"
+        },
+        {
+          "outcome": "Checkpoint conversion and serving",
+          "scratch": "lesson \u00a77 explicit non-equivalence and cost discussion",
+          "library": "Actual planned Inference Engines & Serving owns full-model backend; local runnable SDPA supplied here",
+          "bridge": "Factors, normalization and rotation must all match",
+          "practice": "Choose prefill versus decode workload before measurement",
+          "scope": "Later full-system outcome, no silent substitution of local result for backend evidence"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/multi-head-latent-attention-mla/author-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/multi-head-latent-attention-mla/mechanism-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/multi-head-latent-attention-mla/practice-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "bounded numerical author probe",
+          "status": "passed",
+          "receipt": "docs/teaching/implementation-depth/prepared-attention-writing-author-checks.json",
+          "entry": "multi-head-latent-attention-mla"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/sparse-linear-attention-variants/attention_compression_bridges.py",
+        "docs/teaching/drafts/sparse-linear-attention-variants/design.md",
+        "docs/teaching/drafts/sparse-linear-attention-variants/lesson.md",
+        "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-calculations.py",
+        "docs/teaching/drafts/sparse-linear-attention-variants/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/sparse-linear-attention-variants/attention_compression_bridges.py",
+        "docs/teaching/drafts/sparse-linear-attention-variants/author-calculations.py",
+        "docs/teaching/drafts/sparse-linear-attention-variants/author-checks.py",
+        "docs/teaching/drafts/sparse-linear-attention-variants/author-results.json",
+        "docs/teaching/drafts/sparse-linear-attention-variants/design.md",
+        "docs/teaching/drafts/sparse-linear-attention-variants/forecast-models.json",
+        "docs/teaching/drafts/sparse-linear-attention-variants/fresh-controls.json",
+        "docs/teaching/drafts/sparse-linear-attention-variants/lesson.md",
+        "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-calculations.py",
+        "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-results.json",
+        "docs/teaching/drafts/sparse-linear-attention-variants/movement_libras.data",
+        "docs/teaching/drafts/sparse-linear-attention-variants/movement_libras.names",
+        "docs/teaching/drafts/sparse-linear-attention-variants/provenance.md",
+        "docs/teaching/drafts/sparse-linear-attention-variants/random-feature-results.json",
+        "docs/teaching/drafts/sparse-linear-attention-variants/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/sparse-linear-attention-variants/attention_compression_bridges.py": "f4cf62cd536818727acf9255f97a8a5453620fc168d83581143a8b031dd3b699",
+        "docs/teaching/drafts/sparse-linear-attention-variants/author-calculations.py": "4ef246b18bda80a485ba15fd1b9f1a578887ea71e78b0351f84f820ff2425489",
+        "docs/teaching/drafts/sparse-linear-attention-variants/author-checks.py": "1ab2ac8c106ff0ee18ccb728dc60defcf6abe1fb9016bbe9120f0c9d3a24bc14",
+        "docs/teaching/drafts/sparse-linear-attention-variants/author-results.json": "c61e87d8042ecf0c5178dfc9511f08b665d2b86f49c2f5398fcab35b3b08e7ef",
+        "docs/teaching/drafts/sparse-linear-attention-variants/design.md": "800f61e0bcd48446afe7a670a81fc45f579e103619ae51c89d8466847e895b1e",
+        "docs/teaching/drafts/sparse-linear-attention-variants/forecast-models.json": "88df8b8a043421f2fad9464d7f88b3fd09903962ab5fada111b53572897e0e46",
+        "docs/teaching/drafts/sparse-linear-attention-variants/fresh-controls.json": "3d0b388c7afdc4b057ebd968b937844c70fd6ba2e3de28e1d8e4eb8c9b5bfb42",
+        "docs/teaching/drafts/sparse-linear-attention-variants/lesson.md": "f2c9b30c4afedeab90e966e132428273e6876701aaa92e07d30bf67b4c7cc8d8",
+        "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-calculations.py": "c051e46623dff472db194066ee87b08b8c54516ebcfb6570318274ed4d771d7a",
+        "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-results.json": "28ad1267aa3382e30984d55421db7a450bc273e72930d3051b17d3f90a3b19b7",
+        "docs/teaching/drafts/sparse-linear-attention-variants/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/sparse-linear-attention-variants/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/sparse-linear-attention-variants/provenance.md": "6180814a8c531020feb9118bdccfc9aa32cd4e22658c012f9ce5d9f31a1402e5",
+        "docs/teaching/drafts/sparse-linear-attention-variants/random-feature-results.json": "f12d8c5859d042d9290f5471c9765fe0db8c2fb20b570a9d15d0240b360a5448",
+        "docs/teaching/drafts/sparse-linear-attention-variants/visual-specifications.md": "e7f785b06ccfebcc95e1f434ada1d988a0288526e117d8f4f5600c40c5cc1969"
+      },
+      "coverage": [
+        {
+          "outcome": "Sparse legal edges and efficient local gather",
+          "scratch": "mechanism-calculations.py::selected_attention; attention_compression_bridges.py::gathered_window",
+          "library": "SDPA explicit dense mask as independent semantics oracle",
+          "bridge": "Identical legal windows/normalization; dense comparison not sparse execution",
+          "practice": "Width1 null, tail positions, distant edited value",
+          "scope": "Local O(LW) gathered reference; hardware blocking later"
+        },
+        {
+          "outcome": "Chosen-kernel recurrence and positive random features",
+          "scratch": "lesson \u00a77 complete recurrence; mechanism-calculations.py Gaussian/orthogonal sampler; AttentionForecaster",
+          "library": "Torch tensor/autograd model and ordinary optimizer",
+          "bridge": "Dense versus recurrent all-parameter gradients, exact chosen kernel versus approximate softmax",
+          "practice": "Zero overlap, cached feature resampling, common-key stabilization and nondivisible chunks",
+          "scope": "Local; no universal error monotonicity or unbiased normalized-ratio claim"
+        },
+        {
+          "outcome": "Linformer length projection and Nystr\u00f6m landmarks",
+          "scratch": "attention_compression_bridges.py::linformer, segment_landmarks, nystrom",
+          "library": "SDPA compressed slots; torch.linalg.pinv for small middle system",
+          "bridge": "Forward/all Linformer gradients; all-landmark identity; tolerance/rank contract",
+          "practice": "Length11/four landmarks; nearly duplicate landmark threshold",
+          "scope": "Local complete deeper operators, noncausal summaries explicitly stated"
+        },
+        {
+          "outcome": "Content routing and modern sparse families",
+          "scratch": "lesson \u00a7\u00a72/6 explained LSH/cluster/indexer mechanism and cost boundaries",
+          "library": "Prepared RWKV owns gated/delta memory; planned GPU attention kernel/serving owners own hardware systems",
+          "bridge": "Candidate discovery differs from attention; selected edges versus occupied blocks",
+          "practice": "Indexer cost and sparse tile exercises",
+          "scope": "Family interpretation, not full Reformer/Routing/DeepSeek reproduction promise"
+        },
+        {
+          "outcome": "Real causal forecast and quality comparison",
+          "scratch": "author-calculations.py complete three-model data/train/inference/gradient paths",
+          "library": "PyTorch optimizer/state_dict and retained results",
+          "bridge": "Frozen protocol, cache prefixes, known future exclusion",
+          "practice": "Near versus remote edit, constant-value null, honest baseline",
+          "scope": "Local retained experiment, no retraining for a preferred result"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/sparse-linear-attention-variants/attention_compression_bridges.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/sparse-linear-attention-variants/author-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/sparse-linear-attention-variants/author-checks.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/sparse-linear-attention-variants/mechanism-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "bounded numerical author probe",
+          "status": "passed",
+          "receipt": "docs/teaching/implementation-depth/prepared-attention-writing-author-checks.json",
+          "entry": "sparse-linear-attention-variants"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/design.md",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/lesson.md",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-checks.py",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-results.json",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/design.md",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/experiment-contract.md",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/lesson.md",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/mechanism-results.json",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.names",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tes",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tra",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/provenance.md",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/study-results.json",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-models.json",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-study.py",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-checks.py": "76adb01ca4e43db1e7fcaff888f88355bd155c175b52fc3a10855c8bfa6ae54a",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-results.json": "5b69626a627ec0aa219d077b15b498489bdcd2cef862ba3cdebb1b776ebbe27d",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/design.md": "923d5a074d5408aa30343c34cd63a91f20ed4e5bf2349bd2dda22c852bd617cd",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/experiment-contract.md": "79449bae4f31679168847ba90b2b1b9990509ef73837dee32d6b5d63b30d57e7",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py": "88dd5ac7916805f4b41fa93c0534b9450bb9c5dcb0b0ed8d94ab2e01654e0401",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/lesson.md": "0005b792eb41787ed529a7ced199593120c2fbde63cefe057dc635dd6c189470",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/mechanism-results.json": "f21abd7a0eeddbea43a600699af6d40c124c4753b950cc9309551c5df92510c2",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/provenance.md": "83a2a46db4633a3af8f22779229952007aea701e2f731d8a1de1e910d8ca9f7d",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/study-results.json": "c8ee1dbe45f3ef3ba304bb3e87e5aada66ab0b656e41134712a7e0515596157d",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py": "d4b873d5dd7d07d27f4921f472a67607e4d9efc725d1c120cb4d20a58f000e56",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-models.json": "8d54dbd897354124917986293f6596a7fb0a858de6dd68ecf40382f56afc6a08",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-study.py": "f8adbeb6d36e99108647422256e087caed3db309d01b65fc04f6fd45f78f41f6",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py": "53d6ad6e7206b9bc4f01f9f880bdb913839380c7e3248a33f359509c0557ec99",
+        "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/visual-specifications.md": "bb9299ea9d4268334747e8a382e0212cf289b9bd044116015adeb1741f6b8eb4"
+      },
+      "coverage": [
+        {
+          "outcome": "Patch layout and ViT",
+          "scratch": "vision-study.py complete patch models; vision-mechanisms.py patch/conv comparison; lesson \u00a7\u00a71\u20133",
+          "library": "F.unfold/conv2d and nn.Module attention/model workflow",
+          "bridge": "Patch pixel order, CLS/patch prefixes, absolute position resize",
+          "practice": "Rectangular image and identity-preserving position interpolation",
+          "scope": "Local scratch composition reuses prepared attention/block primitives"
+        },
+        {
+          "outcome": "Shifted windows and hierarchy",
+          "scratch": "vision-mechanisms.py::ShiftedWindowAttention, SwinTeachingBlock, PatchMerge",
+          "library": "vision_library_bridge.py matched torchvision0.29 window/merge",
+          "bridge": "QKV/projection/table transposition, parameter/input gradients; V1 ordering and padding differences",
+          "practice": "Divisible versus padded grids; wrap-mask failure and odd merge",
+          "scope": "Local complete code; torchvision route written/unexecuted"
+        },
+        {
+          "outcome": "DeiT and DINO learning mechanisms",
+          "scratch": "vision-study.py distillation model; vision-mechanisms.py::dino_cross_view_loss/update_teacher",
+          "library": "PyTorch CE/KL/autograd, EMA and ordinary optimizer routes",
+          "bridge": "Teacher detach, two heads, same-view exclusion, temperatures/center state",
+          "practice": "Teacher disagreement, collapsed uniform null, logits versus probabilities fusion",
+          "scope": "Local core objectives; original full-scale recipes not reproduced"
+        },
+        {
+          "outcome": "DINOv2 feature use and later self-distillation",
+          "scratch": "inspect-pretrained-features.py plus local CLS/patch/grid reasoning",
+          "library": "Transformers AutoImageProcessor/AutoModel local-only checkpoint",
+          "bridge": "Processor/model identity, patch count, prefix exclusion, cosine feature meaning",
+          "practice": "Product-search evaluation and feature-grid inspection",
+          "scope": "Application fully written/unexecuted; full iBOT/KoLeo/Sinkhorn/DINOv3 training belongs to planned Self-Distillation owner already linked in lesson"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/author-checks.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/inspect-pretrained-features.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-mechanisms.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision-study.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/vision-transformers-vit-deit-swin-dinov2/vision_library_bridge.py",
+          "status": "passed"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/design.md",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/lesson.md",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/author-checks.json",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/calculated-inputs.json",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/check_author_packet.py",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/data-provenance.md",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/design.md",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/fitted-models.json",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/lesson.md",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_calculations.py",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_study.py",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/optical-digits.csv",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/study-results.json",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/author-checks.json": "08042a45d8f49e4663a0bae77173b661d0303d46db1afc74faa358ebd2b95bf8",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/calculated-inputs.json": "ea7f9fad8da6aa312ace7b385d1f9685e5814cd5bd7b7b010ca847501afb2d71",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/check_author_packet.py": "3f3ee29a2e4bdefeb6b85b77ea5e1ec92c548fd2efb33c0a417010f91b1779df",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/data-provenance.md": "c35d0dc12cd0daeaaf876833727e5e9e8db18d70b0dd7728d4591de042c26396",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/design.md": "bc68a12cbe681299331fab3adf26e37c2a215a41c60934c27b871f862f74b2c1",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/fitted-models.json": "3fa32169c5d1ef6d3c5fee1be71ea81be92b5bb514ba5b82054f30ffa164dc27",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/lesson.md": "00790860a5f92a9aa64e29901bb9e9a4604dae3becb2287877e6238b5df9b152",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_calculations.py": "cac5dc8f449333c6572eaa78157998627c6f5a130c7a98a1adc60f2c6df08d08",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_study.py": "6e21e451d19aef035340ab652f70c46620a06f17daa48afc15509255be0fb6d3",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/optical-digits.csv": "9ad440c38a738b66ba8ca85ed9097ccafe9e99846517f02cdd6512a79dde9c24",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/study-results.json": "40c3d1a65940733a5c8cb9a052f4aaf7218c66897fc1b0c47ad9c1fb0b65d136",
+        "docs/teaching/drafts/mixture-of-experts-transformers-moe/visual-specifications.md": "231e51944249d1434845f051abf69084c0e02a31cad5bc1d6a56dbb598f46143"
+      },
+      "coverage": [
+        {
+          "outcome": "Router, top-k, gather/dispatch/combine",
+          "scratch": "moe_study.py::DigitTransformer; complete inline program lesson \u00a78",
+          "library": "Normal registered Torch ModuleList, topk/index_add_, optimizer/state_dict",
+          "bridge": "moe_calculations.py::dense_reference same output/aux/all gradients",
+          "practice": "Top1 selected-softmax derivative; wrong scatter versus index_add",
+          "scope": "Local dropless four-expert model; no library required to hide the owned router"
+        },
+        {
+          "outcome": "Capacity, balance and z-loss decisions",
+          "scratch": "moe_calculations.py::capacity/route_fixture and explicit equations \u00a7\u00a73\u20135",
+          "library": "Torch loss/autograd; deterministic token/slot acceptance trace",
+          "bridge": "Original versus renormalized gates, discrete assignment versus differentiable probabilities",
+          "practice": "Overflow order, complete drop, bias-separated selection exercises",
+          "scope": "Local policy arithmetic; changing policy changes operator"
+        },
+        {
+          "outcome": "Real patch-expert model and diagnostics",
+          "scratch": "moe_study.py data/train/evaluate; retained original fits",
+          "library": "Torch AdamW, state_dict and dataset-only offline workflow",
+          "bridge": "Actual load counts, held-out errors, task and auxiliary derivatives",
+          "practice": "Disable expert, edit patch, compare all seeds and baseline",
+          "scope": "Local; routing weight is not semantic specialization proof"
+        },
+        {
+          "outcome": "Grouped GEMM, expert-choice and distributed delivery",
+          "scratch": "lesson \u00a7\u00a76/7/9 resource, alternative-policy and upcycling reasoning",
+          "library": "Planned Expert Parallelism & All-to-All Communication owns distributed backend; current PyTorch execution supplied locally",
+          "bridge": "Assignment sort/bucket versus expert compute; token/slot inverse permutation",
+          "practice": "Matched-function upcycling and communication-budget exercises",
+          "scope": "Later systems outcome; no unsupported MegaBlocks benchmark or inferred package equality"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/mixture-of-experts-transformers-moe/check_author_packet.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/mixture-of-experts-transformers-moe/moe_study.py",
+          "status": "passed"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/design.md",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/lesson.md",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/visual-specifications.md",
+        "docs/teaching/topic-notes/interleaved-cross-attention-architectures.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/calculated-inputs.json",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/cross-attention-study.py",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/data-provenance.md",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/design.md",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/digits-400.csv",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/lesson.md",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/visual-specifications.md",
+        "docs/teaching/topic-notes/interleaved-cross-attention-architectures.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/calculated-inputs.json": "131707f3f7efed416038e28d348cefc0a0d87932f569e6f6da3e57ec62f8344f",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/cross-attention-study.py": "446eb8b6f93fac86b19cdb8ce063506a8cfe7bfb18bc11c69fbb47ceb72f349e",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/data-provenance.md": "5ad81095d9db8c9e9a18abc8e2b959d858b7585431d72f038ec058e0d329faff",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/design.md": "f7753b82f1f32fe06ef93bc6dc10d66edcc88c85c866001e3344ff733c5df002",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/lesson.md": "8a34ea10fb54ec47d806f02106aca7027d403f92ef03a92b1fecbe6788171eb7",
+        "docs/teaching/drafts/interleaved-cross-attention-architectures/visual-specifications.md": "f790803683d8228d8d4802da135f0ad57ef60f81018917d09eeadc5a71190884",
+        "docs/teaching/topic-notes/interleaved-cross-attention-architectures.md": "07d132e9db6b0a7b6edc4ab6742b77a8149498ef278295ab589489d3edae374c"
+      },
+      "coverage": [
+        {
+          "outcome": "Rectangular masked cross-attention",
+          "scratch": "lesson \u00a71 NumPy read and cross-attention-study.py complete question-conditioned model",
+          "library": "nn.MultiheadAttention with separate query and memory",
+          "bridge": "Source/target widths, legal memory columns, head normalization",
+          "practice": "Paired versus value-only permutation and changed rectangular read",
+          "scope": "Local; self-attention primitive reused from prepared Self-Attention owner"
+        },
+        {
+          "outcome": "Gated fusion and learnable readout",
+          "scratch": "cross-attention-study.py CrossModel; lesson \u00a74 exact gate derivative",
+          "library": "Torch autograd/AdamW, frozen-parameter versus no_grad distinction",
+          "bridge": "Zero gate can learn while adapter gradient initially zero",
+          "practice": "Edit F/gate and inspect update immediately; image mismatch counterfactual",
+          "scope": "Local complete fitting; no prediction-gate UI"
+        },
+        {
+          "outcome": "Projected memory cache",
+          "scratch": "cross_attention_cache.py::project_memory/read_memory",
+          "library": "Same-state MHA full-call reference",
+          "bridge": "Full/chunk read agreement, allowed columns, model+memory identity, stale-cache failure",
+          "practice": "Reorder slots with/without mask columns; changed forbidden donor null",
+          "scope": "Local inference-only caching; training route remains separate"
+        },
+        {
+          "outcome": "Resampler, causal encoder and named multimodal architectures",
+          "scratch": "\u00a7\u00a74/5 architecture mechanisms; prepared Long-Context lesson owns Perceiver complete models",
+          "library": "Existing question model and new cache demonstrate ordinary composition; no giant checkpoint required",
+          "bridge": "Shared memory is not shared answer; causal encoder dependency differs from bidirectional",
+          "practice": "Explain cache sharing versus projection/index reuse",
+          "scope": "Named systems overview; source-specific replay quality not inferred from generic cache algebra"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/interleaved-cross-attention-architectures/cross-attention-study.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py",
+          "status": "passed"
+        },
+        {
+          "kind": "bounded numerical author probe",
+          "status": "passed",
+          "receipt": "docs/teaching/implementation-depth/prepared-attention-writing-author-checks.json",
+          "entry": "interleaved-cross-attention-architectures"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/design.md",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/visual-specifications.md",
+        "docs/teaching/topic-notes/message-passing-graph-convolutions-gcn-gat-graphsage.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/calculated-inputs.json",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/data-provenance.md",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/design.md",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/karate-club.json",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/NETWORKX-LICENSE.txt",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/visual-specifications.md",
+        "docs/teaching/topic-notes/message-passing-graph-convolutions-gcn-gat-graphsage.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/calculated-inputs.json": "263db8e45404de8da15ee26ffa49bb2cdacd676bdaef97020474d3f8c285dd55",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/data-provenance.md": "e0b3b3aae9d00ec86725d4b37a23bd3d2f64cd7a62db6293dab36e6bc55ddd91",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/design.md": "9382265ebef3ab52c288b44ae10025d04a15787703e5f65b5c41a6b40017d47d",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py": "d800a949661537c7c9d15c5f6e5f5d6061fb0857d58b74cdb055a7691889af95",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/karate-club.json": "2b3ec6b980c8905b7aac15482e1a7a562859e6d88ae0c83e54b0436663711812",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md": "f819de69640d3cc1ddaf9dca889b6338cf90d5da7909008c5070dd91794b7a34",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py": "9c851659a8eac177518a9fdf4f047e3a05cc124c9b89dc54075e31b6e89b9e83",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/NETWORKX-LICENSE.txt": "3cf7c3a179d817b23b8b8568211769fefdf93797d207d984b8b2fa24d0220b33",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/visual-specifications.md": "df72c8f1e3f6baaf2a7e98e79cb4e8716e06ebc15d89d0f5aba43b51b6659d41",
+        "docs/teaching/topic-notes/message-passing-graph-convolutions-gcn-gat-graphsage.md": "e0aab31865e5f22b3c2ee7346401c6768f3dacfa1a14fc616c030b7ce393be94"
+      },
+      "coverage": [
+        {
+          "outcome": "GCN, mean GraphSAGE and original GAT",
+          "scratch": "message-passing-study.py::GraphLayer; graph_library_bridge.py::SparseGraphLayer",
+          "library": "Complete paired GCNConv/SAGEConv/GATConv in graph_library_bridge.py",
+          "bridge": "Source-to-target, loops, degree convention, self branch, one head, copied params",
+          "practice": "Edit directed edge and isolate; duplicate-edge contract; two-head variation",
+          "scope": "Local sparse optimized representation O(E dout) aggregation, no dense N\u00b2 required"
+        },
+        {
+          "outcome": "Learning through graph aggregation",
+          "scratch": "Exact scalar derivative and real NodeClassifier; new sparse/dense route",
+          "library": "PyG layer gradients and same .03 SGD update, complete written code",
+          "bridge": "All input and mapped parameter gradients; isolated/empty/edited cases",
+          "practice": "One parameter update, no-label leakage, rewire cache invalidation",
+          "scope": "Scratch author probe executed; package execution deferred"
+        },
+        {
+          "outcome": "Graph task and real-data information boundary",
+          "scratch": "Complete message-passing-study.py offline split/fit/baselines",
+          "library": "Normal Torch loss/optimizer and replaceable mapped package layer",
+          "bridge": "Graph context versus label mask and same data protocol",
+          "practice": "Future-edge leakage and batch-offset practice",
+          "scope": "Local transductive study, no causal effect/generalization guarantee"
+        },
+        {
+          "outcome": "Propagation, expressiveness and sampling",
+          "scratch": "lesson \u00a7\u00a77\u201310 proofs/counterexamples; exact_cases and sampling examples",
+          "library": "Implemented Spectral Graph Theory/Graph Fundamentals owners reused",
+          "bridge": "sqrt degree limit versus constant random-walk coordinates",
+          "practice": "No-loop cycle, multiset counterexample, sampled-tree counts",
+          "scope": "Local math/algorithm explanation; package neighbor-sampling backend is an optional scale choice, not hidden in the core fit"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/message-passing-study.py",
+          "status": "passed"
+        },
+        {
+          "kind": "bounded numerical author probe",
+          "status": "passed",
+          "receipt": "docs/teaching/implementation-depth/prepared-attention-writing-author-checks.json",
+          "entry": "message-passing-graph-convolutions-gcn-gat-graphsage"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": []
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/design.md",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/gps_library_bridge.py",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/lesson.md",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/visual-specifications.md",
+        "docs/teaching/topic-notes/graph-transformers-geometric-deep-learning.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/calculated-inputs.json",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/data-provenance.md",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/design.md",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-calculations.py",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-results.json",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/gps_library_bridge.py",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/graph-transformer-study.py",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/karate-club.json",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/lesson.md",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/NETWORKX-LICENSE.txt",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/visual-specifications.md",
+        "docs/teaching/topic-notes/graph-transformers-geometric-deep-learning.md",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/calculated-inputs.json": "eb88403f87705f05fb5e02bdff2f2c8f302b23d7f7cb62badf7ef1d374c77685",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/data-provenance.md": "40f3044c61b8caa1115071da68bed9b57e59b30228408965518b96812c41df5b",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/design.md": "2343811424d6ab83fc516692f6b06c5b05ebd1699321abdd0fe734275f014edd",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-calculations.py": "40f133ae7196d77d460a22127808bf483135df18880a67347c65e8f5ada4ad92",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-results.json": "c408a5547f888678435255cf6247e756d136c19d0bf5a69aa036a26090f5f190",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/gps_library_bridge.py": "755e4dc71ef3130e57f328c79798c04a027e25fb6ada6c28f583fda813ac3d13",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/graph-transformer-study.py": "95fd8386ea8aa62c2ba8bd64e002f489af39fa832f8a274546ec548f255a8ee7",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/karate-club.json": "2b3ec6b980c8905b7aac15482e1a7a562859e6d88ae0c83e54b0436663711812",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/lesson.md": "9f2a5ae6d29dcb0a9fb6134ab71e991f645c89769f836474323f9e24c4e873db",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/NETWORKX-LICENSE.txt": "3cf7c3a179d817b23b8b8568211769fefdf93797d207d984b8b2fa24d0220b33",
+        "docs/teaching/drafts/graph-transformers-geometric-deep-learning/visual-specifications.md": "7b520605f0243de3e2f9c34679fa7d76b37b6878ed368e177deb935c858ce04b",
+        "docs/teaching/topic-notes/graph-transformers-geometric-deep-learning.md": "6192a1232f42be8850a0c0e674ebd117ef3183f63b681657d5d50175cccc08da",
+        "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py": "d800a949661537c7c9d15c5f6e5f5d6061fb0857d58b74cdb055a7691889af95"
+      },
+      "coverage": [
+        {
+          "outcome": "Graph structural encodings and global attention",
+          "scratch": "graph-transformer-study.py::structural_inputs, AttentionBlock, Model",
+          "library": "Ordinary Torch attention/projection/model workflow",
+          "bridge": "Distances, returns, finite bias versus forbidden edge; relabel encoded inputs together",
+          "practice": "Remote edit, constant-value null, disconnected components",
+          "scope": "Local; exact all-pairs algorithms deliberately bounded to tiny teaching graphs"
+        },
+        {
+          "outcome": "GPS local/global composition and batching",
+          "scratch": "gps_library_bridge.py::LocalGlobalBlock; earlier graph_library_bridge.py sparse GCN",
+          "library": "Actual GPSConv(norm=None,dropout=0,multihead) and Batch.from_data_list",
+          "bridge": "Two residuals, all parameters/input gradients/update, graph IDs and padding",
+          "practice": "Third isolate, missing batch vector, separate versus batched and relabeling",
+          "scope": "Local complete prepared package route, execution deferred; required helper source owned by previous prepared packet"
+        },
+        {
+          "outcome": "Permutation/group/geometric equivariance",
+          "scratch": "geometry-calculations.py::geometric_update plus full lesson \u00a7\u00a75\u20137 proofs",
+          "library": "NumPy/Torch tensor composition; implemented Abstract Algebra and Spectral Graph Theory owners reused",
+          "bridge": "Correct input/output actions, signed vectors versus scalar features, orthogonal/translation probes",
+          "practice": "Counterexample to coordinate ReLU, false constant-input null, eigenbasis ambiguity",
+          "scope": "Local mechanism; full irreducible-representation libraries not promised by introductory update"
+        },
+        {
+          "outcome": "Energy gradient and observed graph learning",
+          "scratch": "geometry-calculations.py energy/force central differences; full graph study",
+          "library": "Torch model optimizer and ordinary differentiation workflow",
+          "bridge": "Conservative gradient versus generic equivariant field, quality separate from symmetry",
+          "practice": "Changed spring configuration and independent prediction-quality test",
+          "scope": "Local; full molecular potential training is later domain work"
+        }
+      ],
+      "authorChecks": [
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/geometry-calculations.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/gps_library_bridge.py",
+          "status": "passed"
+        },
+        {
+          "kind": "python-parse",
+          "file": "docs/teaching/drafts/graph-transformers-geometric-deep-learning/graph-transformer-study.py",
+          "status": "passed"
+        }
+      ],
+      "deferredChecks": [
+        "Full independent implementation review",
+        "All newly supplied optional specialist/checkpoint programs executed in compatible environments",
+        "Displayed/downloaded source equality and complete native fixture comparisons",
+        "Browser figures/labs, accessibility, performance and integration"
+      ],
+      "crossPacketDependencies": [
+        "message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py"
+      ]
+    }
+  ]
+}

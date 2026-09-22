@@ -228,4 +228,7 @@ export const lessonModules = {
   "abstract-algebra-groups-symmetry-actions": () => import("../topics/abstract-algebra-groups-symmetry-actions.jsx"),
   "partial-differential-equations-conservation-boundary-conditions": () => import("../topics/partial-differential-equations-conservation-boundary-conditions.jsx"),
   "numerical-pdes-grids-finite-elements-stability": () => import("../topics/numerical-pdes-grids-finite-elements-stability.jsx"),
+  "end-to-end-supervised-learning-error-analysis": () => import("../topics/end-to-end-supervised-learning-error-analysis.jsx"),
+  "ml-problem-formulation-baselines-data-leakage": () => import("../topics/ml-problem-formulation-baselines-data-leakage.jsx"),
+  "time-series-validation-forecasting-baselines": () => import("../topics/time-series-validation-forecasting-baselines.jsx"),
 };

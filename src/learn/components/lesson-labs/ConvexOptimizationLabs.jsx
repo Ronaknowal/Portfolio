@@ -117,7 +117,7 @@ export function ConvexChordLab() {
   };
   return <section className="lesson-lab convex-lab" aria-label="Chord and supporting-line investigation">
     <h3>Mix the inputs, then compare the heights</h3>
-    <p>Predict whether the solid curve lies below the endpoint chord. Then try the two-well function at its midpoint. Moving a chord is a test case; proving convexity requires every pair in the domain.</p>
+    <p>Inspect whether the solid curve lies below the endpoint chord. Then try the two-well function at its midpoint. Moving a chord is a test case; proving convexity requires every pair in the domain.</p>
     <div className="convex-controls">
       <ConvexField label="Function">{id => <select id={id} value={preset} onChange={event => setPreset(event.target.value)}>{Object.entries(convexCurves).map(([key, curve]) => <option key={key} value={key}>{curve.title}</option>)}</select>}</ConvexField>
       <ConvexRange label="Left input a" value={left} onChange={setLeft} min={-2} max={-0.25} />
@@ -160,7 +160,7 @@ export function AllocationCertificateLab() {
   };
   return <section className="lesson-lab convex-lab" aria-label="Feasible allocation and optimality certificate investigation">
     <h3>A low objective needs an allowed decision</h3>
-    <p>The desired allocation is (4,3), and the cost is half the squared distance to it. Predict where the best feasible point lies when the total budget is 4. Then inspect why its gradient need not be zero.</p>
+    <p>The desired allocation is (4,3), and the cost is half the squared distance to it. Inspect where the best feasible point lies when the total budget is 4. Then inspect why its gradient need not be zero.</p>
     <div className="convex-controls">
       <ConvexRange label="Total budget B" value={budget} onChange={setBudget} min={0} max={8} step={0.5} />
       <ConvexRange label="First allocation u" value={first} onChange={setFirst} min={0} max={8} />
@@ -229,7 +229,7 @@ export function RidgeCurvatureLab() {
   };
   return <section className="lesson-lab convex-lab" aria-label="Ridge curvature and gradient trajectory investigation">
     <h3>Watch the coefficients move across objective contours</h3>
-    <p>Predict the effect of duplicate columns with zero penalty. Then compare a stable step ηL=1 with ηL=2.1. The second step can overshoot even though the objective is convex.</p>
+    <p>Inspect the effect of duplicate columns with zero penalty. Then compare a stable step ηL=1 with ηL=2.1. The second step can overshoot even though the objective is convex.</p>
     <div className="convex-controls">
       <ConvexField label="Feature matrix">{id => <select id={id} value={preset} onChange={event => setting(setPreset)(event.target.value)}>{Object.entries(ridgeDesigns).map(([key, design]) => <option key={key} value={key}>{design.title}</option>)}</select>}</ConvexField>
       <ConvexField label="Ridge penalty λ">{id => <select id={id} value={penalty} onChange={event => setting(setPenalty)(Number(event.target.value))}>{[0, 0.1, 0.5, 1, 2].map(value => <option key={value} value={value}>{value}</option>)}</select>}</ConvexField>
@@ -270,7 +270,7 @@ export function SoftThresholdLab() {
   };
   return <section className="lesson-lab convex-lab" aria-label="Soft thresholding and subgradient investigation">
     <h3>A kink can be the exact optimum</h3>
-    <p>Balance staying near a against paying λ for each unit of |x|. Predict when the optimum becomes exactly zero; compare a=1, λ=1 with a=3, λ=1.</p>
+    <p>Balance staying near a against paying λ for each unit of |x|. Explore when the optimum becomes exactly zero; compare a=1, λ=1 with a=3, λ=1.</p>
     <div className="convex-controls">
       <ConvexRange label="Unregularized input a" value={input} onChange={setInput} min={-4} max={4} />
       <ConvexRange label="Absolute-value penalty λ" value={penalty} onChange={setPenalty} min={0} max={4} />

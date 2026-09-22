@@ -1,0 +1,983 @@
+{
+  "status": "content-prepared",
+  "date": "2026-09-22",
+  "deliveryMode": "content-first",
+  "implementationStatus": "not-started",
+  "scope": "13 foundations packets; manuscripts, ownership plans, specifications and complete code sources only.",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu",
+    "torchvisionAvailable": false,
+    "mupAvailable": false,
+    "recurrentgemmaAvailable": false
+  },
+  "authorCheckCaveats": [
+    "An initial meta probe incorrectly expected 1,000 LeNet outputs; corrected the probe to the declared default 10 without changing the model, then all five builders passed.",
+    "Root owns aggregate syntax/local-link checking and the central ledger/source checkpoint. This report does not claim an independent full packet or native-library campaign."
+  ],
+  "topics": [
+    {
+      "id": "weight-initialization-xavier-kaiming-p",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/lesson.md",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/design.md",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/visual-specifications.md",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/initialization_library_bridge.py"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/calculated-inputs.json",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/data-provenance.md",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/design.md",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/digits-400.csv",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/initialization-experiments.py",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/initialization_library_bridge.py",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/lesson.md",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/calculated-inputs.json": "5eb7934b301fb95d6bb35c875c84a6dcdff94a80d4c7882f28ab1982139b7c84",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/data-provenance.md": "f0a632ef8c94f03def527cd3cd8039d012e66291fcdd4a57d1d9ac486f1c35f6",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/design.md": "7119ee30fcc7251e9a92ef371343fdcaf47efe2f9a1367c0efe075af78e07222",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/initialization-experiments.py": "8344ad0418e70c2b766bf8d9d3c3afb3ce85805fb101b25465487b06b8cc164b",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/initialization_library_bridge.py": "854edb6a411f4db6ffee05284d20c40568b3a7d041270419771aab827c2b5515",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/lesson.md": "96a1d170ec39ffc24219c841bef09179a3e7cdbb85a12af94b8643c5055839bb",
+        "docs/teaching/drafts/weight-initialization-xavier-kaiming-p/visual-specifications.md": "60f8012ce301413a764cc73cd3af0fcb26c18c683648480b5c3d0562d57b0254"
+      },
+      "manuscriptSection": "Construct an orthogonal draw, then match a width-aware optimizer",
+      "coverage": [
+        {
+          "outcome": "Xavier, Kaiming, signal statistics and symmetry",
+          "scratch": "`initialization-experiments.py:fill_weight, summary, exact_fixtures`; arithmetic scales and random primitives",
+          "library": "`nn.init.xavier_normal_ / kaiming_normal_`; orientation and gain mapping already in manuscript",
+          "bridge": "Match tensor orientation/gain and rectangular Gram property; MuReadout divisor, base/delta shapes and MuAdam rates preserve copied state with rescale_params=False.",
+          "practice": "Changed fan, gain and depth exercises; measured fits retained",
+          "scope": "Complete taught variance/symmetry/orthogonal mechanisms and restricted WidthMLP muP model; QR is delegated to the actual matrix-decomposition prerequisite. No arbitrary-architecture muP guarantee."
+        },
+        {
+          "outcome": "Orthogonal initialization",
+          "scratch": "`initialization_library_bridge.py:orthogonal_matrix`; reduced QR owner is Matrix Decompositions",
+          "library": "`nn.init.orthogonal_`; rectangular Gram contract, not fabricated equal random draws",
+          "bridge": "Match tensor orientation/gain and rectangular Gram property; MuReadout divisor, base/delta shapes and MuAdam rates preserve copied state with rescale_params=False.",
+          "practice": "3×7 gain0.5 practice; dense QR cost explicit",
+          "scope": "Complete taught variance/symmetry/orthogonal mechanisms and restricted WidthMLP muP model; QR is delegated to the actual matrix-decomposition prerequisite. No arbitrary-architecture muP guarantee."
+        },
+        {
+          "outcome": "Restricted μP width scaling",
+          "scratch": "`initialization-experiments.py:WidthMLP`; same three explicit rates and forward divisor",
+          "library": "`initialization_library_bridge.py:check_mup`; MuReadout/base shapes/MuAdam, two same-state updates",
+          "bridge": "Match tensor orientation/gain and rectangular Gram property; MuReadout divisor, base/delta shapes and MuAdam rates preserve copied state with rescale_params=False.",
+          "practice": "Width160 extension with solution; full arbitrary-architecture μP is outside this restricted contract",
+          "scope": "Complete taught variance/symmetry/orthogonal mechanisms and restricted WidthMLP muP model; QR is delegated to the actual matrix-decomposition prerequisite. No arbitrary-architecture muP guarantee."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [
+          "https://raw.githubusercontent.com/microsoft/mup/main/mup/layer.py",
+          "https://raw.githubusercontent.com/microsoft/mup/main/mup/optim.py",
+          "https://raw.githubusercontent.com/microsoft/mup/main/mup/shape.py"
+        ],
+        "accessedAt": "2026-09-22",
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results.",
+        "Executed initialization_library_bridge.py without optional --mup: rectangular orthogonal Gram contracts passed."
+      ],
+      "deferredChecks": [
+        "Optional mup package same-state two-update comparison is written and source-inspected but unexecuted; package absent.",
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "residual-connections-skip-connections",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/residual-connections-skip-connections/lesson.md",
+        "docs/teaching/drafts/residual-connections-skip-connections/design.md",
+        "docs/teaching/drafts/residual-connections-skip-connections/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/residual-connections-skip-connections/calculated-inputs.json",
+        "docs/teaching/drafts/residual-connections-skip-connections/data-provenance.md",
+        "docs/teaching/drafts/residual-connections-skip-connections/design.md",
+        "docs/teaching/drafts/residual-connections-skip-connections/digits-400.csv",
+        "docs/teaching/drafts/residual-connections-skip-connections/lesson.md",
+        "docs/teaching/drafts/residual-connections-skip-connections/residual-experiments.py",
+        "docs/teaching/drafts/residual-connections-skip-connections/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/residual-connections-skip-connections/calculated-inputs.json": "b5dbee711bb8edef1a7763fe4b46217b9773afe8174803694cc580886ae0d31a",
+        "docs/teaching/drafts/residual-connections-skip-connections/data-provenance.md": "e3f5e009fe7f266eb685e264862df2e2926d6e03466d895b70e862c0199ad92e",
+        "docs/teaching/drafts/residual-connections-skip-connections/design.md": "4f6cd4b29d50d7b29a4468a183b74cc247dc7d2bb697a7ee355e94bd3c26adf6",
+        "docs/teaching/drafts/residual-connections-skip-connections/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/residual-connections-skip-connections/lesson.md": "8048f8e871ae0808dd16555aaecdef043e92f1c06bc2a04722c309f40b9ea801",
+        "docs/teaching/drafts/residual-connections-skip-connections/residual-experiments.py": "9ece8d262eab9ad80814d185138faa2b60faa524e8446cdedd0bda979e24d93d",
+        "docs/teaching/drafts/residual-connections-skip-connections/visual-specifications.md": "7b5dc2df99417b6b5c2f672bb754fc1a366a72f01205b0572dbf0d7a8740868f"
+      },
+      "manuscriptSection": "Own the addition; reuse the layers and differentiation",
+      "coverage": [
+        {
+          "outcome": "Residual routing, shape projection, first gradients",
+          "scratch": "`residual-experiments.py:mechanisms, Refinement, DigitNetwork`; explicit addition/gating",
+          "library": "Ordinary nn.Module composition and autograd; actual published Backpropagation and Normalization owners",
+          "bridge": "Local explicit addition/projection/gates compose native linear layers and autograd; input shapes, branch placement, mode and shared weight state are stated.",
+          "practice": "Scalar-to-channel gate coding exercise and analytical gradient solution",
+          "scope": "Complete local residual arithmetic, shape projection, scaled branches, models and exercises. Prior autograd/normalization owners supply already taught primitives; Neural ODE is a connection, not a claimed solver implementation."
+        },
+        {
+          "outcome": "Scaled branches, ablation, path and ODE connections",
+          "scratch": "Local exact fixtures and complete fit loop; Euler scalar mechanism explicit",
+          "library": "Adam/model modes in same program; large ResNet use is later Landmark Architectures owner",
+          "bridge": "Local explicit addition/projection/gates compose native linear layers and autograd; input shapes, branch placement, mode and shared weight state are stated.",
+          "practice": "Preserve existing cancellation, projection and changed-step practice; no full Neural ODE solver claim",
+          "scope": "Complete local residual arithmetic, shape projection, scaled branches, models and exercises. Prior autograd/normalization owners supply already taught primitives; Neural ODE is a connection, not a claimed solver implementation."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [],
+        "accessedAt": null,
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "dropout-droppath-stochastic-depth",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/lesson.md",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/design.md",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/calculated-inputs.json",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/data-provenance.md",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/design.md",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/digits-400.csv",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/dropout-experiments.py",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/lesson.md",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/calculated-inputs.json": "b1ff6e1ea82a409f5e211faab688c4e6f2c418246c8df94ad247b038607933c2",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/data-provenance.md": "c30e0e97758228c2d7db0ffb0054a7bd80737f4bc9e4f015e875e474a314bdc0",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/design.md": "9e8d15db6cbe206f971dd973b1d09ed20ca7d24053b1b48ea15070f115dd4ac6",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/dropout-experiments.py": "6fc8bd08e4b237298eab787fe28b195ac2e113d9e06873a8f464cecfc3091afd",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/lesson.md": "5b83faa534659c454fa82d1d09be628e2146bda851209cde0500bfb599cd4744",
+        "docs/teaching/drafts/dropout-droppath-stochastic-depth/visual-specifications.md": "953b3af3887194b2017e6cd81da58f0b0e2e9962e012ac78f96eb1d20e1a5de9"
+      },
+      "manuscriptSection": "Use the mask contract in a library without changing its meaning",
+      "coverage": [
+        {
+          "outcome": "Element/channel/row/batch Bernoulli masking and gradient",
+          "scratch": "`dropout-experiments.py:mask_values, fixtures`; explicit mask and inverse keep scaling",
+          "library": "nn.Dropout/Dropout2d and supplied torchvision stochastic_depth program; fixed-mask semantics rather than assumed seed parity",
+          "bridge": "Match mask axes, keep scaling, training mode and dropped endpoints; freeze a sampled realization when testing an intervention and compare distributional invariants across RNGs.",
+          "practice": "Locked feature mask extension, p0/p1/eval and explicit gradient solution",
+          "scope": "Complete taught mask geometry, train/eval behavior, MC handling and fitted model. Random masks are compared by contract or fixed realization; identical seeds across implementations are not a parity guarantee."
+        },
+        {
+          "outcome": "MC inference, state isolation and real fitting",
+          "scratch": "`mc_measure, measure, DigitModel, run` local complete programs",
+          "library": "Native train/eval, no_grad, BatchNorm and Adam; reused implemented normalization owner",
+          "bridge": "Match mask axes, keep scaling, training mode and dropped endpoints; freeze a sampled realization when testing an intervention and compare distributional invariants across RNGs.",
+          "practice": "Existing mode repair and uncertainty interpretation; optional noise-family descriptions are not full implementations",
+          "scope": "Complete taught mask geometry, train/eval behavior, MC handling and fitted model. Random masks are compared by contract or fixed realization; identical seeds across implementations are not a parity guarantee."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [],
+        "accessedAt": null,
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "New inline torchvision stochastic_depth usage unexecuted; torchvision absent.",
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "convolution-pooling-receptive-fields",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/lesson.md",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/design.md",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/visual-specifications.md",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/convolution_pullbacks.py"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/calculated-inputs.json",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/convolution-experiments.py",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/convolution_pullbacks.py",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/data-provenance.md",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/design.md",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/digits-400.csv",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/lesson.md",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/calculated-inputs.json": "d681f19e1af034c2ec2e188cc34f720700cd23bd129ccfd8b10edfd7a4881e6c",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/convolution-experiments.py": "d6dec2070465e8e00dbd2fad082e84fb7386375b10b30a52c551390ae2efde2c",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/convolution_pullbacks.py": "2ec86d85e950faca0726212decc6cfe749023e77d381915ccbafed9df0a87923",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/data-provenance.md": "34ddfe9eee8f66e2f5365acdfef754894cb7a463bb5de960ded72e3d8695ab67",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/design.md": "3b71437edc729f1ab799d238f6609c5e55e9419a484dded0cd2d45232a94fec9",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/lesson.md": "686d11c9ee91d38110435d725311aada1683b89f978c08cc562646717e69bca5",
+        "docs/teaching/drafts/convolution-pooling-receptive-fields/visual-specifications.md": "a211d89b65002410d29f6ef7c1a519acee5c40fe53d5bd5bc2de8569daf6c56d"
+      },
+      "manuscriptSection": "Implement the pullback and batch the arithmetic",
+      "coverage": [
+        {
+          "outcome": "General convolution indexing and receptive geometry",
+          "scratch": "`convolution-experiments.py:direct_conv2d, receptive_trace`; all groups/stride/dilation fixtures",
+          "library": "F.conv2d/unfold/fold and nn.Conv2d in actual model",
+          "bridge": "Same float64 input, weights, bias and upstream cotangent compare values and every input/parameter derivative; adaptive floor/ceil bins include overlap, expansion and global cases.",
+          "practice": "General address oracle retained, no opaque replacement",
+          "scope": "General address oracle plus batched dense-valid explicit forward/pullback; fixed and adaptive 1-D pooling expose derivative mechanics, with axis extension explained. Does not claim to recreate an optimized convolution backend."
+        },
+        {
+          "outcome": "Efficient batched dense convolution and explicit pullback",
+          "scratch": "`convolution_pullbacks.py:convolution_forward, convolution_backward`; tap-loop tensor contractions",
+          "library": "Same input/parameter/upstream F.conv2d gradient comparison",
+          "bridge": "Same float64 input, weights, bias and upstream cotangent compare values and every input/parameter derivative; adaptive floor/ceil bins include overlap, expansion and global cases.",
+          "practice": "Stride2 pullback extension with exact slice solution; declared dense-valid scope",
+          "scope": "General address oracle plus batched dense-valid explicit forward/pullback; fixed and adaptive 1-D pooling expose derivative mechanics, with axis extension explained. Does not claim to recreate an optimized convolution backend."
+        },
+        {
+          "outcome": "Pooling and overlap derivatives",
+          "scratch": "`convolution_pullbacks.py:pool1d, pool1d_backward`; explicit saved winners/average routing",
+          "library": "F.max_pool1d / avg_pool1d matched values and derivatives",
+          "bridge": "Same float64 input, weights, bias and upstream cotangent compare values and every input/parameter derivative; adaptive floor/ceil bins include overlap, expansion and global cases.",
+          "practice": "Changed upstream vector with exact answers; fixed valid 1-D core extends along each axis",
+          "scope": "General address oracle plus batched dense-valid explicit forward/pullback; fixed and adaptive 1-D pooling expose derivative mechanics, with axis extension explained. Does not claim to recreate an optimized convolution backend."
+        },
+        {
+          "outcome": "Adaptive average pooling",
+          "scratch": "`convolution_pullbacks.py:adaptive_average1d, adaptive_average1d_backward`; prefix sums and range-add pullback",
+          "library": "F.adaptive_avg_pool1d matched values and derivatives for reduction, expansion and global bins",
+          "bridge": "Same float64 input, weights, bias and upstream cotangent compare values and every input/parameter derivative; adaptive floor/ceil bins include overlap, expansion and global cases.",
+          "practice": "Floor/ceiling overlap exercise with exact gradient; O(n+m) work, floating-point cancellation caveat",
+          "scope": "General address oracle plus batched dense-valid explicit forward/pullback; fixed and adaptive 1-D pooling expose derivative mechanics, with axis extension explained. Does not claim to recreate an optimized convolution backend."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [],
+        "accessedAt": null,
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results.",
+        "Executed convolution_pullbacks.py: float64 dense valid convolution values and input/weight/bias pullbacks agree with F.conv2d; max/mean overlapping pooling and adaptive 5→3, 3→5, 5→1 values/pullbacks agree."
+      ],
+      "deferredChecks": [
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/lesson.md",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/design.md",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/visual-specifications.md",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/landmark_builders.py"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/architecture-experiments.py",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/author-check-results.json",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/author-checks.py",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/calculated-inputs.json",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/data-provenance.md",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/design.md",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/digits-400.csv",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/landmark_builders.py",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/lesson.md",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/architecture-experiments.py": "7d7f6192950bdb2f05ec778cd25c3fc0e9bb26872dea25294b38d26145c29a48",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/author-check-results.json": "71ad0139a27a3ce12d7797468a094d066bd3f6deaf5a82ec03d387897a6e1b75",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/author-checks.py": "9eafd7834e79848accf5b449b8d3b44e94dfe8d2a41c4844af8da0374af4633a",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/calculated-inputs.json": "51315455bc810213960d6c571fa3322d3e4c838439f9d9c665faa4e622e5bc91",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/data-provenance.md": "81c2de5a60ec12bbbc8b1ea578433160bf194d0e89bb23cabc5db56c80cc308f",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/design.md": "fc0685f9741c146287ef30911bf4c44d6a6ee28002831b265d3a7d5044be45ad",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/landmark_builders.py": "8f56bacf8c71e65b87ed5d199c86b043884a92f3aed953e9c56dcce7ab0c9401",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/lesson.md": "fd28f128876bdf2ee74b5504075c8b1bc68ef853bd33ba99c9de97118730d611",
+        "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/visual-specifications.md": "19ce104a68bbad2af61c5ab4cc9345a4974bef32b8e35d047d84b9dca746d760"
+      },
+      "manuscriptSection": "Turn the architecture diagram into a complete model",
+      "coverage": [
+        {
+          "outcome": "Construct title families",
+          "scratch": "`landmark_builders.py:lenet, alexnet, vgg16, ResidualBlock/resnet18, MobileBlock/efficientnet_b0`; explicit complete composition",
+          "library": "Torchvision get_model and explicit weight enums; component state mapping, metadata/default/meta-mode inspection",
+          "bridge": "Copy Conv2d/Linear/BatchNorm state with checked component count/type/shape, compare eval logits on the same input, and select explicit pretrained weight enum/transform separately.",
+          "practice": "GAP seven-class VGG modification with parameters/shape solution; original-paper vs maintained-model differences declared",
+          "scope": "Complete declared modern LeNet variant and maintained AlexNet/VGG16/ResNet18/EfficientNet-B0 layouts; own architecture composition reuses earlier convolution/normalization operators. Historical original-model differences and transfer-learning ownership are explicit."
+        },
+        {
+          "outcome": "Parallel branches, channel gating, training and CAM",
+          "scratch": "`architecture-experiments.py:ParallelBranches, InvertedGated, SmallClassifier, exact_examples, main`",
+          "library": "Ordinary PyTorch training; transfer policy reuses actual published transfer-experiments.py section3",
+          "bridge": "Copy Conv2d/Linear/BatchNorm state with checked component count/type/shape, compare eval logits on the same input, and select explicit pretrained weight enum/transform separately.",
+          "practice": "Existing branch/gate/CAM exercises retained; historical ancillary families remain mechanism context",
+          "scope": "Complete declared modern LeNet variant and maintained AlexNet/VGG16/ResNet18/EfficientNet-B0 layouts; own architecture composition reuses earlier convolution/normalization operators. Historical original-model differences and transfer-learning ownership are explicit."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [
+          "https://docs.pytorch.org/vision/stable/models.html",
+          "https://raw.githubusercontent.com/pytorch/vision/main/torchvision/models/efficientnet.py"
+        ],
+        "accessedAt": "2026-09-22",
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results.",
+        "Executed all five builders on meta tensors: LeNet 61,706 parameters / (1,10); AlexNet 61,100,840 / (1,1000); VGG16 138,357,544 / (1,1000); ResNet18 11,689,512 / (1,1000); EfficientNet-B0 5,288,548 / (1,1000). This validates structural shape/count only."
+      ],
+      "deferredChecks": [
+        "Torchvision copied-state numerical comparison and pretrained image application unexecuted; torchvision absent. Meta inspection does not validate numeric logits, training or throughput.",
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "depthwise-separable-dilated-convolutions",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-check-results.json",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-checks.py",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/block-check-results.json",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/calculated-inputs.json",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/context-blocks.py",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/convolution-factorization.py",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/data-provenance.md",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/digits-400.csv",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-check-results.json": "fd3d7950e934000f8ebed3a4a89cd5315d93050f721c0be53c8ca7f18b55cdfa",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-checks.py": "3109cf739adaeebadcfaec2b851ef75497c23281ab8c0f1a0bf46e6b5dd246ec",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/block-check-results.json": "aec99dbeedbc39eb2755815b38305300f6a5a737b746e464a99ab1d00882f130",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/calculated-inputs.json": "6eb77106cd6a4dfb8a378e04d5b930c4ce422be561536bfe44522e7cb56eb449",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/context-blocks.py": "6fd160b263d7dc581e753e4986d8345d08fa7d4200731946ce0884f1e7562721",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/convolution-factorization.py": "5b89c0f3b7cf4d1e662afa93695dbc971d8f5290e33a9be89bf3e97d8105e2d1",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/data-provenance.md": "15e079280e021c1f517cd91d3c0a29968577be795674df6ea6278f03db577396",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md": "e6b98c9958579a2dcfc995ddf4fef43650c8e32522572d7341628e8095ba44dd",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md": "e01002d2c11eff861cadd491a5642592db77432a749c407280d5eda0dbbf6a11",
+        "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md": "9be67113598d7fb4f3f2bf2c6350ddfc30067807186616db0ebe94e5c6d94065"
+      },
+      "manuscriptSection": "Reuse the spatial operator and own the factorization",
+      "coverage": [
+        {
+          "outcome": "Separable rank and SVD conversion",
+          "scratch": "`convolution-factorization.py:factor_spatial, reconstructed_weight`; published matrix decompositions own SVD",
+          "library": "Native grouped and pointwise Conv2d with explicit channel/bias mapping",
+          "bridge": "Flatten each input-channel filter consistently, retain rank components, use intermediate channel input*multiplier+component, preserve output bias, and compare reconstructed dense weights and outputs.",
+          "practice": "Adaptive energy budget exercise with solved singular-value case; common-rank layout limit",
+          "scope": "Complete per-channel rank factorization, grouped/pointwise parameter mapping, address geometry and context composition. SVD and convolution explicitly reuse real prior owners; full segmentation training is not claimed."
+        },
+        {
+          "outcome": "Dilated address geometry, inverted residual and context branches",
+          "scratch": "Actual prepared convolution direct_conv2d reused; local author-checks support and context-blocks.py composition",
+          "library": "F.conv2d/nn.Conv2d and F.interpolate/BatchNorm as explicit model primitives",
+          "bridge": "Flatten each input-channel filter consistently, retain rank components, use intermediate channel input*multiplier+component, preserve output bias, and compare reconstructed dense weights and outputs.",
+          "practice": "Coverage/stride/context practice retained; full segmentation training is not claimed",
+          "scope": "Complete per-channel rank factorization, grouped/pointwise parameter mapping, address geometry and context composition. SVD and convolution explicitly reuse real prior owners; full segmentation training is not claimed."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [],
+        "accessedAt": null,
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "convnext-modern-cnn-designs",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/design.md",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/convnext_library_bridge.py"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/convnext-modern-cnn-designs/author-check-results.json",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/author-checks.py",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/block-check-results.json",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/calculated-inputs.json",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/convnext-blocks.py",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/convnext_library_bridge.py",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/data-provenance.md",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/design.md",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/digits-400.csv",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/masked-reconstruction.py",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/convnext-modern-cnn-designs/author-check-results.json": "a2435ab6c8db3414dbdd696b8ad86ff473424c140ea5f624a4b40d31441e7263",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/author-checks.py": "533827c9a1e5e7ae031e5250ad31e5a6e3c94d0f4d634f965d410f1acbc05497",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/block-check-results.json": "8f6d60c1448874a52f870ffd2c9ef4be90d6bb9892b4cb94d845855141efd206",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/calculated-inputs.json": "ead661c7bb067947f7bd81a2e699cb446d7e7e8ddc9954b115aeef4dd7061243",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/convnext-blocks.py": "b60eda661e5572b5f2731c4628fdb0dbf6b472acbd208196ffe2ee30c892df4e",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/convnext_library_bridge.py": "a66031470ef8b9b223d6e7eca2f6ad7f20cbbc1efd3a974f8c0bffd08d08ad54",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/data-provenance.md": "3833e0e663de6b6d90bd6d671c0e15edde5d8bc740005854ce4aee16cdb13aa3",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/design.md": "6d7cda973959fa89ed1ea7c1de814bd264f6ba927d2b14a5472c3c494a49e223",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md": "909676524ee278714653cfa918e585e4f68212969e8834243f5b1b4f1ecef08c",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/masked-reconstruction.py": "3ffa2afa8d9b71b82adde610192955ba3ef4f4e9609401f0fb6223aabd153417",
+        "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md": "5ffeb45b0264401c3eb770ef4372c6daa2563d99ea118e492391fb6987d7b22e"
+      },
+      "manuscriptSection": "Match the block you built to the maintained implementation",
+      "coverage": [
+        {
+          "outcome": "ConvNeXt V1/V2 block, hierarchy, GRN and masks",
+          "scratch": "`convnext-blocks.py` complete mechanism and model; `masked-reconstruction.py` complete trained task",
+          "library": "`convnext_library_bridge.py:compare_block`; exact V1 CNBlock state/layout/gradient mapping",
+          "bridge": "Map spatial depthwise kernel, channels-last LayerNorm, expand/project layers and layer-scale shape to native CNBlock; disable stochastic depth and compare values/input/parameter gradients.",
+          "practice": "Expansion2 changed-control exercise; V2 is local GRN, not false CNBlock equivalence",
+          "scope": "Complete local V1/V2-style block hierarchy, GRN and masked task. Native CNBlock bridge is V1 only; checkpoint application and further transfer reference real library/prerequisite routes."
+        },
+        {
+          "outcome": "Ordinary checkpoint application",
+          "scratch": "`classify_image` with fixed enum/transform/output categories; no claimed scratch pretrained training",
+          "library": "Torchvision convnext_tiny, Pillow, inference_mode",
+          "bridge": "Map spatial depthwise kernel, channels-last LayerNorm, expand/project layers and layer-scale shape to native CNBlock; disable stochastic depth and compare values/input/parameter gradients.",
+          "practice": "Actual implemented Transfer Learning owner for adaptation; optional download/application unexecuted",
+          "scope": "Complete local V1/V2-style block hierarchy, GRN and masked task. Native CNBlock bridge is V1 only; checkpoint application and further transfer reference real library/prerequisite routes."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [
+          "https://raw.githubusercontent.com/pytorch/vision/main/torchvision/models/convnext.py"
+        ],
+        "accessedAt": "2026-09-22",
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "Torchvision CNBlock numeric/gradient comparison and pretrained image workflow unexecuted; torchvision absent.",
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "capsule-networks",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/capsule-networks/lesson.md",
+        "docs/teaching/drafts/capsule-networks/design.md",
+        "docs/teaching/drafts/capsule-networks/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/capsule-networks/author-check-results.json",
+        "docs/teaching/drafts/capsule-networks/author-checks.py",
+        "docs/teaching/drafts/capsule-networks/calculated-inputs.json",
+        "docs/teaching/drafts/capsule-networks/capsule-learning.py",
+        "docs/teaching/drafts/capsule-networks/capsule-mechanics.py",
+        "docs/teaching/drafts/capsule-networks/capsule_learning_import.py",
+        "docs/teaching/drafts/capsule-networks/data-provenance.md",
+        "docs/teaching/drafts/capsule-networks/design.md",
+        "docs/teaching/drafts/capsule-networks/digits-400.csv",
+        "docs/teaching/drafts/capsule-networks/lesson.md",
+        "docs/teaching/drafts/capsule-networks/mechanics-results.json",
+        "docs/teaching/drafts/capsule-networks/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/capsule-networks/author-check-results.json": "535c6b6ce1cbcf1750e05e8366be1c193b93e5207c20eeefe7ccb031084e3123",
+        "docs/teaching/drafts/capsule-networks/author-checks.py": "6113f71a7674dae76bf6328671fe8a47e65acb2fc06931650cd6552979189de9",
+        "docs/teaching/drafts/capsule-networks/calculated-inputs.json": "c855aa2320a113349cddc33af15cd6b890d863edbc8bc8b894777768facc469a",
+        "docs/teaching/drafts/capsule-networks/capsule-learning.py": "f559318f668fac3621ffeeb8755d423ae836d379a4db8a7f0c097dcecbe9783f",
+        "docs/teaching/drafts/capsule-networks/capsule-mechanics.py": "6715a1a3b96696e0ab6c5665a4ccf7969a7ece7772b104c34bfc68505dba40d7",
+        "docs/teaching/drafts/capsule-networks/capsule_learning_import.py": "5793ecce8e5eb9938acc3bb3c362a43e0b9deeb0bf66ed7912e753ae6b2469a2",
+        "docs/teaching/drafts/capsule-networks/data-provenance.md": "2755430cfb39119ff35cc614a463fd32399bb104db9997df53440b5e6713d205",
+        "docs/teaching/drafts/capsule-networks/design.md": "7454688ec5a48435ecb6469ad7c7b5a566d731ec0b5324277651d6147adb2898",
+        "docs/teaching/drafts/capsule-networks/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/capsule-networks/lesson.md": "642590bb5d986141dd410ddd9c0b773f05e597d08f8a2adcbcfebff8baac2485",
+        "docs/teaching/drafts/capsule-networks/mechanics-results.json": "866ebe2dd806900da674fb0475ce708a680d2a2aaf4709218c134fdb3a10872f",
+        "docs/teaching/drafts/capsule-networks/visual-specifications.md": "ddffb20f93614f1a08454e4af0bbd7dde33d7818a70e07fe67a6185dfc9b3de1"
+      },
+      "manuscriptSection": "Follow routing all the way into a trainable program",
+      "coverage": [
+        {
+          "outcome": "Votes, squash, dynamic routing, margin and reconstruction training",
+          "scratch": "`capsule-mechanics.py:routing, squash`; `capsule-learning.py:route, TinyCapsules, margin_loss`",
+          "library": "Transparent PyTorch tensor composition is ordinary research route; author-checks supplies independent NumPy saved-state reconstruction",
+          "bridge": "NumPy and PyTorch share vote layout, routing axis/count, squash epsilon, gradient detach policy and margin/reconstruction reductions; use explicit custom composition rather than an unrelated package.",
+          "practice": "Routing temperature code change and numerical solution; full Matrix Capsules architecture not claimed",
+          "scope": "Complete dynamic-routing classifier/reconstruction training, local NumPy mechanics and diagonal EM teaching case. Full Matrix Capsules architecture is identified as a separate research extension."
+        },
+        {
+          "outcome": "Diagonal EM and explicit frame geometry",
+          "scratch": "`capsule-mechanics.py:diagonal_em`; local precise limited fixture",
+          "library": "NumPy stable statistics, no invented standard full-EM-capsule API",
+          "bridge": "NumPy and PyTorch share vote layout, routing axis/count, squash epsilon, gradient detach policy and margin/reconstruction reductions; use explicit custom composition rather than an unrelated package.",
+          "practice": "Existing low-activation/coordinate-frame practice; research-scale pose systems are contextual limits",
+          "scope": "Complete dynamic-routing classifier/reconstruction training, local NumPy mechanics and diagonal EM teaching case. Full Matrix Capsules architecture is identified as a separate research extension."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [],
+        "accessedAt": null,
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "rnns-lstms-grus",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/rnns-lstms-grus/lesson.md",
+        "docs/teaching/drafts/rnns-lstms-grus/design.md",
+        "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/rnns-lstms-grus/author-check-results.json",
+        "docs/teaching/drafts/rnns-lstms-grus/author-checks.py",
+        "docs/teaching/drafts/rnns-lstms-grus/calculated-inputs.json",
+        "docs/teaching/drafts/rnns-lstms-grus/data-extraction.json",
+        "docs/teaching/drafts/rnns-lstms-grus/data-provenance.md",
+        "docs/teaching/drafts/rnns-lstms-grus/design.md",
+        "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.json",
+        "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.py",
+        "docs/teaching/drafts/rnns-lstms-grus/lesson.md",
+        "docs/teaching/drafts/rnns-lstms-grus/mechanics-results.json",
+        "docs/teaching/drafts/rnns-lstms-grus/pen-sequence-learning.py",
+        "docs/teaching/drafts/rnns-lstms-grus/pen-trajectories.csv",
+        "docs/teaching/drafts/rnns-lstms-grus/prepare-pen-data.py",
+        "docs/teaching/drafts/rnns-lstms-grus/recurrent-mechanics.py",
+        "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/rnns-lstms-grus/author-check-results.json": "6dc846e17533ea60c904d62c6ae2f67bfe9191f0f7a8e13d9ed133e9f173390b",
+        "docs/teaching/drafts/rnns-lstms-grus/author-checks.py": "dd9fc424efccf0ed1c2226bf54d188270add5bee1f8e1145c5b4ba14cdfae1e3",
+        "docs/teaching/drafts/rnns-lstms-grus/calculated-inputs.json": "b1bd25234d563a878af2023b2c86a1e9569e63e878d5a3be41233f17d14d48ef",
+        "docs/teaching/drafts/rnns-lstms-grus/data-extraction.json": "c4b80343999af7390175c5b0758cd783449fe93f3be03e7a669ab772f2d70b48",
+        "docs/teaching/drafts/rnns-lstms-grus/data-provenance.md": "7af62ab35a3d459ce56ee03774120a4ae14a0d71b8661d42169dbe9b818d169a",
+        "docs/teaching/drafts/rnns-lstms-grus/design.md": "5064983ff486f68ad242bb4227f58da36c952d7dd9c5e45ab87ce1f42d0b3de8",
+        "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.json": "5ccba13f29ec4e186ba751f8255280a30a3dbf2df77ab6f30f3342a492064111",
+        "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.py": "e785bbbd686d20406f1c8df9c239520c048b484ae36a52369bec1c0eb4ebbf93",
+        "docs/teaching/drafts/rnns-lstms-grus/lesson.md": "2626761c8592629be8a0c191234778f0b2b652032a3fcbacf3ec692152681bf2",
+        "docs/teaching/drafts/rnns-lstms-grus/mechanics-results.json": "e8ca63f2993b7adacd8476ee00d3e6524365eec8962035f548f44a846d95988b",
+        "docs/teaching/drafts/rnns-lstms-grus/pen-sequence-learning.py": "8c7e93494612478e11136da96599084c12219da9d7bff0fcaf6e077aee4ce053",
+        "docs/teaching/drafts/rnns-lstms-grus/pen-trajectories.csv": "e9f7d82554a7704edd3d63b07f62b575572675bfa6927e8fea3c52ec879be82f",
+        "docs/teaching/drafts/rnns-lstms-grus/prepare-pen-data.py": "baddaf3aef0a377055c864c0cf9ccca6a4f3d7583f4d0a08bd3481cad5c3e782",
+        "docs/teaching/drafts/rnns-lstms-grus/recurrent-mechanics.py": "b75b269b9e0daf8c0811a5373c2442d80ced0c584ffd980ef305aa1c7a107c80",
+        "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md": "ce2a55f4dbc71f6333523bcd12cfc1440e620410a0a0d132165eaf05ef242b7d"
+      },
+      "manuscriptSection": "Translate gate equations into a reusable recurrent implementation",
+      "coverage": [
+        {
+          "outcome": "RNN/LSTM/GRU mechanisms, states and gate conventions",
+          "scratch": "`recurrent-mechanics.py:manual_sequence, scalar_credit`; NumPy exact native-weight route",
+          "library": "`pen-sequence-learning.py:PenClassifier`; nn.RNN/LSTM/GRU actual training",
+          "bridge": "Document native packed gate order, transposes, separate biases and GRU candidate/reset convention; carry h/c and preserve batch identity when moving from full to chunked sequences.",
+          "practice": "Chunk5 full/short-tail/detach extension with solution; exact gate/bias mapping",
+          "scope": "Complete cell equations and native weight-convention mapping plus actual sequence fitting, padding/state/clipping behavior. General automatic differentiation is reused from its published owner."
+        },
+        {
+          "outcome": "Padding, batch identity, clipping and gradient memory",
+          "scratch": "`state_and_padding`, author-checks and current complete model loop",
+          "library": "pack_padded_sequence and clip_grad_norm_ used with stated semantics",
+          "bridge": "Document native packed gate order, transposes, separate biases and GRU candidate/reset convention; carry h/c and preserve batch identity when moving from full to chunked sequences.",
+          "practice": "Existing reorder/reset/pad practice retained; general AD is actual earlier owner",
+          "scope": "Complete cell equations and native weight-convention mapping plus actual sequence fitting, padding/state/clipping behavior. General automatic differentiation is reused from its published owner."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [],
+        "accessedAt": null,
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "sequence-to-sequence-encoder-decoder",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-check-results.json",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-checks.py",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/calculated-inputs.json",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-extraction.json",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-provenance.md",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/english-inflections.csv",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/inflection-seq2seq.py",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/mechanics-results.json",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/prepare-inflection-data.py",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/sequence-mechanics.py",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/split-integrity-repair.json",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-check-results.json": "1ca5764c0ff3873122fb4cd9cd0efa676e6f0ac455067c630eb9d056493791c9",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-checks.py": "b40e238eaee438b6d82c4c9aae97fcafbd3a9380c72d87feaa4ea01c3d8febdd",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/calculated-inputs.json": "654ac6e954d8695279bdbcda457ed459722ce4c36eeefa05783666aa3237ef35",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-extraction.json": "01f15c41dbacbad3b68e82729fc8afa2a7d1e6c4d139c8f7156bedee949e2445",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-provenance.md": "4bd475ce15ed4fad13c07431b411408dc8274a6d7cfa7e38caa5024dcd938fed",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md": "572cab2efeb2002b5bd83d64d36da3edf0a226f4dd6d4c15fab5b22b2fb91292",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/english-inflections.csv": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/inflection-seq2seq.py": "848270224c4e1b1f275bf8ae6ee5676b43166adc8273a17190bd841386bd9fdb",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md": "e77e2a61f8ae145f247fc5e0b2e44d333490b776e267e9224fc5ccb3fac1bcea",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/mechanics-results.json": "f07d28f8946d422cd13abdf21959a895d93367f4183df2708395f8dc6010c59c",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/prepare-inflection-data.py": "0e7dc569d119d6b3b354ca36b3192114fa3a60f73f8014a3a0869063601cadbb",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/sequence-mechanics.py": "f27648f6e52eea55f4836fa8b24b5f8ea490440c62063fb15b4757500ba07749",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/split-integrity-repair.json": "14e67b88114d03d37a4caaa4e469bbd50149ad2ed3d6430254f44df2a5e21767",
+        "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md": "25c25ac558f54ccda34213aa6b4e93e49bf4050eec900bcdcb3f09d45a65ff2f"
+      },
+      "manuscriptSection": "Reuse the cell; implement the encoder–decoder protocol",
+      "coverage": [
+        {
+          "outcome": "Joint encoding/decoding, teacher forcing, shifted targets and learning",
+          "scratch": "`sequence-mechanics.py:scalar_joint, manual_trace`; local complete protocol in inflection-seq2seq.py",
+          "library": "nn.Embedding/GRU/CE/Adam composition; exact prepared recurrent-mechanics.py cell reuse",
+          "bridge": "Same vocabulary/BOS/EOS, right shift, source lengths, reduction and mode; beam state is gathered by selected parent, with EOS/cap/length scoring explicit.",
+          "practice": "Batched variable EOS extension with source/state ownership solution",
+          "scope": "Complete encoder-decoder protocol, training, greedy/beam search and evaluation. The cell is reused from the actual prepared recurrent source; no invented universal generation package."
+        },
+        {
+          "outcome": "Greedy/beam search and evaluation",
+          "scratch": "`inflection-seq2seq.py:greedy, beam, summarize`; `tree_search` independent tiny case",
+          "library": "Standard tensor/log_softmax operations; no artificial generic generation API",
+          "bridge": "Same vocabulary/BOS/EOS, right shift, source lengths, reduction and mode; beam state is gathered by selected parent, with EOS/cap/length scoring explicit.",
+          "practice": "Beam-width1, parent gather, caps and length-score policies; existing changed-tree practice retained",
+          "scope": "Complete encoder-decoder protocol, training, greedy/beam search and evaluation. The cell is reused from the actual prepared recurrent source; no invented universal generation package."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [],
+        "accessedAt": null,
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/lesson.md",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/design.md",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/analytic-results.json",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/attention-calculations.py",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/attention-mechanics.py",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/attentive-inflection.py",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/author-check-results.json",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/author-checks.py",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/calculated-inputs.json",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/data-extraction.json",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/data-provenance.md",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/design.md",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/english-inflections.csv",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/lesson.md",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/mechanics-results.json",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/prepare-inflection-data.py",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/analytic-results.json": "1bb083bed1b33c3fe84290ae482458862e3bdf9cdf8d5cd8e162f0528ebcf2fd",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/attention-calculations.py": "54615f3153dd52e703b728f2932b33c9d472d8f978a593f715597df54766cd1a",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/attention-mechanics.py": "2b65810ead1e48f4eb3fa302ca1b6cc7f53f076326a1f4bd25dc209290750b2e",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/attentive-inflection.py": "0b006def11a1bac2a8f30b5ed43da3f31b1f06dbd0cba95cb267fc89e76dc05a",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/author-check-results.json": "53b238710df5ba5d4aafd9cae488a35676925780ee2d19f5cbbc6679e880a5d8",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/author-checks.py": "61ca15da334cc2a11dbd7a3f297a6e15ac88d8a81e46696b443c12bad2878424",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/calculated-inputs.json": "046557cd27776737c94ca76dd35facd8fd956b0196535b3642ae79628f7602c6",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/data-extraction.json": "01f15c41dbacbad3b68e82729fc8afa2a7d1e6c4d139c8f7156bedee949e2445",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/data-provenance.md": "c1807ca61eef61541b26111e67895c3e7e5f58e07af40fda3306b2e2ce57a2ee",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/design.md": "b450a339f7126e9d6316b0a331f29cc4ab8756ddd9eb24966ca922a1492fc2ef",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/english-inflections.csv": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/lesson.md": "0adb29391941d175faff47691a108670895eb83a8cfc46ec5b349c7b08fa49f5",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/mechanics-results.json": "f356197e8c02b35adb69800aeabd29506a164c88080177e61cae67ff3e2bf33d",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/prepare-inflection-data.py": "0e7dc569d119d6b3b354ca36b3192114fa3a60f73f8014a3a0869063601cadbb",
+        "docs/teaching/drafts/attention-mechanism-bahdanau-luong/visual-specifications.md": "b52269724c701551c928ad66a418e278b6e518e7e8bb3bc400ca370ada48eea8"
+      },
+      "manuscriptSection": "Implement the read, then compose it into ordinary training",
+      "coverage": [
+        {
+          "outcome": "Additive/general score, normalized masked read and decoder schedule",
+          "scratch": "`attentive-inflection.py:AttentiveInflector`; attention-calculations.py and attention-mechanics.py explicit routes",
+          "library": "Custom PyTorch module with native GRU/loss/optimizer; not false MultiheadAttention equivalence",
+          "bridge": "Same source keys/mask, additive or general score, query timing, context and output path; temperature and masked-entry gradient checks are written without equating this to multi-head attention.",
+          "practice": "Temperature/masked-token changed-code task, analytic answer and paired gradient requirement",
+          "scope": "Complete additive/general masked read, scheduled decoder and fitting program with local-window/copy arithmetic. A custom PyTorch module is the ordinary tool route; full speech/pointer-generator systems remain distinct named extensions."
+        },
+        {
+          "outcome": "Local window, repeated-copy aggregation and cache",
+          "scratch": "Local complete calculation functions; reused prepared recurrent/seq2seq owners",
+          "library": "NumPy/Torch tensor operations with fixed-source key caching",
+          "bridge": "Same source keys/mask, additive or general score, query timing, context and output path; temperature and masked-entry gradient checks are written without equating this to multi-head attention.",
+          "practice": "Full speech/pointer-generator systems are named extension boundaries, not core missing code",
+          "scope": "Complete additive/general masked read, scheduled decoder and fitting program with local-window/copy arithmetic. A custom PyTorch module is the ordinary tool route; full speech/pointer-generator systems remain distinct named extensions."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [],
+        "accessedAt": null,
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/lesson.md",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/design.md",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/visual-specifications.md",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/memory_library_bridge.py"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/checked-results.json",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/data-provenance.md",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/design.md",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/investigation-checks.json",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/latent_trajectory_classifier.py",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/lesson.md",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/memory_library_bridge.py",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/movement_libras.data",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/movement_libras.names",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/sequence_mechanisms.py",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/small-fits.npz",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/trajectory-results.json",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/checked-results.json": "076d5e0f6cc8d4db4bc1338354ed65d13da8dc35b2044637d54f89d0c0c75504",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/data-provenance.md": "65d31475c210603c0decdfcffc876ed119f8e486bc58e5e6ab57ed1fb9012684",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/design.md": "6658e9cdb7a233bcbf0f57d3b82e10d93fe39172bb61c1b8d288f83095828e21",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/investigation-checks.json": "9519dcda88b996c8e46ed6ffa3f3412888d3bd375f29ccbc56f65982f3e63708",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/latent_trajectory_classifier.py": "c810abe34f5060d04f7df2f0b4797200c734e21ef954d494da9a062b86482b5d",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/lesson.md": "ae22ae00cbb605dfc4edc4b4d5ee9136ac3a495c6b3e8f0de362d27ca93486e4",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/memory_library_bridge.py": "968a272efbe44f41ac9bc3876890e033f17b4a35b07af336bf4fb62b319ed528",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/sequence_mechanisms.py": "0d3fa896742624cbb20130c89aba5d135506132e6f529d1626b27a6df63274ef",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/small-fits.npz": "b8984b1ac51391d982546f39c7d254211dcfbcbcb7de5c7630336ac1e38dac3f",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/trajectory-results.json": "e2e93f4412b3c3b113200d2b5858ab9adb70a6215d1614ab5b7e7fcbd5009a83",
+        "docs/teaching/drafts/long-context-sequence-models-transformer-xl-griffin-perceiver/visual-specifications.md": "5d64b63ed5b0858aa324fc56f5a6447bb09e09847727c6ccc04423cba2257e54"
+      },
+      "manuscriptSection": "Three complete implementation routes, with their boundaries exposed",
+      "coverage": [
+        {
+          "outcome": "Segment cache, mask and bounded attention",
+          "scratch": "`sequence_mechanisms.py:segmented_attention`; memory_library_bridge.py explicit Torch cache",
+          "library": "F.scaled_dot_product_attention same tensors/mask and trailing segment",
+          "bridge": "SDPA Boolean True means allowed; compare projected Q/K/V and masks, preserve cache-tail absolute coordinates. Native RG-LRU shares block-diagonal gate weights, raw decay, reset and float32 state, with clipped-gradient boundary stated.",
+          "practice": "Q4/M2/T11 solved extension; full Transformer-XL relative decoder/checkpoint explicitly not claimed",
+          "scope": "Complete segmented-cache mechanism, actual learned RG-LRU component and latent classifier. Full Transformer-XL relative-position decoder and full Griffin checkpoint are explicitly distinct from these component implementations."
+        },
+        {
+          "outcome": "RG-LRU learned gates, reset, streaming state",
+          "scratch": "`memory_library_bridge.py:rglru_reference` plus original scalar gated_recurrence",
+          "library": "Actual recurrentgemma.torch.layers.RGLRU weight/state/chunk/gradient bridge",
+          "bridge": "SDPA Boolean True means allowed; compare projected Q/K/V and masks, preserve cache-tail absolute coordinates. Native RG-LRU shares block-diagonal gate weights, raw decay, reset and float32 state, with clipped-gradient boundary stated.",
+          "practice": "Position6 reset exercise; clipped-gradient regime and full-Griffin boundary explicit",
+          "scope": "Complete segmented-cache mechanism, actual learned RG-LRU component and latent classifier. Full Transformer-XL relative-position decoder and full Griffin checkpoint are explicitly distinct from these component implementations."
+        },
+        {
+          "outcome": "Latent reads and complete trainable classifier",
+          "scratch": "`latent_trajectory_classifier.py:Attention, LatentClassifier, main`",
+          "library": "SDPA same projected-state/gradient bridge, ordinary Torch fit",
+          "bridge": "SDPA Boolean True means allowed; compare projected Q/K/V and masks, preserve cache-tail absolute coordinates. Native RG-LRU shares block-diagonal gate weights, raw decay, reset and float32 state, with clipped-gradient boundary stated.",
+          "practice": "Source padding/cached-key ownership; local classifiers remain distinct from Perceiver checkpoints",
+          "scope": "Complete segmented-cache mechanism, actual learned RG-LRU component and latent classifier. Full Transformer-XL relative-position decoder and full Griffin checkpoint are explicitly distinct from these component implementations."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [
+          "https://raw.githubusercontent.com/google-deepmind/recurrentgemma/main/recurrentgemma/torch/layers.py"
+        ],
+        "accessedAt": "2026-09-22",
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results.",
+        "Executed memory_library_bridge.py without --griffin: segmented SDPA output shape (1,1,7,3); latent projected-read values and gradients agree."
+      ],
+      "deferredChecks": [
+        "Optional recurrentgemma RGLRU forward/state/chunk/gradient bridge is written and source-inspected but unexecuted; recurrentgemma absent.",
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/lesson.md",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/design.md",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/visual-specifications.md",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/state_space_library_bridge.py"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/author-checks.json",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/author_calculations.py",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/data-provenance.md",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/design.md",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/investigation-checks.json",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/lesson.md",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/mechanism-results.json",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/movement_libras.data",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/movement_libras.names",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/state_space_library_bridge.py",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/state_space_mechanisms.py",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/trajectory-results.json",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/trajectory-state-fits.npz",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/trajectory_state_models.py",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/author-checks.json": "f6b79dfd96ac00a5a760e801ead8f9d99145f5678537ff2db988bfebc2b7ef6a",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/author_calculations.py": "3626f7e7b9a40168e294dbea5f8a712f6909a6802c4f2cffcef4485d2fc770fb",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/data-provenance.md": "6d09c985cbca5984232fe453e4afc5361c8b5810f3f74051450bd34a1b244fcb",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/design.md": "7c6c12a75aff465a53d7a71f64c949874c9b45ca11d002167b6ba5ea9696dd33",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/investigation-checks.json": "3d14e70a26d23da8b461ac89c8cb79edffe0155fb6786578801e409674bb8717",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/lesson.md": "daa1b4fec306f35a203fc7caca5859317a72931a7115e42b9aea901f20646cca",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/mechanism-results.json": "85d2ca4c488cc4eb8ffcc03e133152d6f64b00d2bef71fbaaff091e4e2ee922f",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/state_space_library_bridge.py": "18b2938b069996a522d90fd808c0f25418b5e9556e662c1c89dacabbb2e6c847",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/state_space_mechanisms.py": "e8f7c83bd9acc617dc9628047fe33c510a2e5bfde8ff10ce32e165fe43bbcb03",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/trajectory-results.json": "1fe580d632c616e0e86d99f3af76b4eb0c559862a840185fe891dc2783ba6c64",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/trajectory-state-fits.npz": "92f71a9f8c902ce8beaf497f1cca32518a0892df1ac99c71e877ca66a227f059",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/trajectory_state_models.py": "088d36df510c9d0a223530399d44c010ee6c236ef8a221be2b7576484efdfeea",
+        "docs/teaching/drafts/state-space-models-s4-mamba-mamba-2/visual-specifications.md": "00fc7ae1b56a34368c8a5fdb1659748ce6fcfbd5a519498b21691732cec7e86f"
+      },
+      "manuscriptSection": "Connect the recurrence to the maintained scan and complete block",
+      "coverage": [
+        {
+          "outcome": "LTI discretization, recurrence/convolution and learned diagonal mixer",
+          "scratch": "`state_space_mechanisms.py` and `trajectory_state_models.py:DiagonalMixer`; exact published ODE/LA reuse",
+          "library": "SciPy expm/solve, NumPy/Torch FFT and actual Torch learning loop",
+          "bridge": "Map BDT/BN T layouts, A=-exp(log_decay), already-softplus delta with delta_softplus=False, exp(delta*A) and delta*B injection, C/D readout and fixed cotangent; last-state-gradient limitation explicit.",
+          "practice": "Existing singular/initial/direct-state fixtures and derivatives; full S4 DPLR kernel not advertised",
+          "scope": "Complete local diagonal/selective/SSD mechanisms and fitting program plus actual maintained selective-scan and complete Mamba/Mamba2 usage. Does not relabel a diagonal mixer as the full S4 DPLR kernel or a scan as a complete Mamba block."
+        },
+        {
+          "outcome": "Selective recurrence and ordinary complete Mamba blocks",
+          "scratch": "`trajectory_state_models.py:SelectiveMixer`; explicit exp(ΔA), ΔBu and C readout",
+          "library": "`state_space_library_bridge.py`; same scan values/gradients and Mamba/Mamba2 one-update workflow",
+          "bridge": "Map BDT/BN T layouts, A=-exp(log_decay), already-softplus delta with delta_softplus=False, exp(delta*A) and delta*B injection, C/D readout and fixed cotangent; last-state-gradient limitation explicit.",
+          "practice": "Input/layout/softplus/last-state-gradient mapping; GPU route fully written but unexecuted",
+          "scope": "Complete local diagonal/selective/SSD mechanisms and fitting program plus actual maintained selective-scan and complete Mamba/Mamba2 usage. Does not relabel a diagonal mixer as the full S4 DPLR kernel or a scan as a complete Mamba block."
+        },
+        {
+          "outcome": "SSD recurrence, matrix and chunk decomposition",
+          "scratch": "`state_space_mechanisms.py:ssd_recurrent, decay_matrix, ssd_chunked`",
+          "library": "Dense algebra as independent comparison; Mamba2 ordinary block is different full model",
+          "bridge": "Map BDT/BN T layouts, A=-exp(log_decay), already-softplus delta with delta_softplus=False, exp(delta*A) and delta*B injection, C/D readout and fixed cotangent; last-state-gradient limitation explicit.",
+          "practice": "Nonzero initial-state length7/chunk1,3,8 extension and exact carry solution",
+          "scope": "Complete local diagonal/selective/SSD mechanisms and fitting program plus actual maintained selective-scan and complete Mamba/Mamba2 usage. Does not relabel a diagonal mixer as the full S4 DPLR kernel or a scan as a complete Mamba block."
+        }
+      ],
+      "research": {
+        "newPrimarySources": [
+          "https://raw.githubusercontent.com/state-spaces/mamba/main/mamba_ssm/ops/selective_scan_interface.py",
+          "https://github.com/state-spaces/mamba"
+        ],
+        "accessedAt": "2026-09-22",
+        "note": "Existing primary references and their declared reading limits remain in the packet; mutable package source links identify a checked convention, not a version pin."
+      },
+      "authorChecks": [
+        "Content preflight passed for this ID with --work content; relevant destination notes consumed.",
+        "Existing mechanism/program ownership mapped into the manuscript; preserved historical measured inputs and results."
+      ],
+      "deferredChecks": [
+        "CUDA selective_scan parity and Mamba/Mamba2 one-update workflows are written and source-inspected but unexecuted; native/GPU setup deferred.",
+        "Phase-two code execution and independent review on the final displayed source and supported dependency versions.",
+        "Browser diagrams/labs, live-control linked-state behavior, responsive layout, keyboard access and production loading.",
+        "No prior measured training results are reassigned to these new programs; training/performance campaigns were not rerun."
+      ]
+    }
+  ]
+}

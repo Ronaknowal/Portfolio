@@ -1,0 +1,33 @@
+{
+  "reviewer": "live_exploration_classical_late",
+  "author": "live_exploration_classical_early",
+  "checkedAt": "2026-09-21T14:50:52.534Z",
+  "scope": "Independent bounded source review of live-state and model-boundary changes in ICA, Manifold, NMF, GMM and Cross-Validation; not a fresh numerical or visual audit of all22 early topics.",
+  "status": "passed-after-repair",
+  "findings": [
+    {
+      "id": "validation-unguarded-recalculation",
+      "status": "closed",
+      "description": "Nested and halving experiments caught draft calculation failures but recomputed unguarded from the same current inputs. Author changed Fold/Nested/Halving to derive one applied calculation inside try/catch, with descriptions and diagrams conditional on it; source rechecked."
+    },
+    {
+      "id": "validation-learner-predict-copy",
+      "status": "closed",
+      "description": "Nested and halving investigation questions still requested guesses. Author replaced these with direct exploration language; source rechecked."
+    }
+  ],
+  "observations": [
+    "ICA and Manifold update valid active state directly, retain last valid output for invalid drafts with an explicit status and support undo/reset. No effect-based calculation loop.",
+    "NMF contribution masks compare the current mask against the fixed full reconstruction on the same image. Changing image restores its complete mask. NMF update edits restart the actual factor trace; zero-row/column restrictions remain explicit.",
+    "GMM edited observations and initialization recompute responsibilities and restart the real E/M trace. Separate expectation/maximization buttons are algorithm operations, not answer gates.",
+    "Cross-validation retains model predictions and protected-row roles. Guarded calculation failures suppress their views rather than publish an invalid result."
+  ],
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/IcaShared.jsx": "a06ca69bad0e6faaea4b986da242daeb4a3cbf95d1bf5a734d8fc1bb0e735d96",
+    "src/learn/components/lesson-labs/ManifoldShared.jsx": "bb727bbdb87c3017e7a7aa58fbaa54bbad8fa150bb9072bea2457b3feefebfa6",
+    "src/learn/components/lesson-labs/NmfLabs.jsx": "79eb2129f86c313e409cf66bffe3ee6e0805c07fbef1c37203a0632cbdea51d8",
+    "src/learn/components/lesson-labs/GmmLabs.jsx": "72cd79fd10897a5db3a3f565709b2df2c274c94ef8149f7f5f7104d742fbc918",
+    "src/learn/components/lesson-labs/ValidationShared.jsx": "2e3484fc2f53b258f595176a3d30fd7e362c859c667713b169b94ed5b84100e8",
+    "src/learn/components/lesson-labs/ValidationLabs.jsx": "d22d96f1a80d328b7c08d4de1d29127f3b897432e4dd280f54a20e5e272691ca"
+  }
+}

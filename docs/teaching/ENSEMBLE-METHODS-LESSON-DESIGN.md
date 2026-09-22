@@ -1,5 +1,14 @@
 # Ensemble Methods & Stacking — scoped lesson design
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Existing topic-specific controls already update the actual model and visual outputs. Preserve those mechanisms and process controls; ordinary exploration guidance replaces learner prediction prompts.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 11 September 2026. Stable ID `ensemble-methods-stacking`, Classical Machine Learning / Supervised Learning position 7. Design assessed against the complete original body. The complete implementation is author-reviewed; exact sources, passing numerical evidence, browser scope and opened images are bound in ENSEMBLE-METHODS-VERIFICATION.md and its author packet. Independent review and production integration remain separate. Author owns only this topic's semantic files and receiving notes. Root owns registration and integration.
 
 ## Contract, continuity and original assessment

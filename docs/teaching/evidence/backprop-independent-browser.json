@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "preview": "development",
+  "route": "http://127.0.0.1:4197/learn/path/full-curriculum/backpropagation-automatic-differentiation?module=deep-learning-fundamentals",
+  "scope": "Independent closure of route, prose spacing, pinned references, backward-arrow direction, changed negative-input graph, keyboard table access and phone overflow.",
+  "anchors": [
+    {
+      "text": "1. A derivative carries the effect of a small change",
+      "href": "#1-a-derivative-carries-the-effect-of-a-small-change",
+      "exists": true
+    },
+    {
+      "text": "2. Shared computations need a sum of contributions",
+      "href": "#2-shared-computations-need-a-sum-of-contributions",
+      "exists": true
+    },
+    {
+      "text": "3. From individual numbers to tensor gradients",
+      "href": "#3-from-individual-numbers-to-tensor-gradients",
+      "exists": true
+    },
+    {
+      "text": "4. Check derivatives as evidence, not a certificate",
+      "href": "#4-check-derivatives-as-evidence-not-a-certificate",
+      "exists": true
+    },
+    {
+      "text": "5. Use an autograd framework deliberately",
+      "href": "#5-use-an-autograd-framework-deliberately",
+      "exists": true
+    },
+    {
+      "text": "6. Deeper routes through AD",
+      "href": "#6-deeper-routes-through-ad",
+      "exists": true
+    },
+    {
+      "text": "7. Practice with changed graphs and failure cases",
+      "href": "#7-practice-with-changed-graphs-and-failure-cases",
+      "exists": true
+    },
+    {
+      "text": "8. References and alternative routes",
+      "href": "#8-references-and-alternative-routes",
+      "exists": true
+    }
+  ],
+  "screenshot": {
+    "path": "docs/teaching/evidence/backprop-independent-backward-390.png",
+    "sha256": "86f8445c4eea8b8d8ef6ab7d2ee0d985fafa40de04a2f63a41e78a8c89c2dcf1"
+  },
+  "sourceHashes": {
+    "src/learn/data/topics/backprop.jsx": "a2d57d9ba99bae53f6fde115b371a1550811cf4e6240f6d165dc75b12135d6bd",
+    "src/learn/components/lesson-labs/BackpropLabs.jsx": "364d5dadbdea13cba51e49859247373064ac041c540cea76fef3981c4ffc9f1e",
+    "src/learn/components/lesson-labs/BackpropFigures.jsx": "3f79b85978d7fcff2277225978d640ee2637585716ecd2a6b4c4e6eff835f3ea",
+    "src/learn/components/lesson-labs/BackpropShared.jsx": "ce529c5801ad4ded1827a2facd767f538289f6cf70ac3f9dcaf932391f508ec5",
+    "src/learn/components/lesson-labs/backprop-labs.css": "6d91f8c00fda522a12f38a6105dd76e26360d156f2d19c239ce425cc7c867b6a",
+    "src/learn/data/backprop-models.js": "9354824fbc2611e0c4de80d6d304ce10bcca526c2d7b7711d644988c78c843a0",
+    "src/learn/data/backprop-training.js": "608160464e347ec908cec37807fce8de2466beabae6ae44cfa5fd2823820252a",
+    "scripts/build-backprop-lesson.mjs": "a2331cf93a6a413c03daf8dd6f6a9f3c4be308dd720f7a2dc1170698241290a6"
+  },
+  "errors": []
+}

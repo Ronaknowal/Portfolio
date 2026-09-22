@@ -6,7 +6,7 @@ export default {
   visual: {
     type: 'Aligned overlap ribbons, paired prefix/suffix builder, KMP alignment trace, chunk delivery strip, rolling arithmetic and collision ledger, Unicode coordinate rows and Z-box reuse',
     question: 'Which evidence survives this mismatch, boundary or arithmetic compression?',
-    interaction: 'Predict fallbacks, step and reset exact comparisons, feed chunks with a deliberately faulty reset mode, and vary tiny fingerprints while inspecting actual identity.'
+    interaction: 'Inspect fallbacks, step and reset exact comparisons, feed chunks with a deliberately faulty reset mode, and vary tiny fingerprints while inspecting actual identity.'
   },
   practice: {
     task: 'Build exact detectors and prefix tables; prove overlap/stream preservation; expose collision and verification-cost mistakes; adapt to periods, Unicode and restricted alphabets.',

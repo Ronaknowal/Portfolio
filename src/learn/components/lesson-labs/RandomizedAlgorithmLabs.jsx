@@ -26,7 +26,7 @@ export function UniformChoiceLab() {
   return <section className="random-lab" data-lab="uniform-choice" aria-label="Uniform integer mapping investigation">
     <p className="lesson-eyebrow">MAP THE RAW OUTCOMES</p>
     <h3>Which output gets an extra ticket?</h3>
-    <p>Predict the counts, then change the target range. Each of the eight raw cells has probability 1/8 before rejection.</p>
+    <p>Inspect the counts, then change the target range. Each of the eight raw cells has probability 1/8 before rejection.</p>
     <div className="random-controls"><label>Number of outputs<select value={target} onChange={event => setTarget(Number(event.target.value))}>{[2, 3, 4, 5, 6, 7].map(value => <option key={value}>{value}</option>)}</select></label><label>Mapping<select aria-label="Mapping" value={reject ? 'reject' : 'modulo'} onChange={event => setReject(event.target.value === 'reject')}><option value="reject">Reject leftover raw cells</option><option value="modulo">Modulo only — inspect the bias</option></select></label><button onClick={() => {
         setTarget(3);
         setReject(true);
@@ -91,7 +91,7 @@ export function ReservoirLab() {
   }
   return <section className="random-lab" data-lab="reservoir" aria-label="Reservoir sampling investigation">
     <p className="lesson-eyebrow">A SMALL MEMORY FOR A GROWING STREAM</p><h3>Let every seen position compete for a slot</h3>
-    <p>{done ? "All six records have arrived. Reset to compare another path." : `Predict whether the next record enters. Draw j uniformly from 0 through ${state.seen}; only j less than k replaces a slot.`} Here you select a possible j to inspect the mechanism.</p>
+    <p>{done ? "All six records have arrived. Reset to compare another path." : `To explore the next update, draw j uniformly from 0 through ${state.seen}; only j less than k replaces a slot.`} Here you select a possible j to inspect the mechanism.</p>
     <div className="random-controls"><label>Reservoir size k<select value={capacity} onChange={event => {
           setCapacity(Number(event.target.value));
           reset();

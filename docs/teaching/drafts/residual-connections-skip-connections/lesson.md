@@ -1,5 +1,8 @@
 # Residual Connections & Skip Connections: Keep a Path, Learn a Correction
 
+**Explore as you read.** Edit branch weights, scalar depth/gain, normalization placement, projection entries and Euler step; inspect recorded block omissions. Show correction contributions, current output/loss, both derivative paths and shape compatibility as inputs change. Display every intermediate gain and genuine before/after ablation record. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to recognize cancellation, shape mismatch and step-size instability despite the presence of an identity path.
+
+
 Suppose a network has already formed a useful description of an image. Its next block can replace that description completely—or keep it and propose a correction.
 
 A **residual connection** implements the second choice:
@@ -42,7 +45,7 @@ Follow the two paths:
 
 The first coordinate stayed unchanged. The second moved upward by 0.5. A correction may be positive or negative; the network should be able to remove a feature as well as add one.
 
-**Visual walkthrough:** carry two labeled values along a direct lane, and send the same values through the weight matrix in another lane. Reveal the products, the correction vector, and the addition in order. Then change one weight and predict which output coordinates can change. Use the coordinate labels to explain each change.
+**Visual walkthrough:** carry two labeled values along a direct lane, and send the same values through the weight matrix in another lane. Reveal the products, the correction vector, and the addition in order. Then change one weight and inspect which output coordinates change. Use the coordinate labels to explain each change.
 
 If the desired output is \(t=[1,0]\), this correction has not finished the job. Use half the squared distance as the loss:
 
@@ -103,7 +106,7 @@ Use a scalar correction \(F(x)=ax\). The block is \(y=(1+a)x\), with derivative 
 
 At \(a=-1\), the learned branch cancels the identity exactly. At \(a=-0.5\), sensitivity contracts repeatedly despite a skip in every block. At \(a=1\), it explodes. At \(a=0\), the route is an exact identity.
 
-**Gradient investigation:** choose the correction slope and a number of blocks, then predict contraction, preservation, or growth before revealing the computed gain. Build a stack that still contains every skip but reduces the ten-block gain below 0.001. Then repair that gain by editing the correction. This is a constructive way to understand both the benefit and the limit.
+**Gradient investigation:** choose the correction slope and a number of blocks, then inspect contraction, preservation, or growth while displaying the computed gain. Build a stack that still contains every skip but reduces the ten-block gain below 0.001. Then repair that gain by editing the correction. This is a constructive way to understand both the benefit and the limit.
 
 For vector blocks \(x_{k+1}=x_k+F_k(x_k)\), the full Jacobian is the ordered product
 
@@ -256,7 +259,19 @@ These results do **not** reproduce the exact historical degradation experiment. 
 
 The program records CE and correct counts at updates 0, 1, 25, 100, and 250. It also records layer activation mean squares and gradients of the loss on a fixed 32-example training subset. Those diagnostics answer a specific local question; a larger gradient norm is not automatically more useful. Parameter-displacement records confirm that branches actually changed during fitting.
 
-**Try a controlled change:** first choose one seed and compare plain versus residual at the same depth. Then compare residual versus scaled. Identify which variables are held fixed and which change. For a new experiment, alter one branch placement or initialization, write down your prediction, and keep the resulting record separate. These are validation comparisons; this packet has no final test estimate.
+**Try a controlled change:** first choose one seed and compare plain versus residual at the same depth. Then compare residual versus scaled. Identify which variables are held fixed and which change. For a new experiment, alter one branch placement or initialization, explain the observed effect, and keep the resulting record separate. These are validation comparisons; this packet has no final test estimate.
+
+## Own the addition; reuse the layers and differentiation
+
+The scratch operation here is the routing equation, not a replacement for every linear layer. In [residual-experiments.py](residual-experiments.py), `Refinement.forward` computes a correction, checks its exact shape and returns `inputs + scale * correction`. `scale` is a buffer for a fixed choice and an `nn.Parameter` for ReZero. That distinction determines whether it is saved as model state and whether an optimizer updates it. The complete `DigitNetwork` and fitting loop are also the ordinary PyTorch route; PyTorch has no mandatory opaque “residual layer” that a researcher must import.
+
+The function `mechanisms` pairs the hand-derived input/weight derivatives with `torch.autograd.grad`, traces a zero last layer and a zero gate separately, and checks that addition itself saves no values for its derivative. Reuse the implemented [Backpropagation lesson](/learn/path/full-curriculum/backpropagation-automatic-differentiation) for the differentiation engine, and [Normalization](/learn/path/full-curriculum/batch-layer-group-rms-normalization) for the `LayerNorm` primitive. These are actual implementation owners. The prior initialization manuscript is prepared and supplies the scaling discussion; it is not evidence that its new rendered page is already finished.
+
+For a concrete code modification, replace the scalar gate with a width-sized `nn.Parameter(torch.zeros(width))` and leave the return expression unchanged. Broadcasting then applies one gate per feature. For upstream gradient g and branch output F, each new gate gradient is `g[j] * F[j]`, summed over batch rows if there are several. A scalar gate instead sums across features too. Check the changed gradient using the same input, target and weights, then perform one SGD step and confirm that both gates can move differently. The residual addition costs O(Bd) work and adds no d×d matrix; the branch usually dominates arithmetic. This changes the model class, so a trained scalar checkpoint cannot be called equivalent merely by repeating its scale across channels.
+
+<details><summary>Extension hint</summary>Use the existing `gates` fixture and retain the branch while changing only the gate's shape.</details>
+
+<details><summary>Worked extension</summary>For input [1,2], branch [0,0.7], zero gate, and half squared error to zero, the vector gate gradient is [0,1.4]. At rate0.1 it becomes [0,−0.14], whereas the scalar gate becomes −0.14 for both coordinates. The first coordinate happens to have zero correction in this fixture; edit the first branch row to make the representational difference observable. Success requires matching the separate gate gradients and subsequent outputs, not just a nonzero loss decrease.</details>
 
 ## Many routes are useful, but they are not independent models
 

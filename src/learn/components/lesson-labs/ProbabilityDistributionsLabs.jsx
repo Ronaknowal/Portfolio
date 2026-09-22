@@ -21,14 +21,14 @@ function Field({
 function Investigation({
   id,
   title,
-  prediction,
+  guidance,
   children,
   onReset
 }) {
   const heading = useId();
-  return <section className="probability-lab lesson-lab" data-investigation={id} aria-labelledby={heading}>
+  return <section data-live-exploration className="probability-lab lesson-lab" data-investigation={id} aria-labelledby={heading}>
     <p className="lesson-eyebrow">CALCULATED MODEL · EXPLORE THE ASSUMPTIONS</p><h3 id={heading}>{title}</h3>
-    <p><strong>Predict first.</strong> {prediction}</p>{children}
+    <p> {guidance}</p>{children}
     <button type="button" className="probability-reset" onClick={onReset}>Reset investigation</button>
   </section>;
 }
@@ -59,7 +59,7 @@ export function EventConditionLab() {
   const [condition, setCondition] = useState([4, 5, 6]);
   const state = eventConditionState(event, condition);
   const toggle = (values, value, setValues) => setValues(values.includes(value) ? values.filter(item => item !== value) : [...values, value]);
-  return <Investigation id="probability-events" title="Conditioning changes which outcomes remain" prediction="Keep A = even faces. If B changes from {4,5,6} to {5,6}, does P(A|B) increase or decrease?" onReset={() => {
+  return <Investigation id="probability-events" title="Conditioning changes which outcomes remain" guidance="Keep A = even faces. If B changes from {4,5,6} to {5,6}, does P(A|B) increase or decrease?" onReset={() => {
     setEvent([2, 4, 6]);
     setCondition([4, 5, 6]);
   }}>
@@ -85,7 +85,7 @@ export function BayesPopulationLab() {
   const state = bayesPopulationState(prior, sensitivity, falsePositive);
   const posterior = positive ? state.positivePosterior : state.negativePosterior;
   const labels = ['H and +', 'H and −', 'not H and +', 'not H and −'];
-  return <Investigation id="probability-bayes" title="A strong detector can flag mostly ordinary cases" prediction="The detector flags 95% of H cases. Does that mean 95% of flagged cases are H when only 1% of the population is H?" onReset={() => {
+  return <Investigation id="probability-bayes" title="A strong detector can flag mostly ordinary cases" guidance="The detector flags 95% of H cases. Does that mean 95% of flagged cases are H when only 1% of the population is H?" onReset={() => {
     setPrior(0.01);
     setSensitivity(0.95);
     setFalsePositive(0.1);
@@ -105,7 +105,7 @@ export function ReusedEvidenceLab() {
   const [pattern, setPattern] = useState(0);
   const state = pairedEvidenceState(0.01, 0.95, 0.1, copyShare);
   const selected = state.patterns[pattern];
-  return <Investigation id="probability-evidence" title="Two messages are not always two pieces of evidence" prediction="If the second flag is an exact copy of the first, should two positive messages change your belief more than one?" onReset={() => {
+  return <Investigation id="probability-evidence" title="Two messages are not always two pieces of evidence" guidance="If the second flag is an exact copy of the first, should two positive messages change your belief more than one?" onReset={() => {
     setCopyShare(0);
     setPattern(0);
   }}>
@@ -159,7 +159,7 @@ export function UrnCountLab() {
   const [replacement, setReplacement] = useState(false);
   const [threshold, setThreshold] = useState(1);
   const state = urnCountState(marked, draws, replacement, threshold);
-  return <Investigation id="probability-counts" title="The sampling rule changes the distribution" prediction="Three draws from six objects, only two marked: can the marked count be 3? Does your answer change if each object is replaced?" onReset={() => {
+  return <Investigation id="probability-counts" title="The sampling rule changes the distribution" guidance="Three draws from six objects, only two marked: can the marked count be 3? Does your answer change if each object is replaced?" onReset={() => {
     setMarked(2);
     setDraws(3);
     setReplacement(false);
@@ -234,7 +234,7 @@ export function DensityAreaLab() {
   const [right, setRight] = useState(0.75);
   const [unit, setUnit] = useState('seconds');
   const state = mixedDelayState(width, atom, left, right, unit);
-  return <Investigation id="probability-density" title="Probability is area; a point mass is a jump" prediction="A uniform delay lies between 0 and .2 seconds. Its density is 5 per second. Why is that allowed? What changes when you express the same interval in milliseconds?" onReset={() => {
+  return <Investigation id="probability-density" title="Probability is area; a point mass is a jump" guidance="A uniform delay lies between 0 and .2 seconds. Its density is 5 per second. Why is that allowed? What changes when you express the same interval in milliseconds?" onReset={() => {
     setWidth(0.2);
     setAtom(0);
     setLeft(0.25);
@@ -258,7 +258,7 @@ export function ArrivalCountWaitLab() {
   const state = arrivalWindowState(rate, window, quantile);
   const id = useId();
   const x = value => 32 + 256 * value / 2;
-  return <Investigation id="probability-arrivals" title="No arrivals and a long first wait are the same event" prediction="At two events per minute, is a 1.5-minute window guaranteed to contain three events? What does changing the rate do to the first-wait distribution?" onReset={() => {
+  return <Investigation id="probability-arrivals" title="No arrivals and a long first wait are the same event" guidance="At two events per minute, is a 1.5-minute window guaranteed to contain three events? What does changing the rate do to the first-wait distribution?" onReset={() => {
     setRate(2);
     setWindow(1.5);
     setQuantile(0.5);

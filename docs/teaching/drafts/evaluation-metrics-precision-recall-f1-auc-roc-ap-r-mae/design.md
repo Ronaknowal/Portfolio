@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Evaluation metrics — content design, evidence and handoff
 
 Topic ID: `evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae`.

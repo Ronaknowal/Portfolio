@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T15:37:53.344Z",
+  "scope": "Residual ruler affordance repair and Evaluation Metrics topic-local cleanup only",
+  "changedFiles": {
+    "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx": "b4d666361862bc12957d0ef7fec75c7b79bb1f19537716a276ed14d6cec3f6b8",
+    "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx": "31e55e965ad7cdf960222c9db406ba0505c8f37dd6112564c7da6e766787a180",
+    "src/learn/components/lesson-labs/evaluation-metrics.css": "6aa6b119a81c306c0351789beeb7a773f848199ea92c8d46b9ccf97a57763563",
+    "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/live-exploration.md": "5e724d3809da097b1a6245487f0cae6efea39f453b433bd6b1fc15314239beed",
+    "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/visual-specifications.md": "3c3feece87b07ab360e460578f57c4f8e6f8b3768101296b0f8e98e9ce79aa28",
+    "scripts/verify-residual-ruler-controls.cjs": "681234a8672dc00c896d867b584f29e925694fd3fd638e7a74ab9c17227088f8"
+  },
+  "unchangedNumericalModel": {
+    "path": "src/learn/data/evaluation-metrics-models.js",
+    "sha256": "97549ac98d40ddf268973a1b0f77324ea2b3e5df995d9f8209e4a89db5b464d8",
+    "reusedEvidence": "docs/teaching/evidence/evaluation-metrics-models.json"
+  },
+  "checks": [
+    "Both changed JSX files parse",
+    "Original A/B residual errors conserved",
+    "A/T5 forecast4→8 yields SSE4, MAE0.4, R²0.92; B and observed rows unchanged",
+    "Seconds scale absolute errors by60 and squared errors by3600; R² unchanged",
+    "Matching observations yields RMSE0/R²1; constant targets preserve undefined R²",
+    "Numerical model hash matches previous independent numerical evidence"
+  ],
+  "runtimeBrowserReceipt": "docs/teaching/evidence/residual-ruler-controls-browser.json",
+  "limitations": "Author checks are not a new all-topic numerical or native-data audit. Pointer/touch/keyboard and rendered geometry are covered by the separately source-bound browser receipt."
+}

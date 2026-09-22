@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Bayesian Networks & Causal Graphical Models — research/write handoff
 
 Stable ID: bayesian-networks-causal-graphical-models. Classical ML position28 (batch10). Content-first,12September2026. Root owns this packet; ownership transferred before authoring. Next action is authorized phase-two implementation/review from the content checkpoint, not publication now.

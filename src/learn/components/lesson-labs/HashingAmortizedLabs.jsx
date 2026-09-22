@@ -76,7 +76,7 @@ export function ProbeChainLab() {
   }
   return <section className="hash-lab" data-lab="probe-chain" aria-label="Hash probe and deletion investigation">
     <h3>Follow the evidence that lookup is allowed to stop</h3>
-    <p>Predict where key 17 will be found after deleting key 1. Each step exposes a probe or commits an operation. Integer keys/values are limited to −999…999 and the script to 24 lines; an empty script is valid.</p>
+    <p>Inspect where key 17 will be found after deleting key 1. Each step exposes a probe or commits an operation. Integer keys/values are limited to −999…999 and the script to 24 lines; an empty script is valid.</p>
     <form onSubmit={apply} className="hash-script-form">
       <label>Operation script<textarea aria-label="Operation script" rows={8} value={draft} onChange={event => setDraft(event.target.value)} spellCheck={false} /></label>
       <div className="hash-controls"><label>Initial capacity<select aria-label="Initial capacity" value={capacity} onChange={event => {
@@ -217,7 +217,7 @@ export function DenseSetLab() {
   const state = states[position];
   return <section className="hash-lab" data-lab="dense-set" aria-label="Dense set and reverse index investigation">
     <h3>Delete one value without shifting the suffix</h3>
-    <p>Predict which reverse-index entry must change. The two representations must agree at operation boundaries. During the displayed write sequence a temporary duplicate can exist; this is not a concurrent atomic operation.</p>
+    <p>Inspect which reverse-index entry must change. The two representations must agree at operation boundaries. During the displayed write sequence a temporary duplicate can exist; this is not a concurrent atomic operation.</p>
     <div className="hash-controls"><label>Value to remove<select aria-label="Value to remove" value={removed} onChange={event => {
           setRemoved(Number(event.target.value));
           setPosition(0);

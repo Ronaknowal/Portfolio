@@ -1,0 +1,3 @@
+{
+  "string_search_library.py": "'AAAAA' 'AAA' [0, 1, 2]\n'mississippi' 'issi' [1, 4]\n'a\\U0001f642a\\U0001f642a' 'a\\U0001f642a' [0, 2]\n'abc' '' [0, 1, 2, 3]\n'' 'x' []\nraw / NFC lengths: 4 3\nNFC offsets: [0, 2]\nstreamed offsets: [0, 2, 4]"
+}

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T00:01:29.447Z",
+  "base": "http://127.0.0.1:4195",
+  "checks": [
+    "Document and intermediate-grid containment passed at1366/390/320px with actual maps and both canonical sources open",
+    "320px composition inspected; stages wrap with all9intermediate choices visible",
+    "Author source/model7groups passed; native measurements unchanged"
+  ],
+  "sources": {
+    "src/learn/components/lesson-labs/landmark-architectures.css": "dd9c6afc446e87e8520f8d4121eda867714bcf9f0269ed26b0f5de3753506674"
+  },
+  "limits": "Targeted development-route repair check, not final production integration."
+}

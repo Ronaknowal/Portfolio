@@ -4,7 +4,7 @@ import './gradient-boosted-trees-labs.css';
 const gold = '#f0bd58';
 const green = '#80d6b2';
 const blue = '#8bbce8';
-const rose = '#ed9aab';
+
 const format = value => Math.abs(value) < 1e-12 ? '0' : Number(value.toFixed(5)).toString();
 function Lab({
   title,
@@ -12,7 +12,7 @@ function Lab({
   children
 }) {
   const id = useId();
-  return <section className="gbt-lab" data-gbt-lab={name} aria-labelledby={id}>
+  return <section className="gbt-lab" data-gbt-lab={name} aria-labelledby={id} data-live-exploration>
     <h3 id={id}>{title}</h3>{children}
   </section>;
 }

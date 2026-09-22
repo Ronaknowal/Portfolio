@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-  Dag, Distribution, Investigation, MixtureLane, NumberField, Prediction, Select, StateChoice, Table,
+  Dag, Distribution, Investigation, MixtureLane, NumberField, LiveResult, Select, StateChoice, Table,
   fixed, ratio, round, useInvestigation,
 } from './BayesNetShared.jsx';
 import {
@@ -9,38 +9,9 @@ import {
 } from '../../data/bayesnet-models.js';
 import { protocol, trainingModels, validationSpecimens } from '../../data/bayesnet-data.js';
 
-/** The four investigations for the Bayesian-networks lesson.
- *
- * Every one of them keeps the same contract: a prediction is recorded before
- * anything is revealed, the grader runs on the committed draft rather than on
- * live state, at least one control changes something the prose has not already
- * resolved, and every relevant edit retires the verdict.
- *
- * One rule matters more here than in most lessons. A d-separation question has
- * an exact answer, so a grader that disagrees with the drawing marks correct
- * reasoning wrong. Both come from the single `dSeparation` call below; the
- * highlighted path list and the graded verdict are two views of one returned
- * object and cannot drift apart.
- */
 
-/* Every graded comparison below calls `changeDirection` or `purchaseComparison`
-   from the model module. Both are exercised at their degenerate inputs by
-   scripts/verify-bayesnet-models.mjs; a rule that only existed in this file
-   would be a rule nothing could assert.
 
-   THE GRADED QUANTITY IS NOT ON SCREEN BEFORE THE PREDICTION IS RECORDED.
 
-   Every readout computed from the *draft* -- the state the learner is about to
-   be graded on -- lives inside a `bn-graded` element that is rendered only once
-   `state.result` exists. What stays visible is the *baseline*: the state the
-   prediction is being made against, which a learner needs in order to answer
-   "higher, lower or unchanged" at all. The two are different states the moment
-   an edit is made, and an edit is required before Apply.
-
-   This is not three local fixes. `bn-graded` is the marker the browser review
-   counts: it asserts zero such elements in every investigation before
-   commitment and at least one afterwards, so a new readout added without the
-   gate fails the check rather than quietly restoring the leak. */
 
 /* ============================================ I1 · evidence and explanations */
 
@@ -72,9 +43,7 @@ export function EvidenceLab() {
   const state = useInvestigation(evidenceInitial);
   const { draft, active } = state;
   const shown = queryPosterior(networkOf(draft), evidenceOf(draft));
-  /* The state the prediction is measured against. Before a commitment that is
-     whatever is currently applied; after one it is the state the commit
-     replaced, which is what the verdict compared the draft with. */
+  
   const baseline = state.result ? state.previous : active;
   const applied = queryPosterior(networkOf(baseline), evidenceOf(baseline));
   const suggestions = [
@@ -95,7 +64,7 @@ export function EvidenceLab() {
   return <Investigation
     title="Investigation 1 — which clue changes the explanation?"
     question={'Some evidence moves the burglary posterior a long way. Some moves it not at all, and one setting '
-      + 'leaves it with no value. Decide which before you look.'}
+      + 'leaves it with no value. Change the controls to inspect the difference.'}
     role={{
       kind: 'constructed',
       text: 'Every probability here is an invented teaching quantity. None of it is measured crime or engineering data.',
@@ -145,37 +114,20 @@ export function EvidenceLab() {
       <button type="button" onClick={() => state.suggest(evidenceInitial)}>Back to both calls</button>
     </div>
     <p className="bn-caption">
-      A suggested setup fills the controls. It never applies the calculation and never records a prediction for you.
-      You are predicting against evidence {Object.entries(evidenceOf(baseline)).map(([node, value]) => `${node}=${value}`).join(', ') || 'none'},
+      A suggested setup fills the controls. It updates the calculation directly.
+      The comparison baseline is evidence {Object.entries(evidenceOf(baseline)).map(([node, value]) => `${node}=${value}`).join(', ') || 'none'},
       with P(J = 1 | A = 0) = {round(baseline.johnWhenQuiet, 4)}.
     </p>
 
-    <Prediction
+    <LiveResult
       state={state}
-      prompt={'Against the state currently applied, will the burglary posterior rise, fall, remain within 10⁻¹², '
-        + 'be undefined, or become defined after an impossible baseline?'}
-      options={[
-        ['higher', 'higher than the applied state'],
-        ['lower', 'lower than the applied state'],
-        ['unchanged', 'unchanged within 10⁻¹²'],
-        ['undefined', 'no posterior at all, because the evidence would be impossible'],
-        ['defined', 'a defined posterior now, but none in the applied state'],
-      ]}
-      numeric={{
-        /* Relative, not absolute. A flat .005 told a learner who typed 0
-           against the .001 prior that they were "within .005", in the one lab
-           whose whole point is that zero and undefined are different answers. */
-        label: 'Optional: the posterior you expect', name: 'the posterior',
-        tolerance: 0.005, relative: true, digits: 6,
-        undefinedNote: 'the evidence you selected has probability zero under these tables',
-      }}
-      requireChange={(next, current) => JSON.stringify(next) !== JSON.stringify(current)}
-      pendingHint={'This question compares the new state with the applied one, so something has to differ. Change a '
-        + 'state or a table entry, or load one of the setups above.'}
-      committed={() => `evidence ${Object.entries(evidenceOf(state.active)).map(([node, value]) => `${node}=${value}`).join(', ') || 'none'}, `
-        + `burglary prior ${round(state.active.burglaryPrior, 4)}, `
-        + `John's rows ${round(state.active.johnWhenQuiet, 4)} and ${round(state.active.johnWhenAlarm, 4)}`}
-      answerFor={(next, current) => {
+      
+      
+      
+      
+      
+      
+      calculateInputs={(next, current) => {
         const after = queryPosterior(networkOf(next), evidenceOf(next));
         const before = queryPosterior(networkOf(current), evidenceOf(current));
         const outcome = changeDirection(after.posterior, before.posterior);
@@ -207,13 +159,13 @@ export function EvidenceLab() {
         <p className="bn-caption">
           Posterior for the state in the fields: {ratio(shown.posterior,
             'the selected evidence has probability zero under these tables')}.
-          {' '}The state you predicted against gave {ratio(applied.posterior,
+          {' '}The saved comparison state gave {ratio(applied.posterior,
             'that evidence has probability zero')}.
         </p>
       </div>
       : <p className="bn-note">
         The masses and the posterior for the values now in the fields are the answer to the question below, so
-        they appear once you have recorded a prediction. The state you are predicting against
+        they appear as you change the controls. The state used as the comparison baseline
         gave {ratio(applied.posterior, 'that evidence has probability zero')} over
         {' '}{applied.compatibleWorlds} compatible worlds — that is the number to compare with.
       </p>}
@@ -229,15 +181,7 @@ const pathInitial = {
 
 const NODE_POOL = ['B', 'E', 'A', 'J', 'M', 'K', 'R', 'T'];
 
-/**
- * The paths, and -- only after a prediction is recorded -- their verdicts.
- *
- * Before commitment this lists the anatomy a learner needs in order to apply
- * the rule themselves: which paths exist, which interior nodes are colliders,
- * which are observed, and which have observed descendants. It does not say
- * whether any path is blocked, because that is the question being asked
- * directly underneath.
- */
+
 function PathList({ report, revealed }) {
   if (!report.paths.length) {
     return <p className="bn-caption">No path at all joins {report.start} and {report.end} in this graph.</p>;
@@ -270,9 +214,7 @@ export function PathLab() {
   const [edgeError, setEdgeError] = useState(null);
 
   const nodes = graphNodes(draft.edges);
-  /* The verdict is the graded quantity here, so nothing that states it --
-     the per-path labels, the trail's blocked styling, the drawing's own text
-     alternative -- may render until a prediction has been committed. */
+  
   const revealed = Boolean(state.result);
   let report = null;
   let setupError = null;
@@ -306,7 +248,7 @@ export function PathLab() {
   return <Investigation
     title="Investigation 2 — open every route, or block them all"
     question={'Does this observation set guarantee independence between the two endpoints, or does it leave '
-      + 'dependence possible? Build the graph you want to test, then commit an answer.'}
+      + 'dependence possible? Build the graph you want to test and inspect the active paths immediately.'}
     role={{
       text: 'This is a structural question about the drawing. It is not a claim about any dataset, and an active '
         + 'path never proves that two variables actually are correlated.',
@@ -370,7 +312,7 @@ export function PathLab() {
         highlight={highlighted ? highlighted.path : null}
         highlightBlocked={revealed && highlighted ? highlighted.blocked : false}
         describe={`A graph on ${nodes.join(', ')}.`
-          + (revealed ? ` ${report.summary}` : ' The verdict appears once a prediction is recorded.')}
+          + (revealed ? ` ${report.summary}` : ' The graph conclusion updates as the inputs change.')}
         verdict={revealed && highlighted
           ? `The thick trail follows ${highlighted.path.join('–')}, which is ${highlighted.blocked ? 'blocked' : 'active'}.`
           : null}
@@ -380,18 +322,12 @@ export function PathLab() {
       </div>
     </div>}
 
-    {report && <Prediction
+    {report && <LiveResult
       state={state}
-      prompt={`Before revealing the verdict: with ${draft.observed.length ? `${[...draft.observed].sort().join(', ')} observed` : 'nothing observed'}, does this graph guarantee that ${draft.start} and ${draft.end} are independent?`}
-      options={[
-        ['guaranteed-independent', 'the graph guarantees independence — every path is blocked'],
-        ['dependence-possible', 'the graph leaves dependence possible — at least one path stays active'],
-      ]}
-      sameQuestion={(left, right) => {
-        const parse = key => { const value = JSON.parse(key); return `${value.start}|${value.end}`; };
-        return parse(left) === parse(right);
-      }}
-      answerFor={next => {
+      
+      
+      
+      calculateInputs={next => {
         const verdict = dSeparation(next.edges, next.start, next.end, next.observed);
         return {
           outcome: verdict.verdict, value: verdict.active.length,
@@ -401,7 +337,7 @@ export function PathLab() {
       }} />}
 
     <p className="bn-caption">
-      The path list above and the verdict you are graded against are the same calculation: the drawing highlights
+      The path list above and the conclusion shown below are the same calculation: the drawing highlights
       whatever that calculation returns. A separation result is a statement about this drawing only. Setting every
       alarm row to the same number, for instance, makes the alarm independent of its parents in that particular
       distribution while the graph still shows an active conditioned collider — an extra independence, and the
@@ -441,10 +377,7 @@ export function MeasurementLab() {
   const values = valuesOf(draft);
   const edited = draft.values !== null
     && draft.values.some((value, index) => value !== specimen.features[index]);
-  /* For the purchase question the current distribution is the starting point,
-     not the answer, so it stays visible. For the edit question the answer IS
-     whether this distribution moved, so before a commitment the baseline is
-     shown instead of the draft. */
+  
   const editing = draft.question === 'edit' && !state.result;
   const shownFor = editing ? state.active : draft;
   const current = posteriorFor(shownFor, visibleList(shownFor.visible));
@@ -455,7 +388,7 @@ export function MeasurementLab() {
   return <Investigation
     title="Investigation 3 — purchase a measurement"
     question={'Nothing is visible yet. Which single measurement would tell you more about this specimen’s '
-      + 'cultivar? Commit an answer, then reveal both and compare.'}
+      + 'cultivar? Purchase one, inspect its effect, then compare the alternative.'}
     role={{
       kind: 'exploratory',
       text: 'These are real Wine specimens read by the training-set tree-augmented model, which is deliberately '
@@ -468,7 +401,7 @@ export function MeasurementLab() {
       <Select label="Validation specimen" value={String(draft.specimenId)}
         options={validationSpecimens.map(row => [String(row.id), `specimen ${row.id}`])}
         onChange={value => { setRevealed(false); state.edit({ specimenId: Number(value), values: null }); }} />
-      <Select label="Question to commit on" value={draft.question}
+      <Select label="Comparison to inspect" value={draft.question}
         options={[
           ['purchase', 'which reveal leaves less uncertainty?'],
           ['edit', 'does this edited value move the answer?'],
@@ -530,7 +463,7 @@ export function MeasurementLab() {
     </div>
 
     <Distribution caption={editing
-      ? 'Cultivar probabilities for the state you are predicting against'
+      ? 'Cultivar probabilities for the state used as the comparison baseline'
       : 'Cultivar probabilities for the measurements currently revealed'}
       className={draft.question === 'edit' && state.result ? 'bn-graded' : undefined}
       labels={labels} values={current.posterior} highlight={current.leading}
@@ -564,19 +497,12 @@ export function MeasurementLab() {
       or switch to the edit question.
     </p>}
 
-    {draft.question === 'purchase' && hiddenCandidates.length >= 2 && <Prediction
+    {draft.question === 'purchase' && hiddenCandidates.length >= 2 && <LiveResult
       state={state}
-      prompt={`Reveal ${protocol.featureLabels[draft.candidates[0]]} or ${protocol.featureLabels[draft.candidates[1]]}, one or the other. Which leaves less uncertainty about the cultivar?`}
-      options={[
-        ['first', `${protocol.featureLabels[draft.candidates[0]]} leaves less uncertainty`],
-        ['second', `${protocol.featureLabels[draft.candidates[1]]} leaves less uncertainty`],
-        ['equal', 'their uncertainties agree within 10⁻¹² nats'],
-      ]}
-      sameQuestion={(left, right) => {
-        const parse = key => { const value = JSON.parse(key); return `${value.question}|${value.candidates.join(',')}`; };
-        return parse(left) === parse(right);
-      }}
-      answerFor={next => {
+      
+      
+      
+      calculateInputs={next => {
         const model = trainingModels.treeAugmented;
         const bits = valuesOf(next).map((value, index) => (value > model.medians[index] ? 1 : 0));
         const comparison = purchaseComparison(model, bits, visibleList(next.visible), next.candidates);
@@ -591,18 +517,14 @@ export function MeasurementLab() {
         };
       }} />}
 
-    {draft.question === 'edit' && <Prediction
+    {draft.question === 'edit' && <LiveResult
       state={state}
-      prompt={'Against the state currently applied, does the probability of cultivar 2 rise, fall, or stay within 10⁻¹²? The full distribution is shown alongside it.'}
-      options={[
-        ['higher', 'yes — the probability of cultivar 2 rises'],
-        ['lower', 'yes — the probability of cultivar 2 falls'],
-        ['unchanged', 'cultivar 2 is unchanged within 10⁻¹²'],
-      ]}
-      sameQuestion={(left, right) => JSON.parse(left).question === JSON.parse(right).question}
-      requireChange={(next, currentState) => JSON.stringify(next) !== JSON.stringify(currentState)}
-      pendingHint={'Edit a measurement value, or reveal or hide one, before applying: this question compares two states.'}
-      answerFor={(next, currentState) => {
+      
+      
+      
+      
+      
+      calculateInputs={(next, currentState) => {
         const after = posteriorFor(next, visibleList(next.visible));
         const before = posteriorFor(currentState, visibleList(currentState.visible));
         const outcome = changeDirection(after.posterior[2], before.posterior[2]);
@@ -659,7 +581,7 @@ export function InterventionLab() {
   return <Investigation
     title="Investigation 4 — change who receives the procedure"
     question={'Changing the assignment mechanism changes who is in each observed group. Does it also change the '
-      + 'effect of the procedure? Commit an answer for each of the two quantities separately.'}
+      + 'effect of the procedure? Change the mechanism and compare the two quantities separately.'}
     role={{
       kind: 'constructed',
       text: 'A fully specified constructed model. The procedure is deliberately harmful; a name like “service” or '
@@ -715,9 +637,8 @@ export function InterventionLab() {
           ? (lane.risk === null
             ? 'No unit in this population is in that group, so the observed risk has an empty denominator.'
             : `Low load then high load, weighted failure risk ${round(lane.risk, 6)}.`)
-          : 'Low load then high load. The weighted risk is part of the answer below, so it appears once a '
-            + 'prediction is recorded.'}
-        describe={`A horizontal bar split into a low-load part and a high-load part.${revealed ? ` Weighted risk: ${lane.risk === null ? 'undefined' : round(lane.risk, 6)}.` : ' Record a prediction to reveal the weighted risk.'}`} />)}
+          : 'Low load then high load; the weighted risk updates with the inputs.'}
+        describe={`A horizontal bar split into a low-load part and a high-load part.${revealed ? ` Weighted risk: ${lane.risk === null ? 'undefined' : round(lane.risk, 6)}.` : ' The weighted risk updates with the current inputs.'}`} />)}
     </div>
 
     {revealed ? <div className="bn-graded">
@@ -741,30 +662,24 @@ export function InterventionLab() {
       footnote={result.positivityNote} />
     </div> : <p className="bn-note">
       The two comparisons for the values now in the fields are the answer to the question below, so they appear
-      once you have recorded a prediction. {result.positivityNote}
+      as you change the controls. {result.positivityNote}
     </p>}
 
     <div className="bn-controls">
-      <Select label="Which quantity you are committing on" value={draft.target}
+      <Select label="Quantity to inspect" value={draft.target}
         options={[['association', 'the observed difference between groups'], ['causal', 'the causal difference under intervention']]}
         onChange={value => state.edit({ target: value })}
-        hint="Switching this retires the prediction, and two verdicts about different quantities are never put side by side." />
+        hint="Switching this changes the inspected quantity and recomputes its comparison." />
     </div>
 
-    <Prediction
+    <LiveResult
       state={state}
-      prompt={`Against the state currently applied, will the ${draft.target === 'association' ? 'observed difference between the two groups' : 'causal difference under intervention'} rise, fall, stay within 10⁻¹², be undefined, or become defined?`}
-      options={[
-        ['higher', 'it rises'],
-        ['lower', 'it falls'],
-        ['unchanged', 'it is unchanged within 10⁻¹²'],
-        ['undefined', 'it has no value, because a group is empty'],
-        ['defined', 'it is defined now; the applied comparison was undefined'],
-      ]}
-      requireChange={(next, currentState) => JSON.stringify({ ...next, target: null }) !== JSON.stringify({ ...currentState, target: null })}
-      pendingHint="Change an assignment probability or a failure-table entry before applying."
-      sameQuestion={(left, right) => JSON.parse(left).target === JSON.parse(right).target}
-      answerFor={(next, currentState) => {
+      
+      
+      
+      
+      
+      calculateInputs={(next, currentState) => {
         const after = serviceOf(next);
         const before = serviceOf(currentState);
         const key = next.target === 'association' ? 'associationDifference' : 'causalDifference';
@@ -780,7 +695,7 @@ export function InterventionLab() {
       }} />
 
     <p className="bn-caption">
-      You are predicting against observed
+      The comparison baseline is observed
       difference {ratio(appliedResult.associationDifference, 'a treatment group is empty')} and causal
       difference {round(appliedResult.causalDifference, 6)}.
       {' '}Set both assignment probabilities to 0 and the observed difference has no value at all, because nobody

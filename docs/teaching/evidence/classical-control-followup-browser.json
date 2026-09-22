@@ -1,0 +1,165 @@
+{
+  "checkedAt": "2026-09-21T16:26:38.323Z",
+  "base": "http://127.0.0.1:4194",
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/GaussianProcessLabs.jsx": "99ea679e91a491b98fefa57598f958b9ce61919be796ed98dd3b5b18dc14cf65",
+    "src/learn/components/lesson-labs/gaussian-process.css": "8e5287ffe113c0b6ef3fa95ce58f8ffe85ea67249661eefb511c6769bb702847",
+    "src/learn/data/k-means-hierarchical-models.js": "6b0c60ff50e984c7dceb06bb3d717ef9e5e100705c177e8cd881550b7122ebd6",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "9d1b4ab022b26be270ad85a57b392373881b445901988c40ba5a0ea01218bfce",
+    "scripts/verify-classical-control-followup-browser.cjs": "7ee095fd249a0838f01bc7951e1f0fc8ae7f69b41a2d604bbe60402bb93d7695"
+  },
+  "manifestHash": "5d2cedc67cd081e181fa01bf92fc2c078407e206d1e904afe0ebf8677b3fc460",
+  "groups": [
+    {
+      "name": "All 21 typed fields have individual accessible labels and exact initial slider values",
+      "fields": [
+        {
+          "label": "Covariance ρ",
+          "number": "0.5",
+          "range": "0.5"
+        },
+        {
+          "label": "Observed value",
+          "number": "2",
+          "range": "2"
+        },
+        {
+          "label": "Noise variance",
+          "number": "0.25",
+          "range": "0.25"
+        },
+        {
+          "label": "Reading 1 position",
+          "number": "0",
+          "range": "0"
+        },
+        {
+          "label": "Reading 1 value",
+          "number": "1",
+          "range": "1"
+        },
+        {
+          "label": "Reading 2 position",
+          "number": "2",
+          "range": "2"
+        },
+        {
+          "label": "Reading 2 value",
+          "number": "-1",
+          "range": "-1"
+        },
+        {
+          "label": "Target position",
+          "number": "1",
+          "range": "1"
+        },
+        {
+          "label": "RBF length",
+          "number": "1",
+          "range": "1"
+        },
+        {
+          "label": "Reading noise variance",
+          "number": "0.25",
+          "range": "0.25"
+        },
+        {
+          "label": "Reading 1 position",
+          "number": "0",
+          "range": "0"
+        },
+        {
+          "label": "Reading 1 value",
+          "number": "1",
+          "range": "1"
+        },
+        {
+          "label": "Reading 2 position",
+          "number": "2",
+          "range": "2"
+        },
+        {
+          "label": "Reading 2 value",
+          "number": "-1",
+          "range": "-1"
+        },
+        {
+          "label": "Target to clarify",
+          "number": "1",
+          "range": "1"
+        },
+        {
+          "label": "Probe RBF length",
+          "number": "1",
+          "range": "1"
+        },
+        {
+          "label": "Existing reading noise variance",
+          "number": "0.25",
+          "range": "0.25"
+        },
+        {
+          "label": "Candidate 1 position",
+          "number": "1",
+          "range": "1"
+        },
+        {
+          "label": "Candidate 1 noise variance",
+          "number": "0.25",
+          "range": "0.25"
+        },
+        {
+          "label": "Candidate 2 position",
+          "number": "4",
+          "range": "4"
+        },
+        {
+          "label": "Candidate 2 noise variance",
+          "number": "0.25",
+          "range": "0.25"
+        }
+      ]
+    },
+    {
+      "name": "Typed, keyboard and pointer edits share one model state and update the independent conditional-mean formula"
+    },
+    {
+      "name": "Invalid typed input is explained, slider edits recover, reset restores the original conditional mean"
+    },
+    {
+      "name": "GP controls fit 390px viewport without page overflow"
+    },
+    {
+      "name": "GP controls fit 320px viewport without page overflow"
+    },
+    {
+      "name": "K-Means nonpreset weights, both units, slider endpoints and reset match independent rectangle optima without a render error"
+    },
+    {
+      "name": "K-Means slider touch and output at 390px"
+    },
+    {
+      "name": "K-Means slider touch and output at 320px"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/classical-controls-gp-390.png",
+      "sha256": "aa1fee7fe882c18575392021be53c2fad2541bf2d9e9ad3f7acf9d6ee3e28559"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/classical-controls-gp-320.png",
+      "sha256": "a1390d7716ae65fda04775e43e9e8e7b52b966fbe751f83acd1459476a02e6de"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/classical-controls-kmeans-390.png",
+      "sha256": "b34543806ac79bb6d830c441b4d5f2222242ca02e0decde64d4d22c8bb333ba7"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/classical-controls-kmeans-320.png",
+      "sha256": "a839412cdd1387a11614559abc11501ca6641c1c0381a3627a06d68bfd5dd0c4"
+    }
+  ],
+  "errors": []
+}

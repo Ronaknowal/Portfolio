@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "exact encoding",
+    "variable-candidate masking",
+    "analytic CE gradient",
+    "one model parameter update",
+    "reliability accounting",
+    "review cost/tie/null risk"
+  ]
+}

@@ -28,7 +28,7 @@ export function PythonReferencesLab() {
   const objects = [...new Set(Object.values(state.names))];
   const yOf = id => objects.length === 1 ? 90 : 40 + objects.indexOf(id) * 108;
   return <section className="lesson-lab pyf-lab" data-pyf-lab="references" aria-label="Names and objects explorer">
-    <Intro eyebrow="INVESTIGATION · SHARED STATE" title="Which list actually changes?">Predict before stepping: after the final instruction, will <code>readings</code> contain 24? What about <code>backup</code>? Test assignment first, then change only how the backup is made.</Intro>
+    <Intro eyebrow="INVESTIGATION · SHARED STATE" title="Which list actually changes?">Follow each instruction and inspect whether <code>readings</code> contain 24? What about <code>backup</code>? Test assignment first, then change only how the backup is made.</Intro>
     <div className="pyf-options"><label>Make the backup<select value={copy ? "copy" : "alias"} onChange={e => { setCopy(e.target.value === "copy"); setStep(0); }}><option value="alias">Assign the same list</option><option value="copy">Make a shallow copy</option></select></label><label>Then change backup<select value={action} onChange={e => { setAction(e.target.value); setStep(0); }}><option value="append">Append 24 to its list</option><option value="rebind">Reassign it to [0]</option></select></label></div>
     <CodeTrace code={code} line={state.line} />
     <div className="pyf-object-map">
@@ -51,7 +51,7 @@ export function PythonFlowLab() {
   const [threshold, setThreshold] = useState(20), [step, setStep] = useState(0);
   const { code, states } = selectionTrace(threshold), state = states[step];
   return <section className="lesson-lab pyf-lab" data-pyf-lab="flow" aria-label="Branch and loop explorer">
-    <Intro eyebrow="INVESTIGATION · CONTROL FLOW" title="Follow one reading through the gates">Predict which values reach <code>selected</code>. Then follow the cursor through one present value, the missing value and zero. Which instruction sends control back to the loop?</Intro>
+    <Intro eyebrow="INVESTIGATION · CONTROL FLOW" title="Follow one reading through the gates">Inspect which values reach <code>selected</code>. Then follow the cursor through one present value, the missing value and zero. Which instruction sends control back to the loop?</Intro>
     <div className="pyf-options"><label>Keep readings at or above<select value={threshold} onChange={e => { setThreshold(Number(e.target.value)); setStep(0); }}><option value="0">0 °C</option><option value="20">20 °C</option><option value="30">30 °C</option></select></label></div>
     <div className="pyf-input-strip" aria-label="Original input, unchanged">
       {loopReadings.map((v, i) => <div key={i} className={`${i === state.index ? "is-current" : ""} ${state.decisions[i] || ""}`}><small>index {i}</small><strong>{py(v)}</strong><span>{i === state.index ? "← current" : state.decisions[i] || "waiting"}</span></div>)}
@@ -65,7 +65,7 @@ export function PythonFlowLab() {
     <CodeTrace code={code} line={state.line} />
     <Steps step={step} setStep={setStep} length={states.length} />
     <p className="pyf-feedback" role="status">{state.explanation}</p>
-    <p className="pyf-transfer"><strong>Transfer:</strong> set the threshold to 0. Predict whether zero survives and explain why <code>if not value</code> would be the wrong missing-value test.</p>
+    <p className="pyf-transfer"><strong>Transfer:</strong> set the threshold to 0. Compare whether zero survives and explain why <code>if not value</code> would be the wrong missing-value test.</p>
     <p className="pyf-boundary">Manual trace of the displayed loop, using five fixed readings. Colors are backed by labels; the input is never mutated. This models control flow, not the speed of Python.</p>
   </section>;
 }
@@ -75,7 +75,7 @@ export function PythonCallLab() {
   const { code, states } = functionTrace(celsius, mode), state = states[step];
   const assigned = Object.hasOwn(state, "result");
   return <section className="lesson-lab pyf-lab" data-pyf-lab="calls" aria-label="Function call and return explorer">
-    <Intro eyebrow="INVESTIGATION · TWO DIFFERENT DESTINATIONS" title="A returned value is not a printed message">Predict two things separately: what will <code>result</code> hold, and what will the console show? Step once through “Return the number”, then switch the function to “Print the number”.</Intro>
+    <Intro eyebrow="INVESTIGATION · TWO DIFFERENT DESTINATIONS" title="A returned value is not a printed message">Track two destinations separately: what does <code>result</code> hold, and what does the console show? Step once through “Return the number”, then switch the function to “Print the number”.</Intro>
     <div className="pyf-options"><label>Input temperature<select value={celsius} onChange={e => { setCelsius(Number(e.target.value)); setStep(0); }}><option value="0">0 °C</option><option value="20">20 °C</option><option value="100">100 °C</option></select></label><label>Function's last instruction<select value={mode} onChange={e => { setMode(e.target.value); setStep(0); }}><option value="return">Return the number</option><option value="print">Print the number</option></select></label></div>
     <CodeTrace code={code} line={state.line} />
     <div className="pyf-call-map">
@@ -86,7 +86,7 @@ export function PythonCallLab() {
     <div className="pyf-output"><span>CONSOLE · TEXT OUTPUT ONLY</span><pre>{state.output.length ? state.output.map(v => v === null ? "None" : `${v}.0`).join("\n") : "(nothing printed yet)"}</pre></div>
     <Steps step={step} setStep={setStep} length={states.length} />
     <p className="pyf-feedback" role="status">{state.explanation}</p>
-    <p className="pyf-transfer"><strong>Transfer:</strong> choose 100 °C. After the call, could the caller calculate <code>result + 1</code>? Explain the answer for both modes before revealing the last state.</p>
+    <p className="pyf-transfer"><strong>Transfer:</strong> choose 100 °C. After the call, could the caller calculate <code>result + 1</code>? Compare the return value and console for both modes.</p>
     <p className="pyf-boundary">The conversion is °F = °C × 9/5 + 32. This fixed model represents one ordinary call, local names, its return and printed output. It does not simulate recursive calls, exceptions or interpreter memory layout.</p>
   </section>;
 }

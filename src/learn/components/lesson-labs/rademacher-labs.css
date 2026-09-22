@@ -1,0 +1,254 @@
+/* Rademacher-complexity lesson: investigations, figures and their tables.
+   Calm dark ground with the site's gold accent. Every encoding that carries
+   meaning also carries a shape, a printed sign or a value, so nothing here
+   depends on colour alone.
+
+   Three rules below are deliberate and have each been shipped wrong before.
+
+   1. Every rule here targets `svg.rad-drawing` — never a bare descendant
+      `svg`. A bare `.rad-lesson svg { height: auto }` also matches KaTeX's own
+      inline SVGs, which take `height: inherit`, and it collapsed all 24 radical
+      signs on this page to under a pixel: `sqrt(ln(2K/delta)/(2n))` rendered as
+      `ln(2K/delta)/(2n)`, the radius squared rather than the radius. Nine
+      stretchy accents collapsed with them, which on this topic turns an
+      empirical complexity into the population one it exists to be distinguished
+      from. That is wrong mathematics, not a blemish.
+
+      The class is applied by the shared `Drawing` component so a new figure
+      cannot forget it, and the selector is still rooted at the LESSON ROOT
+      rather than a figure class: a figure-class selector misses drawings inside
+      investigation wrappers, which then render at the browser default 16px
+      inside a ~320-unit viewBox. The text rule uses font LONGHANDS, because the
+      `font` shorthand silently resets every font-size set on a descendant.
+   2. No blanket `fill` is set on shapes. A CSS `fill` rule beats a `fill="none"`
+      presentation attribute, which is how an outline circle once vanished while
+      every assertion passed. Each shape class states its own fill, and
+      outline-only shapes state `fill: none` in CSS rather than relying on the
+      attribute.
+   3. Table captions are sibling paragraphs, never `<caption>` elements. Below
+      the narrow breakpoint the table blockifies and a caption inside it
+      collapses to the width of its longest word. */
+
+.rad-lesson svg.rad-drawing {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+.rad-lesson svg.rad-drawing text {
+  fill: #cfd7d2;
+  font-size: 12px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 400;
+  font-style: normal;
+}
+.rad-lesson svg.rad-drawing text.rad-small { font-size: 10px; }
+.rad-lesson svg.rad-drawing text.rad-tiny { font-size: 9px; }
+.rad-lesson svg.rad-drawing text.rad-strong { font-size: 13px; font-weight: 600; fill: #f0e6c8; }
+.rad-lesson svg.rad-drawing text.rad-muted { fill: #a3aeaa; }
+.rad-lesson svg.rad-drawing text.rad-accent { fill: #e7b94a; }
+
+/* Marks. Each states its own fill so no presentation attribute is silently
+   overridden, and outline-only shapes say `fill: none` here. */
+.rad-lesson svg.rad-drawing .rad-axis { fill: none; stroke: #6f7b76; stroke-width: 1.2; }
+.rad-lesson svg.rad-drawing .rad-grid { fill: none; stroke: #262b2a; stroke-width: 1; }
+.rad-lesson svg.rad-drawing .rad-ball { fill: none; stroke: #746138; stroke-width: 1.4; }
+.rad-lesson svg.rad-drawing .rad-diamond { fill: none; stroke: #6f8f7d; stroke-width: 1.4; stroke-dasharray: 5 3; }
+.rad-lesson svg.rad-drawing .rad-arrow { fill: none; stroke: #93a09a; stroke-width: 1.6; }
+.rad-lesson svg.rad-drawing .rad-arrow.is-flipped { stroke: #da9c86; stroke-dasharray: 5 3; }
+.rad-lesson svg.rad-drawing .rad-arrowhead { fill: #93a09a; stroke: none; }
+.rad-lesson svg.rad-drawing .rad-arrowhead.is-flipped { fill: #da9c86; }
+.rad-lesson svg.rad-drawing .rad-sum { fill: none; stroke: #e7b94a; stroke-width: 2.4; }
+.rad-lesson svg.rad-drawing .rad-sum-head { fill: #e7b94a; stroke: none; }
+.rad-lesson svg.rad-drawing .rad-support { fill: #f0e6c8; stroke: #0b0f10; stroke-width: 1.2; }
+.rad-lesson svg.rad-drawing .rad-curve { fill: none; stroke: #8eb9a5; stroke-width: 2; }
+.rad-lesson svg.rad-drawing .rad-curve.is-second { stroke: #e7b94a; stroke-dasharray: 6 4; }
+.rad-lesson svg.rad-drawing .rad-curve.is-ramp { stroke: #e7b94a; }
+.rad-lesson svg.rad-drawing .rad-knot { fill: #e7b94a; stroke: #0b0f10; stroke-width: 1; }
+.rad-lesson svg.rad-drawing .rad-bar { fill: #24352e; stroke: #46524d; stroke-width: 1; }
+.rad-lesson svg.rad-drawing .rad-bar.is-ramp { fill: #4a5f54; }
+.rad-lesson svg.rad-drawing .rad-bar.is-complexity { fill: #6b5a2f; }
+.rad-lesson svg.rad-drawing .rad-bar.is-confidence { fill: #33424b; }
+.rad-lesson svg.rad-drawing .rad-bar.is-below { fill: #5c3b32; }
+.rad-lesson svg.rad-drawing .rad-ceiling { fill: none; stroke: #da9c86; stroke-width: 1.6; stroke-dasharray: 5 3; }
+.rad-lesson svg.rad-drawing .rad-reference { fill: none; stroke: #f0e6c8; stroke-width: 1.6; }
+.rad-lesson svg.rad-drawing .rad-interval { fill: none; stroke: #8eb9a5; stroke-width: 3; stroke-linecap: round; }
+.rad-lesson svg.rad-drawing .rad-point { fill: #e7b94a; stroke: none; }
+.rad-lesson svg.rad-drawing .rad-cell { fill: #141a1b; stroke: #3c4643; stroke-width: 1; }
+.rad-lesson svg.rad-drawing .rad-cell.is-winner { fill: #1d2119; stroke: #9a8347; stroke-width: 1.7; }
+.rad-lesson svg.rad-drawing .rad-lane { fill: #121816; stroke: #3c4643; stroke-width: 1; }
+.rad-lesson svg.rad-drawing .rad-lane.is-swapped { stroke: #e7b94a; stroke-width: 1.7; }
+.rad-lesson svg.rad-drawing .rad-role { stroke: #0b0f10; stroke-width: 1; }
+.rad-lesson svg.rad-drawing .rad-role.is-representation { fill: #33424b; }
+.rad-lesson svg.rad-drawing .rad-role.is-fit { fill: #4a5f54; }
+.rad-lesson svg.rad-drawing .rad-role.is-validation { fill: #6b5a2f; }
+.rad-lesson svg.rad-drawing .rad-role.is-assessment { fill: #5c3b32; }
+.rad-lesson svg.rad-drawing .rad-hull { fill: #1d2119; fill-opacity: .55; stroke: #9a8347; stroke-width: 1.3; }
+
+.rad-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.rad-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.rad-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.rad-investigation button,
+.rad-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.rad-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.rad-investigation button:disabled, .rad-figure button:disabled { opacity: .4; cursor: default; }
+.rad-investigation button.is-selected { background: #1d2119; border-color: #9a8347; color: #f0e6c8; }
+.rad-investigation :is(button, input, select, summary, textarea, [tabindex]):focus-visible,
+.rad-figure :is(button, input, select, summary, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #a5c7b5; outline-offset: 3px;
+}
+
+.rad-question, .rad-caption, .rad-note, .rad-pending { font-size: .92rem; line-height: 1.75; }
+.rad-caption { color: #b5bfbb; margin: .5rem 0; }
+.rad-footnote { color: #9fa9a4; font-size: .86rem; }
+.rad-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.rad-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+.rad-role { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; font-size: .9rem; line-height: 1.7; }
+.rad-role.is-exact { border-left-color: #8eb9a5; }
+.rad-role.is-estimate { border-left-color: #da9c86; color: #e3c1b4; }
+.rad-role.is-measured { border-left-color: #9a8347; color: #e0d3ae; }
+
+.rad-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.rad-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.rad-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.rad-field > span { display: flex; justify-content: space-between; gap: .6rem; color: #d0ddd5; }
+.rad-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.rad-field :is(input[type="number"], input[type="text"], select) {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.rad-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.rad-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.rad-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: .8rem; }
+.rad-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.rad-presets { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+
+.rad-sign-row { display: flex; flex-direction: column; gap: .45rem; margin: .9rem 0; }
+.rad-sign-label { color: #d0ddd5; font-size: .9rem; }
+.rad-sign-options { display: flex; flex-wrap: wrap; gap: .45rem; }
+.rad-sign-button {
+  display: inline-flex; flex-direction: column; align-items: center; gap: .1rem;
+  min-width: 52px; min-height: 46px; padding: .3rem .5rem;
+  border: 1px solid #3c4643; border-radius: 3px; background: #121816;
+  font: inherit; color: #d8dcd9; cursor: pointer;
+}
+.rad-sign-button.is-positive { border-color: #9a8347; color: #f0e6c8; }
+.rad-sign-button.is-negative { border-color: #55635d; color: #b5bfbb; border-style: dashed; }
+.rad-sign-index { font-size: .7rem; color: #8b9691; }
+.rad-sign-value { font-family: var(--font-mono, monospace); font-weight: 600; }
+
+.rad-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.rad-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.rad-prediction legend { padding: 0; font-weight: 600; }
+.rad-choices { display: flex; flex-direction: column; gap: .45rem; margin: .6rem 0; }
+.rad-choice { display: flex; align-items: flex-start; gap: .5rem; min-height: 40px; padding: .25rem 0; }
+.rad-choice input { margin-top: .35rem; accent-color: #e7b94a; }
+.rad-numeric-guess input {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.rad-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #dce4e0; }
+.rad-verdict.is-miss { border-left-color: #da9c86; }
+.rad-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.rad-history { margin: .6rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #c0cac5; font-size: .88rem; line-height: 1.7; }
+.rad-history.is-pending { border-left: 2px dotted #5d6862; color: #9fa9a4; font-size: .86rem; }
+.rad-reason textarea {
+  min-height: 60px; padding: .45rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+
+/* Tables. The caption is a sibling paragraph; see rule 3 at the top. */
+.rad-table { margin: 1.1rem 0; }
+.rad-table-scroll { overflow-x: auto; border: 1px solid #262b2a; border-radius: 4px; }
+.rad-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+/* Cells WRAP. `white-space: nowrap` was forcing four prose tables to scroll
+   horizontally at desktop width, which is a column a reader has to go looking
+   for. Numbers are unbreakable tokens with no spaces in them, so normal
+   wrapping never splits a value; only sentences wrap. */
+.rad-table-scroll :is(th, td) { padding: .4rem .55rem; border-bottom: 1px solid #1f2523; text-align: right; white-space: normal; }
+/* Present to assistive technology, absent from the layout. Used for the field
+   labels inside the editable matrix, where the row and column headers already
+   name the cell on screen and repeating "f1 at x1" in every cell both doubled
+   the table's width and read as noise. */
+.rad-visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.rad-table-scroll th { color: #d0ddd5; font-weight: 600; }
+.rad-table-scroll thead th { border-bottom: 1px solid #3c4643; }
+.rad-table-scroll tbody th { text-align: left; color: #cfd7d2; }
+/* A number input inside the editable matrix takes the browser's default width
+   (~150px), which made a four-observation table wider than the reading column
+   and forced it to scroll at desktop. The cells only ever hold a short signed
+   decimal, so they are sized for one. */
+.rad-table-scroll .rad-field { min-width: 0; gap: .2rem; }
+.rad-table-scroll .rad-field input[type="number"] { width: 5.4rem; min-width: 0; padding: .35rem .4rem; }
+.rad-table-scroll td button { min-height: 38px; padding: .35rem .5rem; white-space: nowrap; }
+.rad-table-scroll tr.is-leading td, .rad-table-scroll tr.is-leading th { background: #151c18; }
+.rad-table-scroll tr.is-muted td, .rad-table-scroll tr.is-muted th { color: #9fa9a4; }
+.rad-table-scroll td.is-winner { color: #f0e6c8; background: #1d2119; font-weight: 600; }
+.rad-table-scroll td.is-negative { color: #d9b3a6; }
+
+/* Figures */
+.rad-figure { margin: 1.6rem 0; padding: 0; }
+.rad-figure figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; color: #dce4e0; }
+.rad-figure-row { display: flex; flex-wrap: wrap; gap: 1.1rem; align-items: flex-start; }
+.rad-figure-row > * { flex: 1 1 250px; min-width: 0; }
+
+.rad-readout { margin: .9rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .6rem .9rem; }
+.rad-readout > div { border: 1px solid #2f3735; border-radius: 3px; padding: .5rem .65rem; background: #101615; min-width: 0; }
+.rad-readout dt { font-size: .8rem; color: #a3aeaa; line-height: 1.5; }
+.rad-readout dd { margin: .2rem 0 0; font: .95rem/1.5 var(--font-mono, monospace); color: #f0e6c8; overflow-wrap: anywhere; }
+.rad-readout dd .rad-caption { display: block; font-family: inherit; font-size: .78rem; color: #9fa9a4; margin: .2rem 0 0; }
+
+.rad-bar-row { display: grid; grid-template-columns: minmax(7rem, auto) 1fr minmax(5rem, auto); gap: .6rem; align-items: center; margin: .35rem 0; }
+.rad-bar-label { font-size: .84rem; color: #cfd7d2; }
+.rad-bar-track { height: 12px; background: #161c1b; border: 1px solid #2f3735; border-radius: 2px; min-width: 40px; }
+.rad-bar-fill { display: block; height: 100%; background: #8eb9a5; }
+.rad-bar-row.is-accent .rad-bar-fill { background: #e7b94a; }
+.rad-bar-row.is-warn .rad-bar-fill { background: #da9c86; }
+.rad-bar-value { font: .8rem/1.5 var(--font-mono, monospace); color: #d8dcd9; white-space: nowrap; text-align: right; }
+
+.rad-strip { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; }
+.rad-strip-cell {
+  border: 1px solid #3c4643; border-radius: 3px; padding: .4rem .6rem; background: #121816;
+  font: .78rem/1.6 var(--font-mono, monospace); color: #cfd7d2; min-width: 0;
+}
+.rad-strip-cell.is-used { border-color: #9a8347; background: #1d2119; color: #f0e6c8; }
+.rad-strip-cell b { display: block; color: #e7b94a; font-weight: 600; }
+
+.rad-route { margin: 1.4rem 0; padding: .8rem 1rem; border-left: 3px solid #9a8347; background: #10140f; }
+.rad-practice { margin: 1.8rem 0; }
+
+/* The provenance prints a 64-character SHA-256 inline. That is a single
+   unbreakable word, and at narrow widths it pushes the whole page sideways.
+   Inline code in this lesson may break anywhere. */
+.rad-lesson code { overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
+
+/* The experiment program's real stdout is 117 lines of JSON. It is shown in
+   full because it is the evidence for section 8's table, but it is capped and
+   scrolled so it does not become the page. Nothing is hidden: the block
+   scrolls, selects and copies whole. */
+.rad-lesson .python-example pre { max-height: 34rem; overflow: auto; }
+
+@media (max-width: 560px) {
+  .rad-table-scroll table, .rad-table-scroll thead, .rad-table-scroll tbody,
+  .rad-table-scroll tr, .rad-table-scroll th, .rad-table-scroll td { display: block; }
+  .rad-table-scroll thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .rad-table-scroll tr { border-bottom: 1px solid #3c4643; padding: .35rem 0; }
+  .rad-table-scroll :is(th, td) { border: 0; display: flex; justify-content: space-between; gap: 1rem; white-space: normal; text-align: right; }
+  .rad-table-scroll :is(th, td)::before { content: attr(data-label); color: #9fa9a4; text-align: left; }
+  .rad-figure-row > * { flex: 1 1 100%; }
+  .rad-bar-row { grid-template-columns: 1fr; gap: .2rem; }
+  .rad-bar-value { text-align: left; }
+}

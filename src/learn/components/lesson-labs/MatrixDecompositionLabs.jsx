@@ -88,7 +88,7 @@ export function EliminationLab() {
   return <section className="decomposition-lab" aria-label="Pivoted elimination investigation">
     <span className="decomposition-eyebrow">ROW OPERATIONS · FOLLOW THE EQUATIONS</span>
     <h3>Eliminate one unknown without changing the answer</h3>
-    <p>Predict what must happen to the right-hand side when a row changes. Then advance one operation. Preset changes apply immediately and reset the trace.</p>
+    <p>Inspect what must happen to the right-hand side when a row changes. Then advance one operation. Preset changes apply immediately and reset the trace.</p>
     <label className="decomposition-select">System <select value={presetName} onChange={changePreset}>
       {Object.entries(eliminationPresets).map(([key, preset]) => <option key={key} value={key}>{preset.title}</option>)}
     </select></label>
@@ -159,7 +159,7 @@ export function CovarianceFactorLab() {
   return <section className="decomposition-lab" aria-label="Covariance factor investigation">
     <span className="decomposition-eyebrow">CHOLESKY · SHARE AN INDEPENDENT COMPONENT</span>
     <h3>Correlation changes a shape, not just one table entry</h3>
-    <p>Let z₁ and z₂ have zero mean, unit variance and zero covariance. Set x₁ = 2z₁ and x₂ = ρz₁ + √(1 − ρ²)z₂. Predict the shape at ρ = 0, then at an endpoint.</p>
+    <p>Let z₁ and z₂ have zero mean, unit variance and zero covariance. Set x₁ = 2z₁ and x₂ = ρz₁ + √(1 − ρ²)z₂. Inspect the shape at ρ = 0, then at an endpoint.</p>
     <div className="decomposition-controls"><label>Correlation ρ: {valueText(correlation)}<input type="range" aria-label="Covariance correlation" min="-1" max="1" step="0.05" value={correlation} onChange={event => setCorrelation(Number(event.target.value))} /></label>
       <button onClick={() => setCorrelation(0.5)}>Reset correlation</button></div>
     <CoordinatePlane title="A unit circle mapped by L" description={`Dashed unit circle and its transformed outline for correlation ${correlation}. Variances stay 4 and 1; covariance is ${2 * correlation}.`} curves={[{

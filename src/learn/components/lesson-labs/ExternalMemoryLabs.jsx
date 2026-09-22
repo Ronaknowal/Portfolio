@@ -56,7 +56,7 @@ export function PageBufferLab() {
   const id = useId();
   return <section className="external-lab" aria-label="Pages and buffer residency">
     <h3>Follow the page, not just the record</h3>
-    <p>Predict the next load. Sequential and strided cases visit exactly the same 16 record addresses. The write case adds dirty-page eviction and a final flush.</p>
+    <p>Inspect the next load. Sequential and strided cases visit exactly the same 16 record addresses. The write case adds dirty-page eviction and a final flush.</p>
     <div className="external-controls">
       <label htmlFor={`${id}-size`}>Records per page<select id={`${id}-size`} value={pageSize} onChange={event => choose(setPageSize, Number(event.target.value))}>{[1, 2, 4, 8].map(value => <option key={value}>{value}</option>)}</select></label>
       <label htmlFor={`${id}-frames`}>Buffer frames<select id={`${id}-frames`} value={capacity} onChange={event => choose(setCapacity, Number(event.target.value))}>{[1, 2, 4].map(value => <option key={value}>{value}</option>)}</select></label>
@@ -163,7 +163,7 @@ export function BPlusRangeLab() {
   const id = useId();
   return <section className="external-lab" aria-label="B-plus linked leaf range">
     <h3>Descend once, then walk the leaf records</h3>
-    <p>Predict which separator handles equality at 20. Change the range to [20,20], then compare it with a range spanning several leaves.</p>
+    <p>Inspect which separator handles equality at 20. Change the range to [20,20], then compare it with a range spanning several leaves.</p>
     <div className="external-controls">{[['Start', low, setLow], ['End', high, setHigh]].map(([label, value, setter]) => <label key={label} htmlFor={`${id}-${label}`}>{label} of inclusive range: {value}<input id={`${id}-${label}`} aria-label={`${label} of inclusive range`} type="range" min="0" max="40" value={value} onChange={event => choose(setter, Number(event.target.value))} /></label>)}<label htmlFor={`${id}-capacity`}>Records per leaf<select id={`${id}-capacity`} value={capacity} onChange={event => choose(setCapacity, Number(event.target.value))}>{[2, 3, 4].map(value => <option key={value}>{value}</option>)}</select></label><label htmlFor={`${id}-fanout`}>Internal fanout<select id={`${id}-fanout`} value={fanout} onChange={event => choose(setFanout, Number(event.target.value))}>{[2, 3, 4].map(value => <option key={value}>{value}</option>)}</select></label></div>
     <p className="external-current" aria-live="polite">{frame.action}.</p>
     <StepControls step={step} count={state.frames.length} setStep={setStep} name="range page" />
@@ -193,7 +193,7 @@ export function ExternalMergeLab() {
   };
   return <section className="external-lab" aria-label="External merge runs and transfers">
     <h3>Spend memory on more input runs—or on bigger pages?</h3>
-    <p>Predict the number of merge passes before changing the buffer budget. Every colored band below is an actual sorted run, grouped into separately materialized output files.</p>
+    <p>Inspect the number of merge passes while changing the buffer budget. Every colored band below is an actual sorted run, grouped into separately materialized output files.</p>
     <div className="external-controls"><label htmlFor={`${id}-records`}>Record count<select id={`${id}-records`} value={records} onChange={event => choose(setRecords, Number(event.target.value))}>{[0, 7, 12, 20, 32, 48].map(value => <option key={value}>{value}</option>)}</select></label><label htmlFor={`${id}-page`}>Records per transfer page<select id={`${id}-page`} value={pageSize} onChange={event => choose(setPageSize, Number(event.target.value))}>{[2, 4, 8].map(value => <option key={value}>{value}</option>)}</select></label><label htmlFor={`${id}-memory`}>Available record-buffer pages<select id={`${id}-memory`} value={memoryPages} onChange={event => choose(setMemoryPages, Number(event.target.value))}>{[3, 4, 5, 8].map(value => <option key={value}>{value}</option>)}</select></label></div>
     <figure><div className="external-buffer-budget">{Array.from({
           length: memoryPages

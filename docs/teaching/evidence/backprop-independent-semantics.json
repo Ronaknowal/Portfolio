@@ -1,0 +1,174 @@
+{
+  "status": "passed",
+  "reviewer": "independent-backprop-review",
+  "scope": "Complementary semantic invariants on teaching engine only; no rerun of the full training/native campaign.",
+  "sourceHash": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+  "verifierHash": "640e7881fc8fdd9f2bc8d80e10ff6bc4a9d1496b81d862d623ad94256dbe1408",
+  "checks": [
+    {
+      "name": "Repeated operand with nonuniform vector-output seed",
+      "actual": [
+        [
+          0.65,
+          2.3,
+          7.350000000000001
+        ],
+        [
+          -1.525,
+          0.595,
+          -0.8999999999999999
+        ]
+      ],
+      "expected": [
+        [
+          0.65,
+          2.3,
+          7.3500000000000005
+        ],
+        [
+          -1.525,
+          0.595,
+          -0.8999999999999999
+        ]
+      ]
+    },
+    {
+      "name": "Broadcast bias plus mean reduces axes and includes one mean factor",
+      "actual": [
+        1.0666666666666664,
+        0.8999999999999999
+      ],
+      "expected": [
+        1.0666666666666667,
+        0.8999999999999999
+      ]
+    },
+    {
+      "name": "Frozen matrix transmits weighted input gradient",
+      "actual": [
+        [
+          -2.2,
+          -1.1600000000000001
+        ]
+      ],
+      "expected": [
+        [
+          -2.2,
+          -1.1600000000000001
+        ]
+      ]
+    },
+    {
+      "name": "Frozen matrix does not accumulate parameter gradient",
+      "actual": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "expected": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "name": "Row-specific logit offsets preserve stable CE",
+      "actual": 0.2625273078102134,
+      "expected": 0.2625273078101983
+    },
+    {
+      "name": "Row-specific logit offsets preserve logit gradients",
+      "actual": [
+        [
+          0.08399080743303775,
+          -0.08399080743303777
+        ],
+        [
+          -0.14452524868749805,
+          0.14452524868749803
+        ]
+      ],
+      "expected": [
+        [
+          0.08399080743303618,
+          -0.08399080743303616
+        ],
+        [
+          -0.14452524868748867,
+          0.14452524868748867
+        ]
+      ]
+    },
+    {
+      "name": "Each row CE gradient sums to zero",
+      "actual": [
+        -2.7755575615628914e-17,
+        -2.7755575615628914e-17
+      ],
+      "expected": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Same matrix occupies both matmul operands",
+      "actual": [
+        [
+          -1.55,
+          2.9800000000000004
+        ],
+        [
+          -1.51,
+          -1.47
+        ]
+      ],
+      "expected": [
+        [
+          -1.55,
+          2.9800000000000004
+        ],
+        [
+          -1.51,
+          -1.47
+        ]
+      ]
+    },
+    {
+      "name": "Constructor copies input before external mutation",
+      "actual": [
+        1.0,
+        2.0
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "Forward values reject ordinary item mutation",
+      "passed": true
+    },
+    {
+      "name": "Non-scalar backward requires explicit seed",
+      "passed": true
+    },
+    {
+      "name": "Mismatched explicit seed shape rejected",
+      "passed": true
+    },
+    {
+      "name": "Floating, broadcast-shaped and out-of-range labels rejected",
+      "passed": true
+    }
+  ]
+}

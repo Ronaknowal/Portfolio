@@ -27,8 +27,8 @@ export default {
   ],
   visual: {
     type: 'A hidden-selector diagram over weighted curves and their sum; a fractional-allocation diagram where unit masses split into two component lanes; aligned collapse panels with their own windows plus an exact objective table; a four-family covariance contour gallery drawn from each matrix eigenpairs; validation and BIC panels beside a magnified strip showing a fitted width narrower than the recorded resolution; an old/new bound chain with the touching equality and the gap',
-    question: 'Which component takes this observation, how much density is there at all, will one full cycle raise the objective, and which of two equally distant points does the component find more plausible? Record a prediction before each calculation.',
-    interaction: 'Edit a measurement, a mixing weight and a variance; edit four observations and both initial means, apply the setup, then compute the E-step and the M-step separately with a back step; move a correlation and either of two points, with a permanent zero-correlation panel beside the active one.'
+    question: "Which component takes this observation, how much density is there at all, will one full cycle raise the objective, and which of two equally distant points does the component find more plausible?",
+    interaction: "Edit the measurement, mixing weight and variance and follow densities and responsibility shares immediately; edit observations or initial means to restart the current EM trace, then step E and M phases separately and step back; vary correlation and point positions beside a permanent zero-correlation reference. No learner answer precedes a calculation."
   },
   practice: {
     task: 'Eight changed tasks: unequal-weight responsibilities and the tie boundary, an M-step from a supplied allocation with a floor, three repaired numerical claims, three correlations over the same two points, a restricted real-data selection with its reserved test, the missing line in a bound argument, a shared-variance limit against a library setting, and a conditional prediction that keeps its spread.',

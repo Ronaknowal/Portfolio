@@ -1,5 +1,7 @@
 # Feature Scaling, Encoding & Imputation
 
+> Current lab UX, 21 September 2026: controls show live calculations and topic-specific visuals without learner prediction entry, grading or guess-to-reveal screens. Genuine algorithm steps, separate practice and data-role boundaries remain. See [the current migration record](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md).
+
 A table is not yet a model input. A body mass of `4000` might mean grams, a category called `female` is not a smaller number than `male`, and a blank measurement is not a measured zero. Before fitting a model, we need a consistent way to represent what each entry means.
 
 This lesson follows one practical question: **can measurements of a penguin help distinguish its species?** The answer will depend partly on the model, and partly on the representation that decides which measurements the model can compare. We will use real observations, inspect individual transformations, and keep a small set of rows aside to see what happens to previously unseen records.
@@ -63,7 +65,7 @@ d_s^2(x,z)=\sum_j\frac{(x_j-z_j)^2}{s_j^2}.
 
 So scaling a feature by $1/s_j$ is equivalent to assigning its squared difference weight $1/s_j^2$. This is why scaling matters to nearest neighbors, k-means, and distance-based kernels. It also affects the meaning of coefficient penalties and can improve the numerical conditioning of gradient-based fitting. There is no theorem saying equal training variance is the best measure of relevance for every task.
 
-**Investigation 1 — Choose the ruler, then inspect the neighbor.** Predict whether A or B will be nearer, edit either candidate’s measurements, and choose the mass divisor. The display separates each feature’s contribution to squared distance. Apply the input before revealing the result. Also try multiplying both divisors by the same positive number: all distances change by a common factor, but the neighbor ranking stays the same.
+**Investigation 1 — Choose the ruler, then inspect the neighbor.** Edit either candidate’s measurements or the mass divisor and follow which candidate is nearer. The display separates each feature’s contribution to squared distance. Valid input edits update the calculation immediately. Also try multiplying both divisors by the same positive number: all distances change by a common factor, but the neighbor ranking stays the same.
 
 ### Learn a ruler from training data
 
@@ -186,7 +188,7 @@ D3:3(2^2)=12.
 
 With two neighbors and uniform weights, D2 and D1 supply $c=(300+100)/2=200$. D2 is a valid donor even though another feature is absent. For a different missing target column, donor eligibility may differ. If no donor has a defined overlap distance, the implementation needs a fallback; scikit-learn uses the relevant training feature's average when available. Scaling of observed features still affects these distances. [The imputation guide](https://scikit-learn.org/stable/modules/impute.html#nearest-neighbors-imputation) describes this feature-by-feature donor behavior.
 
-**Investigation 2 — Who is allowed to donate?** Predict the donors and missing value, then edit a donor cell or mark it absent. The display crosses out unavailable distance coordinates, shows $m/q$, ranks eligible donors, and highlights only the cells contributing to the estimate. Changing a donor's unused feature can leave the answer unchanged; deleting its target measurement can make it ineligible.
+**Investigation 2 — Who is allowed to donate?** Edit a donor cell or mark it absent and follow the eligible donors and imputed value immediately. The display crosses out unavailable distance coordinates, shows $m/q$, ranks eligible donors, and highlights only the cells contributing to the estimate. Changing a donor's unused feature can leave the answer unchanged; deleting its target measurement can make it ineligible.
 
 Iterative imputation takes a different approach: initialize missing cells, fit one incomplete column from the others using rows where that column is observed, update its missing entries, then cycle through columns. This models relationships that a separate median ignores. It still depends on the chosen conditional models and on how missingness arose. The deeper uncertainty section explains why one completed table is different from multiple imputation.
 
@@ -305,7 +307,7 @@ The first held-out row, zero-based source row 309, is `[51.0,18.8,203.0,4100.0,"
 
 The final three columns mean `sex_female`, `sex_male`, and `sex_not_recorded`. The negative mass coordinate says this mass is below the fitted mean; it does not mean a negative mass. Species, island, year, and row number were not included as features in this experiment.
 
-**Investigation 3 — Follow a record through a fitted table pipeline.** Inspect any supplied held-out row, predict the transformed value of one cell, then apply an editable copy of the record. The visual forks numeric and categorical columns, exposes the saved training statistics, and rejoins the seven named output coordinates. A prediction must refer to the current record and selected cell. The experiment does not silently refit when you edit a later input.
+**Investigation 3 — Follow a record through a fitted table pipeline.** Inspect any supplied held-out row and edit an independent copy to follow each transformed cell immediately. The visual forks numeric and categorical columns, exposes the saved training statistics, and rejoins the seven named output coordinates. Every displayed value must refer to the current valid record and selected cell. The experiment does not silently refit when you edit a later input.
 
 As a practical extension, compare errors rather than only the score: standard scaling misclassified two rows here, whereas the raw model misclassified nineteen. Inspect their actual measured values and nearest-neighbor contributions before inventing a story about why. Do not treat a species label as available input while exploring those errors.
 
@@ -413,7 +415,7 @@ print(np.round(cross_fit(categories, changed, folds), 6))
 
 Expected arrays are `[.555556,.777778,.222222,.444444,.222222,.777778]` and `[.555556,.222222,.222222,.222222,.222222,.555556]`. This bounded calculation was executed during authoring.
 
-**Investigation 4 — Trace which target can affect which encoded row.** Record a prediction about one row's encoding, edit a category or target, then expose the internal donor graph and separate category/prior contributions. Editing the inspected row's own target is a checked null; editing one of its donors can be a checked contrast. Fold membership stays visible throughout.
+**Investigation 4 — Trace which target can affect which encoded row.** Edit a category or target and follow the selected row’s encoding alongside the internal donor graph and separate category/prior contributions. Editing the inspected row's own target is a checked null; editing one of its donors can be a checked contrast. Fold membership stays visible throughout.
 
 For production use, `TargetEncoder.fit_transform` supplies internal cross-fitting, whereas `fit(...).transform(...)` does not produce the same training representation. In scikit-learn 1.9, `cv` can accept a splitter or iterable of splits; older examples using encoder-level `shuffle` and `random_state` are being deprecated. Group or time relationships require appropriate internal and outer splits. The default shuffled split cannot decide that for you. See the [current TargetEncoder API](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.TargetEncoder.html) and its [worked cross-fitting example](https://scikit-learn.org/stable/auto_examples/preprocessing/plot_target_encoder_cross_val.html).
 

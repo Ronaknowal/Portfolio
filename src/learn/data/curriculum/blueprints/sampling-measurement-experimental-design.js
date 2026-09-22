@@ -6,7 +6,7 @@ export default {
   visual: {
     type: 'Population/frame maps, exact sample-mean dot distributions, inclusion-contribution ledgers, grouped measurement diagrams and assignment/factorial contrasts',
     question: 'Which source of error changes when we collect more data, and which requires a different collection design?',
-    interaction: 'Compare complete versus incomplete frames, enumerate permitted samples and assignments, vary independent units separately from repeats, and reveal conditional factor effects.'
+    interaction: 'Compare complete versus incomplete frames, enumerate permitted samples and assignments, vary independent units separately from repeats, and change the interaction contrast and mixture while inspecting conditional and average factor effects live.'
   },
   practice: {
     task: 'Calculate changed finite-population and assignment examples, repair weighting or pseudoreplication mistakes, and write a complete comparison protocol for two teaching methods.',

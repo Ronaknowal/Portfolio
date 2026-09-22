@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "reviewer": "/root/decision_depth_prose",
+  "torch": "2.14.0+cpu",
+  "canonicalSourceHash": "9ece8d262eab9ad80814d185138faa2b60faa524e8446cdedd0bda979e24d93d",
+  "checks": [
+    "Scalar/channel gate gradients: changed two-row inputs, nonzero feature corrections, batch reduction and finite differences",
+    "Actual zero gate: identity Jacobian, zero first branch gradient, nonzero gate step, nonzero next branch gradients",
+    "Fixed/trainable scale: saved-state, buffer/parameter and optimizer-update contracts",
+    "Falsification: broadcastable width-one correction is rejected by canonical forward",
+    "Matched construction and diagnostics: same-seed prefix/stem/head, no parameter gradient accumulation or state mutation"
+  ],
+  "initialGateGradient": 0.6791662848997648,
+  "scope": "Complementary exact/native checks only; no 39-fit rerun, browser or pretrained training."
+}

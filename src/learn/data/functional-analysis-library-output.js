@@ -1,0 +1,2 @@
+// Recorded from the canonical program; see the source-bound native receipt.
+export default "lambda=0.05; library alpha=0.20; predictions [0.682297, 0.886083, 0.475059]; objective 0.181958; residual < 1e-12\nlambda=0.10; library alpha=0.40; predictions [0.628886, 0.801815, 0.452453]; objective 0.224092; residual < 1e-12\nCoefficient, prediction, objective, duplicate-input and zero-target checks: passed";

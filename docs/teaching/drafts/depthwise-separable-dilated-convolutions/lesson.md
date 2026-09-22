@@ -1,5 +1,8 @@
 # Depthwise Separable & Dilated Convolutions
 
+**Explore as you read.** Edit depthwise/pointwise filter entries, channel cells, stencil dilation/offsets, serial rates and parallel branch choices; manipulate retained digit inputs where weights are available. Update output contributions, rank restrictions, visited lattice sites, branch union and exact frozen-model outputs. Keep coverage geometry separate from learned influence. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose separability, dilation or parallel context from expressiveness, blind spots and the measured budget.
+
+
 A convolution usually answers two questions at once: **what pattern appears nearby, and how should evidence from different channels be combined?** A depthwise separable layer separates those jobs. A dilated layer changes a different choice: **how far apart should the sampled positions be?**
 
 These choices matter when a camera model must fit a device budget, when a segmentation model needs both local boundaries and distant context, or when you want to understand why a seemingly cheaper replacement changes predictions. The previous [Landmark Architectures lesson](/learn/path/full-curriculum/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet?module=deep-learning-fundamentals) compared complete CNN designs. Here we open two of their building blocks and follow the actual numbers.
@@ -130,7 +133,7 @@ With signal $[1,2,3,4,5,6,7,8,9]$, center index 4 and filter $[1,1,1]$:
 
 The first two sums agree because this particular signal is an arithmetic progression and the symmetric weights balance around the center. Their sampling patterns are still different. Change index 6 from 7 to 20: dilation two's sum becomes 28, while dilation one's sum stays 15. Change index 5 from 6 to 20 instead: dilation two stays 15, while dilation one becomes 29.
 
-**Investigation: edit the signal under a movable stencil.** Predict whether the selected output will increase, decrease or remain unchanged before revealing the recomputed sum. Highlight sampled values and show padded positions separately. A large outline without sampled-site markers hides the mechanism.
+**Investigation: edit the signal under a movable stencil.** Move the stencil or edit a signal value and watch the selected output, individual products and sum update together. Highlight sampled values and show padded positions separately. A large outline without sampled-site markers hides the mechanism.
 
 For one spatial axis, input length $H$, kernel size $k$, dilation $d$, symmetric padding $p$ and stride $s$:
 
@@ -361,6 +364,20 @@ Even equal accuracy can hide different confidence. Seed 1, dilation one has deve
 **Investigation: inspect a compressed prediction.** Compare the saved seed-one model with its rank-one replacement on a real selected image, then inspect a digit where their predictions differ. Source 299 is a digit 1 selected for the dilation-one comparison; source 32 is a digit 9 selected for dilation two. These disagreement examples are diagnostic selections, not random representatives. A per-image logit view and filter reconstruction show what changed; a success/failure counter alone cannot explain it.
 
 A sensible next experiment would fine-tune the compressed model using training data only, predeclare its update budget, then use development to assess the trade-off. Another would compare training the separable architecture from scratch. Neither experiment was run here, so the page does not supply imagined recovery curves. The six fits show a bounded mechanism and its variability, not a hardware benchmark or a general ranking of dilation rates.
+
+## Reuse the spatial operator and own the factorization
+
+There are two different implementation tasks here. The preceding [convolution packet, `direct_conv2d`](../convolution-pooling-receptive-fields/convolution-experiments.py) owns address calculation for grouped/dilated filtering; its newly prepared [pullback program](../convolution-pooling-receptive-fields/convolution_pullbacks.py) opens the batched dense derivatives. Those improved pages are still prepared, so the source links are the exact reuse contract, not a claim that their new website versions are already published.
+
+This topic owns the new decomposition. In [convolution-factorization.py](convolution-factorization.py), `factor_spatial` takes an existing kernel, performs one truncated SVD per input channel, writes the depthwise and pointwise weights, and preserves the output bias. `reconstructed_weight` independently contracts the factors back into the dense tensor. The `nn.Conv2d(groups=in_channels)` route is the normal tool implementation, with intermediate channel order fixed as `input_channel * multiplier + component`. The script compares reconstructed weights, outputs and the unchanged full model before interpreting prediction changes. `context-blocks.py` separately composes the inverted residual and parallel-context mechanisms already explained above.
+
+For I inputs, O outputs and K spatial taps, factoring all full O×K matrices costs O(I·min(O,K)²·max(O,K)) for a dense SVD; storing factors costs O(Im(K+O)). The multiplication benefit depends on m; raising m to full rank can remove approximation error while costing more than the original layer. The SVD itself reuses the published [Matrix Decompositions owner](/learn/path/full-curriculum/matrix-decompositions-svd-qr-cholesky-lu), rather than making this lesson secretly responsible for a numerical factorization library.
+
+**Take control:** add a relative discarded-energy report before replacing a layer. For each input matrix, divide the sum of squares of discarded singular values by the sum of squares of all singular values; define the all-zero matrix's relative error as zero. Select the smallest per-input m meeting an energy budget, then decide whether to pad all groups to a common m or implement heterogeneous groups separately. A fixed grouped Conv2d expects equal intermediate multiplicity, so silently assigning variable ranks to its regular tensor layout is wrong.
+
+<details><summary>Hint</summary>The singular values already exist during factorization; use their squares, not their sum, for Frobenius reconstruction energy.</details>
+
+<details><summary>Solution and success criteria</summary>For singular values [4,3,0], rank1 leaves9/25=0.36 relative squared error; rank2 leaves zero. A0.1 budget therefore needs rank2. If two input channels need ranks1 and2, a regular multiplier2 representation keeps the second slot of the first channel zero, or a custom grouped implementation must explicitly carry different slices. Verify reconstructed-weight error against the spectral sum, preserve bias/dilation/padding, and measure task outcomes separately from weight energy.</details>
 
 ## 7. Diagnose before adding another architectural feature
 

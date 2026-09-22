@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Visual and investigation contracts
 
 Content-first handoff only. Implement these forms in phase two, preserving manuscript placement and all necessary explanation. The lesson owns the question; controls should manipulate graph structure, probability mass or observed measurements rather than produce generic text output. Four investigations teach distinct mechanisms; this count is not a template.

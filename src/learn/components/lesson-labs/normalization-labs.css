@@ -1,0 +1,17 @@
+.normalization-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin: 20px 0; }
+.normalization-channel { margin-bottom: 18px; }
+.normalization-channel > strong { display: block; margin-bottom: 8px; }
+.normalization-channel > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.normalization-cell { padding: 8px; border: 2px solid #354a40; min-width: 0; }
+.normalization-cell.normalization-member { border-color: #e4b752; }
+.normalization-cell button { padding: 6px; width: 100%; font-size: 11px; }
+.normalization-cell label { font-size: 11px; margin-top: 7px; }
+.normalization-cell p { font-size: 12px; margin: 8px 0 0; }
+.normalization-gradient-path { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin: 22px 0; }
+.normalization-gradient-path > div { border-left: 2px solid #8fc9b5; padding: 8px 12px; line-height: 1.7; }
+.normalization-vector { max-width: 380px; }
+.normalization-graph-scroll { max-width: 100%; overflow-x: auto; }
+.normalization-dependency-graph { display: block; width: 380px; height: 455px; margin: auto; }
+@media(max-width: 780px) { .normalization-examples { grid-template-columns: minmax(0, 1fr); } }
+
+.normalization-residual-graph { display: block; width: 100%; max-width: 340px; height: auto; margin: auto; }

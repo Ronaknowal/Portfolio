@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Semi-supervised learning — phase-two visual and investigation contract
 
 Content prepared 2026-09-12. No production diagram, React component, SVG or lab implementation exists in this packet. Preserve the instructional roles below while adapting composition to the site's design system. Do not replace these mechanisms with one repeated parameter panel or synthetic accuracy graph.

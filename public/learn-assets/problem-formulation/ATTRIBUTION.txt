@@ -1,0 +1,66 @@
+Bank Marketing
+Moro, S., Rita, P. & Cortez, P. (2014). UCI Machine Learning Repository.
+https://doi.org/10.24432/C5K306  ·  https://archive.ics.uci.edu/dataset/222/bank+marketing
+Licensed CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
+The provider requests citation of S. Moro, P. Cortez and P. Rita, "A Data-Driven Approach to
+Predict the Success of Bank Telemarketing", Decision Support Systems (2014),
+https://doi.org/10.1016/j.dss.2014.03.001
+
+bank-additional.csv holds the provider's own file, unchanged, 583898 bytes, SHA-256
+7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50. The upstream archive was
+retrieved on 12 September 2026 from
+https://archive.ics.uci.edu/static/public/222/bank%2Bmarketing.zip; archive SHA-256
+e0bf5f5de5b846e2f18e9d90606637267d46dfa260e0f17bb12e605db5efbeb4, nested member
+bank-additional.zip SHA-256 a607b5edab6c6c75ce09c39142a77702c38123bd5aa7ae89a63503bbe17d65cd,
+member bank-additional/bank-additional.csv SHA-256 as above.
+
+This is the PROVIDER'S own 4119-row random subset of the 41188-row collection. It is not a
+sample drawn by this curriculum. No row was filtered, no value transformed and no column
+dropped.
+
+Semicolon separated, CRLF line endings, a quoted header row and 4119 data rows of 21 fields:
+twenty inputs and the binary outcome y. y holds 451 "yes" and 3668 "no". Ages run 18 to 88.
+The provider's explicit "unknown" category is retained wherever it occurs: job 39, marital
+11, education 167, default 803, housing 105 and loan 105 rows. pdays uses 999 to mean "no
+previous contact", which is the case for 3959 rows; it is a sentinel, not an elapsed time,
+and this lesson converts it to a contacted-before indicator plus a missing elapsed value
+rather than treating it as a distance. poutcome is "nonexistent" for 3523 rows, "failure" for
+454 and "success" for 142.
+
+Do not confuse this file with the older bank.csv schema, which uses -1 rather than 999 for
+the same idea and has seventeen columns.
+
+What this lesson does with it, and what it deliberately does not:
+
+  The provider's own variable description -- retained here as
+  bank-marketing-variable-description.txt, SHA-256
+  10045462a4c026f858dffa159370c4270510230c1fc63c6c91ca51bba4b3df26 -- states that the
+  duration field "is not known before a call is performed". That sentence is the lesson's
+  subject. A model is fitted twice on the same rows, once without duration and once with it,
+  to show a higher score arriving with a feature the requested prediction could not have had.
+
+  Row identities 0 to 4118 are the file's own row order. A first stratified split with seed
+  53 holds out 824 RESERVED rows and keeps 3295 for development; a second, seed 54, splits
+  those into 2471 training and 824 validation rows. The reserved rows' outcomes are used only
+  by that stratification: no reserved prediction, score, metric or selection is reported
+  anywhere on the page, and the lesson says so where the numbers appear.
+
+  The file supplies no customer identity, no serving-availability timestamps, no historical
+  revisions of any field and no counterfactual outcome. The lesson's measured result is
+  therefore a row-level development comparison on this file. It is NOT an independent
+  future-customer evaluation, not evidence that the candidate features were in fact available
+  before a call, and not an estimate of the benefit of calling anyone. The three-clock
+  calibration history taught alongside it is an invented teaching fixture with no value taken
+  from these records.
+
+No other lesson in this curriculum serves this dataset. This lesson reads only its own copy
+under public/learn-assets/problem-formulation/ and never another lesson's asset directory.
+
+Also served here, as a download the lesson links rather than as a dataset:
+  formulation-calculations.py  SHA-256 7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0
+It is the content packet's own program from
+docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/author-calculations.py,
+copied byte for byte. Put it in a directory beside bank-additional.csv and run it; it
+rewrites the packet's calculated-inputs.json, and scripts/verify-formulation-examples.py
+checks that a fresh run reproduces those 168884 bytes exactly.

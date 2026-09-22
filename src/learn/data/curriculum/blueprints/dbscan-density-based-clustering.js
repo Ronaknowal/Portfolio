@@ -22,8 +22,8 @@ export default {
   ],
   visual: {
     type: 'Trail strips with closed intervals and rosters; core graph with a struck-through border bridge; sorted c₄ curve; incompatible interval bars; OPTICS reachability bars with core-start marks; stability lifetime tree; concentric rings versus a bisector; equal-unit neighbourhood graphs in four labs',
-    question: 'Which rows are crowded enough to transmit, what changes when a radius, count, unit or visiting order changes, how much of a real collection survives a setting, and can any radius satisfy two density requirements at once? Predict before each control.',
-    interaction: 'Record a prediction; edit any trail coordinate, radius, count or order; multiply axes and radius; choose an Iris radius and count and compare snapshots on common rows; edit group offset and spacing and test a radius against the analytic interval.'
+    question: "Which rows are crowded enough to transmit, what changes when a radius, count, unit or visiting order changes, how much of a real collection survives a setting, and can any radius satisfy two density requirements at once?",
+    interaction: "Edit trail coordinates, radius, neighbourhood count or traversal order and follow core/border/noise changes immediately; multiply axes and radius and inspect neighbourhood preservation; vary Iris settings and save comparison snapshots on common rows; edit group spacing and test a radius against the analytic interval. Species are a separately requested diagnostic, never a guess-to-unlock reward."
   },
   practice: {
     task: 'Twelve changed tasks: a new five-row trail, a shared border moved off the line, a false transitivity proof, duplicates and the count convention, a faulty unit conversion, repairing the incompatible fixture, a perfect score on survivors, an OPTICS cluster start, non-overlapping branch selection, dense-output memory, an independent Iris report and a frozen-reference policy.',

@@ -1,0 +1,81 @@
+{
+  "checkedAt": "2026-09-22T00:02:52.607Z",
+  "reviewer": "/root/decision_depth_prose",
+  "status": "passed-source-and-native-review-browser-pending",
+  "review": "docs/teaching/LANDMARK-ARCHITECTURES-INDEPENDENT-REVIEW.md",
+  "independentNativeEvidence": "docs/teaching/evidence/landmark-architectures-independent-native.json",
+  "findings": [
+    {
+      "id": "mobile-drop-p1",
+      "status": "resolved",
+      "confirmation": "Actual finite p0/p1/eval, shared row mask and invalid-rate native tests pass"
+    },
+    {
+      "id": "sampled-grids-composition",
+      "status": "resolved",
+      "confirmation": "Separate actual window sketches and selectable intermediate-to-input support reviewed"
+    },
+    {
+      "id": "scaling-visual-budget",
+      "status": "resolved",
+      "confirmation": "Shared-zero aligned parameter/MAC bars and correctly scoped target marker reviewed"
+    },
+    {
+      "id": "wording-provenance",
+      "status": "resolved",
+      "confirmation": "Input retention, aria word spacing and current implementation chronology reviewed"
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx": "1930fb8b84725d60380bc69c54cd934c21b4c1bbf7698f55a62ea6883b878545",
+    "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx": "f0e3747cb5067975e4a9e7bed240f842c49a9513c5418ced9cd8d66e4e174843",
+    "src/learn/components/lesson-labs/landmark-architectures.css": "dd9c6afc446e87e8520f8d4121eda867714bcf9f0269ed26b0f5de3753506674",
+    "src/learn/data/landmark-architecture-models.js": "3770bbbfb9426b2ba4870a753c6918088542114b0497bf7e16f242279723be28",
+    "src/learn/data/landmark-architecture-measurements.json": "4f2e93335ec3ce52affbf903514cda7211c37bd42f9b60d77cc86e131bc9a7dc",
+    "scripts/generate-landmark-architecture-lesson.mjs": "f18be9f2d63c86d7a51df1fa0dd1fdc4e241a12871b87fd3cdc3b4abebeb459b",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/architecture-experiments.py": "7d7f6192950bdb2f05ec778cd25c3fc0e9bb26872dea25294b38d26145c29a48",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/landmark_builders.py": "a2b4a7308d2e70c768dcea22d7d422cd7882d163d45e938ef31ce8c07d1c7cca",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/calculated-inputs.json": "51315455bc810213960d6c571fa3322d3e4c838439f9d9c665faa4e622e5bc91",
+    "src/learn/data/curriculum/blueprints/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.js": "8135787c85babfe5dc056e7db1398e1a775439b8ee59d07ea07beb035e44ae1a",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/data-provenance.md": "aa8d31526555be4ad7d5f96845cb7ce7725d1a7a151c8a23d78130fe45a72703",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/recorded-feature-maps.json": "baa449c329e8aeca0a6c2b5415566c807c06536f548873ca47dff65374062911",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/native-verification.json": "28b4e0d2c3ad324c42edcb79abf45795b595ac5e2a5bfd056cfb5c75748b2a42",
+    "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/lesson.md": "fd28f128876bdf2ee74b5504075c8b1bc68ef853bd33ba99c9de97118730d611",
+    "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/visual-specifications.md": "19ce104a68bbad2af61c5ab4cc9345a4974bef32b8e35d047d84b9dca746d760",
+    "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/design.md": "9e3bad3d5e31e94c51fa433b40b75e1f17f907baaa1301cea62d328d0938841e",
+    "scripts/verify-landmark-independent.py": "02652848e9bcf196e59d303b85c3d4f9d8cbd6a24219d50bcc0ab828347725cb"
+  },
+  "limits": [
+    "No12-fit rerun",
+    "Author four matched-state CPU comparisons reused, not independently repeated",
+    "No pretrained weights downloaded",
+    "Parent owns build, actual browser and screenshot review"
+  ],
+  "followups": [
+    {
+      "checkedAt": "2026-09-22T00:02:52.607Z",
+      "scope": "Topic-scoped 320px composition-grid overflow repair",
+      "status": "passed-source-layout-review-production-browser-pending",
+      "changes": [
+        {
+          "file": "src/learn/components/lesson-labs/landmark-architectures.css",
+          "previous": "13097d00a0b78f6f0b55bf19039e64ef898078e1e9f9bd84f4e0e993b9ba39e6",
+          "current": "dd9c6afc446e87e8520f8d4121eda867714bcf9f0269ed26b0f5de3753506674"
+        },
+        {
+          "file": "docs/teaching/drafts/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/design.md",
+          "previous": "1ffe1fa17cf35ebbcdde8772c8d7644a65ee803cdf4822acdf15f6009d670dc1",
+          "current": "9e3bad3d5e31e94c51fa433b40b75e1f17f907baaa1301cea62d328d0938841e"
+        }
+      ],
+      "confirmation": "Reconstructed both previous hashes from exactly two CSS declarations and the appended design note; all other 16 source hashes unchanged. Native/model/content evidence reused.",
+      "authorDevelopmentEvidence": "docs/teaching/evidence/landmark-architecture-layout-repair.json",
+      "reviewedArtifacts": {
+        "scripts/verify-landmark-architecture-browser.cjs": "23ca6a67be51005ee7d241e9454979f82f932bb98552199197c0eef47653ee2e",
+        "docs/teaching/evidence/landmark-architecture-layout-repair.json": "906650d88bcc732963e546823d1f62490e19c467dbce935df42a8b5dc3d57098"
+      },
+      "limits": "No reviewer browser execution or new native run. Parent owns final production rebuild/browser confirmation."
+    }
+  ]
+}

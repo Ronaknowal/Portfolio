@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4194",
+  "checks": [
+    "perceptron: deferred source fetch, keyboard open, exact complete code/output, unmount on close, cached reopen and byte-matched download",
+    "perceptron: 1366/320 containment, focused code scroll, dark-theme code colors and mono font, rendered math and error-free page",
+    "backprop: deferred source fetch, keyboard open, exact complete code/output, unmount on close, cached reopen and byte-matched download",
+    "backprop: 1366/320 containment, focused code scroll, dark-theme code colors and mono font, rendered math and error-free page",
+    "transfer: deferred source fetch, keyboard open, exact complete code/output, unmount on close, cached reopen and byte-matched download",
+    "transfer: 1366/320 containment, focused code scroll, dark-theme code colors and mono font, rendered math and error-free page",
+    "Shared program disclosure: failed source request shows a local error, real Retry fetch recovers"
+  ],
+  "captures": [
+    "docs/teaching/evidence/neuron-implementation-depth-browser/perceptron-1366.png",
+    "docs/teaching/evidence/neuron-implementation-depth-browser/perceptron-320.png",
+    "docs/teaching/evidence/neuron-implementation-depth-browser/backprop-1366.png",
+    "docs/teaching/evidence/neuron-implementation-depth-browser/backprop-320.png",
+    "docs/teaching/evidence/neuron-implementation-depth-browser/transfer-1366.png",
+    "docs/teaching/evidence/neuron-implementation-depth-browser/transfer-320.png"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "9067f78f977aca06115b2e78d2356445c4074f15202805c8548ad8a4a2bec079",
+    "src/learn/data/topics/backprop.jsx": "e3bea186bcef1126c50fd6275545a2cf685fd9c0dc3960aab6bdcb8311e7097c",
+    "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "bc493e546514cd5b8fa4b60468e03f73b277e0db60774c56170d435f98dbdb73",
+    "src/learn/components/lesson-labs/MechanismProgram.jsx": "bb1158c6d70b2cb0a5e1707357e7d06af47f5056c0457bf5494394acbd8c480e",
+    "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316",
+    "src/learn/components/lesson-labs/perceptron-labs.css": "6d3c00b4ab37628f2816c0d223f25b09d02b33762b09c9329d967fdb04544e4a",
+    "src/learn/data/perceptron-mechanism-program.js": "128bc4cb09556a9630975c8002bb3cfbb719b017c317c0121aba1667b32ae9e1",
+    "src/learn/data/backprop-mechanism-program.js": "989cb77f86dbac8bae519ec4b2f71209d345c199aaec3bf1bf6953a2eb82717f",
+    "src/learn/data/transfer-learning-mechanism-program.js": "a12979b24e6fb06713821fe1cf5bbcbadd3a2319641275c555ceb8644c07064c"
+  }
+}

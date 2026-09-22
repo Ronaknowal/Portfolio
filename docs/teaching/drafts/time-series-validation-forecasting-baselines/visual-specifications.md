@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Forecasting: visual and investigation specifications
 
 Research/write phase, 12 September 2026. These are implementation contracts, not implemented website components. Read the entire lesson and [design](design.md) before phase two. Preserve different forms for different mechanisms; do not put every activity into one generic score box.

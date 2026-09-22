@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-09-21T18:04:05.685Z",
+  "manifestHash": "93b1794149431bcade4d2d5b2dabb497e6eff00e74f5b0d33b9ef733af326bf7",
+  "lessons": [
+    {
+      "id": "perceptrons-neurons-activation-functions",
+      "key": "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx",
+      "chunk": "assets/perceptrons-neurons-activation-functions-CN6XXRup.js",
+      "bytes": 173161
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "key": "src/learn/data/topics/backprop.jsx",
+      "chunk": "assets/backprop-Bhc8cOnu.js",
+      "bytes": 87603
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "key": "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx",
+      "chunk": "assets/loss-functions-ce-mse-focal-contrastive-triplet-DOMCMiJp.js",
+      "bytes": 182925
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "key": "src/learn/data/topics/batch-layer-group-rms-normalization.jsx",
+      "chunk": "assets/batch-layer-group-rms-normalization-VfKLvSzz.js",
+      "bytes": 67920
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "key": "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx",
+      "chunk": "assets/transfer-learning-fine-tuning-strategies-0Yjg76SZ.js",
+      "bytes": 143104
+    }
+  ],
+  "buildLog": "scratch/deep-learning-core-implementation/production-build.txt",
+  "buildLogHash": "7d56da393b6a1d787daa9907f19cce4cbdccd6cb00c79e874c837df557036e29"
+}

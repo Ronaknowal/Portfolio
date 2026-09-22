@@ -1,6 +1,9 @@
 # Capsule Networks: learning which parts belong together
 
-A wheel detector firing twice is not enough to recognize a bicycle. The wheels also need a plausible arrangement relative to a frame. A **capsule network** tries to combine evidence about a part's presence with a vector or matrix describing its properties, then asks whether several parts predict a compatible whole.
+**Explore as you read.** Edit capsule votes, routing iterations, vector magnitude/direction and supported retained image/latent coordinates. Show coupling rows, vote contributions, squash length/direction, current parent vectors and saved/frozen-model outputs. Step routing to inspect its computation, with all current outputs visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish agreement from activation magnitude, pose changes from class evidence and a model intervention from a new empirical result.
+
+
+A wheel detector firing twice is not enough to recognize a bicycle. The wheels also need a plausible arrangement relative to a frame. A **capsule network** tries to combine evidence about a part's presence with a vector or matrix describing its properties, then asks whether several parts inspect a compatible whole.
 
 In [ConvNeXt](/learn/path/full-curriculum/convnext-modern-cnn-designs?module=deep-learning-fundamentals), we changed how a convolutional network mixes spatial and channel information. Here the question changes: **can the network decide, for this particular input, which higher-level entity should receive each part's evidence?** We will build that computation, train a small classifier and test what the computation does and does not establish.
 
@@ -102,9 +105,9 @@ For our first step, child 1's agreements are approximately \(1.5707\) with A and
 
 Each B fraction is one minus the corresponding A fraction. Both parents can acquire substantial scores because different children support them.
 
-**Investigation — change a vote, then predict the route.** Edit child 2's A vote from \((2,0)\) to \((-2,0)\). Before revealing the result, predict which parent will have the longer vector after three steps.
+**Investigation — change a vote, then inspect the route.** Edit child 2's A vote from \((2,0)\) to \((-2,0)\); show the result, inspect which parent will have the longer vector after three steps.
 
-<details><summary>Reveal this changed vote's result</summary>
+<details><summary>Worked changed-vote calculation</summary>
 
 The computed lengths become approximately .6491 for A and .8585 for B. Explain the cancellation, then explain why child 3's reassignment also matters. Try a different edited vote without being given its answer in advance.
 
@@ -272,7 +275,7 @@ The model is highly sensitive to these shifts. The experiment uses small images,
 
 This is a useful failure. Routing's internal agreement does not manufacture the missing coverage of transformed data or constrain every preceding layer to respect a symmetry.
 
-**Investigation — edit pixels and inspect the evidence.** Start from a saved real image with its class scores. Change a selected pixel or apply a bounded nonwrapping shift. Predict whether the winning class will change, commit the prediction, then compute the new scores and reconstruction. A changed vector with the same winning class is a meaningful result. Keep the original label as a reference annotation, not an input to the classifier.
+**Investigation — edit pixels and inspect the evidence.** Start from a saved real image with its class scores. Change a selected pixel or apply a bounded nonwrapping shift. Observe whether the winning class will change, Show the current computed result and its contributing terms immediately. A changed vector with the same winning class is a meaningful result. Keep the original label as a reference annotation, not an input to the classifier.
 
 ### What can a latent-coordinate experiment tell us?
 
@@ -376,6 +379,16 @@ For three children with activations \(1,1,.5\), parent-A first coordinates \(0,.
 
 The resemblance to [Gaussian-mixture EM](/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml) is useful, but each capsule parent sees a differently transformed version of the children, and parent activations do not sum to one. It is not ordinary maximum-likelihood fitting of one common observed dataset. The matrix-capsule paper discusses the change-of-variables issue when comparing densities in different transformed spaces. [Matrix Capsules with EM Routing](https://www.cs.toronto.edu/~hinton/absps/EMcapsules.pdf)
 
+## Follow routing all the way into a trainable program
+
+The runnable scratch route is split by purpose, not by missing work. [capsule-mechanics.py](capsule-mechanics.py) owns NumPy votes, stable softmax, squash, routing iterations and the bounded diagonal-EM illustration. [capsule-learning.py](capsule-learning.py) owns the differentiable Torch routing, `TinyCapsules`, margin loss, reconstruction and complete fit. The Torch tensor implementation is the ordinary research route: there is no universal standard capsule layer whose import can replace specifying the routing algorithm. Reusing `einsum`, linear layers and autograd does not hide routing; the code explicitly updates its coupling logits and sums weighted votes.
+
+The paired route compares the same votes and iteration count, not two independently fitted classifiers. `author-checks.py` reconstructs saved encoder/routing/reconstruction outputs through a separate NumPy path. The lesson's gradient branch explains how gradients flow through the iterative computation. Detaching intermediate agreements would change that training algorithm even if its forward result stayed identical. Softmax runs over candidate **parents for each child**; moving that axis changes who competes for responsibility.
+
+Dynamic routing with B examples, I child capsules, J parents, vote width D and R rounds uses O(BIJD·R) routing arithmetic and O(BIJD) vote storage, apart from the learned vote transforms. Parent-batched contractions are appropriate for the small inspected classifier; manufacturing an extra all-pairs child tensor is not. Diagonal EM has a different Gaussian/statistical meaning and stays explicitly a small illustrative calculation, not an implementation claim for the complete Matrix Capsules paper or its convolutional pose system.
+
+**Implementation exercise:** add a positive routing temperature τ by replacing `softmax(logits)` with `softmax(logits/τ)`, leaving the agreement update unscaled. Compare τ0.5,1 and2 with fixed votes and R. Do not divide both the logits and every agreement update unless you mean a different algorithm. The worked two-parent logits[0,2] give shares approximately[0.1192,0.8808] atτ1, [0.0180,0.9820] atτ0.5, and[0.2689,0.7311] atτ2. Check each child row sums to one and that a single candidate parent always receives share one. Trace actual vector outputs as well as shares; sharper assignments do not guarantee better classification. At finite nonzero votes this remains differentiable, while τ must remain strictly positive.
+
 ## 8. Architecture costs and alternative routing designs
 
 The classic vector CapsNet uses a larger shape chain than our experiment:
@@ -430,7 +443,7 @@ It asks the true activation to exceed each wrong activation by a margin \(m\), o
 
 Applications involving geometric structure or overlapping instances can justify capsule experiments. They still need matched baselines, valid splits and a specific failure hypothesis. Neither an attractive reconstruction nor resistance to one attack proves general robustness. A 3D viewpoint change can reveal or hide surfaces; it is not always an invertible 2D image transform.
 
-## 9. Practice: make a prediction before reading the answer
+## 9. Practice: implement, explain and compare
 
 ### 1. Repeated evidence is not an average
 
@@ -503,7 +516,7 @@ State which weights are fixed, how pixels leaving the image are handled, which l
 </details>
 <details><summary>Solution</summary>
 
-One valid development investigation holds each of the six models fixed, applies a one-pixel left shift with zero fill, inspects label-preservation failures and compares paired one-step/three-step training configurations. Record the prediction before running the new shift. The result is exploratory because the dataset and models have already been studied. A subsequent final claim needs a separately reserved, relevant evaluation set and a frozen protocol. The numeric left-shift result is intentionally not supplied: generate it, retain the changed inputs and explain both counts and disagreement cases.
+One valid development investigation holds each of the six models fixed, applies a one-pixel left shift with zero fill, inspects label-preservation failures and compares paired one-step/three-step training configurations. Show the current computed result and its contributing terms immediately. The result is exploratory because the dataset and models have already been studied. A subsequent final claim needs a separately reserved, relevant evaluation set and a frozen protocol. The numeric left-shift result is intentionally not supplied: generate it, retain the changed inputs and explain both counts and disagreement cases.
 
 </details>
 

@@ -1,0 +1,25 @@
+export default {
+  summary: 'Trace shared local calculations, gradients and exact spatial ancestry before building and inspecting a real digit CNN.',
+  outcomes: [
+    'Compute cross-correlation and channel mixtures with explicit shared parameters',
+    'Accumulate filter and input gradients across overlapping windows',
+    'Plan output sizes, sampled positions, padding and center alignment',
+    'Explain max, average, adaptive and global pooling with overlap derivatives',
+    'Separate theoretical reach, exact ancestors and input-dependent influence',
+    'Run a complete controlled digit comparison and inspect recorded activations',
+    'Implement batched convolution and pooling pullbacks and compare with native APIs',
+    'Explain transpose scatter, sampling phase, patch matrices and computation budgets',
+  ],
+  prerequisites: ['Dropout, DropPath & Stochastic Depth', 'Backpropagation & Automatic Differentiation', 'Vectors, Matrices & Tensor Operations'],
+  sequence: ['One traveling weighted sum', 'Input/output channels and shared updates', 'Geometry and pooling', 'Receptive coordinates and real digit evidence', 'Optional influence, transpose and efficient implementation', 'Changed-input practice and architectural next step'],
+  visual: {
+    type: 'Editable image/filter grids, product tiles, channel sum lanes, shared gradient rails, sampled coordinate rulers, pooling routes, ancestor sets, recorded maps, coefficient profiles and transposed footprints.',
+    question: 'Which values can affect this output, which actually contribute now, and how does changing the operation alter information and cost?',
+    interaction: 'Edit bounded values and geometry with immediate linked outputs. Select saved runs/maps with their exact model/seed/step identity; no browser training or learner prediction gate.',
+  },
+  practice: { task: 'Build changed filters, channel maps, aligned shapes and receptive sets; implement pullbacks and diagnose a measured model comparison.', success: 'Explain addresses, reductions, overlap accumulation, information loss, experimental roles and cost conventions, then transfer them to changed inputs.' },
+  misconceptions: ['Convolution flips a learned filter in PyTorch', 'Pooling guarantees shift invariance or reconstructability', 'Receptive-field width counts observed or connected pixels', 'Transpose convolution inverts convolution', 'Fewer parameters implies lower latency'],
+  sources: ['https://arxiv.org/abs/1603.07285', 'https://distill.pub/2019/computing-receptive-fields/', 'https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html', 'https://distill.pub/2016/deconv-checkerboard/'],
+  depth: 'core',
+  reviewFocus: 'Verify exact geometry, reduction and gradient conventions, current scalar/grid models, measured-data identity and complete scratch/library coverage against the retained packet.',
+};

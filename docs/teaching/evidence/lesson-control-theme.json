@@ -1,0 +1,1104 @@
+{
+  "capturedAt": "2026-09-21T15:38:47.843Z",
+  "base": "http://127.0.0.1:4193",
+  "scope": [
+    "vectors-matrices-tensor-operations",
+    "matrix-decompositions-svd-qr-cholesky-lu",
+    "eigenvalues-eigenvectors",
+    "matrix-calculus-jacobians",
+    "tensor-algebra-einsum-notation",
+    "randomized-linear-algebra",
+    "multivariate-calculus-gradients",
+    "convex-optimization",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+    "learning-rate-schedules-cosine-warmup-onecyclelr",
+    "convex-duality-lagrangian-methods-kkt-conditions",
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+    "non-convex-optimization-landscape",
+    "constrained-multi-objective-optimization",
+    "probability-distributions-bayes-theorem",
+    "maximum-likelihood-map-estimation",
+    "hypothesis-testing-confidence-intervals",
+    "bayesian-inference-conjugate-priors",
+    "concentration-inequalities-hoeffding-bernstein-chernoff",
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+    "variational-inference",
+    "exponential-families-sufficient-statistics",
+    "measure-theory-probability-spaces",
+    "optimal-transport-wasserstein-distance-sinkhorn",
+    "causal-inference-do-calculus",
+    "entropy-cross-entropy-kl-divergence",
+    "mutual-information-information-bottleneck",
+    "rate-distortion-theory",
+    "f-divergences-integral-probability-metrics",
+    "graph-fundamentals-adjacency-laplacian-connectivity",
+    "spectral-graph-theory",
+    "combinatorial-optimization-approximation-algorithms",
+    "stochastic-processes-markov-chains-brownian-motion-poisson",
+    "random-matrix-theory",
+    "queueing-theory-m-m-1-m-g-1-little-s-law",
+    "dynamical-systems-theory-chaos",
+    "it-calculus-stochastic-differential-equations",
+    "numerical-methods-finite-differences-quadrature-root-finding",
+    "functional-analysis-rkhs",
+    "topology-topological-data-analysis-tda",
+    "category-theory-emerging-use-in-ml",
+    "differential-geometry-riemannian-manifolds",
+    "algebra-functions-exponentials-logarithms",
+    "sets-logic-relations-proof-techniques",
+    "geometry-trigonometry-coordinate-reasoning",
+    "counting-combinatorics-mathematical-induction",
+    "single-variable-calculus-limits-derivatives-integrals",
+    "random-variables-expectation-covariance",
+    "sampling-measurement-experimental-design",
+    "ordinary-differential-equations-linear-systems",
+    "complex-numbers-fourier-laplace-transforms",
+    "conditioning-stability-numerical-analysis",
+    "decision-theory-risk-cost-sensitive-decisions",
+    "real-analysis-sequences-modes-of-convergence",
+    "abstract-algebra-groups-symmetry-actions",
+    "partial-differential-equations-conservation-boundary-conditions",
+    "numerical-pdes-grids-finite-elements-stability",
+    "linear-logistic-regression",
+    "decision-trees-random-forests",
+    "k-nearest-neighbors-knn",
+    "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "support-vector-machines-svm",
+    "naive-bayes-probabilistic-classifiers",
+    "ensemble-methods-stacking",
+    "recommender-systems-collaborative-filtering-matrix-factorization",
+    "multi-label-multi-output-learning",
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "k-means-hierarchical-clustering",
+    "pca-dimensionality-reduction",
+    "clustering-evaluation-validation-silhouette-ari-nmi",
+    "dbscan-density-based-clustering",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "gaussian-mixture-models-gmm-em-algorithm",
+    "t-sne-umap-manifold-learning",
+    "independent-component-analysis-ica",
+    "non-negative-matrix-factorization-nmf",
+    "feature-scaling-encoding-imputation",
+    "cross-validation-hyperparameter-tuning",
+    "regularization-l1-l2-elastic-net-dropout",
+    "feature-selection-importance-shap-permutation-mutual-info",
+    "bias-variance-tradeoff-learning-curves",
+    "imbalanced-learning-smote-cost-sensitive-learning",
+    "automl-neural-architecture-search-nas",
+    "hidden-markov-models-hmm",
+    "bayesian-networks-causal-graphical-models",
+    "conditional-random-fields-crf",
+    "gaussian-processes-gp",
+    "semi-supervised-learning-label-propagation-self-training-co-training",
+    "active-learning",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "pac-learning-vc-dimension",
+    "calibration-conformal-prediction",
+    "rademacher-complexity-generalization-bounds",
+    "ml-problem-formulation-baselines-data-leakage",
+    "time-series-validation-forecasting-baselines",
+    "end-to-end-supervised-learning-error-analysis",
+    "python-basics-types-control-flow-functions-modules",
+    "object-oriented-programming-in-python",
+    "iterators-iterables-generators",
+    "decorators-context-managers",
+    "testing-debugging-dependency-management",
+    "numpy-arrays-broadcasting-vectorization",
+    "scientific-file-formats-schemas-reliable-data-i-o",
+    "sql-relational-data-transactions-for-ml",
+    "pandas-data-wrangling-joins-grouping",
+    "matplotlib-scientific-plotting",
+    "reproducible-notebooks-experiment-structure",
+    "code-documentation-type-hints-api-design",
+    "git-github-collaborative-version-control",
+    "linux-basics-filesystems-processes",
+    "bash-scripting-command-line-automation",
+    "os-processes-virtual-memory-isolation",
+    "threads-concurrency-locks-deadlocks",
+    "arrays-strings-hash-maps",
+    "linked-lists-stacks-queues",
+    "trees-binary-search-trees",
+    "heaps-priority-queues-tries",
+    "graphs-representations-bfs-dfs",
+    "disjoint-sets-union-find",
+    "complexity-analysis-recursion",
+    "binary-search-sorting-two-pointer-patterns",
+    "backtracking-divide-and-conquer",
+    "greedy-algorithms-exchange-arguments",
+    "dynamic-programming-states-transitions-optimization",
+    "segment-trees-fenwick-trees-range-queries",
+    "algorithm-correctness-loop-invariants-termination",
+    "hashing-collision-resolution-amortized-analysis",
+    "shortest-paths-spanning-trees-topological-ordering",
+    "string-matching-prefix-functions-rolling-hashes",
+    "reductions-p-np-computational-intractability",
+    "randomized-algorithms-sampling-error-guarantees",
+    "network-flow-minimum-cuts-bipartite-matching",
+    "computational-geometry-robust-predicates-convex-hulls",
+    "persistent-data-structures-structural-sharing-versioned-queries",
+    "external-memory-algorithms-b-trees-i-o-complexity"
+  ],
+  "sourceHashes": {
+    "src/index.css": "fda1350802780d0dfafdb5b173264fb6c09e510105b6356f490b019b57d92458",
+    "src/learn/components/topic-content.css": "cfa8a67c69d4de7ec0d3f0bb17bb4dd0ecf321884187e5ba2597b7f64b6dbd84",
+    "src/learn/components/lesson-labs/calibration-labs.css": "158c5fe4a51a01ed7d74b1cd0f8393ca105961406b204b9392871552c92260a0",
+    "src/learn/components/lesson-labs/CalibrationFigures.jsx": "becb45391dfe14a7e1d6c4cfb238bbe6b0291899f2c5b83dfe3fdbabf133032d",
+    "src/learn/data/calibration-models.js": "0bb784fe620cc398c154474031888b2c11aa06a3e5c8f237c3d3cafe6b97470e",
+    "scripts/verify-lesson-control-theme.cjs": "18ba09f7e30e005c385f15d0034fb865f268263ea9ad760e360ebf64f22a700b"
+  },
+  "manifestHash": "0fe4f103b8a540facf3f999b333ec3756d05c99b532b9f137207cc066fd3cf79",
+  "records": [
+    {
+      "id": "abstract-algebra-groups-symmetry-actions",
+      "controls": 28,
+      "buttons": 10,
+      "ranges": 3,
+      "failures": []
+    },
+    {
+      "id": "active-learning",
+      "controls": 60,
+      "buttons": 27,
+      "ranges": 2,
+      "failures": []
+    },
+    {
+      "id": "algebra-functions-exponentials-logarithms",
+      "controls": 23,
+      "buttons": 8,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "algorithm-correctness-loop-invariants-termination",
+      "controls": 30,
+      "buttons": 20,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+      "controls": 48,
+      "buttons": 11,
+      "ranges": 10,
+      "failures": []
+    },
+    {
+      "id": "arrays-strings-hash-maps",
+      "controls": 65,
+      "buttons": 51,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "automl-neural-architecture-search-nas",
+      "controls": 185,
+      "buttons": 110,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "backtracking-divide-and-conquer",
+      "controls": 31,
+      "buttons": 25,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "bash-scripting-command-line-automation",
+      "controls": 12,
+      "buttons": 6,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "bayesian-inference-conjugate-priors",
+      "controls": 24,
+      "buttons": 7,
+      "ranges": 13,
+      "failures": []
+    },
+    {
+      "id": "bayesian-networks-causal-graphical-models",
+      "controls": 85,
+      "buttons": 34,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "bias-variance-tradeoff-learning-curves",
+      "controls": 34,
+      "buttons": 21,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "binary-search-sorting-two-pointer-patterns",
+      "controls": 31,
+      "buttons": 24,
+      "ranges": 4,
+      "failures": []
+    },
+    {
+      "id": "calibration-conformal-prediction",
+      "controls": 156,
+      "buttons": 63,
+      "ranges": 4,
+      "failures": []
+    },
+    {
+      "id": "category-theory-emerging-use-in-ml",
+      "controls": 35,
+      "buttons": 12,
+      "ranges": 4,
+      "failures": []
+    },
+    {
+      "id": "causal-inference-do-calculus",
+      "controls": 20,
+      "buttons": 7,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "clustering-evaluation-validation-silhouette-ari-nmi",
+      "controls": 97,
+      "buttons": 41,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "code-documentation-type-hints-api-design",
+      "controls": 11,
+      "buttons": 7,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "combinatorial-optimization-approximation-algorithms",
+      "controls": 26,
+      "buttons": 14,
+      "ranges": 4,
+      "failures": []
+    },
+    {
+      "id": "complex-numbers-fourier-laplace-transforms",
+      "controls": 51,
+      "buttons": 20,
+      "ranges": 22,
+      "failures": []
+    },
+    {
+      "id": "complexity-analysis-recursion",
+      "controls": 22,
+      "buttons": 17,
+      "ranges": 1,
+      "failures": []
+    },
+    {
+      "id": "computational-geometry-robust-predicates-convex-hulls",
+      "controls": 33,
+      "buttons": 21,
+      "ranges": 7,
+      "failures": []
+    },
+    {
+      "id": "concentration-inequalities-hoeffding-bernstein-chernoff",
+      "controls": 21,
+      "buttons": 6,
+      "ranges": 4,
+      "failures": []
+    },
+    {
+      "id": "conditional-random-fields-crf",
+      "controls": 35,
+      "buttons": 21,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "conditioning-stability-numerical-analysis",
+      "controls": 21,
+      "buttons": 6,
+      "ranges": 7,
+      "failures": []
+    },
+    {
+      "id": "constrained-multi-objective-optimization",
+      "controls": 26,
+      "buttons": 8,
+      "ranges": 13,
+      "failures": []
+    },
+    {
+      "id": "convex-duality-lagrangian-methods-kkt-conditions",
+      "controls": 27,
+      "buttons": 14,
+      "ranges": 12,
+      "failures": []
+    },
+    {
+      "id": "convex-optimization",
+      "controls": 23,
+      "buttons": 10,
+      "ranges": 9,
+      "failures": []
+    },
+    {
+      "id": "counting-combinatorics-mathematical-induction",
+      "controls": 64,
+      "buttons": 48,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "cross-validation-hyperparameter-tuning",
+      "controls": 80,
+      "buttons": 41,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "dbscan-density-based-clustering",
+      "controls": 35,
+      "buttons": 9,
+      "ranges": 8,
+      "failures": []
+    },
+    {
+      "id": "decision-theory-risk-cost-sensitive-decisions",
+      "controls": 31,
+      "buttons": 8,
+      "ranges": 16,
+      "failures": []
+    },
+    {
+      "id": "decision-trees-random-forests",
+      "controls": 23,
+      "buttons": 7,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "decorators-context-managers",
+      "controls": 14,
+      "buttons": 9,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "controls": 27,
+      "buttons": 10,
+      "ranges": 17,
+      "failures": []
+    },
+    {
+      "id": "disjoint-sets-union-find",
+      "controls": 44,
+      "buttons": 40,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "dynamic-programming-states-transitions-optimization",
+      "controls": 107,
+      "buttons": 93,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "dynamical-systems-theory-chaos",
+      "controls": 29,
+      "buttons": 13,
+      "ranges": 5,
+      "failures": []
+    },
+    {
+      "id": "eigenvalues-eigenvectors",
+      "controls": 11,
+      "buttons": 5,
+      "ranges": 2,
+      "failures": []
+    },
+    {
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "controls": 39,
+      "buttons": 16,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "ensemble-methods-stacking",
+      "controls": 24,
+      "buttons": 11,
+      "ranges": 7,
+      "failures": []
+    },
+    {
+      "id": "entropy-cross-entropy-kl-divergence",
+      "controls": 35,
+      "buttons": 19,
+      "ranges": 8,
+      "failures": []
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "controls": 68,
+      "buttons": 37,
+      "ranges": 1,
+      "failures": []
+    },
+    {
+      "id": "exponential-families-sufficient-statistics",
+      "controls": 26,
+      "buttons": 15,
+      "ranges": 7,
+      "failures": []
+    },
+    {
+      "id": "external-memory-algorithms-b-trees-i-o-complexity",
+      "controls": 42,
+      "buttons": 27,
+      "ranges": 3,
+      "failures": []
+    },
+    {
+      "id": "f-divergences-integral-probability-metrics",
+      "controls": 32,
+      "buttons": 17,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "feature-scaling-encoding-imputation",
+      "controls": 59,
+      "buttons": 8,
+      "ranges": 3,
+      "failures": []
+    },
+    {
+      "id": "feature-selection-importance-shap-permutation-mutual-info",
+      "controls": 85,
+      "buttons": 37,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "functional-analysis-rkhs",
+      "controls": 28,
+      "buttons": 15,
+      "ranges": 8,
+      "failures": []
+    },
+    {
+      "id": "gaussian-mixture-models-gmm-em-algorithm",
+      "controls": 36,
+      "buttons": 15,
+      "ranges": 4,
+      "failures": []
+    },
+    {
+      "id": "gaussian-processes-gp",
+      "controls": 63,
+      "buttons": 17,
+      "ranges": 21,
+      "failures": []
+    },
+    {
+      "id": "geometry-trigonometry-coordinate-reasoning",
+      "controls": 25,
+      "buttons": 12,
+      "ranges": 9,
+      "failures": []
+    },
+    {
+      "id": "git-github-collaborative-version-control",
+      "controls": 16,
+      "buttons": 12,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+      "controls": 31,
+      "buttons": 13,
+      "ranges": 11,
+      "failures": []
+    },
+    {
+      "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "controls": 32,
+      "buttons": 7,
+      "ranges": 13,
+      "failures": []
+    },
+    {
+      "id": "graph-fundamentals-adjacency-laplacian-connectivity",
+      "controls": 31,
+      "buttons": 9,
+      "ranges": 8,
+      "failures": []
+    },
+    {
+      "id": "graphs-representations-bfs-dfs",
+      "controls": 51,
+      "buttons": 43,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "greedy-algorithms-exchange-arguments",
+      "controls": 24,
+      "buttons": 12,
+      "ranges": 1,
+      "failures": []
+    },
+    {
+      "id": "hashing-collision-resolution-amortized-analysis",
+      "controls": 24,
+      "buttons": 15,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "heaps-priority-queues-tries",
+      "controls": 28,
+      "buttons": 20,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "hidden-markov-models-hmm",
+      "controls": 71,
+      "buttons": 47,
+      "ranges": 1,
+      "failures": []
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "controls": 26,
+      "buttons": 3,
+      "ranges": 15,
+      "failures": []
+    },
+    {
+      "id": "imbalanced-learning-smote-cost-sensitive-learning",
+      "controls": 102,
+      "buttons": 48,
+      "ranges": 12,
+      "failures": []
+    },
+    {
+      "id": "independent-component-analysis-ica",
+      "controls": 25,
+      "buttons": 14,
+      "ranges": 1,
+      "failures": []
+    },
+    {
+      "id": "it-calculus-stochastic-differential-equations",
+      "controls": 31,
+      "buttons": 12,
+      "ranges": 2,
+      "failures": []
+    },
+    {
+      "id": "iterators-iterables-generators",
+      "controls": 14,
+      "buttons": 9,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "k-means-hierarchical-clustering",
+      "controls": 28,
+      "buttons": 13,
+      "ranges": 5,
+      "failures": []
+    },
+    {
+      "id": "k-nearest-neighbors-knn",
+      "controls": 21,
+      "buttons": 8,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "learning-rate-schedules-cosine-warmup-onecyclelr",
+      "controls": 26,
+      "buttons": 11,
+      "ranges": 8,
+      "failures": []
+    },
+    {
+      "id": "linear-logistic-regression",
+      "controls": 21,
+      "buttons": 9,
+      "ranges": 7,
+      "failures": []
+    },
+    {
+      "id": "linked-lists-stacks-queues",
+      "controls": 49,
+      "buttons": 34,
+      "ranges": 2,
+      "failures": []
+    },
+    {
+      "id": "linux-basics-filesystems-processes",
+      "controls": 23,
+      "buttons": 16,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "matplotlib-scientific-plotting",
+      "controls": 18,
+      "buttons": 11,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "matrix-calculus-jacobians",
+      "controls": 25,
+      "buttons": 11,
+      "ranges": 2,
+      "failures": []
+    },
+    {
+      "id": "matrix-decompositions-svd-qr-cholesky-lu",
+      "controls": 15,
+      "buttons": 6,
+      "ranges": 7,
+      "failures": []
+    },
+    {
+      "id": "maximum-likelihood-map-estimation",
+      "controls": 22,
+      "buttons": 11,
+      "ranges": 8,
+      "failures": []
+    },
+    {
+      "id": "measure-theory-probability-spaces",
+      "controls": 27,
+      "buttons": 10,
+      "ranges": 9,
+      "failures": []
+    },
+    {
+      "id": "ml-problem-formulation-baselines-data-leakage",
+      "controls": 51,
+      "buttons": 37,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+      "controls": 38,
+      "buttons": 15,
+      "ranges": 10,
+      "failures": []
+    },
+    {
+      "id": "multi-label-multi-output-learning",
+      "controls": 27,
+      "buttons": 17,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "controls": 29,
+      "buttons": 19,
+      "ranges": 4,
+      "failures": []
+    },
+    {
+      "id": "mutual-information-information-bottleneck",
+      "controls": 29,
+      "buttons": 15,
+      "ranges": 7,
+      "failures": []
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "controls": 30,
+      "buttons": 19,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "network-flow-minimum-cuts-bipartite-matching",
+      "controls": 38,
+      "buttons": 30,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "non-convex-optimization-landscape",
+      "controls": 21,
+      "buttons": 8,
+      "ranges": 10,
+      "failures": []
+    },
+    {
+      "id": "non-negative-matrix-factorization-nmf",
+      "controls": 139,
+      "buttons": 104,
+      "ranges": 2,
+      "failures": []
+    },
+    {
+      "id": "numerical-methods-finite-differences-quadrature-root-finding",
+      "controls": 26,
+      "buttons": 12,
+      "ranges": 2,
+      "failures": []
+    },
+    {
+      "id": "numerical-pdes-grids-finite-elements-stability",
+      "controls": 33,
+      "buttons": 9,
+      "ranges": 10,
+      "failures": []
+    },
+    {
+      "id": "numpy-arrays-broadcasting-vectorization",
+      "controls": 23,
+      "buttons": 17,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "object-oriented-programming-in-python",
+      "controls": 19,
+      "buttons": 12,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "optimal-transport-wasserstein-distance-sinkhorn",
+      "controls": 29,
+      "buttons": 18,
+      "ranges": 8,
+      "failures": []
+    },
+    {
+      "id": "ordinary-differential-equations-linear-systems",
+      "controls": 30,
+      "buttons": 8,
+      "ranges": 10,
+      "failures": []
+    },
+    {
+      "id": "os-processes-virtual-memory-isolation",
+      "controls": 31,
+      "buttons": 25,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "pac-learning-vc-dimension",
+      "controls": 74,
+      "buttons": 42,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "pandas-data-wrangling-joins-grouping",
+      "controls": 27,
+      "buttons": 14,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "partial-differential-equations-conservation-boundary-conditions",
+      "controls": 34,
+      "buttons": 10,
+      "ranges": 18,
+      "failures": []
+    },
+    {
+      "id": "pca-dimensionality-reduction",
+      "controls": 31,
+      "buttons": 10,
+      "ranges": 9,
+      "failures": []
+    },
+    {
+      "id": "persistent-data-structures-structural-sharing-versioned-queries",
+      "controls": 21,
+      "buttons": 9,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "probability-distributions-bayes-theorem",
+      "controls": 42,
+      "buttons": 28,
+      "ranges": 14,
+      "failures": []
+    },
+    {
+      "id": "python-basics-types-control-flow-functions-modules",
+      "controls": 14,
+      "buttons": 9,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
+      "controls": 21,
+      "buttons": 10,
+      "ranges": 8,
+      "failures": []
+    },
+    {
+      "id": "rademacher-complexity-generalization-bounds",
+      "controls": 108,
+      "buttons": 60,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "random-matrix-theory",
+      "controls": 20,
+      "buttons": 8,
+      "ranges": 3,
+      "failures": []
+    },
+    {
+      "id": "random-variables-expectation-covariance",
+      "controls": 37,
+      "buttons": 18,
+      "ranges": 15,
+      "failures": []
+    },
+    {
+      "id": "randomized-algorithms-sampling-error-guarantees",
+      "controls": 30,
+      "buttons": 16,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "randomized-linear-algebra",
+      "controls": 27,
+      "buttons": 9,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "rate-distortion-theory",
+      "controls": 35,
+      "buttons": 25,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "real-analysis-sequences-modes-of-convergence",
+      "controls": 30,
+      "buttons": 10,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+      "controls": 79,
+      "buttons": 57,
+      "ranges": 15,
+      "failures": []
+    },
+    {
+      "id": "reductions-p-np-computational-intractability",
+      "controls": 26,
+      "buttons": 24,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "regularization-l1-l2-elastic-net-dropout",
+      "controls": 64,
+      "buttons": 22,
+      "ranges": 6,
+      "failures": []
+    },
+    {
+      "id": "reproducible-notebooks-experiment-structure",
+      "controls": 13,
+      "buttons": 8,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "sampling-measurement-experimental-design",
+      "controls": 21,
+      "buttons": 5,
+      "ranges": 10,
+      "failures": []
+    },
+    {
+      "id": "scientific-file-formats-schemas-reliable-data-i-o",
+      "controls": 9,
+      "buttons": 6,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+      "controls": 29,
+      "buttons": 14,
+      "ranges": 12,
+      "failures": []
+    },
+    {
+      "id": "segment-trees-fenwick-trees-range-queries",
+      "controls": 49,
+      "buttons": 30,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+      "controls": 34,
+      "buttons": 23,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "sets-logic-relations-proof-techniques",
+      "controls": 75,
+      "buttons": 66,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "shortest-paths-spanning-trees-topological-ordering",
+      "controls": 18,
+      "buttons": 14,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "single-variable-calculus-limits-derivatives-integrals",
+      "controls": 31,
+      "buttons": 10,
+      "ranges": 11,
+      "failures": []
+    },
+    {
+      "id": "spectral-graph-theory",
+      "controls": 21,
+      "buttons": 9,
+      "ranges": 5,
+      "failures": []
+    },
+    {
+      "id": "sql-relational-data-transactions-for-ml",
+      "controls": 14,
+      "buttons": 8,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "stochastic-processes-markov-chains-brownian-motion-poisson",
+      "controls": 44,
+      "buttons": 19,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "string-matching-prefix-functions-rolling-hashes",
+      "controls": 30,
+      "buttons": 20,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "support-vector-machines-svm",
+      "controls": 35,
+      "buttons": 17,
+      "ranges": 10,
+      "failures": []
+    },
+    {
+      "id": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+      "controls": 30,
+      "buttons": 9,
+      "ranges": 13,
+      "failures": []
+    },
+    {
+      "id": "t-sne-umap-manifold-learning",
+      "controls": 53,
+      "buttons": 23,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "tensor-algebra-einsum-notation",
+      "controls": 24,
+      "buttons": 10,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "testing-debugging-dependency-management",
+      "controls": 12,
+      "buttons": 5,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "threads-concurrency-locks-deadlocks",
+      "controls": 12,
+      "buttons": 9,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "time-series-validation-forecasting-baselines",
+      "controls": 58,
+      "buttons": 32,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "topology-topological-data-analysis-tda",
+      "controls": 73,
+      "buttons": 56,
+      "ranges": 4,
+      "failures": []
+    },
+    {
+      "id": "trees-binary-search-trees",
+      "controls": 24,
+      "buttons": 18,
+      "ranges": 0,
+      "failures": []
+    },
+    {
+      "id": "variational-inference",
+      "controls": 26,
+      "buttons": 13,
+      "ranges": 9,
+      "failures": []
+    },
+    {
+      "id": "vectors-matrices-tensor-operations",
+      "controls": 29,
+      "buttons": 19,
+      "ranges": 4,
+      "failures": []
+    }
+  ],
+  "failures": [],
+  "passed": true,
+  "fallbackProbe": {
+    "color": "rgb(226, 181, 90)",
+    "background": "rgb(20, 19, 15)"
+  },
+  "guardFalsification": "An unstyled isolated button fails; the same button with authored dark/amber styles passes."
+}

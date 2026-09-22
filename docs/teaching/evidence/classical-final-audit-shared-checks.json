@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T06:03:55.651Z",
+  "scope": "Catalogue, generated routes/publication and import boundaries for the final six Classical ML audit; topic changes remain under review.",
+  "checks": [
+    {
+      "command": "node scripts/verify-curriculum.mjs",
+      "chunk_id": "d4cdd8",
+      "wall_time_seconds": 1.5592869,
+      "exit_code": 0,
+      "original_token_count": 73,
+      "output": "PASS: 29 modules, 1460 stable topics, 620 individual briefs, 10 paths. Prerequisite graphs are acyclic and included as supporting topics; reading order follows module contents. Shared memberships and all 1002 pre-expansion topic IDs preserved. Unknown older dependencies remain unreviewed.\n"
+    },
+    {
+      "command": "node scripts/generate-learning-artifacts.mjs --check",
+      "chunk_id": "295ced",
+      "wall_time_seconds": 4.1679472,
+      "exit_code": 0,
+      "original_token_count": 26,
+      "output": "Verified navigation for 1460 topics, 231 published lessons and 485 separate outlines; 0 stale files.\n"
+    },
+    {
+      "command": "node scripts/verify-learning-artifacts.mjs",
+      "chunk_id": "2e2518",
+      "wall_time_seconds": 5.479342,
+      "exit_code": 0,
+      "original_token_count": 66,
+      "output": "Verified navigation for 1460 topics, 231 published lessons and 485 separate outlines; 0 stale files.\nPASS: 1460 topic records, 29 modules, 231 publication mappings and every guided/module route match authoring sources; body and outline loading remain separate.\n"
+    },
+    {
+      "command": "node scripts/verify-content-import-boundary.mjs",
+      "chunk_id": "91311e",
+      "wall_time_seconds": 5.1231482,
+      "exit_code": 0,
+      "original_token_count": 83,
+      "output": "{\"passed\":true,\"sourceFilesScanned\":1060,\"directMathImports\":235,\"lightweightDependencyModules\":7,\"genericContentExports\":[\"Prose\",\"H2\",\"H3\",\"Code\",\"CodeBlock\",\"Callout\",\"Figure\"],\"checks\":\"No direct/transitive static math or KaTeX barrel dependency; all named consumers use the direct math module, including unpublished drafts.\"}\n"
+    }
+  ]
+}

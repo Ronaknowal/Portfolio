@@ -1,0 +1,42 @@
+.neural-lesson { color: #e7ebe8; overflow-wrap: anywhere; }
+.neural-lesson li { margin: .5rem 0; line-height: 1.75; }
+.neural-lab { border: 1px solid #43534b; padding: clamp(12px, 3vw, 24px); margin: 28px 0; background: #0c1412; }
+.neural-lab h3 { margin: 8px 0 16px; font-size: 21px; }
+.neural-lab p { line-height: 1.7; }
+.neural-eyebrow { font-size: 11px; letter-spacing: .11em; color: #e4b752; }
+.neural-controls, .neural-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 18px 0; }
+.neural-controls > *, .neural-two > * { min-width: 0; }
+.neural-number, .neural-select { display: grid; gap: 8px; min-width: 0; align-content: start; }
+.neural-lab input, .neural-lab select, .neural-lab button { font: inherit; color: #f0cd7c; background: #101c18; border: 1px solid #62706a; padding: 9px 11px; min-height: 42px; max-width: 100%; min-width: 0; }
+.neural-number input, .neural-select select { width: 100%; box-sizing: border-box; }
+.neural-number input[type=range] { padding: 0; accent-color: #e4b752; }
+.neural-number small { color: #f6c1a4; line-height: 1.5; }
+.neural-lab button { cursor: pointer; }
+.neural-program button { cursor: pointer; padding: 9px 11px; font: inherit; color: #f0cd7c; background: #101c18; border: 1px solid #62706a; }
+.neural-program-source { max-width: 100%; overflow-x: auto; white-space: pre; margin: 12px 0 20px; padding: 16px; border: 1px solid #43534b; background: #080c0a; color: #d6dfd9; font-size: 12px; line-height: 1.7; }
+.neural-program-source:focus-visible { outline: 2px solid #e4b752; outline-offset: 3px; }
+.neural-lab button:disabled { opacity: .55; cursor: default; }
+.neural-lab button[aria-pressed=true] { border-color: #e4b752; background: #32291a; }
+.neural-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+.neural-result { border-left: 3px solid #e4b752; padding: 10px 14px; background: #17201c; }
+.neural-table-scroll, .neural-equation { overflow-x: auto; max-width: 100%; margin: 18px 0; }
+.neural-table-scroll table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; }
+.neural-table-scroll caption { text-align: left; font-weight: 600; margin-bottom: 10px; }
+.neural-table-caption { font-size: 14px; line-height: 1.7; font-weight: 600; margin: 18px 0 8px; }
+.neural-table > .neural-table-scroll { margin-top: 0; }
+.neural-table-scroll th, .neural-table-scroll td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #35423b; vertical-align: top; overflow-wrap: normal; word-break: normal; }
+.neural-plot { margin: 20px 0; min-width: 0; }
+.neural-plot figcaption { font-weight: 600; margin-bottom: 12px; line-height: 1.6; }
+.neural-chart { display: block; width: 100%; height: auto; max-width: 420px; margin: auto; }
+.neural-chart text { font-size: 13px; fill: #d6dfd9; }
+.neural-axis-labels { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-size: 13px; line-height: 1.6; }
+.neural-legend { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; }
+.neural-legend li { margin: 0; }
+.neural-legend span { display: inline-block; border-top-width: 3px; width: 24px; margin: 0 7px 3px 0; }
+.neural-practice { margin: 26px 0; border-top: 1px solid #35423b; padding-top: 10px; }
+.neural-practice summary, .neural-lesson > details > summary { cursor: pointer; color: #f0cd7c; padding: 12px 0; line-height: 1.6; }
+.neural-flow { display: grid; gap: 12px; margin: 18px 0; }
+.neural-flow > div { border-left: 2px solid #8fc9b5; padding: 8px 12px; line-height: 1.7; }
+.neural-pixels { display: grid; grid-template-columns: repeat(8, 1fr); width: 160px; max-width: 100%; aspect-ratio: 1; border: 1px solid #82918b; }
+.neural-pixels > span { background: var(--pixel); }
+@media(max-width: 600px) { .neural-controls, .neural-two { grid-template-columns: minmax(0, 1fr); } .neural-chart text { font-size: 15px; } }

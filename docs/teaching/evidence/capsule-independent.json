@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "reviewer": "root; separate from author initialization_implementation",
+  "groups": [
+    "36changed-shape/temperature/round cases against independent Torch contractions",
+    "Three new frozen native image interventions: constant, stripes and ramp",
+    "Negligible activation fixture exposes declared denominator-guard boundary"
+  ],
+  "maximumError": 9.43689570931383e-16,
+  "sourceHashes": {
+    "src/learn/data/topics/capsule-networks.jsx": "3851e28799ffa6558af92fbd210fa28533a34d6d116e8e19776db62cbe77581d",
+    "src/learn/data/capsule-models.js": "f7b487a168aa79419826a09dbc30def7c63d9fd93b0a272f048fed1f59b49d70",
+    "src/learn/components/lesson-labs/CapsuleLabs.jsx": "226fa654912fe5f2b3a8f5a99d5dcdd7fb0d14a2fef11e4bc193708125bbfc58",
+    "src/learn/components/lesson-labs/capsules.css": "f5cc6c9888a369263d009d43413d189f991d4058a7b501fe8d862f8611937a59",
+    "scripts/verify-capsule-independent.mjs": "b7d02017104cc91daed0e6def3fdd6ae4376c60f267e43ef51ba89b58288b0f7"
+  },
+  "limits": "Numerical source review; negligible-mass display correction and actual browser evidence are reviewed separately."
+}

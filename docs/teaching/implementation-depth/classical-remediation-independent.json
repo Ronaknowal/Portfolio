@@ -1,0 +1,61 @@
+{
+  "date": "2026-09-22",
+  "reviewer": "independent agent; not Classical author",
+  "status": "independent-complete; production integration pending",
+  "topics": [
+    "t-sne-umap-manifold-learning",
+    "conditional-random-fields-crf",
+    "active-learning",
+    "linear-logistic-regression",
+    "gaussian-processes-gp"
+  ],
+  "findings": [
+    {
+      "id": "CRF-stale-execution-and-placement",
+      "status": "closed"
+    },
+    {
+      "id": "CRF-L2-half-factor",
+      "status": "closed"
+    },
+    {
+      "id": "UMAP-whole-array-copy-cost",
+      "status": "closed"
+    },
+    {
+      "id": "UMAP-unrepresentable-distances",
+      "status": "closed"
+    }
+  ],
+  "evidence": "docs/teaching/evidence/classical-library-independent-native.json",
+  "sourceHashes": {
+    "public/learn-assets/active-learning/query-library-bridge.py": "25623ae120cf18f2ca02096e4779848b66cb5d0fd8e30bdb485fe6b6e060a716",
+    "public/learn-assets/crf/crfsuite-bridge.py": "a50f5f2059ad1884678faebc839a749c400884434dc4cc1562db02b632a056a4",
+    "public/learn-assets/manifold-learning/umap-mechanism.py": "e110b22641eb8872a0e7c5b25175d8b215843c868f50889bfe6659ddf2c9e2ad",
+    "src/learn/data/active-mechanism-program.js": "18611a5ca973c2bfe69049c02704a3d5d18edddcb0fbcf4c2d843608460c00a7",
+    "src/learn/data/crf-mechanism-program.js": "badc7c8bb96e032ac0a722cae8cd0080fc0007fe15380b9ab0e0e9c79f7944ae",
+    "src/learn/data/manifold-mechanism-program.js": "1076da294e71ecfaba1084a4cf5a60cb356337bdbb64a349680df1aca5d26afc",
+    "src/learn/data/topics/active-learning.jsx": "b1948a929b1849d06d3247fb6708a1eaf0dab7502c7602d313718e8be766138d",
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "1fa159f68bd3f2ccadd782124e7212cd8601f7792247ac80290ec79f579a3ab9",
+    "src/learn/data/topics/gaussian-processes-gp.jsx": "3d706687fecee8f1357fe926b0d342ee126c31546d2d39ec5e14b0aaf702ece7",
+    "src/learn/data/topics/linear-logistic-regression.jsx": "59d6edc419c418d4f60b36212b0866c8fcbe259801d69bfe43f1b86464476112",
+    "src/learn/data/topics/t-sne-umap-manifold-learning.jsx": "7eb0c2dcef57eea5eb21659f36cf8a9028747e3bac0901fa892746db26409163",
+    "scripts/verify-classical-depth-bridges.py": "78690fc9d2be6cbb6491a93727bb9300b1efdc353fd2d75f20eac9423ec833ad",
+    "scripts/verify-classical-library-review.py": "d9baab7c4f6c337942f743dbc65664595c0c6fc4ee96fada8f8e8bcdb8ae83c4",
+    "src/learn/data/gaussian-process-examples.js": "e2effc3ffb00e2091ff7c5d03e3cf24681f317bd037891988b753af3c84cf178",
+    "src/learn/data/linear-logistic-examples.js": "f1e553c31e937f12cbc6e9ef62cfee6e322c8275b4288343cc8724cc2c8872e3",
+    "docs/teaching/evidence/classical-depth-bridges-native.json": "b8f8a1a5a595175c343adcdc4ea321d6141d31241875f0c6c9ed00139671577a",
+    "docs/teaching/evidence/classical-library-independent-native.json": "e455b71fc2677fb4f1c7b3c68c5bda7c470c30e4d1a9d9cda4467622790e82c0",
+    "docs/teaching/implementation-depth/CLASSICAL-REMEDIATION-INDEPENDENT.md": "fff212e45d3f53c1503efdc001a9cc0efa145d14d48dbe5726309f35f92063f4"
+  },
+  "primarySource": {
+    "url": "https://raw.githubusercontent.com/chokkan/crfsuite/master/lib/crf/src/train_lbfgs.c",
+    "bytes": 10754,
+    "sha256": "34b7c8519ea24f6533d4d45f57a65cf6364b5fe58ebc523460e4d0d64e98d1d9"
+  },
+  "boundaries": [
+    "New additions and immediate owner context reviewed; earlier full lessons/experiments not recertified",
+    "No new browser, build, performance benchmark or production integration result claimed"
+  ],
+  "authorEvidenceFinalGroups": 19
+}

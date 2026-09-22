@@ -226,7 +226,7 @@ export function seedingFrequencies(points, selectedIndices, draws = 200, seed = 
     seed,
     counts,
     frequencies: counts.map(count => count / draws),
-    uniformProbability: 1 / (points.length - selectedIndices.length),
+    uniformProbability: selectedIndices.length < points.length ? 1 / (points.length - selectedIndices.length) : 0,
     farthest,
     farthestProbability: farthest === null ? 0 : distribution.rows[farthest].probability,
     stopped: distribution.stopped
@@ -325,7 +325,9 @@ export function cutHierarchy(tree, mode, value) {
  * so the reported winner is exact for this geometry rather than the result of a
  * particular initialization. */
 export function featureGeometry(unitFactor = 1, verticalWeight = 1) {
-  if (![1, 10].includes(unitFactor) || ![0.01, 0.25, 1, 4].includes(verticalWeight)) throw new RangeError('Use a displayed unit and weight choice.');
+  if (![1, 10].includes(unitFactor) || !Number.isFinite(verticalWeight) || verticalWeight < 0.01 || verticalWeight > 4) {
+    throw new RangeError('Use a displayed unit choice and a finite vertical weight from 0.01 to 4.');
+  }
   const effective = unitFactor * Math.sqrt(verticalWeight);
   const points = rectanglePoints.map(([x, y]) => [x, y * effective]);
   const partitions = enumerateTwoGroupPartitions(points);

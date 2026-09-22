@@ -182,7 +182,7 @@ Multiply the evidence from the left and right and normalize:
 
 The last row agrees because no later observations remain. Smoothing uses the whole sequence, but it does not reveal a verified hidden truth: these are probabilities under the model.
 
-**Investigation: change the future, preserve the past calculation.** Predict what happens to the belief at time 1 if the final Clean card becomes Walk. Commit both a filtering prediction and a smoothing prediction before revealing them. The time-1 filtered value stays 0.531792; the smoothed value changes to 0.397624. The three earlier filtered rows are unchanged. The sequence itself is editable, so the distinction is visible in the objects, not just in two definitions.
+**Investigation: change the future, preserve the past calculation.** Change the final Clean card to Walk and inspect the filtering and smoothing beliefs at time 1 together. The time-1 filtered value stays 0.531792; the smoothed value changes to 0.397624. The three earlier filtered rows are unchanged. The sequence itself is editable, so the distinction is visible in the objects, not just in two definitions.
 
 A missing report is another useful contrast. At a retained time step with no observation, summing over all possible symbols gives emission likelihood one. The state still transitions. Removing the entire step instead changes elapsed model time and the number of transitions. In this example, replacing Shop with a missing report gives final Rainy probability 0.802780; deleting that step gives 0.795320. Treating missingness this way assumes the fact of missingness itself supplies no additional state evidence.
 
@@ -323,7 +323,7 @@ which sum to four. Row-normalizing gives emission rows approximately \([0.264094
 
 The joint training log-likelihood of the two recordings increases from −4.728043 to −3.529108 after this update. Removing the boundary creates a *different* data model, with one start and three transitions, and changes the expected counts. It is not merely a storage optimization.
 
-**Investigation: count what the model could have done.** Edit an activity in either recording or move the recording boundary. Predict the total start, emission and transition counts before revealing fractional flows and their normalized rows. Duplicating the whole two-recording dataset doubles every expected count but leaves the one-step updated probabilities unchanged. That is a useful exact null.
+**Investigation: count what the model could have done.** Edit an activity in either recording or move the recording boundary. Inspect the total start, emission and transition counts alongside the fractional flows and their normalized rows. Duplicating the whole two-recording dataset doubles every expected count but leaves the one-step updated probabilities unchanged. That is a useful exact null.
 
 ### What EM does and does not guarantee
 

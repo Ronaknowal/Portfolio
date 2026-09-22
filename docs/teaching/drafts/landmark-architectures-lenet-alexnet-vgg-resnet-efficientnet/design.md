@@ -113,7 +113,7 @@ No copyrighted figure is copied into a runtime asset; figures are specified from
 Required packet inputs:
 
 - lesson.md — complete learner manuscript with setup, locally defined concepts, prose/captions, referenced complete program, worked CAM script and practice.
-- visual-specifications.md — topic-specific inline structures and five investigations: head budget, channel context, scaling budget, recorded comparison, signed score map. Every investigation specifies prediction/state/edit/grading/contrast/null/accessibility/model boundary.
+- visual-specifications.md — topic-specific inline structures and five investigations: head budget, channel context, scaling budget, recorded comparison, signed score map. Every investigation specifies input state, meaningful edits, immediate results, contrasts, nulls, accessibility and the model boundary.
 - architecture-experiments.py — complete original CPU program; imports/classes/inputs/fitting/evaluation/trace/cost/actual visual-output saving. All12 fits actually executed.
 - digits-400.csv and data-provenance.md — actual offline licensed inputs, selection/schema/split/uniqueness/evidence limits.
 - calculated-inputs.json — actual12 fits, intermediate trace points, exact budgets, real features/maps/head/logits/probabilities.
@@ -128,7 +128,7 @@ The author reread the full final manuscript and visual specification as separate
 1. **Route:** explicit immediately after introduction; optional history/additional-family branch labeled. Readiness does not require ImageNet reproduction, all historical dates or optional NFNet/RegNet.
 2. **Cautions:** consolidate budget/latency, dataset/split and CAM interpretation in their homes. Displayed code prints only calculated outputs; program/check separation retains a readable mechanism.
 3. **Real question:** actual handwriting recognition returns in the small-data experiment and its correctly/wrongly classified source records. Fresh400/400 vector/ID uniqueness check avoids a silent duplicate split.
-4. **Investigations:** initially unset predictions, meaningful feature/head/budget edits, exact categorical/numeric grading and binding/invalidation described. Actual greater/equal/less plain/residual cases across three seeds and gate/CAM nulls are recorded. Scope a below-bound scaling solution as infeasible, rather than clamping its value.
+4. **Investigations:** visible default results, meaningful feature/head/budget edits, exact categorical/numeric reference checks and synchronization of results with the active input are described. Actual greater/equal/less plain/residual cases across three seeds and gate/CAM nulls are recorded. Scope a below-bound scaling solution as infeasible, rather than clamping its value.
 5. **Figures:** manuscript/spec reading covered each first-use structure and intermediate transformation; raw2×2 maps and exact budget values remain interpretable without decorative plots. Rendered desktop/mobile visibility remains explicitly deferred.
 6. **Connections:** frozen convolution→architecture→depthwise sequence; add/concat/GAP/feature-loss and two CAM calculation routes explained. Canonical agenda decisions and intentional optional exclusions recorded above.
 7. **Code:** complete program provides all imports/classes/data/fitting; small excerpts are clearly labeled as excerpts, while independent CAM code is complete. Hook accounting includes all invoked Conv/Linear layers. No backend benchmark or training-quality promise is printed.
@@ -137,7 +137,7 @@ The author reread the full final manuscript and visual specification as separate
 
 Correctness checks actually run:12 real fits once; cost hooks; exact VGG/branch/DWS/SE/scaling computations; fresh data uniqueness; independent meta-tensor head counts; direct-loop CAM reconstruction against80 saved class logits; changed signed-map and context-gate fixtures; eligibility endpoint checks. Float32 two-route CAM maximum5.722e−6; independent double-loop against saved logits maximum7.100e−6. Full results/conditions in provenance.
 
-Revisions from author reread: corrected ambiguous early channel-doubling task to explicitly bias-free weights; closed its reveal; removed implementation-direction prose from learner captions; repaired prose/inline-code spacing without altering executable programs; labeled SiLU locally; clarified MAC exclusions and learned-feature versus edited-image boundary; corrected invalid scaling allocation behavior in spec. No fitted weights/results changed, so no fit rerun was necessary.
+Revisions from author reread: corrected ambiguous early channel-doubling task to explicitly bias-free weights; closed its reveal; removed implementation-direction prose from learner captions; repaired prose/inline-code spacing without altering executable programs; labeled SiLU locally; clarified MAC exclusions and learned-feature versus edited-image boundary; corrected invalid scaling allocation behavior in spec. No fitted weights/results changed, so no fit rerun was necessary. **Historical interaction record:** the earlier prediction/reveal behavior described here is superseded by the 21 September live-exploration contract; it is not a phase-two implementation requirement. Preserve the recorded mathematical checks and fixtures.
 
 ## Current status and next action
 
@@ -150,3 +150,74 @@ Open content concern: none identified by author; root may report scoped findings
 
 Root reconciliation, 13 September: added the existing module predecessor as a contextual link and replaced the next-topic draft-file link with the real full-curriculum route, both retaining module=deep-learning-fundamentals. This bounded navigation repair changes no calculations, data, visual behavior or evidence; author checked stable IDs against the assigned sequence.
 Next action: root reconcile/checkpoint; implementation owner later translates exact visual contracts and complete manuscript into existing topic/lab structure, runs required functional/numerical/browser/build checks and records phase two separately. Author proceeds to the next assigned depthwise/dilated packet after root handoff.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Compare architecture operations and budgets. Edit head dimensions, channel-context cells, scaling allocations, deployment budgets and signed score-map weights. Show exact parameter/MAC counts, gate contributions, candidate eligibility and current CAM/logit arithmetic live. Recorded model/seed selectors display existing evidence immediately. Identify which operation consumes the budget, what information a head discards and why a smaller model is not automatically better.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Turn the architecture diagram into a complete model” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| Construct title families | `landmark_builders.py:lenet, alexnet, vgg16, ResidualBlock/resnet18, MobileBlock/efficientnet_b0`; explicit complete composition | Torchvision get_model and explicit weight enums; component state mapping, metadata/default/meta-mode inspection | GAP seven-class VGG modification with parameters/shape solution; original-paper vs maintained-model differences declared |
+| Parallel branches, channel gating, training and CAM | `architecture-experiments.py:ParallelBranches, InvertedGated, SmallClassifier, exact_examples, main` | Ordinary PyTorch training; transfer policy reuses actual published transfer-experiments.py section3 | Existing branch/gate/CAM exercises retained; historical ancillary families remain mechanism context |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.
+
+## Prepared-content implementation — 22 September 2026
+
+Current state: **author implementation complete; independent review in progress; parent production integration pending**. The historical content-first statements above remain a record of the prepared phase, not the current runtime state. The author preserves the entire revision-3 manuscript/specification and its original measured inputs. Central phase/registry/build ownership remains with the parent.
+
+### Implemented route and ownership
+
+The stable topic source now contains all thirteen main sections, eighteen closed practice hints/solutions, complete named-family construction guidance, ordinary-library/pretrained distinctions and the actual small-network investigation. `scripts/generate-landmark-architecture-lesson.mjs` statically renders the conserved manuscript, translates relative draft-topic links to real routes, removes placement comments, inserts the specified visuals and replaces only the now-executed comparison status. The full manuscript was not compressed into an outline.
+
+`LandmarkArchitectureLabs.jsx` and `landmark-architecture-models.js` implement five live investigations plus a separately opened sixth recorded-map view. They expose actual head dimensions and exact biases/MACs; editable channel cells and broadcast gates; aligned parameter/compute bars and an honest infeasible allocation; fixed-cost eligibility and observed training traces; and signed CAM contributions with both arithmetic orders. Source identity, changed variables, null results and evidence limits remain visible. No learner prediction-entry or reveal grading exists.
+
+Inline figures show channel/spatial shape routes, historical LeNet fidelity, two distinct sampled grids, selectable intermediate kernel paths, concat/add branch lanes, and a narrow skip around expansion/depthwise/gate/projection. The kernel interaction maps one of nine intermediate positions to its actual 3×3 patch in a 5×5 input union. Scoping keeps all new surfaces neutral charcoal with amber, rather than inheriting old green styling. Numerical tables, visible signs and separate input/output labels remain available without color interpretation.
+
+Browser measurements are compact (20,673 bytes before compression), topic-local and exactly derived from the native packet. The heavier saved image/features/head observations are a separate JSON fetched only when their disclosure opens. Both complete Python programs also fetch only on disclosure. The original 12-fit training loop, large model constructors and pretrained downloads never execute in the browser. No shared CSS, core runtime registry, generated catalogue or phase ledger was edited by this author.
+
+### Actual native execution and retained evidence
+
+The full `architecture-experiments.py` was executed once in the public asset directory. All twelve fits, checkpoint values, model costs, feature/head outputs and exact fixtures match the conserved JSON exactly; producer and CSV bytes are unchanged. The fixed split still supplies development evidence only.
+
+Torchvision 0.29.0 was installed with `--no-deps --target scratch/landmark-architecture-deps`; PyTorch/shared packages were not modified. Each following CLI comparison was executed individually, with the package target added to `sys.path`, one CPU thread, seed9, a randomly generated input, `weights=None`, copied Conv/Linear/BatchNorm state, both models in evaluation mode, and no download. The original command constructs the model specified by `--family`:
+
+```text
+python landmark_builders.py --family resnet18 --compare
+python landmark_builders.py --family efficientnet_b0 --compare
+python landmark_builders.py --family vgg16 --compare
+python landmark_builders.py --family alexnet --compare
+```
+
+Actual printed maximum differences were respectively **0.0, 0.0, 0.0, 0.0**. The VGG and AlexNet processes were individually launched and terminated before the next family; this was not parallel allocation of all models. This checks matched computation, not historical training or pretrained quality.
+
+The complementary author verifier `scripts/verify-landmark-architecture-native.py --library-path scratch/landmark-architecture-deps` passes six substantive groups and records exact source hashes at `docs/teaching/evidence/landmark-architecture-native.json`, also downloadable as `native-verification.json`. It checks all five full meta constructors and copied component state shapes against Torchvision; changed seven-class GAP VGG at 64/96 pixels; branch-drop probability boundaries and gradients; all80 saved CAM scores through independent scalar loops; and the standalone hand-sized CAM code. Actual parameter counts: LeNet variant61,706; AlexNet61,100,840; VGG16 138,357,544; ResNet18 11,689,512; EfficientNetB0 5,288,548. Float64 re-accumulation of stored float32 values differs from saved logits by at most7.099608438920768e−6; this is separate from the original float32 reorder fixture's5.7220458984375e−6.
+
+`node scripts/verify-landmark-architecture-models.mjs` passes seven substantive groups: complete source/JSX and practice preservation, every compact/deferred empirical field, three head modes and exact nulls, actual context cells and permutations, coefficient/scaling/infeasible arithmetic, budget boundary/seed invariance, and all80 class-score reconstructions plus changed signed fixtures. Report: `docs/teaching/evidence/landmark-architecture-author.json`. Source hashes bind the final model/lab/generated body. Original author checks need not be rerun over unchanged historical evidence.
+
+### Review changes already addressed
+
+Independent reviewer `/root/decision_depth_prose` identified two mechanism figures that initially remained too textual. The author added the sampled-window/selected-intermediate route and aligned shared-zero budget bars with a labeled target-MAC marker. The reviewer also demonstrated that customizing `MobileBlock` to drop_probability1 produced nonfinite values. The canonical public source now accepts [0,1], rejects out-of-range/NaN values and uses `inputs + correction * 0` at training probability1, preserving a finite identity route and zero branch gradients without division. Default B0 uses rates below1 and is unchanged. This is an explicit canonical implementation correction; the frozen draft's source remains intact. Minor copy/aria spacing repairs distinguish retaining an input from allocating an extra physical copy.
+
+The author reviewed the full generated article, program flow, remaining optional branches, point-of-use relationships, source conservation and all data/constructed-model boundaries. Independent review is separate and still being finalized. The official versioned Torchvision0.29 EfficientNet page was checked for the compatible model/weight contract. No pretrained photograph/weight example, full historical ImageNet fit, hardware latency or arbitrary-image browser inference is claimed.
+
+### Parent integration and cleanup handoff
+
+`scripts/verify-landmark-architecture-browser.cjs` is parsed and ready for the single parent-owned production build; it installs the shared font fixture, checks genuine pointer/keyboard changes, each default/change/null/reset/invalid state, actual saved mistake and competing class, program/map demand loading, theme/math geometry and desktop/390/320 captures. It has not been executed by this author. Parent must inspect the retained images, close independent findings, bind final browser evidence and update the phase ledger.
+
+Keep the isolated `scratch/landmark-architecture-deps` until the independent reviewer finishes native access, then resolve and remove only that exact temporary directory inside this workspace. Its installer-owned files need the host permission context. The full public programs, measured JSON, dataset/provenance and referenced author/review evidence are durable outputs, not cleanup candidates. No separate obsolete scratch manuscripts or screenshot sets were created by this author.
+
+### Phone integration repair — 22 September 2026
+
+The parent production browser exposed five pixels of page overflow at320px: the fixed150px intermediate grid sat inside a135px flex stage. The topic-scoped route stage now has a170px basis and the small-grid rule caps width at its container, allowing stages to wrap naturally. This does not clip the grid or change any convolution support. A targeted dev4195 check passes document and intermediate-grid containment at1366/390/320px with the actual-map disclosure and both complete program disclosures open. The 320px composition figure was visually inspected. The scoped author browser script now asserts containment of the grid inside its stage, supplementing page-width checks. All seven source/model groups pass with refreshed hashes; native evidence is unchanged. Independent scoped rebinding and final production browser confirmation remain parent/reviewer work.

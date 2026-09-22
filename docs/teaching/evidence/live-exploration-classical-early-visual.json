@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-09-21T14:58:51.811Z",
+  "base": "http://127.0.0.1:4191",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "fonts": "Exact sitefont files via scratch/kmeans-revision-review/fonts/manifest.json",
+  "method": "Playwright element captures, then direct image inspection. Captures are taller than the viewport and include the fixed site header at its capture position.",
+  "captures": [
+    {
+      "path": "scratch/live-exploration-review/classical-early/gaussian-mixture-models-gmm-em-algorithm-phone.png",
+      "sha256": "c62698e1b0cb8fc2fcccef96ea71a34214c75248ca73d7d3f83e86d0da9e6a03"
+    },
+    {
+      "path": "scratch/live-exploration-review/classical-early/non-negative-matrix-factorization-nmf-phone.png",
+      "sha256": "7468327233fe9c34697b658ccf702fbe38440f83098f65126df7152966e03961"
+    },
+    {
+      "path": "scratch/live-exploration-review/classical-early/regularization-l1-l2-elastic-net-dropout-phone.png",
+      "sha256": "1ce7c340a922a82961880a6909752485813803cbc3a792f548a6604cee3aa1cc"
+    }
+  ],
+  "observations": [
+    "GMM numeric controls and sliders align within the narrow lab; density curve, responsibility strip and numeric table remain available and legible.",
+    "NMF paired controls, matrix cells, saved-reference action and additive strips remain readable. Its wider numeric table is contained in its existing scrolling region.",
+    "Regularization sliders, objective plot, exact-zero interval plot and family table preserve their topic-specific representation. No new overlapping labels or stretched graph geometry were observed in these three initial views."
+  ],
+  "limitations": [
+    "Three initial mobile lab views only; not an exhaustive visual review of all21topics or arbitrary control states.",
+    "The fixed navigation appears within tall element captures; page-level mobile overflow is checked separately."
+  ],
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/GmmLabs.jsx": "72cd79fd10897a5db3a3f565709b2df2c274c94ef8149f7f5f7104d742fbc918",
+    "src/learn/components/lesson-labs/GmmShared.jsx": "643494276347906de3bea0d9a9bc2b6eef7c5b336fb271269a948f826027814e",
+    "src/learn/components/lesson-labs/NmfLabs.jsx": "79eb2129f86c313e409cf66bffe3ee6e0805c07fbef1c37203a0632cbdea51d8",
+    "src/learn/components/lesson-labs/NmfShared.jsx": "c31dcb81b7f1a7522a7d4a050905d470cb02e0f369fc8a48261602634a4e60a7",
+    "src/learn/components/lesson-labs/RegularizationLabs.jsx": "f856694df6be54a58030e67fba6630d7d851afe609b592c2249d177188e0adad",
+    "src/learn/components/lesson-labs/RegularizationShared.jsx": "18214392dd4fb1a5e6f1c7bd341738930a153111edfbb6da2dd65b6607d65795"
+  }
+}

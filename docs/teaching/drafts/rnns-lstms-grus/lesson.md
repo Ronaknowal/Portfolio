@@ -1,5 +1,8 @@
 # RNNs, LSTMs & GRUs
 
+**Explore as you read.** Edit sequence entries, recurrent weights, LSTM gates, GRU reset placement and supported pen-trajectory coordinates. Update state trajectories, retained/injected terms, shared-weight credit and exact learned outputs. Step, rewind and reset state explicitly; padding and request boundaries remain visible. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose what must persist or reset, and diagnose saturation, reset-order differences and accidental cross-sequence leakage.
+
+
 A pen stroke is more than a collection of points. The order tells you how the pen travelled between them. A recurrent neural network processes that order by repeatedly updating a small collection of numbers: its current state. An LSTM or GRU changes the update rule so that the network can selectively retain, replace and expose information.
 
 **Your first pass:** follow the pen trajectory and the three-step calculation in sections 1–2; learn the retain/write/read roles in sections 3–4; run or inspect the complete handwriting experiment in section 5; then work through state boundaries and padding in sections 6–7. Finish the core practice. Section 8 opens the deeper derivative and architecture questions when you are ready. You do not need its full Jacobian derivation to understand the next lesson.
@@ -67,7 +70,7 @@ Use \(x=[0.4,-0.2,0.7]\), input weight \(w_x=0.8\), recurrent weight \(w_h=0.6\)
 
 The second input is negative, yet the second state is positive. The state includes both the new observation and a transformed contribution from the past. It is not simply a copy of the current input.
 
-**Investigation: edit an observation, then trace its consequences.** Change the middle input before stepping the recurrence. Predict whether the final state will rise, fall or remain equal, and enter an approximate value. The display then recomputes the input contribution, old-state contribution, preactivation and tanh at each affected position. Changing \(x_2\) cannot alter \(h_1\), because this recurrence only moves forward.
+**Investigation: edit an observation, then trace its consequences.** Change the middle input before stepping the recurrence. Observe whether the final state will rise, fall or remain equal, and enter an approximate value. The display then recomputes the input contribution, old-state contribution, preactivation and tanh at each affected position. Changing \(x_2\) cannot alter \(h_1\), because this recurrence only moves forward.
 
 ### Learning assigns credit to repeated uses of the same weight
 
@@ -166,7 +169,7 @@ Hold the write contribution at zero and the forget factor constant. Starting at 
 
 These are exact-formula illustrations, not measured gradients of trained networks. A positive forget bias can initially favor retention, but bias 1 does not by itself preserve a signal for hundreds of steps. To retain half over 100 fixed-factor steps requires \(f=0.5^{1/100}\approx0.993092\), corresponding to sigmoid preactivation about 4.968. Real gates also depend on inputs and state.
 
-**Investigation: design a memory interval.** Choose the number of steps and the fraction you want retained. Predict an appropriate forget factor, then see the calculated curve and half-life. Next allow a nonzero write at an editable position and observe why the total cell value is no longer simply \(f^T\).
+**Investigation: design a memory interval.** Choose the number of steps and the fraction you want retained. inspect an appropriate forget factor, then see the calculated curve and half-life. Next allow a nonzero write at an editable position and observe why the total cell value is no longer simply \(f^T\).
 
 This controllable additive route helps with learning long dependencies. It is not a promise that every LSTM gradient stays constant: gates can close, output tanh can saturate, and the complete state has additional derivative paths.
 
@@ -406,7 +409,7 @@ The digit label is retained for this constructed input transformation. The rever
 
 Swapping only points 3 and 4 gives a milder but still meaningful change: seed-1 correct counts become 262, 239 and 259. The models depend on more than the unconnected point set.
 
-**Investigation: change the actual pen path.** Select one retained specimen, move the x-coordinate of point 3, or swap two neighboring points. Before applying the edit, predict whether the most likely digit will change and whether a selected digit's probability will rise, fall or stay equal. Recompute the whole affected suffix with the selected fixed model. Display the numbered path, selected hidden coordinates and class probabilities together.
+**Investigation: change the actual pen path.** Select one retained specimen, move the x-coordinate of point 3, or swap two neighboring points. Before applying the edit, observe whether the most likely digit will change and whether a selected digit's probability will rise, fall or stay equal. Recompute the whole affected suffix with the selected fixed model. Display the numbered path, selected hidden coordinates and class probabilities together.
 
 The checked edit that adds 0.2 in normalized units to point 3's x-coordinate changes probabilities for the first two retained specimens but does not need to change the predicted digit. That is a useful outcome: a visible input change is not evidence that the classifier must flip its decision.
 
@@ -494,6 +497,20 @@ In a stack, layer 2 consumes layer 1's output at each position. This adds depth 
 Bidirectional models may use future observations within a completed input. That can be useful for offline labeling or an encoder that receives a whole source sequence. It is incompatible with claiming a causal output at position \(t\) before later observations exist. Separate the deployment question from a library flag.
 
 If there is a loss at every valid position, mask the padded targets too. For lengths 5, 3 and 1 there are nine valid targets, not fifteen. Dividing by fifteen dilutes the loss and changes its scale as padding changes. Packing inputs and masking output losses solve related but distinct problems.
+
+## Translate gate equations into a reusable recurrent implementation
+
+The complete [recurrent-mechanics.py](recurrent-mechanics.py) is the scratch cell owner: `manual_sequence` evaluates all RNN, LSTM and GRU gate equations in NumPy using the actual native parameter tensors. The complete [pen-sequence-learning.py](pen-sequence-learning.py) is the ordinary `nn.RNN`, `nn.LSTM` and `nn.GRU` model route, with data preparation, loss, optimizer and evaluation. `scalar_credit` opens temporal parameter sharing and its accumulated derivative; the implemented [Backpropagation owner](/learn/path/full-curriculum/backpropagation-automatic-differentiation) owns general reverse-mode machinery.
+
+Read the gate ordering before copying state: LSTM uses input, forget, candidate and output slices; PyTorch GRU uses reset, update and candidate slices. There are separate input and hidden biases. In the native GRU candidate, reset multiplies the hidden affine result including its hidden bias. The earlier equation variant that resets the previous state before multiplication is not algebraically interchangeable. The supplied manual trace follows the native convention exactly and preserves both h and c for LSTM. A same-seed training score is not a gate-parity check.
+
+For T steps, batch B, input I and hidden H, dense recurrence costs O(TBH(I+H)) up to the gate count. A streaming forward pass retains O(BH) hidden state (twice that for LSTM), whereas full backpropagation retains a history proportional to T. `manual_sequence` deliberately records histories for explanation; `nn.*` provides the usual batched kernels and packed-sequence route. Returned states belong to specific sequences, so reordering a batch without reordering its states is a semantic error.
+
+**Changed-code task:** process a saved trajectory in chunks of5 instead of one whole tensor. Carry the native hidden state between chunks, collect every output and concatenate along time. Compare that with one full pass using the same weights, evaluation mode and no stochastic inter-layer dropout. For LSTM carry the pair `(h,c)`. Then insert `detach()` at chunk boundaries during training and explain which equality should remain and which derivative comparison should stop holding.
+
+<details><summary>Hint</summary>Detaching preserves a value but cuts its earlier computation graph; replacing a state with zeros changes the value too.</details>
+
+<details><summary>Solution and success criteria</summary>Chunked forward outputs agree up to numerical kernel tolerance when the state is carried correctly, including a final short chunk. Detached-state forward outputs still agree, but a final loss cannot assign credit through the detached earlier chunks. Resetting at every boundary generally changes later outputs. Test a boundary at an interior time, not only an empty or whole-length chunk. This supplies a usable streaming implementation pattern without reimplementing the cell a second time.</details>
 
 ## 8. Deeper questions and practical model choices
 

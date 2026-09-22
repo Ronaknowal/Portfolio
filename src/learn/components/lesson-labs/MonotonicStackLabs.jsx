@@ -64,7 +64,7 @@ export function NextGreaterLab() {
   };
   return <section className="monostack-lab" data-monostack-lab="greater" aria-label="Next greater unresolved-index investigation">
     <h3>One new reading can answer several earlier questions</h3>
-    <p>Predict which indices the next arrival will settle. A stack entry keeps its original position and value. A question mark means “not resolved yet”; zero becomes final only when the input ends.</p>
+    <p>Inspect which indices the next arrival will settle. A stack entry keeps its original position and value. A question mark means “not resolved yet”; zero becomes final only when the input ends.</p>
     <form onSubmit={apply}><label>Readings<input aria-label="Next-greater readings" value={draft} onChange={event => setDraft(event.target.value)} /></label><p>Up to 12 integers from −20 to 20; blank means empty. Drafts apply on the button. Invalid input preserves the active calculation.</p><button type="submit">Apply readings</button></form>
     {error && <p role="alert">{error}</p>}
     <label>Qualifying future reading<select aria-label="Future comparison" value={inclusive ? 'inclusive' : 'strict'} onChange={event => {

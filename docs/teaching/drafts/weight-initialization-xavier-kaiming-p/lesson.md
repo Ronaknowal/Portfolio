@@ -1,5 +1,8 @@
 # Weight Initialization: Xavier, Kaiming, Orthogonal Methods & μP
 
+**Explore as you read.** Inspect saved initialization/seed traces; edit four activation values, singular directions, depth and width/rate scaling. Show forward/backward second moments, means/variance, directional gain and shape/update formulas together. Continuous tiny models are distinct from selectors over measured training records. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose an initialization/parameterization by the signal and update behavior it preserves, without treating average scale as every-direction stability.
+
+
 A network begins making predictions before it has learned anything. Its initial weights determine whether useful differences between inputs survive the journey through its layers—and whether a change in an early weight can still affect the loss.
 
 Think of passing a sound through twenty amplifiers. A small gain error repeated twenty times can make the signal nearly inaudible or enormously loud. A neural network adds another complication: nonlinear gates can remove parts of the signal. Choosing a starting scale is therefore a problem about a whole sequence of transformations, not simply drawing “small random numbers.”
@@ -38,7 +41,7 @@ Actual float64 results for seed 1:
 
 The input \(q\) was 0.970. These are observations from one finite network, not theoretical curves. The downloadable record also contains seeds 2 and 3. In particular, the orthogonal run drifted downward; its name does not guarantee a flat line after nonlinearities.
 
-**Visual investigation: follow the signal.** Compare the forward mean square with a backward sensitivity trace on aligned layer axes. Before revealing a new scheme, predict whether its final signal will shrink, grow, or remain within a moderate range. Switching from forward signal to backward sensitivity changes what is measured; it must not silently relabel the same curve.
+**Visual investigation: follow the signal.** Compare the forward mean square with a backward sensitivity trace on aligned layer axes; show a new scheme, observe whether its final signal will shrink, grow, or remain within a moderate range. Switching from forward signal to backward sensitivity changes what is measured; it must not silently relabel the same curve.
 
 For the backward probe, the program forms a scalar by multiplying the final activations by a fixed random array and summing. It then differentiates that scalar with respect to every layer's activations. The input gradient RMS is \(9.54\times10^{-26}\) for small initialization, 0.848 for Kaiming, and \(9.10\times10^8\) for large initialization. This measures sensitivity to one chosen output direction. It does not measure all possible directions or prove that a classifier will train.
 
@@ -161,9 +164,37 @@ J_f=\begin{bmatrix}0&0\\0&\sqrt2\end{bmatrix}.
 
 One local direction is completely blocked. The total input and output norms happen to agree at that particular point, which makes it an especially useful counterexample to judging the Jacobian from a single norm.
 
-**Geometry investigation:** keep the average squared gain at one while changing the two directional gains. Predict which input direction will lose sensitivity, then test it with an editable vector. Add or remove the ReLU gate and compare the actual local Jacobian. The identity map is the null comparison.
+**Geometry investigation:** keep the average squared gain at one while changing the two directional gains. Inspect which input direction will lose sensitivity, then test it with an editable vector. Add or remove the ReLU gate and compare the actual local Jacobian. The identity map is the null comparison.
 
 Keeping the singular values of a network's full input-output Jacobian close to one is the idea of **dynamical isometry**. The linear and nonlinear cases require different conditions. Orthogonal initialization is useful evidence about an individual linear map, not a certificate that an entire ReLU network has this property. [Saxe et al., dynamical-isometry discussion](https://arxiv.org/pdf/1312.6120)
+
+## Construct an orthogonal draw, then match a width-aware optimizer
+
+The scale formula tells us what to sample; an orthogonal initializer instead constrains a whole matrix. The complete [initialization bridge](initialization_library_bridge.py) exposes both cases. For a matrix with more rows than columns, sample a Gaussian matrix, take reduced QR, and multiply each column of Q by the sign of the matching diagonal of R. The sign choice removes the QR routine's arbitrary sign convention. For more columns than rows, construct the tall counterpart and transpose it. Multiply by the requested gain last.
+
+```python
+def orthogonal_matrix(rows, columns, gain=1.0, generator=None):
+    tall = torch.randn(max(rows, columns), min(rows, columns),
+                       dtype=torch.float64, generator=generator)
+    basis, triangular = torch.linalg.qr(tall, mode="reduced")
+    signs = torch.where(triangular.diagonal() < 0, -1.0, 1.0)
+    basis = basis * signs
+    return gain * (basis if rows >= columns else basis.T)
+```
+
+This uses the QR factorization already taught in [Matrix Decompositions](/learn/path/full-curriculum/matrix-decompositions-svd-qr-cholesky-lu); it does not hide initialization inside `orthogonal_`. With gain g, test `Q.T @ Q = g²I` for tall matrices and `Q @ Q.T = g²I` for wide ones. Testing the wrong identity would claim preservation in a dimension the map cannot preserve. Reduced QR costs O(max(m,n) min(m,n)²) arithmetic and O(mn) storage. This is a dense matrix construction, not a special accelerator kernel.
+
+Run `python initialization_library_bridge.py` with PyTorch. It compares rectangular Gram contracts against `nn.init.orthogonal_`. Identical seeds need not yield identical wide matrices when routines draw arrays in different shapes; the meaningful comparison here is the distribution/construction contract and Gram identity.
+
+After the μP derivation below, continue with `python initialization_library_bridge.py --mup` in an environment containing Microsoft's `mup` package. That optional branch reuses `WidthMLP` directly from the adjacent experiment file without rerunning its training sweep. Its ordinary model substitutes `MuReadout`, calls `set_base_shapes` with widths 32 and 64 to identify changing axes, copies the scratch model's already-parametrized weights using `rescale_params=False`, and constructs `MuAdam`. The input matrix has one changing axis, the hidden matrix two, and the readout one. Those annotations determine which optimizer group receives the width-divided rate. The readout performs the forward division.
+
+The supplied comparison uses widths 32 and 96, identical inputs and targets, zero initial optimizer state and two Adam updates. It asserts output, every parameter gradient and updated-weight agreement. Turning parameter rescaling back on **after** copying the custom μP weights would change the experiment. This code is prepared for the matched run; no optional-package result is claimed here. The [readout](https://raw.githubusercontent.com/microsoft/mup/main/mup/layer.py), [shape registration](https://raw.githubusercontent.com/microsoft/mup/main/mup/shape.py) and [optimizer source](https://raw.githubusercontent.com/microsoft/mup/main/mup/optim.py) specify the current mapping inspected on 22 September 2026. Pin the tested package version when executing it.
+
+**Implement a changed case.** Use a 3×7 orthogonal draw with gain 0.5 and change the μP target width to 160. Which identity and rates should the comparison check?
+
+<details><summary>Hint</summary>Distinguish output-row orthogonality from preserving every seven-dimensional input direction; the width ratio is measured against 32.</details>
+
+<details><summary>Solution and success criteria</summary>The Gram check is `Q @ Q.T = 0.25 I₃`; `Q.T @ Q` has rank at most three. The width ratio is five. For base Adam rate 0.003, input/readout rates remain 0.003, the hidden matrix rate becomes 0.0006, and the raw readout divides its input by five. Preserve the same copied state and compare two updates. A passing shape check alone does not establish those identities.</details>
 
 ## Why equal hidden units can stay equal
 
@@ -206,7 +237,7 @@ Across three seeds, Kaiming gives 116–117 correct and orthogonal gives 116–1
 
 The tiny initialization can eventually learn in this four-hidden-layer model. That does not contradict the twenty-layer signal probe: the architectures and questions differ.
 
-**Try a changed experiment:** keep the split and seed fixed, change only the number of hidden layers, and record the initial signal statistics before training. Predict the change before running it. Inspect both early optimization and final validation, and record your change as a new experiment rather than replacing the prepared observations. Repeated validation comparisons consume development information; this packet does not provide a final test estimate.
+**Try a changed experiment:** keep the split and seed fixed, change only the number of hidden layers, and record the initial signal statistics before training. Inspect how the changed depth alters the measured forward and backward statistics. Inspect both early optimization and final validation, and record your change as a new experiment rather than replacing the prepared observations. Repeated validation comparisons consume development information; this packet does not provide a final test estimate.
 
 ## μP: changing width changes more than parameter count
 
@@ -251,7 +282,7 @@ A **coordinate check** inspects activation magnitudes as width changes, before s
 
 For seed 1 and learning rate 0.01, the μP mean absolute output at initialization is 0.381, 0.308, and 0.170 for widths 32, 64, and 128. It is not flat. A nonzero random μP readout can have a decaying initial output scale before correlated updates develop. The official guide discusses this transient; demanding exact equality would reject a valid behavior.
 
-**Width investigation:** select a width, then construct the hidden learning rate and readout multiplier from the base rate. Predict the result before revealing actual recorded curves. For width 128 and base rate 0.003, the hidden rate is 0.00075 and the readout input multiplier is 0.25. Changing only the learning rate while forgetting the forward multiplier is an explicit contrasting configuration, not another name for the same μP model.
+**Width investigation:** select a width, then construct the hidden learning rate and readout multiplier from the base rate. Inspect the result alongside the actual recorded curves. For width 128 and base rate 0.003, the hidden rate is 0.00075 and the readout input multiplier is 0.25. Changing only the learning rate while forgetting the forward multiplier is an explicit contrasting configuration, not another name for the same μP model.
 
 ## Deeper tools and practical failure checks
 

@@ -141,9 +141,31 @@ Learning-experience checklist:
 - Consequential operations and counts have calculations or primary locators; original false claims are corrected.
 - The actual problem, data, features, targets, split, baseline, program, results and interpretation form a coherent example.
 - Representations follow the need: genealogy, shape/axis ribbon, spatial grid, shared denominator, masked information paths and kernel fusion.
-- Genuine entity edits, initially unset input-bound predictions, grading, contrasts/nulls, feedback, reset, invalidation, mobile layout and text accessibility are specified.
+- Genuine entity edits, immediately computed input-bound results, result checks, contrasts/nulls, feedback, reset, invalidation, mobile layout and text accessibility are specified.
 - Practice changes constraints and conceals hints/answers; advanced readiness is separate.
 - Alternate resources record review extent and version limits; no invented video viewing or benchmark claims.
 - The complete pending packet uses semantic filenames and preserves curriculum identity, order and previous work.
 
 Scoped checks passed: all JSONs parse, all three Python files parse, every local manuscript file link resolves,16 disclosure pairs are closed, and the original source hash is unchanged. Root reconciliation binds final checkpoint hashes. This author pass is not formal independent phase-two review. Later finish requires its topic preflight, the complete packet, visual/browser-model implementation, affected native-code checks, independent technical/learning review, accessibility/mobile checks, loading/error recovery and production integration. Content completion is not publication or user acceptance.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Inspect modern convolution blocks. Change stage dimensions, normalization groups, GRN feature cells, valid visible-patch selections and branch-folding coefficients. Show parameter counts, shared GRN denominator, changed feature maps, reconstruction consequences and folded-kernel equality immediately. Preserve image masking as the learning objective, not UI answer hiding. Separate architecture from recipe, global channel context from local normalization, and valid reparameterization from a changed function.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Match the block you built to the maintained implementation” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| ConvNeXt V1/V2 block, hierarchy, GRN and masks | `convnext-blocks.py` complete mechanism and model; `masked-reconstruction.py` complete trained task | `convnext_library_bridge.py:compare_block`; exact V1 CNBlock state/layout/gradient mapping | Expansion2 changed-control exercise; V2 is local GRN, not false CNBlock equivalence |
+| Ordinary checkpoint application | `classify_image` with fixed enum/transform/output categories; no claimed scratch pretrained training | Torchvision convnext_tiny, Pillow, inference_mode | Actual implemented Transfer Learning owner for adaptation; optional download/application unexecuted |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.

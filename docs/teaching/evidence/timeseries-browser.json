@@ -1,0 +1,920 @@
+{
+  "checkedAt": "2026-09-21T00:35:17.873Z",
+  "completedAt": "2026-09-21T00:35:37.354Z",
+  "verifier": "scripts/verify-timeseries-browser.cjs",
+  "verifierSha256": "bf665194a8bf1ccdf6201f53be144d67facad50f18e760c9d2dfff0436b689bc",
+  "stage": "production browser review; independent and integration review are separate",
+  "route": "http://127.0.0.1:4196/learn/path/full-curriculum/time-series-validation-forecasting-baselines?module=classical-ml",
+  "distDir": "dist-ts",
+  "buildManifestSha256": "3ecd756accb7511ce665f098b901c37930d6f061940e911ca7310d56c41c35d4",
+  "sourceHashes": {
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "882b361f075140d99d787e6911e53fa98297d05fc8125fc2764bddadd7e0fc37",
+    "src/learn/data/timeseries-models.js": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+    "src/learn/data/timeseries-data.js": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+    "src/learn/data/timeseries-examples.js": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+    "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "30afccba71a94bb0e51603dd1547d6d9781476fc68b94c9b41e6a206600c0271",
+    "src/learn/components/lesson-labs/TimeSeriesFigures.jsx": "d210325b42524007a19c8524318512f4e33b6f7bfbb2ae8ee2317f9374279c4f",
+    "src/learn/components/lesson-labs/timeseries-labs.css": "c54a6fe11d21324dcb0efab9d4cefcb76bba403532696d656f723e540301deba",
+    "src/learn/data/curriculum/blueprints/time-series-validation-forecasting-baselines.js": "8cafe786f2fee809b1fd4fad84e14bf051fff3d6383ace91aaa0c631e4eab675",
+    "public/learn-assets/time-series-validation/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "public/learn-assets/time-series-validation/ATTRIBUTION.txt": "2b9db071a8cd0a84e2c457d500a31aa2243a2b4aba319f0f2e0d710bd6f0df03",
+    "public/learn-assets/time-series-validation/forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6"
+  },
+  "widths": [
+    1366,
+    390,
+    320
+  ],
+  "layoutInspectorByWidth": {
+    "320": [
+      {
+        "svgIndex": 0,
+        "description": "",
+        "labelCount": 30,
+        "issues": []
+      },
+      {
+        "svgIndex": 1,
+        "description": "",
+        "labelCount": 16,
+        "issues": []
+      },
+      {
+        "svgIndex": 2,
+        "description": "",
+        "labelCount": 30,
+        "issues": []
+      },
+      {
+        "svgIndex": 3,
+        "description": "",
+        "labelCount": 6,
+        "issues": []
+      },
+      {
+        "svgIndex": 4,
+        "description": "",
+        "labelCount": 8,
+        "issues": []
+      },
+      {
+        "svgIndex": 6,
+        "description": "",
+        "labelCount": 12,
+        "issues": []
+      },
+      {
+        "svgIndex": 7,
+        "description": "",
+        "labelCount": 7,
+        "issues": []
+      }
+    ],
+    "390": [
+      {
+        "svgIndex": 0,
+        "description": "",
+        "labelCount": 30,
+        "issues": []
+      },
+      {
+        "svgIndex": 1,
+        "description": "",
+        "labelCount": 16,
+        "issues": []
+      },
+      {
+        "svgIndex": 2,
+        "description": "",
+        "labelCount": 30,
+        "issues": []
+      },
+      {
+        "svgIndex": 3,
+        "description": "",
+        "labelCount": 6,
+        "issues": []
+      },
+      {
+        "svgIndex": 4,
+        "description": "",
+        "labelCount": 8,
+        "issues": []
+      },
+      {
+        "svgIndex": 6,
+        "description": "",
+        "labelCount": 12,
+        "issues": []
+      },
+      {
+        "svgIndex": 7,
+        "description": "",
+        "labelCount": 7,
+        "issues": []
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case": "Header, three investigations, five figures, eight practice tasks, three executed programs, every measured headline number, and no KaTeX error"
+    },
+    {
+      "case": "The lesson serves its own copy of the daily CSV at its recorded digest, with its attribution and the whole author program"
+    },
+    {
+      "case": "All three investigations open with nothing selected, no verdict, no numeric feedback, no reveal, and a disabled commit"
+    },
+    {
+      "case": "The empty eligible set is reachable, is graded correct when predicted, and is reported as empty rather than as a broken state"
+    },
+    {
+      "case": "The revealed state is checked as its own layout: no table clips a column, no label leaves its own SVG and no label sits on a point mark once investigation 3 has drawn its outcomes",
+      "labelsMeasuredInRevealedState": 145,
+      "pointMarksCheckedInRevealedState": 100
+    },
+    {
+      "case": "Every investigation withholds its graded quantity until a prediction is committed, pinned by the exact text of that quantity computed in this process; investigation 3 additionally withholds the outcomes after the forecast is drawn",
+      "pins": [
+        {
+          "investigation": 1,
+          "pinnedValues": [
+            "12.0000",
+            "0.000000"
+          ]
+        },
+        {
+          "investigation": 2,
+          "pinnedValues": [
+            "6, 7",
+            "Rows a fit could use"
+          ]
+        },
+        {
+          "investigation": 3,
+          "gates": 2,
+          "pinnedValues": [
+            "1042.571429",
+            "789.571429",
+            "2,294",
+            "1,951",
+            "2,236",
+            "2,368",
+            "3,272",
+            "4,098",
+            "4,521"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "Reset retires the verdict and clears the prediction; a suggested setup fills inputs only"
+    },
+    {
+      "case": "Every square-root radical paints with real width AND height with the practice solutions opened, and every tagged diagram receives the scoped layout rule",
+      "radicalsMeasured": 2,
+      "smallestRadical": 17,
+      "diagramsMeasured": 9
+    },
+    {
+      "case": "Computed paint matches every declared attribute, no curve crosses a label, no table clips a column at desktop, and the shared layout inspector reports its candidates",
+      "shapesSampledForCurveCrossings": 26,
+      "pointMarksCheckedAgainstLabels": 100,
+      "labelsMeasuredAgainstSvgEdges": 145,
+      "legendEncodingsChecked": 22,
+      "legendEncodingContrast": [
+        {
+          "figureIndex": 0,
+          "key": "known",
+          "tag": "rect",
+          "laterOpaqueShapesInSvg": 28,
+          "contrastAgainstWhatIsUnderIt": 1.1
+        },
+        {
+          "figureIndex": 0,
+          "key": "unknown",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 15,
+          "contrastAgainstWhatIsUnderIt": 5
+        },
+        {
+          "figureIndex": 0,
+          "key": "origin",
+          "tag": "rect",
+          "laterOpaqueShapesInSvg": 22,
+          "contrastAgainstWhatIsUnderIt": 1.26
+        },
+        {
+          "figureIndex": 0,
+          "key": "target",
+          "tag": "rect",
+          "laterOpaqueShapesInSvg": 15,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 1,
+          "key": "known",
+          "tag": "rect",
+          "laterOpaqueShapesInSvg": 8,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 1,
+          "key": "target",
+          "tag": "circle",
+          "laterOpaqueShapesInSvg": 1,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 1,
+          "key": "invalid",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 1,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 1,
+          "key": "origin",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 0,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 2,
+          "key": "origin-observation",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 2,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 2,
+          "key": "prediction-fed",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 2,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 2,
+          "key": "observation-fed",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 1,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 2,
+          "key": "invalid",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 0,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 3,
+          "key": "train",
+          "tag": "rect",
+          "laterOpaqueShapesInSvg": 1,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 3,
+          "key": "origin",
+          "tag": "circle",
+          "laterOpaqueShapesInSvg": 0,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 3,
+          "key": "pending",
+          "tag": "rect",
+          "laterOpaqueShapesInSvg": 0,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 3,
+          "key": "unknown",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 8,
+          "contrastAgainstWhatIsUnderIt": 3.4
+        },
+        {
+          "figureIndex": 3,
+          "key": "target",
+          "tag": "rect",
+          "laterOpaqueShapesInSvg": 6,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 3,
+          "key": "coincident",
+          "tag": "line",
+          "laterOpaqueShapesInSvg": 8,
+          "contrastAgainstWhatIsUnderIt": 6.51
+        },
+        {
+          "figureIndex": 4,
+          "key": "ridge_expanding",
+          "tag": "circle",
+          "laterOpaqueShapesInSvg": 13,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 4,
+          "key": "naive",
+          "tag": "rect",
+          "laterOpaqueShapesInSvg": 6,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 4,
+          "key": "seasonal",
+          "tag": "polygon",
+          "laterOpaqueShapesInSvg": 0,
+          "contrastAgainstWhatIsUnderIt": null
+        },
+        {
+          "figureIndex": 4,
+          "key": "coincident",
+          "tag": "circle",
+          "laterOpaqueShapesInSvg": 0,
+          "contrastAgainstWhatIsUnderIt": null
+        }
+      ],
+      "arrowsCheckedAgainstTheirInputKind": 24,
+      "layoutCandidates": [
+        {
+          "svgIndex": 0,
+          "description": "",
+          "labelCount": 30,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "",
+          "labelCount": 21,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "",
+          "labelCount": 15,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "",
+          "labelCount": 30,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 8,
+          "description": "",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 9,
+          "description": "",
+          "labelCount": 7,
+          "issues": []
+        }
+      ],
+      "layoutFindings": [],
+      "acceptedLayoutCandidates": []
+    },
+    {
+      "case": "Every figure captured at desktop, plus the informative states: the changed continuation, the sliding window, horizon 7, the third rehearsal, and the development comparison view; the final view is the figure’s opening state and is asserted to round-trip rather than captured twice"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure, never another lesson’s dataset, with no runtime error",
+      "requestedScripts": [
+        "assets/index-CI92jTDS.js",
+        "assets/Reader-BEOhzgN8.js",
+        "assets/LevelBadge-BBqM9-7G.js",
+        "assets/time-series-validation-forecasting-baselines-CTBc1l5J.js",
+        "assets/Code-CghnWEsE.js",
+        "assets/Callout-DdFBFLsZ.js",
+        "assets/Math-CR21QoG7.js",
+        "assets/LessonElements-5G_vpWVR.js",
+        "assets/RunnableExample-BICbwUij.js"
+      ],
+      "rawScriptBytes": 1762928,
+      "gzipEstimateBytes": 389356,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "No sideways scroll, no display-math overflow, no curve through a label, and correct paint at 390px",
+      "layoutCandidates": [
+        {
+          "svgIndex": 0,
+          "description": "",
+          "labelCount": 30,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "",
+          "labelCount": 30,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "",
+          "labelCount": 7,
+          "issues": []
+        }
+      ],
+      "layoutFindings": []
+    },
+    {
+      "case": "No sideways scroll, no display-math overflow, no curve through a label, and correct paint at 320px",
+      "layoutCandidates": [
+        {
+          "svgIndex": 0,
+          "description": "",
+          "labelCount": 30,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "",
+          "labelCount": 30,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "",
+          "labelCount": 7,
+          "issues": []
+        }
+      ],
+      "layoutFindings": []
+    },
+    {
+      "case": "35 captures, each at a unique path with unique content and a recorded digest, with no orphan left from an earlier run"
+    }
+  ],
+  "radicalsByWidth": {
+    "320": [
+      {
+        "height": 60,
+        "width": 111
+      },
+      {
+        "height": 17,
+        "width": 21
+      }
+    ],
+    "390": [
+      {
+        "height": 60,
+        "width": 111
+      },
+      {
+        "height": 17,
+        "width": 21
+      }
+    ],
+    "1366": [
+      {
+        "height": 60,
+        "width": 111
+      },
+      {
+        "height": 17,
+        "width": 21
+      }
+    ]
+  },
+  "radicalPolicy": "Every .katex .sqrt svg is measured in BOTH dimensions and floored at 4px, at all three widths, and the count at each narrow width must equal the desktop count so the check cannot go inert by measuring an empty set.",
+  "pins": [
+    {
+      "label": "investigation 1, the graded horizon-3 forecast",
+      "needle": "12.0000",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 1, the seasonal MAE",
+      "needle": "0.000000",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 1, the phrase \"Depends on\"",
+      "needle": "Depends on",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 1, the phrase \"h3 ← pos 5\"",
+      "needle": "h3 ← pos 5",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 1, the phrase \"lands on position\"",
+      "needle": "lands on position",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 2, the eligible set",
+      "needle": "6, 7",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 2, the phrase \"Label arrives\"",
+      "needle": "Label arrives",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 2, the phrase \"Rows a fit could use\"",
+      "needle": "Rows a fit could use",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 2, the phrase \"Wrongly included\"",
+      "needle": "Wrongly included",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 2, the phrase \"6 + 3 + 2 = 11 ≤ 12\"",
+      "needle": "6 + 3 + 2 = 11 ≤ 12",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 2, the phrase \"8 + 3 + 2 = 13 > 12\"",
+      "needle": "8 + 3 + 2 = 13 > 12",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 3 gate 1, the issued forecast table",
+      "needle": "Copied from",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 3 gate 1, the donor the rule copied",
+      "needle": "index 358",
+      "absentBefore": true,
+      "presentAfter": true
+    },
+    {
+      "label": "investigation 3 gate 2, the graded seasonal MAE",
+      "needle": "1042.571429",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    },
+    {
+      "label": "investigation 3 gate 2, the naive MAE",
+      "needle": "789.571429",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    },
+    {
+      "label": "investigation 3 gate 2, the outcome 2294",
+      "needle": "2,294",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    },
+    {
+      "label": "investigation 3 gate 2, the outcome 1951",
+      "needle": "1,951",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    },
+    {
+      "label": "investigation 3 gate 2, the outcome 2236",
+      "needle": "2,236",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    },
+    {
+      "label": "investigation 3 gate 2, the outcome 2368",
+      "needle": "2,368",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    },
+    {
+      "label": "investigation 3 gate 2, the outcome 3272",
+      "needle": "3,272",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    },
+    {
+      "label": "investigation 3 gate 2, the outcome 4098",
+      "needle": "4,098",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    },
+    {
+      "label": "investigation 3 gate 2, the outcome 4521",
+      "needle": "4,521",
+      "absentBefore": true,
+      "absentBetweenGates": true,
+      "presentAfterReveal": true
+    }
+  ],
+  "pinPolicy": "Every absence assertion is written through a helper that also asserts presence, so an unpaired absence cannot be expressed. An absence check alone cannot distinguish \"correctly withheld\" from \"looking for text this page never renders\" -- which is exactly what one pin in an earlier revision of this file was doing.",
+  "leakProperty": {
+    "statement": "For every investigation, the exact text of the graded quantity -- computed in this process from timeseries-models.js, never read off the page -- is ABSENT from that investigation’s rendered text before a prediction is committed and PRESENT after. Investigation 3 has a second gate: after the forecast is drawn, the outcomes and the comparison are still absent until they are asked for.",
+    "pins": [
+      {
+        "investigation": 1,
+        "pinnedValues": [
+          "12.0000",
+          "0.000000"
+        ]
+      },
+      {
+        "investigation": 2,
+        "pinnedValues": [
+          "6, 7",
+          "Rows a fit could use"
+        ]
+      },
+      {
+        "investigation": 3,
+        "gates": 2,
+        "pinnedValues": [
+          "1042.571429",
+          "789.571429",
+          "2,294",
+          "1,951",
+          "2,236",
+          "2,368",
+          "3,272",
+          "4,098",
+          "4,521"
+        ]
+      }
+    ],
+    "pairedWithPresence": "Every absence assertion is paired with a presence assertion, so a pin that could never match is caught rather than silently counted as a pass."
+  },
+  "screenshots": [
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-donor-initial-desktop.png",
+      "digest": "e0be66d9cb88ee1e4ffcd391dc1261aa1ac2bd657e531abb8c2b01f9098cbb73",
+      "bytes": 151776
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-donor-committed-desktop.png",
+      "digest": "4f8680be038478b6c2c1d419ff6ef5fe2d8c708174be427b9cdd5aa547b7f169",
+      "bytes": 227673
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-eligibility-initial-desktop.png",
+      "digest": "057555eafffdf64a91cedfbdb8b47fbb7a8d0029d5b920e5d4e59f3332e7d284",
+      "bytes": 172147
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-eligibility-committed-desktop.png",
+      "digest": "96ecc1562fe221c279a23907b2ff3734ef1ec08243317b39fb18747f346ee7ef",
+      "bytes": 273956
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-eligibility-empty-set-desktop.png",
+      "digest": "4663601cd4ac5a4b3a2d1ff87ca7b9496c8803ebb340b67011b89c182076fb40",
+      "bytes": 278417
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-request-initial-desktop.png",
+      "digest": "2fcf395171052c4b8b13fefa207920bcc5147f8d4fc0e05fdc845b7158baa334",
+      "bytes": 178067
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-request-issued-desktop.png",
+      "digest": "8bfc8fcdda59812dc03e66125de3704df5876c6f3ed5fc135bc2aefb44254e68",
+      "bytes": 242719
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-request-revealed-desktop.png",
+      "digest": "1a12e33d7bf3f622aa70c694d8fdfffc8895a61aedba72ab6416b9a17009278e",
+      "bytes": 280894
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-request-preset-desktop.png",
+      "digest": "76a517afcf6b0d6b3dce4c7a2a6a86dcb9e733821324633b66495d35c5efd4ef",
+      "bytes": 191576
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-1-desktop.png",
+      "digest": "689fe535208c47a10c96a64f10849e5876fda81c896f68fd494ffb54722e9142",
+      "bytes": 101479
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-2-desktop.png",
+      "digest": "1fd5c6338be4393303b40d6ac12bdab7d9ece7d12d07743c5a14c728fda8088f",
+      "bytes": 69203
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-3-desktop.png",
+      "digest": "bae965b6f115d048411cc12155e580d70b0b96e9cd49f28b4f17e8f6977c28f7",
+      "bytes": 138961
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-4-desktop.png",
+      "digest": "f12cae2645bf7a0430c57f13172fc757153a1e73c4de2a50c0afc038e16bb8db",
+      "bytes": 176314
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-5-desktop.png",
+      "digest": "bbc8c905ee24676f41c9c8431dc2ae02c6bbe7294061ea756d3cd479881761e5",
+      "bytes": 136812
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-3-changed-continuation-desktop.png",
+      "digest": "aee73a18465c2baf8b87be6b7d3c4a1d1c34bb4e24319be268898e907fc9a5ac",
+      "bytes": 140953
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-4-sliding-desktop.png",
+      "digest": "b195a277c070e704d1a5d32f533ca515b5fd07302dc5df317ab8d4f1b5fd9027",
+      "bytes": 179755
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-4-horizon-7-desktop.png",
+      "digest": "44dcea975f04fed6ffe3c73a852c34a28a2d4942995c8037636dd3ea0828459d",
+      "bytes": 179778
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-4-third-origin-desktop.png",
+      "digest": "6f81824248442395dd6b2ec97870a3898a22d9a37ec59c0bd665c3f632e0fff5",
+      "bytes": 180634
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-5-development-desktop.png",
+      "digest": "43edbf6464a2650349f07393cc108e5e0a6c75985e67c416b5d82a37c295adda",
+      "bytes": 87466
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-1-390.png",
+      "digest": "18d253681a09026ef94d43ba63e83967cc78690dda491ab9f2a2fd2380acd54e",
+      "bytes": 102318
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-2-390.png",
+      "digest": "53cbcaeb52ca353d7efbaecf820ec8f221d3e92b391407535f50e282553bf655",
+      "bytes": 70528
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-3-390.png",
+      "digest": "2dc27d196a1e518a41179a5356ef6b4384e36654bbdb125db463c60cb7f5229b",
+      "bytes": 139291
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-4-390.png",
+      "digest": "178edfea35bd2f8a8bfc7a96ae269cb6f296046e272bae7dd181ca88a7ea9ab6",
+      "bytes": 199074
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-5-390.png",
+      "digest": "9dafdd52cd15032d41719a276f71d0411d4bfe76cfc75e16a7092b056c02480b",
+      "bytes": 171983
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-investigation-1-390.png",
+      "digest": "3f4379c6e6a40d070bd43ac59f0b62209fee229c908cf8f1cb0b48fc08d48f4e",
+      "bytes": 158637
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-investigation-2-390.png",
+      "digest": "f9ecee46953d95b600c881ad0391e6525e7a4bc733a2216336f6b18f9504878a",
+      "bytes": 174592
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-investigation-3-390.png",
+      "digest": "7057600091b05ca42e616432dc40dc8164710159237f0b6ad4c98fdaa48bdf75",
+      "bytes": 178510
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-1-320.png",
+      "digest": "485d9c7d01b0e37f7e0b2439167d6a3e4c89ae6115a85334bd43d4fbb2386dbb",
+      "bytes": 106539
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-2-320.png",
+      "digest": "8fa2e2161dd277a1bffbab0649290be4e2a5e64507efc62ac6268efe593d090d",
+      "bytes": 72705
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-3-320.png",
+      "digest": "6e7762ea620171b4846c7d7004f2b4085a7d0db681d097c5ea41b8a7494d1f1f",
+      "bytes": 144765
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-4-320.png",
+      "digest": "ae972b01963d86a18af0587abf0d7229c069599faa9f49c5877b9860d9ab93ac",
+      "bytes": 195872
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-figure-5-320.png",
+      "digest": "74fe0563cd7ca7c843b6833645af59544a4378a999524e2f997fe8ed94312623",
+      "bytes": 170047
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-investigation-1-320.png",
+      "digest": "fc5799f685c1022cf1a91431ca7a95af25dfc668a109bbd99291a53ccb4ce8eb",
+      "bytes": 164784
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-investigation-2-320.png",
+      "digest": "b356d28fad3db6aad328edc3f513959831dcd7a6be7930a479638c509ce87ea4",
+      "bytes": 181073
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\timeseries-investigation-3-320.png",
+      "digest": "7c6a14ed06f9dcb2275e5ebfe4b1cc26a66f2ed4f045b4c967df6b9e99ae57ff",
+      "bytes": 181614
+    }
+  ],
+  "screenshotCount": 35,
+  "limitations": [
+    "A recorded digest proves identity, not legibility. The captures were opened and read; that judgement is recorded in the topic record, not here.",
+    "The curve sampler reads polyline, path and polygon; the shared layout inspector reads straight lines only; and the point-mark check reads rect and circle marks. All three run because each is blind to what the others see -- an axis title on a row of target rects was invisible to the first two.",
+    "This exercises the opening state and the states the cases above reach. It is not a proof that every reachable combination of controls renders correctly; the whole-grid sweeps in the model suite cover the arithmetic those states would show."
+  ],
+  "status": "passed",
+  "failure": null,
+  "passed": true
+}

@@ -1,5 +1,8 @@
 # Sequence-to-Sequence Encoder–Decoder: Read an Input, Generate an Output
 
+**Explore as you read.** Edit source/target shifts, bridge weights/rate, tiny probability trees, beam width and supported fitted source/prefix inputs. Show aligned timelines, dependency paths, sequence probabilities and bounded beam candidates live. Keep teacher-forced versus generated inputs explicit at every step. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish model probability from a decoding decision and identify when a prefix or alignment changes the actual task.
+
+
 A handwriting classifier reads several pen positions and chooses one digit. Now change the request: read a word and generate its past tense. The input `walk` has four characters; `walked` has six. `eat` becomes `ate`, so copying the input and appending a suffix is not enough. The system must decide both **what comes next** and **when the answer is finished**.
 
 A sequence-to-sequence model learns a mapping from an ordered input to an ordered output. An **encoder–decoder** is one way to build it: an encoder turns the input into a learned representation; a decoder uses that representation to produce the output. Here we will build a small recurrent version, inspect its actual states, and discover why fitting the training examples does not mean it has learned a reusable spelling rule.
@@ -71,7 +74,7 @@ For target `ate` the alignment is:
 
 At step 2 the decoder receives `a` because it is supposed to predict the token **after** `a`. Feeding `t` at that same step would reveal the answer being scored. Forgetting the shift can produce an impressively small loss for the wrong task.
 
-**Investigation: repair the token tracks.** On a fresh `care + past → cared` example, arrange the decoder input and output cards, including EOS and padding. Then edit the target to a different constructed string and identify the first prediction position whose input can change. The input cards are actual tokens used by the calculation, not a multiple-choice illustration of a prewritten answer.
+**Investigation: repair the token tracks.** On a fresh `care + past → cared` example, arrange the decoder input and output cards, including EOS and padding. Then edit the target to a different constructed string and identify the live comparison position whose input can change. The input cards are actual tokens used by the calculation, not a multiple-choice illustration of a prewritten answer.
 
 ## 3. How the encoder and decoder communicate
 
@@ -201,7 +204,7 @@ For a length 3 answer with log probability−1.5 and a length 6 answer with −1
 
 The experiment fixes $\alpha=0$. A nonzero setting must be chosen on development data and reported with the length convention. Do not borrow a number from a translation paper as a universal spelling-model setting.
 
-**Investigation: edit a probability tree.** A fresh tree starts with A 0.55/B 0.45 and different continuation probabilities. Enter a predicted winning complete answer before revealing it, then edit a branch probability. The full conditional distribution is normalized at each node. This is a small exact search problem where both success and pruning can be inspected; it is not an invented translation benchmark.
+**Investigation: edit a probability tree.** Start with A .55/B .45 and the fresh continuation probabilities. Edit a branch probability and watch the complete winner, its probability and the retained beam candidates update. Each conditional distribution stays normalized. Step the search to inspect both retained and pruned paths; this is an exact small search problem, not a translation benchmark.
 
 ## 6. A real experiment: learning a function is harder than remembering pairs
 
@@ -526,11 +529,25 @@ The recorded output is `3 lac False` followed by `16 lactated True` for the work
 
 **Is search failing to find a good route the model already scores well?** Compare greedy and beam under a fixed model and declared scoring rule. An increase in model score with a decrease in exact match is possible. Beam size is an inference choice; training updates are a model change. Mixing them in one unexplained curve hides what caused the result.
 
-**Investigation: change the source and the decoder prefix.** Start from a new development spelling, with the predicted outcome unset. Change one actual source character or its grammatical request, predict the first-token distribution or generated string relationship, then reveal the new states. In another branch force one generated character and inspect the following state. The probability distribution that produced the forced character is unchanged; later distributions can change because the character is now an input.
+**Investigation: change the source and the decoder prefix.** Start from a new development spelling, with the predicted outcome unset. Change one actual source character or its grammatical request, inspect the first-token distribution or generated string relationship, and show immediately the new states. In another branch force one generated character and inspect the following state. The probability distribution that produced the forced character is unchanged; later distributions can change because the character is now an input.
 
 A useful null experiment replaces the context with an exact copy of itself: nothing should change. Replaying an already generated prefix should recover the same continuation. Replacing it with a different source's context should use that context's information. Changing only an on-screen label should affect none of the numbers.
 
 Do not ban repeated characters merely because a model repeats. `letter` and `unsubbed` legitimately contain repeats. Diagnose data and generation first; use a constraint only when the task itself rules out the affected outputs.
+
+## Reuse the cell; implement the encoder–decoder protocol
+
+This lesson's new program is the protocol joining two recurrent computations, not another invention of GRU. [sequence-mechanics.py](sequence-mechanics.py) opens the scalar joint derivative, manual gate trace and exact small probability-tree search. [inflection-seq2seq.py](inflection-seq2seq.py) supplies complete source batching, `Inflector`, training, greedy decoding, beam search and evaluation. The prepared [recurrent cell owner](../rnns-lstms-grus/recurrent-mechanics.py) already maps gate order and biases to `nn.GRU`; until its improved page is published, that exact packet remains the honest prerequisite source.
+
+The ordinary implementation uses embeddings and `nn.GRU` for encoding/decoding, and explicit code for shifting targets, carrying context and deciding when to end. There is no requirement to replace this small research model with a downloaded language-model wrapper. The supplied beam function owns candidate state: token IDs, accumulated log probability, end status and decoder state must travel together. A batched decoder can share the encoder memory, but its beam-specific hidden states cannot be accidentally shared and mutated.
+
+The hand-search tree and trained inflector answer different questions. The tree checks search arithmetic exactly; the trained model checks whether learned conditional distributions support useful outputs. Width1 beam should match greedy under the same tie/termination rule. An ended hypothesis is retained without repeatedly consuming EOS, while a hypothesis that reaches the step cap is reported as capped. Length normalization changes ranking; it is not a harmless numerical rescaling.
+
+**Changed-code task:** add a second source to a batched decoding routine, one ending after2 tokens and another after5. Keep an explicit ended mask and original source IDs. After an example ends, preserve its final sequence and stop assigning it new scored tokens; continue the other example. Test that decoding this batch gives the same two results as separate calls in eval mode. For beam search additionally reorder decoder states with the same parent indices used to gather candidate tokens.
+
+<details><summary>Hint</summary>A batch is a collection of independent sequence states, not one common EOS event.</details>
+
+<details><summary>Solution and success criteria</summary>Initialize one hidden state and ended flag per source. On each step form candidate logits only for active rows, append their chosen tokens, mark newly emitted EOS and gather any beam parents consistently. Already-ended output strings remain unchanged. Compare complete token sequences and log probabilities, including the case where one row is capped and the other genuinely ended. Padding is storage, not another generated token. Correct source-to-state ownership matters more than saving a few Python lines.</details>
 
 ## 9. Deeper connections and practical extensions
 

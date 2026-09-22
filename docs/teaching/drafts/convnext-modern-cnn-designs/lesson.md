@@ -1,5 +1,8 @@
 # ConvNeXt & Modern CNN Designs
 
+**Explore as you read.** Change stage dimensions, normalization groups, GRN feature cells, valid visible-patch selections and branch-folding coefficients. Show parameter counts, shared GRN denominator, changed feature maps, reconstruction consequences and folded-kernel equality immediately. Preserve image masking as the learning objective, not UI answer hiding. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate architecture from recipe, global channel context from local normalization, and valid reparameterization from a changed function.
+
+
 A visual model has two jobs inside each layer: combine nearby evidence and combine different kinds of evidence. A dark curve beside a vertical stroke is a spatial relationship. Combining “curve,” “stroke” and “enclosed region” detectors is a channel relationship. ConvNeXt organizes these jobs into a small repeated block, then asks an equally important question: how much of a model's success comes from its architecture, and how much comes from how it was trained?
 
 The preceding [Depthwise Separable & Dilated Convolutions](/learn/path/full-curriculum/depthwise-separable-dilated-convolutions?module=deep-learning-fundamentals) lesson explained inexpensive spatial filtering and its restrictions. Here we use those operations to read a complete modern network. We will also train a small model to reconstruct hidden parts of real handwritten digits, then test what its representation makes available to a separate classifier.
@@ -72,7 +75,7 @@ Each location has its own \(\mu,\sigma^2\). Learned \(\gamma,\beta\) are shared 
 
 Consider two locations with channel vectors \([1,3]\) and \([101,103]\). Channel LayerNorm maps both to approximately \([-1,1]\) before its learned affine transformation. A single GroupNorm group instead uses all four values from the specimen; it preserves the large offset between locations in its normalized output. Replacing one operation with the other changes the function even if the output shapes agree.
 
-**Investigation: move the reduction boundary.** Edit one value in a small feature lattice. Predict which normalized cells will change, then reveal the affected set. Compare channel LayerNorm with a single-group normalization. The goal is to identify the numbers used in a statistic, not to guess which normalizer “wins.”
+**Investigation: move the reduction boundary.** Edit one value in a small feature lattice. Inspect which normalized cells will change, and show immediately the affected set. Compare channel LayerNorm with a single-group normalization. The goal is to identify the numbers used in a statistic, not to observe whether normalizer “wins.”
 
 ### Why the spatial filter comes before expansion
 
@@ -165,7 +168,7 @@ Set \(\gamma_A=.5,\gamma_B=-.5,\beta=0\). Channel A becomes approximately \([3.8
 
 That is global coupling through a statistic. It is not a new spatial convolution. It also shows why “GRN always boosts strong channels and suppresses weak ones” is misleading: the learned signs matter.
 
-**Investigation: channel maps feeding a shared denominator.** Edit an actual cell in either map, predict the direction of A's output change, and watch its norm, the common denominator and the broadcast response update. Include the zero-scale case: when \(\gamma=\beta=0\), the same edit still changes the statistics but the GRN output is exactly its input.
+**Investigation: channel maps feeding a shared denominator.** Edit an actual cell in either map, inspect the direction of A's output change, and watch its norm, the common denominator and the broadcast response update. Include the zero-scale case: when \(\gamma=\beta=0\), the same edit still changes the statistics but the GRN output is exactly its input.
 
 Initial identity does not mean the layer is absent from learning. For the same two maps and loss \(L=\frac12\sum Y^2\), at \(\gamma=\beta=0\),
 
@@ -273,7 +276,7 @@ The packet retains the two seed 1 models' complete weights and the first two dev
 
 For source 251 with GRN, flipping hidden pixel (row 0, column 0) from 0 to 1 leaves every prediction unchanged, while masked MSE changes from approximately 0.054047 to 0.080387. Flipping the visible pixel (0,2) instead changes the reconstruction, with maximum absolute output change about 0.506610. The paired model without GRN has the same hidden-input invariance and a different visible-input response.
 
-**Investigation: which side of the information boundary did you change?** Before revealing a result, record whether you expect the prediction, the target loss, both or neither to change. Edit a pixel or swap a visible and hidden patch while keeping six patches visible. Then compare the new prediction with the original. Changing a specimen's displayed class label alone must not affect reconstruction, because the model never receives that label.
+**Investigation: which side of the information boundary did you change?** Edit a pixel or swap one visible and one hidden patch while keeping six patches visible. Watch reconstruction, target loss and their differences from the original together. A hidden target can change the assessed error without entering the reconstruction input. Changing a displayed class label alone leaves reconstruction unchanged because the model never receives that label.
 
 ### Inspect features without overinterpreting a diagnostic
 
@@ -313,7 +316,7 @@ The author calculation folds a 3×3 branch, a 1×1 branch and identity on a 5×5
 
 Large-kernel models such as [RepLKNet](https://arxiv.org/pdf/2203.06717) use this idea to aid training while retaining a large spatial filter at inference. Its main blocks use a parallel 5×5 branch with the large kernel. [MobileOne](https://arxiv.org/pdf/2206.04040) applies related deployment-oriented reasoning to small blocks. A 31×31 depthwise kernel reads a broader dense stencil, but its coefficients remain shared learned values; they are not automatically input-dependent attention weights.
 
-**Investigation: collapse the branch graph.** Edit an actual kernel coefficient or BatchNorm statistic, predict a selected output and verify the separately evaluated and fused paths. Insert a branch-local nonlinearity to expose the equivalence boundary. Display the resulting fused kernel as a spatial stencil, not just an equation.
+**Investigation: collapse the branch graph.** Edit an actual kernel coefficient or BatchNorm statistic, inspect a selected output and verify the separately evaluated and fused paths. Insert a branch-local nonlinearity to expose the equivalence boundary. Display the resulting fused kernel as a spatial stencil, not just an equation.
 
 ### When a hybrid is a useful hypothesis
 
@@ -324,6 +327,22 @@ A hybrid can use local convolution where the grid is large and more global input
 For a factory-defect application, local texture may matter alongside long-range alignment between repeated parts. A ConvNeXt feature hierarchy, a larger convolutional receptive field and a hybrid interaction pattern are competing hypotheses. Split by production unit or scene when multiple images share an origin, establish a simple baseline, then examine the errors that distinguish those hypotheses. A smaller-input label classifier and a high-resolution localization system need different evaluation and memory budgets.
 
 The later attention and vision-transformer lessons develop the weighted-sum mechanism in full. Here the useful connection is to ask **which evidence can reach this output, through which operation, at what resolution and cost?**
+
+## Match the block you built to the maintained implementation
+
+The complete [convnext-blocks.py](convnext-blocks.py) implements both V1 and V2 block/stage/head composition. It exposes spatial filtering, NHWC normalization, expansion, GELU, V2 response normalization or V1 LayerScale, projection, per-example branch masking and residual addition. `masked-reconstruction.py` supplies the task-specific model, loss and actual learning loop. Those are the scratch mechanisms at this topic's level; convolution indexing, loss derivatives and autograd already have named earlier owners.
+
+The new [convnext_library_bridge.py](convnext_library_bridge.py) connects the V1 block to Torchvision's `CNBlock`. It copies the depthwise convolution, LayerNorm, two linear maps and channel scale before comparing anything. Torchvision stores LayerScale as `[C,1,1]`; our NHWC branch uses `[C]`. The values mean the same per-channel factor only after this layout mapping. Both paths disable stochastic depth for the equality check, use float64, and compare outputs, input gradients and every trainable gradient on a rectangular5×7 map. Random masks or mismatched normalization axes would make an otherwise plausible comparison invalid.
+
+Run `python convnext_library_bridge.py` beside `convnext-blocks.py` with compatible PyTorch/Torchvision. This newly written package comparison awaits phase-two execution; it has assertions and expected invariants, not invented numerical output. The comparison deliberately targets V1: Torchvision's `CNBlock` does not become V2 merely because both are called ConvNeXt. The local `ResponseNorm` is the complete exposed V2 operation, also differentiated in the reconstruction model. [Torchvision block source](https://raw.githubusercontent.com/pytorch/vision/main/torchvision/models/convnext.py) documents the inspected layout.
+
+The same program accepts `--image example.jpg`. It selects `ConvNeXt_Tiny_Weights.IMAGENET1K_V1`, applies that enum's RGB transform and reads category labels from its metadata. It downloads that checkpoint if absent, runs eval/inference mode, and reports a real photograph's top-five probabilities. This ordinary application is separate from the masked-digit training experiment, and has no prepared accuracy claim. Pillow and a local image are explicit inputs. Feature adaptation follows the implemented [Transfer Learning section3](/learn/path/full-curriculum/transfer-learning-fine-tuning-strategies#transfer-section-3); the imported model's training recipe is not re-created by this inference call.
+
+**Modify the block deliberately:** change expansion4 to expansion2 in the local block, retaining the depthwise width and residual output width. Rebuild both linear layers and, for V2, the response-normalization parameter vectors at2C. The pointwise matrix weights fall from8C² to4C²; depthwise weights stay49C. The original Torchvision block then ceases to be a direct same-shape counterpart, so compare your modified block to a separately assembled reference with the new dimensions rather than weakening the old assertions.
+
+<details><summary>Hint</summary>The hidden width belongs to every operation between expansion and projection, not only the first Linear.</details>
+
+<details><summary>Solution and success criteria</summary>At C8 use `Linear(8,16)`, a16-channel GRN if V2, then `Linear(16,8)`. Preserve the output shape, test finite input/weight gradients, and check that zero LayerScale or zero projection still gives the expected residual identity. The pointwise weights total256 instead of512; include biases separately. A256-weight saving is an arithmetic result, not proof of better validation accuracy or latency.</details>
 
 ## 8. Practice: reason about a changed design
 

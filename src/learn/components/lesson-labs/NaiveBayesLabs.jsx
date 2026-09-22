@@ -147,7 +147,7 @@ export function PresenceEvidenceLab() {
   const state = presenceEvidenceState(counts);
   const change = (index, amount) => setCounts(previous => previous.map((count, j) => j === index ? Math.max(0, Math.min(5, count + amount)) : count));
   return <Investigation id="presence-evidence" kicker="CHANGE THE OBSERVATION MODEL" title="A missing word can contribute evidence">
-    <p>Predict whether changing free from one occurrence to two will change both models. These controls describe a completely observed message; zero means the word is absent.</p>
+    <p>Explore whether changing free from one occurrence to two will change both models. These controls describe a completely observed message; zero means the word is absent.</p>
     <div className="nb-presence-slots">{naiveBayesVocabulary.map((word, j) => <div key={word} className={counts[j] ? 'nb-slot-present' : ''}>
       <strong>{word}</strong><div className="nb-counter"><button aria-label={'Remove one ' + word} disabled={!counts[j]} onClick={() => change(j, -1)}>−</button>
         <span>{counts[j]}</span><button aria-label={'Add one ' + word} disabled={counts[j] === 5} onClick={() => change(j, 1)}>+</button></div>
@@ -229,7 +229,7 @@ export function CopiedAlarmLab() {
   const [positive, setPositive] = useState(true);
   const state = copiedAlarmState(copies, positive);
   return <Investigation id="copied-alarm" kicker="TEST THE ASSUMPTION" title="Five copies are still one measurement">
-    <p>Fault prevalence is 20%. One alarm is positive in 80% of fault cases and 40% of normal cases. Its recorded copies are exact duplicates. Predict whether adding a copy can change the true posterior.</p>
+    <p>Fault prevalence is 20%. One alarm is positive in 80% of fault cases and 40% of normal cases. Its recorded copies are exact duplicates. Explore whether adding a copy can change the true posterior.</p>
     <div className="nb-controls"><Range label="Number of recorded copies" value={copies} onChange={setCopies} min={1} max={5} />
       <label className="nb-select">Observed alarm <select aria-label="Observed alarm" value={String(positive)} onChange={event => setPositive(event.target.value === 'true')}><option value="true">Positive</option><option value="false">Negative</option></select></label></div>
     <figure className="nb-inline"><svg className="nb-copy-diagram" viewBox="0 0 330 170" role="img" aria-label={'One alarm copied to ' + copies + ' recorded columns'}>
@@ -279,7 +279,7 @@ export function ReliabilityLab() {
   const [compression, setCompression] = useState(false);
   const state = reliabilityState(bins, compression);
   return <Investigation id="reliability-bins" kicker="COMPARE PROBABILITIES WITH OUTCOMES" title="A reliability curve is made of finite groups">
-    <p>These twelve invented cases have recorded predictions and binary outcomes. Predict whether changing the number of bins can change the curve without changing a single prediction.</p>
+    <p>These twelve invented cases have recorded predictions and binary outcomes. Explore whether changing the number of bins can change the curve without changing a single prediction.</p>
     <Range label="Number of reliability bins" value={bins} onChange={setBins} min={2} max={6} />
     <label className="nb-checkbox"><input type="checkbox" checked={compression} onChange={event => setCompression(event.target.checked)} />
       Compare the predeclared mapping q = 0.15 + 0.7p</label>

@@ -1,0 +1,31 @@
+{
+  "reviewer": "implement_dl_perceptrons (independent of root author)",
+  "status": "complementary probes passed; representation/input findings reported separately",
+  "checks": [
+    "Huber optimum is locally minimal on a changed signed seven-point sample",
+    "Strict triplet boundaries and equal-distance row-order tie are retained",
+    "Candidate CE preserves a common score shift, and duplicate-score loss approaches log 2",
+    "Focal shared-bias cancellation at count 90 is distinct from weighting and focusing",
+    "Normalization input derivatives cancel in the shared-offset direction on changed features",
+    "GroupNorm change outside the selected channel group is an exact local null",
+    "Finite epsilon breaks exact positive-scale invariance but preserves common offsets",
+    "BatchNorm evaluation is a buffer null and an affine change does not alter memory",
+    "Both complete generated lessons parse, and all actual inline/block mathematics renders with strict KaTeX"
+  ],
+  "math": {
+    "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx": {
+      "mathExpressions": 151,
+      "sections": 10
+    },
+    "src/learn/data/topics/batch-layer-group-rms-normalization.jsx": {
+      "mathExpressions": 107,
+      "sections": 9
+    }
+  },
+  "sourceHashes": {
+    "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx": "ce5e5e7fdbb0c9a04607910d63bf35a931ad86a56ebbbf1072c95a8509f5e9cf",
+    "src/learn/data/topics/batch-layer-group-rms-normalization.jsx": "dbb60a1eaaf5e769a4c4669679a6cfca37a716ca3f54e278b39233620381d071",
+    "src/learn/data/loss-functions-models.js": "083702170012fdb0a929621ec5071d38e22e4c0c3203ed9ba3006c26dc1478fa",
+    "src/learn/data/normalization-models.js": "a356b309d6d80b79bdbec528f42104cdfaf42d0a86304f841a2fb56919df813f"
+  }
+}

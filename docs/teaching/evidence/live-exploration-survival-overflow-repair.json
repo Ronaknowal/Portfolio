@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-09-21T15:09:48.379Z",
+  "before": {
+    "viewport": 390,
+    "scrollWidth": 532,
+    "cause": "A 512px unbroken plain-text RMST arithmetic chain inside a 350px prose paragraph."
+  },
+  "repair": "Render the same arithmetic as an aligned three-line MathBlock; preserve the exact sum, fraction and value.",
+  "developmentAfter": {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "katexErrors": 0,
+    "formula": "RMST\n⁡\n(\n9\n)\n\t\n=\n2\n+\n2\n7\n8\n+\n2\n35\n48\n\n\n\t\n+\n2\n35\n64\n+\n35\n128\n\n\n\t\n=\n2525\n384\n≈\n6.575521\n days\n.\nRMST(9)\n\t​\n\n=2+2\n8\n7\n\t​\n\n+2\n48\n35\n\t​\n\n+2\n64\n35\n\t​\n\n+\n128\n35\n\t​\n\n=\n384\n2525\n\t​\n\n≈6.575521 days.\n\t​\n"
+  },
+  "capture": "scratch/live-exploration-review/classical-early/survival-rmst-phone.png",
+  "productionRecheck": "Passed on final production build: all 21 phone routes have no page overflow; Survival has 8 passing live control edits and no KaTeX error. The production formula capture was opened and directly inspected: three aligned lines, readable fractions, no clipping or distortion.",
+  "productionAfter": {
+    "viewport": 390,
+    "scrollWidth": 390,
+    "katexErrors": 0,
+    "base": "http://127.0.0.1:4191",
+    "checkedAt": "2026-09-21T15:15:32.317Z",
+    "formula": "RMST\n⁡\n(\n9\n)\n\t\n=\n2\n+\n2\n7\n8\n+\n2\n35\n48\n\n\n\t\n+\n2\n35\n64\n+\n35\n128\n\n\n\t\n=\n2525\n384\n≈\n6.575521\n days\n.\nRMST(9)\n\t​\n\n=2+2\n8\n7\n\t​\n\n+2\n48\n35\n\t​\n\n+2\n64\n35\n\t​\n\n+\n128\n35\n\t​\n\n=\n384\n2525\n\t​\n\n≈6.575521 days.\n\t​\n",
+    "capture": "scratch/live-exploration-review/classical-early/survival-rmst-phone-production.png",
+    "captureSha256": "a3214ea3ba1edfba4083ffb23013780f09e93b65de6f992c64a93a4ad5ed961d",
+    "topicSourceSha256": "3596586fafb24aba04a904d7e5f4eefe18196bff0c1c524a80d709f1b5ae7d08",
+    "productionSourceRecord": "docs/teaching/evidence/live-exploration-production-source.json",
+    "productionSourceSha256": "c98b3ca29fb893ed07d9e8f8540fd41c785c94f94bef9bfb4f3cd0fa98f7c99d",
+    "imageOpenedAndInspected": true,
+    "browserEvidence": "docs/teaching/evidence/live-exploration-classical-early-browser.json"
+  }
+}

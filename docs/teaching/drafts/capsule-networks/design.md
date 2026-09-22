@@ -40,7 +40,7 @@ First pass begins immediately after the introduction: sections1–6 and practice
 | Learning hurdle | Chosen representation / activity | Evidence of understanding |
 | --- | --- | --- |
 | A “capsule” sounds biological or mysterious | One cell → channel groups → arrows, with explicit indices | Identify coordinate/type/location without inventing pose semantics |
-| A part's raw vector is confused with a vote | Child-specific transform and two parent planes | Predict the effect of changing one vote while keeping another fixed |
+| A part's raw vector is confused with a vote | Child-specific transform and two parent planes | Change one vote while keeping another fixed and inspect its effect |
 | Softmax axis and weighted average are confused | Child outgoing edges plus parent contribution arrows | Repeated-evidence exercise and row sums |
 | Routing loop confused with training or temporal memory | Separate persistent W from reset b/c and the forward trace | Explain no carried logits between images; bridge to next RNN |
 | More concentrated assignment assumed better | Actual paired fits and fixed-weight interventions | Separate correct counts, identity changes, margin and reconstruction |
@@ -49,9 +49,9 @@ First pass begins immediately after the introduction: sections1–6 and practice
 | EM implementation described vaguely | Full declared diagonal equations and numeric3-step example | Changed activation/mean exercise and inactive-child null |
 | Engineering intuition is confused with measured cost | Exact tensors/parameter accounting and formula-based work | State which quantities scale and which latency remains unmeasured |
 
-Visual specifications contain six purpose-specific groups, with explanations and optional activities as appropriate; this is not a lab quota. Every actual investigation defines an unset input-bound prediction, computed grade, changed entity input, result explanation, reset/invalidation, accessible text/keyboard route, mobile behavior, limits and deferred checks. Student controls do not simply animate a known answer.
+Visual specifications contain six purpose-specific groups, with explanations and optional activities as appropriate; this is not a lab quota. Compute the comparison from the complete current inputs. Student controls do not simply animate a known answer.
 
-Eight practice tasks cover independent numerical transfer, an axis misconception, objective units, protocol repair, a new left-shift investigation, exact symmetry counterexample, changed EM weights and a new latent edit. Each has a closed Hint and Solution. The vote demonstration's revealed answer is also closed. Procedural investigation solutions specify what to record and how to interpret it; they do not fabricate an unexecuted left-shift count.
+Eight practice tasks cover independent numerical transfer, an axis misconception, objective units, protocol repair, a new left-shift investigation, exact symmetry counterexample, changed EM weights and a new latent edit. Each has a closed Hint and Solution. The live vote demonstration shows the result for the selected vote immediately; separate written-practice hints and solutions may remain closed. Procedural investigation solutions specify what to record and how to interpret it; they do not fabricate an unexecuted left-shift count.
 
 ## Primary/canonical source audit and actual review extent
 
@@ -120,7 +120,7 @@ No dependency installs, broad environment setup or implementation pipeline were 
 
 Author reread the entire manuscript in two complete local text reads and all visual specifications after writing, reconciled actual outputs and practice solutions, and reread the consequential repaired sections. Repairs caught during own pass:
 - Put both margin terms inside an explicit sum bracket and use inclusive threshold wording.
-- Put the changed-vote answer behind a closed disclosure so the prediction remains meaningful.
+- Put the changed-vote answer behind a closed disclosure so the prediction remains meaningful. **Historical interaction record:** the earlier prediction/reveal behavior described here is superseded by the 21 September live-exploration contract; it is not a phase-two implementation requirement. Preserve the recorded mathematical checks and fixtures.
 - Use “rotate the scene” for the active homogeneous transformation, avoiding a passive-coordinate ambiguity.
 - Explain zero-effective-mass/nonidentified mean and the role of the variance floor.
 - Preserve exact historical MNIST/affNIST distinctions and physical smallNORB correction.
@@ -133,7 +133,7 @@ Checklist assessment:
 - Concreteness and connections: yes, local math refresh, actual ConvNeXt/GMM/RNN route links and explicit state-lifetime bridge.
 - Visuals reduce a specific hurdle: yes, different representations and active real entity edits, not a generic lab template.
 - Practice requires independent transfer: yes, changed child count, relative agreement, image size/loss scale, protocol repair, new shift, new symmetry map, new activation weights and coordinate edit.
-- Hints/solutions concealed:8paired closed disclosures plus one closed changed-vote reveal,17closed details total; no open attribute or exposed plain answer block.
+- Hints/solutions concealed:8paired closed disclosures plus one closed changed-vote reveal,17closed details total; no open attribute or exposed plain answer block. **Historical interaction record:** the earlier prediction/reveal behavior described here is superseded by the 21 September live-exploration contract; it is not a phase-two implementation requirement. Preserve the recorded mathematical checks and fixtures.
 - Research/correctness nuance: yes, source-specific claims separated from exact math and own fits; unfavorable data retained.
 - Applied program complete: yes, local input, setup, full training/evaluation/export, actual outcomes, no unexplained model download.
 - Phase boundaries honest: yes, no browser/production/phase-two review claims.
@@ -146,3 +146,25 @@ Run the actual --work finish preflight after root creates the complete content c
 
 Retain all12packet files, including offline data and necessary results/programs. Root owns shared ledger/handoff/inventory. No current need for a new topic note or runtime rename. Original source conservation and previous frozen packets remain intact.
 
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Manipulate votes and vector geometry. Edit capsule votes, routing iterations, vector magnitude/direction and supported retained image/latent coordinates. Show coupling rows, vote contributions, squash length/direction, current parent vectors and saved/frozen-model outputs. Step routing to inspect its computation, with all current outputs visible. Distinguish agreement from activation magnitude, pose changes from class evidence and a model intervention from a new empirical result.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Follow routing all the way into a trainable program” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| Votes, squash, dynamic routing, margin and reconstruction training | `capsule-mechanics.py:routing, squash`; `capsule-learning.py:route, TinyCapsules, margin_loss` | Transparent PyTorch tensor composition is ordinary research route; author-checks supplies independent NumPy saved-state reconstruction | Routing temperature code change and numerical solution; full Matrix Capsules architecture not claimed |
+| Diagonal EM and explicit frame geometry | `capsule-mechanics.py:diagonal_em`; local precise limited fixture | NumPy stable statistics, no invented standard full-EM-capsule API | Existing low-activation/coordinate-frame practice; research-scale pose systems are contextual limits |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.

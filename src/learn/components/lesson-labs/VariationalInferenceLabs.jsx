@@ -67,7 +67,7 @@ export function ElboBalanceLab() {
     setShare(restricted ? 0.5 : 0.625);
   };
   return <section className="vi-lab" role="region" aria-label="ELBO probability balance investigation">
-    <header><span className="vi-eyebrow">Probability mass → objective</span><h3>Which approximation fits these three possibilities?</h3><p>Predict whether making B and C equally probable can reproduce the target. Amber is q; dashed green is the exact posterior.</p></header>
+    <header><span className="vi-eyebrow">Probability mass → objective</span><h3>Which approximation fits these three possibilities?</h3><p>Inspect whether making B and C equally probable can reproduce the target. Amber is q; dashed green is the exact posterior.</p></header>
     <div className="vi-controls"><label>Allowed family<select aria-label="Allowed family" value={restricted ? 'restricted' : 'free'} onChange={event => setRestricted(event.target.value === 'restricted')}><option value="restricted">Restricted: B and C equal</option><option value="free">Free: any three probabilities</option></select></label><Range label="Probability of A" value={first} min={0} max={1} step="any" onChange={setFirst} />{!restricted && <Range label="B share of remaining mass" value={share} min={0} max={1} step={0.025} onChange={setShare} />}</div>
     <div className="vi-actions"><button onClick={applyBest}>Fit best allowed distribution</button><button onClick={() => {
         setFirst(0.2);
@@ -90,7 +90,7 @@ export function GaussianFamilyLab() {
     [family, setFamily] = useState('mean-field');
   const model = gaussianProjection(rho, family);
   return <section className="vi-lab" role="region" aria-label="Gaussian dependence investigation">
-    <header><span className="vi-eyebrow">Dependence → decision uncertainty</span><h3>A round approximation loses a tilted relationship</h3><p>Predict the uncertainty of θ₁+θ₂ and θ₁−θ₂ before changing the correlation. The two decisions need different directions through the same distribution.</p></header>
+    <header><span className="vi-eyebrow">Dependence → decision uncertainty</span><h3>A round approximation loses a tilted relationship</h3><p>Inspect the uncertainty of θ₁+θ₂ and θ₁−θ₂ while changing the correlation. The two decisions need different directions through the same distribution.</p></header>
     <div className="vi-controls"><Range label="Target correlation" value={rho} min={-0.9} max={0.9} step={0.1} onChange={setRho} /><label>Approximation<select aria-label="Gaussian approximation" value={family} onChange={event => setFamily(event.target.value)}><option value="mean-field">Best reverse-KL mean-field</option><option value="marginals">Product of true marginals</option><option value="full">Full covariance: exact target</option></select></label></div>
     <Geometry title="Equal-distance contours in latent space" target={covarianceEllipse(model.target)} candidate={covarianceEllipse(model.covariance)} /><Legend rows={[[family === 'full' ? 'q matches p' : 'approximation q', amber], ['target p', green, true]]} />
     <p>Each contour has Mahalanobis radius 1 and encloses 39.35% under its own two-dimensional Gaussian. It is not a 68% or 95% interval. Both axes use the same scale.</p>

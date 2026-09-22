@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "checks": [
+    "sigmoid: 1601 forward values",
+    "sigmoid: 1601 local slopes including zero convention",
+    "sigmoid: shape-preserving element permutation",
+    "tanh: 1601 forward values",
+    "tanh: 1601 local slopes including zero convention",
+    "tanh: shape-preserving element permutation",
+    "relu: 1601 forward values",
+    "relu: 1601 local slopes including zero convention",
+    "relu: shape-preserving element permutation",
+    "leaky_relu: 1601 forward values",
+    "leaky_relu: 1601 local slopes including zero convention",
+    "leaky_relu: shape-preserving element permutation",
+    "elu: 1601 forward values",
+    "elu: 1601 local slopes including zero convention",
+    "elu: shape-preserving element permutation",
+    "gelu: 1601 forward values",
+    "gelu: 1601 local slopes including zero convention",
+    "gelu: shape-preserving element permutation",
+    "gelu_tanh: 1601 forward values",
+    "gelu_tanh: 1601 local slopes including zero convention",
+    "gelu_tanh: shape-preserving element permutation",
+    "silu: 1601 forward values",
+    "silu: 1601 local slopes including zero convention",
+    "silu: shape-preserving element permutation",
+    "mish: 1601 forward values",
+    "mish: 1601 local slopes including zero convention",
+    "mish: shape-preserving element permutation",
+    "sigmoid: large finite inputs avoid exponential overflow",
+    "erfc retains the small negative GELU tail at -10",
+    "stable sigmoid slope retains its positive tail at +40",
+    "LoRA changed rectangular batch: forward",
+    "LoRA changed rectangular batch: mean objective",
+    "LoRA changed rectangular batch: A pullback",
+    "LoRA changed rectangular batch: B pullback",
+    "LoRA changed rectangular batch: input pullback",
+    "LoRA A: every entry central difference on changed fixture",
+    "LoRA B: every entry central difference on changed fixture",
+    "LoRA input: every entry central difference on changed fixture",
+    "LoRA mean reduction: duplicated batch preserves parameter gradient A",
+    "LoRA mean reduction: duplicated batch preserves parameter gradient B",
+    "LoRA mean reduction: each duplicated input receives half the derivative",
+    "LoRA reciprocal factor scaling preserves the function",
+    "LoRA reciprocal factor scaling changes the A gradient inversely",
+    "LoRA reciprocal factor scaling changes the B gradient proportionally",
+    "LoRA rejects accidental target broadcasting before forming its objective",
+    "perceptron: complete program executed, parity errors and declared controls passed",
+    "backprop: complete program executed, parity errors and declared controls passed",
+    "transfer: complete program executed, parity errors and declared controls passed"
+  ],
+  "checkGroups": 48,
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu",
+    "sklearn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "sourceHashes": {
+    "public/learn-assets/perceptrons/activation-mechanisms.py": "4a02fd8b1d880073544de07b39fca1037ae5be011b627977a6148db05add7503",
+    "public/learn-assets/backpropagation/engine-library-bridge.py": "e97186c84d18f00764dfdcd9eadca54a3c4002cbddde3c89caa229f3fcef88a8",
+    "public/learn-assets/transfer-learning/lora-mechanism-bridge.py": "3cea9775c20696ab1be05e8a601c2212b761b1748ebc1b79f56af56b7ca598bd",
+    "public/learn-assets/backpropagation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d"
+  },
+  "examples": {
+    "perceptron": {
+      "source": "/learn-assets/perceptrons/activation-mechanisms.py",
+      "output": "sigmoid value_max_error 5.551e-17 slope_max_error 1.175e-16\ntanh value_max_error 0.000e+00 slope_max_error 0.000e+00\nrelu value_max_error 0.000e+00 slope_max_error 0.000e+00\nleaky_relu value_max_error 0.000e+00 slope_max_error 0.000e+00\nelu value_max_error 0.000e+00 slope_max_error 0.000e+00\ngelu value_max_error 2.220e-16 slope_max_error 2.220e-16\ngelu_tanh value_max_error 0.000e+00 slope_max_error 2.776e-17\nsilu value_max_error 2.776e-17 slope_max_error 6.661e-16\nmish value_max_error 0.000e+00 slope_max_error 5.551e-17\naffine_scores [[4.0, -1.5], [-5.5, 3.0]]\naffine_max_error 0.0\nsigmoid_at_zero_input_sensitivity 0.0 0.0 0.0\nsigmoid_at_zero_input_sensitivity 0.5 0.125 0.125\nsigmoid_at_zero_input_sensitivity 4.0 1.0 1.0\nswiglu_output [[0.085815, 0.042907], [-2.289765, 0.553821]]\nswiglu_max_error 1.110e-16\nlibrary_perceptron AND weights [[3.0, 2.0]] bias [-4.0] predictions [-1, -1, -1, 1]\nlibrary_perceptron XOR weights [[0.0, 0.0]] bias [0.0] predictions [-1, -1, -1, -1]"
+    },
+    "backprop": {
+      "source": "/learn-assets/backpropagation/engine-library-bridge.py",
+      "output": "rate 0.2 before_loss 0.840015027835 0.840015027835\nlogit_max_error 2.776e-17\nW1 gradient_shape (2, 3) max_error 1.388e-17\nb1 gradient_shape (3,) max_error 6.939e-17\nW2 gradient_shape (3, 2) max_error 2.776e-17\nb2 gradient_shape (2,) max_error 5.551e-17\nafter_loss 0.774784850062 0.774784850062\nrate 0.0 before_loss 0.840015027835 0.840015027835\nlogit_max_error 2.776e-17\nW1 gradient_shape (2, 3) max_error 1.388e-17\nb1 gradient_shape (3,) max_error 6.939e-17\nW2 gradient_shape (3, 2) max_error 2.776e-17\nb2 gradient_shape (2,) max_error 5.551e-17\nafter_loss 0.840015027835 0.840015027835"
+    },
+    "transfer": {
+      "source": "/learn-assets/transfer-learning/lora-mechanism-bridge.py",
+      "output": "zero_B loss 2.5 after 2.025\ngrad_A [[0.0, 0.0]] grad_B [[2.0], [1.0]] grad_input [[2.0, 1.0]]\ngradient_max_error 0.000e+00 step_max_error 0.000e+00 merge_max_error 1.110e-16\nbase_has_gradient False base_max_change 0.0\nboth_zero loss 2.5 after 2.5\ngrad_A [[0.0, 0.0]] grad_B [[0.0], [0.0]] grad_input [[2.0, 1.0]]\ngradient_max_error 0.000e+00 step_max_error 0.000e+00 merge_max_error 0.000e+00\nbase_has_gradient False base_max_change 0.0\nnull_measurement loss 1.0 after 1.0\ngrad_A [[0.0, 0.0]] grad_B [[0.0], [0.0]] grad_input [[1.0, 1.0]]\ngradient_max_error 0.000e+00 step_max_error 0.000e+00 merge_max_error 0.000e+00\nbase_has_gradient False base_max_change 0.0\nzero_rate loss 2.5 after 2.5\ngrad_A [[0.0, 0.0]] grad_B [[2.0], [1.0]] grad_input [[2.0, 1.0]]\ngradient_max_error 0.000e+00 step_max_error 0.000e+00 merge_max_error 0.000e+00\nbase_has_gradient False base_max_change 0.0\ntwo_rows_nonzero_B loss 2.375 after 1.517758789\ngrad_A [[-0.37500000000000006, -0.375]] grad_B [[1.5], [-2.9999999999999996]] grad_input [[0.675, 0.675], [-0.27499999999999997, 1.2249999999999999]]\ngradient_max_error 0.000e+00 step_max_error 0.000e+00 merge_max_error 2.220e-16\nbase_has_gradient False base_max_change 0.0"
+    }
+  }
+}

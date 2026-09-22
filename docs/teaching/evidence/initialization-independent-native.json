@@ -1,0 +1,148 @@
+{
+  "passed": true,
+  "groups": [
+    "12 rectangular/singleton/zero-gain cases checked by singular values",
+    "Six changed signed/zero-input symmetry gradients via torch autograd",
+    "Width48 multiplier1.5: changed seed/rate/batch; all outputs, gradients and3Adam updates match mup1.0.0"
+  ],
+  "symmetryCases": [
+    {
+      "input": -2.3,
+      "target": -1.2,
+      "weights": [
+        -0.8,
+        0.45
+      ],
+      "outgoing": [
+        0.2,
+        -0.9
+      ],
+      "output": 0.8884743592363217,
+      "loss": 2.180862574593782,
+      "hiddenGradient": [
+        -0.09221607159192001,
+        1.7204807862863574
+      ],
+      "headGradient": [
+        1.9857112774481842,
+        -1.620459625127046
+      ]
+    },
+    {
+      "input": -2.3,
+      "target": 0.4,
+      "weights": [
+        -0.8,
+        0.45
+      ],
+      "outgoing": [
+        0.2,
+        -0.9
+      ],
+      "output": 0.8884743592363217,
+      "loss": 0.1193035998156675,
+      "hiddenGradient": [
+        -0.02156846517312535,
+        0.40240415016009035
+      ],
+      "headGradient": [
+        0.4644390483369504,
+        -0.3790101485094151
+      ]
+    },
+    {
+      "input": 0.0,
+      "target": -1.2,
+      "weights": [
+        -0.8,
+        0.45
+      ],
+      "outgoing": [
+        0.2,
+        -0.9
+      ],
+      "output": 0.0,
+      "loss": 0.72,
+      "hiddenGradient": [
+        0.0,
+        -0.0
+      ],
+      "headGradient": [
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "input": 0.0,
+      "target": 0.4,
+      "weights": [
+        -0.8,
+        0.45
+      ],
+      "outgoing": [
+        0.2,
+        -0.9
+      ],
+      "output": 0.0,
+      "loss": 0.08000000000000002,
+      "hiddenGradient": [
+        -0.0,
+        0.0
+      ],
+      "headGradient": [
+        0.0,
+        -0.0
+      ]
+    },
+    {
+      "input": 0.7,
+      "target": -1.2,
+      "weights": [
+        -0.8,
+        0.45
+      ],
+      "outgoing": [
+        0.2,
+        -0.9
+      ],
+      "output": -0.3760765185265193,
+      "loss": 0.33942495166169045,
+      "hiddenGradient": [
+        0.08558443359105963,
+        -0.4707918127751482
+      ],
+      "headGradient": [
+        -0.41853453502319593,
+        0.25127929715572944
+      ]
+    },
+    {
+      "input": 0.7,
+      "target": 0.4,
+      "weights": [
+        -0.8,
+        0.45
+      ],
+      "outgoing": [
+        0.2,
+        -0.9
+      ],
+      "output": -0.3760765185265193,
+      "loss": 0.3011473813041214,
+      "hiddenGradient": [
+        -0.0806143662062282,
+        0.44345194575096714
+      ],
+      "headGradient": [
+        0.39422935761343775,
+        -0.23668698186105283
+      ]
+    }
+  ],
+  "torch": "2.14.0+cpu",
+  "sources": {
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/initialization-experiments.py": "8344ad0418e70c2b766bf8d9d3c3afb3ce85805fb101b25465487b06b8cc164b",
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/initialization_library_bridge.py": "a23b106f241159e7e642d9663f26bee8407985eb2f2de4886c203409c96bf37a"
+  },
+  "limits": "No training replay, browser check or arbitrary architecture/SGD equivalence claim."
+}

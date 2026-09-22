@@ -194,7 +194,7 @@ export function AdaptedIntegralLab() {
   };
   return <section className="ito-lab" aria-label="Adapted integral investigation">
     <h3>Choose what you know before the increment arrives</h3>
-    <p>Predict the selected contribution before inspecting the totals. Left, right and symmetric sums use the same observations; only the evaluation rule changes.</p>
+    <p>Inspect the selected contribution before inspecting the totals. Left, right and symmetric sums use the same observations; only the evaluation rule changes.</p>
     <div className="ito-controls"><Choice label="Increment source" numeric={false} value={source} options={[['hand', 'Four fixed increments'], ['brownian', 'Seeded Brownian grid']]} change={value => {
         setSource(value);
         setStep(0);
@@ -265,7 +265,7 @@ export function GrowthLawLab() {
   const lower = Math.min(-1, ...pathValues.map(row => row.logExact));
   const upper = Math.max(1, ...pathValues.map(row => row.logExact));
   return <section className="ito-lab" aria-label="Growth law investigation"><h3>One path, one median and one mean</h3>
-    <p>Keep the Brownian driver fixed and change the growth or noise coefficient. Predict whether the median and mean move together. The elapsed-time cursor reveals the same already-generated path.</p>
+    <p>Keep the Brownian driver fixed and change the growth or noise coefficient. Inspect whether the median and mean move together. The elapsed-time cursor reveals the same already-generated path.</p>
     <div className="ito-controls"><Choice label="Growth drift mu" value={mu} change={setMu} options={[[-0.5, 'μ=−0.5'], [0.2, 'μ=0.2'], [0.4, 'μ=0.4'], [1, 'μ=1']]} />
       <Choice label="Growth noise sigma" value={sigma} change={setSigma} options={[[0, 'σ=0'], [0.3, 'σ=0.3'], [0.6, 'σ=0.6'], [1, 'σ=1']]} />
       <Slider label="Growth time index (64 per unit time)" value={index} max={256} step={4} change={setIndex} /></div>
@@ -325,7 +325,7 @@ export function OUResponseLab() {
   });
   const budgetScale = Math.max(law.varianceInjection, law.varianceRemoval, 0.1);
   return <section className="ito-lab" aria-label="OU restoring flow investigation"><h3>Restoring drift narrows; noise replenishes</h3>
-    <p>Predict whether the distribution is already stationary or still changing. This model restores toward zero: dX=−θX dt+η dW. The variance budget explains what its probability distribution does.</p>
+    <p>Inspect whether the distribution is already stationary or still changing. This model restores toward zero: dX=−θX dt+η dW. The variance budget explains what its probability distribution does.</p>
     <div className="ito-controls"><Choice label="OU reversion theta" value={theta} options={[[0, 'θ=0'], [0.3, 'θ=0.3'], [1, 'θ=1'], [2, 'θ=2']]} change={value => {
         setTheta(value);
         if (value === 0) setInitialMode('fixed');
@@ -383,7 +383,7 @@ export function CoupledSdeSolverLab() {
   const lower = Math.min(0, ...state.rows.flatMap(row => [row.exact, row.euler, row.milstein]));
   const upper = Math.max(1, ...state.rows.flatMap(row => [row.exact, row.euler, row.milstein]));
   return <section className="ito-lab" aria-label="Coupled SDE solver investigation"><h3>Give each solver the same noise</h3>
-    <p>Predict the coarse increment by adding the fine increments. Then compare exact GBM, Euler-Maruyama and scalar Milstein at matching times. Drift μ=0.4, X₀=1 and terminal time T=1 are held fixed.</p>
+    <p>Inspect the coarse increment by adding the fine increments. Then compare exact GBM, Euler-Maruyama and scalar Milstein at matching times. Drift μ=0.4, X₀=1 and terminal time T=1 are held fixed.</p>
     <div className="ito-controls"><Choice label="Solver fixture" numeric={false} value={stress ? 'stress' : 'seeded'} options={[['seeded', 'Seeded Brownian grid'], ['stress', 'Positivity stress case']]} change={value => {
         setStress(value === 'stress');
         setStep(1);

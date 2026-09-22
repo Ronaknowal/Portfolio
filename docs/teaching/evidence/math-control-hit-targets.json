@@ -1,0 +1,1231 @@
+{
+  "status": "passed",
+  "at": "2026-09-21T16:31:48.913Z",
+  "base": "http://127.0.0.1:4194",
+  "surveyManifestHash": "db8305f889392d46fe2b7e547630748582e7cda694be98031a236acf9d457dcb",
+  "surveyHash": "a217426b6ee211075d2f7a2afe0265e76be59af39c75a56602ea62780a9fab76",
+  "records": [
+    {
+      "id": "tensor-algebra-einsum-notation",
+      "checks": [
+        {
+          "name": "Divide scores by √2",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            252,
+            44
+          ],
+          "bounds": {
+            "left": 34,
+            "top": 19823.5,
+            "right": 286,
+            "bottom": 19867.5
+          },
+          "nearestVerticalGap": 44.796875,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Key 0",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            75.09375,
+            44
+          ],
+          "bounds": {
+            "left": 35,
+            "top": 541.296875,
+            "right": 110.09375,
+            "bottom": 585.296875
+          },
+          "nearestVerticalGap": 10,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Key 1",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            71.53125,
+            44
+          ],
+          "bounds": {
+            "left": 130.09375,
+            "top": 541.296875,
+            "right": 201.625,
+            "bottom": 585.296875
+          },
+          "nearestVerticalGap": 44.796875,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Key 2",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            74.484375,
+            44
+          ],
+          "bounds": {
+            "left": 35,
+            "top": 595.296875,
+            "right": 109.484375,
+            "bottom": 639.296875
+          },
+          "nearestVerticalGap": 10,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "checks": [
+        {
+          "name": "a=-3\ng=4",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            105,
+            81.953125
+          ],
+          "bounds": {
+            "left": 45.984375,
+            "top": 4418.203125,
+            "right": 150.984375,
+            "bottom": 4500.15625
+          },
+          "nearestVerticalGap": 9.59375,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "a=-1\ng=2",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            105,
+            81.953125
+          ],
+          "bounds": {
+            "left": 160.578125,
+            "top": 448.203125,
+            "right": 265.578125,
+            "bottom": 530.15625
+          },
+          "nearestVerticalGap": 9.59375,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "a=1\ng=0",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            105,
+            81.953125
+          ],
+          "bounds": {
+            "left": 45.984375,
+            "top": 539.75,
+            "right": 150.984375,
+            "bottom": 621.703125
+          },
+          "nearestVerticalGap": 9.59375,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "a=3\ng=-2",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            105,
+            81.953125
+          ],
+          "bounds": {
+            "left": 160.578125,
+            "top": 539.75,
+            "right": 265.578125,
+            "bottom": 621.703125
+          },
+          "nearestVerticalGap": 9.59375,
+          "disabled": false,
+          "labelClickChanged": false,
+          "disposition": "Selection guard may retain a required last observation; associated label still supplies the real hit target.",
+          "keyboardChanged": false
+        },
+        {
+          "name": "Adam bias correction",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            255.625,
+            44
+          ],
+          "bounds": {
+            "left": 32.1875,
+            "top": 23280.84375,
+            "right": 287.8125,
+            "bottom": 23324.84375
+          },
+          "nearestVerticalGap": 22659.140625,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "randomized-linear-algebra",
+      "checks": [
+        {
+          "name": "Row 0: x = 0, y = 2\nleverage 0.2185",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            223.21875,
+            48
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 26370,
+            "right": 271.609375,
+            "bottom": 26418
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Row 1: x = 1, y = 2.7\nleverage 0.1856",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            223.21875,
+            48
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 499,
+            "right": 271.609375,
+            "bottom": 547
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Row 2: x = 2, y = 2.9\nleverage 0.1598",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            223.21875,
+            48
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 547,
+            "right": 271.609375,
+            "bottom": 595
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Row 3: x = 3, y = 3.9\nleverage 0.1411",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            223.21875,
+            48
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 595,
+            "right": 271.609375,
+            "bottom": 643
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Row 4: x = 4, y = 3.7\nleverage 0.1295",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            223.21875,
+            48
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 643,
+            "right": 271.609375,
+            "bottom": 691
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Row 5: x = 5, y = 4.6\nleverage 0.1251",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            223.21875,
+            48
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 691,
+            "right": 271.609375,
+            "bottom": 739
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Row 6: x = 6, y = 4.8\nleverage 0.1277",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            223.21875,
+            48
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 739,
+            "right": 271.609375,
+            "bottom": 787
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Row 7: x = 20, y = 15\nleverage 0.9128",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            223.21875,
+            48
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 787,
+            "right": 271.609375,
+            "bottom": 835
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+      "checks": [
+        {
+          "name": " Scale initial inverse by γ=sᵀy/yᵀy",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            250.8125,
+            23.046875
+          ],
+          "bounds": {
+            "left": 34.59375,
+            "top": 16736.046875,
+            "right": 285.40625,
+            "bottom": 16759.09375
+          },
+          "nearestVerticalGap": 12.796875,
+          "disabled": false,
+          "disposition": "The associated text label is 23px high and separated from the next clickable label; inspect actual label and keyboard activation, not only the glyph.",
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": " Reverse the last gradient change",
+          "associated": true,
+          "glyph": [
+            18,
+            18
+          ],
+          "label": [
+            250.8125,
+            46.09375
+          ],
+          "bounds": {
+            "left": 34.59375,
+            "top": 497.890625,
+            "right": 285.40625,
+            "bottom": 543.984375
+          },
+          "nearestVerticalGap": 12.796875,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "causal-inference-do-calculus",
+      "checks": [
+        {
+          "name": "Z",
+          "associated": true,
+          "glyph": [
+            19,
+            19
+          ],
+          "label": [
+            223.21875,
+            44
+          ],
+          "bounds": {
+            "left": 48.390625,
+            "top": 11184.171875,
+            "right": 271.609375,
+            "bottom": 11228.171875
+          },
+          "nearestVerticalGap": 23314.890625,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Add direct X→Y effect of .1",
+          "associated": true,
+          "glyph": [
+            19,
+            19
+          ],
+          "label": [
+            250.8125,
+            44
+          ],
+          "bounds": {
+            "left": 34.59375,
+            "top": 23812.0625,
+            "right": 285.40625,
+            "bottom": 23856.0625
+          },
+          "nearestVerticalGap": 23314.890625,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "graph-fundamentals-adjacency-laplacian-connectivity",
+      "checks": [
+        {
+          "name": "Directed arrows, including C→B",
+          "associated": true,
+          "glyph": [
+            18,
+            44
+          ],
+          "label": [
+            240.65625,
+            44
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 10063.765625,
+            "right": 273.65625,
+            "bottom": 10107.765625
+          },
+          "nearestVerticalGap": 12,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Add C–D bridge, weight 1",
+          "associated": true,
+          "glyph": [
+            18,
+            44
+          ],
+          "label": [
+            198.234375,
+            44
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 508.765625,
+            "right": 231.234375,
+            "bottom": 552.765625
+          },
+          "nearestVerticalGap": 12,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Add A–C edge, weight 1",
+          "associated": true,
+          "glyph": [
+            18,
+            44
+          ],
+          "label": [
+            187.671875,
+            44
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 564.765625,
+            "right": 220.671875,
+            "bottom": 608.765625
+          },
+          "nearestVerticalGap": 12,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Add a unit self-loop at B",
+          "associated": true,
+          "glyph": [
+            18,
+            44
+          ],
+          "label": [
+            195.03125,
+            44
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 19710.125,
+            "right": 228.03125,
+            "bottom": 19754.125
+          },
+          "nearestVerticalGap": 12820.84375,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Connect C–D with weight 1",
+          "associated": true,
+          "glyph": [
+            18,
+            44
+          ],
+          "label": [
+            212.078125,
+            44
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 13317.96875,
+            "right": 245.078125,
+            "bottom": 13361.96875
+          },
+          "nearestVerticalGap": 12,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Anchor D at 2",
+          "associated": true,
+          "glyph": [
+            18,
+            44
+          ],
+          "label": [
+            119.453125,
+            44
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 508.96875,
+            "right": 152.453125,
+            "bottom": 552.96875
+          },
+          "nearestVerticalGap": 12,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "random-matrix-theory",
+      "checks": [
+        {
+          "name": "Subtract sample means",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            212.609375,
+            44
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 17681.984375,
+            "right": 245.609375,
+            "bottom": 17725.984375
+          },
+          "nearestVerticalGap": 23674.125,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Divide matrix by square root of size",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            254,
+            57.59375
+          ],
+          "bounds": {
+            "left": 33,
+            "top": 24171.109375,
+            "right": 287,
+            "bottom": 24228.703125
+          },
+          "nearestVerticalGap": 23674.125,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "functional-analysis-rkhs",
+      "checks": [
+        {
+          "name": "Add a target (.25,.5)",
+          "associated": true,
+          "glyph": [
+            19,
+            19
+          ],
+          "label": [
+            262,
+            44
+          ],
+          "bounds": {
+            "left": 29,
+            "top": 25070.78125,
+            "right": 291,
+            "bottom": 25114.78125
+          },
+          "nearestVerticalGap": 23920.890625,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Choose the weight manually",
+          "associated": true,
+          "glyph": [
+            19,
+            19
+          ],
+          "label": [
+            262,
+            44
+          ],
+          "bounds": {
+            "left": 29,
+            "top": 24417.671875,
+            "right": 291,
+            "bottom": 24461.671875
+          },
+          "nearestVerticalGap": 23920.890625,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "category-theory-emerging-use-in-ml",
+      "checks": [
+        {
+          "name": "a\n→ 0\npasses T",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            226.4375,
+            48
+          ],
+          "bounds": {
+            "left": 46.78125,
+            "top": 45029.9375,
+            "right": 273.21875,
+            "bottom": 45077.9375
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "b\n→ 0\npasses T",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            226.4375,
+            48
+          ],
+          "bounds": {
+            "left": 46.78125,
+            "top": 499.9375,
+            "right": 273.21875,
+            "bottom": 547.9375
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "c\n→ 1",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            226.4375,
+            48
+          ],
+          "bounds": {
+            "left": 46.78125,
+            "top": 547.9375,
+            "right": 273.21875,
+            "bottom": 595.9375
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "d\n→ 2",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            226.4375,
+            48
+          ],
+          "bounds": {
+            "left": 46.78125,
+            "top": 595.9375,
+            "right": 273.21875,
+            "bottom": 643.9375
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "0\nreached by S",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            226.4375,
+            48
+          ],
+          "bounds": {
+            "left": 46.78125,
+            "top": 707.5,
+            "right": 273.21875,
+            "bottom": 755.5
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "1",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            226.4375,
+            48
+          ],
+          "bounds": {
+            "left": 46.78125,
+            "top": 755.5,
+            "right": 273.21875,
+            "bottom": 803.5
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "2",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            226.4375,
+            48
+          ],
+          "bounds": {
+            "left": 46.78125,
+            "top": 803.5,
+            "right": 273.21875,
+            "bottom": 851.5
+          },
+          "nearestVerticalGap": 0,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "algebra-functions-exponentials-logarithms",
+      "checks": [
+        {
+          "name": "Restrict square domain to x ≥ 0",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            242.875,
+            55.984375
+          ],
+          "bounds": {
+            "left": 31.390625,
+            "top": 14751.171875,
+            "right": 274.265625,
+            "bottom": 14807.15625
+          },
+          "nearestVerticalGap": 14868.203125,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Use logarithmic quantity axis",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            226.90625,
+            55.984375
+          ],
+          "bounds": {
+            "left": 31.390625,
+            "top": 15389.359375,
+            "right": 258.296875,
+            "bottom": 15445.34375
+          },
+          "nearestVerticalGap": 14868.203125,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "sampling-measurement-experimental-design",
+      "checks": [
+        {
+          "name": "Reveal the synthetic potential-outcome table",
+          "associated": true,
+          "glyph": [
+            19,
+            19
+          ],
+          "label": [
+            257.21875,
+            71.96875
+          ],
+          "bounds": {
+            "left": 31.390625,
+            "top": 41018.859375,
+            "right": 288.609375,
+            "bottom": 41090.828125
+          },
+          "nearestVerticalGap": null,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "complex-numbers-fourier-laplace-transforms",
+      "checks": [
+        {
+          "name": "Remove k and its conjugate partner from the inverse",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            280,
+            45.59375
+          ],
+          "bounds": {
+            "left": 20,
+            "top": 32480.296875,
+            "right": 300,
+            "bottom": 32525.890625
+          },
+          "nearestVerticalGap": null,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "decision-theory-risk-cost-sensitive-decisions",
+      "checks": [
+        {
+          "name": "Commit the action before the result arrives",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            280,
+            57.59375
+          ],
+          "bounds": {
+            "left": 20,
+            "top": 37477.71875,
+            "right": 300,
+            "bottom": 37535.3125
+          },
+          "nearestVerticalGap": null,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    },
+    {
+      "id": "conditioning-stability-numerical-analysis",
+      "checks": [
+        {
+          "name": "Make the rows identical: ε = 0",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            252.40625,
+            44
+          ],
+          "bounds": {
+            "left": 33.796875,
+            "top": 19716.03125,
+            "right": 286.203125,
+            "bottom": 19760.03125
+          },
+          "nearestVerticalGap": 6533.875,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        },
+        {
+          "name": "Rescale the second equation to unit coefficient",
+          "associated": true,
+          "glyph": [
+            20,
+            20
+          ],
+          "label": [
+            252.40625,
+            45.59375
+          ],
+          "bounds": {
+            "left": 33.796875,
+            "top": 7030.90625,
+            "right": 286.203125,
+            "bottom": 7076.5
+          },
+          "nearestVerticalGap": 6533.875,
+          "disabled": false,
+          "labelClickChanged": true,
+          "keyboardChanged": true
+        }
+      ]
+    }
+  ],
+  "rateDistortion": {
+    "reachability": [
+      {
+        "row": "0",
+        "button": [
+          266.390625,
+          331.390625
+        ],
+        "region": [
+          32.1875,
+          287.8125
+        ],
+        "scrollLeft": 0,
+        "overflowX": "auto",
+        "tabIndex": 0,
+        "keyboardScroll": {
+          "left": 212.390625,
+          "right": 277.390625,
+          "scrollLeft": 54
+        }
+      },
+      {
+        "row": "1",
+        "button": [
+          266.390625,
+          331.390625
+        ],
+        "region": [
+          32.1875,
+          287.8125
+        ],
+        "scrollLeft": 0,
+        "overflowX": "auto",
+        "tabIndex": 0,
+        "keyboardScroll": {
+          "left": 212.390625,
+          "right": 277.390625,
+          "scrollLeft": 54
+        }
+      },
+      {
+        "row": "3",
+        "button": [
+          266.390625,
+          331.390625
+        ],
+        "region": [
+          32.1875,
+          287.8125
+        ],
+        "scrollLeft": 0,
+        "overflowX": "auto",
+        "tabIndex": 0,
+        "keyboardScroll": {
+          "left": 212.390625,
+          "right": 277.390625,
+          "scrollLeft": 54
+        }
+      }
+    ]
+  },
+  "errors": [],
+  "productionManifestHash": "5d2cedc67cd081e181fa01bf92fc2c078407e206d1e904afe0ebf8677b3fc460",
+  "sourceHashes": {
+    "src/learn/data/topics/tensor-algebra-einsum-notation.jsx": "a2fcd3b41b8192eab264a4619c88bb3e8033c71a8ec16f6e5776e78fc7e202d8",
+    "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+    "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+    "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5",
+    "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+    "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+    "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+    "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+    "src/learn/components/content/Math.jsx": "c09a0bdcef88192335fb880ef74387b4eb63b4296e855e71e7995b27a2b7f258",
+    "src/learn/components/lesson-labs/LessonElements.jsx": "232ff18e81cf9b79acd51a40e9e1683fad6f509083aeb0ab5f1ad8b7199f01e9",
+    "src/learn/components/lesson-labs/lessons.css": "a7fbce9cc83e7088ae93545f758e818996bacffa1344d4b0d3b3a04318aa3508",
+    "src/learn/components/lesson-labs/RunnableExample.jsx": "f4e797db7871565d0e3cae1f9c960747b713b74fd3b9d4ea9047967d2e4e8463",
+    "src/learn/components/lesson-labs/EinsumLabs.jsx": "58e5d08d7ec0382247153bae619058136f88c50b06a4b7d1b37d66a2053923c6",
+    "src/learn/data/einsum-models.js": "9f4f77f43dfc626154eec2ce74f6ad771665c8bf3007a0b18b3978302dee95d1",
+    "src/learn/components/lesson-labs/einsum-labs.css": "08378dacfd33842e945bedbbd0f894d6760112ad35637cfadf3b841905378264",
+    "src/learn/data/einsum-examples.js": "1a432349d20a018e2a502abd02ebacec65b9b189c82fa99362faf22771153ad9",
+    "src/learn/data/topics/randomized-linear-algebra.jsx": "64f9fb065d7db6c6a707839ef4bd03b8810e8fa3ac7d424dd8e4b3c79750988c",
+    "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx": "839850c336661a5d9fd239fe5ecee9c9d32fa2ac75bb4067b6af4faf35d64e3e",
+    "src/learn/data/randomized-linear-algebra-models.js": "416c53e5cee508b73eb836ee997a7f89ff8a80c79de1d39fafa492c1a79c2f89",
+    "src/learn/components/lesson-labs/randomized-linear-algebra-labs.css": "689ce8b7c40d0fc27ffc0a92fbef9a7b17cbdf4ff48346027b3584bc9d250203",
+    "src/learn/data/randomized-linear-algebra-examples.js": "203d8e3b7535826e0914d7451b0e45aa4a4e5e7011e103ec370bb493b526be96",
+    "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx": "368eabcb472dd140d35bad33b76d81d08c31c166aea82743881a9f6fe5a6c736",
+    "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "65f0cba1aa8b46dfe40b57d9d7318c76b0e968ac584ca83440a2ba3a9542abea",
+    "src/learn/data/gradient-variants-models.js": "e8d4a5dfed21caa76ea7770bed46f75cb04eab32263e8001e498a073ed57afd7",
+    "src/learn/components/lesson-labs/gradient-variants-labs.css": "f4fb39b96a2d6ddf82d1e6ed41177ba686b860f48f1500e39a6894700959a38a",
+    "src/learn/data/gradient-variants-examples.js": "b78c34b57482a3c934c7626ec195ee62963b5242ce639d4f7fe469da29c580ce",
+    "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx": "531411b6eb84162625f9fbbc23212dd331d2c43c0124d6829393aaf9db3f5432",
+    "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx": "6b14dde795ded3727d8441d27b38907fc852444f35cf373f44c59d4cb7b74883",
+    "src/learn/data/second-order-methods-models.js": "591e3c4a14c775a8743f37c8975b81ef7cebb818ce60839ef4e1b10920bd2bae",
+    "src/learn/components/lesson-labs/second-order-methods-labs.css": "34828d0c001197acce6d67152581e87b3c75f8acaf2de284980395bbce09fa5c",
+    "src/learn/data/second-order-methods-examples.js": "1ef99b964aa721ded6e803c8a80708c8136b03aa9f0c58280cce603b742e5396",
+    "src/learn/data/topics/causal-inference-do-calculus.jsx": "cc99f7d4ffdce7e7fa30c47e12454bb56354002a858cfa234c64ea004e61bf9d",
+    "src/learn/components/lesson-labs/CausalInferenceLabs.jsx": "73fda45267cc8d3d2b12abc90500b1e847829ff82e4c4c1664d0017e69d44873",
+    "src/learn/data/causal-inference-models.js": "25b4f62b7a2ef3f426be665354f8e0536be7bd9c1541c4110cf6c1a890255245",
+    "src/learn/components/lesson-labs/causal-inference-labs.css": "3bdc5bc33a1a89bbd8b97396c0c6cefd903d3265e7eaa21e36816fac1189489a",
+    "src/learn/data/causal-inference-examples.js": "37a96b8a41c67183059f1ab3a0c5aca5819cffaaa38a0d7bc650bc185de02401",
+    "src/learn/data/topics/rate-distortion-theory.jsx": "718d928d3fe4f7463b3c9bb8d7fc7ff867944a1220d529be578d7deef2e1629e",
+    "src/learn/components/lesson-labs/RateDistortionLabs.jsx": "d563d41383ae71bb53fb14061fb8f686cc2c395fd700e55ea0bfa0fbc5d644ed",
+    "src/learn/data/rate-distortion-models.js": "c783813d848028f3d218848bbcd7411a54b33ee73c968e53a7d7885835bbe886",
+    "src/learn/components/lesson-labs/rate-distortion-labs.css": "743b09f7846409e53af844070e45b16bb8833efae9186b9f8bb34688c11742b8",
+    "src/learn/data/rate-distortion-examples.js": "faae6b625572f9609f61fd27b0f5959f8cd47c20a18b8360ea225047fb010a71",
+    "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": "72a7d2a8ce2842b07386ad9bec78bd0d9444ca375fec181de7e3886b0f53d73a",
+    "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx": "ce04e046f9a38bd644054cc4281710c5b7c1a1ad4057f3a6900e94cba021cf7c",
+    "src/learn/components/lesson-labs/LessonInvestigation.jsx": "0ade79e700801808e8b2de48818a5c9895ab04bdbf73251c0e13124ef0363bd5",
+    "src/learn/components/lesson-labs/lesson-investigations.css": "ea2d4645ec0cbaa96aa1833f9ff38d6f6b8c2f0d8882db8b6d76571bf7614c69",
+    "src/learn/data/graph-fundamentals-models.js": "ba77012855dd218f7be27f58cae58ed789475359cb1febef41cdf9ec23d82546",
+    "src/learn/components/lesson-labs/graph-fundamentals-labs.css": "eb97008da68614aea30a1b8b6e71e1791175f1efcff588fa47fbd163e72a3171",
+    "src/learn/data/graph-fundamentals-examples.js": "940d6038e91a4249d29849c706b869ee4f04afc9bf4c5bd2f34a2c369605a454",
+    "src/learn/data/topics/random-matrix-theory.jsx": "226725367e3a93a218a8e67b87349093333a7d7c7c1bca1d53bc5d05b1e96ad2",
+    "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "5293f7e898251df911c26665d1069ab3a958dc396a26eb1b7d99f15e95e35eaa",
+    "src/learn/data/random-matrix-models.js": "ba75ce3a68e187bfc0f55b861fb9209633ecaa7a2952601754edab742069776f",
+    "src/learn/components/lesson-labs/random-matrix-labs.css": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489",
+    "src/learn/data/random-matrix-examples.js": "4386d8e5b5b21886156b81c87fe2f97a844700b3b541a952bbb6ce6f63e59780",
+    "src/learn/data/topics/functional-analysis-rkhs.jsx": "3765cacb0054566b3a929d240b186a60a5e42e8185272054336a2ce862d48e01",
+    "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx": "f2d8b4df97b8464e7411973febd1a732910f76b481341f8708093689a51deff0",
+    "src/learn/data/functional-analysis-models.js": "d4606e42993e5fd512b9006100d91a67b4da7ca78ba777477e2004622e65265c",
+    "src/learn/components/lesson-labs/functional-analysis-labs.css": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938",
+    "src/learn/data/functional-analysis-examples.js": "d0b1768f86359681fcb729bc711bbdb03e441b5fc09865439dc1f16327572998",
+    "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx": "b4eec093fa40a2daa11a2c88299f5e9e21148dd980d4d10d5e8fb9fda44f2382",
+    "src/learn/components/lesson-labs/CategoryTheoryLabs.jsx": "21ea46af7a2330b962d9f5cab0dad2d15811549ec54ca975121220fa33f46c69",
+    "src/learn/data/category-theory-models.js": "75ba527d2ee1a67cb84af56e52119f0f1ae5e11e6c916b974e74ec09bf15f770",
+    "src/learn/components/lesson-labs/category-theory-labs.css": "6da55514358eebcab7bc018e6bb19e79e7c842758ac4a21e4a71aeb43cef5083",
+    "src/learn/data/category-theory-examples.js": "130fb496e82ec5e387f3e08f3eef2421bcca8281b8a33a0b47944666c57ce593",
+    "src/learn/data/topics/algebra-functions-exponentials-logarithms.jsx": "8a4b770a1ccadae81cc40071715ad4c2ed62fdd380499bd8ce25764161ed9c6c",
+    "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx": "1550834dda289796ced2855eb775eac9d6f0fe2a16dd9036ad8b01de363a4e89",
+    "src/learn/data/algebra-functions-models.js": "a44e199e45ed8d796ade78cf013499461890f436010be53fb23a44f20b563419",
+    "src/learn/components/lesson-labs/algebra-functions-labs.css": "a12d1e2402f9d4bf0717174faccddc23b9e04f89b09199309a08760e1d24d398",
+    "src/learn/data/algebra-functions-examples.js": "1c6b87162632377bcf714de2a7e39bd57bb9ad43656d9057913ccbae825ad743",
+    "src/learn/data/topics/sampling-measurement-experimental-design.jsx": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8",
+    "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "f012e10ebfdee28a2a2863285ed8264f36acad736a8c809e99a20d5dd9c88fa4",
+    "src/learn/data/sampling-measurement-models.js": "052f97ae06616127acaad4e16282c4c40273f87ab7d58bc53878991f7c972d5c",
+    "src/learn/components/lesson-labs/sampling-measurement-labs.css": "ee168b28bb539c300261e9709c47ca3fe434ef97836265b44c5ad8cd49864bc5",
+    "src/learn/data/sampling-measurement-examples.js": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079",
+    "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx": "bc1396659fa174a99fd048ddf50a678eeda2445cb228007830fb94bfab747886",
+    "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": "1e5dfac0451887113a660026bc78068f00799ed9530922841bdf7385fc497807",
+    "src/learn/data/complex-transforms-models.js": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445",
+    "src/learn/components/lesson-labs/complex-transforms-labs.css": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788",
+    "src/learn/data/complex-transforms-examples.js": "982c4848b6c37dc482bc98bfbab9e610c439eb05220bc73c6e626294e0ea4dee",
+    "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
+    "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "7ce84555247038ae8a3187f8d40f94915c64ac2d33280b308c9b3cebebe278cf",
+    "src/learn/data/conditioning-stability-models.js": "23a93f998e57d9ac9ceb346ec68d97667e31770c0e299f67c988fa55347a3358",
+    "src/learn/components/lesson-labs/conditioning-stability-labs.css": "41cf2b148fc60d9fd0406a58de13b91429eef4ac9bb8cbae2f313fbccebd2f00",
+    "src/learn/data/conditioning-stability-examples.js": "ff34eeee2340a6d9817574c4cf4811e9891b51637b0b0f21cb77e91e30100ad9",
+    "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx": "4fc3db155c2e1eb243f23351202b3a1eb81aba68fa5df31d7b162bd38c34d7de",
+    "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx": "505d82061a8353b112dcba1788365b0d8be26d735927217e53658f4ff30ba862",
+    "src/learn/data/decision-theory-models.js": "9778efca2609e6dc9605ecce0fc1c929d88c090863f64876976bb6819d572918",
+    "src/learn/components/lesson-labs/decision-theory-labs.css": "d9955a0411dfa04d0daf39e2b3ed50bc4df5505bb72370bb59c4515b2a9a0ece",
+    "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx": "93e7ab812622522f1b562ec7e9b1d20aac4a509293c7994fb1f8e6581d8577bf",
+    "src/learn/data/decision-theory-examples.js": "04b1459c773fb7644ddbf6e5c4f3c3c1767b3ea236f5022079034bc0a603023a"
+  },
+  "disposition": "No runtime change: all 45 checkboxes have associated clickable text labels. Forty-four toggle from the initial fixture via text-label click and Space; the remaining checkbox preserves the required last observation, and both actions work after adding another observation. One L-BFGS label is 23.046875px high, 250.8125px wide, with 12.796875px separation; both L-BFGS labels are clickable and keyboard-operable. The three narrow-screen reconstruction cells are reachable with Tab, selectable with Enter, and fully visible after ArrowRight scrolling in the named local matrix region.",
+  "guardComplement": {
+    "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+    "check": "The last selected observation is deliberately retained; after selecting another observation, its text-label click unchecks it and Space checks it again.",
+    "status": "passed"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-09-20T07:50:36.500177+00:00",
+  "verifier": "scripts/verify-calibration-data.py",
+  "verifierSha256": "672c1f0d1cb5f7367c4a4d74ceb006115e23239b1dd719b836aa7aa64e09a249",
+  "generatedModuleSha256": "74b58179686799f4614602c4d19656f31cc792cd0df9f17f1b06a1c259f94a51",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5"
+  },
+  "checks": 285,
+  "trustRootLeafPaths": {
+    "checked-results.json": 482,
+    "experiment-results.json": 4894,
+    "total": 5376,
+    "asserted": 5376,
+    "uncovered": 0,
+    "uncoveredPaths": []
+  },
+  "servedSha256": {
+    "airfoil-subset.csv": "5839135483aa9c45bac8416d9bbb0b1966858a21758beb4a8fb9b1fa1dd83bb5",
+    "ATTRIBUTION.txt": "064372ff6d38ef049e08d2617e36d9655df8999441ab504003e1dd7bf300e07c",
+    "banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "calibration_calculations.py": "c2884d2a47fa601b5f1b8aeee35afe4ad6074490cf9b62c71903d6d081ea21a2",
+    "conformal_rank.py": "f3d3bf7f32cd63a79729af3dbba2293724849790a2db22b176b60aac1af78283",
+    "monotone_map.py": "99bd88523833a2ba269eff5915d0f402c79f01567fce17eec640443900789c72",
+    "reliability_bins.py": "c3359a95f7fd2ef29c025b95072d3b1b8e71631bc25bd03f71c09168206f0ae5",
+    "uncertainty_experiments.py": "92463e8a10ed7e338fb3c8af411a4ca5d76fabb020b84fb7b0c941ab6d7c0e19"
+  },
+  "scope": "Both frozen result files re-derived from the two served CSV files by code that does not import the packet's program. Conformal ranks are scanned in exact rational arithmetic; the isotonic map is solved by the max-min formula over lower and upper sets and cross-checked against scikit-learn; the Platt map is refitted by damped Newton and compared with scikit-learn's sigmoid calibration on the assessment rows; the ridge coefficients are obtained by solving the penalised normal equations directly; and every count, loss, set size, width and frequency-slice figure is recomputed with explicit loops rather than a metrics call. The banknote roles are taken by position and checked against the file's own legacy split labels, and the assessment rows are shown disjoint from every fitting and calibration role. Coverage below is the number of leaf paths an assertion actually reached, collected by the comparison helper itself.",
+  "limitations": [
+    "The two gradient-boosted quantile models are refitted with the same library, settings and seed rather than reimplemented; their predictions are reproduced, not independently derived. Everything computed FROM them \u2014 scores, thresholds, intervals, coverage, widths and the frequency slices \u2014 is recomputed here by explicit loops.",
+    "scikit-learn's temperature calibration is likewise reproduced by re-running it. The sigmoid and isotonic maps, which the lesson actually teaches, are both refitted independently.",
+    "Byte-identical regeneration of the packet's JSON files is checked by scripts/verify-calibration-examples.py, which runs the packet's own programs."
+  ],
+  "passed": true
+}

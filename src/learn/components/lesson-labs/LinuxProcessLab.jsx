@@ -15,7 +15,7 @@ export default function LinuxProcessLab() {
   }
   return <section className="lesson-lab linux-process" aria-label="Linux process lifecycle explorer">
     <h3>Paused is not finished</h3>
-    <p>Start a child, pause it, then continue and end it. Predict: does pausing erase the child's identity? Which action lets its parent collect the result?</p>
+    <p>Start a child, pause it, then continue and end it. Inspect: does pausing erase the child's identity? Which action lets its parent collect the result?</p>
     <p className="lesson-note">A manual model of one owned <code>sleep</code> process. It advances only when you act; no command runs and no real process is signaled. PIDs below are illustrative.</p>
     <div className="linux-process__relationship">
       <div className="linux-process__parent"><span className="linux-diagram-label">PARENT · PID 4200</span><strong>Bash shell</strong><span>Accepts your commands</span></div>

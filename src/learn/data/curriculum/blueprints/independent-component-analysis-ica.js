@@ -26,7 +26,7 @@ export default {
   visual: {
     type: 'Grouped sensor sums with exact contributions; covariance cancellation beside a conditional restriction; four corresponding source/observed/whitened/recovered panels with the absent joint zero; one exposed fixed-point operation on a unit circle; a chronological fit/select/evaluate boundary; measured held-out correlations with aligned waveform envelopes',
     question: 'What changed in the distribution, and what did the covariance fail to notice?',
-    interaction: 'Two investigations: rotate a population between three source families and predict the change in absolute excess kurtosis; edit source amplitudes and a keep-set, predict the reconstructed sensor, then rescale a component with and without compensating its mixing column.',
+    interaction: "Rotate a population between source families and follow joint geometry, moments and contrasts live; edit source amplitudes and a keep-set and inspect sensor contributions immediately; rescale a source with and without compensating its mixing column. Invalid singular or zero-scale configurations show an error and preserve the last valid output; reset and undo remain available.",
   },
   practice: {
     task: 'Six changed problems: a new sensor recipe with a scale-ambiguity restatement, an equal-kurtosis Laplace projection at 30°, two broken FastICA implementations, a signed development/test selection table, a nuisance component carrying wanted activity, and a modest follow-up design.',
@@ -55,5 +55,5 @@ export default {
   ],
   depth: 'core',
   designRecord: 'docs/teaching/ICA-LESSON-DESIGN.md',
-  reviewFocus: 'Preserve all eleven manuscript sections, six inline figures, two investigations, two executed programs and practices 1–6. Check the four-state probability identities, the whitener and its eigen-decomposition on degenerate inputs, deflation inside the iteration, the equal-kurtosis contrast, the Gaussian and zero-kurtosis nulls, and the sign/permutation matching rule. Verify that no reference value enters a fit, that the selected coordinate is frozen on development data, and that the unflattering PCA result is published as it came out. Test arbitrary decimal angles, every source family, every keep-set, both scale branches, c = 0 and prediction retirement on any edited input; measure display math at 320 px.',
+  reviewFocus: "Preserve all eleven manuscript sections, six inline figures, two investigations, two executed programs and practices 1–6. Check the four-state probability identities, the whitener and its eigen-decomposition on degenerate inputs, deflation inside the iteration, the equal-kurtosis contrast, the Gaussian and zero-kurtosis nulls, and the sign/permutation matching rule. Verify that no reference value enters a fit, that the selected coordinate is frozen on development data, and that the unflattering PCA result is published as it came out. Test arbitrary decimal angles, every source family, every keep-set, both scale branches, c = 0 and synchronized live outputs on any valid edited input and explicit handling of invalid inputs; measure display math at 320 px.",
 };

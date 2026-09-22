@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "reviewer": "root (not the author)",
+  "checks": {
+    "derivative": "all affine coordinates by finite differences on two non-square changed shapes",
+    "simplex": "diagonal quadratic KKT scalar-root oracle; projection translation and active sets",
+    "sinkhorn": "analytic 2x2 entropic solution; nonconstant row/column cost-shift invariance",
+    "causal": "exact rational adjusted contrast on changed unequal cells; treatment-label reversal",
+    "mmd": "scalar pair oracle, unequal sample sizes, both estimators, block partition and large translation",
+    "information": "rational cell-probability scalar oracle, empty margins, axis swap and perfect three-class MI",
+    "graph": "series-resistance harmonic oracle, edge-energy identity, loop cancellation and zero-edge isolate",
+    "queue": "hand-scheduled tied and zero-service jobs; independent interval sweep for censored occupancy",
+    "sde": "closed multiplicative Euler/Milstein path factors on specified nonrandom increments",
+    "finite_element": "piecewise-conductivity constant-flux analytic solution, factor reuse, exactly nodal point load"
+  },
+  "sourceHashes": {
+    "scripts/review-math-depth-remediation.py": "88d5dc842dc6d52786c319652000c99917b0587d71c49271c2a281f6ba541229",
+    "public/learn-assets/matrix-calculus/derivative-library-bridge.py": "127b2e711ed5b0197009bf8a59513f5e697289e41b61c6409503565b8fda2af4",
+    "public/learn-assets/constrained-optimization/simplex-solver-bridge.py": "0306bdddd4c9e4f8e9750459bae27a6027fa7ceab12f003511dcd59e8271f0c3",
+    "public/learn-assets/optimal-transport/sinkhorn-library-bridge.py": "8d2232d4913b1ee35ab4441e67d011c5991c332a1147733dbc48b84fb2c57e20",
+    "public/learn-assets/causal-inference/causal-estimation-bridge.py": "eab865b0ec6c7276fb3cae7363e1546b610fbc0208d3b1f31a346492b6f7d093",
+    "public/learn-assets/divergences/mmd-library-bridge.py": "708274444dc59476c4ebc6d4b334c94d60a7a65f31ecad1d777415e894fac08f",
+    "public/learn-assets/mutual-information/mutual-information-library-bridge.py": "3a931191ff2d9729f5a8e5d970b537e825580cf36b364380325b9838a4e8fea2",
+    "public/learn-assets/graph-fundamentals/laplacian-library-bridge.py": "596707e3205c23a4992e3731197f4d14f5f6e912021ba666964a3334f88ad331",
+    "public/learn-assets/queueing/fcfs-simpy-bridge.py": "c27d41a0dc73a7a5d396526fd33e7b8a6379d65abd25f5cd793dcb92849d6a9f",
+    "public/learn-assets/ito-calculus/sde-library-bridge.py": "81ea4921c385b45193a4f892fe2ec94acb89464020e3160985fe2d02ce7d8d73",
+    "public/learn-assets/numerical-pdes/finite-element-banded-bridge.py": "11688cc94e0ff503ed0055ddcf00a3b1a083b160daf50d3ca47f79afcfca2774"
+  }
+}

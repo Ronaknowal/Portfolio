@@ -1,0 +1,190 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T13:40:41.131Z",
+  "production": false,
+  "browser": "153.0.4234.48",
+  "sourceHashes": {
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "4d45abbcea38027e358bccd32473b748c5ed13db396915d4c987d5bf56bce67a",
+    "src/learn/data/curriculum/blueprints/k-means-hierarchical-clustering.js": "9e44a458f2dd61ebe1746a7195426161ca2602fabd2b101491771c52fb5e82df",
+    "src/learn/data/k-means-hierarchical-models.js": "7cc680a3d45229732e493abd344bee4e98dfb9aefa145dbc89a5731e53f8fb99",
+    "src/learn/data/k-means-hierarchical-faithful.js": "64358723bb94ea232a9b4e5da3f61fedc6464711234690e47a390914aaa60e50",
+    "src/learn/data/k-means-hierarchical-examples.js": "36cb906138b9822b8a3d0c5a851f358d827d42edf8152cdba800d817ebd2d747",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "67dad70f10e77d47f9c2a26625c56c01768c725e2d668f95110890804d87f1c3",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "20060c7eb56ad8cec309ff9eb2bab42ccf07bbfc0d61452dfa6810dcf988c6f8",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "6c7fd2d1bee3045f83adb8d5247d090fa71e33592803938e378a2c9f060ef72b",
+    "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "263b4b3f68f5c89ab0bbbb257378d194f8c97d6c4067882c2d96225411f722c3"
+  },
+  "verifierSha256": "7a71f389bd6c233c170c51dee5cb3fb89226abe01d400a9713f043b8861e4fcd",
+  "manifestHash": null,
+  "fontEvidence": {
+    "stylesheetUrl": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+    "files": {
+      "scratch/kmeans-revision-review/fonts/google-fonts.css": "63ab7d92430a9ff1480365211e079b9ed7a134e83dd646adb364462584f59ed3",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7aUUsj.ttf": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj42Vksj.ttf": "6c0346b8d297ebdc225832833e03e884a26ad99d265ecd3924d46e1ba285ea87",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj62UUsj.ttf": "2f29b31d803a928d21f96dbe7a5f8bfa5c5c98917736c2d195bc7c737bc906ba",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8L6tjPQ.ttf": "a1d92abc6b02a87faed23d98067ab1027e8e95242fd7c9978a072ea383b89d1a",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxjPQ.ttf": "3386a05f6ece969e4537de6be894170d20558e82f7d56c8c5d332972ef172160",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPQ.ttf": "44ce4a84f20d60f24539bd0cef11f79c29e38609e0f8adf18551c9794a5d9dc3",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8lqxjPQ.ttf": "62bbab00e0b0faffb38a3d111341a814f8731fd50778aa0b495d3293b8290aaf",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUUsj.ttf": "ec926d5065eaca49a48f96e312bbae0bbc5733c24215cf5dfabbdccee926fef7",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVksj.ttf": "3e756954468ff1cb302dae0414262e72f76a67d87bef3fa1f3226cd0fb9b2d85",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8FqtjPQ.ttf": "df54dbfafba61d4911eb3dab9bba2d20531fb009f01d64dd42fa96ab862584d8"
+    },
+    "method": "Unmodified existing Google Fonts assets fulfilled from retained snapshots because the browser sandbox blocks their network requests; application styles are unchanged."
+  },
+  "records": [
+    {
+      "check": "Full lesson, programs/output, current theme, formula geometry and module sequence"
+    },
+    {
+      "check": "Lloyd gate, keyboard, fixed point, changed seed optima, duplicate center and reset"
+    },
+    {
+      "check": "Geometry input-only view, exhaustive reveal, changed-unit optimum and restored metric"
+    },
+    {
+      "check": "Seeding theory versus finite frequencies, keyboard interval endpoints, sequential draws, zero-mass cases and uniform baseline"
+    },
+    {
+      "check": "Hierarchy gate, all four tied-height/count cuts, merge/undo and independent 4-plus-2 chain split"
+    },
+    {
+      "check": "Palette all three image endpoints, true lossless versus teaching cap, sealed feedback and changed request"
+    },
+    {
+      "check": "Viewport, controls, links and math",
+      "width": 1366
+    },
+    {
+      "check": "Viewport, controls, links and math",
+      "width": 820
+    },
+    {
+      "check": "Viewport, controls, links and math",
+      "width": 390
+    },
+    {
+      "check": "Viewport, controls, links and math",
+      "width": 320
+    },
+    {
+      "check": "Increased text size and keyboard practice"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-lloyd-moved-1366.png",
+      "sha256": "0e61ed3c9e8f5a652dd80025bef764874466c41f31388c4720436570e260e05c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-seeding-probability-frequency-1366.png",
+      "sha256": "e7771304271ac28a5ec058247d672e0aa7c31646269f6569bc1fd5d477c4e519"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-seeding-all-centers-1366.png",
+      "sha256": "60a081dc1a4f02ed8b0a162b3bb746256a4c36f90dcd0cb680e2c8af19503069"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-chain-complete-1366.png",
+      "sha256": "d97c96c32c560126973f2a8b8dfeccd2b3aa8ceefdd7f31f566d83bb04b82635"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-sky-palette-1366.png",
+      "sha256": "13bd30cc73e66a57cd14408ea938f6993489939a3aef24559cb1fdcc2ed552a2"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-1-1366.png",
+      "sha256": "a970e6ad884f9df116421989d7759feb0adce4d162dcf92d2af501b61e14c36e"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-2-1366.png",
+      "sha256": "55a3db21eabea663aacf9bce59d3076e6612b02285577ba4a5f460bb486c189a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-3-1366.png",
+      "sha256": "7715bc118510688aaa6e810c4314e259adf3e83397fb6e2920e6a58e8aea00be"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-4-1366.png",
+      "sha256": "1e930bed833f8165ec3e2033097d998e27833850926a5e5decfb4e7d4ca20412"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-5-1366.png",
+      "sha256": "1c0d958ba4688f6b317471a2c44d9e3daa7a84a3c0edf0f94ce844dfdf097185"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-6-1366.png",
+      "sha256": "88037afc10269d71997847458c17c13c4b5cdd6f29c9ec52deec60344929b08e"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-7-1366.png",
+      "sha256": "1b8f1a7e95209dda9306b5b3133157f58c135e8a712ec85a4a12fe5a265daa6b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-1-390.png",
+      "sha256": "9ccc19c3ea3782b7b8991b3ee38ca1576caee689d45d35272eebbe5337d90ad0"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-2-390.png",
+      "sha256": "9f5a76f6978f13910b42a1d3dfba5a0e50129579e96609fd901dd92362e5e15f"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-3-390.png",
+      "sha256": "31060cbb8b3a72ab330bee6f79727f375ec7a880bb21dee43d5a6499108cc1e9"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-4-390.png",
+      "sha256": "ca8a470768aee022fb3477f5ffdc2cc76b49165d28836c8a98cb19759f28cc39"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-5-390.png",
+      "sha256": "c613807f6a1a50a96a91919429f8858111667c0e02318f64bbd75f27ff858a90"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-6-390.png",
+      "sha256": "118a9e81c14867d223cee79fdcf441b191ff2366b807e77676679e1d39f06b63"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-7-390.png",
+      "sha256": "8cbc087f5811536bdf974da5622a8802ca2da66e082ce6ff03c42deb2a89eea7"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-chain-complete-390.png",
+      "sha256": "c9a9837c06dd30ddda0ea103eae351c3f57a39a02548ba154043980be3302ffa"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-seeding-all-centers-390.png",
+      "sha256": "c8f706988bee5347b7374956f902da8001d2105401054eb7f18146c825fa8ce4"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-geometry-restored-390.png",
+      "sha256": "b4a47f69df66e1e31dcf5bb541a18477acda9fbdcf8634b183b83984a2396202"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-sky-palette-390.png",
+      "sha256": "a9ba53a93db5074c96e3e2523063a64454d65fd36db00a10ee4aa71f49e4bffd"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-chain-complete-320.png",
+      "sha256": "df8d6d77023db9ff02781e526fda31c8b3d7a9175a62a21beae6b3d779c9eec3"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-seeding-all-centers-320.png",
+      "sha256": "1a2a94ccf8c05c9dbabe644ff7ed7c06a4cac89e06461694fc7cc8399a64a4b1"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-geometry-restored-320.png",
+      "sha256": "6a2d1a37d9e168c6a5eefa0410df7217044e6d6b8da882a0fd56a51abf459e63"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-sky-palette-320.png",
+      "sha256": "a0ff07b839b9e28a6f1d935d67011eed89dcd5e56180a37e6ea28a1c42f3cb5e"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-chain-enlarged-text-390.png",
+      "sha256": "9e5d862199578b09a6efab8d8e7f57bccb1e6441cfad4bdfd62fa90cac0441b4"
+    }
+  ],
+  "limitations": "Single Chromium-family engine; screenshots require a separate actual image review. Source-bound native checks are recorded separately."
+}

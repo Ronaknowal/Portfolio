@@ -1,5 +1,7 @@
 # t-SNE, UMAP & Manifold Learning
 
+> Current lab UX, 21 September 2026: controls show live calculations and topic-specific visuals without learner prediction entry, grading or guess-to-reveal screens. Genuine algorithm steps, separate practice and data-role boundaries remain. See [the current migration record](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md).
+
 Prepared manuscript, 12 September 2026; native outputs reconciled during implementation on 14 September 2026. Stable ID: `t-sne-umap-manifold-learning`. Figures and investigations named below are specified in [visual-specifications.md](visual-specifications.md). Current implementation/review scope: [design record](../../MANIFOLD-LEARNING-LESSON-DESIGN.md).
 
 ## 1. Can a picture help us inspect handwritten digits?
@@ -34,7 +36,7 @@ A finite dataset does not give us every point on the surface. We construct a **n
 
 In the U example, connect distinct points whose distance is at most a radius ε. At ε = 1, only the six consecutive unit edges appear, so the A–G graph distance is 6. At ε = 2, the graph contains the direct A–G edge and the distance becomes 2. At ε = 0.75, no distinct points connect; no finite A–G graph distance exists. These are three different graphs built from exactly the same observations.
 
-**Investigation A — Build a route before flattening it.** Choose endpoints, edit one point's coordinates, and commit your prediction about whether a proposed radius leaves a route and how its length changes. Apply the radius, trace the resulting shortest path, then explain which edge caused your result. Try an unfamiliar coordinate edit, not only the supplied U.
+**Investigation A — Build a route before flattening it.** Choose endpoints and edit a point or radius. Trace the shortest path and its length as the geometry updates, then inspect which edge caused the change. Try an unfamiliar coordinate edit, not only the supplied U.
 
 This is the central choice behind Isomap: use estimated surface distances before finding coordinates. It also explains why “more neighbors” is not an automatic improvement. Additional edges can repair a disconnected graph or introduce shortcuts. A Swiss roll—the familiar sheet curled into a spiral—has the same problem across adjacent layers. PCA fits one linear projection; Isomap attempts to reconstruct distance along the sampled sheet. PCA still has a well-defined reconstruction objective on curved data, even when two components are a poor map of that surface.
 
@@ -100,7 +102,7 @@ Equal preference over m candidates gives entropy log₂m and perplexity m. The u
 
 For this row, σ = 0.5 gives perplexity 1.0175; σ = 2 gives 2.7864. A binary search can adjust σ until the desired entropy is reached. In a sparse region, the needed σ can be larger than in a dense region. This is one mechanism behind the map-reading contract's density issue.
 
-**Investigation B — Change who receives the probability.** Edit the three candidate distances and commit a prediction about the closest candidate's probability or the change in perplexity before applying a bandwidth. The equal-distance fixture is a useful test: all three candidates get 1/3 for every positive bandwidth, so no bandwidth can make its perplexity 2. A tie among m equally closest candidates likewise places a lower limit m on achievable perplexity as bandwidth approaches zero. A search tolerance cannot create information that the distances do not contain.
+**Investigation B — Change who receives the probability.** Edit the three candidate distances or bandwidth and follow the probabilities and perplexity immediately. The equal-distance fixture is a useful test: all three candidates get 1/3 for every positive bandwidth, so no bandwidth can make its perplexity 2. A tie among m equally closest candidates likewise places a lower limit m on achievable perplexity as bandwidth approaches zero. A search tolerance cannot create information that the distances do not contain.
 
 Conditional rows need not agree: i may strongly prefer j while j has several even closer candidates. Standard symmetric t-SNE combines them as
 
@@ -179,7 +181,7 @@ With vᵢⱼ = 1/2 and vⱼᵢ = 1/4, the combined strength is 1/2 + 1/4 − 1/8
 
 [Inline figure F5: two directed weighted arrows become one union edge; neighbor graph remains separate from its movable map.]
 
-**Investigation C — Build and inspect one fuzzy connection.** Edit distances and local scales for two neighborhoods. Predict the merged edge strength before applying the edit. Then inspect an idealized single-pair attraction/repulsion cost as you choose a candidate map separation. One control changes graph input; another changes the map. They must not silently overwrite each other.
+**Investigation C — Build and inspect one fuzzy connection.** Edit distances and local scales for two neighborhoods. Follow the merged edge strength as each input changes. Then inspect an idealized single-pair attraction/repulsion cost as you choose a candidate map separation. One control changes graph input; another changes the map. They must not silently overwrite each other.
 
 In the map, UMAP uses a smooth similarity
 
@@ -279,7 +281,7 @@ t-SNE p=80 R10=0.7623 T10=0.9894
 
 For this collection and metric, all three t-SNE settings retain more of the original ten-neighbor selections than PCA in two dimensions. Perplexity 30 retains about 77.0%, so roughly 23.0% of directed ten-neighbor selections change. T₁₀ ≈ 0.9901 is high despite that difference: many replacements were not extremely remote in input rank. This is why the rank-weighted score and the direct retention fraction answer complementary questions.
 
-**Investigation D — Audit an image's neighbors.** Choose an image before choosing its map. Predict how many of its k input neighbors a candidate map will retain, then reveal the image tiles and identity-matched neighbor edges. Change k to 5 or 20 and explain whether your previous conclusion still applies. A good investigation can find an image for which a globally stronger map has lower local retention. That query is an opportunity to inspect the data rather than a reason to hide it.
+**Investigation D — Audit an image's neighbors.** Choose an image before choosing its map. Compare how many of its k input neighbors each map retains using the visible image tiles and identity-matched neighbor edges. Change k to 5 or 20 and explain whether your previous conclusion still applies. A good investigation can find an image for which a globally stronger map has lower local retention. That query is an opportunity to inspect the data rather than a reason to hide it.
 
 The saved comparisons also include seeds 7 and 19. With the specified PCA initialization these two seeds produced identical coordinates in the recorded environment: a useful null result, not a promise that every seed always changes a plot. A separate random-initialization pair at perplexity 30 supplies an actual alternative-initialization comparison. The plots use the saved coordinates and their measured results. Relocating or jittering individual observations would change their distances; a common rigid rotation preserves distances and neighbor selections.
 
@@ -631,7 +633,7 @@ Fit the scaler and UMAP on training data only. Apply `scaler.transform` followed
 
 ### 7. Independent digits audit
 
-Use the supplied collection, choose k from {5,10,20}, and pick one image by its source-row identifier before inspecting its maps. Compare PCA with two t-SNE perplexities. Record a prediction, its actual retained neighbor identities, and one visually tempting inference you can test in pixel space. Then choose a second image with a different writing style and repeat without changing your metric.
+Use the supplied collection, choose k from {5,10,20}, and pick one image by its source-row identifier before inspecting its maps. Compare PCA with two t-SNE perplexities. Record the actual retained neighbor identities and test one visually tempting inference in pixel space. Then choose a second image with a different writing style and repeat without changing your metric.
 
 <details>
 <summary>Hint</summary>

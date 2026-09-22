@@ -13,8 +13,8 @@ export default {
   sequence: ['Define similarity and the useful grouping question', 'Trace assignment and mean movement', 'Choose units and derive the objective', 'Seed and stop with explicit contracts', 'Construct linkage merges and read a dendrogram', 'Derive Ward merge cost and height', 'Use current APIs and choose k with qualified diagnostics', 'Apply quantization and resource-aware variants', 'Diagnose failure, practise changed cases and report a complete experiment'],
   visual: {
     type: 'Real Old Faithful scatter and forty-leaf Ward dendrogram; point-to-center assignment map with the nearest-center boundary; exhaustive two-group geometry table; D-squared probability strip with sequential draws and seeded frequencies; linked dendrogram and membership map on a tied six-point fixture and a chain fixture; three-image color-palette reconstruction; log-scale inertia and silhouette diagnostics',
-    question: 'What changed the grouping: the geometry, the current representatives, the random seed, the linkage rule or the cut? Predict before touching each control.',
-    interaction: 'Record a prediction, choose any two seed rows and step or run Lloyd, compare feature weights against every possible split, accept successive D² draws, step merges or cut a tree under two linkage contrasts, and change a calculated image palette.'
+    question: 'What changed the grouping: the geometry, the current representatives, the random seed, the linkage rule or the cut? Change the inputs and inspect the mechanism, visual state and computed result immediately.',
+    interaction: 'Choose any two seed rows and scrub, step or run Lloyd; compare feature weights against every possible split; distinguish exact D² probabilities from seeded frequencies; explore linkage and merge/count cuts directly; and compare calculated image palettes within the stated teaching cap.'
   },
   practice: {
     task: 'Solve changed centroid, seeding, Ward and cut cases; diagnose units, initialization and metric misuse, including a changed-unit geyser question; produce a frozen held-out clustering report with a supplied changed-seed self-check and a weighted palette.',

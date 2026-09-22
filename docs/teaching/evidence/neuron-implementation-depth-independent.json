@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "reviewer": "integration owner, not program author",
+  "checks": [
+    "LoRA scalar coordinate oracle for rectangular forward and both factor gradients",
+    "LoRA factor rescaling preserves map/input gradient and changes factor gradients as derived",
+    "Nine activation slopes independently checked with central differences away from corners"
+  ],
+  "activationFiniteDifferenceErrors": {
+    "sigmoid": 8.545983365415566e-12,
+    "tanh": 1.5861978397424537e-11,
+    "relu": 6.551204023708124e-12,
+    "leaky_relu": 6.551204023708124e-12,
+    "elu": 8.291867192866675e-12,
+    "gelu": 2.3660629011601486e-11,
+    "gelu_tanh": 1.1563527912983318e-11,
+    "silu": 1.9454438060506618e-11,
+    "mish": 8.286149544289856e-12
+  },
+  "sourceHashes": {
+    "public/learn-assets/perceptrons/activation-mechanisms.py": "4a02fd8b1d880073544de07b39fca1037ae5be011b627977a6148db05add7503",
+    "public/learn-assets/transfer-learning/lora-mechanism-bridge.py": "3cea9775c20696ab1be05e8a601c2212b761b1748ebc1b79f56af56b7ca598bd"
+  }
+}

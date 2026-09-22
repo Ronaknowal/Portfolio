@@ -10,13 +10,13 @@ const letter = index => String.fromCharCode(65 + index);
 function Investigation({
   id,
   title,
-  prediction,
+  guidance,
   children,
   reset
 }) {
   const heading = useId();
   return <section className="combinatorial-lab lesson-lab" data-combinatorial-lab={id} aria-labelledby={heading}>
-    <h3 id={heading}>{title}</h3><p><strong>Predict first.</strong> {prediction}</p>
+    <h3 id={heading}>{title}</h3><p>{guidance}</p>
     {children}<button type="button" onClick={reset}>Reset investigation</button>
   </section>;
 }
@@ -108,7 +108,7 @@ export function MatroidExchangeLab() {
     setSmaller(1);
     setLarger(6);
   };
-  return <Investigation id="matroid" title="Can the smaller feasible set grow?" prediction={kind === 'intervals' ? 'Can either short interval be added to the long interval A without creating overlap?' : 'Which element of the larger feasible set can join the smaller one without breaking the rule?'} reset={() => changeKind('intervals')}>
+  return <Investigation id="matroid" title="Can the smaller feasible set grow?" guidance={kind === 'intervals' ? 'Can either short interval be added to the long interval A without creating overlap?' : 'Which element of the larger feasible set can join the smaller one without breaking the rule?'} reset={() => changeKind('intervals')}>
     <div className="combinatorial-controls"><label>Feasibility rule<select aria-label="Feasibility rule" value={kind} onChange={event => changeKind(event.target.value)}>{Object.entries(MATROID_PRESETS).map(([key, preset]) => <option key={key} value={key}>{{
               uniform: 'At most two elements',
               graphic: 'Acyclic graph edges',
@@ -136,7 +136,7 @@ export function KnapsackBoundLab() {
   const index = Math.min(step, model.trace.length - 1),
     state = model.trace[index];
   const items = KNAPSACK_ITEMS.filter((_, item) => state.incumbent.mask & 1 << item);
-  return <Investigation id="branch-bound" title="What is still possible in an unexplored branch?" prediction="The fractional root value is 59 at capacity 10. Does a whole-item solution worth 59 necessarily exist?" reset={() => {
+  return <Investigation id="branch-bound" title="What is still possible in an unexplored branch?" guidance="The fractional root value is 59 at capacity 10. Does a whole-item solution worth 59 necessarily exist?" reset={() => {
     setCapacity(10);
     setStep(0);
   }}>
@@ -181,7 +181,7 @@ export function AssignmentResidualLab() {
   }), [kind]);
   const state = model.trace[Math.min(step, model.trace.length - 1)];
   const captionId = useId();
-  return <Investigation id="assignment" title="Follow the refund through the residual network" prediction="If A already occupies job 1, can B take job 1 without losing A's assignment count?" reset={() => {
+  return <Investigation id="assignment" title="Follow the refund through the residual network" guidance="If A already occupies job 1, can B take job 1 without losing A's assignment count?" reset={() => {
     setKind('reversal');
     setStep(0);
   }}>
@@ -227,7 +227,7 @@ export function CoverChoiceLab() {
     maximumSelections: objective === 'cover' ? null : 2
   }), [sets, objective]);
   const state = model.trace[Math.min(step, model.trace.length - 1)];
-  return <Investigation id="cover" title="The objective changes which decision is good" prediction="After selecting A, why must full cover continue, while a two-test budget must eventually stop?" reset={() => {
+  return <Investigation id="cover" title="The objective changes which decision is good" guidance="After selecting A, why must full cover continue, while a two-test budget must eventually stop?" reset={() => {
     setObjective('cover');
     setCaseName('equal');
     setStep(0);
@@ -266,7 +266,7 @@ export function VertexCoverBudgetLab() {
     setFirstCost(VERTEX_COVER_PRESETS[value].costs[0]);
     setStep(0);
   };
-  return <Investigation id="vertex-cover" title="Edges spend a shared vertex budget" prediction="Can an edge load grow past the cheaper endpoint's remaining budget?" reset={() => changeKind('triangle')}>
+  return <Investigation id="vertex-cover" title="Edges spend a shared vertex budget" guidance="Can an edge load grow past the cheaper endpoint's remaining budget?" reset={() => changeKind('triangle')}>
     <div className="combinatorial-controls"><label>Cover graph<select aria-label="Cover graph" value={kind} onChange={event => changeKind(event.target.value)}>{Object.entries(VERTEX_COVER_PRESETS).map(([key, value]) => <option key={key} value={key}>{value.label}</option>)}</select></label>
       <Slider label="Vertex A cost" value={firstCost} onChange={value => {
         setFirstCost(value);
@@ -299,7 +299,7 @@ export function KnapsackScalingLab() {
   const largest = Math.max(1, model.rows[0].length - 1),
     height = Math.max(1, capacity);
   const id = useId();
-  return <Investigation id="scaling" title="Round values, keep the real capacity" prediction="Does asking for half the allowed error guarantee a different selected subset, or only a tighter theorem and a larger DP?" reset={() => {
+  return <Investigation id="scaling" title="Round values, keep the real capacity" guidance="Does asking for half the allowed error guarantee a different selected subset, or only a tighter theorem and a larger DP?" reset={() => {
     setDenominator(4);
     setCapacity(10);
   }}>

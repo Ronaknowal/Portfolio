@@ -1,0 +1,157 @@
+{
+  "date": "2026-09-22",
+  "kind": "author checks; independent review remains separate",
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1",
+    "torch": "2.14.0+cpu"
+  },
+  "checks": [
+    "matrix-calculus: complete learner program and its assertions executed",
+    "constrained-optimization: complete learner program and its assertions executed",
+    "optimal-transport: complete learner program and its assertions executed",
+    "causal-inference: complete learner program and its assertions executed",
+    "mutual-information: complete learner program and its assertions executed",
+    "divergences: complete learner program and its assertions executed",
+    "graph-fundamentals: complete learner program and its assertions executed",
+    "queueing: complete learner program and its assertions executed",
+    "ito-calculus: complete learner program and its assertions executed",
+    "numerical-pdes: complete learner program and its assertions executed",
+    "affine duplicated batch: objective",
+    "affine duplicated batch: each input derivative halves",
+    "affine duplicated batch: parameter derivatives invariant",
+    "affine duplicated batch: bias derivative invariant",
+    "affine rejects accidental broadcast target",
+    "simplex budget 0.2: conservation",
+    "simplex budget 0.2: idempotence",
+    "simplex budget 0.2: translation invariance",
+    "simplex budget 1.0: conservation",
+    "simplex budget 1.0: idempotence",
+    "simplex budget 1.0: translation invariance",
+    "simplex budget 7.0: conservation",
+    "simplex budget 7.0: idempotence",
+    "simplex budget 7.0: translation invariance",
+    "Sinkhorn joint cost/epsilon scaling preserves plan",
+    "Sinkhorn rectangular row conservation",
+    "Sinkhorn rectangular column conservation",
+    "Sinkhorn zero-mass contract",
+    "causal changed target, exact .2 stratum contrast",
+    "causal changed target GLM parity",
+    "causal no-overlap rejection",
+    "MI unused category invariance",
+    "MI rejects normalized probabilities at count boundary",
+    "MMD block 1: identical biased samples",
+    "MMD block 1: negative unbiased estimator retained",
+    "MMD block 2: identical biased samples",
+    "MMD block 2: negative unbiased estimator retained",
+    "MMD block 7: identical biased samples",
+    "MMD block 7: negative unbiased estimator retained",
+    "graph changed weighted harmonic value",
+    "graph unanchored zero-edge isolate",
+    "queue forty jobs including ties and zero service",
+    "queue rejects unsorted arrivals",
+    "SDE unused driver leaves second coordinate fixed",
+    "SDE first coordinate sums matching driver",
+    "SDE rejects nonuniform comparison grid",
+    "FEM on-node point source load",
+    "FEM on-node exact Green nodal values",
+    "FEM rejects nonpositive conductivity",
+    "LDL rejects indefinite pivot",
+    "retained second-order-methods/quadraticSolve: exact expected output replayed",
+    "retained second-order-methods/safeguardedNewton: exact expected output replayed",
+    "retained second-order-methods/limitedMemory: exact expected output replayed",
+    "retained second-order-methods/lbfgsFit: exact expected output replayed",
+    "retained second-order-methods/probabilityGeometry: exact expected output replayed",
+    "retained second-order-methods/fisherFactors: exact expected output replayed",
+    "retained second-order-methods/shampooReplay: exact expected output replayed",
+    "retained second-order-methods/hessianVector: exact expected output replayed",
+    "retained second-order-methods/changedFitComparison: exact expected output replayed",
+    "retained stochastic-processes/weather: exact expected output replayed",
+    "retained stochastic-processes/arrivalProbability: exact expected output replayed",
+    "retained stochastic-processes/brownianOriginal: exact expected output replayed",
+    "retained stochastic-processes/pathLaws: exact expected output replayed",
+    "retained stochastic-processes/markov: exact expected output replayed",
+    "retained stochastic-processes/absorption: exact expected output replayed",
+    "retained stochastic-processes/arrivals: exact expected output replayed",
+    "retained stochastic-processes/intensity: exact expected output replayed",
+    "retained stochastic-processes/jumpClock: exact expected output replayed",
+    "retained stochastic-processes/brownianGrid: exact expected output replayed",
+    "retained stochastic-processes/bridgeVariation: exact expected output replayed",
+    "retained stochastic-processes/diagnosis: exact expected output replayed"
+  ],
+  "count": 71,
+  "programs": {
+    "matrix-calculus": {
+      "path": "public/learn-assets/matrix-calculus/derivative-library-bridge.py",
+      "sha256": "127b2e711ed5b0197009bf8a59513f5e697289e41b61c6409503565b8fda2af4",
+      "stdout": "JVP [0.02, -0.01]\nVJP [1.0, -1.0]\nadjoint pairing 0.03\naffine loss 0.22125 pullback max_error 5.55e-17\nscalar gradient [-1.317642, 1.44]\nunnormalized direction [2,-1] slope -4.075284",
+      "stderr": "C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\lesson-tools\\Lib\\site-packages\\torch\\jit\\_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.\n  warnings.warn("
+    },
+    "constrained-optimization": {
+      "path": "public/learn-assets/constrained-optimization/simplex-solver-bridge.py",
+      "sha256": "0306bdddd4c9e4f8e9750459bae27a6027fa7ceab12f003511dcd59e8271f0c3",
+      "stdout": "budget 1.0 solution [0.8, 0.2]\nscratch mapping 0.00e+00 SLSQP mapping 2.22e-16\nbudget 1.5 solution [0.857143, 0.0, 0.428571, 0.214286]\nscratch mapping 8.00e-11 SLSQP mapping 6.41e-10\none-step budget converged False",
+      "stderr": ""
+    },
+    "optimal-transport": {
+      "path": "public/learn-assets/optimal-transport/sinkhorn-library-bridge.py",
+      "sha256": "8d2232d4913b1ee35ab4441e67d011c5991c332a1147733dbc48b84fb2c57e20",
+      "stdout": "plan [[0.365529, 0.134471], [0.134471, 0.365529]]\nresidual 0.00e+00 POT max_error 0.00e+00\nlinear/full/no-constant [0.268941, -2.006409, -1.006409]\nplan [[0.199522, 0.000478], [0.276442, 0.023558], [0.124037, 0.375963]]\nresidual 5.27e-11 POT max_error 4.32e-11\nlinear/full/no-constant [0.661287, -1.015681, -0.315681]\nsharp five-step budget converged False",
+      "stderr": ""
+    },
+    "causal-inference": {
+      "path": "public/learn-assets/causal-inference/causal-estimation-bridge.py",
+      "sha256": "eab865b0ec6c7276fb3cae7363e1546b610fbc0208d3b1f31a346492b6f7d093",
+      "stdout": "unadjusted difference 0.22\nmanual g-computation/IPW/AIPW [0.1, 0.1, 0.1]\nfitted GLM g-computation/IPW/AIPW [0.1, 0.1, 0.1]\nconditional cell-bootstrap 95% interval [-0.05625, 0.25]\nchanged target-population estimates [0.2, 0.2, 0.2]",
+      "stderr": ""
+    },
+    "mutual-information": {
+      "path": "public/learn-assets/mutual-information/mutual-information-library-bridge.py",
+      "sha256": "3a931191ff2d9729f5a8e5d970b537e825580cf36b364380325b9838a4e8fea2",
+      "stdout": "manual/library/feature nats [0.130812036, 0.130812036, 0.130812036]\nsame MI in bits 0.188721876\nduplicate rows and relabel invariants True\nindependent table nats -0.0\nunique identifier empirical MI in bits 1.0\nidentifier population relevance established False",
+      "stderr": ""
+    },
+    "divergences": {
+      "path": "public/learn-assets/divergences/mmd-library-bridge.py",
+      "sha256": "708274444dc59476c4ebc6d4b334c94d60a7a65f31ecad1d777415e894fac08f",
+      "stdout": "unbiased False MMD squared 1.640442909\nunbiased True MMD squared 1.545416627\nexact allocation count 20 right-tail p 0.1\nJS nats / SciPy distance squared [0.033822076, 0.033822076]",
+      "stderr": ""
+    },
+    "graph-fundamentals": {
+      "path": "public/learn-assets/graph-fundamentals/laplacian-library-bridge.py",
+      "sha256": "596707e3205c23a4992e3731197f4d14f5f6e912021ba666964a3334f88ad331",
+      "stdout": "component count 2\nharmonic values [0.0, 1.0, 3.0, 7.0]\nloop leaves ordinary L unchanged True\nlooped normalized center: row-sum / SciPy 0.428571 1.0\nisolated normalized row [0.0, 0.0, 0.0, 0.0]\nunanchored isolate rejected True",
+      "stderr": ""
+    },
+    "queueing": {
+      "path": "public/learn-assets/queueing/fcfs-simpy-bridge.py",
+      "sha256": "c27d41a0dc73a7a5d396526fd33e7b8a6379d65abd25f5cd793dcb92849d6a9f",
+      "stdout": "arrival/start/departure [[0.0, 0.0, 3.0], [1.0, 3.0, 5.0], [2.0, 5.0, 6.0], [6.0, 6.0, 7.0]]\nmean wait / sojourn / time-average N [1.25, 3.0, 1.714286]\narrival/start/departure [[0.0, 0.0, 0.0], [0.0, 0.0, 2.0], [0.0, 2.0, 2.0], [1.0, 2.0, 3.0], [4.0, 4.0, 4.0]]\nmean wait / sojourn / time-average N [0.6, 1.2, 1.5]\nhorizon 4 censored occupancy area 8.0\nfull cohort sojourn sum 12.0",
+      "stderr": ""
+    },
+    "ito-calculus": {
+      "path": "public/learn-assets/ito-calculus/sde-library-bridge.py",
+      "sha256": "f294f4003beeec1068aa2a3f746b895738101f4f76c8e128ae106c911c21e13f",
+      "stdout": "Euler library max_error 0.00e+00\nterminal exact/Euler/Milstein/coarse Euler [1.166451361, 1.137738417, 1.166095848, 1.147363476]\ncoarse/fine Brownian endpoint agreement True\ntwo-state additive terminal [-0.043612965, 0.085165292]",
+      "stderr": ""
+    },
+    "numerical-pdes": {
+      "path": "public/learn-assets/numerical-pdes/finite-element-banded-bridge.py",
+      "sha256": "11688cc94e0ff503ed0055ddcf00a3b1a083b160daf50d3ca47f79afcfca2774",
+      "stdout": "quadratic nodal values [1.19, 1.5775, 1.91]\noff-node point-load vector [0.0, 0.857142857, 0.142857143]\npoint-source nodal values [0.06, 0.21, 0.12]\nbanded library max_error 4.44e-16\nquadratic interpolation is exact between nodes False",
+      "stderr": ""
+    }
+  },
+  "retainedPrograms": {
+    "src/learn/data/second-order-methods-examples.js": {
+      "sha256": "1ef99b964aa721ded6e803c8a80708c8136b03aa9f0c58280cce603b742e5396",
+      "programCount": 9
+    },
+    "src/learn/data/stochastic-processes-examples.js": {
+      "sha256": "5582eee8b842bfbf6f4926a2b7bdd5df828e31a96d039976752bf9b6d051f482",
+      "programCount": 12
+    }
+  }
+}

@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Rademacher complexity — visual and investigation contracts
 
 Prepared content only. The manuscript, two complete instructional programs, real offline data and author results exist. No React, SVG, browser lab, production download route or independent implementation verification has been performed. Preserve the distinct forms below: a best-response matrix, signed-vector geometry, a margin-loss construction and a real constrained-predictor workbench. They teach different operations.

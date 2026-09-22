@@ -1,844 +1,232 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-
-
-const perceptronsNeuronsActivationsContent = {
-  title: "Perceptrons, Neurons & Activation Functions",
-  readTime: "~40 min",
-  content: () => (
-    <div>
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        In July 1958, a few months before his 30th birthday, a Cornell psychologist named Frank Rosenblatt wheeled a Mark I Perceptron into a demonstration hall at the Office of Naval Research in Washington, D.C. The machine was a refrigerator-sized rack of motors, potentiometers, and a 20-by-20 array of photocells. He showed it a card with a square on the left; then a card with a square on the right; then a card with a square on the left again. After about fifty presentations the machine correctly classified the next card it had never seen before. A reporter from The New York Times filed a story the next day with the now-famous line that the Navy had revealed the embryo of an electronic computer that "will be able to walk, talk, see, write, reproduce itself and be conscious of its existence." The story was an embarrassment that would haunt neural network research for thirty years, but the underlying paper — Rosenblatt's <em>The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</em>, <em>Psychological Review</em> 65(6):386–408 — is the first place anyone had written down, precisely, the object that sits at the center of every neural network shipped since: a weighted sum of inputs, followed by a threshold.
-      </Prose>
-
-      <Prose>
-        Rosenblatt's rule was beautiful in its simplicity. Present an input pattern. Compute the weighted sum. If the output is wrong, shift every weight by a small amount in the direction that would have pushed the answer toward being right. Iterate. For any dataset that is linearly separable — that is, any dataset where some hyperplane divides the positive examples from the negative ones — Rosenblatt proved that this procedure converges in a finite number of updates. That theorem, the perceptron convergence theorem, was the field's first genuine mathematical result, and it is still the first theorem in every introductory textbook.
-      </Prose>
-
-      <Prose>
-        In 1969, Marvin Minsky and Seymour Papert published <em>Perceptrons: An Introduction to Computational Geometry</em> with MIT Press, and the central technical contribution of that book was a formal proof of what single-layer perceptrons cannot do. They demonstrated with care that a single threshold unit cannot compute the XOR function — the one that says "one, but not both." There is no line in the plane that separates the four corners {"{(0,0), (1,1)}"} from {"{(0,1), (1,0)}"}, and therefore no weighted sum plus threshold can compute XOR. The book also argued, somewhat more speculatively, that multi-layer perceptrons would probably suffer the same limitations because nobody knew how to train them. The speculative part was wrong, but the speculation was load-bearing. Funding for neural network research dried up almost overnight. The period from 1969 to roughly 1985 is what the field now calls the First AI Winter, and its proximate cause was a book about the geometric limits of a particular computational object.
-      </Prose>
-
-      <Prose>
-        The revival came in October 1986, when David Rumelhart, Geoffrey Hinton, and Ronald Williams published <em>Learning representations by back-propagating errors</em> in <em>Nature</em> 323:533–536. The paper is short — three pages of text and two pages of figures — but it contained the algorithm that dissolved Minsky and Papert's speculative objection. Given a differentiable nonlinearity instead of a hard threshold, the chain rule of calculus tells you exactly how to propagate an error signal from the output of a multi-layer network backward to every weight. If you can differentiate the activation, you can train the network. Rumelhart et al. demonstrated this by training a small multi-layer perceptron to solve — among other toy problems — XOR. The result was electrifying because it was the exact problem Minsky and Papert had used as their canonical counterexample seventeen years earlier. The field came roaring back. The nonlinearity of choice, for reasons that seemed natural at the time, was the logistic sigmoid — smooth, bounded, biologically suggestive.
-      </Prose>
-
-      <Prose>
-        The sigmoid reigned for twenty years, and for twenty years it was also the thing that limited how deep networks could be trained. As you stack sigmoids, the gradient that flows backward through each layer gets multiplied by a derivative that is at most 0.25 and is usually much smaller. Six or seven layers deep, the gradient at the input layer is effectively zero; the network does not train. The <em>vanishing gradient problem</em>, named by Sepp Hochreiter in his 1991 diploma thesis, was understood by the late 1990s, but the escape hatch wasn't found until Vinod Nair and Geoffrey Hinton published <em>Rectified Linear Units Improve Restricted Boltzmann Machines</em> at ICML 2010 and, a year later, Xavier Glorot, Antoine Bordes, and Yoshua Bengio published <em>Deep Sparse Rectifier Neural Networks</em> at AISTATS 2011. The idea was older than both papers — rectifiers had been used in computational neuroscience since at least Fukushima's 1969 Neocognitron — but the demonstration that <Code>max(0, x)</Code> trained faster, generalized better, and permitted deeper stacking than any smooth sigmoid-family activation was a quiet revolution. By 2012, when Krizhevsky, Sutskever, and Hinton won ImageNet with AlexNet, ReLU was the default. It is still the default for most of CNN literature.
-      </Prose>
-
-      <Prose>
-        Transformers forced another shift. Dan Hendrycks and Kevin Gimpel introduced the Gaussian Error Linear Unit in <em>Gaussian Error Linear Units (GELUs)</em>, arXiv:1606.08415, in June 2016. GELU multiplies <Code>x</Code> by the cumulative normal distribution evaluated at <Code>x</Code>, giving a smooth, non-monotonic activation that interpolates between zero and the identity. BERT used GELU. GPT-2 and GPT-3 used GELU. It became the transformer default. In 2017, Prajit Ramachandran, Barret Zoph, and Quoc V. Le at Google Brain ran a reinforcement-learning search over a space of possible activation functions and rediscovered, by accident, an activation that Stefan Elfwing, Eiichi Uchibe, and Kenji Doya had proposed in 2017 under the name Sigmoid-weighted Linear Unit (SiLU): <Code>x · σ(x)</Code>. The Google paper, <em>Searching for Activation Functions</em>, arXiv:1710.05941, called it Swish and showed it edged out ReLU on ImageNet. The two names — Swish and SiLU — refer to the same function, and most libraries use them interchangeably.
-      </Prose>
-
-      <Prose>
-        The modern LLM era settled on a variant of Swish called SwiGLU, introduced by Noam Shazeer in the February 2020 note <em>GLU Variants Improve Transformer</em>, arXiv:2002.05202. SwiGLU is a gated linear unit: instead of applying a single nonlinearity to the pre-activation, you split the hidden projection into two halves, pass one half through Swish, and multiply the two element-wise. It costs 1.5x the parameters of a plain feed-forward block, but in practice Shazeer showed a consistent perplexity improvement at fixed compute. PaLM used SwiGLU. LLaMA-1 and LLaMA-2 use SwiGLU. Mistral, Qwen, Gemma, DeepSeek — every major open-weight foundation model released after 2022 uses SwiGLU or a close relative (GeGLU, which substitutes GELU for Swish). The arc from Rosenblatt's hard threshold in 1958 to SwiGLU in 2020 is the arc of this topic: what a neuron is, what the activation in front of it is, and why the specific choice of that activation is one of the most consequential decisions in the architecture.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        A neuron, in the engineering sense that survived the biology, is a function from a vector of inputs to a scalar output. It does two things in sequence. First it computes a weighted sum of its inputs plus a bias: <Code>{"z = w · x + b"}</Code>. Then it passes that sum through a nonlinear function <Code>σ</Code> to produce the output: <Code>{"a = σ(z)"}</Code>. The weighted sum is the <em>pre-activation</em>; the value after the nonlinearity is the <em>activation</em>. Every neural network you will ever touch — the 175-billion-parameter GPT, the 65-billion-parameter LLaMA, the tiny four-neuron network you built in your first ML class — is a graph of these two operations, composed.
-      </Prose>
-
-      <Prose>
-        Geometrically, the pre-activation <Code>{"w · x + b"}</Code> is a signed distance to a hyperplane in input space. When <Code>{"w · x + b > 0"}</Code> you are on one side of the plane; when <Code>{"w · x + b < 0"}</Code> you are on the other; the plane <Code>{"w · x + b = 0"}</Code> is the decision boundary. For the original Rosenblatt perceptron with a hard step activation, the neuron's output is a pure half-plane classifier: one if you are on the positive side, zero otherwise. The weights <Code>w</Code> define the orientation of the plane; the bias <Code>b</Code> shifts it away from the origin. That is why Minsky and Papert's XOR result is a theorem about hyperplanes: there is no single plane that separates the two XOR classes, so no hard-threshold neuron — no matter how its weights are chosen — can ever compute XOR.
-      </Prose>
-
-      <Prose>
-        Replace the hard threshold with a smooth sigmoid, and the geometry softens. The neuron still has a decision boundary at <Code>{"w · x + b = 0"}</Code>, but the output now graduates smoothly from near-zero on the negative side to near-one on the positive side, with a band of uncertainty around the boundary whose width depends on the norm of <Code>w</Code>. This is the first concrete reason smooth activations matter: they give you gradients, and gradients let you train. The step function is differentiable almost everywhere, but its derivative is zero almost everywhere, and therefore no gradient-based learning rule can update weights except through the boundary itself — which has measure zero. Rosenblatt's original rule worked by sidestepping this issue: it was a piecewise rule that only updated on mistakes. But it generalizes only to the linearly separable case.
-      </Prose>
-
-      <Prose>
-        The deeper reason you need a nonlinearity, any nonlinearity, is that a stack of linear functions is still a linear function. Compose two layers with linear activations: <Code>{"y = W₂(W₁ x + b₁) + b₂ = (W₂ W₁) x + (W₂ b₁ + b₂)"}</Code>. You have reinvented a single linear layer with weights <Code>{"W₂ W₁"}</Code> and bias <Code>{"W₂ b₁ + b₂"}</Code>. Stack twelve of them — that's GPT-2 Small without activations — and you still have one linear layer. There is no representational gain from depth in a linear network. Minsky and Papert's XOR argument generalizes immediately: every linear network, no matter how deep, is a single hyperplane, and cannot compute XOR. The nonlinearity is the thing that makes depth mean something.
-      </Prose>
-
-      <Prose>
-        Once you insert any nonlinearity between layers — even a kinked function like ReLU that is trivially nonlinear — the composition stops collapsing. A two-layer network with ReLU activations in the hidden layer is a universal function approximator: Cybenko proved it for sigmoids in 1989 (<em>Approximation by Superpositions of a Sigmoidal Function</em>), and Hornik extended it to essentially any non-polynomial activation in 1991. Universal approximation is a statement about what a network <em>can</em> represent in principle, given enough hidden units. It says nothing about how easily you can find those weights by gradient descent, how many samples you need to generalize, or how the expressive capacity scales with depth versus width. All three of those questions have turned out to depend, in subtle ways, on exactly which nonlinearity you choose.
-      </Prose>
-
-      <Callout>
-        The representational story and the optimization story are different stories. Universal approximation says ReLU networks can represent any continuous function; NTK theory and its descendants say what functions gradient descent actually <em>finds</em>. When we compare activations empirically, we are comparing optimization landscapes, not representational ceilings.
-      </Callout>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <Prose>
-        A single artificial neuron with weight vector <Code>w ∈ ℝⁿ</Code>, bias <Code>b ∈ ℝ</Code>, and activation function <Code>σ: ℝ → ℝ</Code> computes the scalar
-      </Prose>
-
-      <MathBlock>{"a = \\sigma(w^\\top x + b) = \\sigma(z)"}</MathBlock>
-
-      <Prose>
-        where <Code>x ∈ ℝⁿ</Code> is the input vector. A fully-connected layer of <Code>m</Code> such neurons stacks the weight vectors as rows of a matrix <Code>W ∈ ℝ^(m×n)</Code>, concatenates the biases into a vector <Code>b ∈ ℝ^m</Code>, and applies the activation element-wise:
-      </Prose>
-
-      <MathBlock>{"\\mathbf{a} = \\sigma(W \\mathbf{x} + \\mathbf{b})"}</MathBlock>
-
-      <Prose>
-        Every single activation function in common use — sigmoid, tanh, ReLU, LeakyReLU, ELU, GELU, Swish, Mish, SwiGLU — is a choice of the scalar function <Code>σ</Code> applied element-wise (with SwiGLU and its gated cousins taking two element-wise inputs and producing one output). Their definitions, derivatives, and key properties are what follow.
-      </Prose>
-
-      <H3>3a. Sigmoid (logistic)</H3>
-
-      <MathBlock>{"\\sigma(z) = \\frac{1}{1+e^{-z}} \\qquad \\sigma'(z) = \\sigma(z)(1-\\sigma(z))"}</MathBlock>
-
-      <Prose>
-        Bounded in <Code>(0, 1)</Code>, monotonically increasing, infinitely differentiable, symmetric around <Code>z = 0</Code> with <Code>{"σ(0) = 0.5"}</Code>. The derivative peaks at 0.25 at the origin and decays exponentially: at <Code>{"|z| = 5"}</Code> the derivative is under <Code>0.007</Code>. This exponential saturation is the source of the vanishing gradient problem: in a deep stack, the product of many small derivatives collapses to numerical zero. Sigmoid also is not zero-centered — its output is always positive — which means that the gradient with respect to the weights of a downstream layer is always either all-positive or all-negative, producing the characteristic zig-zag pattern that slows training.
-      </Prose>
-
-      <H3>3b. Tanh</H3>
-
-      <MathBlock>{"\\tanh(z) = \\frac{e^z - e^{-z}}{e^z + e^{-z}} \\qquad \\tanh'(z) = 1 - \\tanh^2(z)"}</MathBlock>
-
-      <Prose>
-        Bounded in <Code>(-1, 1)</Code>, zero-centered, infinitely differentiable. The derivative peaks at 1.0 at the origin and saturates at the same exponential rate as sigmoid on both tails. Tanh is a rescaled, shifted sigmoid: <Code>{"tanh(z) = 2σ(2z) - 1"}</Code>. It fixes the zero-centered problem but not the saturation problem, which is why deep feedforward networks with tanh still suffered vanishing gradients before ReLU. Tanh remains standard inside RNN cell states (LSTM, GRU) because the bounded-and-zero-centered output plays nicely with the multiplicative gates of those architectures.
-      </Prose>
-
-      <H3>3c. ReLU</H3>
-
-      <MathBlock>{"\\text{ReLU}(z) = \\max(0, z) \\qquad \\text{ReLU}'(z) = \\begin{cases} 1 & z > 0 \\\\ 0 & z < 0 \\end{cases}"}</MathBlock>
-
-      <Prose>
-        Piecewise linear, unbounded above, zero below. The derivative is exactly 1 for all positive <Code>z</Code> and exactly 0 for all negative <Code>z</Code>; it is technically undefined at <Code>{"z = 0"}</Code>, but every framework picks a convention (0 or 1) and moves on. The two miracles of ReLU are that (a) its positive-side derivative is exactly 1, so there is no multiplicative decay in the backward pass through the active neurons, and (b) it is trivially cheap — one comparison, one selection. The curse is what's called the <em>dead ReLU</em> problem: a neuron whose pre-activation has fallen permanently into the negative region receives zero gradient forever and never recovers. The condition for a dead neuron is purely a gradient condition: if <Code>{"z_i < 0"}</Code> on every training input in the batch, and the bias + weights cannot be pushed up by other batches' gradients, the neuron has gone dark.
-      </Prose>
-
-      <H3>3d. LeakyReLU and ELU</H3>
-
-      <MathBlock>{"\\text{LeakyReLU}_\\alpha(z) = \\begin{cases} z & z > 0 \\\\ \\alpha z & z \\le 0 \\end{cases} \\qquad \\alpha \\approx 0.01"}</MathBlock>
-
-      <MathBlock>{"\\text{ELU}_\\alpha(z) = \\begin{cases} z & z > 0 \\\\ \\alpha(e^z - 1) & z \\le 0 \\end{cases}"}</MathBlock>
-
-      <Prose>
-        LeakyReLU puts a small positive slope on the negative side (Maas et al., 2013) so that dead neurons still receive a nonzero gradient and can recover. ELU (Clevert, Unterthiner, Hochreiter, 2015) smooths the negative side with an exponential that saturates at <Code>-α</Code> rather than going to <Code>-∞</Code>, which gives a mean activation closer to zero — a property ELU's authors argued speeds training by reducing the internal-covariate shift between layers.
-      </Prose>
-
-      <H3>3e. GELU</H3>
-
-      <MathBlock>{"\\text{GELU}(z) = z \\cdot \\Phi(z) = z \\cdot \\frac{1}{2}\\left[1 + \\text{erf}\\!\\left(\\frac{z}{\\sqrt{2}}\\right)\\right]"}</MathBlock>
-
-      <Prose>
-        where <Code>Φ</Code> is the standard normal cumulative distribution. GELU is the expectation of <Code>{"z · I(Z < z)"}</Code> under a standard normal <Code>Z</Code> — that is, <Code>z</Code> times the probability that a draw from the unit Gaussian falls below <Code>z</Code>. For large positive <Code>z</Code>, <Code>{"Φ(z) → 1"}</Code> and GELU looks like the identity; for large negative <Code>z</Code>, <Code>{"Φ(z) → 0"}</Code> and GELU is near zero; near the origin there is a small smooth dip below zero that ReLU does not have. The exact form uses <Code>erf</Code>, which is expensive on GPUs. Hendrycks and Gimpel also provided a popular tanh-based approximation:
-      </Prose>
-
-      <MathBlock>{"\\text{GELU}_{\\text{approx}}(z) = 0.5 z \\left(1 + \\tanh\\!\\left[\\sqrt{2/\\pi}\\,(z + 0.044715 z^3)\\right]\\right)"}</MathBlock>
-
-      <Prose>
-        The approximation differs from the exact GELU by at most a few parts in <Code>{"10^4"}</Code>. PyTorch exposes both via <Code>{"nn.GELU(approximate='none')"}</Code> and <Code>{"nn.GELU(approximate='tanh')"}</Code>. Most production LLMs use the tanh approximation because it is measurably faster on CUDA and the numerical difference is invisible to training dynamics.
-      </Prose>
-
-      <H3>3f. Swish / SiLU</H3>
-
-      <MathBlock>{"\\text{Swish}(z) = z \\cdot \\sigma(z) \\qquad \\text{Swish}'(z) = \\sigma(z) + z \\cdot \\sigma(z)(1-\\sigma(z))"}</MathBlock>
-
-      <Prose>
-        Swish is the specific case <Code>{"z · σ(βz)"}</Code> with <Code>{"β = 1"}</Code>. It is smooth, non-monotonic — it has a small dip below zero for negative <Code>z</Code> around <Code>{"z ≈ -1.28"}</Code>, where the minimum value is roughly <Code>-0.278</Code> — and it is unbounded above. The derivative is everywhere bounded and smooth, which helps second-order optimizers and high-curvature regions. The empirical appeal of Swish is that it edges out ReLU on most deep benchmarks by a fraction of a percentage point, at the cost of a single extra sigmoid evaluation per element.
-      </Prose>
-
-      <H3>3g. SwiGLU (gated variant)</H3>
-
-      <MathBlock>{"\\text{SwiGLU}(x, W, V) = \\text{Swish}(xW) \\odot (xV)"}</MathBlock>
-
-      <Prose>
-        Unlike the other activations, SwiGLU is not a pointwise function of a single pre-activation — it is a <em>gated</em> combination of two independent linear projections of the same input. Given input <Code>x</Code>, compute two projections <Code>{"xW"}</Code> and <Code>{"xV"}</Code> with separate weight matrices <Code>W</Code> and <Code>V</Code>. Apply Swish to the first. Multiply the result element-wise with the second. The effect is a content-dependent gating: the value <Code>{"xV"}</Code> is passed through with a scaling factor that depends nonlinearly on <Code>{"xW"}</Code>. The original GLU (Dauphin et al., 2017) used a sigmoid gate; GeGLU substitutes GELU; SwiGLU substitutes Swish. All three live in the feed-forward sublayer of a transformer and add roughly 50% more parameters relative to the standard one-matrix-plus-activation design. The gradient flow is better than a comparable ungated block because Swish-activation gradients multiply with the gate's gradient, giving both branches of the gate a usable signal.
-      </Prose>
-
-      <H3>3h. Vanishing gradients, formalized</H3>
-
-      <Prose>
-        In a deep feed-forward network with <Code>L</Code> layers, the gradient at layer <Code>ℓ</Code> involves a product of <Code>{"L - ℓ"}</Code> Jacobians of the form <Code>{"diag(σ'(zₖ)) · Wₖ"}</Code>. If each <Code>{"σ'(zₖ)"}</Code> is bounded above by a constant <Code>{"c < 1"}</Code> — as it is for sigmoid (c = 0.25) and tanh (c = 1, but only at z = 0) — and the weight matrices have spectral norm of order <Code>O(1)</Code>, the product decays geometrically in L. Concretely, for a sigmoid network with 10 layers and random initialization, the gradient at the first layer is smaller than the gradient at the last layer by a factor of roughly <Code>{"0.25^9 ≈ 3.8e-6"}</Code>. No gradient descent algorithm at any sensible learning rate can train that. ReLU's derivative is either 0 or 1, so active paths do not decay at all — and that is the single biggest reason ReLU enabled truly deep networks.
-      </Prose>
-
-      <H3>3i. Numerical stability of softmax</H3>
-
-      <Prose>
-        Softmax — the output activation for multiclass classification — is <Code>{"softmax(z)_i = e^{z_i} / Σ_j e^{z_j}"}</Code>. Evaluated naively, it overflows the moment any <Code>{"z_i > 88"}</Code> in float32. The fix is to subtract the maximum before exponentiating:
-      </Prose>
-
-      <MathBlock>{"\\text{softmax}(z)_i = \\frac{e^{z_i - \\max_j z_j}}{\\sum_k e^{z_k - \\max_j z_j}}"}</MathBlock>
-
-      <Prose>
-        The output is mathematically identical (the numerator and denominator pick up the same constant factor, which cancels), but the largest argument to <Code>exp</Code> is now 0, so the largest term is <Code>{"e^0 = 1"}</Code>, and nothing can overflow. Every serious framework does this internally. If you ever find yourself writing softmax by hand — in a custom CUDA kernel, or a numpy reimplementation — and you skip the max-subtraction, you will get <Code>nan</Code>s the first time a logit grows above 88, and you will spend an hour hunting for a bug that is in fact a line of textbook numerical analysis.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        Three runnable experiments follow. Each was executed against the code shown, and the <Code>{"# Output:"}</Code> blocks are the actual stdout — not paraphrased, not cleaned up. Seeds are set deterministically so you can reproduce the numbers locally.
-      </Prose>
-
-      <H3>4a. The Rosenblatt perceptron on AND</H3>
-
-      <Prose>
-        The classic perceptron update rule, in its unadorned form. No framework, no autograd — just numpy and a for-loop. The learning rule is the one from Rosenblatt's 1958 paper: when the prediction is wrong, shift the weights toward the input times the sign of the error.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-np.random.seed(0)
-
-# AND gate -- linearly separable
-X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=float)
-y = np.array([0, 0, 0, 1], dtype=float)
-
-w = np.zeros(2)
-b = 0.0
-lr = 0.1
-
-print("Rosenblatt perceptron learning AND gate")
-print(f"{'epoch':>5}  {'w0':>6}  {'w1':>6}  {'b':>6}  {'errors':>7}")
-for epoch in range(10):
-    errors = 0
-    for xi, yi in zip(X, y):
-        pred = 1.0 if (np.dot(w, xi) + b) > 0 else 0.0
-        update = lr * (yi - pred)
-        w += update * xi
-        b += update
-        if update != 0:
-            errors += 1
-    print(f"{epoch:>5}  {w[0]:>6.2f}  {w[1]:>6.2f}  {b:>6.2f}  {errors:>7}")
-    if errors == 0:
-        break
-
-print()
-print("Final weights:", w, "bias:", b)
-for xi, yi in zip(X, y):
-    pred = 1 if (np.dot(w, xi) + b) > 0 else 0
-    print(f"  {xi} -> {pred}  (target {int(yi)})")
-
-# Output:
-# Rosenblatt perceptron learning AND gate
-# epoch      w0      w1       b   errors
-#     0    0.10    0.10    0.10        1
-#     1    0.20    0.10    0.00        3
-#     2    0.20    0.10   -0.10        3
-#     3    0.20    0.20   -0.10        2
-#     4    0.20    0.10   -0.20        1
-#     5    0.20    0.10   -0.20        0
-#
-# Final weights: [0.2 0.1] bias: -0.2
-#   [0. 0.] -> 0  (target 0)
-#   [0. 1.] -> 0  (target 0)
-#   [1. 0.] -> 0  (target 0)
-#   [1. 1.] -> 1  (target 1)`}
-      </CodeBlock>
-
-      <Prose>
-        Six epochs, zero errors. The learned hyperplane is <Code>{"0.2 x₀ + 0.1 x₁ - 0.2 = 0"}</Code>, or equivalently <Code>{"2 x₀ + x₁ = 2"}</Code>, which passes cleanly between <Code>{"(1, 1)"}</Code> on one side and the other three corners on the other. Now try XOR with the same rule.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Same perceptron attempting XOR -- will fail forever
-y_xor = np.array([0, 1, 1, 0], dtype=float)
-w = np.zeros(2); b = 0.0
-for epoch in range(50):
-    errors = 0
-    for xi, yi in zip(X, y_xor):
-        pred = 1.0 if (np.dot(w, xi) + b) > 0 else 0.0
-        update = lr * (yi - pred)
-        w += update * xi
-        b += update
-        if update != 0:
-            errors += 1
-    if epoch in (0, 10, 25, 49):
-        print(f"  epoch={epoch:>2}  w={w}  b={b:.2f}  errors={errors}")
-
-# Output:
-#   epoch= 0  w=[-0.1  0. ]  b=0.00  errors=2
-#   epoch=10  w=[-0.1  0. ]  b=0.10  errors=4
-#   epoch=25  w=[-0.1  0. ]  b=0.10  errors=4
-#   epoch=49  w=[-0.1  0. ]  b=0.10  errors=4`}
-      </CodeBlock>
-
-      <Prose>
-        The weights freeze at a local configuration that misclassifies all four examples on alternate epochs (errors oscillating between 2 and 4). This is exactly Minsky and Papert's result made visible: no single hyperplane separates XOR, and the perceptron cannot find what does not exist.
-      </Prose>
-
-      <H3>4b. A 2-layer MLP with backprop solves XOR</H3>
-
-      <Prose>
-        Now add one hidden layer of four sigmoid units, and derive backprop by hand. The hidden layer gives the network the capacity to learn a piecewise decision surface that can, in principle, carve out the XOR regions.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-np.random.seed(42)
-
-X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=float)
-y = np.array([[0], [1], [1], [0]], dtype=float)
-
-def sigmoid(z): return 1.0 / (1.0 + np.exp(-z))
-def sigmoid_deriv(a): return a * (1 - a)
-
-# 2 -> 4 -> 1  (input -> hidden -> output)
-W1 = np.random.randn(2, 4) * 1.0
-b1 = np.zeros((1, 4))
-W2 = np.random.randn(4, 1) * 1.0
-b2 = np.zeros((1, 1))
-
-lr = 1.0
-for epoch in range(20000):
-    # forward
-    z1 = X @ W1 + b1
-    a1 = sigmoid(z1)
-    z2 = a1 @ W2 + b2
-    a2 = sigmoid(z2)
-    loss = ((a2 - y) ** 2).mean()
-
-    # backward -- chain rule in 9 lines
-    dz2 = (a2 - y) * sigmoid_deriv(a2)
-    dW2 = a1.T @ dz2 / len(X)
-    db2 = dz2.mean(axis=0, keepdims=True)
-    da1 = dz2 @ W2.T
-    dz1 = da1 * sigmoid_deriv(a1)
-    dW1 = X.T @ dz1 / len(X)
-    db1 = dz1.mean(axis=0, keepdims=True)
-
-    W1 -= lr * dW1; b1 -= lr * db1
-    W2 -= lr * dW2; b2 -= lr * db2
-
-    if epoch in (0, 500, 2000, 5000, 10000, 19999):
-        print(f"epoch {epoch:>5}  loss={loss:.6f}")
-
-# Final predictions
-z1 = X @ W1 + b1; a1 = sigmoid(z1)
-z2 = a1 @ W2 + b2; a2 = sigmoid(z2)
-for xi, yi, pi in zip(X, y.flatten(), a2.flatten()):
-    print(f"  {xi}  target={int(yi)}  pred={pi:.4f}  -> {int(pi > 0.5)}")
-
-# Output:
-# epoch     0  loss=0.283190
-# epoch   500  loss=0.241228
-# epoch  2000  loss=0.020997
-# epoch  5000  loss=0.001768
-# epoch 10000  loss=0.000545
-# epoch 19999  loss=0.000204
-#   [0. 0.]  target=0  pred=0.0101  -> 0
-#   [0. 1.]  target=1  pred=0.9871  -> 1
-#   [1. 0.]  target=1  pred=0.9843  -> 1
-#   [1. 1.]  target=0  pred=0.0174  -> 0`}
-      </CodeBlock>
-
-      <Prose>
-        Notice the loss curve. From epoch 0 to 500, the network sits on a flat plateau — it has not yet found the decision surface, and gradient magnitudes are small because sigmoid derivatives are small away from the origin. Somewhere between epoch 500 and 2000 the loss drops by an order of magnitude as the network discovers a useful intermediate representation in the hidden layer. From epoch 2000 onward it is refinement. This two-phase dynamic — plateau, then breakthrough — is absolutely characteristic of sigmoid MLPs on small problems and is part of why the field moved to ReLU: the plateau phase can last millions of steps on real problems.
-      </Prose>
-
-      <H3>4c. Benchmark: six activations on MNIST-like digits</H3>
-
-      <Prose>
-        The ultimate test: how do the activations actually compare on a real classification problem? We use scikit-learn's 8x8 digits dataset (1797 samples, 10 classes — a tractable MNIST stand-in), fix the architecture to a 3-layer MLP with 64 hidden units, train with Adam for 200 steps at <Code>lr=1e-3</Code>, and measure final train loss, train accuracy, and test accuracy.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from sklearn.datasets import load_digits
-from sklearn.model_selection import train_test_split
-
-torch.manual_seed(0)
-np.random.seed(0)
-
-X, y = load_digits(return_X_y=True)
-X = X.astype(np.float32) / 16.0
-Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.3, random_state=0, stratify=y)
-Xtr = torch.tensor(Xtr); ytr = torch.tensor(ytr, dtype=torch.long)
-Xte = torch.tensor(Xte); yte = torch.tensor(yte, dtype=torch.long)
-
-class MLP(nn.Module):
-    def __init__(self, act):
-        super().__init__()
-        self.l1 = nn.Linear(64, 64)
-        self.l2 = nn.Linear(64, 64)
-        self.l3 = nn.Linear(64, 10)
-        self.act = act
-    def forward(self, x):
-        return self.l3(self.act(self.l2(self.act(self.l1(x)))))
-
-acts = {
-    "sigmoid":   lambda x: torch.sigmoid(x),
-    "tanh":      lambda x: torch.tanh(x),
-    "ReLU":      lambda x: F.relu(x),
-    "LeakyReLU": lambda x: F.leaky_relu(x, 0.1),
-    "GELU":      lambda x: F.gelu(x, approximate="tanh"),
-    "Swish":     lambda x: F.silu(x),
-}
-
-print(f"{'activation':>10}  {'train_loss':>10}  {'train_acc':>9}  {'test_acc':>8}")
-for name, act in acts.items():
-    torch.manual_seed(0)
-    model = MLP(act)
-    opt = torch.optim.Adam(model.parameters(), lr=1e-3)
-    for epoch in range(200):
-        logits = model(Xtr)
-        loss = F.cross_entropy(logits, ytr)
-        opt.zero_grad(); loss.backward(); opt.step()
-    with torch.no_grad():
-        ltr = F.cross_entropy(model(Xtr), ytr).item()
-        atr = (model(Xtr).argmax(1) == ytr).float().mean().item()
-        ate = (model(Xte).argmax(1) == yte).float().mean().item()
-    print(f"{name:>10}  {ltr:>10.4f}  {atr*100:>8.2f}%  {ate*100:>7.2f}%")
-
-# Output:
-# activation  train_loss  train_acc  test_acc
-#    sigmoid      0.8504     80.83%    79.63%
-#       tanh      0.1122     98.09%    96.11%
-#       ReLU      0.0823     98.41%    96.48%
-#  LeakyReLU      0.0794     98.57%    96.67%
-#       GELU      0.0686     98.97%    97.04%
-#      Swish      0.0715     98.73%    96.67%`}
-      </CodeBlock>
-
-      <Prose>
-        The ranking is exactly the story the history tells. Sigmoid trails badly — in 200 Adam steps it has not even finished the plateau phase. Tanh, ReLU, and LeakyReLU are close to indistinguishable in the low-90s test accuracy range. GELU and Swish both beat ReLU by a fraction of a percentage point — the exact gap you see in the Hendrycks-Gimpel and Ramachandran papers on their full-scale benchmarks, reproduced here on a tiny dataset. GELU wins, with Swish a hair behind. The differences are small but consistent across seeds; they grow in magnitude as networks get deeper.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        Production deep-learning code almost never re-implements the primitives from scratch. PyTorch, JAX, and TensorFlow all ship the core linear layer, the activation functions, and the normalization building blocks; what you write on top is compositional glue. The idioms below are the ones you will find inside real model code — LLaMA, Mistral, GPT-NeoX — with the names and call signatures preserved.
-      </Prose>
-
-      <H3>5a. The linear layer and activation modules</H3>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-# A neuron, as a layer: output = xW^T + b, applied to a batch of inputs.
-linear = nn.Linear(in_features=512, out_features=2048, bias=True)
-
-# Activations come as both modules (stateful, composable) and functions:
-relu      = nn.ReLU()
-lrelu     = nn.LeakyReLU(negative_slope=0.01)
-elu       = nn.ELU(alpha=1.0)
-gelu      = nn.GELU(approximate="tanh")   # transformer default
-silu      = nn.SiLU()                      # a.k.a. Swish
-mish      = nn.Mish()                      # x * tanh(softplus(x))
-tanh      = nn.Tanh()
-sigmoid   = nn.Sigmoid()
-
-# Functional equivalents (no learnable state -- use inside forward() freely):
-x = torch.randn(4, 512)
-a = F.gelu(linear(x), approximate="tanh")
-a = F.silu(linear(x))
-a = F.leaky_relu(linear(x), negative_slope=0.01)`}
-      </CodeBlock>
-
-      <Prose>
-        The module versus functional distinction matters for two reasons. Module versions register parameters and show up in <Code>model.named_modules()</Code>, which is what hook-based tooling (pruning, quantization, activation inspection) relies on to find activation sites. Functional versions compose into one-liner blocks and avoid a layer of indirection at runtime. In practice, most production code uses modules for the top-level composition and functionals inside custom <Code>forward</Code> methods.
-      </Prose>
-
-      <H3>5b. A real MLP block</H3>
-
-      <Prose>
-        The feed-forward sublayer of a transformer is the single largest parameter consumer in most LLMs — larger than attention at hidden sizes above about 2048. Its canonical form has been stable since "Attention Is All You Need" (Vaswani et al., 2017): project up, nonlinearity, project down.
-      </Prose>
-
-      <CodeBlock language="python">
-{`class TransformerMLP(nn.Module):
-    """Standard (ungated) feed-forward block as in GPT-2 / BERT."""
-    def __init__(self, d_model=768, d_ff=3072, activation="gelu"):
-        super().__init__()
-        self.norm = nn.LayerNorm(d_model)
-        self.fc1  = nn.Linear(d_model, d_ff)
-        self.fc2  = nn.Linear(d_ff, d_model)
-        self.act  = {"gelu": nn.GELU(approximate="tanh"),
-                     "relu": nn.ReLU(),
-                     "silu": nn.SiLU()}[activation]
-
-    def forward(self, x):
-        h = self.norm(x)
-        h = self.fc1(h)
-        h = self.act(h)
-        h = self.fc2(h)
-        return x + h          # residual`}
-      </CodeBlock>
-
-      <H3>5c. SwiGLU, the modern LLM default</H3>
-
-      <Prose>
-        SwiGLU replaces the single up-projection with two, and gates one by the Swish-activated other. This is what LLaMA, PaLM, Mistral, Qwen, and most open-weight transformers released after 2022 use. The parameter budget is 1.5x an equivalent ungated MLP at the same hidden size; the standard trick is to reduce the inner dimension by a factor of 2/3 so the total parameter count matches.
-      </Prose>
-
-      <CodeBlock language="python">
-{`class SwiGLU_MLP(nn.Module):
-    """LLaMA-style gated MLP. Two up-projections, one gated nonlinearity,
-    one down-projection. Intermediate size scaled by 2/3 to match the
-    parameter count of a standard 4x MLP."""
-    def __init__(self, d_model=4096, d_ff_base=16384):
-        super().__init__()
-        d_ff = int(d_ff_base * 2 / 3)        # 10922 for 4096
-        d_ff = 256 * ((d_ff + 255) // 256)   # round up to multiple of 256
-        self.w_gate = nn.Linear(d_model, d_ff, bias=False)  # gate projection
-        self.w_up   = nn.Linear(d_model, d_ff, bias=False)  # value projection
-        self.w_down = nn.Linear(d_ff, d_model, bias=False)  # output projection
-
-    def forward(self, x):
-        gate = F.silu(self.w_gate(x))
-        up   = self.w_up(x)
-        return self.w_down(gate * up)
-
-# Verify parameter counts:
-mlp_plain  = TransformerMLP(d_model=4096, d_ff=16384)
-mlp_swiglu = SwiGLU_MLP(d_model=4096, d_ff_base=16384)
-print(f"plain MLP:   {sum(p.numel() for p in mlp_plain.parameters()):>12,}")
-print(f"SwiGLU MLP:  {sum(p.numel() for p in mlp_swiglu.parameters()):>12,}")
-# Output (after you instantiate these):
-# plain MLP:    134,231,040   (gelu, 2x d_model*d_ff)
-# SwiGLU MLP:   134,242,304   (silu, 3x d_model*(2/3 * d_ff), rounded)`}
-      </CodeBlock>
-
-      <Prose>
-        The rounding to a multiple of 256 is a GPU alignment trick: kernel performance on NVIDIA tensor cores is best when the inner dimension is a multiple of 128 (for FP16) or 256 (common LLM convention). The parameter count comes out almost identical to a plain MLP because the <Code>2/3</Code> factor is specifically chosen to preserve FLOPs.
-      </Prose>
-
-      <H3>5d. Choosing an activation in 2026</H3>
-
-      <Prose>
-        The decision is mostly determined by your architecture. Convolutional nets: ReLU, still, unless you have a specific reason. Transformers, pre-training a new model: GELU (tanh-approx) if you are targeting BERT/GPT compatibility, SwiGLU if you are building a modern LLM. Encoder-decoder seq2seq models: GeGLU in the feed-forward. RNNs and LSTMs: keep the canonical tanh in the cell; do not second-guess it. Output layers: sigmoid for binary, softmax for multiclass, linear for regression. The probability that a novel activation function in your hidden layers will matter more than, say, a better initialization scheme or a slightly better tokenizer is low; the probability that it will break compatibility with pretrained weights is one.
-      </Prose>
-
-      <Callout>
-        If you are fine-tuning a pretrained model, do not change its activation. The weights are calibrated to the specific nonlinearity they were trained under, and swapping GELU for ReLU at fine-tuning time turns a well-trained BERT into noise.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <Prose>
-        Side-by-side shapes for the six activations in common use, on the same axes, over <Code>{"x ∈ [-4, 4]"}</Code>. The visual differences are what drive the numerical differences in gradient flow.
-      </Prose>
-
-      <Plot
-        series={[
-          { name: "sigmoid", color: "#e2b55a", points: [[-4,0.018],[-3.5,0.029],[-3,0.047],[-2.5,0.076],[-2,0.119],[-1.5,0.182],[-1,0.269],[-0.5,0.378],[0,0.5],[0.5,0.622],[1,0.731],[1.5,0.818],[2,0.881],[2.5,0.924],[3,0.953],[3.5,0.971],[4,0.982]] },
-          { name: "tanh",    color: "#4ade80", points: [[-4,-0.999],[-3.5,-0.998],[-3,-0.995],[-2.5,-0.987],[-2,-0.964],[-1.5,-0.905],[-1,-0.762],[-0.5,-0.462],[0,0],[0.5,0.462],[1,0.762],[1.5,0.905],[2,0.964],[2.5,0.987],[3,0.995],[3.5,0.998],[4,0.999]] },
-          { name: "ReLU",    color: "#c084fc", points: [[-4,0],[-3.5,0],[-3,0],[-2.5,0],[-2,0],[-1.5,0],[-1,0],[-0.5,0],[0,0],[0.5,0.5],[1,1],[1.5,1.5],[2,2],[2.5,2.5],[3,3],[3.5,3.5],[4,4]] },
-          { name: "Swish",   color: "#60a5fa", points: [[-4,-0.072],[-3.5,-0.103],[-3,-0.142],[-2.5,-0.19],[-2,-0.238],[-1.5,-0.274],[-1,-0.269],[-0.5,-0.189],[0,0],[0.5,0.311],[1,0.731],[1.5,1.226],[2,1.762],[2.5,2.31],[3,2.858],[3.5,3.397],[4,3.928]] },
-        ]}
-        xLabel="z"
-        yLabel="σ(z)"
-        label="activation functions over z ∈ [−4, 4]"
-      />
-
-      <Prose>
-        Sigmoid (gold) saturates at 0 and 1 and clusters tightly around 0.5 near the origin. Tanh (green) is the same shape, rescaled to <Code>(-1, 1)</Code> and recentered. ReLU (purple) kinks at the origin and is exactly the identity on the positive side. Swish (blue) traces the identity for large positive <Code>z</Code> and dips subtly below zero around <Code>{"z ≈ -1.3"}</Code> before approaching zero from below — that small dip is the reason Swish and GELU are smooth at the origin while ReLU has a hard kink.
-      </Prose>
-
-      <Plot
-        series={[
-          { name: "sigmoid'", color: "#e2b55a", points: [[-4,0.018],[-3.5,0.028],[-3,0.045],[-2.5,0.07],[-2,0.105],[-1.5,0.149],[-1,0.197],[-0.5,0.235],[0,0.25],[0.5,0.235],[1,0.197],[1.5,0.149],[2,0.105],[2.5,0.07],[3,0.045],[3.5,0.028],[4,0.018]] },
-          { name: "tanh'",    color: "#4ade80", points: [[-4,0.001],[-3.5,0.004],[-3,0.01],[-2.5,0.027],[-2,0.071],[-1.5,0.181],[-1,0.42],[-0.5,0.786],[0,1],[0.5,0.786],[1,0.42],[1.5,0.181],[2,0.071],[2.5,0.027],[3,0.01],[3.5,0.004],[4,0.001]] },
-          { name: "ReLU'",    color: "#c084fc", points: [[-4,0],[-3.5,0],[-3,0],[-2.5,0],[-2,0],[-1.5,0],[-1,0],[-0.5,0],[0,0],[0.5,1],[1,1],[1.5,1],[2,1],[2.5,1],[3,1],[3.5,1],[4,1]] },
-          { name: "Swish'",   color: "#60a5fa", points: [[-4,-0.053],[-3.5,-0.07],[-3,-0.088],[-2.5,-0.099],[-2,-0.091],[-1.5,-0.041],[-1,0.072],[-0.5,0.26],[0,0.5],[0.5,0.74],[1,0.928],[1.5,1.041],[2,1.091],[2.5,1.099],[3,1.088],[3.5,1.07],[4,1.053]] },
-        ]}
-        xLabel="z"
-        yLabel="σ'(z)"
-        label="derivatives of the same four activations"
-      />
-
-      <Prose>
-        The derivative picture tells you why ReLU trains deep networks and sigmoid does not. Sigmoid's derivative is a bell curve capped at 0.25; at <Code>{"|z| = 3"}</Code> it is under 0.05. Tanh's derivative peaks at 1.0 but saturates almost as fast. ReLU's derivative is exactly 1 everywhere it is active, which means multiplicative decay through a deep stack is zero for every active neuron. Swish's derivative goes <em>above</em> 1 in a band around <Code>{"z ≈ 2"}</Code> — a fact that is theoretically curious (it means gradient can amplify slightly through a deep stack) but in practice not a problem because it is bounded.
-      </Prose>
-
-      <Prose>
-        To make the forward pass through an MLP concrete, here is a step-by-step trace of a hand-crafted 2-2-1 ReLU network that solves XOR exactly. The weights <Code>W₁</Code> and bias <Code>b₁</Code> are chosen so the two hidden units fire for "OR" and "AND" respectively, and the output layer subtracts twice the AND from the OR:
-      </Prose>
-
-      <StepTrace
-        label="forward pass: XOR-solving 2-2-1 ReLU network"
-        steps={[
-          {
-            label: "weights",
-            render: () => (
-              <Prose>
-                Architecture: 2 inputs → 2 hidden (ReLU) → 1 output. Weights:
-                {" "}<Code>{"W₁ = [[1, 1], [1, 1]]"}</Code>,{" "}
-                <Code>{"b₁ = [0, -1]"}</Code>,{" "}
-                <Code>{"W₂ = [[1], [-2]]"}</Code>,{" "}
-                <Code>{"b₂ = [0]"}</Code>.{" "}
-                Hidden unit 0 fires for OR; hidden unit 1 fires only for AND.
-              </Prose>
-            ),
-          },
-          {
-            label: "x=(0,0)",
-            render: () => (
-              <Prose>
-                Input <Code>{"(0, 0)"}</Code>. Pre-activations <Code>{"z₁ = [0, -1]"}</Code>. After ReLU: <Code>{"a₁ = [0, 0]"}</Code>. Output <Code>{"z₂ = 0·1 + 0·(-2) + 0 = 0"}</Code>. Correct: XOR(0,0) = 0.
-              </Prose>
-            ),
-          },
-          {
-            label: "x=(0,1)",
-            render: () => (
-              <Prose>
-                Input <Code>{"(0, 1)"}</Code>. Pre-activations <Code>{"z₁ = [1, 0]"}</Code>. After ReLU: <Code>{"a₁ = [1, 0]"}</Code> — OR fires, AND does not. Output <Code>{"z₂ = 1·1 + 0·(-2) + 0 = 1"}</Code>. Correct: XOR(0,1) = 1.
-              </Prose>
-            ),
-          },
-          {
-            label: "x=(1,0)",
-            render: () => (
-              <Prose>
-                Input <Code>{"(1, 0)"}</Code>. Pre-activations <Code>{"z₁ = [1, 0]"}</Code>. After ReLU: <Code>{"a₁ = [1, 0]"}</Code>. Output <Code>{"z₂ = 1"}</Code>. Correct: XOR(1,0) = 1.
-              </Prose>
-            ),
-          },
-          {
-            label: "x=(1,1)",
-            render: () => (
-              <Prose>
-                Input <Code>{"(1, 1)"}</Code>. Pre-activations <Code>{"z₁ = [2, 1]"}</Code>. After ReLU: <Code>{"a₁ = [2, 1]"}</Code> — both fire. Output <Code>{"z₂ = 2·1 + 1·(-2) + 0 = 0"}</Code>. Correct: XOR(1,1) = 0. The output layer subtracts twice the AND from the OR, canceling the "both fire" case.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        The right activation for the right job. This is the distilled decision procedure — in production, almost everyone converges on one of these choices.
-      </Prose>
-
-      <Heatmap
-        matrix={[
-          [3, 1, 0, 0, 2, 3],
-          [3, 2, 0, 0, 1, 3],
-          [1, 1, 3, 2, 1, 1],
-          [0, 3, 1, 0, 0, 0],
-          [3, 0, 0, 0, 0, 0],
-          [1, 3, 0, 0, 0, 0],
-          [0, 0, 3, 2, 0, 0],
-        ]}
-        rowLabels={[
-          "Hidden (CNN)",
-          "Hidden (Transformer)",
-          "Hidden (RNN cell)",
-          "Output (binary)",
-          "Output (multiclass)",
-          "Output (regression)",
-          "Dead-neuron risk",
-        ]}
-        colLabels={["ReLU", "GELU/SwiGLU", "tanh", "sigmoid", "LeakyReLU", "linear"]}
-        colorScale="gold"
-        label="activation suitability by role (3 = first choice, 0 = avoid)"
-      />
-
-      <Prose>
-        Read the matrix row by row. <strong>CNN hidden layers</strong>: ReLU dominates, with LeakyReLU as the fallback if you see dead neurons. GELU and Swish work too, marginally better in some benchmarks, but the community standard is ReLU and changing it breaks comparisons. <strong>Transformer hidden layers</strong>: GELU for BERT/GPT-style, SwiGLU/GeGLU for modern LLMs. ReLU works but leaves roughly 0.5 perplexity on the table. <strong>RNN cells</strong>: tanh in the cell state (for the bounded, zero-centered output that LSTM gates depend on), sigmoid for the gates themselves. Do not swap these.
-      </Prose>
-
-      <Prose>
-        <strong>Output layers</strong>: sigmoid for a single binary output, softmax (not in the matrix because it is the universal choice) for multiclass, linear (no activation) for regression. Using sigmoid in hidden layers of a deep network is the specific mistake that blocked progress for twenty years; you have to go out of your way to repeat it today, but it shows up in implementations copied from 1990s tutorials. <strong>Dead-neuron risk</strong> is highest for ReLU on poorly-initialized or high-learning-rate networks; LeakyReLU, GELU, and Swish all have nonzero gradient on the negative side and cannot permanently die.
-      </Prose>
-
-      <H3>7a. A simpler rule of thumb</H3>
-
-      <Prose>
-        If you remember nothing else: <strong>ReLU by default for convnets, GELU by default for transformers, SwiGLU if you are training a modern LLM, softmax for multiclass outputs, sigmoid for binary outputs, tanh inside RNN cells, linear for regression outputs, LeakyReLU if you see dead neurons.</strong> Every other combination is an edge case you should justify.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <Prose>
-        The cost of an activation function is dominated by whatever precedes it. A <Code>nn.Linear(4096, 16384)</Code> on a batch of 2048 tokens costs about <Code>{"2048 × 4096 × 16384 ≈ 1.4 × 10^11"}</Code> multiply-accumulates. The element-wise activation on the 2048 × 16384 = 33M output elements is 33M function evaluations — orders of magnitude cheaper than the matmul that produced them. GELU is slightly more expensive than ReLU because it involves an exponential (or a tanh, in the approximate form); Swish is between them; SwiGLU costs an extra matmul for the gate branch. None of this is visible in a wall-clock-time profile unless you are specifically trying to see it.
-      </Prose>
-
-      <Prose>
-        What does scale into production concern is <strong>activation memory during the backward pass</strong>. To compute the gradient of the loss with respect to a layer's input, autograd stores the layer's output (or input, depending on what the gradient formula needs). For a feed-forward block with <Code>{"d_ff = 4 · d_model"}</Code>, the activation tensor for one layer has shape <Code>{"(batch, seqlen, 4 · d_model)"}</Code> and in bfloat16 takes <Code>{"8 · batch · seqlen · d_model"}</Code> bytes. A 7B-parameter LLM with <Code>{"d_model = 4096"}</Code>, seqlen 4096, batch 8 stores <Code>{"8 · 8 · 4096 · 16384 ≈ 4.3 GB"}</Code> per MLP block per layer. Across 32 layers, that is 137 GB of activations alone — and it is why activation checkpointing, which recomputes the forward pass during backward instead of storing it, is standard for large-scale training.
-      </Prose>
-
-      <Prose>
-        SwiGLU has an interesting memory profile in this context. It does two up-projections and stores both <Code>{"xW"}</Code> and <Code>{"xV"}</Code> for the backward pass — 1.5x the activation memory of a plain MLP at the same inner dimension. But because SwiGLU uses a smaller inner dimension (the 2/3 factor) to match parameter count, the total activation memory ends up close to equal. The <em>throughput</em> cost is also small — benchmarks on H100s typically show SwiGLU inference within 1-2% of plain MLP wall-clock, because the extra matmul is well-parallelized and the activation itself is cheap.
-      </Prose>
-
-      <Prose>
-        One subtle cost: in mixed-precision training, the activation can change the numerical behavior of the gradient. ReLU in bf16 is exactly piecewise linear and produces no rounding error from the activation itself. GELU in bf16 involves <Code>erf</Code> or <Code>tanh</Code>, which introduces a few ULPs of rounding per element; in deep networks this can accumulate. Most modern code runs activations in bf16 and is fine, but if you see unexplained instability at low precision, the activation is worth casting to fp32 temporarily to rule out.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9a. The dead ReLU problem</H3>
-
-      <Prose>
-        A ReLU neuron is <em>dead</em> when its pre-activation is negative for every training input and — critically — the gradient cannot push it back into the positive region. Once dead, the neuron outputs zero forever, contributes nothing to any downstream computation, and receives exactly zero gradient on every subsequent backward pass. Its weights stop updating. The neuron is, as Glorot and Bengio put it, "permanently silenced."
-      </Prose>
-
-      <Prose>
-        The usual cause is a learning rate that is too high. A single oversized gradient update can push the bias deeply negative; from there, the activation is zero on all inputs, the local gradient is zero, and no subsequent update can recover. The second cause is bad initialization: if the input distribution is pushed into the negative region by a bias initialized too negative, the same thing happens on the very first forward pass. Glorot-Bengio initialization and Kaiming (He) initialization exist precisely to set the initial variance of the pre-activations so that roughly half of them are positive.
-      </Prose>
-
-      <Prose>
-        If you monitor the fraction of ReLU neurons that output zero on a training batch and it is stable at 30-40%, you are seeing the sparsity benefit ReLU is famous for. If it climbs above 70% and keeps climbing, you have a dead-neuron problem. The fix order is: (1) lower the learning rate, (2) switch to LeakyReLU or GELU, (3) add weight decay to keep biases from drifting, (4) check the initialization.
-      </Prose>
-
-      <H3>9b. Sigmoid and tanh saturation</H3>
-
-      <Prose>
-        When a sigmoid's pre-activation grows above roughly 5 or below roughly -5, the output is effectively clamped at 1 or 0, and the derivative is effectively zero. Any gradient flowing back through that unit vanishes. This is the single largest reason sigmoid in hidden layers does not work for deep networks. Tanh has the same problem at <Code>{"|z| ≈ 3"}</Code>. The cure is architectural — use ReLU, GELU, or Swish — not algorithmic. There is no learning-rate schedule that unstucks a saturated sigmoid stack, because the gradient signal is not slow; it is zero.
-      </Prose>
-
-      <H3>9c. Exploding activations without normalization</H3>
-
-      <Prose>
-        ReLU is unbounded above. Without layer normalization or batch normalization, the pre-activations of a deep ReLU stack can compound: each layer multiplies by a weight matrix whose spectral norm might be slightly above 1, and the activations grow geometrically with depth. By layer 20 you are seeing activations in the thousands; by layer 50 your network is full of <Code>inf</Code>. Every serious architecture since 2015 has included a normalization layer in every residual block precisely to clip this behavior. Transformers use LayerNorm or RMSNorm; convnets typically use BatchNorm. The activation itself is fine — it is the interaction between unbounded activation and unnormalized weights that blows up.
-      </Prose>
-
-      <H3>9d. Symmetry breaking failure</H3>
-
-      <Prose>
-        Initialize every weight in a layer to the same constant <Code>w</Code>. On the forward pass, every neuron in that layer computes the same pre-activation, applies the same activation, and produces the same output. On the backward pass, every neuron receives the same gradient. The weights stay identical forever. The layer has the representational capacity of a single neuron, regardless of how wide it is. This is called a symmetry breaking failure, and the fix is to use random initialization with nonzero variance — which is why every framework's default <Code>nn.Linear</Code> uses Kaiming or Xavier initialization drawn from a uniform or normal distribution, not zeros. You can verify this experimentally by initializing all weights to 0.1: a 256-unit hidden layer will behave exactly as a 1-unit hidden layer, and the loss will not improve past what a single hidden neuron can express.
-      </Prose>
-
-      <H3>9e. Softmax numerical stability</H3>
-
-      <Prose>
-        Any softmax implementation that computes <Code>{"exp(z) / sum(exp(z))"}</Code> naively, without subtracting the max, produces <Code>inf</Code> the first time any logit exceeds 88 in float32. This is classical textbook numerical analysis, and every production framework handles it — but custom cross-entropy implementations (in RLHF code, in custom kernel wrappers, in research code) frequently miss it. The symptom is <Code>nan</Code> loss that appears suddenly mid-training, often when logits have grown large. The fix is the max-subtraction from section 3i, and PyTorch's <Code>F.cross_entropy</Code> does it for you — which is why you should use the built-in cross-entropy rather than rolling your own whenever possible.
-      </Prose>
-
-      <H3>9f. Activation function mismatch at inference</H3>
-
-      <Prose>
-        A subtle but real bug: training with <Code>{"nn.GELU(approximate='tanh')"}</Code> and then loading the checkpoint into code that uses <Code>{"nn.GELU(approximate='none')"}</Code>. The outputs differ by a few parts in <Code>{"10^4"}</Code> per element, and across 32 layers and billions of parameters this compounds to a measurable quality regression on downstream tasks. The two forms are close but not identical. If you see a small but unexplained degradation between your training and inference setups, check the activation configuration.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        The historical arc of this topic is traceable through a small, readable set of papers. The canonical list — each verified against its original archive, in chronological order:
-      </Prose>
-
-      <Prose>
-        <strong>Frank Rosenblatt (1958).</strong> <em>The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain.</em> Psychological Review 65(6):386–408. The founding paper. Defines the perceptron, the learning rule, and proves the convergence theorem for linearly separable data. Rosenblatt was 29 when it was published. Read it alongside Minsky and Papert for balance.
-      </Prose>
-
-      <Prose>
-        <strong>Marvin Minsky and Seymour Papert (1969).</strong> <em>Perceptrons: An Introduction to Computational Geometry.</em> MIT Press. The XOR impossibility proof appears in chapter 4. The 1988 expanded edition includes a contrite preface acknowledging that the authors had not anticipated multi-layer backprop. The book is short and mathematical; it is possible to read the XOR argument in an hour.
-      </Prose>
-
-      <Prose>
-        <strong>David E. Rumelhart, Geoffrey E. Hinton, Ronald J. Williams (1986).</strong> <em>Learning representations by back-propagating errors.</em> Nature 323:533–536. The paper that ended the first AI winter. Three pages of text, two pages of figures; in that space it specifies the backpropagation algorithm, demonstrates it on XOR and on a symmetry-detection task, and argues that the learned internal representations are themselves meaningful.
-      </Prose>
-
-      <Prose>
-        <strong>Vinod Nair and Geoffrey Hinton (2010).</strong> <em>Rectified Linear Units Improve Restricted Boltzmann Machines.</em> In Proceedings of the 27th International Conference on Machine Learning (ICML). The first serious empirical result that ReLU outperforms sigmoid for deep learning. The paper is about RBMs specifically, but the argument generalized within two years.
-      </Prose>
-
-      <Prose>
-        <strong>Xavier Glorot, Antoine Bordes, Yoshua Bengio (2011).</strong> <em>Deep Sparse Rectifier Neural Networks.</em> In Proceedings of AISTATS 2011. The paper that took ReLU from Boltzmann machines to feedforward supervised learning and demonstrated state-of-the-art results on several benchmarks. It is also the paper that articulates the sparsity argument for ReLU — about 50% of units are zero at any given input — as a feature, not a bug.
-      </Prose>
-
-      <Prose>
-        <strong>Dan Hendrycks and Kevin Gimpel (2016).</strong> <em>Gaussian Error Linear Units (GELUs).</em> arXiv:1606.08415. Defines the GELU activation as <Code>{"x · Φ(x)"}</Code> and provides the tanh approximation used in production. BERT, GPT-2, and GPT-3 all use GELU as specified here.
-      </Prose>
-
-      <Prose>
-        <strong>Prajit Ramachandran, Barret Zoph, Quoc V. Le (2017).</strong> <em>Searching for Activation Functions.</em> arXiv:1710.05941. Describes the reinforcement-learning search over a space of activation functions and the discovery (rediscovery, really) of Swish: <Code>{"x · σ(βx)"}</Code>. The paper uses the name Swish; the same function was independently proposed as SiLU by Elfwing, Uchibe, and Doya in 2017, and both names are in use.
-      </Prose>
-
-      <Prose>
-        <strong>Noam Shazeer (2020).</strong> <em>GLU Variants Improve Transformer.</em> arXiv:2002.05202. A three-page note, pure empiricism, no new theory. It compares nine variants of gated linear units in the feed-forward layer of a transformer and reports that Swish-gated GLU (SwiGLU) and GELU-gated GLU (GeGLU) consistently win by small but reproducible margins. Cited in every modern LLM paper since. Shazeer's closing sentence: "We offer no explanation as to why these architectures seem to work; we attribute their success, as all else, to divine benevolence."
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Exercise 1: Derive the dead-ReLU condition</H3>
-
-      <Prose>
-        Consider a ReLU neuron with weight vector <Code>w</Code>, bias <Code>b</Code>, and inputs drawn from a training set <Code>{"{x_1, x_2, ..., x_N}"}</Code>. Under what exact condition is the neuron "dead" — that is, it outputs zero on every training input and receives exactly zero gradient on the backward pass? Once it is dead, is there any sequence of gradient descent steps that can revive it? Explain why or why not.
-      </Prose>
-
-      <Prose>
-        <em>Hint:</em> The neuron is dead iff <Code>{"w · x_i + b ≤ 0"}</Code> for every <Code>i</Code>. Once dead, the local gradient <Code>{"σ'(z_i) = 0"}</Code> for every input, so the gradient with respect to <Code>w</Code> and <Code>b</Code> is zero, and vanilla SGD cannot update them. Momentum-based optimizers (Adam, SGD-with-momentum) can revive the neuron if there is accumulated gradient from an earlier batch still in the momentum buffer — which is part of why Adam is less sensitive to dead neurons than plain SGD.
-      </Prose>
-
-      <H3>Exercise 2: Why a 2-layer linear net cannot solve XOR</H3>
-
-      <Prose>
-        Prove that a two-layer neural network <Code>{"y = W₂(W₁ x + b₁) + b₂"}</Code> with <em>no</em> nonlinearity between layers cannot compute XOR, no matter how wide the hidden layer is. Your proof should be three lines. Then state the general principle you have just proved.
-      </Prose>
-
-      <Prose>
-        <em>Hint:</em> Distribute: <Code>{"y = (W₂ W₁) x + (W₂ b₁ + b₂)"}</Code>. This is a single affine function of <Code>x</Code>, so the decision boundary <Code>{"y = 0.5"}</Code> is a single hyperplane. XOR is not linearly separable. Contradiction. The general principle: a composition of affine functions is affine, so depth contributes nothing without nonlinearity.
-      </Prose>
-
-      <H3>Exercise 3: GELU exact versus approximate at x=1</H3>
-
-      <Prose>
-        Compute both the exact GELU and the tanh-based approximation at <Code>{"x = 1.0"}</Code>. What is the absolute difference? Is it large enough to matter for training dynamics?
-      </Prose>
-
-      <Prose>
-        <em>Answer:</em> Exact: <Code>{"GELU(1.0) = 0.5 · 1.0 · (1 + erf(1/√2)) = 0.841345"}</Code>. Approximate: <Code>{"0.5 · 1.0 · (1 + tanh(√(2/π) · (1 + 0.044715))) = 0.841192"}</Code>. Absolute difference: <Code>{"1.53 × 10^-4"}</Code>. This is far below the noise floor of typical training gradients in bf16, so it does not matter — unless you train with one form and infer with the other, in which case the compounding across layers is visible.
-      </Prose>
-
-      <H3>Exercise 4: Output activation for K-way multiclass</H3>
-
-      <Prose>
-        A classification problem has 10 classes. The final linear layer outputs a 10-dimensional logit vector <Code>z</Code>. What activation function must you apply to <Code>z</Code> to interpret the output as a probability distribution over the 10 classes? State the formula and the key property that makes it valid as a probability distribution.
-      </Prose>
-
-      <Prose>
-        <em>Answer:</em> Softmax: <Code>{"softmax(z)_i = e^{z_i} / Σ_j e^{z_j}"}</Code>. It is valid because (a) every output is non-negative (exponentials are positive), and (b) the outputs sum to one by construction (the denominator is the sum of the numerators). It is also the maximum entropy distribution consistent with the logits as linear constraints, which is why it arises so naturally in probabilistic modeling.
-      </Prose>
-
-      <H3>Exercise 5: Symmetry breaking with two neurons</H3>
-
-      <Prose>
-        Suppose you have a network with one hidden layer of two neurons, all weights initialized to the same constant <Code>c</Code> and all biases initialized to zero. Run a single forward pass and a single backward pass on input <Code>{"x = (1, 1)"}</Code> with target <Code>{"y = 0"}</Code> and squared-error loss. Show that after the update, the two hidden neurons still have identical weights. What is the effective capacity of this network, regardless of how wide the hidden layer is?
-      </Prose>
-
-      <Prose>
-        <em>Answer sketch:</em> Both hidden units compute the same pre-activation (same weights, same input) and therefore the same activation. Both contribute identically to the output. On the backward pass, both receive the same gradient from the loss, and both update by the same amount. They remain identical. The effective capacity is that of a single hidden neuron — one unit of nonlinearity, regardless of layer width. This is why every framework's <Code>nn.Linear</Code> defaults to a random initialization (typically Kaiming uniform): symmetry must be broken by the initialization because gradient descent cannot break it on its own.
-      </Prose>
-
-      <Callout>
-        These five exercises cover the five failure modes that account for most of the practical bugs in activation-function code: dead ReLU, missing nonlinearity, numerical approximation drift, wrong output activation, and broken symmetry. If you can solve all five without notes, you have internalized the material.
-      </Callout>
-    </div>
-  ),
+import { Prose, H2, H3, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { WeightedEvidenceFigure, GeometryLab, XorWorkedFigure, XorLab, ActivationLab } from '../../components/lesson-labs/PerceptronLabs.jsx';
+import { DigitFigure, DigitComparisonFigure, SwiGluFigure, TriangleFigure } from '../../components/lesson-labs/PerceptronFigures.jsx';
+import { perceptronExamples } from '../perceptron-examples.js';
+import MechanismProgram from '../../components/lesson-labs/MechanismProgram.jsx';
+import mechanismProgram from '../perceptron-mechanism-program.js';
+const lesson = {
+  title: 'Perceptrons, Neurons & Activation Functions',
+  readTime: '~65 min read + 45 min practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="perceptron-lesson">
+ <LessonIntro prerequisites={<>Read weighted sums and matrix shapes; review <a href="/learn/math-foundations/vectors-matrices-tensor-operations">vectors and matrices</a> and <a href="/learn/math-foundations/algebra-functions-exponentials-logarithms">functions and exponentials</a>. Derivatives are introduced locally as slopes.</>} sections={[['1-a-neuron-is-a-weighted-question', 'Trace a neuron'], ['2-a-perceptron-learns-a-boundary-from-mistakes', 'Learn from mistakes'], ['3-hidden-neurons-change-what-the-model-can-express', 'Construct XOR'], ['4-activation-functions-shape-values-and-sensitivities', 'Inspect local sensitivity'], ['5-train-a-small-network-on-real-handwriting', 'Compare real digit fits'], ['7-deeper-branches-smooth-gates-expressive-capacity-and-cost', 'Deeper branches'], ['8-practice-explain-compute-diagnose', 'Independent practice']]}>Trace a pixel pattern into a score, build hidden features that solve XOR, and compare activation choices in one controlled real-data experiment.</LessonIntro>
+<Prose><strong>{"Explore as you read."}</strong>{" Edit input coordinates, weights, bias and common scale; move the activation operating point and incoming weight; edit XOR hidden bias and output coefficient. Synchronize contribution bars, boundary distance, hard/smooth outputs, activation value/slope and all four XOR rows. Compare a shared coefficient rescaling with a moved input, and a repaired corner with the remaining corners. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose whether the decision boundary, smooth confidence or local sensitivity needs to change; a one-row repair need not solve the whole task."}</Prose>
+<Prose>{"A handwriting recognizer receives numbers, not the idea of a “7.” It must turn a pattern of pixel intensities into evidence for different digits. A neural network does this with many small calculations: combine some inputs, transform the result, and pass it to other calculations. Training adjusts those combinations."}</Prose>
+<Prose>{"One such calculation is an "}<strong>{"artificial neuron"}</strong>{". The biological name is an analogy; the object we will build is an ordinary mathematical function. Understanding it lets you read a network diagram, construct a model that a single straight boundary cannot express, and judge what changing an activation actually changes."}</Prose>
+<Prose><strong>{"First pass:"}</strong>{" follow §§1–6, the three short investigations, and practices 1–5. You will build an XOR network by hand and train a small digit recognizer. §7 and practices 6–8 are deeper branches: smooth gates, approximation theory and resource accounting. They are useful extensions, not prerequisites for the next lesson. Allow about 55–70 minutes for reading and worked examples, plus 35–50 minutes for practice and the CPU experiment; the advanced branch adds 25–40 minutes."}</Prose>
+<H2>{"1. A neuron is a weighted question"}</H2>
+<Prose>{"Suppose two measured inputs are "}<Math>{"x_1=2"}</Math>{" and "}<Math>{"x_2=-1"}</Math>{". A neuron gives the first input weight 1.5, the second weight −2, and adds an offset −1:"}</Prose>
+<MathBlock>{"z=w_1 x_1+w_2 x_2+b=(1.5)(2)+(-2)(-1)-1=4."}</MathBlock>
+<Prose>{"Each product is a contribution. A positive weight makes a growing input increase the score; a negative weight reverses that relationship. The "}<strong>{"bias"}</strong>{" "}<Math>{"b"}</Math>{" moves the score without requiring an input to change. The weighted sum plus bias is an "}<strong>{"affine"}</strong>{" calculation. “Linear layer” is the common library name even when a bias is present."}</Prose>
+<Prose>{"The next operation decides how to use this score:"}</Prose>
+<MathBlock>{"a=\\phi(z)."}</MathBlock>
+<Prose>{"Here "}<Math>{"z"}</Math>{" is the "}<strong>{"preactivation"}</strong>{", "}<Math>{"\\phi"}</Math>{" is the "}<strong>{"activation function"}</strong>{", and "}<Math>{"a"}</Math>{" is the neuron's output, or "}<strong>{"activation"}</strong>{". For a hard yes/no rule, output 1 if "}<Math>{"z>0"}</Math>{" and 0 otherwise. For ReLU, output "}<Math>{"\\max(0,z)"}</Math>{". For sigmoid, output "}<Math>{"1/(1+e^{-z})"}</Math>{". The same score 4 therefore becomes 1, 4, or approximately 0.982, respectively. None of those is automatically a calibrated probability; interpretation depends on the model, objective and evidence."}</Prose>
+<WeightedEvidenceFigure />
+<H3>{"The same calculation has a geometric meaning"}</H3>
+<Prose>{"With two inputs, the equation "}<Math>{"w_1 x_1+w_2 x_2+b=0"}</Math>{" draws a line. It separates positive from nonpositive scores. The weight vector "}<Math>{"w"}</Math>{" points perpendicular to that line toward increasing scores. The score is "}<strong>{"not generally the distance to the line"}</strong>{". For nonzero "}<Math>{"w"}</Math>{", signed Euclidean distance is"}</Prose>
+<MathBlock>{"d(x)=\\frac{w^\\top x+b}{\\|w\\|_2}."}</MathBlock>
+<Prose>{"Our weight vector has length "}<Math>{"\\sqrt{1.5^2+(-2)^2}=2.5"}</Math>{", so distance is 4 / 2.5=1.6 input-coordinate units. Multiplying every weight and the bias by 2 changes the score to 8 while preserving the same boundary and distance. It leaves the hard decision unchanged, but sigmoid becomes closer to 1. Boundary geometry and output confidence are different properties."}</Prose>
+<Prose>{"If every weight is 0, the output depends only on the bias. There is then no unique separating line or distance to divide by. In more dimensions, the line becomes a "}<strong>{"hyperplane"}</strong>{": the same equation, one fewer dimension than the input space."}</Prose>
+<Prose><strong>{"Investigation A — move the evidence."}</strong>{" Change the common coefficient scale and watch the hard decision, signed distance and sigmoid output together. Then move a point or edit one weight or the bias; follow its product contribution and position relative to the boundary. For a changed case, use "}<Math>{"x=(1,1)"}</Math>{", "}<Math>{"w=(1,-1)"}</Math>{", "}<Math>{"b=0"}</Math>{" and move only "}<Math>{"x_2"}</Math>{". The live readouts show why the tie and either side receive different decisions."}</Prose>
+<GeometryLab />
+<H2>{"2. A perceptron learns a boundary from mistakes"}</H2>
+<Prose>{"A "}<strong>{"perceptron"}</strong>{" couples an affine score with a hard threshold and an update rule. It is a useful first learning algorithm because you can see every correction. Rosenblatt's perceptron work is an early landmark; the modern idea we need is the relation between a mistaken prediction and a changed boundary, rather than a historical claim that one invention explains all later neural networks."}</Prose>
+<Prose>{"Use labels "}<Math>{"y\\in\\{-1,+1\\}"}</Math>{". A positive label should have a positive score and a negative label a negative score. The product "}<Math>{"yz"}</Math>{" is positive when their signs agree. We update when "}<Math>{"yz\\le 0"}</Math>{", including a point exactly on the boundary:"}</Prose>
+<MathBlock>{"w\\leftarrow w+\\eta yx,\\qquad b\\leftarrow b+\\eta y."}</MathBlock>
+<Prose>{"The positive number "}<Math>{"\\eta"}</Math>{" is the step size. Why this direction? On that same example, its signed score increases by "}<Math>{"\\eta(\\|x\\|^2+1)"}</Math>{" because the bias also moves. Other examples can improve or worsen; the rule is not a promise that every update improves the whole dataset. "}<a href="https://www.cs.cornell.edu/courses/cs4780/2022sp/notes/LectureNotes06.html">{"Cornell's perceptron notes"}</a>{" derive this rule and its separable-data guarantee."}</Prose>
+<Prose>{"Consider AND: an alarm should trigger only if "}<strong>{"both"}</strong>{" binary indicators are 1. Four rows suffice to define the complete constructed task."}</Prose>
+<div className="perceptron-table" role="region" tabIndex={0} aria-label="Comparison: Inputs"><table><thead><tr><th scope="col">{"Inputs"}</th><th scope="col">{"AND label"}</th><th scope="col">{"XOR label"}</th></tr></thead><tbody><tr><th scope="row">{"(0, 0)"}</th><td>{"−1"}</td><td>{"−1"}</td></tr><tr><th scope="row">{"(0, 1)"}</th><td>{"−1"}</td><td>{"+1"}</td></tr><tr><th scope="row">{"(1, 0)"}</th><td>{"−1"}</td><td>{"+1"}</td></tr><tr><th scope="row">{"(1, 1)"}</th><td>{"+1"}</td><td>{"−1"}</td></tr></tbody></table></div>
+<Prose>{"Here XOR means exactly one indicator is 1. The distinction will expose a representational limit."}</Prose>
+<Prose>{"Run this complete NumPy program. Install NumPy if your environment does not have it: "}<Code>{"python -m pip install numpy"}</Code>{". It appends a constant 1 to each row so the bias is simply the last weight."}</Prose>
+<RunnableExample example={perceptronExamples[0]} />
+<Prose>{"The tie policy matters: predictions at score 0 are −1, but training still updates on a zero margin for either label. Those are deliberately distinct rules."}</Prose>
+<Prose>{"The executed AND trace ends with "}<Math>{"(w_1,w_2,b)=(3,2,-4)"}</Math>{": the four scores are −4, −2, −1, 1. Epoch 8 makes one update; epoch 9 makes none. There are already correct final predictions at epoch 3, but some have zero margin, so training continues. An epoch's update count also includes predictions made using intermediate weights; it is not the number of errors in the final model."}</Prose>
+<Prose>{"For XOR, each of these 12 passes makes four updates and returns to coefficients 0. The final tie rule predicts −1 for every row: two final errors, not four. More patience cannot make this single boundary solve XOR."}</Prose>
+<H3>{"Why XOR is impossible for one boundary"}</H3>
+<Prose>{"For "}<Math>{"(1,0)"}</Math>{" and "}<Math>{"(0,1)"}</Math>{" to be positive, we need"}</Prose>
+<MathBlock>{"w_1+b>0,\\qquad w_2+b>0."}</MathBlock>
+<Prose>{"Adding gives "}<Math>{"w_1+w_2+2 b>0"}</Math>{". But the two negative examples require "}<Math>{"b\\le 0"}</Math>{" and "}<Math>{"w_1+w_2+b\\le 0"}</Math>{", which imply "}<Math>{"w_1+w_2+2 b\\le b\\le 0"}</Math>{". The demands contradict one another."}</Prose>
+<Prose>{"The perceptron convergence theorem applies when a strict separating boundary exists and inputs are bounded. It does not promise convergence for XOR, noisy labels, or contradictory duplicate examples. It also does not say the final separator has maximum margin."}</Prose>
+<Prose><strong>{"Deeper proof checkpoint."}</strong>{" Absorb the bias into augmented inputs, suppose their lengths are at most "}<Math>{"R"}</Math>{", and suppose a unit vector "}<Math>{"u"}</Math>{" separates them with "}<Math>{"y_i u^\\top x_i\\ge\\gamma>0"}</Math>{". With step size 1 and zero initialization, after "}<Math>{"M"}</Math>{" updates, "}<Math>{"w^\\top u\\ge M\\gamma"}</Math>{", whereas "}<Math>{"\\|w\\|^2\\le MR^2"}</Math>{". The latter follows because the cross term at an update is nonpositive. Cauchy–Schwarz gives "}<Math>{"M\\gamma\\le\\sqrt M R"}</Math>{", hence "}<Math>{"M\\le(R/\\gamma)^2"}</Math>{". This counts updates under these assumptions, not fixed passes for every implementation."}</Prose>
+<H2>{"3. Hidden neurons change what the model can express"}</H2>
+<Prose>{"A "}<strong>{"hidden layer"}</strong>{" constructs intermediate features. “Hidden” means it is neither the input nor the final output; it does not mean its values are inaccessible."}</Prose>
+<Prose>{"Let "}<Math>{"s=x_1+x_2"}</Math>{", and construct two ReLU features:"}</Prose>
+<MathBlock>{"h_1=\\max(0,s),\\qquad h_2=\\max(0,s-1),\\qquad q=h_1-2 h_2."}</MathBlock>
+<div className="perceptron-table" role="region" tabIndex={0} aria-label="Comparison: Input"><table><thead><tr><th scope="col">{"Input"}</th><th scope="col">{"Sum "}<Math>{"s"}</Math></th><th scope="col"><Math>{"h_1"}</Math></th><th scope="col"><Math>{"h_2"}</Math></th><th scope="col">{"Output "}<Math>{"q"}</Math></th></tr></thead><tbody><tr><th scope="row">{"(0, 0)"}</th><td>{"0"}</td><td>{"0"}</td><td>{"0"}</td><td>{"0"}</td></tr><tr><th scope="row">{"(0, 1)"}</th><td>{"1"}</td><td>{"1"}</td><td>{"0"}</td><td>{"1"}</td></tr><tr><th scope="row">{"(1, 0)"}</th><td>{"1"}</td><td>{"1"}</td><td>{"0"}</td><td>{"1"}</td></tr><tr><th scope="row">{"(1, 1)"}</th><td>{"2"}</td><td>{"2"}</td><td>{"1"}</td><td>{"0"}</td></tr></tbody></table></div>
+<Prose>{"This is exact XOR on the four binary inputs, with 0 / 1 output labels. The first hidden neuron is a "}<strong>{"ramp"}</strong>{", not a Boolean OR gate: at (1, 1) it outputs 2. The second ramp starts one unit later. Subtracting twice the delayed ramp cancels the both-active case."}</Prose>
+<XorWorkedFigure />
+<Prose><strong>{"Investigation B — repair the network."}</strong>{" Start from output weights (1, −1), where the both-active point is wrong. Edit the second output weight while watching all four truth-table rows and their hidden contributions. Next change the second hidden bias from −1 to −0.5. Explore whether any value of that output weight can repair every row: a change that repairs one corner can damage another."}</Prose>
+<XorLab />
+<Prose>{"This tiny network demonstrates representation, not successful training: we deliberately chose its weights. Learning those weights from examples is a separate problem."}</Prose>
+<H3>{"Why stacking affine layers alone does not do this"}</H3>
+<Prose>{"For column-vector notation, two affine layers compose to"}</Prose>
+<MathBlock>{"W_2(W_1 x+b_1)+b_2=(W_2 W_1)x+(W_2 b_1+b_2)."}</MathBlock>
+<Prose>{"That is another affine map. More such layers change the parameterization but do not create nonlinear features. This argument is about a chain containing only affine operations. An architecture can contain other nonlinear operations, such as normalization or attention, even if a named activation is removed."}</Prose>
+<Prose>{"For code, we use "}<strong>{"rows as examples"}</strong>{". A batch "}<Math>{"X"}</Math>{" with shape "}<Math>{"(N,d)"}</Math>{", a layer weight matrix "}<Math>{"W"}</Math>{" with shape "}<Math>{"(m,d)"}</Math>{", and a bias vector with shape "}<Math>{"(m,)"}</Math>{" produce"}</Prose>
+<MathBlock>{"Z=XW^\\top+b,\\qquad A=\\phi(Z),"}</MathBlock>
+<Prose>{"with shape "}<Math>{"(N,m)"}</Math>{". The same bias vector is added to every row. The activation usually acts separately on each entry. "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.Linear.html">{"PyTorch Linear"}</a>{" uses this weight orientation. A batch of 5 images with 64 inputs through 32 hidden neurons becomes a 5×32 activation matrix. An arrow in a network diagram represents a weight; a row in a batch is not an extra neuron."}</Prose>
+<H2>{"4. Activation functions shape values and sensitivities"}</H2>
+<Prose>{"An activation controls both the forward signal and how sensitive the output is to small changes. The derivative "}<Math>{"\\phi'(z)"}</Math>{" is the local slope: near the current score, a small change "}<Math>{"\\Delta z"}</Math>{" produces approximately "}<Math>{"\\phi'(z)\\Delta z"}</Math>{". Backpropagation, the next topic, will combine these local sensitivities throughout a graph."}</Prose>
+<Prose>{"Three useful starting shapes are:"}</Prose>
+<div className="perceptron-table" role="region" tabIndex={0} aria-label="Comparison: Function"><table><thead><tr><th scope="col">{"Function"}</th><th scope="col">{"Output rule"}</th><th scope="col">{"Local slope"}</th><th scope="col">{"What to notice"}</th></tr></thead><tbody><tr><th scope="row">{"Sigmoid"}</th><td><Math>{"\\sigma(z)=1/(1+e^{-z})"}</Math></td><td><Math>{"\\sigma(z)(1-\\sigma(z))"}</Math></td><td>{"Bounded between 0 and 1; flat tails"}</td></tr><tr><th scope="row">{"Tanh"}</th><td><Math>{"\\tanh(z)"}</Math></td><td><Math>{"1-\\tanh^2(z)"}</Math></td><td>{"Bounded between −1 and 1; centered at 0"}</td></tr><tr><th scope="row">{"ReLU"}</th><td><Math>{"\\max(0,z)"}</Math></td><td>{"0 for "}<Math>{"z<0"}</Math>{", 1 for "}<Math>{"z>0"}</Math></td><td>{"Removes negative scores, keeps positive scores"}</td></tr></tbody></table></div>
+<Prose>{"At zero, ReLU has a corner and no ordinary derivative. A framework chooses a convention for differentiation there; PyTorch uses 0. The forward function remains well-defined."}</Prose>
+<Prose>{"At "}<Math>{"z=-2"}</Math>{", sigmoid is about 0.1192, tanh −0.9640 and ReLU 0. At "}<Math>{"z=2"}</Math>{", their outputs are 0.8808, 0.9640 and 2. Sigmoid's maximum slope is 0.25 at 0; tanh's is 1 at 0. A sigmoid at 5 still has slope about 0.00665: small, not mathematically zero."}</Prose>
+<H3>{"Slopes belong to a whole computation"}</H3>
+<Prose>{"For one scalar neuron "}<Math>{"a=\\phi(wx+b)"}</Math>{", the sensitivity to its input is"}</Prose>
+<MathBlock>{"\\frac{da}{dx}=\\phi'(z)w."}</MathBlock>
+<Prose>{"A sigmoid's 0.25 maximum slope does not imply that every network layer shrinks every gradient by 0.25: if "}<Math>{"w=4"}</Math>{" and "}<Math>{"z=0"}</Math>{", this local product is 1. Conversely, a positive ReLU with "}<Math>{"w=0.5"}</Math>{" transmits a factor 0.5 despite its activation slope being 1. Products across many layers can shrink or grow. In vector layers, matrices and their directions matter too."}</Prose>
+<Prose>{"A ReLU whose preactivation is negative for all examples in the current batch receives zero gradient through this activation for those examples. It may be active on another batch. A unit that stays negative on the entire relevant training distribution can be difficult to recover through that path, but parameter momentum, another loss path, or changes in upstream features can change the situation. Diagnose actual activations and gradients rather than using a universal “too many zeros” percentage."}</Prose>
+<Prose><strong>{"Investigation C — explore local sensitivity."}</strong>{" Choose an activation and edit "}<Math>{"z"}</Math>{" and the incoming scalar weight. Watch the activation slope and their product together, including its sign and size. Positive ReLU and leaky ReLU agree; move to a negative score to expose their difference. A large activation value is not the same thing as a large derivative."}</Prose>
+<ActivationLab />
+<section id="perceptron-code-route">
+<H3>Implement the neuron, then match the library</H3>
+<Prose>The NumPy perceptron in §2 owns the mistake-driven learning rule. The next program makes the smooth neuron's forward rules and local slopes executable too: <Code>activation(name, z)</Code> returns arrays of values and slopes with the same shape as its input. Start with sigmoid, tanh and ReLU. The other branches implement §7's leaky ReLU, ELU, exact and approximate GELU, SiLU and Mish; return to those after reading their definitions.</Prose>
+<Prose>For sigmoid, compute <Code>exp(-abs(z))</Code> and choose the appropriate positive/negative branch, so a large negative score does not require an overflowing positive exponential. Mish uses stable softplus, and exact GELU uses the complementary error function to retain its small negative tail. The sigmoid slope uses exp(−|z|)/(1 + exp(−|z|))², avoiding subtraction from a sigmoid value already rounded to one; a library may round that tiny tail differently. ReLU and leaky ReLU use the stated framework slope conventions at zero; the code does not claim an ordinary derivative exists there.</Prose>
+<Prose>The same file copies a nonsymmetric two-input/two-output weight matrix into <Code>nn.Linear</Code>: NumPy's <Code>X @ W.T + b</Code> and the layer share an output-by-input weight layout. It compares each activation with its PyTorch module on identical float64 scores. Differentiating the sum returns each local slope here because the pointwise outputs are independent. The incoming-weight cases 0, 0.5 and 4 demonstrate how local sigmoid slope 0.25 becomes input sensitivities 0, 0.125 and 1. The nonzero SwiGLU fixture follows all three projections and the multiplication.</Prose>
+<Prose>The closing scikit-learn comparison reuses §2's AND/XOR rows, step size and order: <Code>shuffle=False</Code>, <Code>eta0=1</Code>, no penalty, and twelve passes with <Code>tol=None</Code>. It reaches the same AND coefficients (3, 2, −4) and the same zero-coefficient XOR cycle. The earlier NumPy loop stops after a no-update pass; running its stationary AND model for the remaining passes does not change those coefficients. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html">The Perceptron API</a> documents these choices.</Prose>
+<Prose>Use Python 3.12 with the lesson's tested NumPy 2.3.5, SciPy 1.18.1, PyTorch 2.14.0 and scikit-learn 1.9.1 environment; this program needs no data file. Run <Code>python activation-mechanisms.py</Code>. Forward/slope differences were below 10⁻¹⁵ on the printed fixture. The activation routines use O(K) work and temporary storage for K values; a dense N-by-D input projected to H outputs costs O(NDH) arithmetic and O(NH) output storage. Exact GELU uses SciPy's vectorized <Code>erfc</Code> as its numerical special-function primitive. The activation formula and derivative remain explicit; optimized framework kernels are the normal choice for device execution and mixed precision. Independent checks cover float64 scores from −40 to 40, shapes and zero conventions, rather than every representable floating-point input.</Prose>
+<CodeBlock language="bash">{'python -m pip install numpy==2.3.5 scipy==1.18.1 scikit-learn==1.9.1 torch==2.14.0\npython activation-mechanisms.py'}</CodeBlock>
+<MechanismProgram {...mechanismProgram} title="Read and run the NumPy / library neuron comparison" />
+<Prose><strong>Change the implementation:</strong> set the leaky negative slope to 0.2 on both sides and explain which scores change. Then change it on only one side and find a fixture that exposes the disagreement. Why does testing only positive inputs miss it?</Prose>
+<details><summary>Implementation exercise solution</summary><Prose>At z = −2 the output becomes −0.4 and the local slope 0.2; positive scores keep their original output and slope. Zero keeps output zero while the chosen backward convention changes. A negative-score fixture distinguishes 0.1 from 0.2 immediately. Positive-only tests leave the edited branch unvisited.</Prose></details>
+</section>
+<H3>{"Output interpretation is a separate choice"}</H3>
+<Prose>{"A multiclass model often ends with one "}<strong>{"logit"}</strong>{", or unrestricted score, for each class. Softmax turns the vector into nonnegative values summing to 1:"}</Prose>
+<MathBlock>{"p_k=\\frac{e^{z_k-c}}{\\sum_j e^{z_j-c}},\\qquad c=\\max_j z_j."}</MathBlock>
+<Prose>{"Subtracting the same constant preserves the result and avoids positive exponential overflow for finite logits. Very negative differences can still underflow numerically. Softmax combines coordinates; it is not a pointwise hidden activation. For logits (1, 2, 3), the probabilities are approximately (0.0900, 0.2447, 0.6652). Adding 1000 to every logit preserves them when the stable formula is used."}</Prose>
+<Prose>{"A binary probability output often uses sigmoid. Independent labels can use separate sigmoids; mutually exclusive multiclass labels commonly use softmax. A real-valued regression target may need an unrestricted output. Choose the output from the target and loss, not because a hidden activation was fashionable. Our classifier below passes raw logits to cross-entropy; that library loss already performs the stable log-probability calculation."}</Prose>
+<H2>{"5. Train a small network on real handwriting"}</H2>
+<Prose>{"The previous Classical ML capstone separated fitting, model choice and final reporting. Keep that discipline here. A neural model is another candidate function class; moving to this module does not imply that it will beat a good classical model on every dataset."}</Prose>
+<Prose>{"Our offline file contains 400 actual digit images, 40 per class, from E. Alpaydin and C. Kaynak's "}<strong>{"UCI Optical Recognition of Handwritten Digits"}</strong>{" dataset. Each 8×8 image has 64 integer values from 0 to 16. These represent counts of active pixels in original 4×4 blocks, not arbitrary intensity values invented for a plot. The file is a balanced selection from scikit-learn's 1797-row copy of the historical UCI test partition. We make a fresh instructional train/validation split within that selection; these results do not reproduce the original writer-separated benchmark or measure transfer to unseen writers. "}<a href="https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+">{"Dataset source and CC BY 4.0 attribution"}</a>{", "}<a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html">{"loader description"}</a>{"."}</Prose>
+<DigitFigure />
+<Prose>{"The question is narrow: "}<strong>{"under the same small training protocol, how much does hidden activation choice change training loss and validation mistakes?"}</strong>{" We predeclare six activations and three initialization seeds. For each seed, resetting before model construction gives each activation the same initial affine parameters. We keep the data split, width, optimizer and number of updates fixed. That controls several confounders; it does not tune each activation to its own best configuration."}</Prose>
+<Prose>{"The loss used here is mean cross-entropy: for each image, take the negative natural logarithm of the probability assigned to its actual digit, then average over images. A correct-label probability of 0.5 contributes about 0.693; a probability of 0.9 contributes about 0.105. The loss rewards confident correct predictions and penalizes confident wrong ones. The library computes these probabilities stably from logits inside the loss."}</Prose>
+<Prose>{"Training repeats five operations:"}</Prose>
+<ol><li>{"Compute logits for the training images."}</li><li>{"Compare logits with the correct labels using a loss."}</li><li>{"Differentiate that scalar loss with respect to weights and biases."}</li><li>{"Update those parameters using the optimizer."}</li><li>{"Clear old gradients before the next calculation."}</li></ol>
+<Prose>{"A "}<strong>{"gradient"}</strong>{" lists how the loss changes with each parameter. Adam is the optimizer used here; you do not need its internal moment equations to follow the forward model. The next lesson opens the differentiation step, and the Loss Functions lesson explains the objective in detail."}</Prose>
+<Prose>{"Save the following program as "}<Code>{"compare_activations.py"}</Code>{" and keep the accompanying download "}<Code>{"digits-400.csv"}</Code>{" in the same directory. No data download is required when it runs. The author calculation used Python 3.12.14, NumPy 2.3.5, scikit-learn 1.9.1 and PyTorch 2.14.0+cpu. For a fresh CPU environment:"}</Prose>
+<CodeBlock language="text">{"python -m pip install numpy==2.3.5 scikit-learn==1.9.1\npython -m pip install torch==2.14.0 --index-url https://download.pytorch.org/whl/cpu\npython compare_activations.py"}</CodeBlock>
+<RunnableExample example={perceptronExamples[1]} />
+<Prose>{"Dividing by 16 uses the known measurement range, not a statistic fitted using validation examples. The matrices have shapes 280×64 →280×32 →280×10 during training. Labels have shape 280 and integer class IDs 0–9. The last layer has no sigmoid or softmax because cross-entropy expects logits."}</Prose>
+<Prose>{"The default linear-layer initialization is held fixed across activation comparisons, rather than tailored to each one. Initialization is a later topic. These activation modules contain no learned parameters; some other activation families, such as PReLU, do."}</Prose>
+<Prose>{"The executed author calculation, using the same data and update loop, produced:"}</Prose>
+<div className="perceptron-table" role="region" tabIndex={0} aria-label="Comparison: Activation"><table><thead><tr><th scope="col">{"Activation"}</th><th scope="col">{"Training loss, seeds 1 / 2 / 3"}</th><th scope="col">{"Validation correct, seeds 1 / 2 / 3"}</th></tr></thead><tbody><tr><th scope="row">{"Sigmoid"}</th><td>{".017062 / .015584 / .016383"}</td><td>{"118 / 118 / 117"}</td></tr><tr><th scope="row">{"Tanh"}</th><td>{".003791 / .003635 / .003606"}</td><td>{"117 / 118 / 117"}</td></tr><tr><th scope="row">{"ReLU"}</th><td>{".002392 / .003283 / .002958"}</td><td>{"118 / 118 / 116"}</td></tr><tr><th scope="row">{"Leaky ReLU, slope .1"}</th><td>{".002210 / .001647 / .002250"}</td><td>{"118 / 118 / 116"}</td></tr><tr><th scope="row">{"GELU, exact"}</th><td>{".001848 / .002123 / .002102"}</td><td>{"118 / 118 / 117"}</td></tr><tr><th scope="row">{"SiLU"}</th><td>{".001847 / .002045 / .001948"}</td><td>{"118 / 117 / 117"}</td></tr></tbody></table></div>
+<Prose>{"Training cross-entropy is a mean in natural-log units per example; smaller means a higher geometric mean of the probabilities assigned to true training labels. Validation counts have denominator 120. A one-case difference is 0.833 percentage points. The complete displayed program was replayed in the existing CPU environment and its output is shown above. Fresh-environment installation has not been tested."}</Prose>
+<DigitComparisonFigure />
+<Prose>{"Sigmoid fits this shallow, scaled task well. Lower training loss does not consistently yield fewer validation errors. Several comparisons are exact ties in correct count. Three seeds on one small selected dataset establish neither a universal ranking nor equivalence of functions. If you change width, learning rate, depth, split or number of updates, you have a new experiment to report. These validation results have already been used for comparison; they are not a fresh final test."}</Prose>
+<Prose>{"Inspect wrong images as well as the table. Are two networks wrong on the same examples? A difference of one in the total could hide multiple repairs and new mistakes, just as in the capstone. The supplied calculated record retains per-example validation predictions to support that paired inspection."}</Prose>
+<H2>{"6. Choose and diagnose with the mechanism in mind"}</H2>
+<Prose>{"Start with the role of the layer and the surrounding architecture. ReLU is a simple hidden-layer baseline. Smooth GELU or SiLU variants are worth comparing when the architecture and optimization protocol motivate them. Sigmoid remains useful for probabilities and bounded gates; tanh for centered bounded transformations. A function's historical popularity does not replace a validation experiment."}</Prose>
+<Prose>{"Before changing the activation, check the evidence that would distinguish causes:"}</Prose>
+<div className="perceptron-table" role="region" tabIndex={0} aria-label="Comparison: Observation"><table><thead><tr><th scope="col">{"Observation"}</th><th scope="col">{"What to inspect"}</th><th scope="col">{"Why an activation swap may not fix it"}</th></tr></thead><tbody><tr><th scope="row">{"Loss never changes"}</th><td>{"Parameter registration, gradients, optimizer step, learning rate"}</td><td>{"A disconnected parameter cannot learn through any activation"}</td></tr><tr><th scope="row">{"Many zeros after ReLU"}</th><td>{"Preactivations by example and layer, gradient paths"}</td><td>{"Zero on one batch is not permanent inactivity"}</td></tr><tr><th scope="row">{"Tiny gradients"}</th><td>{"Local slopes, weight scales, depth and loss scaling"}</td><td>{"Matrix products also control gradient magnitude"}</td></tr><tr><th scope="row">{"Exploding values"}</th><td>{"Inputs, weights, update size, numeric precision"}</td><td>{"A bounded hidden function does not fix every upstream or output computation"}</td></tr><tr><th scope="row">{"Duplicate hidden features remain identical"}</th><td>{"Incoming and outgoing symmetry at initialization"}</td><td>{"Identical paths can receive identical updates"}</td></tr><tr><th scope="row">{"A loaded model changes after an activation edit"}</th><td>{"Exact original function, approximation flag and parameters"}</td><td>{"Same tensor shapes do not imply the same model"}</td></tr></tbody></table></div>
+<Prose>{"Identical initialization is especially subtle: if hidden units have identical incoming parameters and identical downstream roles, deterministic gradients can keep them identical. Random initialization usually breaks this symmetry; it is not merely a way to make loss start lower. Formal scale choices belong to Weight Initialization."}</Prose>
+<Prose>{"Changing the activation of a pretrained model changes its computed function. Preserve the expected activation and its approximation settings when reproducing a checkpoint; if adapting them, evaluate the resulting model as a changed model. No universal claim follows that every swap either preserves quality or destroys it."}</Prose>
+<H2>{"7. Deeper branches: smooth gates, expressive capacity and cost"}</H2>
+<H3>{"Smooth negative values and multiplicative gates"}</H3>
+<Prose>{"Leaky ReLU keeps slope "}<Math>{"\\alpha>0"}</Math>{" below zero:"}</Prose>
+<MathBlock>{"\\phi(z)=\\begin{cases}z,&z\\ge 0\\\\ \\alpha z,&z<0.\\end{cases}"}</MathBlock>
+<Prose>{"At "}<Math>{"\\alpha=0.1"}</Math>{" and "}<Math>{"z=-2"}</Math>{", output is −0.2 and slope 0.1. ELU instead uses "}<Math>{"\\alpha(e^z-1)"}</Math>{" on its negative branch and "}<Math>{"z"}</Math>{" on its positive branch; for "}<Math>{"\\alpha=1"}</Math>{", it approaches −1 in the negative tail. Saturating negative values and a constant negative slope are different choices."}</Prose>
+<Prose>{"GELU weights its input by a normal cumulative probability:"}</Prose>
+<MathBlock>{"\\operatorname{GELU}(z)=z\\Phi(z),\n\\qquad\n\\operatorname{GELU}'(z)=\\Phi(z)+z\\varphi(z),"}</MathBlock>
+<Prose>{"where "}<Math>{"\\Phi"}</Math>{" is the standard-normal CDF and "}<Math>{"\\varphi"}</Math>{" its density. The CDF is a mathematical weighting rule; actual preactivations need not be normally distributed for the function to be defined. The original motivation relates "}<Math>{"z\\Phi(z)"}</Math>{" to the expected value of an input-dependent binary mask. The usual implemented GELU is deterministic, not random dropout. "}<a href="https://arxiv.org/html/1606.08415v5">{"GELU formulation, §2"}</a>{"."}</Prose>
+<Prose>{"The common approximation is"}</Prose>
+<MathBlock>{"\\frac z 2\\left[1+\\tanh\\left(\\sqrt{2/\\pi}(z+0.044715 z^3)\\right)\\right]."}</MathBlock>
+<Prose>{"Exact and approximate are distinct functions. At 1, their values are about 0.841345 and 0.841192. "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.GELU.html">{"PyTorch's GELU documentation"}</a>{" exposes "}<Code>{"approximate=\"none\""}</Code>{" and "}<Code>{"\"tanh\""}</Code>{" explicitly."}</Prose>
+<Prose>{"SiLU is "}<Math>{"z\\sigma(z)"}</Math>{", also called Swish with fixed scale parameter 1; generalized Swish uses "}<Math>{"z\\sigma(\\beta z)"}</Math>{". Its derivative is "}<Math>{"\\sigma(z)+z\\sigma(z)(1-\\sigma(z))"}</Math>{". At −2, SiLU is approximately −0.2384 with derivative −0.0908. A negative input can therefore have a negative local slope. GELU also has a small negative-slope region. Smooth does not mean monotone, and neither function guarantees a nonzero derivative at every point. "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.SiLU.html">{"SiLU API"}</a>{", "}<a href="https://arxiv.org/abs/1710.05941">{"Swish paper"}</a>{"."}</Prose>
+<Prose>{"Mish is another smooth option, "}<Math>{"z\\tanh(\\operatorname{softplus}(z))"}</Math>{", where "}<Math>{"\\operatorname{softplus}(z)=\\log(1+e^z)"}</Math>{" should be computed with a stable library function. It illustrates a broader design space; learning its name is less useful than reading its value and derivative curves. It is optional here rather than another candidate silently added to the six-function experiment."}</Prose>
+<Prose>{"A "}<strong>{"gated layer"}</strong>{" combines two learned projections. One produces values and the other modulates them. For a row vector "}<Math>{"x"}</Math>{", a bias-free SwiGLU block can be written"}</Prose>
+<MathBlock>{"h=\\operatorname{SiLU}(xW_g)\\odot(xW_v),\\qquad o=hW_o."}</MathBlock>
+<Prose>{"The symbol "}<Math>{"\\odot"}</Math>{" means coordinatewise multiplication. If projected gate inputs are (1, −1) and values are (2, 3), the product is approximately (1.4621, −0.8068). These gates are not bounded probabilities. A gate can reverse the sign of a value."}</Prose>
+<SwiGluFigure />
+<Prose>{"A complete small block:"}</Prose>
+<RunnableExample example={perceptronExamples[2]} />
+<Prose>{"Expected shape is (2, 6), parameter count 144, and every output is 0 because all three projections have no bias and the input is zero. This is a shape/parameter/zero-input check, not a trained model. The complete program was replayed in the existing CPU environment; the displayed output confirms the shape, count and zero result."}</Prose>
+<Prose>{"A plain two-projection feedforward block of input/output width "}<Math>{"d"}</Math>{" and hidden width "}<Math>{"h"}</Math>{" has "}<Math>{"2 dh"}</Math>{" weights, excluding biases. This gated block has "}<Math>{"3 dh_g"}</Math>{". An equal weight budget therefore uses "}<Math>{"h_g=2 h/3"}</Math>{". With "}<Math>{"d=6,h=12,h_g=8"}</Math>{", both have 144 weights. At the same hidden width, gating has 50% more weights. This budget adjustment is explicit in "}<a href="https://arxiv.org/html/2002.05202v1">{"Shazeer's GLU variants paper, §3.1"}</a>{"; it is not a free improvement at an unchanged parameter count."}</Prose>
+<H3>{"Many simple ramps can make a detailed function"}</H3>
+<Prose>{"The XOR construction used a sum of ramps. In one dimension, a continuous piecewise-linear function can be written as an initial line plus a new ramp at each slope change:"}</Prose>
+<MathBlock>{"f(x)=a+m_0 x+\\sum_j (m_j-m_{j-1})\\operatorname{ReLU}(x-t_j)."}</MathBlock>
+<Prose>{"Here "}<Math>{"t_j"}</Math>{" is a breakpoint and "}<Math>{"m_j"}</Math>{" the slope immediately after it. Each ramp contributes nothing before its breakpoint, then changes the total slope. For example,"}</Prose>
+<MathBlock>{"g(x)=\\operatorname{ReLU}(x)-2\\operatorname{ReLU}(x-1)+\\operatorname{ReLU}(x-2)"}</MathBlock>
+<Prose>{"makes a triangular pulse: 0, 0.5, 1, 0.5, 0 at inputs 0, 0.5, 1, 1.5, 2. On the binary-input sums 0, 1, 2, the last ramp is zero and the first two reproduce our XOR output. This connects logic and ordinary function approximation."}</Prose>
+<TriangleFigure />
+<Prose>{"By adding breakpoints, piecewise-linear interpolation can approximate a continuous function on a bounded interval increasingly closely. Broader universal-approximation results concern networks of sufficient width, biases, suitable nonpolynomial activations and approximation on compact domains. “Nonlinear” alone is too weak a condition: polynomial activations at a fixed shallow architecture do not supply this universal family. An existence theorem does not tell us that a chosen small network, dataset, optimizer and finite training budget will find the desired function. "}<a href="https://archive.nyu.edu/handle/2451/14329">{"Leshno and colleagues, working-paper statement and threshold condition"}</a>{"."}</Prose>
+<H3>{"Count the actual tensor before estimating memory"}</H3>
+<Prose>{"A hidden activation tensor with batch 8, sequence length 4096 and hidden width 16384 contains"}</Prose>
+<MathBlock>{"8\\cdot 4096\\cdot 16384=536{,}870{,}912"}</MathBlock>
+<Prose>{"elements. At two bytes per element, its raw storage is 1, 073, 741, 824 bytes, exactly 1 GiB. This is one tensor, not the total training footprint. Saved backward intermediates, additional gated branches, parameters, gradients, optimizer state and temporary kernels add storage; fusion or recomputation may avoid retaining some intermediates."}</Prose>
+<Prose>{"For a block with input/output feature width d = 4096 and hidden width h = 16384, a plain bias-free two-projection block has 134,217,728 weights. The feature width d happens to equal the preceding sequence length, but they are separate tensor axes: parameter count depends on feature widths, not sequence length. Exact equal-budget gated width would be 10922⅔, which is not an integer. Rounding to 11008 as an illustrative multiple of 256 gives 135,266,304 weights, slightly more. Hardware-friendly rounding is a configuration decision, not exact budget equality or a universal performance guarantee. Benchmark the actual shapes and implementation if runtime matters; there is no measured speed ranking in this lesson."}</Prose>
+<H2>{"8. Practice: explain, compute, diagnose"}</H2>
+<Prose>{"Try each problem before opening its hint or solution."}</Prose>
+<H3>{"1. A changed boundary"}</H3>
+<Prose>{"For "}<Math>{"w=(2,-1)"}</Math>{", "}<Math>{"b=-1"}</Math>{", classify "}<Math>{"x=(1,3)"}</Math>{" with the hard "}<Math>{"z>0"}</Math>{" rule. Find signed distance. Then multiply "}<Math>{"w"}</Math>{" and "}<Math>{"b"}</Math>{" by 3. Which results change?"}</Prose>
+<details><summary>{"Hint"}</summary>
+<Prose>{"Compute the two contributions before the bias. Distance divides the score by the weight-vector length."}</Prose>
+</details>
+<details><summary>{"Solution"}</summary>
+<Prose>{"Score is 2−3−1=−2, so the output is 0. Distance is "}<Math>{"-2/\\sqrt 5\\approx-0.8944"}</Math>{". Rescaling gives score −6 and weight length "}<Math>{"3\\sqrt 5"}</Math>{", so distance and hard output stay unchanged. Sigmoid decreases from about 0.1192 to 0.00247. Rescaling confidence is not moving the boundary."}</Prose>
+</details>
+<H3>{"2. Update the model, then check a different example"}</H3>
+<Prose>{"Start "}<Math>{"w=(0,0),b=0"}</Math>{". Present "}<Math>{"x=(2,-1)"}</Math>{" with label +1 and step size 0.5. What changes? What score does the updated model assign to the previously unseen point (0, 2)?"}</Prose>
+<details><summary>{"Hint"}</summary>
+<Prose>{"The current margin is 0, so the rule updates. Include the bias update."}</Prose>
+</details>
+<details><summary>{"Solution"}</summary>
+<Prose>{"The new weights are (1, −0.5), and bias 0.5. The training point's score is 3; the unseen point's score is −0.5. Improving the presented example is not a claim that every other point becomes positive or correct."}</Prose>
+</details>
+<H3>{"3. Repair a shifted XOR feature"}</H3>
+<Prose>{"Keep "}<Math>{"h_1=\\max(0,x_1+x_2)"}</Math>{", but replace "}<Math>{"h_2"}</Math>{" by "}<Math>{"\\max(0,x_1+x_2-0.5)"}</Math>{". Can an output "}<Math>{"q=h_1+vh_2"}</Math>{" match all four XOR labels by changing only "}<Math>{"v"}</Math>{"?"}</Prose>
+<details><summary>{"Hint"}</summary>
+<Prose>{"Write the equations for sums 1 and 2. They must use the same "}<Math>{"v"}</Math>{"."}</Prose>
+</details>
+<details><summary>{"Solution"}</summary>
+<Prose>{"At sum 1, matching 1 requires "}<Math>{"1+0.5 v=1"}</Math>{", so "}<Math>{"v=0"}</Math>{". At sum 2, matching 0 requires "}<Math>{"2+1.5 v=0"}</Math>{", so "}<Math>{"v=-4/3"}</Math>{". No single value satisfies both. Repairing one highlighted row is insufficient; change the hidden bias or allow other parameters to change."}</Prose>
+</details>
+<H3>{"4. Follow tensor shapes"}</H3>
+<Prose>{"A network receives 7 examples with 12 features, uses 5 hidden neurons, and outputs 3 logits. Give both weight shapes, both bias shapes, and the number of learned scalars."}</Prose>
+<details><summary>{"Hint"}</summary>
+<Prose>{"Use the PyTorch convention: output features first in a weight matrix."}</Prose>
+</details>
+<details><summary>{"Solution"}</summary>
+<Prose>{"Weights are 5×12 and 3×5; biases are 5 and 3. Total is 60+5+15+3=83. Intermediate batches are 7×5 and 7×3. The batch size changes computation and activation storage, not the parameter count."}</Prose>
+</details>
+<H3>{"5. Diagnose an activation claim"}</H3>
+<Prose>{"A colleague says, “ReLU has derivative 1, so a ten-layer positive scalar ReLU chain cannot shrink gradients.” Each affine weight in the chain is 0.5. What is the input sensitivity? What extra fact would you need for a real vector network?"}</Prose>
+<details><summary>{"Hint"}</summary>
+<Prose>{"Multiply the weight and activation slope at each layer."}</Prose>
+</details>
+<details><summary>{"Solution"}</summary>
+<Prose>{"Along this all-positive path, the product is "}<Math>{"0.5^{10}=1/1024"}</Math>{". The activation contributes 1 each time, but the weights shrink the signal. For a vector network, use the actual weight matrices, activation masks and directions; a single scalar derivative slogan is insufficient."}</Prose>
+</details>
+<H3>{"6. Allocate a gated width"}</H3>
+<Prose>{"A plain bias-free block uses width 24 and hidden width 60. Find an exactly equal-weight SwiGLU hidden width and both counts."}</Prose>
+<details><summary>{"Hint"}</summary>
+<Prose>{"Compare two projections with three projections."}</Prose>
+</details>
+<details><summary>{"Solution"}</summary>
+<Prose>{"Plain count is "}<Math>{"2(24)(60)=2880"}</Math>{". Gated width 40 gives "}<Math>{"3(24)(40)=2880"}</Math>{". Keeping hidden width 60 would give 4320, not an equal-budget comparison. Biases or differently shaped projections would require a new count."}</Prose>
+</details>
+<H3>{"7. Build a tent somewhere else"}</H3>
+<Prose>{"Construct a piecewise-linear pulse that is 0 at 0 and 2, reaches 2 at 1, and stays 0 outside [0, 2]. Use three ReLUs and verify at −1, 0.5, 1, 1.5, 3."}</Prose>
+<details><summary>{"Hint"}</summary>
+<Prose>{"Scale the triangle in §7. Its slope changes at 0, 1 and 2."}</Prose>
+</details>
+<details><summary>{"Solution"}</summary>
+<Prose><Math>{"2\\operatorname{ReLU}(x)-4\\operatorname{ReLU}(x-1)+2\\operatorname{ReLU}(x-2)"}</Math>{" gives 0, 1, 2, 1, 0 at those inputs. The last term restores the slope to 0 beyond 2; omitting it would create a descending line, not a bounded pulse."}</Prose>
+</details>
+<H3>{"8. Extend the experiment without rewriting its conclusion"}</H3>
+<Prose>{"Change hidden width 32 to 8 for all six activations, keep the split and seeds, and report training losses and paired validation errors. Explain which differences the controlled comparison can resolve. What would count as a supported conclusion?"}</Prose>
+<details><summary>{"Hint"}</summary>
+<Prose>{"The experiment changes capacity and keeps a single learning-rate protocol. It still has no untouched final test."}</Prose>
+</details>
+<details><summary>{"Solution and evaluation criteria"}</summary>
+<Prose>{"A good report identifies the changed width, all three seeds, all candidates, training loss and validation denominators. It compares which image IDs were repaired or broken, and distinguishes the proposed explanation from the observed result. A supported conclusion is limited to this width, dataset and protocol; it may report ties or a reversed comparison. Reporting only the winning seed, labeling validation as test, or claiming that one activation is always superior fails the task. There is no prewritten accuracy result for this unexecuted extension."}</Prose>
+</details>
+<H2>{"9. References and another way to learn"}</H2>
+<ul><li><a href="https://www.3blue1brown.com/lessons/neural-networks/">{"3Blue1Brown: But what is a Neural Network?"}</a>{" — creator-hosted video with a substantial text companion. Use it after §1 to connect handwritten pixels, weighted sums and layers. The text companion was reviewed; the video was not independently watched. Its bounded-neuron imagery is especially natural for sigmoid, while our ReLU outputs can exceed 1."}</li><li><a href="https://www.cs.cornell.edu/courses/cs4780/2022sp/notes/LectureNotes06.html">{"Cornell CS 4780: Perceptron"}</a>{" — lecture notes with accompanying videos. Use after §2 for bias augmentation and the convergence proof; it is an alternate mathematical route, not required background."}</li><li><a href="https://www.deeplearningbook.org/contents/mlp.html">{"Deep Learning, chapter 6: Deep Feedforward Networks"}</a>{" — textbook route through XOR, hidden units and architecture. The chapter section list was audited for coverage; the full web chapter could not be retrieved during preparation. Start with the XOR section, and save its backpropagation section for the next lesson."}</li><li><a href="https://arxiv.org/html/1606.08415v5">{"GELU paper"}</a>{" and "}<a href="https://arxiv.org/html/2002.05202v1">{"GLU Variants Improve Transformer"}</a>{" — original definitions and particular experiments. Read the formulation and parameter-budget sections before interpreting experimental rankings."}</li><li><a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.Linear.html">{"PyTorch Linear"}</a>{", "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.GELU.html">{"GELU"}</a>{", and "}<a href="https://docs.pytorch.org/docs/2.14/generated/torch.nn.SiLU.html">{"SiLU"}</a>{" — exact shape and function contracts used by the programs."}</li><li><a href="https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+">{"UCI Optical Recognition of Handwritten Digits"}</a>{" — E. Alpaydin and C. Kaynak, 1998, CC BY 4.0, DOI 10.24432/C50P49. The accompanying provenance describes our subset and its limitations."}</li></ul>
+<Prose>{"You can now trace a network forward and separate its expressive capacity from how it learns. The next topic, "}<strong>{"Backpropagation & Automatic Differentiation"}</strong>{", follows the loss backward through those same operations and explains how a library obtains parameter gradients."}</Prose>
+ </div>
 };
-
-export default perceptronsNeuronsActivationsContent;
+export default lesson;

@@ -78,4 +78,47 @@ Additional primary research:
 
 Executed complete27-fit program and MC100-pass demonstration. Exact fixtures and calculations as provenance specifies; boundary/counter additions rerun without repeating fitting. Full manuscript/spec/design/provenance author reread covers foundations, sequence, formulas, units, real/illustrative boundaries, source review extent, coverage, useful practice and technical clarity. Bounded AST, numerical-output, math-delimiter, relative-file and data/source-hash checks are author checks, not formal phase-two review. Root reconciles/checkpoints final content hashes.
 
-Deferred: runtime lesson integration, code/CSV download UI, diagrams/labs, browser parity/grading/reset/accessibility/mobile/reduced-motion, lazy loading/performance, independent implementation review and build. None performed or claimed during research/write-only scope.
+Deferred: runtime lesson integration, code/CSV download UI, diagrams/labs, browser parity/result checks/reset/accessibility/mobile/reduced-motion, lazy loading/performance, independent implementation review and build. None performed or claimed during research/write-only scope.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Play with mask geometry and mode. Edit features/weights, probability, survivor scale, mask grouping, branch position, per-block rates and train/eval mode; inspect retained Monte Carlo prefixes. Update weighted outcome means/variances, gradient routes, call counts, state buffers and saved prediction distributions immediately. Keep the sampled mask fixed while comparing a parameter, with resampling a separate action. Choose masking scope and evaluation behavior from their actual effects; distinguish expected active depth from work that was really skipped.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Use the mask contract in a library without changing its meaning” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| Element/channel/row/batch Bernoulli masking and gradient | `dropout-experiments.py:mask_values, fixtures`; explicit mask and inverse keep scaling | nn.Dropout/Dropout2d and supplied torchvision stochastic_depth program; fixed-mask semantics rather than assumed seed parity | Locked feature mask extension, p0/p1/eval and explicit gradient solution |
+| MC inference, state isolation and real fitting | `mc_measure, measure, DigitModel, run` local complete programs | Native train/eval, no_grad, BatchNorm and Adam; reused implemented normalization owner | Existing mode repair and uncertainty interpretation; optional noise-family descriptions are not full implementations |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.
+
+## Phase-two author implementation — 22 September 2026
+
+The full revision-three manuscript is now integrated in `src/learn/data/topics/dropout-droppath-stochastic-depth.jsx`. Its prepared exercises, advanced distinctions, annotated references and complete experiment route are preserved. `scripts/render-dropout-lesson.mjs` renders that manuscript and places eight investigations at their explanatory homes: gradient/value lanes, exact weighted outcomes, broadcast mask grids, the residual fork and merge, depth schedules and real call counters, independent normalization/dropout/autograd modes, all 27 measured fits, and retained Monte Carlo probability prefixes. Results remain visible while controls change; there is no prediction-entry step. Static construction examples remain explanations, with interactive controls only where actually implemented.
+
+The complete experiment and its licensed data are published in `public/learn-assets/dropout-droppath-stochastic-depth/`. The separate `dropout-library-checks.py` compares ordinary PyTorch/torchvision operators with the scratch contract, including matching outputs and gradients to the actual sampled mask, broadcast grouping, p0/p1, evaluation identity, and a complete locked-feature extension. Long source is fetched only when its disclosure opens. A compact, topic-local measurements file serves the actual plots and selected probability draws; no fitting runs in the browser.
+
+Author verification completed:
+
+- Reran all 27 fits (400 updates each) and the 100-draw Monte Carlo calculation on Python 3.12.14, PyTorch 2.14.0+cpu, NumPy 2.3.5 and scikit-learn 1.9.1. All 7,629 numerical values compared with the retained prepared result matched exactly; maximum absolute difference was zero.
+- Executed the ordinary-tool program with PyTorch 2.14.0+cpu and torchvision 0.29.0+cpu. The torchvision package was isolated in task-owned `scratch/dropout-runtime-deps`; the shared lesson runtime was not modified. Forward, gradient, grouping, mode, boundary and locked-feature checks passed.
+- `node scripts/verify-dropout-models.mjs` passed 458 assertions covering independent finite differences, weighted moments, native fixture parity, mask geometries, residual placement, both schedule conventions, normalization buffers, actual recorded measurement conservation and Monte Carlo prefixes. The displayed digit pixels and target are tied to their source CSV rows.
+- JSX and the scoped browser-check script parse successfully. These are author checks, not evidence of completed browser or independent review.
+
+Evidence is retained in `docs/teaching/evidence/dropout-implementation/author.json` and `model-checks.json`, with source hashes. Parent integration owns production build, `scripts/verify-dropout-browser.cjs`, visual inspection, curriculum registration and the central completion ledger. Those checks and independent review are still pending at this author checkpoint; historical content-only deferrals above describe their earlier checkpoint, not the current runtime state.
+
+### Focused independent-review corrections
+
+The independent reviewer identified four bounded presentation/behavior gaps. The author resolved each without repeating the unchanged training campaign: every plotted baseline/variant checkpoint now has an exact-value table; public provenance distinguishes the historical content-only checkpoint from the present implementation; the depth investigation actually invokes a tiny counted `F(x)=2x` branch separately for each candidate and exposes raw/masked results; geometry styling and branch explanations now use the effective multiplier while displaying the stored fixture bits separately, including p0/p1/evaluation overrides. The residual diagram uses the current finite factor rather than a symbolic m/q expression at q=0.
+
+The small counted branches independently receive x=1, explicitly isolating execution strategy rather than claiming a fitted stacked network. Eager and conditional execution produce the same masked corrections while their actual call counters differ. Updated author checks pass 687 assertions, including effective geometry for every mode boundary, zero-valued inputs that were not dropped, and actual eager/conditional call traces. Native 27-fit/library evidence remains unchanged. Browser checks include these repaired states; independent confirmation and final production rendering remain separate.

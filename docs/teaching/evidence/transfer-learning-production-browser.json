@@ -1,0 +1,101 @@
+{
+  "status": "passed",
+  "startedAt": "2026-09-21T17:57:56.105Z",
+  "base": "http://127.0.0.1:4194",
+  "preview": "production",
+  "sourceHashes": {
+    "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "78643d8a432d83b2a95a71065134ced5676adb2bffef877f14b328931cdddb5c",
+    "src/learn/components/lesson-labs/TransferLearningLabs.jsx": "32a5bc064acbc04208c15d5372d56453f2f0cb35aea64db25f57f92c735fcc9b",
+    "src/learn/components/lesson-labs/transfer-learning.css": "cdcf84f6327c60d618e44e999d424df358e3fe83a6068473e493b27cf62fa3b3",
+    "src/learn/data/transfer-learning-model.js": "c37ff85915e37d72314d44c8966aa1d76f53186af8530671781047c76f81082c",
+    "src/learn/data/transfer-learning-experiment.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+    "src/learn/data/transfer-learning-specimens.json": "07bdbeded6923c9de26dad9ad78ddc6f54900046a0413ff3eec4ecf99191027c",
+    "scripts/verify-transfer-learning-browser.cjs": "d899ef920905421f84e7eac71425b9016e8bba072ad2ad5eef2b9256caf5eac0"
+  },
+  "manifestHash": "93b1794149431bcade4d2d5b2dabb497e6eff00e74f5b0d33b9ef733af326bf7",
+  "groups": [
+    {
+      "name": "All seven visual homes, six independent practice pairs, initial outputs and rendered math load"
+    },
+    {
+      "name": "Actual training pixels, architecture stages and head semantics respond to pointer and keyboard controls"
+    },
+    {
+      "name": "Independent frozen/state/graph/optimizer lanes, actual buffer transitions, editable values, endpoints, invalid state and reset"
+    },
+    {
+      "name": "LoRA default, changed/null inputs, real step, rank expansion, invalid values, native endpoints, pointer edits and reset"
+    },
+    {
+      "name": "Adapter/head accounting, factor counts beyond useful rank, exact bytes/unit invariance, extremes and invalid integer input"
+    },
+    {
+      "name": "Budget selection/empty/null cases, seed sensitivity, source retention and immovable single final test report"
+    },
+    {
+      "name": "Checkpoint class semantics, unchanged numeric probabilities, invalidated preprocessing replay and all test-row choices"
+    },
+    {
+      "name": "Lazy complete-program view, exact downloadable bytes and independent keyboard practice disclosures"
+    },
+    {
+      "name": "All lab controls remain in bounds, no page overflow and a real slider touch synchronizes outputs at 390px",
+      "controls": 56
+    },
+    {
+      "name": "All lab controls remain in bounds, no page overflow and a real slider touch synchronizes outputs at 320px",
+      "controls": 56
+    },
+    {
+      "name": "KaTeX SVG geometry, amber links, reduced-motion rendering and no console/page errors"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-reuse-desktop.png",
+      "sha256": "22373367c5ed7e23fadd4daba93347446cb1b52b48c7132668cbb84c6164af26"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-freeze-desktop.png",
+      "sha256": "c8f2849548ee9c34a7a5b6b1121c590929909bb80181d5cb32dadeecd7c86adb"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-lora-desktop.png",
+      "sha256": "56c419bc0f34d30eb5b388043e1db69157b1150ef70d21b06256508eedf1b949"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-evidence-desktop.png",
+      "sha256": "2806bc008a417641eff9df7f764da22eda532380b1b0f8a1e3de9f6658e8543d"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-trace-390.png",
+      "sha256": "3a6056de61fa787bf1969eda5b1990b210bd81efcae964bc5c02fe3d3f0f21d8"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-schedule-390.png",
+      "sha256": "053bd0d2b88491d9ad30ae3be3ed5228bfebd9afa769bc9f741604d04db7a2ac"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-lora-390.png",
+      "sha256": "5e448c1624adaa439925459d4ef3e1b86da35a4fc49c81c30b0cb55656ea98b1"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-freeze-390.png",
+      "sha256": "b5e092f4e41e0ecf5add0dcc6f9b7ae517a6d6f28afaf748cbe66ef03a779065"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-evidence-390.png",
+      "sha256": "942fe818ed0f2777b678e9a4c64a427de420d57060b449e477c3a47f79ac27de"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-trace-320.png",
+      "sha256": "3d10c39f7b5cd87386b33082a5032efc696eab5a4e9deff86f67b998d3a90b5a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/transfer-learning-schedule-320.png",
+      "sha256": "e69a820434bd7dab640e0f250275e135b0a69f96707cfcb7ca02b8c6fbdffce2"
+    }
+  ],
+  "errors": [],
+  "finishedAt": "2026-09-21T17:58:07.113Z"
+}

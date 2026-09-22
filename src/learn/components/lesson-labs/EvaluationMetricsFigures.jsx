@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { METRIC_ROWS, RESIDUAL_ROWS, DOCUMENT_ROWS, binaryMetrics, rankingMetrics, probabilityMetrics, regressionMetrics, retrievalMetrics, displayMetric as fmt } from '../../data/evaluation-metrics-models';
 import measured from '../../data/evaluation-metrics-data.json';
 import './evaluation-metrics.css';
@@ -62,16 +62,102 @@ export function ProbabilityPenalties() {
   const old = probabilityMetrics(METRIC_ROWS), changed = probabilityMetrics(squared);
   const first = old.contributions.find(r => r.id === selected), second = changed.contributions.find(r => r.id === selected);
   const logScale = Math.max(...old.contributions.map(r => r.log), ...changed.contributions.map(r => r.log));
-  return <MetricFigure id="probabilities" title="Same order, different probabilities and penalties" caption="All ruler positions are probabilities on the same 0–1 scale. Squaring preserves ordering on this interval."><label className="metric-field">Inspect an item<select aria-label="Inspect an item" value={selected} onChange={e => setSelected(e.target.value)}>{METRIC_ROWS.map(r => <option key={r.id} value={r.id}>{r.id}, actual class {r.y}</option>)}</select></label><MetricTable label="Every probability and its squared forecast" headings={['Item (actual)', 'p → p²', 'Ordering']} rows={METRIC_ROWS.map(r => [`${r.id} (y=${r.y})`, `${fmt(r.score)} → ${fmt(r.score ** 2)}`, 'Preserved, including ties'])}/><div className="metric-probability-rulers">{[{ label: 'Original p', value: first.score }, { label: 'Squared p²', value: second.score }].map(r => <div key={r.label}><span>{r.label} = {fmt(r.value)}</span><div className="metric-ruler"><i style={{ left: `${r.value * 100}%` }}/></div></div>)}<p>Both rulers: 0 at left, 1 at right. {selected} has actual class {first.y}.</p></div><div className="metric-paired">{[['log', 'Log contribution (nats)', logScale], ['brier', 'Brier contribution', 1]].map(([key, label, max]) => <section key={key}><h4>{label}</h4>{[first, second].map((r, i) => <div className="metric-loss-row" key={i}><span>{i ? 'p²' : 'p'}: {fmt(r[key])}</span><div><i style={{ width: `${100 * r[key] / max}%` }}/></div></div>)}<small>Bar scale: 0 to {fmt(max)} {key === 'log' ? 'nats' : 'squared probability error'}.</small></section>)}</div><MetricTable label="Probability vector comparison" headings={['Forecasts', 'AUC', 'AP', 'Mean log loss', 'Mean Brier']} rows={[METRIC_ROWS, squared, METRIC_ROWS.map(r => ({ ...r, score: 0.5 }))].map((rows, i) => [i === 2 ? 'Constant 0.5' : i ? 'p²' : 'p', fmt(rankingMetrics(rows).auc), fmt(rankingMetrics(rows).ap), fmt(probabilityMetrics(rows).log), fmt(probabilityMetrics(rows).brier)])}/><label className="metric-field">Decision threshold (forecasts stay fixed)<input type="range" min="0" max="1" step="0.05" value={threshold} onChange={e => setThreshold(Number(e.target.value))}/></label><p aria-live="polite">Threshold {fmt(threshold)} → {binaryMetrics(METRIC_ROWS, threshold).tp + binaryMetrics(METRIC_ROWS, threshold).fp} original-score alerts. Original log loss stays {fmt(old.log)} and Brier stays {fmt(old.brier)}: neither uses this threshold.</p></MetricFigure>;
+  return <MetricFigure id="probabilities" title="Same order, different probabilities and penalties" caption="All ruler positions are probabilities on the same 0–1 scale. Squaring preserves ordering on this interval."><label className="metric-field">Inspect an item<select aria-label="Inspect an item" value={selected} onChange={e => setSelected(e.target.value)}>{METRIC_ROWS.map(r => <option key={r.id} value={r.id}>{r.id}, actual class {r.y}</option>)}</select></label><MetricTable label="Every probability and its squared forecast" headings={['Item (actual)', 'p → p²', 'Ordering']} rows={METRIC_ROWS.map(r => [`${r.id} (y=${r.y})`, `${fmt(r.score)} → ${fmt(r.score ** 2)}`, 'Preserved, including ties'])}/><div className="metric-probability-rulers">{[{ label: 'Original p', value: first.score }, { label: 'Squared p²', value: second.score }].map(r => <div key={r.label}><span>{r.label} = {fmt(r.value)}</span><div className="metric-ruler"><i style={{ left: `${r.value * 100}%` }}/></div></div>)}<p>Position markers are readouts, not handles: use “Inspect an item” above to compare another item. Both rulers run from 0 at left to 1 at right. {selected} has actual class {first.y}.</p></div><div className="metric-paired">{[['log', 'Log contribution (nats)', logScale], ['brier', 'Brier contribution', 1]].map(([key, label, max]) => <section key={key}><h4>{label}</h4>{[first, second].map((r, i) => <div className="metric-loss-row" key={i}><span>{i ? 'p²' : 'p'}: {fmt(r[key])}</span><div><i style={{ width: `${100 * r[key] / max}%` }}/></div></div>)}<small>Bar scale: 0 to {fmt(max)} {key === 'log' ? 'nats' : 'squared probability error'}.</small></section>)}</div><MetricTable label="Probability vector comparison" headings={['Forecasts', 'AUC', 'AP', 'Mean log loss', 'Mean Brier']} rows={[METRIC_ROWS, squared, METRIC_ROWS.map(r => ({ ...r, score: 0.5 }))].map((rows, i) => [i === 2 ? 'Constant 0.5' : i ? 'p²' : 'p', fmt(rankingMetrics(rows).auc), fmt(rankingMetrics(rows).ap), fmt(probabilityMetrics(rows).log), fmt(probabilityMetrics(rows).brier)])}/><label className="metric-field">Decision threshold (forecasts stay fixed)<input type="range" min="0" max="1" step="0.05" value={threshold} onChange={e => setThreshold(Number(e.target.value))}/></label><p aria-live="polite">Threshold {fmt(threshold)} → {binaryMetrics(METRIC_ROWS, threshold).tp + binaryMetrics(METRIC_ROWS, threshold).fp} original-score alerts. Original log loss stays {fmt(old.log)} and Brier stays {fmt(old.brier)}: neither uses this threshold.</p></MetricFigure>;
 }
-export function ResidualGeometry({ rows = RESIDUAL_ROWS, unit = 1, trainingMean = 3 }) {
-  const a = regressionMetrics(rows, 'a', unit), evaluationReference = regressionMetrics(rows.map(r => ({ ...r, reference: rows.reduce((sum, row) => sum + row.y, 0) / rows.length })), 'reference', unit), b = regressionMetrics(rows, 'b', unit), baseline = regressionMetrics(rows.map(r => ({ ...r, baseline: trainingMean })), 'baseline', unit);
-  const values = rows.flatMap(r => [r.y, r.a, r.b]).map(v => v * unit), min = Math.min(...values), max = Math.max(...values), extent = max - min || 1;
-  const maxError = Math.max(...a.contributions.map(r => Math.abs(r.residual)), ...b.contributions.map(r => Math.abs(r.residual))) || 1;
-  const position = value => 12 + 276 * (value - min) / extent;
-  return <><p>Rulers share [{fmt(min)}, {fmt(max)}] {unit === 60 ? 'seconds' : 'minutes'}. ● = observed value; ◇ = prediction. Positive residual means prediction was too low.</p><div className="metric-paired">{[['A', a], ['B', b]].map(([name, result]) => <section key={name}><h4>Predictor {name}</h4>{result.contributions.map(r => <div className="metric-residual" key={r.id}><p><strong>{r.id}</strong> · y={fmt(r.y)}, ŷ={fmt(r.prediction)}<br/>residual {fmt(r.residual)} · squared {fmt(r.square)}</p><svg viewBox="0 0 300 30" role="img" aria-label={`${r.id} observed ${r.y}, predicted ${r.prediction}`}><line x1="12" y1="15" x2="288" y2="15" className="metric-axis"/><line x1={position(r.y)} y1="15" x2={position(r.prediction)} y2="15" className="metric-residual-line"/><circle cx={position(r.y)} cy="15" r="4" fill="currentColor"/><path d={`M${position(r.prediction)} 8l7 7-7 7-7-7Z`} className="metric-prediction"/></svg><div className="metric-square-space">{r.residual === 0 ? <span>0 area</span> : <div className="metric-error-square" style={{ width: `${64 * Math.abs(r.residual) / maxError}px`, height: `${64 * Math.abs(r.residual) / maxError}px` }} aria-label={`Squared residual area ${r.square}`}/>}</div></div>)}</section>)}</div><p>Both columns use one square scale: side 64 px represents |error| = {fmt(maxError)}; area is proportional to squared error. Zero-area errors have a text marker, not a visible square. Scales recompute together after edits.</p><MetricTable label="Residual summary and actual fitted baseline" headings={['Predictor', 'MAE', 'MSE', 'RMSE', 'Median |error|', 'SSE', 'R²']} rows={[['A', a], ['B', b], ['Evaluation-mean formula reference', evaluationReference], [`Training constant ${fmt(trainingMean * unit)}`, baseline]].map(([name, r]) => [name, ...['mae', 'mse', 'rmse', 'medae', 'sse', 'r2'].map(key => fmt(r[key]))])}/><p>Evaluation mean = {fmt(a.mean)}; SST = {fmt(a.sst)} {unit === 60 ? 'seconds²' : 'minutes²'}. This formula reference is distinct from the training constant. {a.r2 === null && <strong>R² undefined: the evaluation target has zero variance.</strong>}</p>{values.some(v => v < 0) && <p className="metric-notice">A negative duration is physically invalid for this example even though the numerical errors are calculable.</p>}</>;
+function ResidualRuler({ item, predictor, min, max, unit, onForecastChange, onDragStart, onDragEnd }) {
+  const drag = useRef(null);
+  const position = value => 24 + 252 * (value - min) / (max - min);
+  const change = value => onForecastChange(item.id, predictor, Math.max(min / unit, Math.min(max / unit, value)));
+  const move = event => {
+    if (drag.current?.pointerId !== event.pointerId) return;
+    // Invert the rendered SVG transform, including responsive scaling/letterboxing.
+    const svg = event.currentTarget.ownerSVGElement;
+    const matrix = svg.getScreenCTM();
+    if (!matrix) return;
+    const point = svg.createSVGPoint();
+    point.x = event.clientX;
+    point.y = event.clientY;
+    const local = point.matrixTransform(matrix.inverse());
+    const value = (min + (local.x - drag.current.offset - 24) / 252 * (max - min)) / unit;
+    change(Math.round(value * 4) / 4);
+  };
+  const finish = event => {
+    if (drag.current?.pointerId !== event.pointerId) return;
+    drag.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    onDragEnd?.();
+  };
+  const keyDown = event => {
+    const current = item.prediction / unit;
+    const targets = { ArrowRight: current + .25, ArrowUp: current + .25, ArrowLeft: current - .25, ArrowDown: current - .25, PageUp: current + 1, PageDown: current - 1, Home: min / unit, End: max / unit };
+    if (!(event.key in targets)) return;
+    event.preventDefault();
+    change(targets[event.key]);
+  };
+  const x = position(item.prediction);
+  return <svg className={onForecastChange ? 'metric-editable-ruler' : undefined} viewBox="0 0 300 52" role={onForecastChange ? 'group' : 'img'} aria-label={`${item.id} observed ${fmt(item.y)}, forecast ${fmt(item.prediction)} ${unit === 60 ? 'seconds' : 'minutes'}`}>
+    <line x1="24" y1="26" x2="276" y2="26" className="metric-axis"/>
+    <line x1={position(item.y)} y1="26" x2={x} y2="26" className="metric-residual-line"/>
+    <circle cx={position(item.y)} cy="26" r="4" fill="currentColor"/>
+    {onForecastChange ? <g className="metric-forecast-handle" role="slider" tabIndex={0} aria-label={`${predictor.toUpperCase()} ${item.id} forecast`} aria-valuemin={min / unit} aria-valuemax={max / unit} aria-valuenow={item.prediction / unit} aria-valuetext={`${fmt(item.prediction / unit)} minutes; residual ${fmt(item.residual)} ${unit === 60 ? 'seconds' : 'minutes'}`} aria-orientation="horizontal" onKeyDown={keyDown} onPointerDown={event => {
+      if (event.button !== 0 || drag.current !== null) return;
+      event.preventDefault();
+      event.currentTarget.focus();
+      const svg = event.currentTarget.ownerSVGElement;
+      const matrix = svg.getScreenCTM();
+      if (!matrix) return;
+      const point = svg.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      drag.current = { pointerId: event.pointerId, offset: point.matrixTransform(matrix.inverse()).x - x };
+      event.currentTarget.setPointerCapture(event.pointerId);
+      onDragStart?.();
+    }} onPointerMove={move} onPointerUp={finish} onPointerCancel={finish} onLostPointerCapture={finish}>
+      <rect x={x - 22} y="4" width="44" height="44" fill="transparent"/>
+      <path d={`M${x} 18l8 8-8 8-8-8Z`} className="metric-prediction"/>
+    </g> : <path d={`M${x} 18l8 8-8 8-8-8Z`} className="metric-prediction"/>}
+  </svg>;
 }
-export function ResidualSquares() { return <MetricFigure id="residuals" title="One large squared error can outweigh five moderate ones" caption="Constructed durations, not a fitted model experiment."><ResidualGeometry/></MetricFigure>; }
+
+export function ResidualGeometry({ rows = RESIDUAL_ROWS, unit = 1, trainingMean = 3, onForecastChange, fixedDomain }) {
+  const [dragDomain, setDragDomain] = useState(null);
+  const a = regressionMetrics(rows, 'a', unit), b = regressionMetrics(rows, 'b', unit);
+  const evaluationReference = regressionMetrics(rows.map(r => ({ ...r, reference: a.mean / unit })), 'reference', unit);
+  const baseline = regressionMetrics(rows.map(r => ({ ...r, baseline: trainingMean })), 'baseline', unit);
+  const values = rows.flatMap(r => [r.y, r.a, r.b]);
+  const domain = fixedDomain ?? dragDomain ?? [Math.max(-100, Math.floor(Math.min(-2, ...values) - (Math.min(...values) < -2 ? 1 : 0))), Math.min(100, Math.ceil(Math.max(12, ...values) + (Math.max(...values) > 12 ? 1 : 0)))];
+  const [min, max] = domain.map(value => value * unit);
+  // Keep the area encoding fixed while a handle moves: shrinking the largest
+  // residual must shrink its square, rather than silently rescaling it to 64 px.
+  const squareError = (domain[1] - domain[0]) * unit;
+  return <>
+    <p>Shared ruler: {fmt(min)} to {fmt(max)} {unit === 60 ? 'seconds' : 'minutes'}. ● observed value; ◇ forecast. The gold segment is the error length. Positive residual means the forecast is too low.</p>
+    {onForecastChange && <p className="metric-drag-help"><strong>Drag a gold diamond.</strong> Or Tab to it and use arrow keys (¼ minute), Page Up/Down (1 minute), Home/End (ruler limits). Observed circles stay fixed while dragging.</p>}
+    <div className="metric-paired">{[['A', 'a', a], ['B', 'b', b]].map(([name, key, result]) => <section key={name}>
+      <h4>Predictor {name}</h4>
+      <p className="metric-residual-totals">MAE <strong>{fmt(result.mae)}</strong> · RMSE <strong>{fmt(result.rmse)}</strong><br/>SSE <strong>{fmt(result.sse)}</strong> · R² <strong>{fmt(result.r2)}</strong></p>
+      {result.contributions.map(item => <div className="metric-residual" key={item.id}>
+        <p><strong>{item.id}</strong> · observed {fmt(item.y)} · forecast {fmt(item.prediction)}<br/>Residual {fmt(item.residual)} · squared error {fmt(item.square)}</p>
+        <div className="metric-residual-geometry"><ResidualRuler item={item} predictor={key} min={min} max={max} unit={unit} onForecastChange={onForecastChange} onDragStart={() => setDragDomain(domain)} onDragEnd={() => setDragDomain(null)}/>
+        <div className="metric-square-space">{item.residual === 0 ? <span>0 area</span> : <div className="metric-error-square" style={{ width: `${64 * Math.abs(item.residual) / squareError}px`, height: `${64 * Math.abs(item.residual) / squareError}px` }} aria-label={`Squared residual area ${fmt(item.square)}`}/>}</div></div>
+      </div>)}
+    </section>)}</div>
+    <p>Both columns share one area scale: a 64 px side represents |error| = {fmt(squareError)} {unit === 60 ? 'seconds' : 'minutes'}; square area is proportional to squared error. Zero errors have no square. {fixedDomain ? 'The ruler and square scales stay fixed through every edit.' : 'Scales stay fixed during a drag; numerical edits can expand the shared ruler.'}</p>
+    <MetricTable label="Residual summary and actual fitted baseline" headings={['Predictor', 'MAE', 'MSE', 'RMSE', 'Median |error|', 'SSE', 'R²']} rows={[[ 'A', a], ['B', b], ['Evaluation-mean formula reference', evaluationReference], [`Training constant ${fmt(trainingMean * unit)}`, baseline]].map(([name, result]) => [name, ...['mae', 'mse', 'rmse', 'medae', 'sse', 'r2'].map(key => fmt(result[key]))])}/>
+    <p>Evaluation mean = {fmt(a.mean)}; SST = {fmt(a.sst)} {unit === 60 ? 'seconds²' : 'minutes²'}. This formula reference is distinct from the training constant. {a.r2 === null && <strong>R² undefined: the evaluation target has zero variance.</strong>}</p>
+    {values.some(value => value < 0) && <p className="metric-notice">A negative duration is physically invalid for this example even though the numerical errors are calculable.</p>}
+  </>;
+}
+
+export function ResidualSquares() {
+  const [rows, setRows] = useState(() => RESIDUAL_ROWS.map(row => ({ ...row })));
+  const changeForecast = (id, key, value) => setRows(current => current.map(row => row.id === id ? { ...row, [key]: value } : row));
+  return <MetricFigure id="residuals" title="Explore how one large error can outweigh five moderate ones" caption="Playable constructed durations, not a fitted model experiment. The five observations stay fixed; the two sets of forecasts are independent.">
+    <p>Start by moving A’s T5 diamond from 4 toward its observed value, 10. Watch the error square shrink and compare MAE with RMSE. Then move any B diamond away from its circle.</p>
+    <div className="metric-actions"><button onClick={() => setRows(RESIDUAL_ROWS.map(row => ({ ...row })))}>Reset original forecasts</button><button onClick={() => setRows(current => current.map(row => ({ ...row, a: row.y, b: row.y })))}>Match all observations</button></div>
+    <div data-live-exploration="residual-squares"><ResidualGeometry rows={rows} fixedDomain={[-2, 12]} onForecastChange={changeForecast}/></div>
+  </MetricFigure>;
+}
 export function RetrievalShelves({ rows = DOCUMENT_ROWS, cutoff = 3, gain = 'exponential' }) {
   const result = retrievalMetrics(rows, cutoff, gain);
   return <><div className="metric-paired">{[['Actual shelf', result.actual], ['Ideal: same judged candidates', result.ideal]].map(([title, shelf]) => <section key={title}><h4>{title}</h4><ol className="metric-shelf">{shelf.map(r => <li key={r.id} className={r.rank <= cutoff ? 'within-cutoff' : ''}><strong>{r.id} · grade {r.grade}</strong><span>gain {r.gain} ÷ log₂({r.rank + 1})</span><span>{r.rank <= cutoff ? `contribution ${fmt(r.contribution)}` : `outside K=${cutoff}: 0 credit`}</span><div className="metric-gain-track"><i style={{ width: `${100 * r.contribution / (Math.max(...result.ideal.map(item => item.gain)) || 1)}%` }}/></div></li>)}</ol></section>)}</div><p>Contribution bar scale is shared by both shelves: 0 to {Math.max(...result.ideal.map(item => item.gain)) || 1} discounted gain units.</p><p>DCG {fmt(result.dcg)} ÷ ideal DCG {fmt(result.idcg)} = <strong>NDCG {fmt(result.ndcg)}</strong>. {result.ndcg === null && 'No candidate has positive gain; the raw ratio is undefined.'}</p><MetricTable label="Retrieval summaries" headings={['P@K', 'Recall@K', 'Reciprocal rank', 'Full-list AP', 'NDCG@K']} rows={[[result.precision, result.recall, result.rr, result.ap, result.ndcg].map(fmt)]}/></>;

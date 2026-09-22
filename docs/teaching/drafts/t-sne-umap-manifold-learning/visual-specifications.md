@@ -1,5 +1,14 @@
 # Visual specifications — t-SNE, UMAP & Manifold Learning
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Existing topic-specific controls already update the actual model and visual outputs. Preserve those mechanisms and process controls; ordinary exploration guidance replaces learner prediction prompts.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Content-first specification, 12 September 2026. [Complete manuscript](lesson.md), [design/research record](../../MANIFOLD-LEARNING-LESSON-DESIGN.md). No rendered figures, browser components or lab models have been built. Calculation records are inputs, not visual review. The existing source must be replaced coherently in phase two; do not preserve its invented scatter points, runtime curves or property-score heatmap as measured evidence.
 
 ## Shared contracts without a shared visual template

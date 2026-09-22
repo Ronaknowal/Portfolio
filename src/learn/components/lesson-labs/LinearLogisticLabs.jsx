@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { Investigation, Predict, Stepper } from './LessonInvestigation.jsx';
+import { Investigation, Stepper } from './LessonInvestigation.jsx';
 import { LessonTable } from './LessonElements.jsx';
 import { residualReport, gradientTrace, logisticReport, sigmoid, thresholdReport, separationReport, separationOptimum, featureMapReport, uncertaintyReport } from '../../data/linear-logistic-models.js';
 import './linear-logistic-labs.css';
@@ -66,7 +66,7 @@ export function ResidualGeometryLab() {
   const report = residualReport(intercept, slope, lastHours);
   const reset = () => { setIntercept(0); setSlope(1); setLastHours(4); };
   return <Investigation id="regression-residuals" kicker="FIT A NUMBER" title="Move the line and account for every error">
-    <Predict>At slope 1 and intercept 0, which shipment contributes most squared error? Predict what happens if D takes 8 hours instead of 4.</Predict>
+    <p className="lesson-live-note">At slope 1 and intercept 0, which shipment contributes most squared error? Explore what happens if D takes 8 hours instead of 4.</p>
     <div className="regression-controls">
       <Slider label="Intercept (hours)" value={intercept} onChange={setIntercept} min={-1} max={4} step={0.05} />
       <Slider label="Slope (hours per 100 km)" value={slope} onChange={setSlope} min={-1} max={3} />
@@ -98,7 +98,7 @@ export function GradientGeometryLab() {
     return [...branch(1), ...branch(-1).reverse()];
   });
   return <Investigation id="regression-gradient" kicker="TRAINING CHANGES PARAMETERS" title="Follow an update through coefficient space">
-    <Predict>The first gradient is (−4.5, −9). With rate 0.05, where should the next point appear?</Predict>
+    <p className="lesson-live-note">The first gradient is (−4.5, −9). With rate 0.05, where should the next point appear?</p>
     <label>Learning rate<select value={rate} onChange={event => { setRate(Number(event.target.value)); setStep(0); }}><option value={0.05}>0.05 — conservative</option><option value={0.2}>0.20 — stable, oscillating</option><option value={0.3}>0.30 — unstable here</option></select></label>
     <Chart title="Actual full-batch gradient path" description="Horizontal position is intercept b; vertical position is slope w. Gray ellipses are exact equal-MSE contours, not shipment coordinates. The × marks the least-squares optimum (0.9, 0.9)." xDomain={[-0.5, 2.5]} yDomain={[-0.5, 2.5]} xLabel="Intercept b (hours)" yLabel="Slope w (hours per 100 km)">
       {({ xScale, yScale }) => <>{contours.map((points, index) => <Polyline key={index} points={points} xScale={xScale} yScale={yScale} className="regression-contour" />)}<Polyline points={states.slice(0, step + 1).map(state => [state.intercept, state.slope])} xScale={xScale} yScale={yScale} /><text x={xScale(0.9)} y={yScale(0.9) + 5} textAnchor="middle" className="regression-optimum">×</text><circle cx={xScale(current.intercept)} cy={yScale(current.slope)} r={6} className="regression-point" /></>}
@@ -117,7 +117,7 @@ export function LogisticScoreLab() {
   const report = logisticReport({ intercept, weight, feature, label });
   const reset = () => { setIntercept(-1); setWeight(1); setFeature(2); setLabel(1); };
   return <Investigation id="regression-logistic-score" kicker="SCORE → PROBABILITY → LOSS" title="Follow one observation without hiding its contribution">
-    <Predict>With b=−1, w=1 and x=2 the score is 1. Is the probability change from adding one score unit the same everywhere?</Predict>
+    <p className="lesson-live-note">With b=−1, w=1 and x=2 the score is 1. Is the probability change from adding one score unit the same everywhere?</p>
     <div className="regression-controls"><Slider label="Intercept b" value={intercept} onChange={setIntercept} min={-3} max={3} step={0.5} /><Slider label="Weight w" value={weight} onChange={setWeight} min={-2} max={2} step={0.5} /><Slider label="Feature x" value={feature} onChange={setFeature} min={-2} max={2} step={0.5} /><label>Observed label<select value={label} onChange={event => setLabel(Number(event.target.value))}><option value={1}>1 — missed deadline</option><option value={0}>0 — met deadline</option></select></label><button onClick={reset}>Reset</button></div>
     <p className="regression-calculation">b + wx = {intercept} + ({weight} × {feature}) = <strong>{fixed(report.score)}</strong> → σ(z) = <strong>{fixed(report.probability)}</strong></p>
     <Chart title="The sigmoid and this observation's score" description="The curve is σ(z)=1/(1+exp(−z)). The selected point moves with the score. Changing the observed label changes the loss and gradient, not this fitted probability." xDomain={[-7, 7]} yDomain={[0, 1]} xLabel="Score z (log odds)" yLabel="Model probability of label 1">
@@ -138,7 +138,7 @@ export function ThresholdDecisionsLab() {
   const [missedCost, setMissedCost] = useState(4);
   const report = thresholdReport(threshold, missedCost);
   return <Investigation id="regression-threshold" kicker="CHOOSE AN ACTION" title="Move the decision gate, keep the scores fixed">
-    <Predict>At threshold 0.5, how many missed deadlines are missed by the warning rule? Will lowering the threshold remove every error?</Predict>
+    <p className="lesson-live-note">At threshold 0.5, how many missed deadlines are missed by the warning rule? Will lowering the threshold remove every error?</p>
     <div className="regression-controls"><Slider label="Warning threshold" value={threshold} onChange={setThreshold} min={0} max={1} step={0.05} /><label>Cost of a missed warning<select value={missedCost} onChange={event => setMissedCost(Number(event.target.value))}><option value={1}>1</option><option value={4}>4</option><option value={10}>10</option></select></label><button onClick={() => { setThreshold(0.5); setMissedCost(4); }}>Reset</button></div>
     <Chart title="Six validation observations against a threshold" description="Each row is one fixed illustrative validation observation; its horizontal position is its supplied probability. A filled circle means true label 1, an empty square means true label 0. The dashed gate warns for p≥threshold. These supplied probabilities are not outputs of the earlier parcel fit." xDomain={[0, 1]} yDomain={[0.5, 6.5]} xLabel="Supplied model probability" yLabel="Validation row number">
       {({ xScale, yScale }) => <><line x1={xScale(threshold)} x2={xScale(threshold)} y1={TOP} y2={BOTTOM} className="regression-residual" />{report.rows.map((row, index) => row.label ? <circle key={row.id} cx={xScale(row.probability)} cy={yScale(index + 1)} r={6} className="regression-point" /> : <rect key={row.id} x={xScale(row.probability) - 5} y={yScale(index + 1) - 5} width={10} height={10} className="regression-negative" />)}</>}
@@ -158,7 +158,7 @@ export function SeparationPenaltyLab() {
   const points = Array.from({ length: 97 }, (_, index) => { const currentWeight = index / 8; return [currentWeight, separationReport(currentWeight, penalty).objective]; });
   const maxLoss = Math.max(1, ...points.map(point => point[1]));
   return <Investigation id="regression-separation" kicker="EXISTENCE BEFORE CONVERGENCE" title="A perfect separator can keep asking for larger weights">
-    <Predict>For observations (−1,0) and (+1,1), every positive w separates the labels. What happens to log loss as w grows?</Predict>
+    <p className="lesson-live-note">For observations (−1,0) and (+1,1), every positive w separates the labels. What happens to log loss as w grows?</p>
     <div className="regression-controls"><Slider label="Weight w" value={weight} onChange={setWeight} min={0} max={12} step={0.25} /><label>Penalty λ<select value={penalty} onChange={event => setPenalty(Number(event.target.value))}><option value={0}>0 — no penalty</option><option value={0.02}>0.02</option><option value={0.2}>0.20</option></select></label><button onClick={() => { setWeight(2); setPenalty(0); }}>Reset</button></div>
     <Chart title="Separated data: loss plus a stated weight penalty" description="Exact objective: log(1+exp(−w)) + λw²/2, with intercept fixed at zero. The vertical scale adapts to λ; compare numeric values across settings. The plotted finite window is not a search over all real weights." xDomain={[0, 12]} yDomain={[0, maxLoss]} xLabel="Weight w" yLabel="Penalized mean objective">
       {({ xScale, yScale }) => <><Polyline points={points} xScale={xScale} yScale={yScale} /><circle cx={xScale(weight)} cy={yScale(report.objective)} r={6} className="regression-point" />{optimum !== null && <line x1={xScale(optimum)} x2={xScale(optimum)} y1={TOP} y2={BOTTOM} className="regression-residual" />}</>}

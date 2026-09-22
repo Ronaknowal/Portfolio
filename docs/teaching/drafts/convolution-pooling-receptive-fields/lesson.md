@@ -1,5 +1,8 @@
 # Convolution, Pooling & Receptive Fields
 
+**Explore as you read.** Edit image/kernel cells, stride/dilation/padding, pooling inputs, shared-weight targets/rate and receptive-field threshold. Synchronize the selected patch, products, output map, transpose contributions, gradient accumulation and ancestry paths. Geometry edits visibly change output size, alignment and holes rather than only a summary label. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose window geometry and pooling from reach, alignment, information loss and update behavior.
+
+
 A handwritten 7 can move a little to the right and still be a 7. Its strokes are local, but their arrangement matters: a short horizontal stroke and a long diagonal belong together. How can a neural network use those facts instead of learning an unrelated detector for every possible pixel position?
 
 Convolution reuses a small calculation across a grid. Pooling summarizes nearby values. A receptive field tells us where one result can obtain information. Together, these ideas let us reason about an image model as a sequence of visible operations.
@@ -30,7 +33,7 @@ Move it one column right, keeping the **same four weights**:
 
 Repeating for the second row produces \(\begin{bmatrix}0&5\\0&-2\end{bmatrix}\). This output grid is a **feature map**. A positive value means the weighted pattern has a positive response there. It is not yet a probability or necessarily a meaningful named feature.
 
-[Visual placement: patch-and-products investigation. Move the outlined window; each image cell, filter weight and product retains its correspondence. Predict a selected output before revealing it. Then edit a pixel and identify exactly which outputs change.]
+[Visual placement: patch-and-products investigation. Move the outlined window; each image cell, filter weight and product retains its correspondence. The selected output and its contributing sum update together. Then edit a pixel and identify exactly which outputs change.]
 
 This is the operation deep-learning libraries usually call convolution, although the precise mathematical operation is **cross-correlation**: the filter is used in the displayed orientation. Mathematical convolution reverses its spatial axes. For learned filters either convention can represent the same family of operations, but matching a fixed filter or an implementation requires knowing the convention. [PyTorch Conv2d contract](https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html).
 
@@ -85,7 +88,7 @@ Gradients also accumulate where windows overlap. The middle input participates w
 
 The full input gradient is \([-2,3,-1]\). If we had used mean squared error, its denominator would scale the gradients. Weight sharing itself asks us to **sum** contributions; averaging comes from the chosen loss reduction.
 
-[Visual placement: two windows feeding a shared parameter rail. Trace both contributions, commit a predicted update, then reveal the new outputs and loss. Change the second target and recompute rather than memorizing the initial arrows.]
+[Visual placement: two windows feeding a shared parameter rail. Show both contributions, the current one-step update, new outputs and loss together. Changing the second target recomputes the actual arithmetic, and Step highlights each contribution without hiding the current result.]
 
 This complete program runs the calculation:
 
@@ -235,7 +238,7 @@ We compare four declared configurations: dense 64→32 tanh→10; CNN with max p
 
 These are actual final-update measurements. Every run fits all 280 training labels. The CNN uses fewer parameters than this dense baseline; it does not win every seed or metric. Accuracy counts and cross-entropy measure different aspects: a few confident mistakes can increase CE even with similar counts. The program retains intermediate train/development traces rather than drawing an imagined smooth learning curve.
 
-[Visual placement: real specimen → saved post-ReLU feature maps → pooled maps → class probabilities. Inspect the saved seed-1 maps for three source IDs, with numeric values available. Raw preactivations and logits were not retained and must not be invented. A separate evidence comparison uses the actual seed/step records and reveals the measured outcome after a prediction.]
+[Visual placement: real specimen → saved post-ReLU feature maps → pooled maps → class probabilities. Inspect the saved seed-1 maps for three source IDs, with numeric values available. Raw preactivations and logits were not retained and must not be invented. A separate evidence comparison uses the actual seed/step records and displays the matching measured outcomes as soon as a record is selected.]
 
 A deliberately difficult stress check shifts each development image one pixel right or down, fills the exposed edge with zero and keeps its original label. This tests a changed input condition; it can also clip meaningful strokes, so it is not a clean proof of translation behavior on an unlimited canvas.
 
@@ -319,6 +322,32 @@ Our float64 fixture matches within \(3.4\times10^{-16}\). Training BatchNorm dep
 One useful connection goes beyond recognizing images. A fixed grid stencil
 \(\begin{bmatrix}0&1&0\\1&-4&1\\0&1&0\end{bmatrix}\)
 computes a discrete Laplacian numerator. With center temperature 30 and four neighbors at 20, it gives −40: local curvature toward cooler surroundings. For grid spacing \(h\), divide by \(h^2\); a diffusion equation also needs diffusivity, a time discretization and boundary conditions. This uses the same local weighted-sum mechanism, but the weights represent a specified numerical operator rather than parameters learned from labels.
+
+## Implement the pullback and batch the arithmetic
+
+The direct `direct_conv2d` routine in [convolution-experiments.py](convolution-experiments.py) is a transparent indexing oracle: every output, input group and tap is visible. Its scalar Python loops are not the final recommendation for processing images. The companion [convolution_pullbacks.py](convolution_pullbacks.py) retains the spatial-tap loops but performs all examples, channels and output locations together using `einsum`. This opens the operation without allocating a full expanded patch matrix.
+
+For valid dense NCHW cross-correlation, one tap contributes `images[:, :, row:row+OH, col:col+OW]` contracted with `weights[:, :, row, col]`. The forward contraction is `bihw,oi->bohw`. Given upstream derivative `bohw`, the weight gradient contracts `bohw,bihw->oi`; the input gradient contracts `bohw,oi->bihw` and **adds** it into the corresponding input slice. Overlapping windows write to the same input, so assignment would lose contributions. Bias gradients sum batch and spatial axes.
+
+The complete program contains all forward/backward functions and a same-input `F.conv2d` comparison for every derivative. It has the deliberately stated boundary of dense, stride-one, unpadded valid convolution; the earlier general routine still owns grouped, dilated and strided address calculation. Extending this pullback means applying exactly those same addresses in reverse. Autograd can perform that composition in the real classifier, so there is no need to reimplement its engine.
+
+For B examples, I input channels, O outputs, K spatial taps and P output positions, the arithmetic is O(BIOKP), with activation/parameter/output storage plus a tap-sized contraction temporary; there is no explicit O(BIKP) im2col buffer. The maintained backend can use different kernels and layouts. This cost statement is not a measured speed ranking.
+
+The same companion implements valid one-dimensional max/average pooling and their pullbacks. `sliding_window_view` exposes windows without copying each one. Maximum routing saves the first maximizing index per window; average routing distributes an upstream value over the window. `np.add.at` accumulates when maxima or average windows share an input. This is the implementation of the overlap diagrams, not an import of an opaque pooling operation. The script checks both with native PyTorch pooling. Padding, adaptive-window geometry and two-dimensional indexing follow the explicit conventions taught earlier; the real model continues to use native pooling.
+
+Run `python convolution_pullbacks.py` with NumPy and PyTorch. The declared result is equality within float64 tolerances, not a new accuracy measurement. These code paths are separate from the saved digit fits.
+
+**Change the implementation:** replace the upstream all-ones pooling vector by `[2,−1,3]` for values `[1,4,3,2,−1]`, size3, stride1. Then extend the convolution pullback to stride2 by using the original forward sampling slice in both directions.
+
+<details><summary>Hint</summary>Max pooling sends each upstream value to one saved winner; mean pooling sends one third to each covered value. A stride changes selected input addresses, not the summation rule.</details>
+
+<details><summary>Solution and success criteria</summary>The max winners are input indices1,1,2, so the derivative is `[0,1,3,0,0]`. Mean pooling gives `[2/3,1/3,4/3,2/3,1]`. For strided convolution select `row:row+stride*OH:stride` and its analogous column slice; accumulate the input derivative into that same strided slice. Match forward, input, weight and bias derivatives to `F.conv2d(..., stride=2)` on a rectangular image. Equality of outputs alone does not catch a mistaken overlapping scatter.</details>
+
+### Adaptive pooling without a hidden implementation
+
+The same program implements `adaptive_average1d` and its explicit pullback. For output bin `i`, use `start = floor(i*n/m)` and `end = ceil((i+1)*n/m)`, then average the half-open input range `[start, end)`. These bins can overlap; they are not necessarily a disjoint partition. A prefix sum makes each bin sum a subtraction, for O(n+m) time and storage. The pullback adds `upstream[i] / (end-start)` to every member of that bin; a range-add difference array accumulates this in O(n+m), including overlapping bins. Prefix subtraction can lose relative precision when subtracting two large, almost equal cumulative sums; this float64 teaching implementation is not a guarantee of identical summation error to a native kernel.
+
+The program compares values and input gradients with `torch.nn.functional.adaptive_avg_pool1d` for 5→3, 3→5 and global 5→1 pooling. The upsampling-shaped case is intentional: adaptive average pooling can create overlapping repeated bins even though no interpolation rule is being applied. **Changed-input task:** pool `[1, 2, 3, 4, 5]` into three bins with output cotangent `[1, 2, 3]`. The bins are `[0,2)`, `[1,4)` and `[3,5)`, giving values `[1.5, 3, 4.5]` and input gradient `[1/2, 7/6, 2/3, 13/6, 3/2]`. Verify the middle inputs collect all their participating bins, then extend the same construction along both axes for adaptive 2-D average pooling.
 
 ## 11. Practice: construct, diagnose, transfer
 

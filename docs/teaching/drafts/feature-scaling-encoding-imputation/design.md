@@ -1,5 +1,14 @@
 # Feature Scaling, Encoding & Imputation: content design
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit query coordinates and divisors and inspect distance contributions live; clear donor measurements, change target column and neighbour count and inspect eligible donors and imputation; select or edit a held-out record and inspect its transformation under the frozen training-fitted bundle; change categories, targets, folds or smoothing and follow the donor graph without crossing held-out-label boundaries.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Stable ID `feature-scaling-encoding-imputation`; Classical ML position20, authorized batch position2. Author `/root/classical_feature_content`, 12 September 2026. Research/write only. Root owns central phase status, hashes and reconciliation; this packet does not claim rendered implementation, production publication or formal independent review.
 
 ## Preflight, scope and conservation
@@ -248,3 +257,23 @@ Unchanged from the section above, with one addition: the figure type is now meas
 
 These supersede the table in the phase-two section above. The four evidence files under `docs/teaching/evidence/` were rewritten against these bytes. Nothing is committed.
 
+
+## Implementation-depth revision — 21–22 September 2026
+
+Scope: add the missing composed scratch fit/transform route while preserving the existing detailed lesson, live labs and real-data comparison. This is a focused revision of an implemented lesson, not a new curriculum topic.
+
+The new section after the existing fit/transform explanation exposes frozen medians, means, population scales and category order, matches actual SimpleImputer/StandardScaler/OneHotEncoder state and transformed outputs, and follows changed input without state mutation. It includes complete runnable code/output, a state-to-API table, explicit unknown/missing/constant-feature behavior, bounded complexity/memory guidance and a missing-indicator implementation exercise with explained output. Ordinary library pipelines remain the practical wide/sparse-data route.
+
+The local implementation owns composition and state reuse. NumPy median/mean/std and broadcasting are the reused primitives; this lesson does not promise to reimplement statistical reduction kernels. The code explicitly rejects all-missing training columns, changed widths, infinite measurements and a real category colliding with the reserved marker; floating-point overflow raises. It is not a production substitute for sparse, weighted, rare-category or near-constant precision behavior.
+
+Author checks: Babel parsed the JSX. `scratch/lesson-tools/Scripts/python.exe scripts/verify-scaling-examples.py --write` executed all three displayed programs with **37 oracle assertions**, including exact API/state agreement and the actual modified practice function. [Native evidence](../../evidence/scaling-native.json) records versions and hashes. Existing penguin and cross-fit code/output were retained byte for byte. Browser attempts against the old development port4197 timed out before the new heading became available; no browser pass is claimed from those attempts. Independent review and final production integration belong to the root integration owner and must be recorded separately.
+
+Supporting scope report: [Classical ML implementation-depth review](../../implementation-depth/CLASSICAL-ML.md). No fresh expensive training run, dataset change, algorithmic superiority claim or new lab UI was introduced.
+
+Author-frozen sources:
+
+| File | SHA-256 |
+| --- | --- |
+| `src/learn/data/topics/feature-scaling-encoding-imputation.jsx` | `2bfac10d285285dde822f13e2017e1e572a8aa4fd17147e6b5195b7e40de5a4c` |
+| `src/learn/data/scaling-examples.js` | `c5bd20f01db2d04ef6185621a654dad09f10bd78695eb6b36dc3ee588db60287` |
+| `scripts/verify-scaling-examples.py` | `1ff12cebd34c8f59ea87dc2211bb7571b4260ea1444864f752989aa9d00d2cd6` |

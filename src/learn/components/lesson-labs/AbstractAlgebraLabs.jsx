@@ -73,7 +73,7 @@ export function SquareCompositionLab() {
   };
   return <section className="algebra-lab" data-algebra-lab="composition" aria-label="Square composition investigation">
     <h3>Watch the same label take two routes</h3>
-    <p>The outline and position numbers stay fixed. A, B, C and D travel with the square. The gold ring follows the label that started at your selected vertex. Predict its destinations before comparing the lanes.</p>
+    <p>The outline and position numbers stay fixed. A, B, C and D travel with the square. The gold ring follows the label that started at your selected vertex. Inspect its destinations before comparing the lanes.</p>
     <div className="algebra-controls"><SelectElement label="Outer move g" value={g} onChange={setG} /><SelectElement label="Inner move h" value={h} onChange={setH} />
       <label>Track starting vertex<select aria-label="Track starting vertex" value={vertex} onChange={event => setVertex(Number(event.target.value))}>{[0, 1, 2, 3].map(value => <option key={value}>{value}</option>)}</select></label>
     </div>
@@ -126,7 +126,7 @@ export function ColoringOrbitLab() {
   const fixed = transformed.every((value, index) => value === colorsAtVertices[index]);
   return <section className="algebra-lab" data-algebra-lab="orbits" aria-label="Coloring orbit investigation">
     <h3>Separate different moves from different results</h3>
-    <p>Colors are named 0, 1 and optionally 2. Only vertex positions move; exchanging color names is not an allowed symmetry. Predict the orbit size for opposite marks, then try adjacent marks.</p>
+    <p>Colors are named 0, 1 and optionally 2. Only vertex positions move; exchanging color names is not an allowed symmetry. Inspect the orbit size for opposite marks, then try adjacent marks.</p>
     <div className="algebra-controls"><label>Available colors<select aria-label="Available colors" value={colorCount} onChange={event => {
           const next = Number(event.target.value);
           setColorCount(next);
@@ -205,7 +205,7 @@ export function EquivarianceLab() {
   };
   return <section className="algebra-lab" data-algebra-lab="equivariance" aria-label="Equivariant sensor map investigation">
     <h3>Transform then calculate, or calculate then transform?</h3>
-    <p>Four vertex channels store voltages. Every arrow uses the same permutation action and the same matrix W. Weights are dimensionless. Predict which maps pass reflection as well as rotation.</p>
+    <p>Four vertex channels store voltages. Every arrow uses the same permutation action and the same matrix W. Weights are dimensionless. Inspect which maps pass reflection as well as rotation.</p>
     <form onSubmit={apply}><label>Sensor readings (V)<input aria-label="Sensor readings" value={draft} onChange={event => setDraft(event.target.value)} /></label><p>Four decimals in [−20, 20], in increments of 0.25. Changes apply on the button; a rejected draft preserves the current calculation.</p><button type="submit">Apply readings</button></form>
     {error && <p role="alert">{error}</p>}
     <div className="algebra-controls"><label>Processing map<select aria-label="Processing map" value={mode} onChange={event => setMode(event.target.value)}><option value="tied">Self / neighbor / opposite</option><option value="raw">Raw matrix</option><option value="rotations">Raw matrix: C4 average</option><option value="averaged">Raw matrix: D4 average</option><option value="shift">One-position shift</option></select></label><SelectElement label="Data transformation g" value={g} onChange={setG} /></div>

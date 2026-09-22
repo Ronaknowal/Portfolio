@@ -23,8 +23,8 @@ export default {
   ],
   visual: {
     type: 'Identity strips across relabelings; distance fan and genuine silhouette bars; ring-versus-slice contrast; information strips; real Iris snapshot and workspace; rejection lanes with coverage; weighted probe ruler; fit/selection/report flow',
-    question: 'Did the memberships change or only the names? Which averages set a and b? What is the chance baseline? Which population is behind this score? Predict before applying each edit.',
-    interaction: 'Edit coordinates and memberships, relabel or refine a candidate partition, construct two binary labelings and enumerate their null, rescore a frozen Iris partition with feature weights, change training multiplicities on fixed probes; every lab records a prediction and compares it with the calculation.'
+    question: "Did the memberships change or only the names? Which averages set a and b? What is the chance baseline? Which population is behind this score?",
+    interaction: "Edit coordinates and memberships and follow silhouette contributions; relabel or refine a candidate partition and inspect pair counts; construct binary labelings and inspect the exact chance baseline; reweight a frozen Iris partition and compare rescoring with refitting; change training multiplicities on fixed probes and follow aligned assignments. Valid edits synchronize outputs immediately; invalid ordered probe locations retain the last valid calculation with an explicit error."
   },
   practice: {
     task: 'Compute a foreign-group minimum correctly; derive RI, ARI and NMI for crossed and singleton partitions; weigh a small group; design a fair rejection comparison; repair a misaligned stability script; solve a changed exact split and its scaled version; plan a new-context evaluation.',

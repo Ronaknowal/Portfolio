@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-09-20",
+  "subject": "scripts/falsify-timeseries.mjs",
+  "claim": "The falsification harness survives a forced kill: a breakage applied when the process dies is recoverable from disk, the next run refuses to start rather than mutating an already-wrong file, and --recover restores the original bytes exactly.",
+  "whyThisWasRunAtAll": "A harness that mutates real sources is itself a hazard. Its window is a whole verifier run, and one of its breakages unscopes the CSS rule that collapses every KaTeX radical -- so a kill during that case would silently reinstate wrong mathematics. Claiming crash safety from reading the code is not evidence; on Windows a forced kill delivers no catchable signal, so the signal handlers in the harness are a courtesy and the sidecar is the actual protection. This is that protection exercised.",
+  "method": [
+    "Recorded the SHA-256 of all ten files any breakage can touch.",
+    "Started `node scripts/falsify-timeseries.mjs` as a detached process.",
+    "Confirmed mid-run that the lock file held the running PID and that a .timeseries-falsify-orig sidecar existed beside src/learn/data/timeseries-models.js, meaning a breakage was applied at that moment.",
+    "Terminated that PID with `taskkill /F`, which on Windows delivers no catchable signal and unwinds no stack.",
+    "Inspected the tree, then ran the harness again, then ran it with --recover, then re-compared every hash."
+  ],
+  "observed": {
+    "lockHeldPid": 48120,
+    "sidecarPresentDuringRun": "src/learn/data/timeseries-models.js.timeseries-falsify-orig",
+    "afterForcedKill": {
+      "lockRemainedOnDisk": true,
+      "sidecarRemainedOnDisk": true,
+      "sourceFileLeftMutated": true,
+      "preKillSha256": "c87ad3db235b046f66dfcbeb6e7a0bec306d2a9bbbce53306899960fc600e451",
+      "mutatedSha256": "99318f22f0e6fdd2108ac59eb5c97feb9a5e96e06e46d47cf806ed3263ce5f5c",
+      "interpretation": "The kill did leave a breakage applied. That is the hazard, and it is why the sidecar and the refusal-to-start exist rather than a signal handler."
+    },
+    "secondRunRefusedToStart": {
+      "refused": true,
+      "message": "scratch/timeseries-falsification.lock exists: another falsification run is in progress, or one was killed. Two instances mutating the same files is how a breakage was left on disk before."
+    },
+    "recover": {
+      "command": "node scripts/falsify-timeseries.mjs --recover",
+      "filesRestored": 1,
+      "restoredFile": "src/learn/data/timeseries-models.js",
+      "lockCleared": true,
+      "sidecarRemoved": true
+    },
+    "afterRecovery": {
+      "filesCompared": 10,
+      "filesDiffering": 0,
+      "everyFileByteIdenticalToPreKill": true
+    },
+    "afterRecoveryReruns": {
+      "verify-timeseries-models.mjs": "PASS, 8858 grouped checks in 68 groups",
+      "verify-timeseries-sources.py": "PASS, 104 checks over 16 files",
+      "verify-timeseries-data.py": "PASS, 6647 of 6659 leaves derived, module byte-identical",
+      "falsify-timeseries.mjs": "PASS, 23 of 23 breakages fired and named their guard"
+    }
+  },
+  "concurrencySafety": "A sibling lesson's harness held scratch/formulation-falsification.lock throughout. This harness uses its own lock path and its own sidecar suffix, and its evidence snapshot is anchored to docs/teaching/evidence/timeseries-*.json and screenshots/timeseries-* only, so neither run could see or restore the other's artifacts.",
+  "limitations": [
+    "This proves recovery from one kill at one point in one case. It is not a proof that every interleaving is recoverable -- a kill between writing the mutated file and flushing it, or a disk failure, is outside what any sidecar can promise.",
+    "The five browser breakages were not part of this test; they rebuild the site and were deferred to phase C.",
+    "Recovery restores SOURCE bytes. It does not re-run the verifiers, which is why --recover says so explicitly rather than implying the tree is trustworthy again."
+  ],
+  "passed": true
+}

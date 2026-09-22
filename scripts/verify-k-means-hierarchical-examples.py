@@ -39,10 +39,10 @@ from sklearn.datasets import make_blobs
 
 
 def check_points(values):
-    # Accept a finite numeric row-by-feature matrix and nothing else.
+    # Accept a nonempty finite numeric row-by-feature matrix.
     points = np.asarray(values, dtype=float)
-    if points.ndim != 2 or not np.isfinite(points).all():
-        raise ValueError("Use a finite numeric row-by-feature matrix.")
+    if points.ndim != 2 or 0 in points.shape or not np.isfinite(points).all():
+        raise ValueError("Use a nonempty finite numeric row-by-feature matrix.")
     return points
 
 
@@ -67,6 +67,8 @@ def d2_seed(points, k, seed=0):
 
 def lloyd(points, k=3, seed=0, max_iter=100, initial=None):
     points = check_points(points)
+    if type(max_iter) is not int or max_iter < 1:
+        raise ValueError("Use a positive integer iteration budget.")
     if type(k) is not int or not 1 <= k <= len(points):
         raise ValueError("Choose an integer k between 1 and the number of rows.")
     if initial is None:
@@ -138,8 +140,8 @@ toy = np.array([[1.0, 0.0], [1.5, 0.5], [3.0, 2.0],
 def ward_merges(points):
     # Agglomerate by the smallest increase in within-cluster squared error.
     points = np.asarray(points, dtype=float)
-    if points.ndim != 2 or not np.isfinite(points).all():
-        raise ValueError("Use a finite numeric row-by-feature matrix.")
+    if points.ndim != 2 or 0 in points.shape or not np.isfinite(points).all():
+        raise ValueError("Use a nonempty finite numeric row-by-feature matrix.")
     clusters = {i: (1, row.copy(), [i]) for i, row in enumerate(points)}  # size, mean, rows
     rows, costs = [], []
     for new_id in range(len(points), 2 * len(points) - 1):

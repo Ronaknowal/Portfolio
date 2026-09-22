@@ -1,5 +1,21 @@
 # Modern Hopfield Networks — visual and investigation specifications
 
+## Live exploration contract — 21 September 2026
+
+Open each investigation with its current inputs, intermediate mechanism and complete current output visible. Apply valid edits to meaningful entities immediately and update diagrams, tables, units and causal explanation together. No prediction entry, predicted-answer choices, commitment, prediction grading or answer-unlock feature is part of this packet, even optionally. Model predictions and mathematical masks/gates remain subject matter.
+
+Use the topic-specific controls and checked fixtures below. Pair sliders or direct manipulation with labeled keyboard/numeric controls; keep presets as starting points, not the only editable values. A pinned baseline preserves its inputs, seed, units and outputs while the current case changes. Explain both a meaningful contrast and an unchanged/null result, then connect the observed effect to a practical design decision. Reset restores the stated fixture and current result. Invalid text has a local explanation and a clearly identified last valid result; never silently clamp or pair new inputs with old output.
+
+Step/Back and bounded Run controls advance a real computation or reveal its chronological stages, not permission to view an answer. Show the current state and its result throughout. Keep exact small calculations live. For costly frozen inference, debounce or run bounded work with pending/current state labels and stale-result cancellation; inspect saved measurements without implying fresh training. Respect reduced motion, keep focus stable and avoid announcing every animation frame. Independent written practice and its hints/solutions stay separate.
+
+Phase two must test default results without any action, meaningful edits, quick consecutive edits, valid extremes, null/invalid cases, reset, linked-view agreement, keyboard operation and readable phone layouts. The mathematical/reference checks already specified below remain; these live browser checks have not been performed in this content-only revision.
+
+### Topic-specific live route
+**Shape an associative memory.** Flip cue bits and visit order; edit continuous memory vectors, temperature, keys/queries/values and real handwriting pixels.
+**See the consequence.** Show current energy, attractor steps, retrieval weights, payload and classifier/reconstruction outputs. Step iteration without hiding its current state.
+**Decision connection.** See how ambiguity, scale and address/content choices change retrieval and when classification and reconstruction objectives diverge.
+
+
 Content-first packet, 13 September 2026. This file specifies teaching visuals; no website visual or lab is implemented. Stable ID: modern-hopfield-networks. Consume lesson.md and design.md with this contract.
 
 ## Shared representation and evidence rules
@@ -46,25 +62,25 @@ Each row defines placement, instructional question, exact content, narrow/access
 
 ## Shared investigation behavior
 
-Every investigation starts with **no recorded prediction and no computed answer**. Initially display only editable inputs and the question. Require a prediction before Run or Step. Save the prediction with a fingerprint of all active inputs: cue, memory arrays, model, values/labels, β, visit order, requested step count and source revision as applicable. Never preselect the correct answer or carry an answer from a previous experiment into a new one.
+Display the current memory state, retrieved output and relevant energy immediately. Valid edits update the same model in every representation; an earlier result is retained only as a labeled baseline. No answer choices or prediction state is stored.
 
-Any relevant edit invalidates the prediction and result. Mark the previous run as historical, clear the active prediction, and require a new commitment before computation. Input edits must never rewrite what the learner predicted. Presets supplement meaningful entity editors.
+Input edits recompute current outputs, while a pinned baseline preserves its original cue, memories, parameters, visit order and result. Step/back selects actual process states; Reset restores the declared fixture and its current output.
 
-Feedback compares the prediction with the actual current-input result, names the changed quantity and explains an unexpected outcome. Do not automatically grade free-form reasoning. Expose numerical tolerances; offer accessible category predictions as an alternative to typing a number. Display ties explicitly.
+Feedback states the actual changed quantity, numerical difference and mechanism. Use explicit tolerances for comparisons, exact numeric tables and accessible category labels where helpful. No numeric guess, category prediction or correctness score is requested.
 
-Reset restores the fresh default and clears predictions, answers, edits and history. A separate Restore cue preserves model settings but invalidates the prediction. Back moves through an already computed trace without implying a new experiment. Do not autoplay.
+Reset restores the fresh default and recomputes current outputs, answers, edits and history. A separate Restore cue preserves model settings but recompute current outputs. Back moves through an already computed trace without implying a new experiment. Do not autoplay.
 
-All numbers below are checked fixtures, **not hardcoded answers for arbitrary inputs**. The implementation computes from the active model. Author results are verification oracles. Keyboard order follows inputs → prediction → Run → concise result → details. Announce one concise result through an aria-live region after computation, with no forced focus jump.
+All numbers below are checked fixtures, **not hardcoded answers for arbitrary inputs**. The implementation computes from the active model. Author results are verification oracles. Keyboard order follows inputs → Run → concise result → details. Announce one concise result through an aria-live region after computation, with no forced focus jump.
 
 ### Investigation A — repair a binary pattern
 
 **Question:** Which bit will this memory repair, and can visit order select another attractor when a cue is ambiguous?
 
-**Fresh inputs:** one stored pattern [1, 1, −1, −1], cue [−1, 1, −1, −1], order [1, 2, 3, 4], maximum eight sweeps. The outcome stays hidden before prediction.
+**Fresh inputs:** one stored pattern [1, 1, −1, −1], cue [−1, 1, −1, −1], order [1, 2, 3, 4], maximum eight sweeps. The outcome stays hidden .
 
 Every stored-pattern cell and cue cell is an editable toggle with a spoken sign and coordinate. Permit one to three patterns. Four dimensions are the core mode; an optional eight-dimensional mode must expose all coordinates. Derive W = XᵀX/d with zero diagonal. Let users reorder visits with numbered controls rather than dragging alone. Editing a pattern must actually recompute W.
 
-**Prediction:** choose which coordinate changes first (1–4 or none) and the final state category (stored pattern, inverse pattern, neither); optionally enter the predicted vector. Allow one-coordinate Step, one-sweep Run and bounded Run until settled. A new input requires a new prediction.
+**Live observation:** show the first coordinate changed by the selected update order, current/final vector and its category: stored pattern, inverse pattern or neither. Stepping the update exposes its energy change; editing the cue or visit order recomputes the trajectory. Do not force recall to succeed.
 
 **Display:** signed votes into the active coordinate, local field, before/after state, energy and energy difference, plus the current recall comparison. Explain zero-field ties. A step-limit result says “limit reached,” not “converged.”
 
@@ -76,11 +92,11 @@ Every stored-pattern cell and cue cell is an editable toggle with a spoken sign 
 - Stored cue: every update leaves the state unchanged at energy −1.5.
 - Optional separate synchronous demonstration: W = [[0, 1], [1, 0]] and [1, −1] alternate in a two-cycle. Clearly label this fixed-weight comparison as a different update regime.
 
-**Transfer:** construct a cue equally close to two opposite attractors and predict which first visit breaks symmetry. With multiple stored patterns, permit a final “neither” result; do not force successful recall.
+**Transfer:** construct a cue equally close to two opposite attractors and inspect which first visit breaks symmetry. With multiple stored patterns, permit a final “neither” result; do not force successful recall.
 
-**Bounds/access:** at most eight dimensions, three patterns, eight sweeps and 64 coordinate updates. Compute on submission. Announce changed coordinate, sign and field. Provide a labeled numeric matrix and a text trace.
+**Bounds/access:** at most eight dimensions, three patterns, eight sweeps and 64 coordinate updates. Compute on a valid edit. Announce changed coordinate, sign and field. Provide a labeled numeric matrix and a text trace.
 
-**Phase-two checks:** individual flip energy differences, use of the most recently changed state, visit-order behavior, zero-field ties, the synchronous counterexample, fresh unanswered predictions and reset. All primary numeric fixtures are in mechanism-results.json.
+**Phase-two checks:** individual flip energy differences, use of the most recently changed state, visit-order behavior, zero-field ties, the synchronous counterexample, fresh a live computed readout and reset. All primary numeric fixtures are in mechanism-results.json.
 
 ### Investigation B — shape a continuous memory landscape
 
@@ -88,11 +104,11 @@ Every stored-pattern cell and cue cell is an editable toggle with a spoken sign 
 
 **Fresh inputs:** X = [(1, 0), (−1, 0)], q = (−0.35, 0.6), β = 2, twelve requested updates. Memory and query coordinates are genuinely editable by drag or numeric fields, range −2 to 2, step 0.05. Permit one to six memories. β has slider and numeric controls from 0.1 to 8. Stable memory IDs remain attached to edited rows.
 
-**Prediction:** choose the anticipated region or memory ID, or “mixture,” and whether the first read will equal the final computed read. An optional numeric prediction asks for the first horizontal coordinate. For arbitrary banks, use the nearest-memory ID and distance of the computed endpoint rather than claiming a proven limit. A display threshold of 0.05 means “close to this memory”; last-step norm below 10⁻⁶ means “little change at the displayed precision.” Neither is a convergence theorem.
+**Live observation:** display the resulting region or memory ID, or “mixture,” together with the first and final computed reads and their difference. An optional live comparison asks for the first horizontal coordinate. For arbitrary banks, use the nearest-memory ID and distance of the computed endpoint rather than claiming a proven limit. A display threshold of 0.05 means “close to this memory”; last-step norm below 10⁻⁶ means “little change at the displayed precision.” Neither is a convergence theorem.
 
 **Display:** query and memory geometry, convex hull, selected update point, score/weight distribution, actual energy and step norm. A cobweb view is available for the special opposite-horizontal pair. General banks use the same energy formula for contours. Label the endpoint “12 computed updates,” with its last-step norm.
 
-Changing β stages a new input rather than showing a computed answer against an old prediction. Compare energy decline within each run; absolute energies for different β values are not a better/worse model ranking.
+Changing β immediately recomputes the current retrieval and energy trace from the unchanged initial cue. Compare energy decline within each run; absolute energies for different β values are not a better/worse model ranking.
 
 **Checked contrasts and nulls:**
 
@@ -115,7 +131,7 @@ Changing β stages a new input rather than showing a computed answer against an 
 
 Value mode distinguishes one-hot class labels from arbitrary vectors. A generic vector read is not displayed as a class probability.
 
-**Prediction:** predict the larger output component and whether an edit restricted to values will change the weights. An optional numeric field predicts the returned vector. Keep one question active at a time, always input-bound. Run shows the score distribution, key-space read and distinct value-space output.
+Display the returned vector and its signed payload contributions beside the query/key weights. Editing key, query or value shows the separate change to addressing and content. No optional predicted-vector input is included.
 
 **Checked contrasts and nulls:**
 
@@ -129,19 +145,19 @@ Value mode distinguishes one-hot class labels from arbitrary vectors. A generic 
 
 An optional revealed training example can display the query-gradient step from §4, with a changed target for independent transfer. It is not required to expand this investigation into another full training simulator.
 
-**Phase-two checks:** editable arrays against the matrix formula, paired-permutation invariance, equal-value invariance, weights summing to one, output dimensions and prediction invalidation. At most six rows and two dimensions make this a small CPU calculation.
+**Phase-two checks:** editable arrays against the matrix formula, paired-permutation invariance, equal-value invariance, weights summing to one, output dimensions and live recomputation. At most six rows and two dimensions make this a small CPU calculation.
 
 ### Investigation D — retrieve information from real handwriting
 
 **Question:** Which memories support this shape, and does editing a stroke improve classification, reconstruction, both or neither?
 
-**Fresh inputs:** validation-source row 3748 (zero-based validation index 31), original clean pixels, seed-17 learned projection, β = 16 and the frozen 200-image memory bank. Hide its computed result until prediction. Let the learner select any of the 300 validation rows and choose seed 17, seed 41 or fixed pixel geometry at β = 64. Keep test images out of interactive setting selection.
+**Fresh inputs:** validation-source row 3748 (zero-based validation index 31), original clean pixels, seed-17 learned projection, β = 16 and the frozen 200-image memory bank. Show its computed result as soon as the inputs are valid. Let the learner select any of the 300 validation rows and choose seed 17, seed 41 or fixed pixel geometry at β = 64. Keep test images out of interactive setting selection.
 
 **Meaningful edits:** each 8 × 8 cell can be selected, then edited through an integer intensity field 0–16 and plus/minus controls. Arrow keys move cell focus; Enter selects a cell. Optional brush input has a full numeric equivalent. Buttons for zeroing columns 4 and 5, blanking the grid and restoring the source are conveniences. Every model reads the actual edited pixels.
 
 The label remains “original source label”: an arbitrary edited or drawn image does not acquire independently verified ground truth.
 
-**Prediction:** choose an expected class 0–9 or tie; predict whether the weighted image will improve, worsen or preserve pixel MSE relative to the current cue and the original reference. Optional prose describes a stroke change but is not automatically graded. Bind prediction to all 64 pixels, row, selected model, β and memory revision. Advanced exploration may edit fixed-model β on validation inputs, explicitly separated from the already recorded test comparison.
+**Live observation:** display the computed class 0–9 or tie and whether the weighted image improves, worsens or preserves pixel MSE relative to the current cue and the original reference. Optional prose describes a stroke change but is not automatically computed. Compute the comparison from the complete current inputs. Advanced exploration may edit fixed-model β on validation inputs, explicitly separated from the already recorded test comparison.
 
 **Output:** show the edited cue, top three weighted memory thumbnails with labels and source IDs, weighted image, ten class-mass bars on [0, 1], and the original reference marked “evaluation only.” Include both input-to-reference and read-to-reference MSE. The class masses and weighted image use all 200 memories. Display how much total mass the three thumbnails account for, with a full weight table available.
 
@@ -160,7 +176,7 @@ The label remains “original source label”: an arbitrary edited or drawn imag
 
 One query needs a small projection, 200 similarity scores and a 64-dimensional weighted image. Compute only on Run. Load only selected model weights and required images; never ship a full Python runtime or train in the browser. Derive compact assets only during phase two, keeping provenance and the full downloadable reproduction separately.
 
-**Phase-two checks:** compare all 300 validation rows' clean and occluded distributions with the stored NPZ at absolute/relative tolerance 10⁻⁵ unless a wider justified tolerance is necessary. Check row-major image orientation, mask columns, intensity scale, memory/class mass sums, no reference leakage into inference, blank ties, edits, invalidation and restore. Inspect the informative failed-retrieval state and successful state at desktop and 360 px, including focused-cell editing and keyboard prediction flow.
+**Phase-two checks:** compare all 300 validation rows' clean and occluded distributions with the stored NPZ at absolute/relative tolerance 10⁻⁵ unless a wider justified tolerance is necessary. Check row-major image orientation, mask columns, intensity scale, memory/class mass sums, no reference leakage into inference, blank ties, edits, invalidation and restore. Inspect the informative failed-retrieval state and successful state at desktop and 360 px, including focused-cell editing and keyboard editing and result inspection.
 
 ## Phase-two acceptance and deferred work
 
@@ -169,3 +185,10 @@ After an authorized finish request passes the finish preflight, implement the 21
 Then independently review correctness and pedagogy; verify current-input behavior, contrast and null cases; execute any changed displayed programs; inspect informative desktop and phone states; check keyboard, focus and text equivalents; measure relevant loading costs; and run applicable integration checks. These activities remain deferred. Record final evidence and remove only disposable implementation artifacts.
 
 The author performed a full manuscript/specification reread and bounded research/data/calculation checks, recorded in design.md. Root owns the content checkpoint. This packet does not claim rendered verification, independent review or user acceptance.
+
+
+## Scratch/tool bridge presentation — 22 September 2026
+
+Place the source-owner strip beside §5: binary state update, softmax bank read, and learned addressing have different state and cost. In the existing key/value view expose score scale β explicitly; default SDPA scale is 1/sqrt(d). With distinct K/V show equal returned vectors between routes while keeping the fixed-bank energy caption inapplicable. Direct edits update values and explanation immediately.
+
+The complete source and teaching explanation are already written in the manuscript and companion programs. Phase two implements the presentation and verifies actual behavior; it does not invent an omitted algorithm. Show code only when requested, load large code assets on demand, preserve exact source equality, and keep immediately visible numerical explanations usable without running Python in the browser. No learner-prediction entry or grading state is permitted.

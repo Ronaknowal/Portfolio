@@ -1,5 +1,8 @@
 # Neural ODEs: learn a rule for change, then follow it
 
+**Explore as you read.** Edit vector-field parameters, initial state, step/tolerance, differentiation route, augmentation and supported real measurements. Show field arrows, accepted/rejected solver stages, current trajectory/error, derivative target and class output immediately or through bounded process steps. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a solver/tolerance or representation from error, work and topology, distinguishing numerical approximation from the continuous equation.
+
+
 Imagine transforming a measurement by moving a point through a landscape of arrows. At its current location, an arrow tells the point which direction to move and how quickly. After a small move, the point encounters a new arrow. A whole journey emerges from repeatedly following this local rule.
 
 A **neural ordinary differential equation**, or Neural ODE, uses a neural network to produce those arrows. A numerical solver follows them. The resulting journey can transform features for classification, describe a hidden state between irregular observations, or move a probability distribution into another shape.
@@ -107,7 +110,7 @@ Our executed rotation calculation integrates to \(T=1\) in float64:
 
 At four RK4 steps, the radius is 0.99999327, not exactly one. A small error is still an error; RK4 is not generally a method that exactly conserves energy.
 
-**Investigation O-I1 — Follow the field.** Start from a different point, \((0.6,0.8)\), and integrate to 1.2. Predict the direction of the radius error before comparing Euler and RK4. Then edit the field's matrix or starting point. Keep an exact matrix-exponential reference beside the numerical path. Use the residual panel to see small differences without distorting the path itself.
+**Investigation O-I1 — Follow the field.** Start from a different point, \((0.6,0.8)\), and integrate to 1.2. Inspect the direction of the radius error before comparing Euler and RK4. Then edit the field's matrix or starting point. Keep an exact matrix-exponential reference beside the numerical path. Use the residual panel to see small differences without distorting the path itself.
 
 ### A readable differentiable implementation
 
@@ -245,7 +248,7 @@ Four classical RK4 steps give 0.05213852, much closer here. A backward RK4 solve
 
 This is why “the gradient passed a check” needs a named reference. [Onken and Ruthotto](https://arxiv.org/html/2005.13420v2) study the distinction and solver changes in continuous models. Our scalar example is independently calculated rather than reproduced from their experiments.
 
-**Investigation O-I3 — Which loss are you differentiating?** Start with fresh \(\theta=0.3\), \(z_0=0.8\), target 1, \(T=0.7\), three steps. Predict the gradient sign, compare the four methods, then increase steps. Change the target and check that feedback recomputes from the new loss. Closer numerical agreement is evidence about this fixture, not a universal equivalence theorem.
+**Investigation O-I3 — Which loss are you differentiating?** Start with fresh \(\theta=0.3\), \(z_0=0.8\), target 1, \(T=0.7\), three steps. Inspect the gradient sign, compare the four methods, then increase steps. Change the target and check that feedback recomputes from the new loss. Closer numerical agreement is evidence about this fixture, not a universal equivalence theorem.
 
 ### Why saving no forward trajectory can be fragile
 
@@ -254,6 +257,89 @@ The decay \(z'=-20z\), \(z(0)=1\), reaches \(e^{-20}\approx2.0612\times10^{-9}\)
 The forward process is stable but its inverse reconstruction is ill-conditioned. A more accurate solver helps numerical error; it cannot remove this mathematical amplification of an already present endpoint error. Checkpoints can reduce the length over which state must be reconstructed.
 
 “Constant memory” for a backsolve usually concerns dependence on the number of internal forward steps. Parameters, parameter gradients, requested output states, batches and local network activations still occupy memory. Current [Diffrax adjoint documentation](https://docs.kidger.site/diffrax/api/adjoints/) describes checkpointed differentiation of the numerical solution and distinguishes it from approximate continuous backsolves. The correct choice depends on the objective, solver, accuracy needs and available memory.
+
+### Control an actual solver API with the same field
+
+The mechanism owner is `integrate` in [neural_ode_study.py](neural_ode_study.py): it builds Euler and classical RK4 updates from tensor operations, keeping the computation graph for direct differentiation. `VectorField` and `DepthClassifier` later turn that mechanism into a learned classifier. Here we isolate the solver/library bridge on z′=a z, where both the trajectory and its derivatives are known. This avoids mistaking a similar classification score for a correct solver interface.
+
+Keep [solver_library_bridge.py](solver_library_bridge.py) beside that program. With the earlier PyTorch environment, install `torchdiffeq==0.2.5`, then run `python solver_library_bridge.py`. The target for these new authored examples is PyTorch 2.14.0, CPU float64. Package execution and final numeric output capture remain phase-two work; the analytic answers below are derived.
+
+`odeint(field, initial, times)` returns a tensor with requested time as its first axis. Those times request output values; an adaptive solver may take many internal steps between them. `method='euler', options={'step_size': 1/8}` gives the same eight Euler steps as our scratch route. We compare both final states and both kinds of derivative: with respect to the initial state and the field parameter. In contrast, the package's `rk4` uses the 3/8 tableau, while our scratch program uses classical RK4. Their order alone does not justify step-by-step equality. The solver choices and adjoint interface are documented in [the author's repository](https://github.com/rtqichen/torchdiffeq).
+
+For endpoint time one and loss L=½Σz(1)², exact calculus gives z(1)=exp(a)z₀, ∂L/∂z₀=exp(2a)z₀, and ∂L/∂a=exp(2a)Σz₀². The Euler solution instead uses factor (1+a/8)⁸. The adaptive direct and adjoint solves target the continuous answer within stated tolerances; we do **not** require them to equal the eight-step Euler answer. `odeint_adjoint` receives an `nn.Module` so its trainable field parameter can be found, and we set forward and backward tolerances explicitly.
+
+```python
+"""A matched Euler program, adaptive solve, and continuous-adjoint comparison.
+
+Authoring targets: torch 2.14.0, torchdiffeq 0.2.5. CPU float64.
+Run beside neural_ode_study.py; no fitting or dataset download occurs.
+"""
+import torch
+from torch import nn
+from torchdiffeq import odeint, odeint_adjoint
+from neural_ode_study import integrate
+
+
+class Decay(nn.Module):
+    def __init__(self, rate=-.7):
+        super().__init__()
+        self.rate = nn.Parameter(torch.tensor(rate, dtype=torch.float64))
+
+    def forward(self, time, state):
+        return self.rate * state
+
+
+def value_and_derivatives(route):
+    field = Decay()
+    initial = torch.tensor([[1.5], [-.5]], dtype=torch.float64, requires_grad=True)
+    times = torch.tensor([0., 1.], dtype=torch.float64)
+    if route == "scratch_euler":
+        result = integrate(field, initial, steps=8, method="euler")[-1]
+    elif route == "library_euler":
+        result = odeint(field, initial, times, method="euler",
+                        options={"step_size": 1/8})[-1]
+    elif route == "adaptive":
+        result = odeint(field, initial, times, method="dopri5", rtol=1e-9, atol=1e-11)[-1]
+    elif route == "adjoint":
+        result = odeint_adjoint(field, initial, times, method="dopri5",
+                                rtol=1e-9, atol=1e-11, adjoint_method="dopri5",
+                                adjoint_rtol=1e-9, adjoint_atol=1e-11)[-1]
+    else:
+        raise ValueError(route)
+    loss = result.square().sum()/2
+    initial_gradient, rate_gradient = torch.autograd.grad(loss, (initial, field.rate))
+    return result.detach(), initial_gradient.detach(), rate_gradient.detach()
+
+
+def main():
+    scratch, library = [value_and_derivatives(route)
+                        for route in ("scratch_euler", "library_euler")]
+    for left, right in zip(scratch, library):
+        torch.testing.assert_close(left, right, rtol=1e-12, atol=1e-12)
+    initial = torch.tensor([[1.5], [-.5]], dtype=torch.float64)
+    factor = torch.exp(torch.tensor(-.7, dtype=torch.float64))
+    exact = (initial*factor, initial*factor.square(), initial.square().sum()*factor.square())
+    for route in ("adaptive", "adjoint"):
+        actual = value_and_derivatives(route)
+        for value, reference in zip(actual, exact):
+            torch.testing.assert_close(value, reference, rtol=2e-7, atol=2e-9)
+        print(route, "endpoint/initial-gradient/rate-gradient:", *actual)
+    print("Euler endpoint, initial gradient, rate gradient:", *library)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+The continuous adjoint changes how derivatives are computed; it does not erase reconstruction error, intermediate saved output states, parameter gradients or library overhead. Direct differentiation through K accepted numerical steps generally retains work proportional to K, while a continuous backsolve trades recomputation and its own numerical sensitivity for less retained internal-step history. Smoothness, solver stability and state dimension still matter. The current example has no events, stochastic layers or discontinuous observation jumps; inserting those changes the problem.
+
+**Take control.** Change a to −4 and compare Euler at 1, 4, 8 and 32 steps with the same adaptive solve. Keep the parameter fixed: do not retrain it to compensate for a changed solver. Then tighten only the adjoint tolerances and inspect which derivative discrepancy changes.
+
+<details><summary>Hint and reasoned solution</summary>
+
+One Euler step multiplies the state by −3, which reverses sign and magnifies it even though the continuous system decays. Four steps multiply by zero at every step, incorrectly erasing the state. Eight give factor (½)⁸; as steps increase, (1−4/K)^K approaches exp(−4). For a finite K, direct differentiation correctly differentiates that discrete factor, not exp(a). Tightening backward tolerance can improve the continuous-adjoint approximation but cannot repair an intentionally inaccurate forward Euler trajectory. Report endpoint, initial-state gradient and parameter gradient separately; a small final loss alone misses this distinction.
+
+</details>
 
 ## 5. What continuous flow can—and cannot—rearrange
 
@@ -273,7 +359,7 @@ Append a zero coordinate: \((x,0)\). Now use the two-dimensional rule \(x'=0,\ y
 
 No two full trajectories meet. The added coordinate gives the representation another direction in which to separate examples. It is a constructive illustration of augmentation, not a trained experiment or a proof that every augmented model learns easily. [Augmented Neural ODEs](https://arxiv.org/html/1904.01681v1) investigates this idea and its computational consequences.
 
-**Investigation O-I4 — Lift the middle out.** Use fresh inputs \((-2,0,1)\), threshold 0.5 and depth 0.4. Predict which points the readout selects. Increase depth to 0.7, then change the threshold. Show the complete two-dimensional trajectories and the one-dimensional readout scores together.
+**Investigation O-I4 — Lift the middle out.** Use fresh inputs \((-2,0,1)\), threshold 0.5 and depth 0.4. Inspect which points the readout selects. Increase depth to 0.7, then change the threshold. Show the complete two-dimensional trajectories and the one-dimensional readout scores together.
 
 A coarse numerical method need not preserve an exact flow's properties. For \(z'=-2z\), one Euler step with \(h=1\) maps \(z\) to \(-z\), reversing order. The exact map multiplies by \(e^{-2}>0\) and preserves order. A discrete model that exploits a coarse solver's behavior may change substantially when evaluated with finer steps.
 
@@ -325,7 +411,7 @@ These are full forward passes through the saved learned model, not a hand-drawn 
 
 [Figure O09 — Raw centimeters → fixed standardization → four-dimensional state trace → three logits → probabilities. Display all four coordinates as small time-series panels; a selectable two-coordinate path is a projection, not the complete state.]
 
-**Investigation O-I5 — Edit a measurement, keep the model.** Start on fresh validation row 70. Predict whether adding 0.6 cm to petal length will raise or lower the model's versicolor probability. Run the saved seed-37 model, then compare the augmented model and the opposite edit. Local behavior need not be monotone or shared across models. The lab must calculate the edited input through all weights and solver stages before revealing feedback.
+**Investigation O-I5 — Edit a measurement, keep the model.** Start on fresh validation row 70. Observe whether adding 0.6 cm to petal length will raise or lower the model's versicolor probability. Run the saved seed-37 model, then compare the augmented model and the opposite edit. Local behavior need not be monotone or shared across models. The lab calculates the edited input through all weights and solver stages and updates the linked output as the bounded computation completes.
 
 For unchanged row 64, using 4, 16 and 64 RK4 steps gives versicolor probabilities 0.9337389, 0.9335432 and 0.9335421. Four Euler steps give 0.9442828. The weights are identical; the numerical realization changed. Agreement under refinement is useful evidence that the model is behaving like its continuous formulation locally. It does not prove accuracy everywhere or improve the training data automatically.
 
@@ -529,7 +615,7 @@ For values \((1,-0.5,0.8)\) at times \((0.2,0.9,1.3)\):
 
 Omitting the middle observation gives 0.310853 at 1.6. Observing zero instead gives 0.279568. The latter still applies the update's 0.7 retention. Missingness and zero are different computations.
 
-**Investigation O-I6 — Separate observation from query.** Use fresh times \((0.1,0.7,1.4)\) and values \((1,-1,0.5)\). Predict the effect of deleting the middle observation, then compare deletion with replacing its value by zero. Move the query to time one: the observation at 1.4 must become unavailable to a causal forecast. Adding extra query markers must leave the hidden dynamics unchanged.
+**Investigation O-I6 — Separate observation from query.** Use fresh times \((0.1,0.7,1.4)\) and values \((1,-1,0.5)\). Inspect the effect of deleting the middle observation, then compare deletion with replacing its value by zero. Move the query to time one: the observation at 1.4 must become unavailable to a causal forecast. Adding extra query markers must leave the hidden dynamics unchanged.
 
 The [Latent ODE paper](https://proceedings.neurips.cc/paper_files/paper/2019/file/42a6845a557bef704ad8ac9cb4461d43-Paper.pdf) combines continuous dynamics with observation-dependent inference. Its generative model samples \(z_0\), integrates \(z(t)\), and decodes observation distributions. An encoder approximates \(q(z_0\mid\{t_i,x_i\})\); training balances expected reconstruction log-likelihood against divergence from a prior.
 

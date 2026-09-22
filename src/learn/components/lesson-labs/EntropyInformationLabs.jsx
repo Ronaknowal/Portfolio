@@ -67,7 +67,7 @@ export function BinarySurpriseLab() {
   const [probability, setProbability] = useState(0.9);
   const state = binaryEntropyState(probability);
   return <Lab name="surprise" title="A rare outcome can be surprising while average entropy is small">
-    <p>Predict which is larger at p=0.99: the surprise of the rare outcome, or the average over both outcomes. The curve plots the average; the table separates price from frequency.</p>
+    <p>Inspect which is larger at p=0.99: the surprise of the rare outcome, or the average over both outcomes. The curve plots the average; the table separates price from frequency.</p>
     <div className="entropy-controls"><Range label="Probability of heads p" value={probability} setValue={setProbability} min={0} max={1} step={0.01} /><button onClick={() => setProbability(0.9)}>Reset to p=0.9</button></div>
     <Curve points={state.curve} selected={[probability, state.entropy]} xLabel="Probability of heads p" yLabel="Entropy (bits / draw)" />
     <LessonTable caption="Average each outcome's surprise using its own probability" headers={['Outcome', 'Probability', 'Surprise (bits)', 'Weighted contribution']} rows={state.rows.map((row, index) => [index ? 'Tails' : 'Heads', number(row.p), number(row.surprise), number(row.entropy)])} />
@@ -97,7 +97,7 @@ export function PrefixCodeLab() {
     setConsumed(0);
   }
   return <Lab name="coding" title="Send a message, then decode it one bit at a time">
-    <p>The source probabilities stay A=1/2, B=1/4, C=D=1/8. Predict whether changing the code or changing one short message changes the source entropy. Encoding uses the active message; source-average cost uses the fixed probabilities.</p>
+    <p>The source probabilities stay A=1/2, B=1/4, C=D=1/8. Inspect whether changing the code or changing one short message changes the source entropy. Encoding uses the active message; source-average cost uses the fixed probabilities.</p>
     <div className="entropy-controls"><Select label="Codebook" value={codebook} setValue={changeCodebook} options={Object.fromEntries(Object.entries(CODEBOOKS).map(([key, value]) => [key, value.label]))} /><label>Message (A–D, 1–16 symbols)<input aria-label="Message" value={draft} onChange={event => setDraft(event.target.value)} /></label><button onClick={apply}>Encode message</button><button onClick={() => {
         setDraft('AAAABBCD');
         setMessage('AAAABBCD');
@@ -136,7 +136,7 @@ export function MismatchLab() {
   const finiteTerms = state.rows.map(row => Math.abs(row.kl)).filter(Number.isFinite);
   const termScale = Math.max(...finiteTerms, 0.1);
   return <Lab name="mismatch" title="Keep the outcomes; change the prices charged by the model">
-    <p>P supplies the frequencies; Q supplies the prediction prices. Predict which rows can have negative excess cost before applying Q=P. Enter four weights; each set is separately divided by its sum. Labels A–D stay aligned.</p>
+    <p>P supplies the frequencies; Q supplies the prediction prices. Inspect which rows can have negative excess cost before applying Q=P. Enter four weights; each set is separately divided by its sum. Labels A–D stay aligned.</p>
     <div className="entropy-controls"><label>Source weights P<input aria-label="Source weights P" value={pDraft} onChange={event => setPDraft(event.target.value)} /></label><label>Model weights Q<input aria-label="Model weights Q" value={qDraft} onChange={event => setQDraft(event.target.value)} /></label><button onClick={() => apply()}>Apply distributions</button><Select label="Information units" value={unit} setValue={setUnit} options={{
         bits: 'Bits (base 2)',
         nats: 'Nats (natural log)'
@@ -164,7 +164,7 @@ export function ConditionalEntropyLab() {
     [trust, setTrust] = useState(0.9);
   const state = conditionalLossState(noise, trust);
   return <Lab name="conditional" title="The label can be balanced overall and predictable within each context">
-    <p>X is a fair binary context. The label equals X with probability 1−e and flips with probability e. Predict H(Y) when e changes. Each row occupies half the total rectangle; horizontal cell widths encode conditional probabilities, so areas encode joint mass.</p>
+    <p>X is a fair binary context. The label equals X with probability 1−e and flips with probability e. Inspect H(Y) when e changes. Each row occupies half the total rectangle; horizontal cell widths encode conditional probabilities, so areas encode joint mass.</p>
     <div className="entropy-controls"><Range label="Label-flip probability e" value={noise} setValue={setNoise} min={0} max={0.5} step={0.01} /><Range label="Model probability Q(Y=X | X)" value={trust} setValue={setTrust} min={0} max={1} step={0.01} /><button onClick={() => setTrust(1 - noise)}>Use the true conditional</button><button onClick={() => setTrust(0.5)}>Ignore the context</button><button onClick={() => {
         setNoise(0.1);
         setTrust(0.9);
@@ -183,7 +183,7 @@ export function LogitLossLab() {
     [target, setTarget] = useState('0');
   const state = logitsState(gap, offset, Number(target));
   return <Lab name="logits" title="A probability may underflow while its log loss remains computable">
-    <p>Three class scores are (g,0,−g), plus a common offset. Predict whether the offset changes probabilities. The stable path subtracts the largest score before exponentiating, and calculates log probabilities directly.</p>
+    <p>Three class scores are (g,0,−g), plus a common offset. Inspect whether the offset changes probabilities. The stable path subtracts the largest score before exponentiating, and calculates log probabilities directly.</p>
     <div className="entropy-controls"><Range label="Score gap g" value={gap} setValue={setGap} min={0} max={1000} /><Range label="Common score offset" value={offset} setValue={setOffset} min={-1000} max={1000} step={100} /><Select label="Observed class" value={target} setValue={setTarget} options={{
         0: 'Class 0',
         1: 'Class 1',
@@ -219,7 +219,7 @@ export function ContinuousEntropyLab() {
   const state = continuousEntropyState(width, Number(scale), bins);
   const unit = scale === '100' ? 'cm' : scale === '10' ? 'dm' : 'm';
   return <Lab name="continuous" title="Change the ruler; preserve the event probability">
-    <p>X is uniform on [0,w] metres. Change to centimetres or decimetres without changing the physical experiment. Predict which of density height, interval probability and differential entropy stays fixed. Each plot uses its own labeled axis range; equal screen rectangles do not mean equal numerical densities.</p>
+    <p>X is uniform on [0,w] metres. Change to centimetres or decimetres without changing the physical experiment. Inspect which of density height, interval probability and differential entropy stays fixed. Each plot uses its own labeled axis range; equal screen rectangles do not mean equal numerical densities.</p>
     <div className="entropy-controls"><Range label="Width w in metres" value={width} setValue={setWidth} min={0.125} max={4} step={0.125} /><Select label="New coordinate unit" value={scale} setValue={setScale} options={{
         1: 'Metres: scale 1',
         10: 'Decimetres: scale 10',
@@ -240,7 +240,7 @@ export function MaximumEntropyLab() {
   const state = maxEntropyState(Number(mean), fraction);
   const boundary = state.lower === state.upper;
   return <Lab name="maximum" title="Move probability while keeping the required mean unchanged">
-    <p>The possible counts are 0, 1, 2. Fix their mean m, then move along q=(1−m+t,m−2t,t). Predict whether the most spread-out looking bars are necessarily the entropy maximum. The green square marks the certified maximum; gold marks your selected feasible distribution.</p>
+    <p>The possible counts are 0, 1, 2. Fix their mean m, then move along q=(1−m+t,m−2t,t). Inspect whether the most spread-out looking bars are necessarily the entropy maximum. The green square marks the certified maximum; gold marks your selected feasible distribution.</p>
     <div className="entropy-controls"><Select label="Required mean m" value={mean} setValue={value => {
         setMean(value);
         setFraction(0.25);

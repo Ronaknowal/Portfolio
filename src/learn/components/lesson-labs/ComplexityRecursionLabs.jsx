@@ -16,7 +16,7 @@ export function IterationLatticeLab() {
   }
   return <section className="lesson-lab complexity-lab" aria-label="Iteration lattice investigation">
     <h3>See which loop bodies actually execute</h3>
-    <p>Predict the total before changing n. A filled cell is one call to work(i, j); rows are i and columns are j. Select a row to inspect its exact inner indices.</p>
+    <p>Inspect the total before changing n. A filled cell is one call to work(i, j); rows are i and columns are j. Select a row to inspect its exact inner indices.</p>
     <div className="lesson-controls">
       <label>Loop pattern<select value={pattern} onChange={event => {
           setPattern(event.target.value);
@@ -119,7 +119,7 @@ export function RecurrenceLevelsLab() {
   }
   return <section className="lesson-lab complexity-lab" aria-label="Recurrence level investigation">
     <h3>Count work across the whole recursion tree</h3>
-    <p>Predict which change affects depth and which affects work. These are exact toy recurrences with T(1)=1. Every leaf costs one unit; the bound describes growth, not seconds.</p>
+    <p>Inspect which change affects depth and which affects work. These are exact toy recurrences with T(1)=1. Every leaf costs one unit; the bound describes growth, not seconds.</p>
     <div className="lesson-controls">
       <label>Recurrence<select value={pattern} onChange={event => {
           setPattern(event.target.value);

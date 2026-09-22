@@ -46,7 +46,7 @@ export default function PermissionLab() {
     </dl>
     <p className="lesson-note">Directory <code>x</code> means search, not “run this folder.” A file's <code>x</code> bit still needs a runnable program or interpreter. A dash means the permission is absent.</p>
     <p className="permission-lab__identity"><strong>You are a member of the owning group, and are not the owner.</strong> For both <code>data</code> and <code>run.csv</code>, Linux therefore checks the group bits. It does not add owner, group and other permissions together.</p>
-    <p><strong>Predict first:</strong> the file allows reading, but its directory does not allow search. Which gate will stop <code>cat /project/data/run.csv</code>?</p>
+    <p>Change the file and directory permissions, then follow each access check for <code>cat /project/data/run.csv</code>?</p>
 
     <fieldset className="permission-lab__controls">
       <legend>Change the group's permissions</legend>

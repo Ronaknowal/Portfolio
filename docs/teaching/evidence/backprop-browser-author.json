@@ -1,0 +1,240 @@
+{
+  "preview": "development",
+  "route": "http://127.0.0.1:4197/learn/path/full-curriculum/backpropagation-automatic-differentiation?module=deep-learning-fundamentals",
+  "timestamp": "2026-09-21T17:37:37.708Z",
+  "assertions": 94,
+  "screenshots": [
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-fit-overshoot.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-shared-cancellation.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-offset-cancellation.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-zero-reference.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-scalar.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-fit-line.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-shared-graph.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-broadcast.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-shapes.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-training.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-products.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/1366-checkpoint.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-scalar.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-fit-line.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-shared-graph.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-broadcast.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-shapes.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-training.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-products.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-checkpoint.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/390-finite-differences.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-scalar.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-fit-line.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-shared-graph.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-broadcast.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-shapes.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-training.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-products.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-checkpoint.png",
+    "docs/teaching/evidence/backprop-browser-author-screenshots/320-finite-differences.png"
+  ],
+  "errors": [],
+  "widths": [
+    {
+      "width": 1366,
+      "geometry": {
+        "overflow": false,
+        "figures": [
+          {
+            "width": 550,
+            "height": 463.328125
+          },
+          {
+            "width": 550,
+            "height": 404.859375
+          },
+          {
+            "width": 550,
+            "height": 447.484375
+          },
+          {
+            "width": 550,
+            "height": 447.484375
+          },
+          {
+            "width": 550,
+            "height": 447.484375
+          },
+          {
+            "width": 343,
+            "height": 176.859375
+          },
+          {
+            "width": 343,
+            "height": 176.859375
+          }
+        ],
+        "katex": [
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 16.984375
+          },
+          {
+            "height": 16.984375
+          }
+        ]
+      },
+      "controls": 21
+    },
+    {
+      "width": 390,
+      "geometry": {
+        "overflow": false,
+        "figures": [
+          {
+            "width": 294.8125,
+            "height": 248.34375
+          },
+          {
+            "width": 294.8125,
+            "height": 217
+          },
+          {
+            "width": 322.40625,
+            "height": 262.3125
+          },
+          {
+            "width": 322.40625,
+            "height": 262.3125
+          },
+          {
+            "width": 322.40625,
+            "height": 262.3125
+          },
+          {
+            "width": 322.40625,
+            "height": 166.234375
+          },
+          {
+            "width": 322.40625,
+            "height": 166.234375
+          }
+        ],
+        "katex": [
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 16.984375
+          },
+          {
+            "height": 16.984375
+          }
+        ]
+      },
+      "controls": 21
+    },
+    {
+      "width": 320,
+      "geometry": {
+        "overflow": false,
+        "figures": [
+          {
+            "width": 224.8125,
+            "height": 189.375
+          },
+          {
+            "width": 224.8125,
+            "height": 165.484375
+          },
+          {
+            "width": 252.40625,
+            "height": 205.359375
+          },
+          {
+            "width": 252.40625,
+            "height": 205.359375
+          },
+          {
+            "width": 252.40625,
+            "height": 205.359375
+          },
+          {
+            "width": 252.40625,
+            "height": 130.140625
+          },
+          {
+            "width": 252.40625,
+            "height": 130.140625
+          }
+        ],
+        "katex": [
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 69.6875
+          },
+          {
+            "height": 16.984375
+          },
+          {
+            "height": 16.984375
+          }
+        ]
+      },
+      "controls": 21
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/backprop.jsx": "a2d57d9ba99bae53f6fde115b371a1550811cf4e6240f6d165dc75b12135d6bd",
+    "src/learn/data/backprop-models.js": "9354824fbc2611e0c4de80d6d304ce10bcca526c2d7b7711d644988c78c843a0",
+    "src/learn/data/backprop-training.js": "608160464e347ec908cec37807fce8de2466beabae6ae44cfa5fd2823820252a",
+    "src/learn/components/lesson-labs/BackpropShared.jsx": "ce529c5801ad4ded1827a2facd767f538289f6cf70ac3f9dcaf932391f508ec5",
+    "src/learn/components/lesson-labs/BackpropLabs.jsx": "364d5dadbdea13cba51e49859247373064ac041c540cea76fef3981c4ffc9f1e",
+    "src/learn/components/lesson-labs/BackpropFigures.jsx": "3f79b85978d7fcff2277225978d640ee2637585716ecd2a6b4c4e6eff835f3ea",
+    "src/learn/components/lesson-labs/backprop-labs.css": "6d91f8c00fda522a12f38a6105dd76e26360d156f2d19c239ce425cc7c867b6a",
+    "scripts/verify-backprop-browser.cjs": "5cf5977c51348d1bebd0b6024583a6d36c8b0a307eaf025581dd30e445397bc7"
+  },
+  "fonts": {
+    "method": "Unmodified retained fonts fulfilled locally; application styling unchanged.",
+    "manifest": "scratch/kmeans-revision-review/fonts/manifest.json",
+    "hashes": {
+      "scratch/kmeans-revision-review/fonts/google-fonts.css": "63ab7d92430a9ff1480365211e079b9ed7a134e83dd646adb364462584f59ed3",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7aUUsj.ttf": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj42Vksj.ttf": "6c0346b8d297ebdc225832833e03e884a26ad99d265ecd3924d46e1ba285ea87",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj62UUsj.ttf": "2f29b31d803a928d21f96dbe7a5f8bfa5c5c98917736c2d195bc7c737bc906ba",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8L6tjPQ.ttf": "a1d92abc6b02a87faed23d98067ab1027e8e95242fd7c9978a072ea383b89d1a",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxjPQ.ttf": "3386a05f6ece969e4537de6be894170d20558e82f7d56c8c5d332972ef172160",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPQ.ttf": "44ce4a84f20d60f24539bd0cef11f79c29e38609e0f8adf18551c9794a5d9dc3",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8lqxjPQ.ttf": "62bbab00e0b0faffb38a3d111341a814f8731fd50778aa0b495d3293b8290aaf",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUUsj.ttf": "ec926d5065eaca49a48f96e312bbae0bbc5733c24215cf5dfabbdccee926fef7",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVksj.ttf": "3e756954468ff1cb302dae0414262e72f76a67d87bef3fa1f3226cd0fb9b2d85",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8FqtjPQ.ttf": "df54dbfafba61d4911eb3dab9bba2d20531fb009f01d64dd42fa96ab862584d8"
+    }
+  },
+  "passed": true
+}

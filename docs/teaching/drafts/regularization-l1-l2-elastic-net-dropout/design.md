@@ -1,5 +1,14 @@
 # Regularization: content design and continuation
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit z, penalty and mixing fraction and follow the soft threshold and exact-zero interval live; edit rows and coordinate order and step actual residual updates; change physical airfoil measurements and inspect linked polynomial terms and fitted output; vary inputs, coefficients and keep probability and inspect all four dropout branches and expected loss immediately.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Stable ID `regularization-l1-l2-elastic-net-dropout`; authorized batch position 4. Author `/root/classical_feature_content`, 12 September 2026. This is a complete research/write packet, with implementation and its formal review still pending. Root owns the central ledger, hashes and integration.
 
 > **Superseded, 14 September 2026.** Everything above this line is the phase-one record and is kept unchanged. Implementation

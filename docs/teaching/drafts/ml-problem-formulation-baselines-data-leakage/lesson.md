@@ -146,7 +146,7 @@ print(latest_known(records, "A", cutoff=5, maximum_age=2))
 
 The results are 10, 12, 20, followed by None. The last query rejects event 1 as too old and event 4 as not yet available. A maximum-age tolerance constrains freshness; it does not make unavailable information available.
 
-**Investigation — Move the arrival, preserve the event.** The timeline shows an event marker and a separate arrival marker joined by a segment for each record. Record which version you expect to be selected, then edit an arrival, cutoff, age limit or value. Apply the edit to reveal the actual eligible set and selection. A useful null is editing sensor B's value: the selected calibration for A must remain unchanged.
+**Investigation — Move the arrival, preserve the event.** The timeline shows an event marker and a separate arrival marker joined by a segment for each record. Edit an arrival, cutoff, age limit or value and inspect the actual eligible set and selected version immediately. A useful null is editing sensor B's value: the selected calibration for A must remain unchanged.
 
 ### Why a backward join alone is insufficient
 
@@ -410,13 +410,13 @@ A is correct on 9/12 with cost 21. B is correct on 11/12 with cost 2, but exceed
 
 ### 4. Change the capacity on real data
 
-Using the saved validation probabilities or rerunning the displayed fixed experiment, change capacity from 50 to 25. Record a prediction about the candidate's precision/recall direction before computing. Use the same source-row tie rule and leave model settings unchanged.
+Using the saved validation probabilities or rerunning the displayed fixed experiment, change capacity from 50 to 25. Calculate the precision/recall changes and explain them from the selected rows. Use the same source-row tie rule and leave model settings unchanged.
 
 <details><summary>Hint</summary>
 The top 25 are a subset of the top 50 under the fixed ranking. Recall cannot increase; precision can move either way.
 </details>
 <details><summary>Assessment and solution method</summary>
-Sort by descending probability and then source-row index, count positives among the first 25, and divide by 25 for precision and by 90 for recall. The retained candidate ranking contains 12 positives in its first 25: precision .48 and recall \(12/90=.133333\), compared with .40 and \(20/90=.222222\) at capacity 50. Precision rises here while recall falls; a higher precision is not guaranteed by the word “top.” Include the recorded prediction and the actual result; do not search for a favorable capacity and report it as untouched evaluation.
+Sort by descending probability and then source-row index, count positives among the first 25, and divide by 25 for precision and by 90 for recall. The retained candidate ranking contains 12 positives in its first 25: precision .48 and recall \(12/90=.133333\), compared with .40 and \(20/90=.222222\) at capacity 50. Precision rises here while recall falls; a higher precision is not guaranteed by the word “top.” Include the selected rows and the actual result; do not search for a favorable capacity and report it as untouched evaluation.
 </details>
 
 ### 5. Write the missing contract

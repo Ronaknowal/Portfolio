@@ -1,5 +1,14 @@
 # Clustering evaluation — visual and interaction specifications
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit coordinates and memberships and follow silhouette contributions; relabel or refine a candidate partition and inspect pair counts; construct binary labelings and inspect the exact chance baseline; reweight a frozen Iris partition and compare rescoring with refitting; change training multiplicities on fixed probes and follow aligned assignments. Valid edits synchronize outputs immediately; invalid ordered probe locations retain the last valid calculation with an explicit error.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Status: content specification, 12 September 2026. Nothing in this file claims rendered or implemented work. Use with [lesson.md](lesson.md), [author-calculations.json](author-calculations.json), [visual-input-calculations.json](visual-input-calculations.json) and [data-provenance.md](data-provenance.md). The design records coverage and research decisions. Implementations must calculate from active state, preserve exact observation identity and verify the declared behavior before publication.
 
 ## Reading structure and common contracts

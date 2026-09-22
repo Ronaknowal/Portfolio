@@ -22,20 +22,20 @@ function DirectoryBranch({ path, current, shell, visited }) {
 export default function LinuxPathLab() {
   const uid = useId();
   const [choice, setChoice] = useState(linuxPathPresets[0]);
-  const [cursor, setCursor] = useState(-1);
-  const [prediction, setPrediction] = useState("");
+  const [cursor, setCursor] = useState(null);
   const resolution = useMemo(() => resolveLinuxPath(choice), [choice]);
-  const step = cursor >= 0 ? resolution.steps[cursor] : null;
-  const finished = cursor === resolution.steps.length - 1;
-  const visited = new Set(resolution.steps.slice(0, cursor + 1).map(item => item.location));
-  const update = patch => { setChoice(previous => ({ ...previous, ...patch, id: "custom" })); setCursor(-1); setPrediction(""); };
-  const applyPreset = id => { setChoice(linuxPathPresets.find(item => item.id === id)); setCursor(-1); setPrediction(""); };
+  const activeStep = cursor === null ? resolution.steps.length - 1 : Math.min(cursor, resolution.steps.length - 1);
+  const step = resolution.steps[activeStep];
+  const finished = activeStep === resolution.steps.length - 1;
+  const visited = new Set(resolution.steps.slice(0, activeStep + 1).map(item => item.location));
+  const update = patch => { setChoice(previous => ({ ...previous, ...patch, id: "custom" })); setCursor(null); };
+  const applyPreset = id => { setChoice(linuxPathPresets.find(item => item.id === id)); setCursor(null); };
   const quotedPath = `'${choice.path.replaceAll("'", "'\\''")}'`;
 
-  return <section className="lesson-lab linux-path-lab" aria-labelledby={`${uid}-title`}>
+  return <section className="lesson-lab linux-path-lab" data-live-exploration aria-labelledby={`${uid}-title`}>
     <div className="lesson-eyebrow">PATH LAB · FOLLOW EACH BRANCH</div>
     <h3 id={`${uid}-title`}>Where does this path actually go?</h3>
-    <p>The first investigation starts in <code>/project/data/raw</code>, with your report folder on another branch. Predict the outcome, then follow each path component through the tree.</p>
+    <p>The first investigation starts in <code>/project/data/raw</code>, with your report folder on another branch. Change the path, starting directory or operation and see the destination update immediately. Use the step controls to follow each path component through the tree.</p>
 
     <div className="linux-path-setup">
       <label>Investigation<select aria-label="Path investigation" value={choice.id} onChange={event => applyPreset(event.target.value)}>
@@ -52,13 +52,6 @@ export default function LinuxPathLab() {
     </div>
     <p className="lesson-note" id={`${uid}-input-note`}>Enter a path only, without shell quotes. Spaces stay inside this one argument; commands and shell expansions are not executed.</p>
     <div className="linux-path-command"><span>{choice.operation === "cd" ? "Command being modelled" : "One pathname to look up"}</span><code>{choice.operation === "cd" ? `cd -- ${quotedPath}` : quotedPath}</code></div>
-    <div className="linux-path-prediction">
-      <label htmlFor={`${uid}-prediction`}>Before stepping, I predict…</label>
-      <select id={`${uid}-prediction`} value={prediction} disabled={cursor >= 0} onChange={event => setPrediction(event.target.value)}>
-        <option value="">Choose, or make a mental prediction</option><option value="directory">Success: a directory</option><option value="file">Success: a file</option><option value="error">Failure</option>
-      </select>
-      <span className="lesson-note">Also point to where the shell will end up.</span>
-    </div>
 
     <div className="linux-path-workspace">
       <figure className="linux-path-tree">
@@ -70,27 +63,26 @@ export default function LinuxPathLab() {
       <div className="linux-path-walk">
         <p className="linux-path-kind">{resolution.absolute ? "Absolute path · start at /" : "Relative path · start where the shell is"}</p>
         <ol className="linux-path-segments" aria-label="Path components">
-          {resolution.absolute && <li className={cursor === 0 ? "is-active" : ""}><code>/</code><span className="linux-path-sr-only">root start</span></li>}
+          {resolution.absolute && <li className={activeStep === 0 ? "is-active" : ""}><code>/</code><span className="linux-path-sr-only">root start</span></li>}
           {resolution.segments.map((segment, index) => <li key={`${index}-${segment}`} className={step?.segmentIndex === index ? "is-active" : step && step.segmentIndex > index ? "is-done" : ""} aria-current={step?.segmentIndex === index ? "step" : undefined}><code>{segment}</code></li>)}
           {!choice.path && <li>empty path</li>}
         </ol>
         <div className={`linux-path-step${step?.kind === "error" ? " is-error" : ""}`} role="status" aria-live="polite" aria-atomic="true">
-          <span className="lesson-eyebrow">{step ? `STEP ${cursor + 1} OF ${resolution.steps.length}` : "PREDICT FIRST"}</span>
-          <h4>{step?.title || "Trace the route before you move"}</h4>
+          <span className="lesson-eyebrow">{step ? `STEP ${activeStep + 1} OF ${resolution.steps.length}` : "PATH RESULT"}</span>
+          <h4>{step?.title || "Follow the route"}</h4>
           <p>{step?.explanation || "Which entry will be reached? Does the shell move while the path is being checked, or only after cd succeeds?"}</p>
           {step && <p className="linux-path-location">Lookup is at <code>{step.location}</code></p>}
-          {finished && prediction && <p className="linux-path-feedback">{prediction === resolution.prediction ? "Your predicted outcome matches." : `Your prediction needs adjusting: ${resolution.ok ? `this succeeds at a ${resolution.kind}` : "this operation fails"}.`} {resolution.ok ? "Use the markers to explain the shell's final location." : "The shell's starting directory is preserved on failure."}</p>}
         </div>
         <div className="linux-path-actions">
-          <button type="button" disabled={cursor < 0} onClick={() => setCursor(previous => previous - 1)}>Back</button>
-          <button type="button" className="linux-path-next" disabled={finished} onClick={() => setCursor(previous => previous + 1)}>{cursor < 0 ? "Start path walk" : finished ? "Walk complete" : "Next step"}</button>
+          <button type="button" onClick={() => setCursor(0)}>Walk from the start</button><button type="button" disabled={activeStep === 0} onClick={() => setCursor(activeStep - 1)}>Back</button>
+          <button type="button" className="linux-path-next" disabled={finished} onClick={() => setCursor(activeStep + 1)}>{finished ? "Walk complete" : "Next step"}</button>
           <button type="button" onClick={() => applyPreset(linuxPathPresets[0].id)}>Reset path lab</button>
         </div>
       </div>
     </div>
 
     <details className="linux-path-transfer"><summary>Try a variation: does an absolute path care where you start?</summary>
-      <p>Choose “Start from the root”, then change the starting directory to <code>/project/reports</code>. Predict the destination again. Then remove the first slash and compare.</p>
+      <p>Choose “Start from the root”, then change the starting directory to <code>/project/reports</code>. Watch the destination, then remove the first slash and compare.</p>
       <details><summary>Hint</summary><p>Choose the starting point before following the first name. Without the slash, which directory would need to contain an entry called <code>project</code>?</p></details>
       <details><summary>Explain the result</summary><p><code>/project/reports</code> starts at <code>/</code> and reaches the same directory from either starting point. The relative value <code>project/reports</code> searches inside your starting directory first; the pictured tree has no nested <code>project</code> entry there, so it fails.</p></details>
     </details>

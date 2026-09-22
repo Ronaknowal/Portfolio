@@ -1,0 +1,6 @@
+Snippet 1
+tensor([[0.8486, 1.1318]], dtype=torch.float16)
+
+Snippet 2
+[[ 0.162221  1.135549 -1.29777 ]]
+[0.]

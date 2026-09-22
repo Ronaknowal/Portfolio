@@ -1,0 +1,638 @@
+{
+  "status": "passed",
+  "scope": "35 implementation-depth revisions; 3 shared-viewer compatibility bindings",
+  "documentationAmendments": "docs/teaching/evidence/implementation-depth-documentation-amendments.json",
+  "authorManifestAmendments": [
+    {
+      "file": "docs/teaching/implementation-depth/classical-remediation.json",
+      "before": "baa5b8d4a9d6b624a1a83c8991a04bb25654e1dc751808f526c48b62eb3e76b8",
+      "after": "c4d92a9385ded5bfd589f671889339f7e97f478319d5320ba94b6aaaf37985e8",
+      "sourceBindingUpdates": [
+        {
+          "file": "src/learn/data/topics/t-sne-umap-manifold-learning.jsx",
+          "before": "df49b743187d99e72f963e5f7f75d20e6679eb152bffaec0a3710945b98f30e4",
+          "after": "7eb0c2dcef57eea5eb21659f36cf8a9028747e3bac0901fa892746db26409163",
+          "basis": "closed independent source review"
+        },
+        {
+          "file": "public/learn-assets/manifold-learning/umap-mechanism.py",
+          "before": "c4483318526dcbd20492193cce61a9de42cdc59410b166e3d9a9ab73f0889c32",
+          "after": "e110b22641eb8872a0e7c5b25175d8b215843c868f50889bfe6659ddf2c9e2ad",
+          "basis": "closed independent source review"
+        },
+        {
+          "file": "src/learn/data/topics/conditional-random-fields-crf.jsx",
+          "before": "a9fb2c9a02da8ba436fb1a358b3a6044f2c0782e12784cf00198694ef0e35d71",
+          "after": "1fa159f68bd3f2ccadd782124e7212cd8601f7792247ac80290ec79f579a3ab9",
+          "basis": "closed independent source review"
+        },
+        {
+          "file": "src/learn/data/topics/active-learning.jsx",
+          "before": "c9d24d32bb084a82bebfee4c17ac7e2b58e6377c1a80999a3b552abeafcb357d",
+          "after": "b1948a929b1849d06d3247fb6708a1eaf0dab7502c7602d313718e8be766138d",
+          "basis": "closed independent source review"
+        }
+      ]
+    },
+    {
+      "file": "docs/teaching/implementation-depth/math-library-remediation.json",
+      "before": "cfe31d634ee498534285f18b6c05c45db32a93bcd7ebbc20a90d58a17e76193f",
+      "after": "76e3d95cb4b782702aa3e968a5fa98751ee82d931917aafe74013b3c0b1c8ed1",
+      "sourceBindingUpdates": [
+        {
+          "file": "docs/teaching/topic-notes/randomized-linear-algebra.md",
+          "before": "5340b5dcd63419773879e736f7403d2a7d3d90bbf51eff6e39e4dd1a43650ef3",
+          "after": "3ec97845ba54204e0a3e09f67435a40a3246a093aa40ef23b7bd861d34e55dce",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.md",
+          "before": "6c8e4eca1c62f7a8c0bf66d0b9a50211fd7f1ffcfcec4e71d12012854538c94d",
+          "after": "feb8fde66ae31b14f320d4f7e69c04813a3eb3958398fb76353c77e2a237e55d",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.md",
+          "before": "eb6ad9a04d2abc23fa9ecc455783c89029368bba208cb05be6e51d7ca872d23d",
+          "after": "acc2fa3a0ac09f1646ff1257e59b180ac567e8aa54aabc7cfc51b2404e2ea153",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/variational-inference.md",
+          "before": "5d4e45819f09784d80586e8eade97f023accda55362be177c4d0a6491cf31953",
+          "after": "c97c37b8c15d7d35445d1df3f2b0a747554b7c64d9562330259971cfae7a3ec1",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/spectral-graph-theory.md",
+          "before": "5eb1fd47c3770a5a4435121894b0fdd01e8ef2efe06974b785ad9ee2217da792",
+          "after": "31906fefa22a6f101110c8ebfc99dbf2753af2b55443f9fdbf2d0505d14d5667",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/functional-analysis-rkhs.md",
+          "before": "99a33f3e4adcefa5883d514bb127a117a6a39fac07246b9c9a41a642cd2bad69",
+          "after": "4dbe983b390c872b1e956d7f1170ad270fd23dca70cb27d3e0d738e86df73300",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/topology-topological-data-analysis-tda.md",
+          "before": "3950f3580753d1e353a374ae7f17d5a7a198adea397e7af56aab707a00d9d8c1",
+          "after": "b62cad4bedb5e97db359283846e1d678bea6fc66201e4b7900b55af05bea4c7f",
+          "basis": "root-reviewed completion documentation"
+        }
+      ]
+    },
+    {
+      "file": "docs/teaching/implementation-depth/MATH-DEPTH-REMEDIATION.json",
+      "before": "0448b39ce07ac2c60acfce1625ffa94399d18ac7d7ee0655c572fb6936e19156",
+      "after": "75762c8f2e61d9247e25fe18d515a4869594fdf653edd2159ca556f82fa1a1c1",
+      "sourceBindingUpdates": []
+    },
+    {
+      "file": "docs/teaching/implementation-depth/dsa-remediation.json",
+      "before": "7735477a059f881a77193d0d09038c168ded8f154cee06036c4ed716dd99a22f",
+      "after": "3a17acc3ec3539b6feb92e2e4222f1cf894ce652bbc3014575871b8d35b7f2a5",
+      "sourceBindingUpdates": [
+        {
+          "file": "docs/teaching/topic-notes/graphs-representations-bfs-dfs.md",
+          "before": "02b4d1a9409160f7e3ba22c961e6dd627ff5202a0487903fb367c6bbbaf725ef",
+          "after": "674d5b31feb69bf4a8d71b3ae66f6447830d056a1aa9dfa53293636b43a4b7cd",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/shortest-paths-spanning-trees-topological-ordering.md",
+          "before": "3a36b0d4f3b2d817dff5d91d128ba89c501efa900213242d56d27bf06c6fae35",
+          "after": "5deea14c062a846741d1d4561206f0fb0ac9c423b279738a8c99f1741da0eb38",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/network-flow-minimum-cuts-bipartite-matching.md",
+          "before": "60c5c8d26f5a1ef274e4310326d6f8b0446c905625b7cca093aca87ea1f3264a",
+          "after": "f045a41e65714e3c84d8d4e5e8664c307870912a7c2fe61be8781282485a5340",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/topic-notes/computational-geometry-robust-predicates-convex-hulls.md",
+          "before": "7302106172ad0d8ae807ce7d0cedec2df3b86c7c13fece2138f491f99b85404a",
+          "after": "464e2b4cb6cb28544035df87e9b7b4fff79ee9d91d154eafd86d189545397f4d",
+          "basis": "root-reviewed completion documentation"
+        },
+        {
+          "file": "docs/teaching/implementation-depth/DSA-REMEDIATION.md",
+          "before": "e9d931335d5af63a0a6dd68afa3afb217aaefec23e565e398f8166bc9f2f89da",
+          "after": "eeb72d15cdf2c3f08209190f755273658ea5bb0af0d661d928583630c4f758ce",
+          "basis": "root-reviewed completion documentation"
+        }
+      ]
+    }
+  ],
+  "independentEvidencePolicy": "Independent review checkpoints are preserved. Later completion-note/author-manifest metadata changes are bound separately here; all reviewed runtime sources still match their independent receipts.",
+  "compatibilityPreviousRows": {
+    "perceptrons-neurons-activation-functions": {
+      "revision": 3,
+      "deliveryMode": "full",
+      "record": "docs/teaching/implementation-depth/perceptrons-neurons-activation-functions.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx",
+        "visualSpecifications": "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/author-calculations.py": "c422c8d58e736629ede88c8916f9225826d1c7c89b6a073d4a189a2e4c5c3806",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/calculated-inputs.json": "eaa74cbe9779af7f715dbc6d476a0e8a1e7c2f66b1c06130d482552866925fd6",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/data-provenance.md": "9afc15ad8ae91c7f000c225b7ff0b016d04477f8143c3d0612ebc692ec5ca1c8",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md": "50ab7a68ee704259326f999c489bff59b86cdc2b54c96f5ad883f825fbc3b234",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/lesson.md": "b0ab37f54a890637615e770e243cc4c3d67066498c821f6e56f1188571748c65",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md": "c40e81835a693cfc3990c7e0c01292c0e88673a5315f3c84a910b4d4d63edc07",
+          "docs/teaching/implementation-depth/perceptrons-neurons-activation-functions.md": "84c4e0a849d4ba9008974f5b022ce63594951bc92630cbf4e32a75fc21c3dc51",
+          "public/learn-assets/perceptrons/activation-mechanisms.py": "4a02fd8b1d880073544de07b39fca1037ae5be011b627977a6148db05add7503",
+          "public/learn-assets/perceptrons/data-provenance.md": "9afc15ad8ae91c7f000c225b7ff0b016d04477f8143c3d0612ebc692ec5ca1c8",
+          "public/learn-assets/perceptrons/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "src/learn/data/curriculum/blueprints/perceptrons-neurons-activation-functions.js": "2a1564b94df6647600097212f90f076d42e2face6944da092105624bc9a2cf23",
+          "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "9067f78f977aca06115b2e78d2356445c4074f15202805c8548ad8a4a2bec079"
+        },
+        "completedAt": "2026-09-21T18:52:04.274Z"
+      },
+      "implementation": {
+        "status": "complete",
+        "completedAt": "2026-09-21T18:52:04.274Z",
+        "reviewedFiles": {
+          "public/learn-assets/perceptrons/activation-mechanisms.py": "4a02fd8b1d880073544de07b39fca1037ae5be011b627977a6148db05add7503",
+          "public/learn-assets/perceptrons/data-provenance.md": "9afc15ad8ae91c7f000c225b7ff0b016d04477f8143c3d0612ebc692ec5ca1c8",
+          "public/learn-assets/perceptrons/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+          "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+          "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+          "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+          "src/learn/components/content/Math.jsx": "c09a0bdcef88192335fb880ef74387b4eb63b4296e855e71e7995b27a2b7f258",
+          "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+          "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+          "src/learn/components/lesson-labs/LessonElements.jsx": "232ff18e81cf9b79acd51a40e9e1683fad6f509083aeb0ab5f1ad8b7199f01e9",
+          "src/learn/components/lesson-labs/MechanismProgram.jsx": "bb1158c6d70b2cb0a5e1707357e7d06af47f5056c0457bf5494394acbd8c480e",
+          "src/learn/components/lesson-labs/PerceptronFigures.jsx": "914e9264d76e3c68be60ec8e6e180a97ee76659c203b227a3e8e843d4c492919",
+          "src/learn/components/lesson-labs/PerceptronLabs.jsx": "e954605d3df0bf4d8d583ddfa174eceef1da49ae182dee01395e8dffc852aeee",
+          "src/learn/components/lesson-labs/PerceptronShared.jsx": "35887315deacf6c1c58cafaf4cd4b41c674e379f78bb9169539179e2d2be364d",
+          "src/learn/components/lesson-labs/RunnableExample.jsx": "f4e797db7871565d0e3cae1f9c960747b713b74fd3b9d4ea9047967d2e4e8463",
+          "src/learn/components/lesson-labs/lessons.css": "a7fbce9cc83e7088ae93545f758e818996bacffa1344d4b0d3b3a04318aa3508",
+          "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316",
+          "src/learn/components/lesson-labs/perceptron-labs.css": "6d3c00b4ab37628f2816c0d223f25b09d02b33762b09c9329d967fdb04544e4a",
+          "src/learn/data/curriculum/blueprints/perceptrons-neurons-activation-functions.js": "2a1564b94df6647600097212f90f076d42e2face6944da092105624bc9a2cf23",
+          "src/learn/data/perceptron-data.js": "ef7354f1e75e1da77ae0333b9e44fa60b3987aa8fbf0c3b7066e3a54a680023a",
+          "src/learn/data/perceptron-examples.js": "bc8d5c61058d5a2492de0dcf4158d6db56cda12b23fc57a9b7ac5c83370807ef",
+          "src/learn/data/perceptron-mechanism-program.js": "128bc4cb09556a9630975c8002bb3cfbb719b017c317c0121aba1667b32ae9e1",
+          "src/learn/data/perceptron-models.js": "629fca099a9b936f8a74251e834b93732c8dfcc900ec42e770e73b49cab5f0fd",
+          "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "9067f78f977aca06115b2e78d2356445c4074f15202805c8548ad8a4a2bec079",
+          "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5"
+        }
+      },
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/perceptrons-neurons-activation-functions/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/author-calculations.py": "c422c8d58e736629ede88c8916f9225826d1c7c89b6a073d4a189a2e4c5c3806",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/calculated-inputs.json": "eaa74cbe9779af7f715dbc6d476a0e8a1e7c2f66b1c06130d482552866925fd6",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/data-provenance.md": "9afc15ad8ae91c7f000c225b7ff0b016d04477f8143c3d0612ebc692ec5ca1c8",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md": "8306e4ad41ccfee7423beafce39d976220b1e6357c4eafb4a36516be5904aeae",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/lesson.md": "83eb54c413767c84ea4210bc3165327997d4f95a925060728cebe46cbfe53c5e",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md": "86e7fad9b626c5ece257125e8adefc89badb5b64a02d31e9f965e1cf496f1273"
+            },
+            "completedAt": "2026-09-12T13:36:23.891Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        },
+        {
+          "revision": 2,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx",
+            "visualSpecifications": "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/author-calculations.py": "c422c8d58e736629ede88c8916f9225826d1c7c89b6a073d4a189a2e4c5c3806",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/calculated-inputs.json": "eaa74cbe9779af7f715dbc6d476a0e8a1e7c2f66b1c06130d482552866925fd6",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/data-provenance.md": "9afc15ad8ae91c7f000c225b7ff0b016d04477f8143c3d0612ebc692ec5ca1c8",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md": "50ab7a68ee704259326f999c489bff59b86cdc2b54c96f5ad883f825fbc3b234",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/lesson.md": "b0ab37f54a890637615e770e243cc4c3d67066498c821f6e56f1188571748c65",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md": "c40e81835a693cfc3990c7e0c01292c0e88673a5315f3c84a910b4d4d63edc07",
+              "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "f4fd2a1e6e55e2779dda00ab856a727168b06f4db0c7b713db9f49455085b7c7",
+              "src/learn/data/curriculum/blueprints/perceptrons-neurons-activation-functions.js": "2a1564b94df6647600097212f90f076d42e2face6944da092105624bc9a2cf23"
+            },
+            "completedAt": "2026-09-21T15:07:05.705Z"
+          },
+          "implementation": {
+            "status": "complete",
+            "completedAt": "2026-09-21T18:00:58.603Z",
+            "reviewedFiles": {
+              "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+              "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+              "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+              "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+              "src/learn/components/content/Math.jsx": "c09a0bdcef88192335fb880ef74387b4eb63b4296e855e71e7995b27a2b7f258",
+              "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+              "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+              "src/learn/components/lesson-labs/LessonElements.jsx": "232ff18e81cf9b79acd51a40e9e1683fad6f509083aeb0ab5f1ad8b7199f01e9",
+              "src/learn/components/lesson-labs/PerceptronFigures.jsx": "914e9264d76e3c68be60ec8e6e180a97ee76659c203b227a3e8e843d4c492919",
+              "src/learn/components/lesson-labs/PerceptronLabs.jsx": "e954605d3df0bf4d8d583ddfa174eceef1da49ae182dee01395e8dffc852aeee",
+              "src/learn/components/lesson-labs/PerceptronShared.jsx": "35887315deacf6c1c58cafaf4cd4b41c674e379f78bb9169539179e2d2be364d",
+              "src/learn/components/lesson-labs/RunnableExample.jsx": "f4e797db7871565d0e3cae1f9c960747b713b74fd3b9d4ea9047967d2e4e8463",
+              "src/learn/components/lesson-labs/lessons.css": "a7fbce9cc83e7088ae93545f758e818996bacffa1344d4b0d3b3a04318aa3508",
+              "src/learn/components/lesson-labs/perceptron-labs.css": "bd7ae52d92ca3c9b50f6075e1f35ae0144fe7dc474909f48f43e6cf5b4a21f1c",
+              "src/learn/data/curriculum/blueprints/perceptrons-neurons-activation-functions.js": "2a1564b94df6647600097212f90f076d42e2face6944da092105624bc9a2cf23",
+              "src/learn/data/perceptron-data.js": "ef7354f1e75e1da77ae0333b9e44fa60b3987aa8fbf0c3b7066e3a54a680023a",
+              "src/learn/data/perceptron-examples.js": "bc8d5c61058d5a2492de0dcf4158d6db56cda12b23fc57a9b7ac5c83370807ef",
+              "src/learn/data/perceptron-models.js": "629fca099a9b936f8a74251e834b93732c8dfcc900ec42e770e73b49cab5f0fd",
+              "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "f4fd2a1e6e55e2779dda00ab856a727168b06f4db0c7b713db9f49455085b7c7",
+              "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5"
+            }
+          },
+          "nextAction": "Both phases complete. Reuse source-bound independent reviews and final production integration in docs/teaching/DEEP-LEARNING-CORE-IMPLEMENTATION.md; user acceptance is separate. No next topic authorized.",
+          "preparedCheckpointRecord": "docs/teaching/evidence/deep-learning-core-baseline.json"
+        }
+      ],
+      "nextAction": "This focused implementation-depth revision is complete with native, independent and production evidence. Read docs/teaching/IMPLEMENTATION-DEPTH-REVIEW.md for broader unresolved coverage; no next-topic queue is implied. User acceptance is separate."
+    },
+    "backpropagation-automatic-differentiation": {
+      "revision": 3,
+      "deliveryMode": "full",
+      "record": "docs/teaching/implementation-depth/backpropagation-automatic-differentiation.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "src/learn/data/topics/backprop.jsx",
+        "visualSpecifications": "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/author-calculations.py": "c76dbf1881e962a1cabd1d996ba65d391a0c0fa71bb26510b7da00920db62733",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/calculated-inputs.json": "c994b1d71a5ff8c3698e8db671080523beaa430431a9e54ace7349d48d51d342",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/data-provenance.md": "c0a51cd62f83132636013d64a2bce9335f831c49a088cc30a1a8c474c8089c23",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md": "86813c83f4aec57deda11a7bdfa4912826d5c1dfbbcebe9a6aa3396a611c9fa4",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/lesson.md": "d4b4c5133706205c73acef77db958934c58223a4ee378ea0c3e9797c241c834a",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md": "f102a356f80bb4bf594ec57ac603ffebb1ebf0f78cc9a8e0403017eed66a7eeb",
+          "docs/teaching/implementation-depth/backpropagation-automatic-differentiation.md": "5c0dda71e09d9dc01533d1f5691d2981ed975c49d3a0557f36390889d6a3d40e",
+          "public/learn-assets/backpropagation/activation-checkpoint.py": "a688caea007f95bff5d4bbb511b0a008fd26f4d6ceb468d8e8216b3085a2ea96",
+          "public/learn-assets/backpropagation/author-calculations.py": "c76dbf1881e962a1cabd1d996ba65d391a0c0fa71bb26510b7da00920db62733",
+          "public/learn-assets/backpropagation/calculated-inputs.json": "c994b1d71a5ff8c3698e8db671080523beaa430431a9e54ace7349d48d51d342",
+          "public/learn-assets/backpropagation/custom-hard-sigmoid.py": "1ebf18e01475194cd0b69713def0881255bebbded98e80e19528fa6f32c462be",
+          "public/learn-assets/backpropagation/data-provenance.md": "7395ad322a042ca697f5655edb6a3d3235986eb6cd63d84df3f54c758519d242",
+          "public/learn-assets/backpropagation/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "public/learn-assets/backpropagation/directional-products.py": "4dd3474a8bce51a41d75a4b7e44601a99ad8309a9a535eb1aa310d82a7d8fd8d",
+          "public/learn-assets/backpropagation/engine-library-bridge.py": "e97186c84d18f00764dfdcd9eadca54a3c4002cbddde3c89caa229f3fcef88a8",
+          "public/learn-assets/backpropagation/finite-differences.py": "c59b80f8c5a1db341876de3503da34e396c6db414bc9111e02c2ea36e4f00219",
+          "public/learn-assets/backpropagation/hessian-vector.py": "c050e4a33ea32720be82e1977c1d9cc521c34609c3817371634f623870f248a1",
+          "public/learn-assets/backpropagation/microbatch-means.py": "1b0006f63c11de8677aa7b6762cf41c50bd4af3e9c2c7fc2fbf4119bf6158008",
+          "public/learn-assets/backpropagation/programs.json": "8427f50b50b420dcf009a53281a77df71e0c7f1f35d082af60e26060f1e15a5d",
+          "public/learn-assets/backpropagation/pytorch-accumulation.py": "43204df0754946be02d1343246fb353dc78bbba02a60ae6a882257dafabac9ea",
+          "public/learn-assets/backpropagation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+          "src/learn/data/curriculum/blueprints/backpropagation-automatic-differentiation.js": "b6aa5cf13958ac34f49e594455fdf8e3444f4c3855d224e3f64cc0af3b5234c8",
+          "src/learn/data/topics/backprop.jsx": "e3bea186bcef1126c50fd6275545a2cf685fd9c0dc3960aab6bdcb8311e7097c"
+        },
+        "completedAt": "2026-09-21T18:52:04.274Z"
+      },
+      "implementation": {
+        "status": "complete",
+        "completedAt": "2026-09-21T18:52:04.274Z",
+        "reviewedFiles": {
+          "public/learn-assets/backpropagation/activation-checkpoint.py": "a688caea007f95bff5d4bbb511b0a008fd26f4d6ceb468d8e8216b3085a2ea96",
+          "public/learn-assets/backpropagation/author-calculations.py": "c76dbf1881e962a1cabd1d996ba65d391a0c0fa71bb26510b7da00920db62733",
+          "public/learn-assets/backpropagation/calculated-inputs.json": "c994b1d71a5ff8c3698e8db671080523beaa430431a9e54ace7349d48d51d342",
+          "public/learn-assets/backpropagation/custom-hard-sigmoid.py": "1ebf18e01475194cd0b69713def0881255bebbded98e80e19528fa6f32c462be",
+          "public/learn-assets/backpropagation/data-provenance.md": "7395ad322a042ca697f5655edb6a3d3235986eb6cd63d84df3f54c758519d242",
+          "public/learn-assets/backpropagation/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "public/learn-assets/backpropagation/directional-products.py": "4dd3474a8bce51a41d75a4b7e44601a99ad8309a9a535eb1aa310d82a7d8fd8d",
+          "public/learn-assets/backpropagation/engine-library-bridge.py": "e97186c84d18f00764dfdcd9eadca54a3c4002cbddde3c89caa229f3fcef88a8",
+          "public/learn-assets/backpropagation/finite-differences.py": "c59b80f8c5a1db341876de3503da34e396c6db414bc9111e02c2ea36e4f00219",
+          "public/learn-assets/backpropagation/hessian-vector.py": "c050e4a33ea32720be82e1977c1d9cc521c34609c3817371634f623870f248a1",
+          "public/learn-assets/backpropagation/microbatch-means.py": "1b0006f63c11de8677aa7b6762cf41c50bd4af3e9c2c7fc2fbf4119bf6158008",
+          "public/learn-assets/backpropagation/programs.json": "8427f50b50b420dcf009a53281a77df71e0c7f1f35d082af60e26060f1e15a5d",
+          "public/learn-assets/backpropagation/pytorch-accumulation.py": "43204df0754946be02d1343246fb353dc78bbba02a60ae6a882257dafabac9ea",
+          "public/learn-assets/backpropagation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+          "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+          "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+          "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+          "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+          "src/learn/components/content/Math.jsx": "c09a0bdcef88192335fb880ef74387b4eb63b4296e855e71e7995b27a2b7f258",
+          "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+          "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+          "src/learn/components/lesson-labs/BackpropFigures.jsx": "3f79b85978d7fcff2277225978d640ee2637585716ecd2a6b4c4e6eff835f3ea",
+          "src/learn/components/lesson-labs/BackpropLabs.jsx": "364d5dadbdea13cba51e49859247373064ac041c540cea76fef3981c4ffc9f1e",
+          "src/learn/components/lesson-labs/BackpropShared.jsx": "ce529c5801ad4ded1827a2facd767f538289f6cf70ac3f9dcaf932391f508ec5",
+          "src/learn/components/lesson-labs/MechanismProgram.jsx": "bb1158c6d70b2cb0a5e1707357e7d06af47f5056c0457bf5494394acbd8c480e",
+          "src/learn/components/lesson-labs/backprop-labs.css": "6d91f8c00fda522a12f38a6105dd76e26360d156f2d19c239ce425cc7c867b6a",
+          "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316",
+          "src/learn/data/backprop-mechanism-program.js": "989cb77f86dbac8bae519ec4b2f71209d345c199aaec3bf1bf6953a2eb82717f",
+          "src/learn/data/backprop-models.js": "9354824fbc2611e0c4de80d6d304ce10bcca526c2d7b7711d644988c78c843a0",
+          "src/learn/data/backprop-training.js": "608160464e347ec908cec37807fce8de2466beabae6ae44cfa5fd2823820252a",
+          "src/learn/data/curriculum/blueprints/backpropagation-automatic-differentiation.js": "b6aa5cf13958ac34f49e594455fdf8e3444f4c3855d224e3f64cc0af3b5234c8",
+          "src/learn/data/topics/backprop.jsx": "e3bea186bcef1126c50fd6275545a2cf685fd9c0dc3960aab6bdcb8311e7097c",
+          "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5"
+        }
+      },
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/backpropagation-automatic-differentiation/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/author-calculations.py": "c76dbf1881e962a1cabd1d996ba65d391a0c0fa71bb26510b7da00920db62733",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/calculated-inputs.json": "c994b1d71a5ff8c3698e8db671080523beaa430431a9e54ace7349d48d51d342",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/data-provenance.md": "c0a51cd62f83132636013d64a2bce9335f831c49a088cc30a1a8c474c8089c23",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md": "e889153c98e524147a8d145fb8c4f0bf05dc33a6638085eb776318a3f80942c0",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/lesson.md": "e1480f0d383682ff101e50d8033a495d0526e1a606de649c8a351dd2c507c7f5",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md": "7d6971a591b919c13db912b4b6c81cba326211b138001d417ac122d1c9234e2c"
+            },
+            "completedAt": "2026-09-12T13:36:23.900Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        },
+        {
+          "revision": 2,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "src/learn/data/topics/backprop.jsx",
+            "visualSpecifications": "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/author-calculations.py": "c76dbf1881e962a1cabd1d996ba65d391a0c0fa71bb26510b7da00920db62733",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/calculated-inputs.json": "c994b1d71a5ff8c3698e8db671080523beaa430431a9e54ace7349d48d51d342",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/data-provenance.md": "c0a51cd62f83132636013d64a2bce9335f831c49a088cc30a1a8c474c8089c23",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md": "86813c83f4aec57deda11a7bdfa4912826d5c1dfbbcebe9a6aa3396a611c9fa4",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/lesson.md": "d4b4c5133706205c73acef77db958934c58223a4ee378ea0c3e9797c241c834a",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md": "f102a356f80bb4bf594ec57ac603ffebb1ebf0f78cc9a8e0403017eed66a7eeb",
+              "src/learn/data/topics/backprop.jsx": "a2d57d9ba99bae53f6fde115b371a1550811cf4e6240f6d165dc75b12135d6bd",
+              "src/learn/data/curriculum/blueprints/backpropagation-automatic-differentiation.js": "b6aa5cf13958ac34f49e594455fdf8e3444f4c3855d224e3f64cc0af3b5234c8"
+            },
+            "completedAt": "2026-09-21T15:07:05.711Z"
+          },
+          "implementation": {
+            "status": "complete",
+            "completedAt": "2026-09-21T18:00:58.681Z",
+            "reviewedFiles": {
+              "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+              "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+              "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+              "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+              "src/learn/components/content/Math.jsx": "c09a0bdcef88192335fb880ef74387b4eb63b4296e855e71e7995b27a2b7f258",
+              "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+              "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+              "src/learn/components/lesson-labs/BackpropFigures.jsx": "3f79b85978d7fcff2277225978d640ee2637585716ecd2a6b4c4e6eff835f3ea",
+              "src/learn/components/lesson-labs/BackpropLabs.jsx": "364d5dadbdea13cba51e49859247373064ac041c540cea76fef3981c4ffc9f1e",
+              "src/learn/components/lesson-labs/BackpropShared.jsx": "ce529c5801ad4ded1827a2facd767f538289f6cf70ac3f9dcaf932391f508ec5",
+              "src/learn/components/lesson-labs/backprop-labs.css": "6d91f8c00fda522a12f38a6105dd76e26360d156f2d19c239ce425cc7c867b6a",
+              "src/learn/data/backprop-models.js": "9354824fbc2611e0c4de80d6d304ce10bcca526c2d7b7711d644988c78c843a0",
+              "src/learn/data/backprop-training.js": "608160464e347ec908cec37807fce8de2466beabae6ae44cfa5fd2823820252a",
+              "src/learn/data/curriculum/blueprints/backpropagation-automatic-differentiation.js": "b6aa5cf13958ac34f49e594455fdf8e3444f4c3855d224e3f64cc0af3b5234c8",
+              "src/learn/data/topics/backprop.jsx": "a2d57d9ba99bae53f6fde115b371a1550811cf4e6240f6d165dc75b12135d6bd",
+              "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5"
+            }
+          },
+          "nextAction": "Both phases complete. Reuse source-bound independent reviews and final production integration in docs/teaching/DEEP-LEARNING-CORE-IMPLEMENTATION.md; user acceptance is separate. No next topic authorized.",
+          "preparedCheckpointRecord": "docs/teaching/evidence/deep-learning-core-baseline.json"
+        }
+      ],
+      "nextAction": "This focused implementation-depth revision is complete with native, independent and production evidence. Read docs/teaching/IMPLEMENTATION-DEPTH-REVIEW.md for broader unresolved coverage; no next-topic queue is implied. User acceptance is separate."
+    },
+    "transfer-learning-fine-tuning-strategies": {
+      "revision": 3,
+      "deliveryMode": "full",
+      "record": "docs/teaching/implementation-depth/transfer-learning-fine-tuning-strategies.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx",
+        "visualSpecifications": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/calculated-inputs.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/data-provenance.md": "f78c5962d98c2eddfbf6e5b082641ddba6047289b9053b2621a366111e6fb01a",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md": "861e7443d1994946a99b704280882bf25c4f670077c6dccbb7662ae314ada099",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/lesson.md": "f6163f24c96c0e38d6e58d7a072da737d2f536719d1420d9e3b38634c14a9d61",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/transfer-experiments.py": "d95578cc66da09c2f0b55e1e1d695676a64f26f5426b47caa7e190ddf13c7c28",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md": "a053840856b64fa7474a1b68bb3798a705b045ed00229b0a3773262fa516d74d",
+          "docs/teaching/implementation-depth/transfer-learning-fine-tuning-strategies.md": "7e0dfdfca94f6df89bd902431dfea3f26c26c331d19ebc89bfa8832ac0400578",
+          "public/learn-assets/transfer-learning/lora-mechanism-bridge.py": "3cea9775c20696ab1be05e8a601c2212b761b1748ebc1b79f56af56b7ca598bd",
+          "src/learn/data/curriculum/blueprints/transfer-learning-fine-tuning-strategies.js": "45b5e7094d16692ea9297e2714b5b798813a4efb10efe65ff645e989e9496eba",
+          "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "bc493e546514cd5b8fa4b60468e03f73b277e0db60774c56170d435f98dbdb73"
+        },
+        "completedAt": "2026-09-21T18:52:04.274Z"
+      },
+      "implementation": {
+        "status": "complete",
+        "completedAt": "2026-09-21T18:52:04.274Z",
+        "reviewedFiles": {
+          "public/learn-assets/transfer-learning/lora-mechanism-bridge.py": "3cea9775c20696ab1be05e8a601c2212b761b1748ebc1b79f56af56b7ca598bd",
+          "src/learn/assets/transfer-learning/data-provenance.md": "f78c5962d98c2eddfbf6e5b082641ddba6047289b9053b2621a366111e6fb01a",
+          "src/learn/assets/transfer-learning/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "src/learn/assets/transfer-learning/transfer-experiments.py": "d95578cc66da09c2f0b55e1e1d695676a64f26f5426b47caa7e190ddf13c7c28",
+          "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+          "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+          "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+          "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+          "src/learn/components/content/Math.jsx": "c09a0bdcef88192335fb880ef74387b4eb63b4296e855e71e7995b27a2b7f258",
+          "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+          "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+          "src/learn/components/lesson-labs/LessonElements.jsx": "232ff18e81cf9b79acd51a40e9e1683fad6f509083aeb0ab5f1ad8b7199f01e9",
+          "src/learn/components/lesson-labs/MechanismProgram.jsx": "bb1158c6d70b2cb0a5e1707357e7d06af47f5056c0457bf5494394acbd8c480e",
+          "src/learn/components/lesson-labs/TransferLearningLabs.jsx": "32a5bc064acbc04208c15d5372d56453f2f0cb35aea64db25f57f92c735fcc9b",
+          "src/learn/components/lesson-labs/lessons.css": "a7fbce9cc83e7088ae93545f758e818996bacffa1344d4b0d3b3a04318aa3508",
+          "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316",
+          "src/learn/components/lesson-labs/transfer-learning.css": "cdcf84f6327c60d618e44e999d424df358e3fe83a6068473e493b27cf62fa3b3",
+          "src/learn/data/curriculum/blueprints/transfer-learning-fine-tuning-strategies.js": "45b5e7094d16692ea9297e2714b5b798813a4efb10efe65ff645e989e9496eba",
+          "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "bc493e546514cd5b8fa4b60468e03f73b277e0db60774c56170d435f98dbdb73",
+          "src/learn/data/transfer-learning-experiment.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+          "src/learn/data/transfer-learning-mechanism-program.js": "a12979b24e6fb06713821fe1cf5bbcbadd3a2319641275c555ceb8644c07064c",
+          "src/learn/data/transfer-learning-model.js": "c37ff85915e37d72314d44c8966aa1d76f53186af8530671781047c76f81082c",
+          "src/learn/data/transfer-learning-specimens.json": "07bdbeded6923c9de26dad9ad78ddc6f54900046a0413ff3eec4ecf99191027c",
+          "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5"
+        }
+      },
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/calculated-inputs.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/data-provenance.md": "f78c5962d98c2eddfbf6e5b082641ddba6047289b9053b2621a366111e6fb01a",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md": "f5f3483251d23be1183d0bc0d1936d34afbbb6f7656196f49dc6d7ad4738dc89",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/lesson.md": "bfefe203893ab319fbed362b3d655d914c01a5003db197aa861735eb2c475483",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/transfer-experiments.py": "d95578cc66da09c2f0b55e1e1d695676a64f26f5426b47caa7e190ddf13c7c28",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md": "7ba7d4cf067d68520ee386f5a14beb583616941e14abc27d3de59d7660bc6467"
+            },
+            "completedAt": "2026-09-12T14:37:49.310Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        },
+        {
+          "revision": 2,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx",
+            "visualSpecifications": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/calculated-inputs.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/data-provenance.md": "f78c5962d98c2eddfbf6e5b082641ddba6047289b9053b2621a366111e6fb01a",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md": "861e7443d1994946a99b704280882bf25c4f670077c6dccbb7662ae314ada099",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/lesson.md": "f6163f24c96c0e38d6e58d7a072da737d2f536719d1420d9e3b38634c14a9d61",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/transfer-experiments.py": "d95578cc66da09c2f0b55e1e1d695676a64f26f5426b47caa7e190ddf13c7c28",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md": "a053840856b64fa7474a1b68bb3798a705b045ed00229b0a3773262fa516d74d",
+              "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "78643d8a432d83b2a95a71065134ced5676adb2bffef877f14b328931cdddb5c",
+              "src/learn/data/curriculum/blueprints/transfer-learning-fine-tuning-strategies.js": "45b5e7094d16692ea9297e2714b5b798813a4efb10efe65ff645e989e9496eba"
+            },
+            "completedAt": "2026-09-21T15:07:05.722Z"
+          },
+          "implementation": {
+            "status": "complete",
+            "completedAt": "2026-09-21T18:00:58.910Z",
+            "reviewedFiles": {
+              "src/learn/assets/transfer-learning/data-provenance.md": "f78c5962d98c2eddfbf6e5b082641ddba6047289b9053b2621a366111e6fb01a",
+              "src/learn/assets/transfer-learning/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "src/learn/assets/transfer-learning/transfer-experiments.py": "d95578cc66da09c2f0b55e1e1d695676a64f26f5426b47caa7e190ddf13c7c28",
+              "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+              "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+              "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+              "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+              "src/learn/components/content/Math.jsx": "c09a0bdcef88192335fb880ef74387b4eb63b4296e855e71e7995b27a2b7f258",
+              "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+              "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+              "src/learn/components/lesson-labs/LessonElements.jsx": "232ff18e81cf9b79acd51a40e9e1683fad6f509083aeb0ab5f1ad8b7199f01e9",
+              "src/learn/components/lesson-labs/TransferLearningLabs.jsx": "32a5bc064acbc04208c15d5372d56453f2f0cb35aea64db25f57f92c735fcc9b",
+              "src/learn/components/lesson-labs/lessons.css": "a7fbce9cc83e7088ae93545f758e818996bacffa1344d4b0d3b3a04318aa3508",
+              "src/learn/components/lesson-labs/transfer-learning.css": "cdcf84f6327c60d618e44e999d424df358e3fe83a6068473e493b27cf62fa3b3",
+              "src/learn/data/curriculum/blueprints/transfer-learning-fine-tuning-strategies.js": "45b5e7094d16692ea9297e2714b5b798813a4efb10efe65ff645e989e9496eba",
+              "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "78643d8a432d83b2a95a71065134ced5676adb2bffef877f14b328931cdddb5c",
+              "src/learn/data/transfer-learning-experiment.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+              "src/learn/data/transfer-learning-model.js": "c37ff85915e37d72314d44c8966aa1d76f53186af8530671781047c76f81082c",
+              "src/learn/data/transfer-learning-specimens.json": "07bdbeded6923c9de26dad9ad78ddc6f54900046a0413ff3eec4ecf99191027c",
+              "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5"
+            }
+          },
+          "nextAction": "Both phases complete. Reuse source-bound independent reviews and final production integration in docs/teaching/DEEP-LEARNING-CORE-IMPLEMENTATION.md; user acceptance is separate. No next topic authorized.",
+          "preparedCheckpointRecord": "docs/teaching/evidence/deep-learning-core-baseline.json"
+        }
+      ],
+      "nextAction": "This focused implementation-depth revision is complete with native, independent and production evidence. Read docs/teaching/IMPLEMENTATION-DEPTH-REVIEW.md for broader unresolved coverage; no next-topic queue is implied. User acceptance is separate."
+    }
+  },
+  "checkedAt": "2026-09-21T20:13:25.053Z",
+  "checks": [
+    "All scoped revisions preserve their exact preceding checkpoints",
+    "Three compatibility rows change only the tested shared-viewer binding",
+    "Every other phase row is byte-equivalent after JSON serialization",
+    "All current phase sources and conserved catalogue totals match",
+    "All 38 production pages match current build, checker and runtime sources",
+    "Independent source reviews are closed; later documentation changes are explicit",
+    "Author checkpoint updates contain only reviewed repair or completion bindings",
+    "Canonical public programs in reviewed source maps were copied unchanged into production",
+    "Final repository checks were executed successfully"
+  ],
+  "totals": {
+    "contentComplete": 177,
+    "implementationComplete": 140,
+    "prepared": 37,
+    "published": 231,
+    "stableTopics": 1460
+  },
+  "revisionsCompleted": [
+    "trees-binary-search-trees",
+    "graphs-representations-bfs-dfs",
+    "segment-trees-fenwick-trees-range-queries",
+    "shortest-paths-spanning-trees-topological-ordering",
+    "string-matching-prefix-functions-rolling-hashes",
+    "randomized-algorithms-sampling-error-guarantees",
+    "network-flow-minimum-cuts-bipartite-matching",
+    "computational-geometry-robust-predicates-convex-hulls",
+    "persistent-data-structures-structural-sharing-versioned-queries",
+    "external-memory-algorithms-b-trees-i-o-complexity",
+    "matrix-calculus-jacobians",
+    "randomized-linear-algebra",
+    "multivariate-calculus-gradients",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+    "constrained-multi-objective-optimization",
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+    "variational-inference",
+    "optimal-transport-wasserstein-distance-sinkhorn",
+    "causal-inference-do-calculus",
+    "mutual-information-information-bottleneck",
+    "f-divergences-integral-probability-metrics",
+    "graph-fundamentals-adjacency-laplacian-connectivity",
+    "spectral-graph-theory",
+    "stochastic-processes-markov-chains-brownian-motion-poisson",
+    "queueing-theory-m-m-1-m-g-1-little-s-law",
+    "it-calculus-stochastic-differential-equations",
+    "functional-analysis-rkhs",
+    "topology-topological-data-analysis-tda",
+    "numerical-pdes-grids-finite-elements-stability",
+    "t-sne-umap-manifold-learning",
+    "conditional-random-fields-crf",
+    "active-learning",
+    "linear-logistic-regression",
+    "gaussian-processes-gp"
+  ],
+  "unchangedRows": 139,
+  "browser": {
+    "file": "docs/teaching/evidence/depth-remediation-browser.json",
+    "sha256": "8ef13a825de84d45d4d46b52fa2de3e64ac90d417216da17c965390bde6da703",
+    "pages": 38,
+    "widths": [
+      1366,
+      390,
+      320
+    ],
+    "inspectedPhoneCaptures": 38
+  },
+  "independentEvidence": {
+    "docs/teaching/implementation-depth/DSA-REMEDIATION-INDEPENDENT.json": "022b191deeff9de5c1aa35a6590582f4443a2b71fa8bf5b7c7dbd344c8cea67c",
+    "docs/teaching/implementation-depth/MATH-LIBRARY-REMEDIATION-INDEPENDENT.json": "046e3df7954db7b89784f3e58491e85d54581ae3e7d8576a73a234c09870d9ac",
+    "docs/teaching/implementation-depth/math-depth-remediation-independent-sources.json": "6118b9c2f7d838ad88339575d2d497847ba0cbca7674175d136e64c36d36fcdd",
+    "docs/teaching/implementation-depth/classical-remediation-independent.json": "8266fd69fc23e941ef1a376bc5f3192b6744d3a291fefb95402cde8bf371bfc8"
+  },
+  "build": {
+    "status": "passed",
+    "manifestSha256": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+    "log": "scratch/depth-remediation-build.txt",
+    "logSha256": "18f35196ef5a6d8b22e87d86cbafe22c687553f9c81281b175304f725dded257",
+    "retainedWarning": "Existing large catalogue chunk"
+  },
+  "ledgerSha256": "0e1bda51a7506bfded8033aa4b27d652e30868c8baeaa96b02ca2a550c8ec91c",
+  "repositoryChecks": {
+    "file": "docs/teaching/evidence/implementation-depth-final-checks.json",
+    "sha256": "01d9986dcb66dd883fe580dca97e1ce896d0c8341911f5ca3eb7d546ec4f77df"
+  },
+  "verifierSha256": "d1df2036779e5581f15d18ced4c5766c60c5810f509ca54c41538f3acb19cdf8"
+}

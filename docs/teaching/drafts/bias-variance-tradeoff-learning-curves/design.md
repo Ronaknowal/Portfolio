@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Bias–Variance: content design and continuation
 
 Stable ID: bias-variance-tradeoff-learning-curves. Classical ML, authorized batch position 6. Author: root, 12 September 2026. Mode: research and write only. The central delivery ledger owns phase status and hashes. This packet contains the [manuscript](lesson.md), [visual specifications](visual-specifications.md), [data provenance](data-provenance.md), unchanged real dataset, source metadata and bounded calculations. No implementation/publication or formal independent review has occurred.

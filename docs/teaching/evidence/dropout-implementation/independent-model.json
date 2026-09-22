@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "objectiveCases": 15,
+  "momentCases": 60,
+  "nativeBatchNormCases": 24,
+  "prefixCases": 300,
+  "executionCases": 15,
+  "geometryBoundaryCases": 24,
+  "method": "Exact expected gradient/penalty identity, arbitrary survivor-scale moments, native BN oracle, KL-versus-entropy and second-moment identities for every saved prefix; invocation/output separation and effective geometry boundaries.",
+  "sourceHashes": {
+    "src/learn/data/dropout-models.js": "e822e7f17cd3a3f5b77a0e967983e40fc1d113a1ddb976e1bfe37877d0234884",
+    "src/learn/data/dropout-measurements.json": "9577eb052bcf1cfa929b27b6ac357704774cd17f61686954c06f041be06ffe3d"
+  }
+}

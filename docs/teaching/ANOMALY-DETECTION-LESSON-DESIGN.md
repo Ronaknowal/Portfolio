@@ -1,5 +1,14 @@
 # Anomaly Detection — content revision 1
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit positions, depth cap, reference rows, k, query, gamma, anchor, prevalence, sensitivity, false-positive rate and review budget to follow paths, densities, scores and workloads live. On the real series change method, calibration quantile or threshold and inspect the synchronized timeline, annotated windows and review counts; keep fit, calibration and held-out time roles intact.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 **Visual-layout follow-up, 14 September 2026:** [the expanded diagram review](LESSON-VISUAL-LAYOUT-REVIEW.md) adds a bottom label gutter to the LOF reach-neighbour strip, preserving its baseline and all numeric coordinates. Desktop/320px captures were inspected and the [browser suite](evidence/anomaly-detection-browser.json) passes 13 cases. The prepared content, native examples and exact-rational model are unchanged; this later record supersedes the older affected visual capture.
 
 Date: 12 September 2026, local authoring date. Scope: research and write only, stages 1–2. The existing publication remains unchanged. This design is not a production verification record.

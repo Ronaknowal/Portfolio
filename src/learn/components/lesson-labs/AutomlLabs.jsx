@@ -8,19 +8,12 @@ import {
 } from '../../data/automl-models.js';
 import { candidates as recordedCandidates, replayOrder, sourceRows } from '../../data/automl-data.js';
 import {
-  Attempts, Investigation, Legend, NumberField, Plot, Prediction, Stage, Table, TextField,
+  Attempts, Investigation, Legend, NumberField, Plot, LiveResult, Stage, Table, TextField,
   exactly, fixed, polyline, round, signed, useInvestigation,
 } from './AutomlShared.jsx';
 import './automl-labs.css';
 
-/** The six investigations of the AutoML & NAS lesson.
- *
- * Each one follows the same contract: the learner edits the topic's own
- * entities, records a prediction, and only then sees a result computed from the
- * inputs that prediction was recorded against. Nothing is revealed on first
- * paint, a suggested setup fills fields without applying or answering them, and
- * any relevant edit retires the recorded verdict.
- */
+
 
 const clone = value => JSON.parse(JSON.stringify(value));
 
@@ -115,7 +108,7 @@ export function SearchSpaceLab() {
   })();
   const appliedRecipe = activeRecipe(state.active.space, state.active);
   const draftRecipe = activeRecipe(draft.space, draft);
-  const answerFor = (proposed, current) => {
+  const calculateInputs = (proposed, current) => {
     const before = countConfigurations(current.space).total;
     const after = countConfigurations(proposed.space).total;
     return {
@@ -138,8 +131,8 @@ export function SearchSpaceLab() {
 
     <Stage title="The permitted registry">
       <p className="am-caption">
-        The permitted values only. No branch count, product or total appears until a prediction is recorded — working
-        out how the branches combine is the task.
+        Edit the permitted values and inspect each branch count, product and total together. Follow how the
+        conditional branches combine to form the search space.
       </p>
       <ul className="am-tree">
         {familyOrder.map(family => {
@@ -147,10 +140,7 @@ export function SearchSpaceLab() {
           return <li key={family} className={draft.family === family ? 'is-current' : undefined}>
             <div className="am-branch-head">
               <b>{familyLabels[family]}</b>
-              {/* The sum of these four branch counts IS the graded answer, in the
-                  notation the answer panel will use. Showing them before the
-                  prediction does the arithmetic this investigation exists to
-                  teach. Only the permitted values are visible until then. */}
+              {}
               <span className="am-branch-count">
                 {!branch ? 'invalid'
                   : state.result ? `${branch.expression} = ${branch.count}`
@@ -226,13 +216,13 @@ export function SearchSpaceLab() {
       ))}
     </div>
 
-    <Prediction
-      prompt={`The applied space holds ${appliedCount.total} valid configurations. Applying the draft, what happens to that number?`}
-      options={[['shrinks', 'It shrinks'], ['unchanged', 'Exactly unchanged'], ['grows', 'It grows']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the new total', name: 'the new total', tolerance: 0, digits: 0 }}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
       blocked={draftCount ? null : 'The draft grammar is not valid yet; fix the field error above before applying.'}
-      committed={shown => `${shown.answer.before} → ${shown.answer.after} configurations`}
+      
       describe={comparison
         ? `The active recipe ${comparison.beforeRecipe.serialized === comparison.afterRecipe.serialized ? 'did not move' : `moved from ${comparison.beforeRecipe.serialized} to ${comparison.afterRecipe.serialized}`}.`
         : undefined} />
@@ -328,7 +318,7 @@ export function AcquisitionLab() {
   const state = useInvestigation(acquisitionBaseline);
   const draft = state.draft;
   const asList = record => ACQUISITION_IDS.map(id => ({ id, ...record[id] }));
-  const answerFor = proposed => {
+  const calculateInputs = proposed => {
     const table = acquisitionTable(proposed.best, asList(proposed));
     return { outcome: table.winner ?? 'tie', value: table.highest };
   };
@@ -339,7 +329,7 @@ export function AcquisitionLab() {
   const weightPeak = densities ? Math.max(...densities.flatMap(entry => entry.points.map(point => point.weighted)), 1e-9) : 1;
   return <Investigation
     title="Shade the improvement worth buying"
-    question="Three constructed surrogate predictions about an unknown loss, and an incumbent best. Record which candidate has the greatest expected improvement before anything is drawn."
+    question="Three constructed surrogate predictions about an unknown loss, and an incumbent best. Compare the expected improvements as the surrogate means and uncertainties change."
     evidence="Constructed Gaussian surrogate predictions in surrogate loss coordinates. These are not fitted classifier probabilities, and they are not observed candidate losses."
     note="Expected improvement is E[max(b − F, 0)]: the average size of the improvement, not the probability that there is one. Those are different quantities and the panels below label them separately."
     onReset={state.reset}>
@@ -361,16 +351,16 @@ export function AcquisitionLab() {
         })}>{setup.label}</button>
       ))}
     </div>
-    <Table caption="The raw inputs. Nothing derived from them is shown until a prediction is recorded."
+    <Table caption="The raw surrogate inputs; the curves and expected improvements update with them."
       headings={['candidate', 'predicted mean μ', 'predicted deviation σ']}
       rows={ACQUISITION_IDS.map(id => [id, round(draft[id].mean, 3), draft[id].deviation === 0 ? 'exactly 0' : round(draft[id].deviation, 3)])} />
 
-    <Prediction
-      prompt={`With the incumbent best loss at ${round(draft.best, 3)}, which candidate has the greatest expected improvement?`}
-      options={[...ACQUISITION_IDS.map(id => [id, `${id} (μ = ${round(draft[id].mean, 3)}, σ = ${round(draft[id].deviation, 3)})`]), ['tie', 'They tie']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: its expected improvement', name: 'the greatest EI', tolerance: limits.displayTolerance, digits: 8 }}
-      committed={shown => `b = ${round(state.active.best, 3)}, ${ACQUISITION_IDS.map(id => `${id}(${round(state.active[id].mean, 3)}, ${round(state.active[id].deviation, 3)})`).join(', ')}`} />
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+       />
 
     {applied && <>
       <div className="am-panels is-stacked">
@@ -505,7 +495,7 @@ export function HalvingLab() {
   const state = useInvestigation(curveBaseline);
   const [showCounterfactual, setShowCounterfactual] = useState(false);
   const draft = state.draft;
-  const answerFor = proposed => {
+  const calculateInputs = proposed => {
     const schedule = halvingSchedule(proposed.curves);
     return { outcome: schedule.selectedId, value: schedule.work[proposed.accounting] };
   };
@@ -513,7 +503,7 @@ export function HalvingLab() {
   const brackets = hyperbandBrackets(9, 3);
   return <Investigation
     title="Follow the survivors, then inspect the evidence you never bought"
-    question="Nine candidates, a resource ladder of 1, 3 and 9 units, and a rule that keeps the best third at each rung. Record which candidate the schedule selects, and how much work it costs, before any rung is decided."
+    question="Nine candidates, a resource ladder of 1, 3 and 9 units, and a rule that keeps the best third at each rung. Change the curves and follow which candidates survive each rung and how much work it costs."
     evidence="Constructed loss curves in constructed resource units. Not seconds, not GPU hours, and not a measured training run."
     note="The scheduler only ever ranks the column it has purchased. A value further along a row cannot influence the cut that removed its candidate — which is exactly how a slow starter is lost."
     onReset={() => { state.reset(); setShowCounterfactual(false); }}>
@@ -567,12 +557,12 @@ export function HalvingLab() {
       changes how the work is counted, not which candidate survives.
     </p>
 
-    <Prediction
-      prompt="Which candidate does the schedule finally select, and how much work does the accounting you chose report?"
-      options={draft.curves.map(curve => [curve.id, `${curve.id} survives to the end`])}
-      state={state} answerFor={answerFor}
-      numeric={{ label: `Optional: total work in constructed resource units (${draft.accounting === 'restart' ? 'restart' : 'continuation'})`, name: 'the total work', tolerance: 0, digits: 0 }}
-      committed={shown => `${state.active.curves.map(curve => `${curve.id}[${curve.losses.join(', ')}]`).join('  ')}`} />
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+       />
 
     {applied && <>
       <div className="am-rungs">
@@ -735,7 +725,7 @@ export function SearchReplayLab() {
   const draft = state.draft;
   const sequence = draft.order.filter(index => draft.enabled.includes(index));
   const safeBudget = Math.min(Math.max(draft.budget, 1), Math.max(sequence.length, 1));
-  const answerFor = (proposed, current) => {
+  const calculateInputs = (proposed, current) => {
     const currentSequence = current.order.filter(index => current.enabled.includes(index));
     const before = replayPrefix({
       order: current.order, enabled: current.enabled,
@@ -804,18 +794,13 @@ export function SearchReplayLab() {
         return position >= 0 && position < safeBudget ? 'is-selected' : 'is-muted';
       }} />
 
-    <Prediction
-      prompt={`Moving from the applied budget to ${safeBudget}: what changes?`}
-      options={[
-        ['neither', 'Neither: same best score, same recommendation'],
-        ['score', 'The best score changes, the recommendation stays'],
-        ['recommendation', 'The recommendation changes, the best score stays flat'],
-        ['both', 'Both change'],
-      ]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: estimator fits paid for at the new budget', name: 'the fit count', tolerance: 0, digits: 0 }}
-      committed={shown => `budget ${shown.answer.comparison.before.revealed.length} → ${shown.answer.comparison.after.revealed.length}, ${shown.answer.comparison.after.order.length} candidates enabled`}
-      describe={state.result ? `Best score ${fixed(state.result.answer.comparison.before.best, 6)} → ${fixed(state.result.answer.comparison.after.best, 6)}; recommendation ${state.result.answer.comparison.before.recommendedId} → ${state.result.answer.comparison.after.recommendedId}.` : undefined} />
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
+      describe={state.result ? `Best score ${fixed(state.result.calculation.comparison.before.best, 6)} → ${fixed(state.result.calculation.comparison.after.best, 6)}; recommendation ${state.result.calculation.comparison.before.recommendedId} → ${state.result.calculation.comparison.after.recommendedId}.` : undefined} />
 
     {applied && <>
       <Plot caption="Best mean fold accuracy so far, against candidates fully evaluated"
@@ -925,7 +910,7 @@ const paretoSetups = [
 export function DeploymentLab() {
   const state = useInvestigation(paretoBaseline);
   const draft = state.draft;
-  const answerFor = proposed => {
+  const calculateInputs = proposed => {
     const analysis = paretoAnalysis(proposed.points, proposed.cap);
     return { outcome: analysis.selectedId ?? 'none', value: analysis.frontierIds.length };
   };
@@ -933,7 +918,7 @@ export function DeploymentLab() {
   const latencies = draft.points.map(point => point.latency);
   return <Investigation
     title="Choose under a hard constraint, not a soft preference"
-    question="Five candidates described by inference latency and accuracy, and a latency cap the deployment actually has. Record which candidate you would ship before any frontier is drawn."
+    question="Five candidates described by inference latency and accuracy, and a latency cap the deployment actually has. Move the cap or measurements and compare the feasible frontier and deployment choice."
     evidence="Hypothetical deployment measurements. These latencies are invented for this task. They carry no product name, no device, and no benchmark: a real latency figure needs hardware, software, input shape, batch size, precision, warm-up and a stated timing boundary."
     note={`A candidate is dominated when another is no worse in both objectives and strictly better in at least one. Two identical pairs therefore do not dominate each other. The shipped candidate is chosen by a rule fixed before the task: ${paretoAnalysis(declaredPareto, 5).selectionRule}.`}
     onReset={state.reset}>
@@ -965,16 +950,16 @@ export function DeploymentLab() {
       <button type="button" className="is-quiet" disabled={draft.points.length <= limits.points.minimum}
         onClick={() => state.edit(current => ({ points: current.points.slice(0, -1) }))}>Remove the last</button>
     </div>
-    <Table caption="The raw pairs. No feasibility flag, dominance mark or winner appears until a prediction is recorded."
+    <Table caption="The raw pairs; the plot and table show feasibility, dominance and the selected candidate."
       headings={['candidate', 'latency (ms)', 'accuracy']}
       rows={draft.points.map(point => [point.id, round(point.latency, 2), round(point.accuracy, 4)])} />
 
-    <Prediction
-      prompt={`Under a ${round(draft.cap, 2)} ms cap, which candidate would you ship?`}
-      options={[...draft.points.map(point => [point.id, `${point.id} (${round(point.latency, 2)} ms, ${round(point.accuracy, 4)})`]), ['none', 'None is feasible']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: how many candidates are on the frontier', name: 'the frontier size', tolerance: 0, digits: 0 }}
-      committed={shown => `cap ${round(state.active.cap, 2)} ms, ${state.active.points.map(point => `${point.id}(${point.latency}, ${point.accuracy})`).join(' ')}`}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={state.result && applied && applied.selectionTied
         ? `${applied.tiedOnAccuracyIds.join(' and ')} tie exactly on accuracy, so accuracy does not settle this one: the rule declared above takes ${applied.tieBrokenBy}.`
         : undefined} />
@@ -1100,119 +1085,31 @@ const mixtureSetups = [
   },
 ];
 
-/** The commitment stage. It is keyed on the applied inputs by its parent, so an
- * edit remounts it and its own prediction is retired with everything else. */
+
 function CommitStage({ applied }) {
-  const [choice, setChoice] = useState('');
-  const [shown, setShown] = useState(null);
-  const committed = shown ? commitOperation(applied, shown) : null;
-  return <Stage title="Commit to one operation">
-    <p>
-      A searched mixture is not a deployable architecture: at some point one operation is chosen and the rest are thrown
-      away. Predict what that does to the loss here, before committing.
-    </p>
-    <div className="am-prediction">
-      <fieldset>
-        <legend>Record a prediction first.</legend>
-        <p>Replacing the mixture with a single operation will make the loss below. Changes within 10⁻¹² count as tied in this numerical check.</p>
-        <div className="am-choices">
-          {[['lower', 'lower'], ['same', 'the same within 10⁻¹²'], ['higher', 'higher']].map(([value, text]) => (
-            <label className="am-choice" key={value}>
-              <input type="radio" name="commit-direction" value={value} checked={choice === value}
-                disabled={Boolean(shown)} onChange={() => setChoice(value)} />
-              <span>{text}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <div className="am-buttons">
-        {applied.operations.map(operation => (
-          <button key={operation.id} type="button" className="is-primary" disabled={choice === '' || Boolean(shown)}
-            onClick={() => setShown(operation.id)}>Commit to {operation.label}</button>
-        ))}
-        {!shown && <span>Choose a direction first, then commit to one of the operations.</span>}
-      </div>
-      {committed && <p className={`am-verdict ${((committed.difference > 1e-12 && choice === 'higher') || (committed.difference < -1e-12 && choice === 'lower') || (Math.abs(committed.difference) <= 1e-12 && choice === 'same')) ? '' : 'is-miss'}`} role="status">
-        <span className="am-verdict-mark" aria-hidden="true">
-          {((committed.difference > 1e-12 && choice === 'higher') || (committed.difference < -1e-12 && choice === 'lower') || (Math.abs(committed.difference) <= 1e-12 && choice === 'same')) ? '=' : '≠'}
-        </span>
-        {((committed.difference > 1e-12 && choice === 'higher') || (committed.difference < -1e-12 && choice === 'lower') || (Math.abs(committed.difference) <= 1e-12 && choice === 'same'))
-          ? 'Your prediction matches. ' : 'Your prediction does not match. '}
-        Committing to {shown} gives output {round(committed.output, 6)} and loss {round(committed.loss, 6)}; the mixture&rsquo;s
-        loss was {round(committed.mixtureLoss, 6)}, a change of {signed(committed.difference, 6)}.
-        {committed.worseThanMixture
-          ? ' The committed function is worse than the mixture that was being optimized — discretization itself changed the function, before any retraining.'
-          : ' Here the commitment does not cost anything; the contrast appears when the operations disagree and the mixture sits between them.'}
-      </p>}
-    </div>
-    {committed && <Table caption="Every discrete choice, against the mixture. The largest softmax weight is not automatically the best committed operation."
-      headings={['operation', 'output', 'loss', 'softmax weight']}
-      rows={committed.alternatives.map(entry => {
-        const source = applied.operations.find(operation => operation.id === entry.id);
-        return [entry.id, round(entry.output, 6), round(entry.loss, 6), round(source.probability, 6)];
-      })}
-      rowClass={index => (committed.alternatives[index].id === shown ? 'is-selected' : undefined)} />}
-    {committed && <p className="am-caption">
-      The largest weight belongs to <b>{committed.argmaxId}</b>; the lowest committed loss belongs
-      to <b>{committed.bestDiscreteId}</b>. Committing does not retrain anything, so this comparison says nothing about
-      how a retrained architecture would perform. That is a separate experiment.
-    </p>}
+  const [operationId, setOperationId] = useState(applied.operations[0].id);
+  const committed = commitOperation(applied, operationId);
+  return <Stage title="Compare a discrete operation with the mixture">
+    <p>Choose an operation to see the output and loss change immediately. Discretization changes the function before retraining.</p>
+    <label>Deployed operation<select value={operationId} onChange={event => setOperationId(event.target.value)}>{applied.operations.map(operation => <option key={operation.id} value={operation.id}>{operation.label}</option>)}</select></label>
+    <p role="status">Output {round(committed.output, 6)}; loss {round(committed.loss, 6)}; mixture loss {round(committed.mixtureLoss, 6)}; difference {signed(committed.difference, 6)}.</p>
+    <Table caption="Every discrete choice against the mixture" headings={['operation', 'output', 'loss', 'softmax weight']} rows={committed.alternatives.map(entry => [entry.id, round(entry.output, 6), round(entry.loss, 6), round(applied.operations.find(operation => operation.id === entry.id).probability, 6)])} />
+    <p>The largest weight belongs to {committed.argmaxId}; the lowest discrete loss belongs to {committed.bestDiscreteId}. No operation is retrained in this comparison.</p>
   </Stage>;
 }
 
-/** The architecture-step stage, with its own recorded prediction. */
 function StepStage({ applied }) {
-  const [choice, setChoice] = useState('');
-  const [shown, setShown] = useState(false);
-  const correct = applied.stepOutcome;
-  return <Stage title="Take one architecture step">
-    <div className="am-prediction">
-      <fieldset>
-        <legend>Record a prediction first.</legend>
-        <p>
-          A gradient step of size {round(applied.step, 3)} on the logits will move the mixed output:
-        </p>
-        <div className="am-choices">
-          {[['toward', 'toward the target'], ['stay', 'by no more than 10⁻¹²'], ['away', 'away from the target']].map(([value, text]) => (
-            <label className="am-choice" key={value}>
-              <input type="radio" name="step-direction" value={value} checked={choice === value}
-                disabled={shown} onChange={() => setChoice(value)} />
-              <span>{text}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <div className="am-buttons">
-        <button type="button" className="is-primary" disabled={choice === '' || shown}
-          onClick={() => setShown(true)}>Take the step</button>
-      </div>
-      {shown && <p className={`am-verdict ${choice === correct ? '' : 'is-miss'}`} role="status">
-        <span className="am-verdict-mark" aria-hidden="true">{choice === correct ? '=' : '≠'}</span>
-        {choice === correct
-          ? 'Your prediction matches. '
-          : `You recorded "${{ toward: 'toward the target', stay: 'by no more than 10⁻¹²', away: 'away from the target' }[choice]}"; the calculation gives "${{ toward: 'toward the target', stay: 'by no more than 10⁻¹²', away: 'away from the target' }[correct]}". `}
-        {applied.stepMoved
-          ? <>The updated logits are ({applied.updatedLogits.map(value => round(value, 6)).join(', ')}), giving
-            output {round(applied.updatedOutput, 12)} and loss {round(applied.updatedLoss, 6)} against the previous
-            {' '}{round(applied.loss, 6)}. The weight
-            on {applied.operations.find(operation => operation.id === applied.descendId).label} increases, because
-            descending on the logits raises whichever operation pulls the mixture toward the target.</>
-          : <>The computed output change is within 10⁻¹². The updated logits are
-            ({applied.updatedLogits.map(value => round(value, 6)).join(', ')}), the output is
-            {round(applied.updatedOutput, 12)} and the loss is {round(applied.updatedLoss, 6)}, because
-            {' '}{applied.stepUnchangedReason}.
-            {applied.zeroGradient
-              ? ' A larger step would not help either, because there is no gradient to descend.'
-              : applied.step === 0 ? ' The gradient is nonzero, but the step length is zero.' : ' This is a numerical near-tie, not evidence that a larger step could never change the output.'}</>}
-      </p>}
-    </div>
+  return <Stage title="Preview one architecture step">
+    <p>Changing the step-size control updates this calculation immediately. It previews one gradient step from the current logits.</p>
+    <p role="status">Updated logits ({applied.updatedLogits.map(value => round(value, 6)).join(', ')}), output {round(applied.updatedOutput, 12)}, loss {round(applied.updatedLoss, 6)} against the starting loss {round(applied.loss, 6)}.</p>
+    <p>{applied.stepMoved ? 'The logit update changes the mixture. Compare direction and loss; a large step need not improve the objective.' : applied.stepUnchangedReason}</p>
   </Stage>;
 }
 
 export function MixtureLab() {
   const state = useInvestigation(mixtureBaseline);
   const draft = state.draft;
-  const answerFor = proposed => {
+  const calculateInputs = proposed => {
     const result = mixtureState(proposed);
     return { outcome: result.zeroGradient ? 'none' : result.descendId, value: result.mixed };
   };
@@ -1221,7 +1118,7 @@ export function MixtureLab() {
   const appliedKey = applied ? JSON.stringify(state.active) : '';
   return <Investigation
     title="Mix the operations, then commit to one"
-    question="One edge could apply any of three shape-compatible operations. Architecture logits turn into softmax weights, and the edge evaluates their mixture. Record which operation a descending gradient step will favour — and, optionally, the mixed output — before anything is computed."
+    question="One edge could apply any of three shape-compatible operations. Architecture logits turn into softmax weights, and the edge evaluates their mixture. Change the logits and step size to see the mixed output, gradient and discrete alternatives update together."
     evidence="Constructed scalar operations with no trainable parameters, so the mixture calculus is isolated. The logits are architecture variables; they are not class probabilities and the widths below do not encode confidence."
     onReset={state.reset}>
 
@@ -1266,12 +1163,12 @@ export function MixtureLab() {
       contributing to the normalization. At least two operations stay active.
     </p>
 
-    <Prediction
-      prompt={`At x = ${round(draft.x, 3)} with target ${round(draft.target, 3)}, which operation’s logit receives the greatest increase from a descending gradient step (the most negative gradient)?`}
-      options={[...declaredOperations.filter(operation => draft.active.includes(operation.id)).map(operation => [operation.id, `${operation.label}, ${operation.formula}`]), ['none', 'None — the gradient is exactly zero']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the mixed output', name: 'the mixed output', tolerance: 1e-6, digits: 12 }}
-      committed={shown => `x = ${round(state.active.x, 3)}, target ${round(state.active.target, 3)}, logits (${state.active.active.map(id => round(state.active.logits[declaredOperations.findIndex(operation => operation.id === id)], 6)).join(', ')})`} />
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+       />
 
     {applied && <>
       <div className="am-stage">

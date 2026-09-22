@@ -1,0 +1,53 @@
+export default {
+  summary: 'Trace a temporary mask through values, gradients, shared tensor axes and residual branches, then evaluate its benefit using matched digit experiments.',
+  outcomes: [
+    'Implement inverted dropout with explicit p0/p1 and evaluation behavior',
+    'Explain mask-dependent forward values and backward gradients',
+    'Distinguish element, channel, row, batch and locked-feature mask geometry',
+    'Preserve the direct residual path and compare schedule conventions',
+    'Separate active branches from actual skipped computation',
+    'Control dropout and normalization modes independently of gradient recording',
+    'Compare 27 recorded fits and interpret Monte Carlo prediction distributions',
+  ],
+  prerequisites: [
+    'Residual Connections & Skip Connections',
+    'Batch/Layer/Group/RMS Normalization',
+    'Backpropagation & Automatic Differentiation',
+  ],
+  sequence: [
+    'Two values, one mask and one gradient update',
+    'Exact weighted outcomes and nonlinear expectation',
+    'Editable mask geometry and shared bits',
+    'Residual branch placement and scheduled depth',
+    'Mode, running state and library contracts',
+    'Recorded digit comparisons and qualified Monte Carlo inference',
+    'Specialist noise families and seven transfer exercises',
+  ],
+  visual: {
+    type: 'Value/gradient lanes, probability leaves, broadcast channel grids, residual fork/merge, block execution counters, normalization state, recorded loss curves and MC probability distributions.',
+    question: 'Which values, gradient routes, stored state and real decisions change when the mask scope, rate or mode changes?',
+    interaction: 'Current results are always visible; edits update exact tiny calculations immediately. Recorded fit and MC controls inspect retained data without browser training or prediction gates.',
+  },
+  practice: {
+    task: 'Repair scaling, differentiate a changed mask, construct locked axes, diagnose validation state, choose from evidence and implement a library-matched mask contract.',
+    success: 'Explain p0/p1 and null outcomes, retain the forward mask in backward, protect residual identity, distinguish schedule indexing and interpret finite measurements without universal claims.',
+  },
+  misconceptions: [
+    'Dropout permanently removes model parameters',
+    'Preserving an activation mean preserves a nonlinear model output',
+    'All mask shapes express the same intervention',
+    'Fewer active branches guarantee less executed work',
+    'no_grad disables dropout and BatchNorm state updates',
+    'More Monte Carlo draws guarantee calibrated uncertainty',
+  ],
+  sources: [
+    'https://jmlr.org/papers/v15/srivastava14a.html',
+    'https://arxiv.org/abs/1603.09382',
+    'https://docs.pytorch.org/docs/2.14/generated/torch.nn.Dropout.html',
+    'https://docs.pytorch.org/vision/main/_modules/torchvision/ops/stochastic_depth.html',
+    'https://proceedings.mlr.press/v48/gal16.html',
+  ],
+  reviewFocus: 'Complete manuscript conservation; weighted exact expectations; mask shape and gradient parity; true state transitions; honest retained 27-fit/100-draw outputs; no green decoration or prediction gate; narrow-screen and control checks.',
+  depth: 'core',
+  designRecord: 'docs/teaching/drafts/dropout-droppath-stochastic-depth/design.md',
+};

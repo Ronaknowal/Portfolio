@@ -39,7 +39,7 @@ export function SufficiencyModelLab() {
   return <section className="family-lab" aria-labelledby={`${id}-title`} data-family-lab="sufficiency">
     <p className="lesson-eyebrow">INVESTIGATE · WHAT THE SUMMARY FORGETS</p>
     <h3 id={`${id}-title`}>Keep six successes. Change where they occurred.</h3>
-    <p>Predict: if one success moves from group A to group B, will the relative likelihood change? Start with the common-p model, then select two group probabilities.</p>
+    <p>Inspect: if one success moves from group A to group B, will the relative likelihood change? Start with the common-p model, then select two group probabilities.</p>
     <div className="family-controls">
       <label>Probability model<select aria-label="Probability model" value={grouped ? 'groups' : 'common'} onChange={event => setGrouped(event.target.value === 'groups')}><option value="common">One common probability</option><option value="groups">Two fixed groups</option></select></label>
       <label>{grouped ? 'Group A probability' : 'Common probability'}: {first / 100}<input aria-label="First probability" type="range" min="5" max="95" step="5" value={first} onChange={event => setFirst(Number(event.target.value))} /></label>
@@ -111,7 +111,7 @@ export function FamilyMomentLab() {
   return <section className="family-lab" aria-labelledby={`${id}-title`} data-family-lab="moments">
     <p className="lesson-eyebrow">INVESTIGATE · WHERE A FIT CAN LIVE</p>
     <h3 id={`${id}-title`}>Fit two moments inside a triangle</h3>
-    <p>Every distribution is a weighted mixture of three vertices T(x)=(x,x²). Predict where the observed mean moves if the zero outcome disappears. The two-parameter family here uses h=1 for all three outcomes.</p>
+    <p>Every distribution is a weighted mixture of three vertices T(x)=(x,x²). Inspect where the observed mean moves if the zero outcome disappears. The two-parameter family here uses h=1 for all three outcomes.</p>
     <div className="family-controls">{[-1, 0, 1].map((outcome, index) => <label key={outcome}>Count at x={outcome}<input type="number" aria-label={`Count at ${outcome}`} min="0" max="20" step="1" value={counts[index]} onChange={event => {
           const value = Number(event.target.value);
           if (Number.isInteger(value) && value >= 0 && value <= 20) setCounts(previous => previous.map((count, position) => position === index ? value : count));
@@ -174,7 +174,7 @@ export function PriorCoordinateLab() {
   return <section className="family-lab" aria-labelledby={`${id}-title`} data-family-lab="coordinates">
     <p className="lesson-eyebrow">INVESTIGATE · SAME PRIOR, DIFFERENT DENSITY</p>
     <h3 id={`${id}-title`}>Probability mass survives the change of coordinates</h3>
-    <p>Predict: should a density have the same height after replacing p with log-odds η? Compare the corresponding gold intervals. They contain the same probability, despite different widths and heights.</p>
+    <p>Inspect: should a density have the same height after replacing p with log-odds η? Compare the corresponding gold intervals. They contain the same probability, despite different widths and heights.</p>
     <div className="family-controls"><label>Beta α: {alpha}<input type="range" aria-label="Prior alpha" min="1" max="8" step="1" value={alpha} onChange={event => setAlpha(Number(event.target.value))} /></label><label>Beta β: {beta}<input type="range" aria-label="Prior beta" min="1" max="8" step="1" value={beta} onChange={event => setBeta(Number(event.target.value))} /></label></div>
     <div className="family-density-pair"><DensityPlot points={model.probabilityCurve} interval={[0.25, 0.75]} domain={[0, 1]} xLabel="p" title="Beta density with respect to probability p" /><DensityPlot points={model.etaCurve} interval={model.interval} domain={[-6, 6]} xLabel="η" title="The same Beta prior density with respect to log odds eta" /></div>
     <Facts entries={[["p interval", '[0.25, 0.75]'], ['Corresponding η interval', '[−log 3, log 3]'], ['Probability in either interval', number(model.intervalMass)], ['Mass inside displayed η window', number(model.displayedEtaMass)], ['Density at p=0.5', number(model.probabilityDensity(0.5))], ['Density at η=0', number(model.etaDensity(0))]]} />

@@ -1,0 +1,1553 @@
+{
+  "updatedAt": "2026-09-21T15:03:54.289Z",
+  "scope": "Classical Machine Learning positions23–39",
+  "userRequirement": "Playable live exploration without any learner prediction feature, including optional predictions.",
+  "status": "complete",
+  "topicCount": 17,
+  "sharedState": "src/learn/components/lesson-labs/LiveInvestigationState.js",
+  "independentReview": "docs/teaching/evidence/live-exploration-classical-late-independent-review.json",
+  "browserEvidence": "docs/teaching/evidence/live-exploration-classical-late-browser.json",
+  "topics": [
+    {
+      "id": "feature-selection-importance-shap-permutation-mutual-info",
+      "title": "Feature Selection & Importance (SHAP, Permutation, Mutual Info)",
+      "modulePosition": 23,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Counts change mosaic areas and entropy bars; subset labels change the subset lattice; donor rows change permutation contributions; explanation/background edits change coalition paths and tree attribution. Keep zero-total validation and exact tree casting.",
+      "contentFiles": [
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/author-calculations.py",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/calculated-inputs.json",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/data-provenance.md",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/data-source.json",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/design.md",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/lesson.md",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/visual-specifications.md",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/wine.data",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/design.md",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/lesson.md",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/visual-specifications.md",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/SelectionLabs.jsx",
+        "src/learn/components/lesson-labs/SelectionShared.jsx",
+        "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx",
+        "src/learn/data/curriculum/blueprints/feature-selection-importance-shap-permutation-mutual-info.js"
+      ],
+      "modelConservation": [],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/SelectionLabs.jsx": "c520f9a294b6fb8f90a36c868cbb967b1423cf698d4fb77b0581cc02276102c2",
+        "src/learn/components/lesson-labs/SelectionShared.jsx": "a55e68432bb1fb8ea0b85383b70526531a2575d22b4b5e482354f48a1e16b9d5",
+        "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx": "f4dc76a9627e6e3d08cea91db76a7ef57af4620aa8d9f7f96fcea50070b6736f",
+        "src/learn/data/curriculum/blueprints/feature-selection-importance-shap-permutation-mutual-info.js": "f9fd348ffd13740cbc43bd5ae6f837ad210a85162d789947f64f0905dcb9bd74",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/author-calculations.py": "e2240d90ec8b18696988b97bf50d025f7513af5f5a9a2e14a980a2b0103e1040",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/calculated-inputs.json": "f13f6d7a7897872e371f417154465e053a49e903047d161abf68ff205fe39109",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/data-provenance.md": "18f3d3698e5929b1a0d39e9f52b591a85fe162233d8ca3b5e5967dab5d5193c9",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/data-source.json": "4a9571485606571625e373ef1757b59e2a31d23a83db6c60d5f005807c3f6199",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/design.md": "aad70a73153eb7c7d2886483168bd0073a5c7fdfce18f0bc5d99ba1b97704f8a",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/lesson.md": "e6876f88d66c3c4b484fcd11f784167cdfebffbb2a3e65fa5ded217b92d97e73",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/visual-specifications.md": "c2ad6da8262b6149fddd99f6a9c1d1deaec04b6ffd5f0f2fbc0619bce35be343",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/wine.data": "6be6b1203f3d51df0b553a70e57b8a723cd405683958204f96d23d7cd6aea659",
+        "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/live-exploration.md": "db16a09daba6c5eaaec5e41565d5e19eec39fca74909d64999f4ba15163209f2"
+      },
+      "checks": {
+        "id": "feature-selection-importance-shap-permutation-mutual-info",
+        "records": [
+          {
+            "lab": "Change a count, change the information",
+            "control": "X=0, Y=0",
+            "before": "3",
+            "after": "4",
+            "changed": true
+          },
+          {
+            "lab": "Traverse the subset lattice",
+            "control": "Target for A=0, B=0",
+            "before": "0",
+            "after": "1",
+            "changed": true
+          },
+          {
+            "lab": "Follow the donor rows",
+            "control": "row 0 sensor 1",
+            "before": "-1",
+            "after": "-0.5",
+            "changed": true
+          },
+          {
+            "lab": "Rebuild a coalition from its donor inputs",
+            "control": "Explained a",
+            "before": "2",
+            "after": "2.5",
+            "changed": true
+          },
+          {
+            "lab": "A changed sample takes a different tree path",
+            "control": "alcohol (raw source scale)",
+            "before": "12.51",
+            "after": "12.52",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "bias-variance-tradeoff-learning-curves",
+      "title": "Bias-Variance Tradeoff & Learning Curves",
+      "modulePosition": 24,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Edit fitted outputs, true mean, noise, curvature, model degree and probe. Show bias, variance and expected-error changes together, with the actual constructed training worlds retained.",
+      "contentFiles": [
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/airfoil-self-noise.dat",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/author-calculations.py",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/calculated-inputs.json",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/data-provenance.md",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/data-source.json",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/design.md",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/lesson.md",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/visual-specifications.md",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/design.md",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/lesson.md",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/visual-specifications.md",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/BiasVarianceLabs.jsx",
+        "src/learn/components/lesson-labs/BiasVarianceShared.jsx",
+        "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx",
+        "src/learn/data/curriculum/blueprints/bias-variance-tradeoff-learning-curves.js"
+      ],
+      "modelConservation": [],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/BiasVarianceLabs.jsx": "36e138f87ce071ccd35b6b84b457299b2a6d5e16f7c75736931ccd84d3ecb47b",
+        "src/learn/components/lesson-labs/BiasVarianceShared.jsx": "cb8c4a80d6718635a813b65d663f5b7d202f2cf918c6539197a4af837b71e87c",
+        "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx": "f3a3f9d346854c1f74a924a7afa2d4b2660571aa84bb3de73b883c6cd91ab6ac",
+        "src/learn/data/curriculum/blueprints/bias-variance-tradeoff-learning-curves.js": "3fbe5c6878bb97c3c72a9fc37232b32b8d0caa9b41c28202dd865b44fdc7cd8d",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/airfoil-self-noise.dat": "74c75fd71783f1e6b71f8a622b993dc592897a97cd689c5090a07147a1b097b3",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/author-calculations.py": "45cddf478785c6b56441f87122171ec86ac80a7d46ee9e79444564c874a024ab",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/calculated-inputs.json": "eac92529128d58691b4c771d47fdb8ac0be2097ca817359092f23e5718f3888e",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/data-provenance.md": "3b646e2e6e036eeb689c1b05d9812962b1d2545adca2b210c63610d26e7a576d",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/data-source.json": "b7b3c52373972b363c51b8a7055e3ba8e960abc3a7f59746587e9eb1cc876a71",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/design.md": "1a386549ce28611c6989197a354325305ffc19d9e1c65417d0d96585331cf7ad",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/lesson.md": "bf4e6f39128481151cb4748a1f8a7f8186263d3de918f4afeee99fef47d8c7b1",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/visual-specifications.md": "06f5c21c3e71e6c06b10ec1c34c30f6a42a5ebb2bc0930a1f94979eb97819394",
+        "docs/teaching/drafts/bias-variance-tradeoff-learning-curves/live-exploration.md": "cbd4e592a9c28eacf1471c289d5b23d8c0f21b4787804298555b84949fbb5a03"
+      },
+      "checks": {
+        "id": "bias-variance-tradeoff-learning-curves",
+        "records": [
+          {
+            "lab": "Move one prediction; watch which term moves",
+            "control": "Prediction D1",
+            "before": "8",
+            "after": "8.25",
+            "changed": true
+          },
+          {
+            "lab": "Enumerate every possible tiny training set",
+            "control": "True curvature c",
+            "before": "1",
+            "after": "1.05",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "imbalanced-learning-smote-cost-sensitive-learning",
+      "title": "Imbalanced Learning (SMOTE, Cost-Sensitive Learning)",
+      "modulePosition": 25,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Move score gates, costs, class weights, SMOTE endpoints and tuning policies. Keep real scored records, class-weight inversions and training/tuning/assessment roles distinct.",
+      "contentFiles": [
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/author-calculations.py",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/calculated-inputs.json",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/data-provenance.md",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/design.md",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/lesson.md",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/visual-specifications.md",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/yeast.data",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/design.md",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/lesson.md",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/visual-specifications.md",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/ImbalanceLabs.jsx",
+        "src/learn/components/lesson-labs/ImbalanceShared.jsx",
+        "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx",
+        "src/learn/data/curriculum/blueprints/imbalanced-learning-smote-cost-sensitive-learning.js"
+      ],
+      "modelConservation": [],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/ImbalanceLabs.jsx": "ea0f6d3e0800313eea5821e3c501542c00fc99a9bdb1fbf7b4eab06d37185ce3",
+        "src/learn/components/lesson-labs/ImbalanceShared.jsx": "b007fb975e6869a55d0868967a8cee67c0366e7d5a6f12ec70f2440ca8b7f4d4",
+        "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx": "67a535c943b30422a2bb00bf30c6fa5a7f45f1eae6b5d9a750f6b73020c130fd",
+        "src/learn/data/curriculum/blueprints/imbalanced-learning-smote-cost-sensitive-learning.js": "3f8f8db2ade8deb1368016ce5a2ad3dbe5e517e4239caac621f75c7991965685",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/author-calculations.py": "51a35a5e017af417594c63a58d07b6fb4d0fa816c8b707c44f4e1d0810bfdc8c",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/calculated-inputs.json": "1e48991ae587815a31535b9e4e27be678d64a42bc98b26b729df5ed9199fbfc3",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/data-provenance.md": "d8431d6aaa02435b1986010cb63cea7fdc31ba15d9100ba533665a4dab20fbca",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/design.md": "7f6d6db0e384cdd10844724b64ab7160c25e2d83541093dd5593ce8fad64e427",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/lesson.md": "5658bd5c0b6302412a5fc1ebefff3872c0ce502450b138914336daae8a8adf66",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/visual-specifications.md": "0008c3b433584598ad0d23de09b03dd15d66945666b4fd066e19dd70f31fcca0",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/yeast.data": "7cf61776fc04f527f93bf57a327b863893a1225d82df02d457e8950173218258",
+        "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/live-exploration.md": "1a7031ab3ebfe51fd6fd5ebc6cdb04add5ee5a5aac47c2ae33b518b8f6e846aa"
+      },
+      "checks": {
+        "id": "imbalanced-learning-smote-cost-sensitive-learning",
+        "records": [
+          {
+            "lab": "Move the gate through actual scored records",
+            "control": "A — score",
+            "before": "0.9",
+            "after": "0.91",
+            "changed": true
+          },
+          {
+            "lab": "Two action costs cross",
+            "control": "Posterior p for this case — exact value",
+            "before": "0.1",
+            "after": "0.11",
+            "changed": true
+          },
+          {
+            "lab": "A score of one half can mean another probability",
+            "control": "Population probability p — exact value",
+            "before": "0.1",
+            "after": "0.11",
+            "changed": true
+          },
+          {
+            "lab": "Move the endpoints and inspect what the rule ignores",
+            "control": "A — x",
+            "before": "0",
+            "after": "0.1",
+            "changed": true
+          },
+          {
+            "lab": "Change an actual tuning policy and inspect the selected records",
+            "control": "Trial gate on the tuning scores — exact value",
+            "before": "0.5",
+            "after": "0.51",
+            "changed": false
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "automl-neural-architecture-search-nas",
+      "title": "AutoML & Neural Architecture Search (NAS)",
+      "modulePosition": 26,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Edit the search grammar, surrogate means/uncertainties, fidelity curves, search budget, latency cap and architecture logits. The selected discrete operation is a real design choice; show its output/loss beside the mixture, plus a live one-step gradient preview.",
+      "contentFiles": [
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/author-calculations.py",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/banknote-data.csv",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/calculated-inputs.json",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/data-provenance.md",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/data-source.json",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/design.md",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/lesson.md",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/visual-specifications.md",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/design.md",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/lesson.md",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/visual-specifications.md",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/AutomlLabs.jsx",
+        "src/learn/components/lesson-labs/AutomlShared.jsx",
+        "src/learn/data/topics/automl-neural-architecture-search-nas.jsx",
+        "src/learn/data/curriculum/blueprints/automl-neural-architecture-search-nas.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/automl-models.js",
+          "sha256": "f4e2ec1c7c419c41c44e1e824d37457983c98501a10cf3662a2092ed9737ad86",
+          "baselineSha256": "f4e2ec1c7c419c41c44e1e824d37457983c98501a10cf3662a2092ed9737ad86",
+          "unchangedFromBaseline": true
+        },
+        {
+          "file": "src/learn/data/automl-data.js",
+          "sha256": "a4a40b3c2d37c21595d6c5d63ae0deff3eb1664846dcb34661de600411c4d78d",
+          "baselineSha256": "a4a40b3c2d37c21595d6c5d63ae0deff3eb1664846dcb34661de600411c4d78d",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/AutomlLabs.jsx": "c3522d2987c3a9a88d07ce44f9c9757b36dc905cfa3345ce9ef92ab6ac32ce9a",
+        "src/learn/components/lesson-labs/AutomlShared.jsx": "df0ef8b508da372ca0fb5116ff20e68a2a07b7aa4a35ac1da5b397c058583549",
+        "src/learn/data/topics/automl-neural-architecture-search-nas.jsx": "f7b8ac03ed1a570da32394a32d00db67aa457ca02989ff80b20f17c2483d4fec",
+        "src/learn/data/curriculum/blueprints/automl-neural-architecture-search-nas.js": "13c7d5a320187626a97c1f698b99f04f954597d71eeac145f58e4076af7d16a6",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/author-calculations.py": "9f3a030b8d4e85e3cf0628bbeca7ae87cd604a3245eeeb6f512ac03411b24086",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/banknote-data.csv": "d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/calculated-inputs.json": "e7a839cc100331322fe856325f6068050a9f5af9fa24382ff8b5f5d87cb8fba6",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/data-provenance.md": "20caef14b955255e592806c878d2da3a396accdae18d9bfea983651b7cb42077",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/data-source.json": "ef9830a5970a4a9dcfe79e3cfa3bc9d400440f3d6119f252c9011cebd30578ef",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/design.md": "4b8dd3a273a8213aaf859fd552e972c23f29ac550341f3b8049a166fa003ebaa",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/lesson.md": "96c866b6393db0d36b45afccc280872f96d19cdd404aafc1ab40dc81ce9dc411",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/visual-specifications.md": "1a9d9e84233afe8f0c218556092cd7e02c0888df32467f44b3ddb3982dbe1d54",
+        "docs/teaching/drafts/automl-neural-architecture-search-nas/live-exploration.md": "411f6aa03a1aabda27391af30a35571ebf3e98bee8532390ea462611fed4adef"
+      },
+      "checks": {
+        "id": "automl-neural-architecture-search-nas",
+        "records": [
+          {
+            "lab": "Assemble a valid experiment, then count it",
+            "control": "select",
+            "before": "0",
+            "after": "1",
+            "changed": true
+          },
+          {
+            "lab": "Shade the improvement worth buying",
+            "control": "Incumbent best loss b",
+            "before": "0.4",
+            "after": "0.45",
+            "changed": true
+          },
+          {
+            "lab": "Follow the survivors, then inspect the evidence you never bought",
+            "control": "A at 1 unit",
+            "before": "0.1",
+            "after": "0.11",
+            "changed": true
+          },
+          {
+            "lab": "Replay a finite search without borrowing evidence you never bought",
+            "control": "Budget: candidates revealed",
+            "before": "3",
+            "after": "4",
+            "changed": true
+          },
+          {
+            "lab": "Choose under a hard constraint, not a soft preference",
+            "control": "Latency cap (ms)",
+            "before": "5",
+            "after": "5.5",
+            "changed": true
+          },
+          {
+            "lab": "Mix the operations, then commit to one",
+            "control": "Input x",
+            "before": "2",
+            "after": "2.5",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "hidden-markov-models-hmm",
+      "title": "Hidden Markov Models (HMM)",
+      "modulePosition": 27,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Change the hidden path, emissions, sequence boundary, queried time, self-transition and development sentence. Show joint factors, trellis beliefs, fractional counts and duration immediately. Algorithm construction practice remains separate from lab access.",
+      "contentFiles": [
+        "docs/teaching/drafts/hidden-markov-models-hmm/calculated-inputs.json",
+        "docs/teaching/drafts/hidden-markov-models-hmm/data-provenance.md",
+        "docs/teaching/drafts/hidden-markov-models-hmm/data-sources.json",
+        "docs/teaching/drafts/hidden-markov-models-hmm/design.md",
+        "docs/teaching/drafts/hidden-markov-models-hmm/ewt-sequences.json",
+        "docs/teaching/drafts/hidden-markov-models-hmm/hmm-experiments.py",
+        "docs/teaching/drafts/hidden-markov-models-hmm/hmmlearn-examples.py",
+        "docs/teaching/drafts/hidden-markov-models-hmm/lesson.md",
+        "docs/teaching/drafts/hidden-markov-models-hmm/visual-specifications.md",
+        "docs/teaching/drafts/hidden-markov-models-hmm/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/hidden-markov-models-hmm/design.md",
+        "docs/teaching/drafts/hidden-markov-models-hmm/lesson.md",
+        "docs/teaching/drafts/hidden-markov-models-hmm/visual-specifications.md",
+        "docs/teaching/drafts/hidden-markov-models-hmm/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/HmmLabs.jsx",
+        "src/learn/components/lesson-labs/HmmShared.jsx",
+        "src/learn/data/topics/hidden-markov-models-hmm.jsx",
+        "src/learn/data/curriculum/blueprints/hidden-markov-models-hmm.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/hmm-models.js",
+          "sha256": "5d2d8fe6c5be6ded73a7ff80146895db8e5e11a9a67e24a9b8a8c923e74a9624",
+          "baselineSha256": "5d2d8fe6c5be6ded73a7ff80146895db8e5e11a9a67e24a9b8a8c923e74a9624",
+          "unchangedFromBaseline": true
+        },
+        {
+          "file": "src/learn/data/hmm-data.js",
+          "sha256": "8af3a3bcd2cfcdc280102ded1fc2dc3d24c3da60cf7079e0e65bf49dae3b837b",
+          "baselineSha256": "8af3a3bcd2cfcdc280102ded1fc2dc3d24c3da60cf7079e0e65bf49dae3b837b",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/HmmLabs.jsx": "405df356438e0dcc418bcbdf6f7bb7811851f37afab433b36837a5c9650cd561",
+        "src/learn/components/lesson-labs/HmmShared.jsx": "6abd0d8fc78049a612a122ec76b5ef7105512e8bcdd1c3838921f85cacdcab90",
+        "src/learn/data/topics/hidden-markov-models-hmm.jsx": "466789ee993a24f125db87cdff21ef7ce37d0f590449b1710556dcb876bde6c6",
+        "src/learn/data/curriculum/blueprints/hidden-markov-models-hmm.js": "177ddd8759537032dd38fa76fc46c6d2aae3bfd8b3dc25b3361bb95a4b0e497d",
+        "docs/teaching/drafts/hidden-markov-models-hmm/calculated-inputs.json": "d05a1926402b07a36bb994ac9c0614df417c4bccfc35c8902b8438fec61268f9",
+        "docs/teaching/drafts/hidden-markov-models-hmm/data-provenance.md": "c9f6acbe5943df0f09d0cba6c7c00648f371d35bb13d591aafb157f61d8a40ed",
+        "docs/teaching/drafts/hidden-markov-models-hmm/data-sources.json": "823bc17d95f6bc22a80ce857b6c53841fb6872aa04c10769feb5521c3f5a032a",
+        "docs/teaching/drafts/hidden-markov-models-hmm/design.md": "304682db26c978bab16f404973c8cd196e35462d647485e680eb21e7170de263",
+        "docs/teaching/drafts/hidden-markov-models-hmm/ewt-sequences.json": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d",
+        "docs/teaching/drafts/hidden-markov-models-hmm/hmm-experiments.py": "25e7e4016c5420b7aae33a21e869275564d6951bc22865fd173f566c1d7b2f77",
+        "docs/teaching/drafts/hidden-markov-models-hmm/hmmlearn-examples.py": "991ccca13385eb983d1364fb736bc4a5ac2640a05ef375bab5dae257fb8f033e",
+        "docs/teaching/drafts/hidden-markov-models-hmm/lesson.md": "339abb3be3b744b26a51cc6e11da0f108797822f9d27c33330715c7740c6107e",
+        "docs/teaching/drafts/hidden-markov-models-hmm/visual-specifications.md": "5126e2a8cd627999836b07cbfb97c1ae704ead64c27b8cf2c65136138757884d",
+        "docs/teaching/drafts/hidden-markov-models-hmm/live-exploration.md": "ac68fdd91dbf39eebffb0abb222bc6c4b67c50c73dbde4f0a6bc9b484ffb6a56"
+      },
+      "checks": {
+        "id": "hidden-markov-models-hmm",
+        "records": [
+          {
+            "lab": "Follow one complete story through the model",
+            "control": "select",
+            "before": "0",
+            "after": "1",
+            "changed": true
+          },
+          {
+            "lab": "Change the future; watch which belief moves and which cannot",
+            "control": "Which time the two questions are asked about",
+            "before": "1",
+            "after": "2",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "bayesian-networks-causal-graphical-models",
+      "title": "Bayesian Networks & Causal Graphical Models",
+      "modulePosition": 28,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Change priors, observations, graph edges, purchase decisions and treatment assignment. Display posterior/path/risk consequences directly. An unpurchased measurement and an unobserved reference label remain scientific missing-information states, not quiz answers.",
+      "contentFiles": [
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/calculated-inputs.json",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/data-provenance.md",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/design.md",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/lesson.md",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/network-experiments.py",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/pgmpy-example.py",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/visual-specifications.md",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/wine.csv",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/design.md",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/lesson.md",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/visual-specifications.md",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/BayesNetLabs.jsx",
+        "src/learn/components/lesson-labs/BayesNetShared.jsx",
+        "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx",
+        "src/learn/data/curriculum/blueprints/bayesian-networks-causal-graphical-models.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/bayesnet-models.js",
+          "sha256": "69b626517964bfcf80c99c6739ead461ed32c80b56315bf7d06700ab6d6b28c1",
+          "baselineSha256": "69b626517964bfcf80c99c6739ead461ed32c80b56315bf7d06700ab6d6b28c1",
+          "unchangedFromBaseline": true
+        },
+        {
+          "file": "src/learn/data/bayesnet-data.js",
+          "sha256": "e96a76129b32af838638a55bc9f6583134478b075e369f51e508e83c5bff40cc",
+          "baselineSha256": "e96a76129b32af838638a55bc9f6583134478b075e369f51e508e83c5bff40cc",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/BayesNetLabs.jsx": "66f09ace559d47e6a3ccff3f13c720bf51e271f64c0b79d72c261201255c23d6",
+        "src/learn/components/lesson-labs/BayesNetShared.jsx": "21c117adc146e85ea437db32569d492c184cf1e5d29ad7a0a18a9d0bc7eaca17",
+        "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx": "dd29d027674b1cb44a5ec03865ed89e729073e8b66d78b4d9c23dea666490863",
+        "src/learn/data/curriculum/blueprints/bayesian-networks-causal-graphical-models.js": "d71c9508deeaca3f225df250af9eca3e72a06f39f1af2390cab85f5109a684fa",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/calculated-inputs.json": "774d8b14ae9de8bdea51f18a8456c408dc98c768320d45307dd71e0f932f07b6",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/data-provenance.md": "177dfc81bff2b70d49141ea5ed3c71da3f531f24e8abd724356c888a89c4f303",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/design.md": "14f48c62f873d7e01cbb2f218005e1be682d01a77fa763b8362517b6c0e92094",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/lesson.md": "991e6d7676e81532084a67a318651acc2564c41305ed7a793d037e527fb08290",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/network-experiments.py": "657cb8ce00e4369afe15164f5192f0c809d70a1da93c1726eb5a7f1f794cae94",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/pgmpy-example.py": "65af22d06e68385fe4c12176d85e5434c626719a4c53dd30a7334fe76f4af6f1",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/visual-specifications.md": "1014b3fc9cc2222b1cc935e28f0a02a60582d4be2f6640e1cb015556caa97837",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/wine.csv": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+        "docs/teaching/drafts/bayesian-networks-causal-graphical-models/live-exploration.md": "b2106bfd35dce469439dc7da96b345515de7e6bac9dc79ce982f255ad050fd56"
+      },
+      "checks": {
+        "id": "bayesian-networks-causal-graphical-models",
+        "records": [
+          {
+            "lab": "Investigation 1 — which clue changes the explanation?",
+            "control": "P(B = 1) — burglary prior\nType it; a coarse slider could not reach .001.",
+            "before": "0.001",
+            "after": "0.0011",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 2 — open every route, or block them all",
+            "control": "select",
+            "before": "B",
+            "after": "A",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 3 — purchase a measurement",
+            "control": "edit alcohol",
+            "before": "",
+            "after": "0.01",
+            "changed": false
+          },
+          {
+            "lab": "Investigation 4 — change who receives the procedure",
+            "control": "P(procedure | low load)",
+            "before": "0.2",
+            "after": "0.201",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "conditional-random-fields-crf",
+      "title": "Conditional Random Fields (CRF)",
+      "modulePosition": 29,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Change each input/pair factor to update the entire path ledger and trellis. Change prior and later compatibilities to compare private and shared denominators on identical inputs. Invalid drafts show an error and no newly computed diagram.",
+      "contentFiles": [
+        "docs/teaching/drafts/conditional-random-fields-crf/author-calculations.py",
+        "docs/teaching/drafts/conditional-random-fields-crf/checked-results.json",
+        "docs/teaching/drafts/conditional-random-fields-crf/data-provenance.md",
+        "docs/teaching/drafts/conditional-random-fields-crf/data-sources.json",
+        "docs/teaching/drafts/conditional-random-fields-crf/design.md",
+        "docs/teaching/drafts/conditional-random-fields-crf/ewt-sequences.json",
+        "docs/teaching/drafts/conditional-random-fields-crf/lesson.md",
+        "docs/teaching/drafts/conditional-random-fields-crf/visual-specifications.md",
+        "docs/teaching/drafts/conditional-random-fields-crf/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/conditional-random-fields-crf/design.md",
+        "docs/teaching/drafts/conditional-random-fields-crf/lesson.md",
+        "docs/teaching/drafts/conditional-random-fields-crf/visual-specifications.md",
+        "docs/teaching/drafts/conditional-random-fields-crf/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/CrfLabs.jsx",
+        "src/learn/data/topics/conditional-random-fields-crf.jsx",
+        "src/learn/data/curriculum/blueprints/conditional-random-fields-crf.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/crf-models.js",
+          "sha256": "2537b99a5a9776ce2d9f70e14a99e8581281e6de8d3179ca7a9411df6cc82db9",
+          "baselineSha256": "2537b99a5a9776ce2d9f70e14a99e8581281e6de8d3179ca7a9411df6cc82db9",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/CrfLabs.jsx": "a4f707d04da3c1b7a091f4147f421ad91f31c75bf9982f00b2433a5113fd3251",
+        "src/learn/data/topics/conditional-random-fields-crf.jsx": "58a16118eb35361bee81c5d9b89050d93245362bb749d17861cca6dff1a23b9d",
+        "src/learn/data/curriculum/blueprints/conditional-random-fields-crf.js": "01c610a488810be567f888dd867eae63b510c4347902fe3f0b0a39a93d9a7069",
+        "docs/teaching/drafts/conditional-random-fields-crf/author-calculations.py": "23eae0753cfc211df2cd26c7f0d2fe99d33ee2e9c8b8dd681190c26765575bad",
+        "docs/teaching/drafts/conditional-random-fields-crf/checked-results.json": "a3c2d96692d44293d3d19375952448dd56f958ae858462165126fe82e2127bc5",
+        "docs/teaching/drafts/conditional-random-fields-crf/data-provenance.md": "d759405518153362d61b47138e528e0eb436a571e568737bfe15c4977c021e28",
+        "docs/teaching/drafts/conditional-random-fields-crf/data-sources.json": "823bc17d95f6bc22a80ce857b6c53841fb6872aa04c10769feb5521c3f5a032a",
+        "docs/teaching/drafts/conditional-random-fields-crf/design.md": "5b77323ddc075fbaf66993742f10e11058bb67303a7cdfe7a016c207787475ac",
+        "docs/teaching/drafts/conditional-random-fields-crf/ewt-sequences.json": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d",
+        "docs/teaching/drafts/conditional-random-fields-crf/lesson.md": "7334fac898a3b9075e71bcc9529987d084ac7bc570e002c51c5c3563986557f5",
+        "docs/teaching/drafts/conditional-random-fields-crf/visual-specifications.md": "24a783f1b96bb08f9e66b56dd93cf89ab41dbaa68983f2331084fef37bf25b87",
+        "docs/teaching/drafts/conditional-random-fields-crf/live-exploration.md": "86ac2f5442795f1be311856b7315adc37d7b319ee00a7edd53f771bda5d58576"
+      },
+      "checks": {
+        "id": "conditional-random-fields-crf",
+        "records": [
+          {
+            "lab": "Investigate: can a pair preference reverse a local choice?",
+            "control": "Position 1 · A",
+            "before": "3",
+            "after": "4",
+            "changed": true
+          },
+          {
+            "lab": "Investigate: where does the later evidence disappear?",
+            "control": "First-branch probability p",
+            "before": ".5",
+            "after": "0.5",
+            "changed": false
+          }
+        ],
+        "focusedChecks": [
+          "Invalid factor suppresses result; valid recovery and reset restore trellis; conditional explanation renders as prose."
+        ],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "gaussian-processes-gp",
+      "title": "Gaussian Processes (GP)",
+      "modulePosition": 30,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Drag covariance, noise, position and horizon controls, retaining precise numerical entry. Update target mean/variance, posterior bands, forecast rows and probe variance gains directly. Frozen historical training/development/test roles remain explicit.",
+      "contentFiles": [
+        "docs/teaching/drafts/gaussian-processes-gp/author-calculations.py",
+        "docs/teaching/drafts/gaussian-processes-gp/checked-results.json",
+        "docs/teaching/drafts/gaussian-processes-gp/data-provenance.md",
+        "docs/teaching/drafts/gaussian-processes-gp/data-source.json",
+        "docs/teaching/drafts/gaussian-processes-gp/design.md",
+        "docs/teaching/drafts/gaussian-processes-gp/lesson.md",
+        "docs/teaching/drafts/gaussian-processes-gp/mauna-loa-monthly.csv",
+        "docs/teaching/drafts/gaussian-processes-gp/visual-specifications.md",
+        "docs/teaching/drafts/gaussian-processes-gp/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/gaussian-processes-gp/design.md",
+        "docs/teaching/drafts/gaussian-processes-gp/lesson.md",
+        "docs/teaching/drafts/gaussian-processes-gp/visual-specifications.md",
+        "docs/teaching/drafts/gaussian-processes-gp/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/GaussianProcessLabs.jsx",
+        "src/learn/data/topics/gaussian-processes-gp.jsx",
+        "src/learn/data/curriculum/blueprints/gaussian-processes-gp.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/gaussian-process-data.js",
+          "sha256": "c144e5d09b730b480aed9fb454bdeda58de63a7ab4df2da3d548227b5a2a9b7f",
+          "baselineSha256": "c144e5d09b730b480aed9fb454bdeda58de63a7ab4df2da3d548227b5a2a9b7f",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/GaussianProcessLabs.jsx": "c1d11cc9a95b0bc7f9050d69bcedadb6aca8e6d26495a92f734dd28f31c5e2c6",
+        "src/learn/data/topics/gaussian-processes-gp.jsx": "bdfb3e16df7155ed8a0e7dee791dfdd89452f9620f56192063be42931855ff6c",
+        "src/learn/data/curriculum/blueprints/gaussian-processes-gp.js": "2e1d4972ee89a95993fd9dfe47780485e18fe795e6e4d2bbfba745b820dfa031",
+        "docs/teaching/drafts/gaussian-processes-gp/author-calculations.py": "90c54b42c88351ee9ae3eb0846b8fe091a915a3127f892a46d76ff6746589bc6",
+        "docs/teaching/drafts/gaussian-processes-gp/checked-results.json": "dbcd8b704f91e03966db3838ff7f11e0e302ecb916dbc83eeb243c2aadb7f1ac",
+        "docs/teaching/drafts/gaussian-processes-gp/data-provenance.md": "978aede94ae17ff46a3292e06d6ea025a5aef9f6ca80a080a65316f41db5aefb",
+        "docs/teaching/drafts/gaussian-processes-gp/data-source.json": "cad7fa099676e137a3424e438ae9a504ee6ad6c2ecae8d9d0ad2a953ad4831dc",
+        "docs/teaching/drafts/gaussian-processes-gp/design.md": "040f412454e4ff586ed93cecc30d2b895e76c5ba6be8d5a2bcc3c5c659d09509",
+        "docs/teaching/drafts/gaussian-processes-gp/lesson.md": "f46561b3044eee651df58fd89c35e12620464966c37a4c7dc50cb0998621cb9a",
+        "docs/teaching/drafts/gaussian-processes-gp/mauna-loa-monthly.csv": "7520cb0e1129ea29658e6d6b1d271da3dc4507e69fdcb17fe46225124cf7c90d",
+        "docs/teaching/drafts/gaussian-processes-gp/visual-specifications.md": "24abc97d1a0c1d83b54e1f1fa5e4b996b00be9e59009ee7bf9fa02bc70485756",
+        "docs/teaching/drafts/gaussian-processes-gp/live-exploration.md": "b28e42a63a5ea295cda0a69216152c0c31ded4b22c127a4fb3cf4d69118e1e95"
+      },
+      "checks": {
+        "id": "gaussian-processes-gp",
+        "records": [
+          {
+            "lab": "One reading: change the connection",
+            "control": "Covariance ρ",
+            "before": "0.5",
+            "after": "-0.5",
+            "changed": true
+          },
+          {
+            "lab": "Move the measurements; inspect the information",
+            "control": "Reading 1 position",
+            "before": "0",
+            "after": "1",
+            "changed": true
+          },
+          {
+            "lab": "A forecast is a decision made before future readings",
+            "control": "select",
+            "before": "reported",
+            "after": "explore",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [
+          "Keyboard range control changes a real GP input without a prediction field; matching calculation remains available."
+        ],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+      "title": "Semi-Supervised Learning (Label Propagation, Self-Training, Co-Training)",
+      "modulePosition": 31,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Edit graph edges and labels to update direct equilibrium; replay synchronous updates independently. Edit prototype coordinates/acceptance threshold and co-training views to recompute final outcomes and their replay traces. Pseudo-label provenance remains visible.",
+      "contentFiles": [
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/author-calculations.py",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/banknote-experiment.py",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/banknote-subset.csv",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/checked-results.json",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/cotrain-categories.py",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/data-provenance.md",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/data-source.json",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/design.md",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/graph-solutions.py",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/lesson.md",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/visual-specifications.md",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/design.md",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/lesson.md",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/visual-specifications.md",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx",
+        "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx",
+        "src/learn/data/curriculum/blueprints/semi-supervised-learning-label-propagation-self-training-co-training.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/semi-supervised-models.js",
+          "sha256": "fa464536ac4079aa6869bafcf3862d52c4bc7ddf588605f8b06c6108b35bc2bb",
+          "baselineSha256": "fa464536ac4079aa6869bafcf3862d52c4bc7ddf588605f8b06c6108b35bc2bb",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx": "e9e0fef7a0b7b5fcaccf52a94cb1cb3e2def9bb3e53f4c9bc399a12716608277",
+        "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "0f7a82d8118b913b1a56af5bb9afc342f4806e9068642374088147a267ebeee8",
+        "src/learn/data/curriculum/blueprints/semi-supervised-learning-label-propagation-self-training-co-training.js": "c7e5e05450d5af5a8d87a4473282d4b0abe3578ad55b9763902156513e3440e5",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/author-calculations.py": "f0936f25c18e3d3a372cecb0076d6d628dfeea2d2c5b541eaf466f34f733d6b1",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/banknote-experiment.py": "36f4da5f6f3f8c16ee0ae6ceda14fa14860fa5b4da93b3c77c1b7ade2b25b8a3",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/checked-results.json": "157fb035d1148b52d7d75496c87540527f8de1546230d4a5d5a5567e545c2adf",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/cotrain-categories.py": "6756e540fabe7b7e020d3c3c515ee4d628c8d81bb393f85bc4f515623367c322",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/data-provenance.md": "d4db5ef557ab7ebaf4b654520b3c8940708fe63738945b9a7330a607fb23fe24",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/data-source.json": "6317c8fbf52bfaa03b76eade0c73d759e3b0c5763ca20ea897db8ca4408f66fb",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/design.md": "b7f1ddfe73d13fdf898a09ea4f603cce0b659ca6d0b698a848310022cadbc4b9",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/graph-solutions.py": "97b1947eaf22fcba2ec4652e7b5838fe0e72802890a9a3388dea536ef67ca014",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/lesson.md": "4f260b2aa3c6c24bf65470f93deb185c32a7294b0d46270aa6e038c3a978ca74",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/visual-specifications.md": "ec6b8c652095290fdff7884cb367a71480b004be1228d50ff7031a3405f0db0d",
+        "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/live-exploration.md": "d3ec14003b8850f014e93d33e422c26c624d3b1cf44ebbdc33f8afff1589f1a2"
+      },
+      "checks": {
+        "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+        "records": [
+          {
+            "lab": "Investigation · repair the neighborhood",
+            "control": "select",
+            "before": "hard",
+            "after": "soft",
+            "changed": true
+          },
+          {
+            "lab": "Investigation · a guess changes the next guess",
+            "control": "Acceptance threshold",
+            "before": "0.8",
+            "after": "0.81",
+            "changed": false
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "active-learning",
+      "title": "Active Learning",
+      "modulePosition": 32,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Change query to see both possible survivor counts before an actual oracle acquisition. Redistribute each committee probability vector with a slider that preserves row sum. Move geometry/probabilities and select a real candidate batch to compare coverage and entropy-based choices live.",
+      "contentFiles": [
+        "docs/teaching/drafts/active-learning/author-calculations.py",
+        "docs/teaching/drafts/active-learning/banknote-active-learning.py",
+        "docs/teaching/drafts/active-learning/banknote-subset.csv",
+        "docs/teaching/drafts/active-learning/checked-results.json",
+        "docs/teaching/drafts/active-learning/data-provenance.md",
+        "docs/teaching/drafts/active-learning/data-source.json",
+        "docs/teaching/drafts/active-learning/design.md",
+        "docs/teaching/drafts/active-learning/lesson.md",
+        "docs/teaching/drafts/active-learning/visual-specifications.md",
+        "docs/teaching/drafts/active-learning/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/active-learning/design.md",
+        "docs/teaching/drafts/active-learning/lesson.md",
+        "docs/teaching/drafts/active-learning/visual-specifications.md",
+        "docs/teaching/drafts/active-learning/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/ActiveLearningLabs.jsx",
+        "src/learn/data/topics/active-learning.jsx",
+        "src/learn/data/curriculum/blueprints/active-learning.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/active-learning-models.js",
+          "sha256": "c81e43283416988c407902a82b44ae00abfa6a57c0e10e9ddd2071e10d243b77",
+          "baselineSha256": "c81e43283416988c407902a82b44ae00abfa6a57c0e10e9ddd2071e10d243b77",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "6f8461b3afdf19a410357a02b51a56b779e8cc0ccd508ae170975cf739b34cec",
+        "src/learn/data/topics/active-learning.jsx": "4e99e9f30065621cfc3210d91117365dd45dc3da9dde880de2da4428e190d885",
+        "src/learn/data/curriculum/blueprints/active-learning.js": "01615b621c34fdabc5cf1be2b6b622f8d91fc8a6dc2736ffb8c2741613142732",
+        "docs/teaching/drafts/active-learning/author-calculations.py": "a675e174a22df16ac9fdae58820d6ca141ef2fbf645ca0c2668555357ecb1e90",
+        "docs/teaching/drafts/active-learning/banknote-active-learning.py": "2b31d98bd4402385ca48ef588ff133da75261f31c8bb1edda632e02633221c74",
+        "docs/teaching/drafts/active-learning/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "docs/teaching/drafts/active-learning/checked-results.json": "801273aaa32c8e66bab31ef154e74af67985272b5cd3fc6212426c213b4bf08b",
+        "docs/teaching/drafts/active-learning/data-provenance.md": "55c3c10542818a6f608d2eb5d6563d288f584c39a211343dc5a290a9a9cd7d10",
+        "docs/teaching/drafts/active-learning/data-source.json": "6317c8fbf52bfaa03b76eade0c73d759e3b0c5763ca20ea897db8ca4408f66fb",
+        "docs/teaching/drafts/active-learning/design.md": "29f0406244eba65e984d9624106f1e5f9646983e31b84b0815d4c2e2426ca913",
+        "docs/teaching/drafts/active-learning/lesson.md": "dacddb27d4cf00abd5e093b414e710ed52d1a8ef04b7a6d129804d6cf12ea42e",
+        "docs/teaching/drafts/active-learning/visual-specifications.md": "d00f29072f48971966bf3044b109656f31673a9d9dbd36e0511e41a384183bf0",
+        "docs/teaching/drafts/active-learning/live-exploration.md": "4e0f71d88745eaed9409f0bd40b4a7e0ee958c7e1177cd1797e400e7bbdae0e6"
+      },
+      "checks": {
+        "id": "active-learning",
+        "records": [
+          {
+            "lab": "Investigation · spend a label on a useful question",
+            "control": "select",
+            "before": "4",
+            "after": "0",
+            "changed": true
+          },
+          {
+            "lab": "Investigation · agreement can hide inside uncertainty",
+            "control": "Member 1 class 0",
+            "before": "0.95",
+            "after": "0.5",
+            "changed": true
+          },
+          {
+            "lab": "Investigation · buy coverage, not duplicate locations",
+            "control": "L1 x",
+            "before": "0",
+            "after": "1",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "title": "Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE)",
+      "modulePosition": 33,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Move decision thresholds, scores, observed classes, error costs and residuals; reorder retrieval items and change relevance/gain/cutoff. Update score blocks, denominator bins, curves, residual geometry and retrieval shelves with matching tables immediately.",
+      "contentFiles": [
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/banknote-evaluation-results.json",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/banknote-evaluation.py",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/banknote-subset.csv",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/data-provenance.md",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/data-source.json",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/design.md",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/lesson.md",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/metric-fixtures.json",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/metrics-calculations.py",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/visual-specifications.md",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/design.md",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/lesson.md",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/visual-specifications.md",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx",
+        "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx",
+        "src/learn/data/curriculum/blueprints/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.js"
+      ],
+      "modelConservation": [],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx": "e3eac4376aa4807d16af85031c4f4671995b10b0b7ee76bc5d33ced28d029363",
+        "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "0c32edd2ba458d85326257782a7913738445bccedf3599a8d5566eeafae43aca",
+        "src/learn/data/curriculum/blueprints/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.js": "0c3349984ccbb4c2ec8051df74189f38a4ed27d4de03a134bb1b94142567eebf",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/banknote-evaluation-results.json": "01a04fea2fa91b177bc353a9f3ca2164e240b827eef83e9f911009662bf2c3b2",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/banknote-evaluation.py": "2c35728c8f62cfeb9eca0c3cae3b540d32776c6752d1b9b32566981a2512e009",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/data-provenance.md": "80a205aeff12ce3b0ac633e0205ff7e3a24b36f49befccf661384d3a315f9bfe",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/data-source.json": "6317c8fbf52bfaa03b76eade0c73d759e3b0c5763ca20ea897db8ca4408f66fb",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/design.md": "c8f6958f8c17c1298c211b8ca49539ec80e20d2fa7a9874ecbb325d2a7283f3b",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/lesson.md": "417966929fea2706c749639538d3dad75471c3ac29b690a4e51507bd07dbe1dd",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/metric-fixtures.json": "2cbf72070f7c9ae29d1ccc534610b20e783a7db3bf6f670f42c770788e120cb6",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/metrics-calculations.py": "72fa9caf94359b1051db3586c33bda624b5ee67dab2d9288c745d962f34e4205",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/visual-specifications.md": "bc2ad8f1f10d94d2157aaff67f01b536fe8333625fc08a890ccdfc7518ad96e5",
+        "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/live-exploration.md": "c4f7538ec57ed00d9b8331f28ae6f47fdf1ba267efe04703de23e4cc44c785d8"
+      },
+      "checks": {
+        "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+        "records": [
+          {
+            "lab": "Investigation · move a decision gate",
+            "control": "Current threshold",
+            "before": "0.8",
+            "after": "1.8",
+            "changed": true
+          },
+          {
+            "lab": "Investigation · admit one score block",
+            "control": "A score",
+            "before": "0.95",
+            "after": "1.95",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "pac-learning-vc-dimension",
+      "title": "PAC Learning & VC Dimension",
+      "modulePosition": 34,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Change sample observations, candidate rules, target error and witness coordinates. Update version spaces, shattering witnesses and interval risks live. Empirical outcomes and formal guarantees remain separately labelled.",
+      "contentFiles": [
+        "docs/teaching/drafts/pac-learning-vc-dimension/banknote-learning-curve-results.json",
+        "docs/teaching/drafts/pac-learning-vc-dimension/banknote-learning-curves.py",
+        "docs/teaching/drafts/pac-learning-vc-dimension/banknote-subset.csv",
+        "docs/teaching/drafts/pac-learning-vc-dimension/checked-results.json",
+        "docs/teaching/drafts/pac-learning-vc-dimension/data-provenance.md",
+        "docs/teaching/drafts/pac-learning-vc-dimension/design.md",
+        "docs/teaching/drafts/pac-learning-vc-dimension/lesson.md",
+        "docs/teaching/drafts/pac-learning-vc-dimension/pac-calculations.py",
+        "docs/teaching/drafts/pac-learning-vc-dimension/visual-specifications.md",
+        "docs/teaching/drafts/pac-learning-vc-dimension/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/pac-learning-vc-dimension/design.md",
+        "docs/teaching/drafts/pac-learning-vc-dimension/visual-specifications.md",
+        "docs/teaching/drafts/pac-learning-vc-dimension/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/PacLabs.jsx",
+        "src/learn/components/lesson-labs/PacShared.jsx",
+        "src/learn/data/topics/pac-learning-vc-dimension.jsx",
+        "src/learn/data/curriculum/blueprints/pac-learning-vc-dimension.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/pac-models.js",
+          "sha256": "4db180007addae0b65518a32ddd49b6b6c3b07d53a9cd61756289b1a3a383261",
+          "baselineSha256": "4db180007addae0b65518a32ddd49b6b6c3b07d53a9cd61756289b1a3a383261",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/PacLabs.jsx": "cb4ff157b14ff14fbb4ee2f9ddc3a93033329a4b3004919e25c48872d988894e",
+        "src/learn/components/lesson-labs/PacShared.jsx": "5f7b6ea64e8982a67889082fa8cc4775fdc1b31a435856dc3654c7afbb2170e8",
+        "src/learn/data/topics/pac-learning-vc-dimension.jsx": "da38d2948fbf58e8d8e4b839784668006eb71c78f539bf149f6095a40a12be67",
+        "src/learn/data/curriculum/blueprints/pac-learning-vc-dimension.js": "8dbcbe769c622bcf1b12f5ad6541d0b5bf85f4aa9fa11010f0649fce94b4c597",
+        "docs/teaching/drafts/pac-learning-vc-dimension/banknote-learning-curve-results.json": "4685517b6347862528ee285b8994f0590e0bddc1bb9b4c833ef54adcef429e60",
+        "docs/teaching/drafts/pac-learning-vc-dimension/banknote-learning-curves.py": "ab4f7106bd5c33ea07f5f199c530b269997328c2c96a3f9df67b296c5f9a29d9",
+        "docs/teaching/drafts/pac-learning-vc-dimension/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "docs/teaching/drafts/pac-learning-vc-dimension/checked-results.json": "b12b1e3ce5c67554b9fd55e5498b0b1ffa0b0d884a1e5b6e1d330a1e57be9217",
+        "docs/teaching/drafts/pac-learning-vc-dimension/data-provenance.md": "8512dcc4c36bf80b29d378c8008121bcd4ed44a89feadb2d8330c7acf1e366a5",
+        "docs/teaching/drafts/pac-learning-vc-dimension/design.md": "bea4e6df96f404c6d4f0013ea5c015c962fb491338522287f1f074b20b5d682f",
+        "docs/teaching/drafts/pac-learning-vc-dimension/lesson.md": "8fcc973b3e4960eb140b7274c8f3eeddf3b0ba2e14c7534f10297392c5dbce14",
+        "docs/teaching/drafts/pac-learning-vc-dimension/pac-calculations.py": "33bad8e470ef16a5e5052620d0b747d1b880e734c9e440eff9a39d3db26ea51e",
+        "docs/teaching/drafts/pac-learning-vc-dimension/visual-specifications.md": "af3aca546d6872184c9e3c99fee3cff7172e19c94386092f634ea5f4b5f59a45",
+        "docs/teaching/drafts/pac-learning-vc-dimension/live-exploration.md": "5fc1768d87d15d2f6d4336ebcb6967eba9fd7d4c67a97c68882ad5e9060424f0"
+      },
+      "checks": {
+        "id": "pac-learning-vc-dimension",
+        "records": [
+          {
+            "lab": "Investigation 1 · which observations remove the uncertainty?",
+            "control": "ε, the population-error target\nRisk exactly equal to ε counts as meeting it: the comparison is ≤, not <.",
+            "before": "0.25",
+            "after": "0.275",
+            "changed": false
+          },
+          {
+            "lab": "Investigation 2 · build the witness, or name the obstruction",
+            "control": "A coordinate",
+            "before": "0.2",
+            "after": "1.2",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 3 · explore what one more observation can change",
+            "control": "target left endpoint",
+            "before": "0.3",
+            "after": "0.5",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "calibration-conformal-prediction",
+      "title": "Calibration & Conformal Prediction",
+      "modulePosition": 35,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Edit probability cards, isotonic blocks, calibration residuals, alpha and interval scales. Keep threshold ranks discontinuous where the mathematics is discontinuous; display exact nulls and infinity/empty-set boundaries rather than inventing smooth motion.",
+      "contentFiles": [
+        "docs/teaching/drafts/calibration-conformal-prediction/airfoil-source.json",
+        "docs/teaching/drafts/calibration-conformal-prediction/airfoil-subset.csv",
+        "docs/teaching/drafts/calibration-conformal-prediction/banknote-subset.csv",
+        "docs/teaching/drafts/calibration-conformal-prediction/calibration_calculations.py",
+        "docs/teaching/drafts/calibration-conformal-prediction/checked-results.json",
+        "docs/teaching/drafts/calibration-conformal-prediction/data-provenance.md",
+        "docs/teaching/drafts/calibration-conformal-prediction/design.md",
+        "docs/teaching/drafts/calibration-conformal-prediction/experiment-results.json",
+        "docs/teaching/drafts/calibration-conformal-prediction/lesson.md",
+        "docs/teaching/drafts/calibration-conformal-prediction/uncertainty_experiments.py",
+        "docs/teaching/drafts/calibration-conformal-prediction/visual-specifications.md",
+        "docs/teaching/drafts/calibration-conformal-prediction/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/calibration-conformal-prediction/design.md",
+        "docs/teaching/drafts/calibration-conformal-prediction/lesson.md",
+        "docs/teaching/drafts/calibration-conformal-prediction/visual-specifications.md",
+        "docs/teaching/drafts/calibration-conformal-prediction/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/CalibrationLabs.jsx",
+        "src/learn/components/lesson-labs/CalibrationShared.jsx",
+        "src/learn/data/topics/calibration-conformal-prediction.jsx",
+        "src/learn/data/curriculum/blueprints/calibration-conformal-prediction.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/calibration-models.js",
+          "sha256": "ef98b3d422a4aa3c2f7d105bb24ddce8eda7dccec14cf30b67336356bbec39fc",
+          "baselineSha256": "ef98b3d422a4aa3c2f7d105bb24ddce8eda7dccec14cf30b67336356bbec39fc",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/CalibrationLabs.jsx": "08ccec0a08106b2ff8b453c84b357918f33f6e0b059d9c2b19ac15703ffde9f8",
+        "src/learn/components/lesson-labs/CalibrationShared.jsx": "250440cd73ef11217f4beb3e84f5cdb21f3acd5162dc3d0d412df5ada9275495",
+        "src/learn/data/topics/calibration-conformal-prediction.jsx": "521655f0ebc8c55a318d8a49b3a34112252e38d1746776bc2714c3e551343c27",
+        "src/learn/data/curriculum/blueprints/calibration-conformal-prediction.js": "81165e5d137fbeaccd8f9dc125839ad7ebc6a40abc34774b8fdc933402029913",
+        "docs/teaching/drafts/calibration-conformal-prediction/airfoil-source.json": "e574f95d2f908afcf12cde1aa953d683a27118d919b55e5f8cc77b52dba04c60",
+        "docs/teaching/drafts/calibration-conformal-prediction/airfoil-subset.csv": "5839135483aa9c45bac8416d9bbb0b1966858a21758beb4a8fb9b1fa1dd83bb5",
+        "docs/teaching/drafts/calibration-conformal-prediction/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "docs/teaching/drafts/calibration-conformal-prediction/calibration_calculations.py": "c2884d2a47fa601b5f1b8aeee35afe4ad6074490cf9b62c71903d6d081ea21a2",
+        "docs/teaching/drafts/calibration-conformal-prediction/checked-results.json": "807d60591ac20488bcb5d3cf7eadc730fb0fc869617d9a3196cd621c8a38a6f0",
+        "docs/teaching/drafts/calibration-conformal-prediction/data-provenance.md": "16d733fea98066c61a2cb236b7d42b237e0435daa3506f5d68e6b1bbbc456abf",
+        "docs/teaching/drafts/calibration-conformal-prediction/design.md": "4c3d316d06f70a70df54dac54d1134ad44da43bcabe9937ce4d7180174bce745",
+        "docs/teaching/drafts/calibration-conformal-prediction/experiment-results.json": "98fcfd4c84c07df6250c42591c35ed7fa94abb99280b1ade6c5df45bf23d1af2",
+        "docs/teaching/drafts/calibration-conformal-prediction/lesson.md": "832c87e107975e2bebd342f2507dcdf74ac49163284ea6b16478d9f4eed58098",
+        "docs/teaching/drafts/calibration-conformal-prediction/uncertainty_experiments.py": "92463e8a10ed7e338fb3c8af411a4ca5d76fabb020b84fb7b0c941ab6d7c0e19",
+        "docs/teaching/drafts/calibration-conformal-prediction/visual-specifications.md": "5220f04c0f3420e54f67b1044b59c95f7017c73d9651ea5cfca92c1708a52083",
+        "docs/teaching/drafts/calibration-conformal-prediction/live-exploration.md": "5327440a4a69dc5482226afadd945e05c860722f369233f18c71a1811842d1eb"
+      },
+      "checks": {
+        "id": "calibration-conformal-prediction",
+        "records": [
+          {
+            "lab": "Investigation 1 — make an aggregate error disappear",
+            "control": "forecast for class 1",
+            "before": "0.2",
+            "after": "0.201",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 2 — pool the adjacent violators, one merge at a time",
+            "control": "score",
+            "before": "-2",
+            "after": "-1.999",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 3 — reserve a rank for the answer you have not seen",
+            "control": "alpha — one minus the coverage target\nTyped, not a slider: the rank is a step function of alpha and some steps are one thousandth wide.",
+            "before": "0.2",
+            "after": "0.201",
+            "changed": false
+          },
+          {
+            "lab": "Investigation 4 — turn a residual scale into a physical interval",
+            "control": "alpha",
+            "before": "0.2",
+            "after": "0.201",
+            "changed": false
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "rademacher-complexity-generalization-bounds",
+      "title": "Rademacher Complexity & Generalization Bounds",
+      "modulePosition": 36,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Edit function rows, signs, feature vectors, norm budget and margins. Recompute best responses, enumerated averages, feature geometry and bound terms together. Stages organize the explanation; none asks for a guessed winner/value.",
+      "contentFiles": [
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/author-checks.json",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/banknote-subset.csv",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/bounded_norm_experiment.py",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/checked-results.json",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/complexity_calculations.py",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/data-provenance.md",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/design.md",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/experiment-results.json",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/lesson.md",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/visual-specifications.md",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/design.md",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/lesson.md",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/visual-specifications.md",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/RademacherLabs.jsx",
+        "src/learn/components/lesson-labs/RademacherShared.jsx",
+        "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx",
+        "src/learn/data/curriculum/blueprints/rademacher-complexity-generalization-bounds.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/rademacher-models.js",
+          "sha256": "a1072262beb922f2a87822a1720a2fd5c2d1718b80ece9d1230d3784f4280c4b",
+          "baselineSha256": "a1072262beb922f2a87822a1720a2fd5c2d1718b80ece9d1230d3784f4280c4b",
+          "unchangedFromBaseline": true
+        },
+        {
+          "file": "src/learn/data/rademacher-data.js",
+          "sha256": "001572787c88eb965e334e50ac45e23e8f883f978642894019846fcaa0701701",
+          "baselineSha256": "001572787c88eb965e334e50ac45e23e8f883f978642894019846fcaa0701701",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/RademacherLabs.jsx": "7c06d70cd9d3f826ac5f8a8a25d1a79ac416bd7d180a7f33f4dc54deed8730db",
+        "src/learn/components/lesson-labs/RademacherShared.jsx": "e9c55b341c0f75404069bd64354cc1af753804b03f07b092a4a642ca4228102a",
+        "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "ea6e7d1901099e4610589eeea9333e81d2e9ef8fd496069c4c6d222a722c747e",
+        "src/learn/data/curriculum/blueprints/rademacher-complexity-generalization-bounds.js": "4bdd077ea9d8f927f1ba1ceb584816ed746c2912f47a94099ba69a640acf6743",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/author-checks.json": "99811c8ffa5a0171cd4faaa65e8e07cbb90c83de9836418a463582edc59de0b3",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/bounded_norm_experiment.py": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/checked-results.json": "aa990e932d68b371ca1e680b9ee52e97fec81bfbf17cb5dcf52ded190f8fcc6b",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/complexity_calculations.py": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/data-provenance.md": "0a08917c637fa3df737a75c49e4c6264ce5d0206f5a4457fd45c0dc4338e96f9",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/design.md": "42387a4b7ba5ca1d0668d2eb05dd4c2237354aabd2b8a84c0b0f905785caa572",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/experiment-results.json": "26caac6ec64c9223a1ee225c01d7fe8adaf74e6e023fb1e6440ed88be1648c20",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/lesson.md": "b6d84f6bf5652b3a8605440ed9b9e8f90dbad21d043b24905935e5d264db1c3b",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/visual-specifications.md": "887c833984e578ad0361cce0eb1865dc0d2b81ddbeff0a2a29a2b1ca40b20ffc",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/live-exploration.md": "3bc0e10f1e6f1d697bdc002290b68760c961c2a42efce920a61dece5f826ba10"
+      },
+      "checks": {
+        "id": "rademacher-complexity-generalization-bounds",
+        "records": [
+          {
+            "lab": "Investigation 1 — choose the best row, then average. Never the other way round.",
+            "control": "f1 at x1",
+            "before": "-1",
+            "after": "0",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 2 — align a bounded coefficient with the noise",
+            "control": "x1 coordinate 1",
+            "before": "1",
+            "after": "2",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 3 — assemble a margin bound, term by term",
+            "control": "x1",
+            "before": "-0.2",
+            "after": "0.8",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 4 — a real budget sweep, and two different best answers",
+            "control": "w for variance",
+            "before": "0",
+            "after": "1",
+            "changed": false
+          }
+        ],
+        "focusedChecks": [
+          "Live validation selection does not expose assessment; explicit inspection opens it without a guess; exposure persists after reset."
+        ],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "ml-problem-formulation-baselines-data-leakage",
+      "title": "ML Problem Formulation, Baselines & Data Leakage",
+      "modulePosition": 37,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Change information arrival/cutoff, candidate eligibility, action capacity and costs. Keep event time separate from availability time; directly connect the available inputs to the chosen action set and its consequences.",
+      "contentFiles": [
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/author-calculations.py",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/bank-additional.csv",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/calculated-inputs.json",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/data-provenance.md",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/data-source.json",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/design.md",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/lesson.md",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/source-description.txt",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/visual-specifications.md",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/design.md",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/lesson.md",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/visual-specifications.md",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/FormulationLabs.jsx",
+        "src/learn/components/lesson-labs/FormulationShared.jsx",
+        "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx",
+        "src/learn/data/curriculum/blueprints/ml-problem-formulation-baselines-data-leakage.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/formulation-models.js",
+          "sha256": "fc6fbb3436db0a44de721e3ca7412fef02fce7bc2ccefbe50dfb2ad4febc7558",
+          "baselineSha256": "fc6fbb3436db0a44de721e3ca7412fef02fce7bc2ccefbe50dfb2ad4febc7558",
+          "unchangedFromBaseline": true
+        },
+        {
+          "file": "src/learn/data/formulation-data.js",
+          "sha256": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+          "baselineSha256": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/FormulationLabs.jsx": "fbfc267aac60cd3d2defdeb1b7ef3a7c268c0346d4bb2f7e1ad88bd8be4d5154",
+        "src/learn/components/lesson-labs/FormulationShared.jsx": "6dfe486e4cea07c4850445f297166531b296253d9961f1df7a74117811029757",
+        "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "6e7f2dac2eb1c150a7b5ae87f6fc716e4db9a49f89a35aa66da2730c0e2fd4d3",
+        "src/learn/data/curriculum/blueprints/ml-problem-formulation-baselines-data-leakage.js": "ece214b372f1d160251231682390a10fa8fe572b989ed26a0959c73b6363650e",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/author-calculations.py": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/bank-additional.csv": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/calculated-inputs.json": "d694b6546ba00e7bc6d4592d21e973a4f7faa3d81551b252762b5b7d26b405a7",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/data-provenance.md": "50d9fd58e1204f3d343a5b0f6fd33409e1a4106451ff61a1c1a071aba215fd17",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/data-source.json": "78122b8a8cc8d1c06ff8e705846bb233fdc63a19ff51dd27c160ed67ce534904",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/design.md": "a93ccf84d56888049f22e9b010ce74c396e6f57c6465969824dc0f86217d7b6d",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/lesson.md": "cdaf92e5ba0b3a3bb10a4589c4ab8bb7bc55466f06f4e6b3e5a6d888a07b2c58",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/source-description.txt": "10045462a4c026f858dffa159370c4270510230c1fc63c6c91ca51bba4b3df26",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/visual-specifications.md": "9dbc60eddb1c66dcfa6e42f9daf2f59774f714b435bea8cb59789731d1a4e93a",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/live-exploration.md": "d0625f28ff17d6ca66a086d8f0bd9490ac3554261c6b01f8ea0c89daa072e8c4"
+      },
+      "checks": {
+        "id": "ml-problem-formulation-baselines-data-leakage",
+        "records": [
+          {
+            "lab": "Investigation 1 · move the arrival, keep the event",
+            "control": "prediction cutoff\nThe moment the prediction has to be ready. Nothing that arrives later may be used.",
+            "before": "5",
+            "after": "6",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 2 · a score becomes a limited action set",
+            "control": "calling capacity\nHow many of the ranked opportunities are actually called.",
+            "before": "50",
+            "after": "51",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "time-series-validation-forecasting-baselines",
+      "title": "Time-Series Validation & Forecasting Baselines",
+      "modulePosition": 38,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Change history, horizon, seasonal period, cutoff and label delay to update donor links, eligible rows and forecast/error tables. An exploratory edit does not recreate an unused historical test; keep the frozen recorded study distinct.",
+      "contentFiles": [
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/bike-sharing-daily.csv",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/calculated-inputs.json",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-provenance.md",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-source.json",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/design.md",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/forecast-experiments.py",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/source-description.txt",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/visual-specifications.md",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/design.md",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/visual-specifications.md",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/TimeSeriesLabs.jsx",
+        "src/learn/components/lesson-labs/TimeSeriesShared.jsx",
+        "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx",
+        "src/learn/data/curriculum/blueprints/time-series-validation-forecasting-baselines.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/timeseries-models.js",
+          "sha256": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+          "baselineSha256": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+          "unchangedFromBaseline": true
+        },
+        {
+          "file": "src/learn/data/timeseries-data.js",
+          "sha256": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+          "baselineSha256": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "5ee25fe3937620fb989e5a8ff62d2b74aecdbc4735aa4e4437c611834344da06",
+        "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "e721b5a007d3c784f5cf892734cb60695321e231988afeb9d165a8529f068874",
+        "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "c15cbfaa4793ca9b2e7bd7c2f28b569d9cec72d59e001f424fa4889a6f3b6abb",
+        "src/learn/data/curriculum/blueprints/time-series-validation-forecasting-baselines.js": "fcd55e8c5f41c574ba6c9e463f083b686c72e18dd88ebcd283cd6f0395c13554",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/calculated-inputs.json": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-provenance.md": "f8650c5640f9e24472364b354021da22c574746d37edcb3aa4e979757ee1496f",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-source.json": "f9527e97ca6a6dec61bd661e9f789a6f2573c1ab0e77330eca9d0745ca6213fa",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/design.md": "2f910fdd8130db492fec6df3d071739021424919f4aec66c13073f0f0bec6f8e",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md": "50a5b05a4abb49ca7f5cc578881064fd22913b3a911df2efed9ae436dc3f7a63",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/source-description.txt": "b92c8628622948bf0828c43a1b315d1517c3d7fd63654730d0dea379b8e88175",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/visual-specifications.md": "45bf15f16a9a09adb37e7ec4c7a8b1d703fe0314154f9fb39c410b4b763fc908",
+        "docs/teaching/drafts/time-series-validation-forecasting-baselines/live-exploration.md": "74ea17315b64bb45bd182aa961dd946d971f4aa220339ab146e8d80ba348f3c3"
+      },
+      "checks": {
+        "id": "time-series-validation-forecasting-baselines",
+        "records": [
+          {
+            "lab": "Investigation 1 — which observation feeds this forecast?",
+            "control": "history 1",
+            "before": "10",
+            "after": "11",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 2 — which rows may this fit contain?",
+            "control": "cutoff day\nThe moment the fit is performed.",
+            "before": "12",
+            "after": "13",
+            "changed": true
+          },
+          {
+            "lab": "Investigation 3 — compare a real forecast with its outcomes",
+            "control": "with this count",
+            "before": "754",
+            "after": "755",
+            "changed": false
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    },
+    {
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "title": "End-to-End Supervised Learning & Error Analysis",
+      "modulePosition": 39,
+      "disposition": "revised-live-exploration",
+      "status": "complete",
+      "interaction": "Change comparisons, slice boundaries, selection criteria, acceptance threshold and costs. Show linked specimens, errors, coverage and workload. Opening the frozen held-out report is a protocol action with no prediction requirement; the test cannot select a new model.",
+      "contentFiles": [
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/author-calculations.py",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/calculated-inputs.json",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/data-provenance.md",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/design.md",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/lesson.md",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/visual-specifications.md",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/wine.csv",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/live-exploration.md"
+      ],
+      "changedContentFiles": [
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/design.md",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/lesson.md",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/visual-specifications.md",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/live-exploration.md"
+      ],
+      "runtimeFiles": [
+        "src/learn/components/lesson-labs/LiveInvestigationState.js",
+        "src/learn/components/lesson-labs/EndToEndLabs.jsx",
+        "src/learn/components/lesson-labs/EndToEndShared.jsx",
+        "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+        "src/learn/data/curriculum/blueprints/end-to-end-supervised-learning-error-analysis.js"
+      ],
+      "modelConservation": [
+        {
+          "file": "src/learn/data/endtoend-models.js",
+          "sha256": "d35048d9057747786c5bef5960055ff05643c11c9f9449e1989fc954a12d15c4",
+          "baselineSha256": "d35048d9057747786c5bef5960055ff05643c11c9f9449e1989fc954a12d15c4",
+          "unchangedFromBaseline": true
+        },
+        {
+          "file": "src/learn/data/endtoend-data.js",
+          "sha256": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+          "baselineSha256": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+          "unchangedFromBaseline": true
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+        "src/learn/components/lesson-labs/EndToEndLabs.jsx": "3301bc83d4ade95dbb583b44f2f51ae760a9eadc4def2f5e7847cef86fd5b0d3",
+        "src/learn/components/lesson-labs/EndToEndShared.jsx": "4ba3e558db96846e73fb098946afd543e6d8f94efc99fc35337c0a44e1678acf",
+        "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "65a796cab0e398249d50c8ae1b546f740c1a47fc6257fd8a89923e3b3286dda5",
+        "src/learn/data/curriculum/blueprints/end-to-end-supervised-learning-error-analysis.js": "d49616e0ab430023eafe36d375b9a2455ee195afb66caed714f6d3df4d59514c",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/author-calculations.py": "58672e87049de672355affff3f1f3568af060ddb9964727120facc0f2bdb446d",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/calculated-inputs.json": "24fb758fe088b6afd4baec315429bf9554cc3936e6bff474bf4d188e2ed90688",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/data-provenance.md": "4b35d16df631bb69edc021f2f2b638b02397ee2b524c6f8ad167e6b5e40352e7",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/design.md": "7411770afff5d006288af093f827b537ecc0cc78a200e95176d048a8ff266a88",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/lesson.md": "d1edc662ccb0fe78034d0ed84f9e9e1dddec1d112eab22135abf111d3c71c75a",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/visual-specifications.md": "606b2e9adf6549601ef135565676aa0321f49f7cd9759b32960343bfbfc55945",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/wine.csv": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+        "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/live-exploration.md": "fee751236e54edac0f53312bfc0051d2016c1107133614835cbef58cfb758e65"
+      },
+      "checks": {
+        "id": "end-to-end-supervised-learning-error-analysis",
+        "records": [
+          {
+            "lab": "Investigation B · follow specimens, not just scores",
+            "control": "Colour-intensity cutoff\nAny value from 0 to 14, to two decimals. The boundary belongs to the upper side: a specimen at exactly the cutoff is in ≥, not in <.",
+            "before": "4",
+            "after": "4.01",
+            "changed": true
+          },
+          {
+            "lab": "Investigation D · freeze a decision, then open the test once",
+            "control": "select",
+            "before": "validationBalancedAccuracy",
+            "after": "validationAccuracy",
+            "changed": true
+          },
+          {
+            "lab": "Investigation C · allocate the cases the system does not answer",
+            "control": "Proposed acceptance threshold\nA case is answered when its score is at or above the threshold. 1.01 accepts nothing.",
+            "before": "0.8",
+            "after": "0.81",
+            "changed": true
+          }
+        ],
+        "focusedChecks": [],
+        "errors": [],
+        "phonePageOverflow": 0
+      }
+    }
+  ],
+  "checks": {
+    "runtimeModulesParsed": 64,
+    "browserTopics": 17,
+    "actualControlEdits": 55,
+    "productionBaseUrl": "http://127.0.0.1:4191",
+    "productionSourceBinding": "docs/teaching/evidence/live-exploration-production-source.json",
+    "browserRuntimeErrors": [],
+    "phoneWidths": [
+      390
+    ],
+    "desktopWidths": [
+      1366
+    ],
+    "focusedChecks": [
+      "Invalid factor suppresses result; valid recovery and reset restore trellis; conditional explanation renders as prose.",
+      "Keyboard range control changes a real GP input without a prediction field; matching calculation remains available.",
+      "Live validation selection does not expose assessment; explicit inspection opens it without a guess; exposure persists after reset."
+    ],
+    "numericalScope": "20 directly imported model/data modules hash-identical to task baseline; no new full mathematical audit.",
+    "independentReviewScope": "Bounded independent source review of the live-exploration migration; not a new full lesson or numerical-model audit."
+  },
+  "retainedArtifacts": [
+    {
+      "path": "docs/teaching/evidence/live-exploration-classical-late-gp-desktop.png",
+      "sha256": "4ebe7800849d84222ca0e89c6a18161dce8d13ae5425f27d36467ca3037d089e",
+      "purpose": "Exact-font production GP range controls, changed numerical comparison and posterior bands; visually inspected."
+    }
+  ],
+  "cleanup": {
+    "removedTaskTemporaryFiles": 13,
+    "retained": "Durable verifier, final source-bound receipts, one inspected GP production screenshot and pre-existing exact-font fixtures.",
+    "scope": "Exact task-owned scratch files only; no recursive or unrelated cleanup."
+  }
+}

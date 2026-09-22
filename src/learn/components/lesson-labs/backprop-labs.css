@@ -1,0 +1,89 @@
+.backprop-lesson { --bp-amber: #e9b55e; --bp-paper: #e7e0d2; --bp-muted: #bab3a6; --bp-line: #5c5140; color: var(--bp-paper); }
+.backprop-lesson p { overflow-wrap: break-word; }
+.backprop-lesson code:not(pre code) { overflow-wrap: anywhere; }
+.backprop-lesson .katex-display { overflow-x: auto; overflow-y: hidden; padding: .3rem 0; }
+.backprop-section-route { margin: 1.3rem 0; padding: .9rem 1rem; border: 1px solid #574a32; background: #1b1812; }
+.backprop-section-route p { margin: 0 0 .5rem; font-weight: 600; }
+.backprop-section-route ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: .5rem 1.5rem; margin: 0; padding-left: 1.3rem; }
+.backprop-figure { margin: 1.7rem 0; padding: clamp(.8rem, 2.5vw, 1.4rem); background: #181713; border: 1px solid #4c4332; border-radius: .35rem; }
+.backprop-figure h3, .backprop-lab h3 { margin: 0 0 .8rem; color: var(--bp-paper); font-size: 1.08rem; line-height: 1.5; }
+.backprop-figure h4 { color: var(--bp-amber); font-size: 1rem; margin: 1rem 0 .5rem; }
+.backprop-figure figcaption, .backprop-small { color: var(--bp-muted); line-height: 1.65; font-size: .88rem; margin-top: 1rem; }
+.backprop-lab { margin: 2rem 0; padding: clamp(.8rem, 2.7vw, 1.5rem); border: 1px solid #7e6335; border-radius: .4rem; background: #11110f; }
+.backprop-lab p, .backprop-figure p { line-height: 1.7; }
+.backprop-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 1.2rem; margin: 1.2rem 0; }
+.backprop-control { min-width: 0; display: grid; gap: .35rem; align-content: start; }
+.backprop-control label, .backprop-lab > label { font-size: .84rem; color: var(--bp-paper); }
+.backprop-lesson input[type=number], .backprop-lesson select { width: 100%; max-width: 100%; box-sizing: border-box; min-height: 42px; background: #24211a; color: #f0e5cb; border: 1px solid #8e713f; border-radius: .25rem; padding: .4rem .6rem; font: inherit; }
+.backprop-lesson input[type=range] { width: 100%; min-height: 30px; accent-color: var(--bp-amber); cursor: ew-resize; }
+.backprop-lesson button { min-height: 42px; padding: .5rem .8rem; background: #302718; color: #f3d29b; border: 1px solid #8e713f; border-radius: .25rem; font: inherit; font-size: .85rem; cursor: pointer; }
+.backprop-lesson button:hover:not(:disabled) { background: #453720; }
+.backprop-lesson button:disabled { color: #aaa295; background: #24221e; border-color: #514b3f; cursor: default; }
+.backprop-lesson :is(button,input,select,summary,a):focus-visible { outline: 2px solid #f7ce82; outline-offset: 3px; }
+.backprop-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .65rem; margin: .9rem 0; }
+.backprop-invalid { font-size: .83rem; color: #f3b39d; margin: .25rem 0; }
+.backprop-result, .backprop-stage { border-top: 1px solid var(--bp-line); padding-top: .8rem; }
+.backprop-baseline { font-size: .86rem; padding: .6rem 0; border-bottom: 1px dashed #6d5937; color: var(--bp-muted); }
+.backprop-result strong { color: var(--bp-amber); }
+.backprop-svg { display: block; width: 100%; height: auto; max-width: 550px; margin: 1rem auto; overflow: visible; }
+.backprop-svg text { font: 13px ui-sans-serif, sans-serif; fill: var(--bp-paper); }
+.backprop-svg .bp-node-label { font-size: 18px; }
+.backprop-svg .bp-axis { stroke: #a69a85; stroke-width: 1; }
+.backprop-svg .bp-grid { stroke: #494338; stroke-width: .7; }
+.backprop-svg .bp-current { stroke: var(--bp-amber); stroke-width: 2.6; fill: none; }
+.backprop-svg .bp-proposed { stroke: #e8e4d9; stroke-width: 2; stroke-dasharray: 6 4; fill: none; }
+.backprop-svg .bp-residual { stroke: #d89181; stroke-width: 2; }
+.backprop-svg .bp-target { fill: #f2dcc1; stroke: #141310; stroke-width: 1.5; }
+.backprop-svg .bp-node { fill: #302719; stroke: #ad8952; stroke-width: 1.5; }
+.backprop-svg .bp-edges { color: #a99b82; fill: none; stroke: currentColor; stroke-width: 2; }
+.backprop-svg .bp-edges.bp-active { color: #efbe70; stroke-width: 3; }
+.backprop-table { max-width: 100%; overflow-x: auto; margin: 1rem 0; padding-bottom: .4rem; }
+.backprop-table table { border-collapse: collapse; width: 100%; min-width: 30rem; font-size: .85rem; text-align: left; }
+.backprop-table-title { margin: 1rem 0 .4rem; font-weight: 600; color: var(--bp-paper); }
+.backprop-scroll-hint { display: none; }
+.backprop-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.backprop-table caption { text-align: left; margin-bottom: .6rem; font-weight: 600; color: var(--bp-paper); }
+.backprop-table :is(th,td) { padding: .65rem .6rem; border-bottom: 1px solid #4c4332; vertical-align: top; line-height: 1.65; }
+.backprop-table th { color: var(--bp-amber); font-weight: 500; }
+.backprop-table td { color: var(--bp-paper); }
+.backprop-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.backprop-pair > * { min-width: 0; }
+.backprop-exact { margin: 1rem 0; }
+.backprop-exact > div { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr); gap: .6rem; padding: .4rem 0; border-bottom: 1px solid #443b2d; font-size: .82rem; line-height: 1.6; }
+.backprop-exact dt { color: var(--bp-muted); }
+.backprop-exact dd { margin: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.backprop-scalar-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.3rem; }
+.backprop-flow-node { display: flex; flex-direction: column; gap: .8rem; position: relative; padding: .7rem; border: 1px solid #685538; font-size: .83rem; line-height: 1.6; }
+.backprop-flow-node:not(:last-child)::after { content: '→'; position: absolute; right: -1.2rem; top: 35%; color: var(--bp-amber); }
+.backprop-flow-node.is-active { background: #392c17; border-color: #f2be65; }
+.bp-reverse { color: #e9c891; border-top: 1px dashed #796447; padding-top: .5rem; }
+.backprop-bias { padding: .7rem; border: 1px solid #aa8650; text-align: center; font-size: .9rem; }
+.backprop-fan, .backprop-cells { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; gap: .35rem; }
+.backprop-fan { font-size: 1.4rem; color: var(--bp-amber); }
+.backprop-cells > div { display: flex; flex-direction: column; gap: .4rem; border: 1px solid #706049; padding: .6rem .25rem; font-size: .82rem; }
+.backprop-shape-stage { padding: .3rem 0 .8rem; border-bottom: 1px solid var(--bp-line); }
+.backprop-shape-stage p { overflow-wrap: anywhere; }
+.backprop-training-panel + .backprop-training-panel { border-top: 1px solid var(--bp-line); margin-top: 1.4rem; padding-top: .5rem; }
+.backprop-bar-row { margin: .9rem 0; font-size: .85rem; }
+.backprop-bar-track { height: 20px; background: #29241a; margin-top: .4rem; position: relative; }
+.backprop-zero { position: absolute; left: 50%; top: -3px; bottom: -3px; border-left: 1px solid #d6c7ac; }
+.backprop-bar { position: absolute; height: 14px; top: 3px; background: var(--bp-amber); }
+.backprop-bar-scale { display: flex; justify-content: space-between; font-size: .8rem; }
+.backprop-checkpoint-chain { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; }
+.backprop-checkpoint-chain li { min-width: 0; display: flex; flex-direction: column; gap: .4rem; padding: .65rem .4rem; border: 1px dashed #645b4b; text-align: center; font-size: .82rem; }
+.backprop-checkpoint-chain .is-saved { border-style: solid; border-color: #c99b53; background: #332818; }
+.backprop-checkpoint-chain .is-regenerated { border-style: solid; background: repeating-linear-gradient(135deg, #413523 0, #413523 5px, #211e17 5px, #211e17 10px); }
+.backprop-checkpoint-chain .is-absent { color: #a8a091; }
+.backprop-lesson details { margin: .8rem 0; padding: .65rem .9rem; border: 1px solid #514735; border-radius: .2rem; }
+.backprop-lesson summary { cursor: pointer; color: var(--bp-amber); }
+@media (max-width: 700px) {
+  .backprop-svg text { font-size: 19px; }
+  .backprop-svg .bp-node-label { font-size: 21px; }
+  .backprop-scroll-hint { display: block; font-size: .78rem; color: var(--bp-muted); }
+  .backprop-pair { grid-template-columns: 1fr; }
+  .backprop-scalar-flow { grid-template-columns: 1fr; }
+  .backprop-flow-node:not(:last-child)::after { content: '↓'; top: auto; bottom: -1.35rem; right: 50%; }
+  .backprop-figure .backprop-table { font-size: .8rem; }
+  .backprop-checkpoint-chain { grid-template-columns: 1fr; }
+  .backprop-checkpoint-chain li { flex-direction: row; justify-content: space-between; padding: .7rem; }
+}

@@ -1,5 +1,8 @@
 # State Space Models: S4 and the Mamba Family
 
+**Explore as you read.** Edit tiny system coefficients, impulse inputs, selective writes, distraction sequence, chunk boundaries and supported real trajectories. Show impulse response, carried state, input-conditioned updates, SSD matrix entries and chunk equivalence live. Stepping exposes current recurrence arithmetic. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to decide which information needs selection or state carry and distinguish a mathematically equal scan from a different update rule.
+
+
 A hand moves through a curved path. You receive one coordinate pair at a time. Keeping only the newest pair loses the path; keeping every pair forever makes memory grow with the recording. A state-space sequence model maintains a third kind of representation: a fixed collection of numbers that changes as measurements arrive.
 
 Those numbers are its **state**. Their update rule determines what fades, what accumulates, what oscillates and what survives a distraction. Learning chooses the update and readout parameters so that this evolving summary helps a task.
@@ -287,7 +290,7 @@ The practical Mamba algorithm also fuses operations and recomputes selected inte
 
 ### Investigation: build a selective memory challenge
 
-Create a signed sequence, mark which items should replace the memory, and edit the gaps and distractors. Record a prediction before comparing a constant gate to your input-dependent gate schedule. Examine old-state and write contributions separately.
+Create a signed sequence, mark the items that should replace memory, and edit gaps and distractors. Compare the constant gate and your input-dependent schedule live. The separate old-state and new-write contributions show which change improved retention and which suppressed a distraction.
 
 Now make every input zero and start at zero. Can changing the gates alone create a nonzero state in this update? Then restore the signal and close the write gate while leaving decay active in a more general two-coefficient recurrence. Explain why “stop writing” and “stop forgetting” are distinct interventions.
 
@@ -515,6 +518,24 @@ For products of many decays, dividing two cumulative products can create 0/0 aft
 A recurrent deployment also needs a decision about gradients across chunk boundaries. Carrying a detached state preserves its forward value but stops gradient flow into earlier chunks. It is truncated training, not full backpropagation through the entire past.
 
 The [official Mamba repository](https://github.com/state-spaces/mamba) contains full blocks and hardware-specific implementations. As inspected on 13 September 2026, its installation options distinguish the core package from optional compiled scan support. Follow the documented environment and selected revision when reproducing a kernel. The small CPU programs here do not claim to validate those kernels or a pretrained language model. A base language-model checkpoint is also a different artifact from an instruction-tuned assistant.
+
+## Connect the recurrence to the maintained scan and complete block
+
+The scratch owners are explicit. [state_space_mechanisms.py](state_space_mechanisms.py) implements held-input/bilinear discretization, zero/nonzero-state recurrence, kernel generation, FFT convolution and SSD state/matrix/chunk calculations. [trajectory_state_models.py](trajectory_state_models.py) implements the trainable diagonal and selective mixers and their full fitting loop. Matrix exponential and linear solves reuse the earlier [ODE](/learn/path/full-curriculum/ordinary-differential-equations-linear-systems) and [Matrix Decompositions](/learn/path/full-curriculum/matrix-decompositions-svd-qr-cholesky-lu) mechanisms; the new owned operation is how these coefficients become sequence state updates.
+
+The new [state_space_library_bridge.py](state_space_library_bridge.py) supplies the ordinary Mamba package route. First it reuses the exact local `SelectiveMixer` weights and inputs, computes B,C,Δ and A once, and calls `selective_scan_fn`. The local model uses `[batch,time,width]`; the scan API uses `[batch,width,time]`. Variable B/C become `[batch,state,time]`. Both implement `exp(ΔA)` retention and the stated `ΔBu` injection, and share D's direct path. Since Δ has already passed softplus, `delta_softplus=False` avoids applying it twice. There is no output gate in this comparison, so z is omitted. It compares output and input/parameter gradients under one fixed upstream tensor.
+
+That mapping matters: feeding the exact held-input integral from §2 into this scan would define a different operator. Also, the current API's optional last-state output does not propagate its gradient through the fused backward. A loss on the output sequence and a loss on only that returned cache are not interchangeable training contracts. The [maintained scan source](https://raw.githubusercontent.com/state-spaces/mamba/main/mamba_ssm/ops/selective_scan_interface.py) was inspected22September2026 for these conventions.
+
+The second part of the program constructs both ordinary `Mamba` and `Mamba2` blocks, uses a complete loss→backward→clip→AdamW step, then runs evaluation. These include projections and other block operations absent from our isolated recurrence. Accordingly, the example demonstrates normal package use without pretending its random complete-block output equals the small classifier. Read [the official installation and usage contract](https://github.com/state-spaces/mamba) before choosing a build: supported accelerator/compiler/kernel combinations matter. The supplied program deliberately requires a compatible CUDA installation and reports failure when unavailable; it does not silently replace a missing fused kernel with a purported measured GPU result. This optional example is written and source checked, **not executed on GPU in this preparation**.
+
+For daily development, start from the exact CPU mechanisms and use the maintained fused scan after matching values and gradients on small controlled cases. The recurrent form carries O(BDN) state for batch B, width D and state N; the training reference's stored history can be larger. The local SSD matrix visualization is intentionally quadratic for inspection. The chunk algorithm avoids a sequence-wide dense matrix and handles a trailing partial chunk, but the current CPU teaching code is not a hardware-throughput claim. Full original S4 DPLR kernel engineering is a deeper specialized implementation, while this page completely supplies its declared diagonal layer, selective recurrence and SSD mechanisms.
+
+**Changed-code task:** add an initial matrix state to `ssd_chunked` and compare against `ssd_recurrent(..., initial=...)` for length7 and chunk sizes1,3,8.
+
+<details><summary>Hint</summary>The first carry must be the supplied state; every chunk's initial contribution multiplies that incoming carry by its within-chunk cumulative decay.</details>
+
+<details><summary>Solution and success criteria</summary>Add an `initial=None` argument, initialize carry with a copied input matrix when provided and retain zero initialization otherwise. Keep `initial_part = cumprod(a)[:,None] * (C @ carry)` and the boundary update `carry = product * carry + own_final`. The shape must be `[state_size,value_width]`. Every chosen chunking should agree with the sequential recurrence, including the final one-position chunk at size3. Zero write does not imply zero output when the supplied initial state is nonzero. Compare that null separately to avoid incorrectly erasing useful memory.</details>
 
 ## 9. Optional extensions: S5 and Mamba-3
 

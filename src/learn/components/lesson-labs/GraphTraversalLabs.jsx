@@ -94,7 +94,7 @@ export function GraphRepresentationLab() {
     setError('');
   };
   return <GraphInvestigation name="graph-representation" eyebrow="ONE RELATION, THREE STORAGE VIEWS" title="Where does one edge appear?">
-    <p>Predict which matrix cells A-B changes. In an undirected graph both A → B and B → A are valid moves. Turn on direction and the same text describes only A → B.</p>
+    <p>Inspect which matrix cells A-B changes. In an undirected graph both A → B and B → A are valid moves. Turn on direction and the same text describes only A → B.</p>
     <form className="graph-controls" onSubmit={run}><label className="graph-wide-control">Edges · comma-separated, such as A-B<input value={draft} onChange={event => setDraft(event.target.value)} /></label><label>Direction<select value={direction} onChange={event => setDirection(event.target.value)}><option value="undirected">Undirected</option><option value="directed">Directed</option></select></label><button type="submit">Apply graph</button><button type="button" onClick={reset}>Reset graph</button></form>
     {error && <p className="graph-error" role="alert">{error} The active graph was kept.</p>}
     <p className="graph-note">Draft edits apply with Apply graph. Active: {graph.directed ? 'directed' : 'undirected'}, {graph.vertices.length} explicit vertices and {graph.edges.length} distinct edges. Empty edge input keeps all eight isolated vertices. Duplicate pairs collapse; a self-loop appears once as an adjacency membership and once on the matrix diagonal.</p>
@@ -128,7 +128,7 @@ export function GraphSearchLab() {
     setStep(0);
   };
   return <GraphInvestigation name="graph-search" eyebrow="DISCOVERED, PENDING AND FINISHED ARE DIFFERENT" title="What work does the frontier remember?">
-    <p>Predict A's first three discoveries. BFS uses the oldest pending vertex. DFS suspends an actual frame with its next neighbor, explores one child and then resumes.</p>
+    <p>Inspect A's first three discoveries. BFS uses the oldest pending vertex. DFS suspends an actual frame with its next neighbor, explores one child and then resumes.</p>
     <form className="graph-controls" onSubmit={run}><label>Search<select value={method} onChange={event => setMethod(event.target.value)}><option value="bfs">BFS · FIFO queue</option><option value="dfs">DFS · call frames</option></select></label><label>Starting vertex<select value={source} onChange={event => setSource(event.target.value)}>{GRAPH_VERTICES.map(vertex => <option key={vertex}>{vertex}</option>)}</select></label><label>Edge direction<select value={direction} onChange={event => setDirection(event.target.value)}><option value="undirected">Undirected</option><option value="directed">Directed in listed order</option></select></label><button type="submit">Start selected search</button></form>
     <p className="graph-note">Search/source/direction drafts apply with Start selected search. Active: {state.method.toUpperCase()} from {state.source}, {state.graph.directed ? 'directed' : 'undirected'}. This investigation uses the lesson's fixed six-edge graph independently of edits in the representation lab. Neighbor labels are inspected in ascending order.</p>
     <GraphPicture graph={state.graph} state={state} path={path} />
@@ -194,7 +194,7 @@ export function GridWavefrontLab() {
     apply(GRID_DEFAULT_WALLS, GRID_DEFAULT_TARGET, 'single');
   };
   return <GraphInvestigation name="grid-wavefront" eyebrow="A GRAPH WITHOUT A STORED EDGE LIST" title="Watch equal-cost distance spread one layer at a time">
-    <p>Predict how many moves the lower-right target needs from the upper-left source. Each open cell is a vertex; an edge is one open up, left, right or down move.</p>
+    <p>Explore how many moves the lower-right target needs from the upper-left source. Each open cell is a vertex; an edge is one open up, left, right or down move.</p>
     <div className="graph-controls"><label>Sources<select value={sourceMode} onChange={event => chooseMode(event.target.value)}><option value="single">One source · (0,0)</option><option value="multiple">Two sources · (0,0) and (4,4)</option></select></label><label>Click a cell to<select value={editing} onChange={event => setEditing(event.target.value)}><option value="walls">Toggle a wall</option><option value="target">Choose the target</option></select></label><button type="button" onClick={() => apply([], target, sourceMode)}>Clear all walls</button></div>
     <p className="graph-note">Cell actions and source changes apply immediately and restart the wavefront. Switching to two sources opens (4,4) if necessary. Rows and columns start at 0. Keyboard focus and Enter/Space perform the same cell action.</p>
     {error && <p className="graph-error" role="alert">{error} The grid was kept.</p>}

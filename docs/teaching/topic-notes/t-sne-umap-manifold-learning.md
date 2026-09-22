@@ -2,6 +2,20 @@
 
 Canonical topic ID: t-sne-umap-manifold-learning
 
+## 2026-09-21 — Add a runnable UMAP-specific mechanism bridge
+
+- Status: resolved — independently reviewed and integrated on 22 September 2026.
+- Origin: [Classical ML implementation-depth inspection](../implementation-depth/CLASSICAL-ML.md), row 17.
+- Destination and ownership: this lesson already owns the distinction between UMAP's neighbor graph, mathematical pair cost and sampled layout. A tiny executable bridge here is more useful than hiding it in generic graph theory or treating the t-SNE implementation as an implementation of UMAP.
+- Existing coverage: `src/learn/data/manifold-examples.js:2` provides actual UMAP fit and held-out transform programs plus a complete tiny t-SNE optimizer. Section 6 teaches directed memberships, fuzzy union and pair forces; later practice computes an exact isolated-pair optimum. Those UMAP calculations are explained and visualized, but there is no learner-runnable graph/one-update UMAP mechanism program.
+- Proposed treatment: a bounded deterministic tiny-neighborhood program that computes distances, the declared local connectivity offset and scale, directed strengths and fuzzy union. Follow with one explicitly defined layout update and map its inputs/outputs to actual `UMAP` parameters/fitted graph. Preserve the existing real-data, losing held-out comparison and t-SNE code. Do not build a slow full-package clone or imply equivalence between a nominal full-pair objective and sampled UMAP training.
+- Verification and efficiency: handle duplicate/zero distances and disconnected neighbors explicitly, use stable exponentials and a bounded root solve with a stated tolerance, and check fuzzy union symmetry/range. If comparing `graph_`, match the installed version's neighbor count/self-neighbor/local-connectivity conventions and explain any difference. If implementing sampled positive/negative updates, record sampling and clipping conventions; otherwise label the isolated update as its declared teaching model. Keep a sparse-neighbor cost explanation separate from the tiny dense reference.
+- Learning transfer: change one distance and trace the resulting scale, edge and force; then reproduce the same graph contract with the library when feasible. A successful exact pair exercise does not predict the final stochastic global embedding.
+- Evidence: [UMAP authors: How UMAP Works](https://umap-learn.readthedocs.io/en/latest/how_umap_works.html), [parameters](https://umap-learn.readthedocs.io/en/latest/parameters.html), and the existing section-6 citation to Damrich and Hamprecht's *On UMAP's True Loss Function*. These are existing lesson sources; no new package-mechanism parity has been measured in this audit. Existing native evidence used UMAP 0.5.12.
+- Resolution: confirmed executable-mechanism bridge gap under the new implementation-depth requirement; deferred to a scoped revision, not silently counted as implemented or a reason to discard the current complete lesson.
+- Implementation/verification links: existing [native evidence](../evidence/manifold-native.json) covers the current four programs, not this proposed addition.
+- Final implementation resolution, 22 September 2026: the learner-facing mechanism/tool route, contract comparison and changed-constraint practice are implemented; native checks, independent review and affected production checks pass. [Final scope and evidence](../implementation-depth/REMEDIATION.md). Earlier proposal/evidence-limit wording above is historical, not an unresolved task.
+
 ## 2026-09-11 — Separate a learned layout from verified input topology
 
 - Status: resolved

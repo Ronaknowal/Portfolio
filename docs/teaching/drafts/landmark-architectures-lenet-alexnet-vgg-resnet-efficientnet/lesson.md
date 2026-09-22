@@ -1,5 +1,8 @@
 # Landmark Architectures: LeNet, AlexNet, VGG, ResNet & EfficientNet
 
+**Explore as you read.** Edit head dimensions, channel-context cells, scaling allocations, deployment budgets and signed score-map weights. Show exact parameter/MAC counts, gate contributions, candidate eligibility and current CAM/logit arithmetic live. Recorded model/seed selectors display existing evidence immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to identify which operation consumes the budget, what information a head discards and why a smaller model is not automatically better.
+
+
 You can recognize a handwritten **8** even when one loop is wider than the other. A program receives a grid of numbers. How should its computation be arranged so that it can learn useful visual patterns, combine them, and make a decision within a resource budget?
 
 An **architecture** is that arrangement: which operations run, the shapes they accept, and the connections through which information travels. Its weights are the numbers learned inside the arrangement. Changing the architecture changes what the model can express, how gradients reach its parameters, and what computation it requires. Changing the training recipe can also change its performance—even when the architecture stays identical.
@@ -131,7 +134,7 @@ For the familiar 1000-class VGG-16 with biases:
 
 The first dense layer alone has over 102 million parameters. The **whole head**, not that one layer, has 123,642,856. The total agrees with the [Torchvision VGG-16 model specification](https://docs.pytorch.org/vision/stable/models/generated/torchvision.models.vgg16.html).
 
-**Budget investigation — where did the memory go?** Start with the 7×7×512 representation. Choose either its original dense head or spatial averaging followed by `512 → 1000`. Before revealing the totals, predict which individual component accounts for most of the difference. Then change the class count or final spatial size. A new classifier is a different function that must be trained; the arithmetic alone cannot predict its accuracy.
+**Budget investigation — where did the memory go?** Start with the 7×7×512 representation. Choose either its original dense head or spatial averaging followed by `512 → 1000`; show the totals, inspect which individual component accounts for most of the difference. Then change the class count or final spatial size. A new classifier is a different function that must be trained; the arithmetic alone cannot inspect its accuracy.
 
 The global-average alternative has **513,000** head parameters. It keeps one average per channel and discards within-channel spatial arrangement at this boundary. In return it avoids multiplying the head input dimension by 49. Averaging has no learned parameters; the following classifier still learns combinations of channels.
 
@@ -238,7 +241,7 @@ The gate is constant across positions within a channel but can differ between im
 
 For a hand-sized case, take two channel means `a=2,b=1`. Define one hidden unit `h=max(a−b,0)` and gate logits `[h,−h]`. The gates are approximately `[0.7311,0.2689]`. If the second mean becomes 3, the hidden unit becomes 0 and both gates become 0.5. Changing one channel's global content can change another channel's multiplier.
 
-**Context-gate investigation.** Edit actual cells in either of two small feature maps, predict how the other map's gate changes, and then inspect the average→hidden unit→gate→broadcast multiplication. Rearranging values within one map preserves its mean and therefore both gates in this specific model. This null case distinguishes a global summary from a spatial attention map.
+**Context-gate investigation.** Edit actual cells in either of two small feature maps, inspect how the other map's gate changes, and then inspect the average→hidden unit→gate→broadcast multiplication. Rearranging values within one map preserves its mean and therefore both gates in this specific model. This null case distinguishes a global summary from a spatial attention map.
 
 ### Compound scaling: spend additional resources deliberately
 
@@ -257,7 +260,52 @@ Compound scaling writes `d=α^φ, w=β^φ, r=γ^φ`. Choosing `αβ²γ²≈2` m
 
 Do not identify every named B-index with that integer `φ` and then present the approximation as an exact model count. Implementations round channels and repeat counts; depthwise, pointwise, SE, stem and classifier terms do not all scale with the same exponents. Input resolution changes MACs without directly changing stored convolution weights.
 
-**Scaling investigation.** Allocate a hypothetical twofold dense-convolution budget to depth, width and resolution. Predict the effect on parameters before revealing it. Compare doubling depth, multiplying width by √2, and multiplying resolution by √2. All have the same idealized MAC factor, but the last keeps the parameter count unchanged. The plot shows algebraic budget contours, not an invented accuracy surface.
+**Scaling investigation.** Allocate a hypothetical twofold dense-convolution budget to depth, width and resolution. Inspect how the parameter count changes with the selected design. Compare doubling depth, multiplying width by √2, and multiplying resolution by √2. All have the same idealized MAC factor, but the last keeps the parameter count unchanged. The plot shows algebraic budget contours, not an invented accuracy surface.
+
+## Turn the architecture diagram into a complete model
+
+The small digit comparison later in this page isolates routing decisions. To also build the named families, [landmark_builders.py](landmark_builders.py) supplies complete model constructors from ordinary `nn.Conv2d`, normalization, activation, pooling and linear primitives. Their internal operations have already been opened in the preceding convolution, normalization, residual and dropout lessons. Here the new mechanism is **composition**: stage widths, repetition counts, downsampling locations, parallel channel gating and the final head.
+
+| Builder | Exact declared construction |
+| --- | --- |
+| `lenet` | 32×32 single-channel dense-convolution/tanh/average-pool model with 6 and16 maps, followed by120→84→class head; the modern variant contrasted with original LeNet-5 above |
+| `alexnet` | Torchvision-style 64/192/384/256/256 feature widths, 11/5/3/3/3 kernels and 6×6 adaptive head grid; not the historical two-device grouping/LRN recipe |
+| `vgg16` | 2/2/3/3/3 convolution repetitions and the complete 7×7×512→4096→4096→class head |
+| `resnet18` | Explicit two-convolution post-activation blocks; stride/projection on each changing stage; global pooling and class head |
+| `efficientnet_b0` | All seven B0 stage configurations, expansion/depthwise/SE/projection, per-example branch dropping and1280-channel head |
+
+Every builder returns a trainable `nn.Module`, not a call to a hidden model factory. Read `ResidualBlock` and `MobileBlock` next to their diagrams. The B0 squeeze width is based on the block's **incoming** width, rather than blindly reducing the expanded tensor by four. Its SE activation is SiLU. Those are concrete differences from the earlier deliberately smaller illustrative gate. Keeping both examples is useful because the comparison now identifies their different contracts instead of calling them the same model.
+
+`python landmark_builders.py --family vgg16` uses **meta tensors** to inspect the full shape and parameter count without allocating138 million weights. It should report the specified parameter budget and `[1,1000]` output; this checks a construction, not a fit. Changing the classifier requires its output label count to match the task, and does not preserve pretrained category semantics.
+
+With compatible Torchvision installed, `python landmark_builders.py --family resnet18 --compare` constructs the ordinary `get_model(..., weights=None)` route too. `copy_components` copies every convolution, linear layer and BatchNorm state in the declared semantic order, refusing a component count/type/shape mismatch. Both models are in evaluation mode. The program compares the same input's logits and reports the actual error. Randomly initializing two complete networks and comparing their scores would not be meaningful. This new comparison is prepared for phase two; no unexecuted numerical error is supplied. Large VGG/AlexNet runs allocate both full models and should be requested individually, not in a browser or an automatic all-family sweep.
+
+The model source is intentionally a readable composition, not a reproduction of historical hardware kernels or each paper's training recipe. A Torchvision update can change a component layout: the comparison should fail visibly so the mapping can be inspected. [The model API](https://docs.pytorch.org/vision/stable/models.html) and [EfficientNet implementation](https://raw.githubusercontent.com/pytorch/vision/main/torchvision/models/efficientnet.py) were checked for this bridge on22September2026. Pin the compatible tested release when running it.
+
+**Use the ordinary pretrained route.** Select an explicit weight enum, obtain its input transform, run the matching model in eval/inference mode and interpret outputs using that enum's categories. The following complete example deliberately requires a local photograph; it downloads model weights if uncached:
+
+```python
+import torch
+from PIL import Image
+from torchvision.models import ResNet18_Weights, resnet18
+
+weights = ResNet18_Weights.IMAGENET1K_V1
+model = resnet18(weights=weights).eval()
+with Image.open("example.jpg") as image:
+    inputs = weights.transforms()(image.convert("RGB")).unsqueeze(0)
+with torch.inference_mode():
+    probabilities = model(inputs).softmax(-1)[0]
+for index in probabilities.topk(5).indices:
+    print(weights.meta["categories"][int(index)], float(probabilities[index]))
+```
+
+This does not turn a random local model into pretrained ResNet by assigning the same name. For fine-tuning, reuse the already implemented [Transfer Learning pipeline, section3](/learn/path/full-curriculum/transfer-learning-fine-tuning-strategies#transfer-section-3), whose `transfer-experiments.py` owns split roles, changed heads, freeze policies and optimizer groups. Apply those policies to the chosen architecture; do not rerun a second transfer lesson here.
+
+**Construction exercise.** Replace VGG's original head with global averaging and a seven-class linear layer. Which code and tensor contracts change?
+
+<details><summary>Hint</summary>The trunk still returns512 channels; the head no longer receives49 positions per channel.</details>
+
+<details><summary>Solution and success criteria</summary>Keep the feature stages, set the pool to `nn.AdaptiveAvgPool2d(1)`, and use `nn.Linear(512,7)`. Its3,591 head parameters replace the three large dense layers. Test two legal image sizes and assert `[batch,7]`; train using labels0–6. The unchanged trunk can receive copied pretrained state, but the replaced head must learn its new label meanings. Successful shape and parameter checks do not prove equal accuracy or equal functions.</details>
 
 ## 6. Read an architecture comparison as evidence
 
@@ -398,7 +446,7 @@ What can we conclude? All four small constructions learn the training set. The p
 
 Notice the inverted candidate's seed 1 score: 116 correct, the same as plain, but higher cross-entropy. Correct counts discard confidence information. Cross-entropy also reacts to probability assigned to wrong labels and to the confidence of correct predictions.
 
-**Result investigation.** Choose a parameter/MAC budget and predict which recorded candidates are eligible. Then inspect matched plain/residual learning traces for a chosen seed. Changing the budget changes eligibility, not measured model outputs. The available observations cover exactly the declared model configurations, seeds and learning rate.
+**Result investigation.** Choose a parameter/MAC budget and inspect which recorded candidates are eligible. Then inspect matched plain/residual learning traces for a chosen seed. Changing the budget changes eligibility, not measured model outputs. The available observations cover exactly the declared model configurations, seeds and learning rate.
 
 The three seeds show initialization variation on one shared split. They do not provide independent samples from a deployment population. If you pick the parallel candidate after inspecting this table, that choice has consumed development information; a later final assessment needs new held-out evidence.
 
@@ -446,7 +494,7 @@ Output:
 
 The second channel has a negative class weight. Raising its bottom-left cell from 2 to 6 changes that location's class-map value from −2 to −6 and lowers the score from 2.5 to 1.5. More activation can mean less evidence for this particular class.
 
-**Map investigation.** Edit a cell or a signed class weight, predict the change in the score, and reconcile two routes: average-then-linear and linear-then-average. Rearranging the same positions jointly across channels moves the map but preserves the score. Setting all class weights to zero leaves only the bias. These nulls help identify what the head retains and discards.
+**Map investigation.** Edit a cell or a signed class weight, inspect the change in the score, and reconcile two routes: average-then-linear and linear-then-average. Rearranging the same positions jointly across channels moves the map but preserves the score. Setting all class weights to zero leaves only the bias. These nulls help identify what the head retains and discards.
 
 Then inspect real saved examples from seed 1. Source 251, an actual 4, is correctly classified by all four models. The first misclassified development specimen for the parallel model is source 379: an 8 predicted as 5. Its class 5 and class 8 maps come from the **same** feature tensor with different head weights. Looking only at a vivid predicted-class map would hide the competing explanation.
 

@@ -94,7 +94,15 @@ if (selected !== -1) {
   // Named concepts are authoring obligations even when an older published body
   // or a compact starting brief does not yet contain their explanations.
   if (topic.subtopics?.length) topic.coverageInstruction = "Assess every named subtopic during design and writing. Teach its mechanism, assumptions, useful application and failure boundaries at appropriate depth, or explicitly record a justified ownership change. Search labels alone are not coverage evidence. Preserve the user's delivery-phase boundary.";
-  console.log(JSON.stringify({ topic, requestedWork: requestedWork === -1 ? undefined : process.argv[requestedWork + 1], deliveryLedger: deliveryLedgerPath, domainGuidance: getDomainGuidance(topic.trackId), authoringNotes: readTopicAuthoringNotes(root, topic.id), authoringContract: "Read LESSON-AUTHORING-HANDOFF.md, the teaching standard's delivery modes, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Follow the user's full/content-first/finish scope and topic.delivery; finishing requires a current complete content checkpoint. Revisit coverage/title and useful applications while writing. A brief, published old body or completed draft does not certify the new implementation." }, null, 2));
+  const depthRecord = `docs/teaching/implementation-depth/${topic.id}.md`;
+  const implementationDepth = {
+    standard: 'LESSON-TEACHING-STANDARD.md#build-the-mechanism-then-control-the-library',
+    review: 'docs/teaching/IMPLEMENTATION-DEPTH-REVIEW.md',
+    preparedContentReview: topic.delivery.implementation === 'not-started' && fs.existsSync(path.join(root, `docs/teaching/drafts/${topic.id}/lesson.md`)) ? 'docs/teaching/implementation-depth/PREPARED-WRITING-REVISION.md' : null,
+    topicRecord: fs.existsSync(path.join(root, depthRecord)) ? depthRecord : null,
+    instruction: 'Plan and write complete explained scratch and idiomatic library/tool routes for every core computational outcome before completing content. Record exact reuse owners, abstraction boundaries, efficient/stable algorithms, complexity, matched comparisons and extension practice. Known missing core code or teaching cannot be left as a finish-agent TODO. Read the review and preparedContentReview where supplied; an old phase completion or missing topic record is not a depth certification. Defer full execution, independent implementation review and browser work during content-first delivery, with truthful execution status.',
+  };
+  console.log(JSON.stringify({ topic, requestedWork: requestedWork === -1 ? undefined : process.argv[requestedWork + 1], deliveryLedger: deliveryLedgerPath, domainGuidance: getDomainGuidance(topic.trackId), authoringNotes: readTopicAuthoringNotes(root, topic.id), implementationDepth, authoringContract: "Read LESSON-AUTHORING-HANDOFF.md, the teaching standard's delivery modes, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes and implementationDepth guidance. Follow the user's full/content-first/finish scope and topic.delivery; finishing requires a current complete content checkpoint. Revisit coverage/title and useful applications while writing. A brief, published old body or completed draft does not certify the new implementation." }, null, 2));
 } else {
   const out = path.join(root, "docs/curriculum");
   fs.mkdirSync(out, { recursive: true });

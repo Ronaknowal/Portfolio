@@ -54,7 +54,7 @@ The previous topic is `sequence-to-sequence-encoder-decoder`. Its final data and
 | Attention automatically copies unknown words | Extended output set and repeated-position aggregation | Two routes into one word entry |
 | Local reads imply online input availability | Bidirectional features can already use future input | Speech/location dependency inset |
 
-Visual form follows the mechanism: token shelf, signed vector geometry, timeline, mask surgery, measured fit curves, alignment matrix, source ruler and probability-flow aggregation. Explanatory figures remain separate from gated investigations. B has reading and learning activities; D and G investigate different operations on a shared underlying model; H is optional. Fresh defaults differ from worked examples and begin with unset predictions, meaningful entity edits, computed grading and checked contrasting/null cases. Exact contracts are in `visual-specifications.md`.
+Visual form follows the mechanism: token shelf, signed vector geometry, timeline, mask surgery, measured fit curves, alignment matrix, source ruler and probability-flow aggregation. Explanatory figures remain separate from gated investigations. B has reading and learning activities; D and G investigate different operations on a shared underlying model; H is optional. Fresh defaults differ from worked examples and show their current computed outputs immediately, with meaningful entity edits and checked contrasting/null cases. Exact contracts are in `visual-specifications.md`.
 
 ## Canonical-reference section audit
 
@@ -112,7 +112,7 @@ Actual development exact counts: additive395/380/387, general345/392/385, rules4
 | File | Role and retention |
 |---|---|
 |`lesson.md` | Complete learner explanations, examples, two displayed programs, eight changed tasks with closed hint/solution blocks, references and route |
-|`visual-specifications.md` | Domain-specific figures/investigations, exact inputs/prediction/edit/grading/null/phone/accessibility/cache contracts |
+|`visual-specifications.md` | Domain-specific figures/investigations, exact inputs/live edits/result checks/null/phone/accessibility/cache contracts |
 |`data-provenance.md` | Source, rights, adaptation, split and reuse limitations |
 |`english-inflections.csv` | Small real offline input required by learner program |
 |`data-extraction.json`,`prepare-inflection-data.py` | Exact inherited source extraction evidence and optional reproduction tool |
@@ -144,11 +144,33 @@ Actual environment: Python3.12.14, NumPy2.3.5, Torch2.14.0+cpu, one Torch thread
 1. **Route:** immediately after introduction, with an accessible saved-model first run and optional section8; core readiness excludes the optional branches.
 2. **Uncertainty/cautions:** source representations, alignment interpretation, development reuse, parameter confounds and streaming availability each have a concrete home. Do not repeat generic warnings in every panel or print disclaimers from programs.
 3. **Real question:** the opening spelling request returns as the executed `lactated` output and the measured unseen-spelling comparison. The real-source extract retains a protected grouped split and a useful simple baseline; the learner can judge actual output and transfer separately.
-4. **Investigations:** B/D/G/H have fresh defaults, unset input-bound predictions, entity edits, computed comparison and tested nulls. Explanatory timeline/curves/copy diagrams are not counted as labs.
+4. **Investigations:** B/D/G/H have fresh defaults, unset input-bound results, entity edits, computed comparison and tested nulls. Explanatory timeline/curves/copy diagrams are not counted as labs.
 5. **Numerical figures:** calculations/measured results labeled; full actual curves, denominator/axes/limits specified; no fabricated benchmark. Desktop/phone perceptibility is expressly pending.
 6. **Connections:** the same context appears through weighted contributions and matrix multiplication; concat and split-projection scoring are explicitly equivalent; the analytic gradient is linked to automatic differentiation; fixed-context versus attentive models retain a precise shared task. The canonical section audit records core, optional and later-topic ownership.
 7. **Code:** both displayed programs expose their mechanism and inputs. The long program devotes its body to source/target construction, recurrent attention, generation, training and measurement; bounded validation lives mainly in separate author helpers. No placeholder training script, unspecified model download or printed disclaimer.
 8. **Practice and progression:** eight changed calculation/diagnosis/design/transfer problems, with exact reproducible values and closed hints/solutions. Wrong routes are explained. Vectors, tensor axes and the two probability domains are refreshed locally; optional copying/speech examples illuminate separate mechanisms without becoming core prerequisites. Guided figures do not auto-complete independent practice.
-9. **Screenshots/interaction:** not performed in content-only mode. Implementer must inspect informative contrast and prediction-feedback states, keyboard/mobile/text equivalents and performance under the later finish authorization.
+9. **Screenshots/interaction:** not performed in content-only mode. Implementer must inspect informative contrast and live changed-input states, keyboard/mobile/text equivalents and performance under the later finish authorization.
 
 This is an author's heuristic learning-experience assessment, not a learner study or independent review. Preserve current prepared content and numerical evidence; phase two may make justified improvements with source-bound review, rather than regenerating the topic from scratch.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Move a memory contribution. Edit queries, keys/values, scorer parameters, padding validity, local-window placement and supported real source/prefix inputs. Synchronize scores, normalized weights, weighted values, context and decoder output; keep masked rows and missing legal donors explicit. Retain saved observations as records. Choose or diagnose a scorer/read window from the dependencies it creates, without reading attention weight as a complete causal explanation.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Implement the read, then compose it into ordinary training” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| Additive/general score, normalized masked read and decoder schedule | `attentive-inflection.py:AttentiveInflector`; attention-calculations.py and attention-mechanics.py explicit routes | Custom PyTorch module with native GRU/loss/optimizer; not false MultiheadAttention equivalence | Temperature/masked-token changed-code task, analytic answer and paired gradient requirement |
+| Local window, repeated-copy aggregation and cache | Local complete calculation functions; reused prepared recurrent/seq2seq owners | NumPy/Torch tensor operations with fixed-source key caching | Full speech/pointer-generator systems are named extension boundaries, not core missing code |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.

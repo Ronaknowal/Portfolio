@@ -1,0 +1,100 @@
+{
+  "verifiedAt": "2026-09-20T07:28:46.997954+00:00",
+  "stage": "native execution of the lesson's programs; browser, independent and integration review are separate",
+  "extraction": "Each displayed algorithm is a byte-exact slice of a frozen packet program, located by its def line and pinned by the SHA-256 of the extracted bytes. Import lines and driver prints are composed by this verifier and counted separately below.",
+  "verifier": "scripts/verify-pac-examples.py",
+  "verifierSha256": "aef52787ab0622675a2a3dc13d1efdb46391e4b57a51d79577f87ba40405083c",
+  "frozenSources": {
+    "pac-calculations.py": "33bad8e470ef16a5e5052620d0b747d1b880e734c9e440eff9a39d3db26ea51e",
+    "banknote-learning-curves.py": "ab4f7106bd5c33ea07f5f199c530b269997328c2c96a3f9df67b296c5f9a29d9",
+    "checked-results.json": "b12b1e3ce5c67554b9fd55e5498b0b1ffa0b0d884a1e5b6e1d330a1e57be9217",
+    "banknote-learning-curve-results.json": "4685517b6347862528ee285b8994f0590e0bddc1bb9b4c833ef54adcef429e60"
+  },
+  "servedDataset": {
+    "path": "/learn-assets/pac-learning/banknote-subset.csv",
+    "sha256": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a"
+  },
+  "module": {
+    "path": "src/learn/data/pac-examples.js",
+    "sha256": "2ad31dd00134354d3de0a6176bf4d4fae16cc6c39cc8ab47db3c1b72c429d05a",
+    "regeneration": "byte-identical"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pandas": "3.0.1"
+  },
+  "displayedPrograms": {
+    "patterns": {
+      "file": "interval_patterns.py",
+      "functions": [
+        "interval_patterns",
+        "threshold_patterns"
+      ],
+      "extractedSha256": "20b4f035bd99094d82c6008d7df5c44c9a8476646e1b9e3999278fcbd3fdbe93",
+      "extractedLines": 11,
+      "composedLines": 3,
+      "executed": true,
+      "stdoutSha256": "3e1cff67a3b4784349f2eb0de206670a3d9a87275c74b99cf6d0b8daec27311f",
+      "stdout": "1 2 2 2\n2 3 4 4\n3 4 7 8\n4 5 11 16\n5 6 16 32\n['000', '001', '010', '011', '100', '110', '111']"
+    },
+    "finite-world": {
+      "file": "finite_world.py",
+      "functions": [
+        "finite_world"
+      ],
+      "extractedSha256": "9994314494a7958cf8a9a1182b0561009d90b01ae2348f56915b5cc94b4c31b9",
+      "extractedLines": 27,
+      "composedLines": 6,
+      "executed": true,
+      "stdoutSha256": "064e2ef706021c2f64c3b8b75e23f1eef80e1d522a3a6aeaaa4f418625abd06d",
+      "stdout": "1 1/2 12.460813 1.0\n2 1/4 9.704491 1.0\n4 1/16 5.886071 1.0\n8 1/256 2.165365 1.0\n16 1/65536 0.29305 0.29305\n24 1/16777216 0.03966 0.03966\nall-zero target at n=4: 0"
+    },
+    "interval-risk": {
+      "file": "interval_risk.py",
+      "functions": [
+        "interval_witness",
+        "interval_risk",
+        "fit_realizable_interval"
+      ],
+      "extractedSha256": "5cb5119425f032a1be1ba98f4d79f6dbbd179b7b6abd55f8c2feabf974f0f89e",
+      "extractedLines": 29,
+      "composedLines": 6,
+      "executed": true,
+      "stdoutSha256": "ea71728b40bdee554cd44653de7a3dfe172ef8c2b10a1e5b843c20aa61457f96",
+      "stdout": "[0.35, 0.65] 0.0 0.1\n[0.31, 0.69] 0.0 0.02\n[0.35, 0.65] 0.0 0.1\nNone 0.0 0.4\n{'feasible': False, 'interval': [0.2, 0.8], 'predicted': [1, 1, 1]}"
+    }
+  },
+  "downloadedPrograms": {
+    "calculations": {
+      "file": "pac-calculations.py",
+      "sourceSha256": "33bad8e470ef16a5e5052620d0b747d1b880e734c9e440eff9a39d3db26ea51e",
+      "executed": true,
+      "produces": "checked-results.json",
+      "producedSha256": "b12b1e3ce5c67554b9fd55e5498b0b1ffa0b0d884a1e5b6e1d330a1e57be9217",
+      "reproducedFrozenFileExactly": true
+    },
+    "curves": {
+      "file": "banknote-learning-curves.py",
+      "sourceSha256": "ab4f7106bd5c33ea07f5f199c530b269997328c2c96a3f9df67b296c5f9a29d9",
+      "executed": true,
+      "produces": "banknote-learning-curve-results.json",
+      "producedSha256": "4685517b6347862528ee285b8994f0590e0bddc1bb9b4c833ef54adcef429e60",
+      "reproducedFrozenFileExactly": true
+    }
+  },
+  "oracles": 53,
+  "notes": [
+    "No isolated virtual environment was needed: both packet programs resolve against the shared scratch/lesson-tools runtime, whose versions are recorded above. Nothing was installed anywhere.",
+    "The displayed drivers exist because the frozen file's own __main__ block writes a 60 KB JSON file. The algorithm above each driver is extracted, not retyped.",
+    "No network access was used by any program."
+  ],
+  "limits": [
+    "Floating-point results can differ on other library versions; the resolved versions are recorded.",
+    "Byte-identical regeneration of the two frozen results files depends on those exact versions, and on NumPy's default_rng streams for seeds 41, 44 and 23.",
+    "The banknote counts are one small nested sequence against one development set, not a benchmark."
+  ],
+  "passed": true
+}

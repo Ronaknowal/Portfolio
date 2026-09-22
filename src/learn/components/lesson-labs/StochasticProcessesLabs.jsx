@@ -162,7 +162,7 @@ export function MarkovPropagationLab() {
     }
   }
   return <Lab name="Markov probability propagation" title="Move probability, then ask whether it settles">
-    <p>Predict: the sticky chain switches ten times less often. Will its final balance also change?</p>
+    <p>Inspect: the sticky chain switches ten times less often. Will its final balance also change?</p>
     <div className="process-controls">
       <Select label="Transition preset" value="" onChange={preset}>
         <option value="" disabled>Choose a comparison</option>
@@ -269,7 +269,7 @@ export function AbsorptionLab() {
     setSelected(2);
   }
   return <Lab name="First passage and absorption" title="Watch moving probability reach its first boundary">
-    <p>A reserve moves one unit up or down per step. At 0 or the upper boundary it stops. Predict what a lower upward probability does to success <em>and</em> time to either boundary.</p>
+    <p>A reserve moves one unit up or down per step. At 0 or the upper boundary it stops. Inspect what a lower upward probability does to success <em>and</em> time to either boundary.</p>
     <div className="process-controls">
       <Select label="Upper reserve boundary" value={boundary} onChange={value => {
         const next = Number(value);
@@ -393,7 +393,7 @@ export function PoissonArrivalLab() {
   result.events.forEach((arrival, index) => staircase.push([arrival.time, index], [arrival.time, index + 1]));
   staircase.push([result.observedUntil, result.events.length]);
   return <Lab name="Arrival clocks and event counts" title="One event stream, several connected views">
-    <p>Predict first: if only the routing rule changes, should any arrival time move?
+    <p>if only the routing rule changes, should any arrival time move?
       The clock and the marks use separate seeded draws. Rates are events per minute; the horizon is 3 minutes.</p>
     <div className="process-controls">
       <Select label="Arrival rate preset" value="" onChange={value => {
@@ -583,7 +583,7 @@ export function BrownianPathLab() {
   const extent = Math.max(5 * Math.sqrt(horizon) + Math.abs(drift) * horizon, ...result.paths.flat().map(value => Math.abs(value)), 1.96 * scale * Math.sqrt(horizon) + Math.abs(drift) * horizon);
   const band = time => 1.96 * scale * Math.sqrt(time);
   return <Lab name="Brownian paths and coupled refinement" title="Refine the grid without replacing the path">
-    <p>Predict: doubling the number of intervals should preserve every old point.
+    <p>Inspect: doubling the number of intervals should preserve every old point.
       Each seed stores 256 increments per path; coarser views sum those same increments.</p>
     <div className="process-controls">
       <Select label="Brownian horizon T" value={horizon} onChange={value => setHorizon(Number(value))}>

@@ -1,0 +1,236 @@
+{
+  "checkedAt": "2026-09-21T14:51:35.628Z",
+  "scope": "Direct numerical/model/data imports of the 30 early topic components; no new mathematical claims or model edits.",
+  "files": [
+    {
+      "file": "src/learn/data/anomaly-detection-models.js",
+      "sha256": "7d8a2dd0225426f507a2e57ff7d8dcf2c1f3e6233c7097b0b6e9d7bafa782d67",
+      "baseline": "7d8a2dd0225426f507a2e57ff7d8dcf2c1f3e6233c7097b0b6e9d7bafa782d67",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/anomaly-temperature-data.js",
+      "sha256": "750d462024c0321687bd1b98c8f0755616351f60d5b9465d1f6dfc59d53625d4",
+      "baseline": "750d462024c0321687bd1b98c8f0755616351f60d5b9465d1f6dfc59d53625d4",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/clustering-evaluation-models.js",
+      "sha256": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e",
+      "baseline": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/clustering-evaluation-data.js",
+      "sha256": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07",
+      "baseline": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/validation-models.js",
+      "sha256": "53ac50c510d51052765de8f82809e21ac72b11da4397012bd8f3ece31c062086",
+      "baseline": "53ac50c510d51052765de8f82809e21ac72b11da4397012bd8f3ece31c062086",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/dbscan-models.js",
+      "sha256": "cd32c82e8ee50030d7d2670f05b0a28d4b29629a122bea391b1f9bb88eb921b6",
+      "baseline": "cd32c82e8ee50030d7d2670f05b0a28d4b29629a122bea391b1f9bb88eb921b6",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/dbscan-iris-data.js",
+      "sha256": "4361a654de47ef3f8b97643f7339accf15af8489dfdb238633c8a6b214c1cfae",
+      "baseline": "4361a654de47ef3f8b97643f7339accf15af8489dfdb238633c8a6b214c1cfae",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/decision-tree-models.js",
+      "sha256": "620aa4a621a7c3a0a381f1e4f61ddf79cc3a94ac118b65c44021c8e147aaded6",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/ensemble-methods-models.js",
+      "sha256": "53fc4d487c2bb98b37968c59ddde9307192f92e1141033a4625be34ff5351fd4",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/ensemble-prediction-map.json",
+      "sha256": "7e06407ee3c81498e1b3c134935994e8bf114509c36f79e02565695f4e79d5a6",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/scaling-models.js",
+      "sha256": "2016b0426dad0a3c76da8a04dd88ccee56a78c9f75bf81b029007552d56c9d2c",
+      "baseline": "2016b0426dad0a3c76da8a04dd88ccee56a78c9f75bf81b029007552d56c9d2c",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/scaling-data.js",
+      "sha256": "1f0bc9e1ae81883aa0bccbd0ee3daa1140ce9f87b5847203f1da82efdbf93c04",
+      "baseline": "1f0bc9e1ae81883aa0bccbd0ee3daa1140ce9f87b5847203f1da82efdbf93c04",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/gmm-models.js",
+      "sha256": "a04b58a2b4e5e46ac6f4f1cc1069f71e49328c350d0f5909513a580abe00dcb2",
+      "baseline": "a04b58a2b4e5e46ac6f4f1cc1069f71e49328c350d0f5909513a580abe00dcb2",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/gradient-boosted-trees-models.js",
+      "sha256": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/ica-models.js",
+      "sha256": "f4d48ae6fc021e1ff3574ebf4ce1893205852094e9519ca86b8aee66aa502774",
+      "baseline": "f4d48ae6fc021e1ff3574ebf4ce1893205852094e9519ca86b8aee66aa502774",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/knn-models.js",
+      "sha256": "cd71acac8f69c5e985f957a3fe9c611cc83ae1a57951d3e7e36871f3a9cabc74",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/knn-validation-data.js",
+      "sha256": "c1cd316cad24632438c21e790f3edfe91939e712bfb8d9fa0fae9500d0c91781",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/linear-logistic-models.js",
+      "sha256": "9e33b78b08446964f0843a4b8999181377bad4b4d74b935d5bc16ead00f605c5",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/multioutput-models.js",
+      "sha256": "0ba78a1478e6de9ae7b5e6bf81304f18c67094d1ceca4bdc398f6ab0d9604077",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/naive-bayes-models.js",
+      "sha256": "48d7ff7c4035bc469e45d0f030455992a007927edc3af4b36bf4b1d8130f4dba",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/nmf-models.js",
+      "sha256": "c4e5a55b6915f8028da3bf7bf2bbeea954f0faf7bed290e6b3e7338cf2e0bc42",
+      "baseline": "c4e5a55b6915f8028da3bf7bf2bbeea954f0faf7bed290e6b3e7338cf2e0bc42",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/nmf-data.js",
+      "sha256": "28dacb781b62c7479b23f16f774b94cb58de3f239d10759d7a8052c01cb8ee85",
+      "baseline": "28dacb781b62c7479b23f16f774b94cb58de3f239d10759d7a8052c01cb8ee85",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/pca-models.js",
+      "sha256": "68fe8a36470a7351c7d0e73bc84339502912eaa8f405892d4b1b709fdedf1b21",
+      "baseline": "68fe8a36470a7351c7d0e73bc84339502912eaa8f405892d4b1b709fdedf1b21",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/pca-wine-data.js",
+      "sha256": "d5964935fb9bd4af7e4164fb1275fcdee339b5720267ad6e7cdf7ba85e141e84",
+      "baseline": "d5964935fb9bd4af7e4164fb1275fcdee339b5720267ad6e7cdf7ba85e141e84",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/recommender-models.js",
+      "sha256": "f377edef34ade812337478b8cdaac9629f9686c3a42afd1807c37e565c286e05",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/regularization-models.js",
+      "sha256": "ebaa342983bdda47941647f3bb2eae997d6e8e343fe232aa7982bb3111aa5aee",
+      "baseline": "ebaa342983bdda47941647f3bb2eae997d6e8e343fe232aa7982bb3111aa5aee",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/regularization-data.js",
+      "sha256": "1c0f6b6f63a69c97a51c0d68b46c32ea1ae92da977690240ce4cf95ab9664609",
+      "baseline": "1c0f6b6f63a69c97a51c0d68b46c32ea1ae92da977690240ce4cf95ab9664609",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/support-vector-machines-models.js",
+      "sha256": "25c2e4161425e654eaef9f04a4f1486d60d5b5554170b81249407353d5d87d79",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/svm-validation-fixtures.js",
+      "sha256": "1652a24b8af8293e58c0466928be3f833b80dba563863513d8fa2d91cd51e0c0",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/survival-models.js",
+      "sha256": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+      "unchanged": null,
+      "baseline": null,
+      "status": "Not captured by root baseline; current digest recorded without claiming a hash comparison."
+    },
+    {
+      "file": "src/learn/data/manifold-models.js",
+      "sha256": "472158d05199facd42bd860dfe08b1780b7c3b5e523b39b0519a16ab4142ff10",
+      "baseline": "472158d05199facd42bd860dfe08b1780b7c3b5e523b39b0519a16ab4142ff10",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    },
+    {
+      "file": "src/learn/data/manifold-data.js",
+      "sha256": "d76e917248b1d01180cef670f9489b369af430c84377593dbeac591d8cd966a0",
+      "baseline": "d76e917248b1d01180cef670f9489b369af430c84377593dbeac591d8cd966a0",
+      "unchanged": true,
+      "status": "Exact baseline match"
+    }
+  ],
+  "summary": {
+    "total": 32,
+    "exactBaselineMatches": 19,
+    "notInBaseline": 13,
+    "changedFromKnownBaseline": 0
+  }
+}

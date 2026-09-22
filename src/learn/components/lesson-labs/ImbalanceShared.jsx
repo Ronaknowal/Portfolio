@@ -1,26 +1,8 @@
+import { useLiveInvestigation, useLiveResult, useLiveStages } from './LiveInvestigationState.js';
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './imbalance-labs.css';
 
-/** Shared controls for the imbalanced-learning investigations.
- *
- * The contract every investigation keeps: the learner edits a draft, records a
- * prediction, and commits both together. A result is always computed from the
- * draft at the moment of committing, so a prediction is graded against the
- * inputs it was recorded with and never against whatever is on screen later.
- * Any relevant edit retires the recorded prediction and hides its feedback.
- *
- * Two additions over the earlier lessons, both required by this topic:
- *
- *   * A retired verdict is kept as clearly labelled history rather than being
- *     erased, because several investigations here ask a learner to change one
- *     input and see that the answer did *not* move. Losing the previous attempt
- *     would destroy the comparison the null is about.
- *   * A `role` badge travels with the state, so a panel can say whether the
- *     records on screen are tuning records, a locked inspection result, or an
- *     explicitly exploratory what-if copy. Reading an inspection outcome after
- *     experimenting with it is a different claim, and the interface has to say
- *     so rather than quietly keep the old label.
- */
+
 
 /** Every printed number uses a typographic minus sign, matching the prose. */
 const sign = text => String(text).replace('-', '−');
@@ -181,178 +163,19 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, scr
   </div>;
 }
 
-/** Draft inputs, unset commitments, and one action that commits them together.
- *
- * `describeKey` turns the active inputs into a string, so a recorded result can
- * never be shown beside inputs it was not computed from. `previous` is the state
- * the commit replaced, which is what a direction-of-change prediction is graded
- * against. `history` keeps retired verdicts as clearly previous attempts.
- */
-export function useInvestigation(initial, describeKey = JSON.stringify) {
-  const [draft, setDraft] = useState(initial);
-  const [active, setActive] = useState(initial);
-  const [previous, setPrevious] = useState(initial);
-  const [choice, setChoice] = useState('');
-  const [guess, setGuess] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const [history, setHistory] = useState([]);
-  const pending = describeKey(draft) !== describeKey(active);
-  /** An edit retires the verdict. The retired one is kept, clearly marked as a
-   * previous attempt, because several tasks here are about an answer NOT
-   * moving, and that comparison needs the earlier result to still be readable. */
-  const retire = () => {
-    setResult(current => {
-      if (current) setHistory(entries => [...entries.slice(-2), current]);
-      return null;
-    });
-    setChoice(''); setGuess('');
-  };
-  return {
-    draft, active, previous, choice, setChoice, guess, setGuess, reason, setReason, result, pending, history,
-    edit: update => { setDraft(previousDraft => ({ ...previousDraft, ...update })); retire(); },
-    check: answerFor => {
-      setPrevious(active);
-      setActive(draft);
-      setResult({
-        key: describeKey(draft), previousKey: describeKey(active),
-        choice, guess, reason, answer: answerFor(draft, active),
-      });
-    },
-    reset: () => {
-      setDraft(initial); setActive(initial); setPrevious(initial);
-      setChoice(''); setGuess(''); setReason(''); setResult(null); setHistory([]);
-    },
-    /** Replace the whole declared setup, which also retires the prediction. */
-    load: inputs => {
-      setDraft(inputs); setActive(inputs); setPrevious(inputs);
-      setChoice(''); setGuess(''); setReason(''); setResult(null);
-    },
-    /** Fill the draft from a suggested setup without applying or grading it. */
-    suggest: inputs => { setDraft(inputs); retire(); },
-  };
-}
 
-/** An optional sentence saying why. It is never graded. */
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="imb-field imb-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
-}
+export const useInvestigation = useLiveInvestigation;
 
-/** A radio group that starts with nothing selected, optionally a second numeric
- * commitment, and one action that commits both.
- *
- * There is deliberately no way to reach the answer without recording a
- * prediction: the contract requires one before Apply. Suggested setups fill
- * inputs, never the outcome.
- */
-export function Prediction({
-  prompt, options, state, answerFor, describe, numeric, committed,
-  applyLabel = 'Apply and check', historyLabel, requireChange, pendingHint, sameQuestion,
-}) {
-  const name = useId();
-  const numericId = useId();
-  const label = key => options.find(([value]) => value === key)?.[1] ?? key;
-  const shown = state.result;
-  const correct = shown && shown.choice === shown.answer.outcome;
-  /** A graded quantity can legitimately have no value: precision with nothing
-   * selected is undefined, not zero and not a dash. A numeric guess against
-   * such an answer is neither inside nor outside a tolerance — there is no
-   * number to be outside of — and saying so is the whole point of section 2. */
-  const answerIsNumeric = shown ? Number.isFinite(shown.answer.value) : false;
-  const guessed = shown && numeric && shown.guess !== '' && answerIsNumeric
-    ? Math.abs(Number(shown.guess) - shown.answer.value) <= numeric.tolerance + 4 * Number.EPSILON * Math.max(1, Math.abs(Number(shown.guess)), Math.abs(shown.answer.value))
-    : null;
-  /** A question that grades a CHANGE needs the thing it grades to have changed.
-   * `state.pending` is too weak: selecting the question is itself an edit, so a
-   * learner could choose "does moving a majority point change it?" and apply
-   * without moving anything, getting "unchanged" — correct by construction and
-   * evidence of nothing. The predicate names the inputs that must differ. */
-  const changeMissing = requireChange ? !requireChange(state.draft, state.active) : false;
-  const ready = state.choice !== ''
-    && !changeMissing
-    && (!numeric?.required || (state.guess.trim() !== '' && Number.isFinite(Number(state.guess))));
-  const previous = state.history.at(-1);
-  /** Two verdicts are only comparable if they answer the same question. An
-   * investigation whose question is itself an input can retire a verdict and
-   * then grade a different quantity; reporting "the answer moved" across that
-   * would compare a collision with a displacement. */
-  const comparable = previous && shown && (!sameQuestion || sameQuestion(previous.key, shown.key));
-  const heldOutcome = comparable && previous.answer.outcome === shown.answer.outcome;
-  return <div className="imb-prediction">
-    <fieldset>
-      <legend>Record a prediction first.</legend>
-      <p>{prompt}</p>
-      <div className="imb-choices">
-        {options.map(([value, text]) => (
-          <label className="imb-choice" key={value}>
-            <input type="radio" name={name} value={value} checked={state.choice === value}
-              onChange={() => state.setChoice(value)} disabled={Boolean(shown)} />
-            <span>{text}</span>
-          </label>
-        ))}
-      </div>
-      {numeric && <label className="imb-field imb-numeric-guess" htmlFor={numericId}>
-        <span>{numeric.label}</span>
-        <span>Answers within {numeric.tolerance} are accepted when the quantity is defined.</span>
-        <input id={numericId} type="number" inputMode="decimal" step="any" value={state.guess} disabled={Boolean(shown)}
-          placeholder={numeric.placeholder ?? 'your number'} onChange={event => state.setGuess(event.target.value)} />
-      </label>}
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && <p className="imb-pending" role="status">
-      Draft inputs differ from the applied ones. The calculation below will use the values now in the fields, and the
-      comparison will be against the state currently applied.
-    </p>}
-    <div className="imb-buttons">
-      <button type="button" className="is-primary" disabled={!ready || Boolean(shown)}
-        onClick={() => state.check(answerFor)}>{applyLabel}</button>
-      {!shown && <span>The answer appears once a prediction is recorded. Reset, or edit an input, to try another setup.</span>}
-    </div>
-    {changeMissing && !shown && <p className="imb-note" role="status">
-      {pendingHint ?? 'This question compares two states, so it needs a change to compare. Edit an input, or load one of the setups above, before applying.'}
-    </p>}
-    {committed && shown && <p className="imb-caption">Graded against the committed state: {committed(shown)}</p>}
-    {shown?.reason && <p className="imb-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && <p className={`imb-verdict ${correct ? '' : 'is-miss'}`} role="status">
-      <span className="imb-verdict-mark" aria-hidden="true">{correct ? '=' : '≠'}</span>
-      {correct
-        ? `Your prediction matches: ${label(shown.answer.outcome)}.`
-        : `You recorded ${label(shown.choice)}; the calculation gives ${label(shown.answer.outcome)}.`}
-      {numeric && shown.guess !== '' && (answerIsNumeric
-        ? ` You wrote ${shown.guess} for ${numeric.name}; the calculation gives ${round(shown.answer.value, numeric.digits ?? 6)}, ${guessed ? `within ${numeric.tolerance}` : `outside ${numeric.tolerance}`}.`
-        : ` You wrote ${shown.guess} for ${numeric.name}, but there is no number to compare it against here: ${numeric.undefinedNote ?? 'the quantity is undefined for these inputs'}. That is not a near miss, and it is not zero.`)}
-      {describe ? ` ${describe}` : ''}
-    </p>}
-    {/* The retired verdict appears ONLY beside the new one.
-     *
-     * Three of this lesson's investigations grade an absolute property of the
-     * committed draft, so printing the previous outcome while the next
-     * prediction is being recorded hands over the answer — and for a null, the
-     * previous outcome IS the answer. It is also backwards: a null is a claim
-     * about two results, which can only be compared once the second exists.
-     * So nothing but a neutral notice is shown while the gate is open, and the
-     * comparison is drawn after the commitment it describes. */}
-    {!shown && previous && <p className="imb-history is-pending" role="status">
-      An earlier attempt is held. It stays hidden until you apply, so that it cannot answer the question now on
-      screen; the two results are then shown side by side.
-    </p>}
-    {shown && previous && (comparable
-      ? <p className="imb-history">
-        {historyLabel ?? 'Compared with your previous attempt'}: the calculation gave {label(previous.answer.outcome)}
-        {' '}then and {label(shown.answer.outcome)} now.{' '}
-        {heldOutcome
-          ? 'The answer did not move between the two applied states — which is what a null looks like when it holds.'
-          : 'The answer moved between the two applied states.'}
-      </p>
-      : <p className="imb-history">
-        Your previous attempt answered a different question, so the two results are not put side by side: comparing
-        them would compare two different quantities.
-      </p>)}
+
+
+
+
+export function LiveResult({ state, calculateInputs, blocked, describe }) {
+  const problem = useLiveResult(state, calculateInputs, blocked);
+  return <div data-live-exploration="result">
+    {problem ? <p role="status">{problem} The plots retain the last valid calculation; correct the inputs to update them.</p>
+      : <p role="status">Live calculation for the current controls. {describe}</p>}
+    <button type="button" disabled={Boolean(problem) || !state.result} onClick={state.snapshot}>Use current values as comparison baseline</button>
   </div>;
 }
 

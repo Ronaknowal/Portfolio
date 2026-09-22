@@ -8,7 +8,6 @@ export const format = (value, places = 5) => {
   return Number(value.toFixed(places)).toString();
 };
 
-// Keep a graded difference visible even when compact readouts round alike.
 // Scientific notation for tiny values also needs enough significant digits.
 export function comparisonValues(before, after) {
   const compact = [format(before), format(after)];
@@ -18,83 +17,28 @@ export function comparisonValues(before, after) {
 
 const copy = value => JSON.parse(JSON.stringify(value));
 
-/** A prediction is a snapshot of every candidate input, never a remembered radio choice. */
-export function useManifoldInvestigation(initial, validate) {
-  const [draft, setDraft] = useState(() => copy(initial));
-  const [active, setActive] = useState(() => copy(initial));
-  const [prediction, setPrediction] = useState('');
-  const [committed, setCommitted] = useState(null);
-  const [result, setResult] = useState(null);
-  const [previous, setPrevious] = useState(null);
-  const [resetCount, setResetCount] = useState(0);
-  const [status, setStatus] = useState('Prediction not recorded.');
-  const key = JSON.stringify(draft);
-  const error = validate(draft);
-  const invalidate = (message = 'Draft changed. Prediction cleared; the last applied state is unchanged.') => {
-    setPrediction('');
-    setCommitted(null);
-    setResult(current => current ? { ...current, historical: true } : null);
-    setStatus(message);
-  };
-  const edit = changes => {
-    setDraft(current => ({ ...current, ...changes }));
-    invalidate();
-  };
-  const choose = value => {
-    setPrediction(value);
-    setCommitted(null);
-    setStatus('Prediction chosen. Commit it before applying the draft.');
-  };
-  const commit = () => {
-    if (error || prediction === '') return;
-    setCommitted({ key, inputs: copy(draft), prediction });
-    setStatus('Prediction committed to this draft. Apply it to reveal the result.');
-  };
-  const apply = evaluate => {
-    if (error || !committed || committed.key !== key) return;
-    const inputs = copy(committed.inputs);
-    const evaluation = evaluate(inputs, active, committed.prediction);
-    setPrevious({ active: copy(active), result });
-    setActive(inputs);
-    setResult({ inputs, key, prediction: committed.prediction, evaluation });
-    setPrediction('');
-    setCommitted(null);
-    setStatus('Draft applied. Compare your prediction with the result below.');
-  };
-  const reset = () => {
-    setDraft(copy(initial));
-    setActive(copy(initial));
-    setPrediction('');
-    setCommitted(null);
-    setResult(null);
-    setPrevious(null);
-    setResetCount(count => count + 1);
-    setStatus('Starting inputs restored. Prediction and result cleared.');
-  };
-  const undo = () => {
-    if (!previous) return;
-    setActive(copy(previous.active));
-    setDraft(copy(previous.active));
-    setResult(previous.result ? { ...previous.result, historical: true } : null);
-    setPrevious(null);
-    setPrediction('');
-    setCommitted(null);
-    setStatus('Previous applied inputs restored. Any previous answer is history; make a new prediction.');
-  };
-  return {
-    draft, active, prediction, committed, result, previous, status, key, error, resetCount,
-    currentResult: result && result.key === key && !result.historical ? result : null,
-    edit, choose, commit, apply, reset, undo, invalidate,
-  };
+export function useManifoldInvestigation(initial, validate = () => null) {
+  const [view, setView] = useState(() => ({draft:copy(initial), active:copy(initial), previous:null, resetCount:0}));
+  const validation = validate(view.draft, view.active);
+  const error = typeof validation === 'string' ? validation : null;
+  const edit = changes => setView(current => {
+    const draft = {...current.draft,...changes};
+    const problem = validate(draft, current.active);
+    return {...current,draft,...(typeof problem === 'string' && problem ? {} : {active:copy(draft),previous:{active:current.active}})};
+  });
+  const reset = () => setView(current => ({draft:copy(initial),active:copy(initial),previous:null,resetCount:current.resetCount+1}));
+  const undo = () => setView(current => current.previous ? {...current,draft:copy(current.previous.active),active:copy(current.previous.active),previous:null} : current);
+  return {...view,key:JSON.stringify(view.draft),error,edit,reset,undo};
 }
 
 export function Investigation({ kind, title, children, state, onReset }) {
   const titleId = useId();
-  return <section className="mf-investigation" data-manifold-lab={kind} aria-labelledby={titleId}>
+  return <section className="mf-investigation" data-manifold-lab={kind} aria-labelledby={titleId} data-live-exploration>
     <header><h3 id={titleId}>{title}</h3><div className="mf-buttons">
       <button type="button" onClick={onReset ?? state.reset}>Reset</button>
-      <button type="button" onClick={state.undo} disabled={!state.previous}>Undo apply</button>
+      <button type="button" onClick={state.undo} disabled={!state.previous}>Undo edit</button>
     </div></header>
+    {state.error && <p className="mf-error" role="status">{state.error} The last valid view is retained.</p>}
     {children}
   </section>;
 }
@@ -110,37 +54,6 @@ export function SelectField({ label, value, onChange, options }) {
   return <label className="mf-field"><span id={labelId}>{label}</span><select aria-labelledby={labelId} value={value} onChange={event => onChange(event.target.value)}>
     {options.map(([key, text]) => <option key={key} value={key}>{text}</option>)}
   </select></label>;
-}
-
-export function Prediction({ state, prompt, choices, maximum, numericStep = 1, action, evaluate }) {
-  const name = useId();
-  const resultAnnounced = Boolean(state.currentResult) && !state.committed && state.prediction === '';
-  const resultParagraph = state.result && <p className="mf-result" data-manifold-result>
-    <strong>{state.currentResult ? 'Applied result. ' : 'Previous result (history). '}</strong>
-    {state.result.evaluation.message}
-  </p>;
-  const predictionInvalid = state.prediction === '' || (maximum !== undefined
-    && (!Number.isFinite(state.prediction) || state.prediction < 0 || state.prediction > maximum
-      || Math.abs(state.prediction / numericStep - Math.round(state.prediction / numericStep)) > 1e-7));
-  return <div className="mf-prediction">
-    <fieldset><legend>{prompt}</legend>
-      {choices ? <div className="mf-choices">{choices.map(([value, label]) => <label key={value}>
-        <input type="radio" name={name} value={value} checked={state.prediction === value}
-          onChange={() => state.choose(value)} />{label}
-      </label>)}</div> : <NumberField label="Your predicted value" min={0} max={maximum} step={numericStep}
-        value={state.prediction} onChange={state.choose} />}
-    </fieldset>
-    {state.error && <p className="mf-error" role="alert">{state.error} The last valid applied result is retained.</p>}
-    {!choices && state.prediction !== '' && predictionInvalid && <p className="mf-error">Enter a prediction from 0 to {maximum}{numericStep === 1 ? ' as a whole number' : ` in steps of ${numericStep}`}.</p>}
-    <div className="mf-buttons">
-      <button type="button" disabled={Boolean(state.error) || predictionInvalid} onClick={state.commit}>Commit prediction</button>
-      <button className="is-primary" type="button" disabled={Boolean(state.error) || !state.committed}
-        onClick={() => state.apply(evaluate)}>{action}</button>
-    </div>
-    <p className="mf-status" role={resultAnnounced ? undefined : 'status'} aria-live={resultAnnounced ? 'off' : 'polite'} data-manifold-status>{state.status}</p>
-    <div aria-live="polite" aria-atomic="true" data-manifold-result-announcement>{state.currentResult ? resultParagraph : null}</div>
-    {!state.currentResult && resultParagraph}
-  </div>;
 }
 
 export function DataTable({ caption, headings, rows }) {

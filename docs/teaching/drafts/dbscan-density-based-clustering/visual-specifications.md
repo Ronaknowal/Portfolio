@@ -1,5 +1,14 @@
 # DBSCAN visual and investigation specifications
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit trail coordinates, radius, neighbourhood count or traversal order and follow core/border/noise changes immediately; multiply axes and radius and inspect neighbourhood preservation; vary Iris settings and save comparison snapshots on common rows; edit group spacing and test a radius against the analytic interval. Species are a separately requested diagnostic, never a guess-to-unlock reward.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Content revision 1, 12 September 2026. This is an implementation handoff, **not implemented UI or browser evidence**. It accompanies the complete [manuscript](lesson.md). Root owns the phase checkpoint. All geometry below comes from declared coordinates or the supplied measured dataset; there are no decorative invented output curves.
 
 ## Shared learning and rendering contract

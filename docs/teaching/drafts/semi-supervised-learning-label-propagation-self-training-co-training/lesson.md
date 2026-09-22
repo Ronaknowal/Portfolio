@@ -89,7 +89,7 @@ $$
 
 The solution is $f_B=5/7$ and $f_C=6/7$. B changes class. Adding unlabeled examples can create similar bridges in a feature graph, so collecting more examples can alter predictions far from their immediate neighbors.
 
-**Investigation — repair the neighborhood.** Set the B–D shortcut weight, then predict whether it makes B more or less class-1-like. Commit the prediction before running, and trace the incoming weighted contributions. Then create your own graph by editing an edge and a label, and make a new prediction. Finally restore the original chain and remove its B–C edge: B becomes 0 and C becomes 1. Add a separate pair E–F with no labeled endpoint. Its label is unknown; the interface must show the absence of evidence rather than paint both nodes as class 0.
+**Investigation — repair the neighborhood.** Change the B–D shortcut weight and inspect its effect on B’s class-1 score immediately, tracing the incoming weighted contributions. Then create your own graph by editing an edge and a label; the new equilibrium updates alongside the mechanism. Finally restore the original chain and remove its B–C edge: B becomes 0 and C becomes 1. Add a separate pair E–F with no labeled endpoint. Its label is unknown; the interface must show the absence of evidence rather than paint both nodes as class 0.
 
 ### Why this is also an electrical circuit
 
@@ -244,7 +244,7 @@ Start with observed $(-2,0)$ and $(2,1)$ and unlabeled inputs $[-1,0,1,3]$. The 
 
 Replace the unlabeled input 3 with 9. The first positive pseudo-label batch pulls the class-1 prototype to 4. After the next promotion, the boundary is 1.5. A query at $x=1.25$ changes from predicted class 1 to class 0 solely because of that unlabeled point's influence. Whether the change helps depends on the query's real label, which the procedure does not know.
 
-**Investigation — a guess changes the next guess.** Drag or edit the unlabeled points, then commit a prediction about the resulting boundary before running. Step through the old prototypes, accepted batch and newly fitted prototypes. Create an input collection of your own before revealing its trajectory. Try the null collection $[0,0]$: both scores are 0.5, no point qualifies, and the prototypes stay fixed.
+**Investigation — a guess changes the next guess.** Drag or edit the unlabeled points to update the resulting boundary and final outcomes. Replay the old prototypes, accepted batch and newly fitted prototypes as genuine algorithm stages. Create an input collection of your own and inspect its trajectory. Try the null collection $[0,0]$: both scores are 0.5, no point qualifies, and the prototypes stay fixed.
 
 This feedback is **confirmation bias**: an incorrect prediction can enter the training data and help generate more incorrect predictions. Raising the threshold can reduce promotions; it does not certify the ones that remain. A class that is initially harder to recognize can also receive fewer pseudo-labels, amplifying imbalance.
 
@@ -282,7 +282,7 @@ In round 2, triangle→0 lets view 2 teach green→0 through row 3. Orange→1 l
 
 Row 6 is different: red says 0 while square says 1. Our declared conflict rule is to defer both offers on a conflicting row. The disagreement exposes a failure of the category-consistency assumptions. It does not tell us which view is correct.
 
-**Investigation — pass a label through the other view.** Predict what green will learn before exposing the transfers. Change row 2 from red/triangle to blue/triangle: the propagated rule for green changes from 0 to 1. Build your own paired rows and inspect each label's donor chain. Finally duplicate view 1 into view 2. Green and orange are unseen in both views, so their rows remain unresolved; two copies cannot invent complementary evidence.
+**Investigation — pass a label through the other view.** Inspect what green learns by following the actual transfers. Change row 2 from red/triangle to blue/triangle: the propagated rule for green changes from 0 to 1. Build your own paired rows and inspect each label's donor chain. Finally duplicate view 1 into view 2. Green and orange are unseen in both views, so their rows remain unresolved; two copies cannot invent complementary evidence.
 
 ### A complete, inspectable co-training procedure
 

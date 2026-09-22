@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Active learning — prepared content design and author record
 
 Topic `active-learning`; content-only assignment, batch14 of the root's next30. Content prepared after author reread; implementation not started. No production module, generated inventory, shared ledger or browser surface changed. Phase two consumes this packet and performs implementation and independent checks. This is not an independent review record.

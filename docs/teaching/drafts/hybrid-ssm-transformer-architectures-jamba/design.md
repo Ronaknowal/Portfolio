@@ -44,7 +44,7 @@ Core route is §§1–8 plus practice1–6. Optional arithmetic, alternative arc
 | “Shared weights imply one cache” | A two-vector identity-projection counterexample. | Separate parameter ties and explicit cache-sharing arrows. |
 | “Fits cache therefore fits GPU” | Count all approximate52B BF16 weights before request/workspace costs. | Separate memory categories and release identities. |
 
-Four investigations have distinct jobs, not a quota: JA memory information loss, JC resource accounting, JD router convention, JB real input/cache behavior. Eighteen figures support their concepts inline. Specifications require unset input-bound predictions, genuine editable entities, checked contrasting/null fixtures, correct reset/invalidation, accessibility, narrow layout, bounded computation and deferred phase-two verification.
+Four investigations have distinct jobs, not a quota: JA memory information loss, JC resource accounting, JD router convention, JB real input/cache behavior. Eighteen figures support their concepts inline. Specifications require unset input-bound results, genuine editable entities, checked contrasting/null fixtures, correct reset/invalidation, accessibility, narrow layout, bounded computation and deferred phase-two verification.
 
 ## Original-source conservation and corrections
 
@@ -128,13 +128,13 @@ No cross-topic notes or runtime changes are needed. Previous own packets remain 
 
 ## Final author reread and learning-experience closure
 
-The author reread the entire final manuscript in contiguous sections, the entire rewritten visual specification, this design/source record and the data provenance. This was a full reading of the explanation and learning flow, not a heading or word-count scan. The final pass corrected the conditional state update to “affine,” removed an answer from JD's initial prediction prompt and retained the complete denominator explanation in feedback. Root's article/spacing findings were also resolved. No fitted result changed.
+The author reread the entire final manuscript in contiguous sections, the entire rewritten visual specification, this design/source record and the data provenance. This was a full reading of the explanation and learning flow, not a heading or word-count scan. The final pass corrected the conditional state update to “affine,” removed an answer from JD's initial prediction prompt and retained the complete denominator explanation in feedback. Root's article/spacing findings were also resolved. No fitted result changed. **Historical interaction record:** the earlier prediction/reveal behavior described here is superseded by the 21 September live-exploration contract; it is not a phase-two implementation requirement. Preserve the recorded mathematical checks and fixtures.
 
 Completed checklist:
 
 - The introduction starts with two concrete questions about the same records. Local operations are defined before the architectural vocabulary depends on them. Sequence position, network depth and the two meanings of hybrid remain distinguishable.
 - The core route has observable outcomes, explicit prerequisite refreshers, step-by-step equations, changed examples and real applications. Optional scaling/deployment/family comparisons deepen rather than block that route. The actual previous and next module links are preserved.
-- All eighteen inline visual specifications explain a specific mechanism. The four investigations use distinct representations, meaningful editable inputs and initially unset input-bound predictions. Contrasts include a real cache fault that changes the predicted class and faults that do not. Boundary nulls are explicitly defined against matching carry computations.
+- All eighteen inline visual specifications explain a specific mechanism. The four investigations use distinct representations, meaningful editable inputs and initially unset input-bound results. Contrasts include a real cache fault that changes the predicted class and faults that do not. Boundary nulls are explicitly defined against matching carry computations.
 - Ten changed practice questions retain twenty initially closed hint/solution disclosures. The explanations connect the calculation to its interpretation rather than stopping at an answer.
 - Full source conservation, actual primary-resource reading extents, exact dataset attribution, reported versus computed quantities and scope-limited alternative resources are recorded. The course listing is verified without claiming its videos were watched.
 - Complete small-model programs, exact split IDs, all six outcomes and all measured failures remain reproducible. The larger deployment program is clearly unexecuted. Models are not ranked by fabricated performance figures.
@@ -143,3 +143,29 @@ Completed checklist:
 The final bounded command was `scratch/lesson-tools/Scripts/python.exe -X utf8 docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/packet_checks.py`. It syntax-parsed all six Python programs without executing deployment; verified the unchanged original lesson hash, six actual curriculum destinations, three relative download links, eighteen figure/spec matches and twenty closed disclosures; executed recurrence/router boundary identities and changed practice counts; and compared worked/fresh boundary-zero and boundary-eight faults with matching carry branches. All four null differences are exactly zero. The saved report is packet-checks.json. Its first link check incorrectly assumed every planned topic had a source filename; this was corrected to check actual catalogue IDs, with no curriculum or lesson-link change. The original three data hashes were separately rechecked and match provenance. The scoped `git diff --check` passed.
 
 Only exact disposable Jamba source extracts, the retrieval helper and this packet's Python cache are removed at closure. All nineteen substantive packet files remain for the phase-two handoff. No other author's files or shared runtime are removed. Root may now bind the content checkpoint; implementation remains not started.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Compare sequence memory and expert routes. Edit record keys/values, decay, score gap, cache budget, expert probabilities/capacity and supported stroke inputs. Show retained state versus explicit memory read, probability mass, exact request memory and continued frozen-model outputs. Choose a hybrid arrangement by memory retention and routing costs; named architecture examples do not imply identical mechanisms.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+## Implementation ownership and content-depth revision — 22 September 2026
+
+Delivery remains **content-first**. The complete computational teaching route is part of this prepared packet now; phase two receives written code, explanations, mapped state/settings and closed practice, rather than an instruction to invent the missing mechanism. Earlier authoring records remain dated evidence; this section supersedes their incomplete depth handoffs. The title and stable ID are retained because the new material fulfills the existing scope.
+
+| Advertised computational outcome | Scratch/source owner | Ordinary tool route | Matching bridge | Independent practice | Scope boundary |
+| --- | --- | --- | --- | --- | --- |
+| Selective recurrence, causal convolution and attention cache | stroke_models.py::SelectiveMixer/AttentionMixer | nn.Linear/Conv1d and explicit Torch tensor operations | full-versus-stream same weights, state and global offsets | Practice 1–3,5,7,9; request-swap exercise | Small complete hybrid; fused accelerator kernel engineering is beyond this lesson |
+| Residual hybrid training and deployment | stroke_models.py::Layer/StrokeModel/train | deployment_example.py::main uses Transformers AutoModelForCausalLM | task/shape/state contract versus distinct full checkpoint config | Practice 6,10 | Provisioned CUDA deployment example unexecuted; not local-model parity |
+| Experts and state/resource decisions | hybrid_mechanisms.py::route/cache_bytes; ../mixture-of-experts-transformers-moe/moe_study.py | Prepared MoE tensor dispatch owner; actual released model adapter | selected mass/renormalization and active-versus-stored state | Practice 4,8,9 | MoE owner prepared not yet implemented; local stroke FFN intentionally dense |
+
+All local source owners above were inspected at their actual function/class definitions. Full model fitting, data/provenance and existing worked results are retained. Reused actual prerequisite code is named explicitly in the manuscript; prepared owners are not described as already published updated instruction. Whole-family releases mentioned for context do not expand the promised executable outcome into every checkpoint or every GPU kernel.
+
+The teaching sequence is construct → explain the state/update → normal tool use → compare the same contract → changed-constraint practice, inserted where the relevant mechanism is explained. Original mechanism programs remain canonical; new programs depend on them only where the import is explicit. No browser program, published lesson, manifest or curriculum sequence is changed by this revision.
+
+Author checks for this revision: source/API-contract reading, Python syntax parsing, matching embedded/downloadable source and local links, and scoped arithmetic probes where recorded in the specialist-writing report. These are content-authoring checks. Earlier fit outputs remain their original evidence; new multi-process/GPU/specialist-package execution, formal independent implementation review, rendered diagrams/labs and browser/accessibility/integration checks are **deferred**, with exact targets in the current visual specifications and specialist report.
+
+Next action: after the root records the new content checkpoint, consume the full current packet for an authorized finish request, execute the relevant new programs and capture honest outputs, build the specified topic-owned views, independently check the translated models and integrate them. No core scratch/library manuscript writing is left as a finish-only TODO.

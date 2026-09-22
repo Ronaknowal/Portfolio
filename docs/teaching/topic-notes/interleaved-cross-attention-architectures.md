@@ -4,6 +4,8 @@ Canonical topic ID: interleaved-cross-attention-architectures
 
 ## 2026-09-13 — Causal encoder state as the source of shared decoder memory
 
+**Historical discovery proposal.** The frozen-packet and future-author descriptions below refer to the 13 September checkpoint. The 22 September disposition records the source-independent part now adapted into prepared teaching.
+
 - Status: open; a future scoped extension, not an instruction to reopen the frozen content packet.
 - Origin: [Sparse and Linear Attention authoring](../drafts/sparse-linear-attention-variants/design.md), following the [MLA packet](../drafts/multi-head-latent-attention-mla/design.md).
 - Destination and rationale: this owner can compare **where queries, keys and values come from** across self-attention and cross-attention architectures. The originating variants lesson owns sparse selection/compression and the distinction between scanning candidates and attending selected entries; it should not duplicate a full encoder/decoder dependency lesson.
@@ -15,3 +17,11 @@ Canonical topic ID: interleaved-cross-attention-architectures
 - Prerequisites/boundaries: causal dependency, layer versus time axes, query-specific selection, projection/cache ownership, and local-window reach. Keep runtime payload, persistent storage, local replay and attention FLOPs distinct. Do not import the model card's ratios as universal consequences of cross-attention.
 - Resolution: not yet reviewed for implementation; keep open until an authorized destination continuation assesses and records its disposition.
 - Implementation/verification links: none yet.
+
+## 2026-09-22 — Dependency and cache-ownership comparison prepared
+
+**Content disposition: prepared (adapted source-independent dependency and cache ownership). Implementation status: open.** The [revised manuscript](../drafts/interleaved-cross-attention-architectures/lesson.md), section 7, now distinguishes causal from bidirectional encoder dependencies, raw features from layer-specific K/V, and shared memory from query-specific outputs. The complete [cross_attention_cache.py](../drafts/interleaved-cross-attention-architectures/cross_attention_cache.py) supplies the written manual projection/read path, same-state MultiheadAttention reference, query-specific available columns, streamed reads and explicit cache-version rejection. The [design](../drafts/interleaved-cross-attention-architectures/design.md) records the outcome owner and the [visual specifications](../drafts/interleaved-cross-attention-architectures/visual-specifications.md) place the memory/availability comparison beside it.
+
+The small PyTorch author probe passes full-versus-streamed read agreement and a forbidden-memory edit null. It does not reproduce DeepSeek V4.1, selective replay, index reuse or checkpoint quality. Those release-specific assertions are not adopted as learning outcomes or inferred from the generic cache algebra. Their original source-reading limits remain explicit above; adding them in a future separately scoped extension would require primary-source investigation.
+
+Phase two must execute/review the supplied program, integrate its authored explanation and live memory/availability visual, and verify actual rendered behavior. It must not recreate absent core cache teaching or close implementation merely because this content disposition is prepared.

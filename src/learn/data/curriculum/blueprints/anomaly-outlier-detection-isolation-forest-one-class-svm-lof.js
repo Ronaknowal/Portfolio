@@ -26,8 +26,8 @@ export default {
   ],
   visual: {
     type: 'Provenance lanes with a struck-out arrow from later rows back to the scaler; first-cut interval bars over five positions; two-group reach diagram with per-row radii; tie ruler on sorted calibration scores; isolation tree strip; neighbourhood number lines; kernel curves with the rho line and signed difference; population bars; a 480-bin temperature overview with window bands, threshold and alert marks',
-    question: 'Which position do random cuts separate first, whose radius sets each floor, is the midpoint inside the accepted region, what fraction of alerts are faults, and what workload does this threshold create on a real series? Predict before each reveal.',
-    interaction: 'Commit a prediction, then edit positions, depth cap, reference rows, k, query, gamma, anchor, prevalence, two rates and a budget; on the real series choose a method and either a calibration quantile or a typed threshold, then compare methods and page through window rows.'
+    question: "Which position do random cuts separate first, whose radius sets each floor, is the midpoint inside the accepted region, what fraction of alerts are faults, and what workload does this threshold create on a real series?",
+    interaction: "Edit positions, depth cap, reference rows, k, query, gamma, anchor, prevalence, sensitivity, false-positive rate and review budget to follow paths, densities, scores and workloads live. On the real series change method, calibration quantile or threshold and inspect the synchronized timeline, annotated windows and review counts; keep fit, calibration and held-out time roles intact."
   },
   practice: {
     task: 'Ten changed tasks: a different isolation gap, a truncated path with the wrong normaliser, a rescaled reach calculation, the invalid training-versus-query comparison, widened kernel anchors, a 200-slot review budget, a training bound mistaken for a test promise, an honest temperature recommendation, an event metric hiding repeated work, and a stuck sensor needing a causal feature.',

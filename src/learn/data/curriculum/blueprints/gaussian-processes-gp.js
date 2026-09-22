@@ -28,7 +28,7 @@ export default {
   visual: {
     type: 'Finite-vector mapping; bivariate density contours and normalized slices; covariance matrix and signed mean contributions; common-seed kernel paths alongside numeric covariance maps; calendar forecasts with latent and observation bands, missed observations and residuals; target-specific measurement-gain bars.',
     question: 'Which edited reading changes the mean but leaves uncertainty unchanged, which length change preserves a zero mean while changing information, and which prospective measurement most clarifies this target?',
-    interaction: 'Edit up to twelve observed positions/values, a direct covariance, target, noise and kernel; predict changes before revealing the posterior. Keep the reported forecast protocol separate from a frozen-kernel prefix explorer. Edit two to five candidate readings and choose one before revealing conditional variance reductions. Every input edit invalidates the commitment and result.',
+    interaction: "Drag covariance, noise, position and horizon controls, retaining precise numerical entry. Update target mean/variance, posterior bands, forecast rows and probe variance gains directly. Frozen historical training/development/test roles remain explicit. Results update directly on valid edits, with reset and explicit comparison snapshots; no learner prediction inputs or grading gates.",
   },
   practice: {
     task: 'Compute a changed one-reading posterior; diagnose unsupported observations under a constant kernel; audit an impossible value-only variance change; critique interval claims from point error; design a slowly evolving seasonal covariance; compare changed expected improvements; derive the average-loss kernel-ridge noise match.',
@@ -55,5 +55,5 @@ export default {
   ],
   depth: 'core',
   designRecord: 'docs/teaching/drafts/gaussian-processes-gp/implementation.md',
-  reviewFocus: 'Direct .8 mean and .8 variance, midpoint .46889472083328265, value-only covariance identity, exact independent-kernel nulls, true native program output, NOAA dev .3206008845 versus 5.4329430983 and test 1.2337751646 with 13/24 coverage, frozen-theta exploration against library outputs, unchanged horizon prefixes, all candidate ties accepted, result concealment/invalidation, covariance-versus-SD geometry, and narrow-screen readable diagrams.',
+  reviewFocus: 'Direct .8 mean and .8 variance, midpoint .46889472083328265, value-only covariance identity, exact independent-kernel nulls, true native program output, NOAA dev .3206008845 versus 5.4329430983 and test 1.2337751646 with 13/24 coverage, frozen-theta exploration against library outputs, unchanged horizon prefixes, all candidate ties displayed, immediate valid-input results and explicit invalid-draft handling, covariance-versus-SD geometry, and narrow-screen readable diagrams.',
 };

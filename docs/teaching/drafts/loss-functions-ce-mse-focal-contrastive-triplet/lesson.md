@@ -1,5 +1,8 @@
 # Loss Functions: Predictions, Probabilities, and Learned Similarity
 
+**Explore as you read.** Move observations, change the loss and focal gamma, drag decision thresholds, edit pair/triplet coordinates and change InfoNCE temperature. Update loss, signed gradients, fitted location, confusion counts, eligible negatives and candidate probabilities together. Keep score-based metrics distinct from threshold decisions. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose an objective or operating threshold from the error tradeoff rather than from a single loss number.
+
+
 A learning algorithm needs more than examples of correct answers. It needs a way to say how an imperfect answer should change. Predicting a delivery ten minutes late, assigning a wrong label with 99% confidence, and retrieving the wrong photograph are different failures. A **loss function** assigns a numerical penalty to a prediction and its target. Its derivatives tell backpropagation how that penalty responds to changes in the model.
 
 The preceding lesson explained how to compute those derivatives. Here we choose what to differentiate. A small loss is useful only when the objective represents the behavior we need.
@@ -35,7 +38,7 @@ MSE means the **mean** of squared errors. At residuals one and ten, squared-erro
 
 Consider a constant predictor for seven measurements: \(0,0,0,0,0,0,10\). MSE is minimized at the arithmetic mean \(10/7\approx1.429\). MAE is minimized at the median, zero. For Huber with \(\delta=1\), the optimum is \(1/6\): six small residuals contribute derivative \(6c\), the large residual contributes \(-1\), and \(6c-1=0\).
 
-**Investigation — move one measurement:** predict what happens to these three fitted constants when the last measurement changes from 10 to 100. Move the measurement, inspect each point's contribution, and compare your prediction. MSE's optimum becomes \(100/7\); the MAE and Huber optima stay at zero and \(1/6\). Replacing all measurements by three is a useful contrast: all three losses agree on three.
+**Investigation — move one measurement:** change the last measurement from 10 to 100 and watch the three fitted constants. Inspect each point's contribution and compare the retained baseline. MSE's optimum becomes \(100/7\); the MAE and Huber optima stay at zero and \(1/6\). Replacing all measurements by three is a useful contrast: all three losses agree on three.
 
 This is not permission to delete a troublesome observation. A rare large value can be the event the application must predict. Check the measurement and choose the estimand: the mean for expected total cost, a median for a typical case, or a high quantile for a capacity target. Huber reduces sensitivity to large residuals; it does not decide whether those residuals are mistakes.
 
@@ -84,7 +87,7 @@ binary_targets = torch.tensor([0., 1., 1., 0.])
 print(F.binary_cross_entropy_with_logits(binary_logits, binary_targets))
 ```
 
-These are complete API examples; the first result was also checked in the preceding backpropagation packet. The second is a prediction to verify when running this snippet. At the 0.5 threshold, all four binary examples are classified correctly, although their confidences differ.
+These complete API examples are verified during implementation, with their actual outputs available in the downloadable execution record. At the 0.5 threshold, all four binary examples are classified correctly, although their confidences differ.
 
 Multilabel classification is different from multiclass classification: an image can have both “outdoors” and “vehicle.” Use independent binary targets and logits for those labels when that matches the task, not one softmax that forces exactly one category. Neither output format by itself guarantees calibrated probabilities.
 
@@ -159,7 +162,7 @@ These are executed results. There are 108 negatives and 12 positives in validati
 
 Average precision summarizes the precision-recall ranking, using recall increments to weight precision; it is not an unspecified trapezoidal PR area. Brier score is mean squared probability error and log loss penalizes confident mistakes strongly. Lower is better for the last two columns; higher is better for average precision. The focal run's similar ranking and worse probability scores show why one metric cannot answer every question. None of these observations proves that a different learning rate, model, or loss variant would behave the same way.
 
-**Visual — probability-to-decision audit:** choose a stored run, view its actual validation probabilities and labels, then set a threshold. Predict how false positives and false negatives will change before applying it. A threshold changes labels and confusion counts, while stored probabilities, average precision, Brier score, and log loss remain fixed. A threshold sweep is validation work; any future final test must remain unconsumed while choices are made.
+**Visual — probability-to-decision audit:** choose a stored run and move the threshold across its actual validation probabilities. False positives and false negatives update immediately, while stored probabilities, average precision, Brier score, and log loss remain fixed. A threshold sweep is validation work; any future final test must remain unconsumed while choices are made.
 
 ## When the output is a location: pair and triplet losses
 
@@ -183,7 +186,7 @@ D_{ap}^2<D_{an}^2<D_{ap}^2+\alpha.
 \]
 An easy triplet supplies no local gradient; it remains useful as evidence that this particular constraint is satisfied. [FaceNet, §3.1–3.2](https://arxiv.org/pdf/1503.03832) motivates squared distances and explains the role of triplet selection.
 
-**Investigation — choose a useful negative:** move the three candidate points and predict which is eligible under a stated mining rule. Our program selects the nearest strictly semi-hard candidate, breaking ties by row order; it skips the anchor if none exists. This is a transparent teaching policy, not a universal best miner. A no-candidate result should be displayed as “skipped,” never silently substituted with a zero-loss example.
+**Investigation — choose a useful negative:** move the three candidate points and inspect which is eligible under a stated mining rule. Our program selects the nearest strictly semi-hard candidate, breaking ties by row order; it skips the anchor if none exists. This is a transparent teaching policy, not a universal best miner. A no-candidate result should be displayed as “skipped,” never silently substituted with a zero-loss example.
 
 Inside the active region, derivatives are \(2(n-p)\) for the anchor, \(2(p-a)\) for the positive, and \(2(a-n)\) for the negative. Take a small joint step and recompute both distances. Describing the gradients as attraction and repulsion is helpful, but a large finite step is not guaranteed to improve all desired distances.
 
@@ -216,7 +219,7 @@ L=-\log\frac{\exp(s_+/\tau)}{\sum_{j=0}^{K}\exp(s_j/\tau)}.
 \]
 This is ordinary categorical CE over **candidate items**, rather than over class names. For cosine similarity, use nonzero vectors normalized to unit length. Normalization is a design choice that makes the geometry angular; general InfoNCE does not mathematically require it. A temperature of one is also a valid choice, not an absent parameter that makes the objective invalid.
 
-**Visual — candidate competition:** a query points to three labeled keys. Their similarity bars become temperature-scaled logits, then probability shares. Lower temperature sharpens preferences. Predict both a correctly ranked and incorrectly ranked query: sharpening helps the first and can increase the second's loss dramatically. If all similarities are equal, the probabilities stay uniform at any positive temperature.
+**Visual — candidate competition:** a query points to three labeled keys. Their similarity bars become temperature-scaled logits, then probability shares. Compare correctly and incorrectly ranked queries while lowering temperature: sharpening helps the first and can increase the second's loss dramatically. If all similarities are equal, the probabilities stay uniform at any positive temperature.
 
 For \(N=K+1\) equal candidates, loss is \(\log N\). This is the uniform baseline, not an upper bound. A positive that receives much less probability than \(1/N\) has larger loss.
 
@@ -254,6 +257,65 @@ Use the observed failure to choose the next check:
 | Triplet loss stays at the margin | Embedding spread, gradients, positive/negative labels | A larger margin alone will fix collapse |
 | Candidate loss becomes tiny, retrieval fails | Split leakage, shortcuts, candidate identities, gallery protocol | Duplicates necessarily explain tiny loss |
 | Combined losses change with batch size | Reduction denominators and term gradients | Equal displayed loss values give equal influence |
+
+## Build the objectives, then control the library
+
+The earlier formulas tell you what a loss means. Now implement the computation that connects it to a parameter update. The [complete NumPy program](loss-mechanisms.py) supplies MSE, MAE, Huber, quantile, stable multiclass CE, binary CE/focal, squared-distance triplet and paired InfoNCE, with **explicit input derivatives**. NumPy supplies array arithmetic; it does not compute these losses or derivatives for us. PyTorch appears only in the comparison code. The pair-contrastive objective and semi-hard miner already have readable tensor-primitive implementations in [the earlier experiment](loss-experiments.py); reuse those rather than create a second owner.
+
+Read the core of multiclass CE first. A row is one example and a column is one class. Subtract each row's maximum, exponentiate, then divide by that row's sum. These are the softmax probabilities. The negative log-probability at the correct class is the per-example loss. Its logit gradient is the probability vector with one subtracted at the correct class. Averaging the loss means dividing **every** gradient by the batch size too.
+
+```python
+import numpy as np
+
+def cross_entropy(logits, targets):
+    shifted = logits - logits.max(axis=1, keepdims=True)
+    exponential = np.exp(shifted)
+    partition = exponential.sum(axis=1, keepdims=True)
+    log_probability = shifted - np.log(partition)
+    gradient = exponential / partition
+    rows = np.arange(len(logits))
+    loss = -log_probability[rows, targets].mean()
+    gradient[rows, targets] -= 1
+    return loss, gradient / len(logits)
+
+logits = np.array([[1., 2., -.5], [-.2, 1., .6]])
+labels = np.array([0, 2])
+loss, logit_gradient = cross_entropy(logits, labels)
+print(round(float(loss), 6))  # 1.225170
+print(np.round(logit_gradient.sum(axis=1), 12))  # [0. 0.]
+```
+
+Each gradient row sums to zero because shifting all logits equally changes no probability. This is a useful invariant for finding a wrong class axis or missing normalization. The downloaded version additionally checks the input shape and class-index contract. It supports finite logits whose differences and resulting loss fit the dtype; it does not promise meaningful arithmetic on infinities or values beyond floating-point range.
+
+For the affine classifier \(Z=XW+b\), the new loss supplies \(G=\partial L/\partial Z\). The existing chain rule then gives \(\partial L/\partial W=X^\top G\) and \(\partial L/\partial b=\sum_i G_i\). One SGD step subtracts the learning rate times each gradient. The supplied program computes that update manually, copies the **same** parameters into `nn.Linear`, runs `F.cross_entropy` and `torch.optim.SGD`, and compares the resulting parameters. Our \(W\) is input-by-class; `nn.Linear.weight` is class-by-input, so the copy uses a transpose. This is a controlled implementation comparison, not a comparison between independently initialized training runs. The two-row loss fixture above is separate from the three-row update fixture in the full program.
+
+| What you implemented | Normal library route | Setting you must preserve |
+| --- | --- | --- |
+| Squared, absolute and Huber residual penalties | `F.mse_loss`, `F.l1_loss`, `F.huber_loss` | Mean versus sum; Huber delta and its half-factor |
+| Stable multiclass log probabilities | `F.cross_entropy` | Raw logits, integer labels, class axis; weights/smoothing deliberately absent in this comparison |
+| Stable binary CE; confidence-dependent focal weighting | `F.binary_cross_entropy_with_logits`; compose the focal term with tensor primitives | Target convention, gamma, alpha/positive weighting and differentiating the modulation |
+| Squared-distance triplet hinge | `TripletMarginWithDistanceLoss` with a squared-distance function | Distance, margin, swap and reduction; default unsquared triplet is a different objective |
+| Paired cosine candidate classification | Normalize features, matrix multiply, then `F.cross_entropy` | Temperature, positive index, candidate set and one-way versus symmetric loss |
+
+For focal loss the stable implementation keeps both correct and incorrect log-probabilities in log space. That prevents subtracting a rounded probability from one and losing the small tail. For InfoNCE, gradients pass through cosine normalization as well as through CE: treating already-normalized vectors as the original inputs drops a real dependency. This comparison excludes zero vectors, requires representable nonzero norms and intermediates, and sets `F.normalize(..., eps=0)` to match the scratch rule. The API's usual small-norm floor is a different function with a different derivative in that region. At the quantile loss's zero-residual corner, the scratch code chooses subgradient zero; `torch.maximum` can choose another valid subgradient. The quantile gradient comparison deliberately uses nonzero residuals; equal values at a corner do not guarantee identical optimization steps. Reuse [Backpropagation's chain-rule engine](/learn/path/full-curriculum/backpropagation-automatic-differentiation?module=deep-learning-fundamentals) to understand composition; this lesson owns the objective, not another autodiff system.
+
+Save `loss-mechanisms.py`, use the environment above, and run `python loss-mechanisms.py`. It compares forward values and explicit derivatives, including logits of ±1000, then checks the matched classifier update. The update fixture's mean loss changes from about **1.442721 to 1.313306** at learning rate .1. This is one verified step, not a claim that every positive step size decreases every loss. [Recorded comparison output](loss-mechanisms-output.json) provides the exact values and error magnitudes.
+
+The dense CE calculation takes \(O(NC)\) time and storage including its returned gradient; it avoids a separate one-hot target matrix. Paired InfoNCE uses matrix multiplication and an \(N\times N\) score matrix: time \(O(N^2D)\), score storage \(O(N^2)\). That is appropriate for this exact full-candidate objective at modest batch sizes, not a memory-optimal solution for unlimited batches. Chunked log-sum-exp and recomputed backward blocks can reduce peak score storage while retaining the objective; sampling fewer negatives changes it. Maintained fused loss kernels may use less temporary storage than this inspectable NumPy version. These are algorithmic costs, not measured speed claims.
+
+**Extension — implement label smoothing without a one-hot matrix.** Starting from the scratch CE, replace the target by \((1-\epsilon)\) at the correct class plus \(\epsilon/C\) everywhere. Preserve the stable log probabilities and compare against `F.cross_entropy(..., label_smoothing=epsilon)` at epsilon 0 and .2. Check the scalar loss, every gradient and the zero row-sum invariant on a different three-class batch. This gives you control over a real training choice instead of merely changing an import.
+
+<details><summary>Hint</summary>
+
+The uniform part of the loss is the negative mean log-probability over classes, while the correct-class part retains weight \(1-\epsilon\).
+
+</details>
+
+<details><summary>Worked solution</summary>
+
+**Solution:** compute `-(1-epsilon)*log_probability[rows, targets].mean() - epsilon*log_probability.mean()`. For the unreduced logit gradient, start with probabilities, subtract `epsilon / C` everywhere and subtract `1-epsilon` at the correct class, then divide by `N`. At epsilon zero this is the original code. The mean over classes belongs only to the uniform loss term; the outer mean remains over examples. This extension matches the normalized unweighted targets specified in [PyTorch's CE contract](https://docs.pytorch.org/docs/2.14/generated/torch.nn.CrossEntropyLoss.html), not a weighted or ignored-label variant.
+
+</details>
 
 ## Practice: change the problem, then explain the consequence
 

@@ -48,7 +48,7 @@ Additional source review on2026-09-12:
 
 ## Hurdles and learning experience
 
-Membership before formula avoids axis confusion. An immediate first-pass route separates optional depth. The ruler, editable tensor, centering geometry, state ledger, gradient graph, measured trajectories and placement diagrams answer different questions. Specifications define unset input-bound predictions, grading, unsolved entity edits, contrasts and nulls, invalidation/reset, units and bounded mobile/text/keyboard behavior. Practice changes data and assumptions rather than repeating arithmetic with the same inputs.
+Membership before formula avoids axis confusion. An immediate first-pass route separates optional depth. The ruler, editable tensor, centering geometry, state ledger, gradient graph, measured trajectories and placement diagrams answer different questions. Specifications define unset input-bound results, grading, unsolved entity edits, contrasts and nulls, invalidation/reset, units and bounded mobile/text/keyboard behavior. Practice changes data and assumptions rather than repeating arithmetic with the same inputs.
 
 ## Actual author checks and deferred work
 
@@ -56,4 +56,22 @@ Executed twelve complete CPU fits with the retained licensed dataset and JSON ou
 
 Full author reread checked formulas, axes, state transitions, affine equivalence conditions, gradient sharing, metric labels, range/precision, actual versus derived outputs, practice solutions, alternate-resource caveats and sequence. No fabricated superiority or runtime graph remains. The code is a complete teaching program, not a production implementation.
 
-Formal independent phase-two review, clean-environment replay, extended shape/API edge cases, actual visual/lab implementation, grading/accessibility/mobile/lazy-loading checks and publication remain deferred. Root binds final packet hashes and delivery status after its scoped content review. Retain every packet file as necessary pending handoff; no disposable scratch directory, downloaded image or new environment was created.
+Formal independent phase-two review, clean-environment replay, extended shape/API edge cases, actual visual/lab implementation, result checks/accessibility/mobile/lazy-loading checks and publication remain deferred. Root binds final packet hashes and delivery status after its scoped content review. Retain every packet file as necessary pending handoff; no disposable scratch directory, downloaded image or new environment was created.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Change the group that defines the ruler. Edit tensor cells, normalization method/group count, offset/scale, epsilon, affine values, mode and running-statistic parameters. Highlight each statistic membership set and show all affected outputs, means/variances and running buffers immediately. Compare changing another example with changing a member of the same group. Choose a normalizer and mode by its information dependencies, batch sensitivity and inference state.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+## Prepared implementation completed — 21 September 2026
+
+The authorized first-five Deep Learning finish request consumes this complete packet. All manuscript sections, mathematics, examples, independent practice and annotated resources are preserved in the manifest-owned production body. The scoped author-time renderer replaces only explicit representation placeholders and inserts each specified visual in its explanatory context; it does not parse Markdown in the browser.
+
+Topic-specific figures and immediate-result laboratories now implement all seven visual jobs. The final independent review found and closed the spatial-observation, marker-category, reduction-table, threshold/specimen linkage, gradient-dependency and residual-path gaps relevant to these two lessons. Fractional counts now have local invalid-state feedback; shared tables keep whole numeric tokens in labelled local scrollers. Native range/number controls, finite state, exact nulls, reset, screenshots and mathematical SVG geometry were tested at desktop, 390 and 320 pixels. No learner-prediction feature exists.
+
+All measured training curves/decisions use the retained real digit experiment, never simulated benchmarks. The complete CPU program was executed beside its original CSV with Python 3.12.14, PyTorch 2.14.0+cpu and NumPy 2.3.5. The Loss nine-run and Normalization twelve-run JSON results equal their packet records. Three displayed small snippets also ran. Final source programs remain downloadable; their formatted in-page views load and mount only when opened.
+
+Independent review: [Loss/Normalization review](../../LOSS-NORMALIZATION-INDEPENDENT-REVIEW.md). Author model evidence: [114 assertions and native replay](../../evidence/loss-normalization-models.json); snippet execution: [receipt](../../evidence/loss-normalization-snippets.json). Final production: [16 browser groups](../../evidence/loss-normalization-browser-production.json) and [shared route/loading/download integration](../../evidence/deep-learning-core-production-integration.json). The [batch completion record](../../DEEP-LEARNING-CORE-IMPLEMENTATION.md) owns the final scope/counts and continuation. Both phases are complete; user acceptance is separate.

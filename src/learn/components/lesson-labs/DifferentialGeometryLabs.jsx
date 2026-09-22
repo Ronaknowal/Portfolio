@@ -107,7 +107,7 @@ export function CircleAtlasLab() {
   const state = circleCharts(angle);
   return <section className="dg-lab" aria-label="Circle atlas investigation">
     <h3>A point survives the coordinate seam</h3>
-    <p>Move through 180°, then through 0°/360°. Predict which coordinate label disappears. The circle point itself stays present.</p>
+    <p>Move through 180°, then through 0°/360°. Inspect which coordinate label disappears. The circle point itself stays present.</p>
     <div className="dg-atlas-layout"><Plot title="One circle point and the two excluded chart points">
       <Axes /><Circle /><Dot point={planePoint(state.point)} label="P" />
         <Dot point={planePoint([-1, 0])} color={PINK} label="α seam" dx={-44} dy={45} />

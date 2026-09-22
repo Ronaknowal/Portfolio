@@ -37,7 +37,7 @@ function Lab({
   children,
   onReset
 }) {
-  return <section className="sv-lab" aria-label={title}><div className="sv-lab-heading"><h3>{title}</h3><button type="button" onClick={onReset}>Reset</button></div><p className="sv-prompt"><strong>Predict:</strong> {prediction}</p>{children}</section>;
+  return <section className="sv-lab" aria-label={title} data-live-exploration><div className="sv-lab-heading"><h3>{title}</h3><button type="button" onClick={onReset}>Reset</button></div><p className="sv-prompt">{prediction}</p>{children}</section>;
 }
 function Plot({
   title,
@@ -170,7 +170,7 @@ export function HazardClockLab() {
     interval
   });
   const maximumHazard = Math.max(...state.curve.map(point => point.hazard ?? 0), ...baseline.curve.map(point => point.hazard ?? 0));
-  return <Lab title="Separate a hazard multiplier from a slower clock" prediction="With shape 2, doubling the time scale will do more than halve the instantaneous hazard. Predict the factor." onReset={() => {
+  return <Lab title="Separate a hazard multiplier from a slower clock" prediction="With shape 2, doubling the time scale will do more than halve the instantaneous hazard. Explore the factor." onReset={() => {
     setShape(2);
     setAge(4);
     setInterval(3);

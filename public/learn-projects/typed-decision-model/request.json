@@ -1,0 +1,9 @@
+{
+  "question": "Which team should handle this request?",
+  "state": "I need help with a refund",
+  "options": [
+    {"id": "billing", "description": "payment invoice charge refund billing"},
+    {"id": "access", "description": "login password account access locked"},
+    {"id": "delivery", "description": "shipping delivery parcel tracking delayed"}
+  ]
+}

@@ -1,0 +1,7 @@
+.mechanism-program { min-width: 0; margin: 24px 0; }
+.mechanism-program a { overflow-wrap: anywhere; }
+.mechanism-program summary { cursor: pointer; padding: 12px 0; line-height: 1.6; color: #e8c36f; }
+.mechanism-program pre { max-width: 100%; box-sizing: border-box; overflow: auto; white-space: pre; padding: 16px; border: 1px solid #43534b; background: #101512; color: #d6dfd9; font-size: 12px; line-height: 1.7; }
+.mechanism-program pre code { font: inherit; color: inherit; white-space: inherit; }
+.mechanism-program button { min-height: 42px; padding: 8px 12px; cursor: pointer; color: #e8c36f; border: 1px solid #62706a; background: #101512; }
+.mechanism-program :focus-visible { outline: 2px solid #e8c36f; outline-offset: 3px; }

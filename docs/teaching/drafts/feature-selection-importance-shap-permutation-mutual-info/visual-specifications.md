@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Feature selection: visual and investigation contracts
 
 This is a content-first specification. No component, browser integration or phase-two verification is claimed. Pair each representation with its named manuscript explanation; do not collect all visuals in a final gallery. Exact author evidence is in `calculated-inputs.json`, produced by `author-calculations.py`. The published implementation should import only compact required fixtures and this topic's components, not the author program or entire JSON by default.

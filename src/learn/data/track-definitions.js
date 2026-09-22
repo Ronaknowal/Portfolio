@@ -291,6 +291,18 @@ const baseTrackDefinitions = [
           { title: "DAPO (Dynamic Adaptive Policy Optimization)", level: "advanced" },
           { title: "Knowledge Distillation for LLMs (DeepSeek-R1-Distill, CoT Distillation)", level: "advanced" },
           { title: "RL for Reasoning (DeepSeek-R1 Style)", level: "frontier" },
+          {
+            title: "Typed Decision Models & Calibrated Neural Decision Systems",
+            level: "advanced",
+            subtopics: [
+              "Jev and Laya evidence boundaries", "Schema-conditioned classification", "Dynamic candidate labels",
+              "Option-marker decision heads", "ModernBERT and mmBERT", "Choice, ordinal score and truth probability",
+              "Proper scoring rules", "Spherical score and ranked probability score", "RLCD and probability-reporting policies",
+              "REINFORCE with group baselines", "Held-out temperature calibration", "Entropy and confidence",
+              "Cost-sensitive abstention", "Label-order sensitivity and truncation", "Distribution shift",
+              "Scratch implementation and library integration", "Reproducible decision-model evaluation",
+            ],
+          },
         ],
       },
       {

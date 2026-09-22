@@ -1,5 +1,8 @@
 # Neural Training Diagnostics & Reproducible Experiments
 
+**Explore as you read.** Edit tiny training rows/step settings, train/eval and graph modes, experimental evidence choices and restored checkpoint fields. Show gradient versus parameter movement, statistic buffers, comparable measured outcomes and the exact next operation under restored/missing state. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a check that distinguishes a real failure from a null example and preserve the state required for a meaningful replay.
+
+
 A network has finished training. Its loss fell, its training accuracy reached 100%, and its predictions on new examples are disappointing. You can make it wider, change the learning rate or train longer. But which change would answer the question that matters: **what is preventing useful learning?**
 
 This lesson develops a way to answer that question with evidence. We will train a small classifier on real chemical measurements of wine, deliberately alter one part of its training, and inspect what changes. We will also interrupt training and reconstruct its next update. The goal is to make the next experiment informative before making it expensive.
@@ -86,7 +89,7 @@ A failed small-data check calls for closer inspection, not a declaration that ev
 
 ### Investigation: find a check that distinguishes two runs
 
-Use the scalar evidence chain from section 1, then edit its input rows or initial weight. Record whether one update should change the weight, and whether the gradient alone will distinguish a correct update from an omitted update. Reveal the trace only after recording the prediction. Try a case with nonzero gradient and then construct a case whose gradient is exactly zero.
+Use the scalar evidence chain from section 1 and edit its rows or initial weight. Show correct and omitted updates side by side, including both the derivative and parameter change. Find a nonzero-gradient case, then construct a zero-gradient null. The immediate comparison explains why observing a gradient alone cannot establish that an optimizer step ran.
 
 <details><summary>Hint</summary>
 
@@ -274,7 +277,7 @@ These repeats vary initialization on one fixed split and one fixed target permut
 
 For a new numerical comparison, calculate paired differences \(d_s=m_{B,s}-m_{A,s}\), state whether larger or smaller is better, and inspect their distribution. A claimed improvement should be meaningful for the task as well as larger than plausible variation under the intended evaluation. More repetitions of the same fixed source do not resolve an untested source of uncertainty.
 
-**Investigation — choose what your experiment can answer.** Choose a checkpoint and specific paired seeds from the recorded Wine runs, predict the sign of the mean validation-loss change and whether training accuracy will distinguish the selected models, then compute those quantities from the selected records. A second input area accepts a small learner-entered table of paired scores with a declared metric direction. The result must identify exactly which runs were included; it must not silently remove an unfavorable row. Test the null by pairing a run with itself.
+**Investigation — choose what your experiment can answer.** Choose a checkpoint and specific paired seeds from the recorded Wine runs, inspect the sign of the mean validation-loss change and whether training accuracy will distinguish the selected models, then compute those quantities from the selected records. A second input area accepts a small learner-entered table of paired scores with a declared metric direction. The result must identify exactly which runs were included; it must not silently remove an unfavorable row. Test the null by pairing a run with itself.
 
 <details><summary>Changed-score practice and hint</summary>
 
@@ -347,6 +350,22 @@ The last column is a diagnostic distance under this run's parameterization, not 
 Where did the disagreement start? Clearing momentum leaves the update-6 batch, forward loss and learning rate equal; the update changes, so the update-7 forward loss differs. Omitting Torch RNG changes update-6 dropout and therefore its forward loss. Losing the active order/cursor changes the next batch immediately. Losing the scheduler leaves update 6 intact but uses 0.015 at update 7 where the reference uses 0.0075. Inspecting the first different quantity identifies a much narrower search than “the final models differ.”
 
 **Investigation — rebuild the continuation.** On the scalar recurrence, edit the target, initial weight, momentum and save point, then choose which state to restore. Record the predicted next weight and earliest divergence stage before continuing. Compare full restore with reset momentum and the zero-momentum null. The recorded Wine trace is an additional inspection view for RNG/order/scheduler effects; editing the scalar recurrence does not generate new Wine measurements.
+
+### Which machinery the diagnosis opens—and which it reuses
+
+The diagnostic implementation is the measurement-and-intervention procedure, not a replacement neural-network library. [wine_diagnostics.py](wine_diagnostics.py) owns train-only scaling, declared treatments and data roles, gradient norm, before/after parameter differences and actual per-row outputs. `fit` records the model before and after the intended update; it cannot mistake “a gradient exists” for “the parameters moved.” [calculations.py](calculations.py) supplies exact scalar arithmetic and an independent finite-difference route, providing a known reference when a larger run fails.
+
+The reusable model/derivative mechanisms already have concrete owners: the implemented [Backpropagation engine](/learn-assets/backpropagation/teaching-autodiff.py), [loss implementations](/learn-assets/loss-functions-ce-mse-focal-contrastive-triplet/loss-mechanisms.py), and [optimizer recurrence/library comparisons](/learn-assets/gradient-variants/optimizer_library_bridge.py). The preceding [prepared training-loop source](../mini-batches-training-loops-gradient-accumulation/train_iris.py) owns effective-group accumulation; its content is ready, while its updated website implementation may still be pending. The present full-batch diagnostic program remains runnable independently of that publication status.
+
+For continuation, [checkpoint_replay.py](checkpoint_replay.py) owns the process state: `snapshot` records model, optimizer, scheduler, CPU/dropout RNG, ordering RNG, the current permutation/cursor and update count. `restore` reconstructs the same objects and loads their ordinary `state_dict` APIs. The in-memory `torch.save`/`torch.load(weights_only=True)` round trip tests real serialization semantics; saved arrays are copied rather than aliased to parameters that training will subsequently mutate. Individual omission cases hold the other fields fixed, so their divergence has a meaningful cause.
+
+**Extend the checkpoint boundary.** The current program checkpoints after a completed update. Move the checkpoint between two accumulation chunks and specify the additional state needed before implementing that continuation.
+
+<details><summary>Hint and reasoned solution</summary>
+
+At a completed update, gradients have been cleared and the next group can start from model/optimizer/data state. Mid-group, preserve accumulated gradient tensors, the effective group's full denominator, which rows/chunks have already contributed, the remaining order/cursor and any stochastic or AMP scaling state. Restoring weights alone and recomputing only the suffix loses the earlier derivative contributions; recomputing the whole group while retaining old gradients counts them twice. An acceptable implementation either restores this exact mid-group state or deliberately checkpoints only at completed-update boundaries and states that contract. Validate the first resumed derivative and next update, not just final rounded loss. Data-worker prefetch and distributed ownership need additional state beyond this single-process example.
+
+</details>
 
 ## 9. Repeating a run and reproducing a conclusion
 

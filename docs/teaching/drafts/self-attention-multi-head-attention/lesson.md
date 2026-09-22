@@ -1,5 +1,8 @@
 # Self-Attention & Multi-Head Attention
 
+**Explore as you read.** Drag/edit vectors, manipulate legal communication edges, change head projections/temperature and supported trajectory points. Show scores, weights, mixture point, per-head outputs, mask legality and sensitivity immediately. A direct vector edit reaches every linked output and accessible table. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish compatibility, value content and legal access; choose head/mask/scale settings by those separate effects.
+
+
 A point on a recorded hand movement tells you where the hand was at one moment. A word tells you something about a sentence. Neither necessarily tells you enough on its own. We need a way for each part of an input to gather useful information from other parts.
 
 **Self-attention lets each input position build a different mixture of information from the same input.** It learns how to choose that mixture. Multi-head attention runs several such mixing operations side by side, then combines their results.
@@ -128,7 +131,7 @@ The output has one row per query and `d_v` columns. It has the same number of po
 
 There is a geometric interpretation worth keeping. Before any output projection, residual addition or attention dropout, each row of `AV` lies in the **convex hull** of its allowed value vectors: the line segment, triangle or higher-dimensional region reachable by nonnegative weights summing to one. Here all three values lie on the line `x+y=2`, so every output stays on that segment. The C output is `[1,1]` even though C gives itself more than half the weight: the symmetric contributions from A and B balance exactly. A distinctive heatmap need not imply a distinctive output vector.
 
-**Investigate the two paths.** In the message-mixing investigation, move one key and predict which donor weight will rise for a selected query. Then move that donor's value while keeping its key fixed. Predict whether the weights, output, or both will change. Record your prediction before revealing the recomputed distribution. Finally, add the same constant to every score in the row. The displayed arithmetic will let you explain the result instead of guessing from the colors.
+**Investigate the two paths.** Move a key and watch the donor weights for a selected query. Then move that donor's value while keeping its key fixed: follow the changed mixture beside the unchanged weights. Add a common constant to every score to inspect the softmax null case. Exact contributions and a pinned baseline make each effect visible.
 
 ## 3. Decide which information is allowed to travel
 
@@ -321,11 +324,41 @@ print(ours.shape, our_weights.shape)
 print("maximum output difference:", (ours - theirs).abs().max().item())
 print(torch.allclose(ours, theirs, atol=1e-12, rtol=1e-12))
 print(torch.allclose(our_weights, their_weights, atol=1e-12, rtol=1e-12))
+
+# Equal outputs should also teach the same local learning direction.
+manual.zero_grad(set_to_none=True)
+reference.zero_grad(set_to_none=True)
+left = inputs.clone().requires_grad_()
+right = inputs.clone().requires_grad_()
+out_left, _ = manual(left, allowed)
+out_right, _ = reference(right, right, right, attn_mask=~allowed,
+                         need_weights=False)
+probe = torch.linspace(-1., 1., out_left.numel(), dtype=left.dtype).reshape_as(out_left)
+(out_left * probe).sum().backward()
+(out_right * probe).sum().backward()
+torch.testing.assert_close(left.grad, right.grad, atol=1e-11, rtol=1e-11)
+packed_gradient = torch.cat([manual.query.weight.grad,
+                             manual.key.weight.grad, manual.value.weight.grad])
+torch.testing.assert_close(packed_gradient, reference.in_proj_weight.grad,
+                           atol=1e-11, rtol=1e-11)
+torch.testing.assert_close(manual.output.weight.grad, reference.out_proj.weight.grad,
+                           atol=1e-11, rtol=1e-11)
+for module in (manual, reference):
+    with torch.no_grad():
+        for parameter in module.parameters():
+            parameter.add_(parameter.grad, alpha=-.02)
+updated, _ = reference(inputs, inputs, inputs, attn_mask=~allowed, need_weights=False)
+torch.testing.assert_close(manual(inputs, allowed)[0], updated, atol=1e-11, rtol=1e-11)
+print("input/parameter gradients and one equal update: True")
 ```
 
 The retained CPU run used Python 3.12.14 and PyTorch 2.14.0. It produced output shape `2 × 4 × 8`, weights shape `2 × 2 × 4 × 4`, two `True` comparisons, and a maximum output difference of about `5.55e-17`. This is numerical agreement for these inputs and double precision, not a promise of bit-identical results for every backend.
 
 `nn.Linear` stores weights as `out_features × in_features` and applies their transpose internally. Our mathematical `W_Q` uses the opposite storage orientation. That difference explains the API layout; it does not change the map. We concatenate the stored query/key/value weights in the order PyTorch expects. We request per-head weights because averaging them would erase the distinction we are trying to inspect.
+
+The final part now checks the learning route as well. A nonuniform probe assigns different importance to each output coordinate, so an accidental all-ones cancellation cannot conceal a derivative error. Pack the three separate gradient matrices in the same Q/K/V order as the parameters. Equal .02 SGD steps should preserve agreement. This extension is a bounded author check, not a retraining of the retained movement experiment.
+
+**Take control:** replace the triangle with a two-document block mask from practice 2 and change the probe. Keep at least one allowed key per query. **Hint:** a mask changes the derivative paths as well as the output. **Solution:** the same mapping must still pass; a value used only through forbidden edges receives no contribution from those queries. Do not treat equality of final class labels as a substitute for these operator checks.
 
 ### Use a fused primitive when you need outputs rather than a full heatmap
 
@@ -429,7 +462,7 @@ The displayed real trajectory is source row 77, labeled class 4, **anticlockwise
 
 Choose a receiver point and inspect its row in each head's attention map. The horizontal axis is donor point number; the vertical axis is receiver point number. High weight means a large mixing coefficient for that donor; its effect also depends on the value vector and output map. It is not automatically a physical neighbor or a movement label.
 
-Before revealing the next output, predict what will happen if you **reverse all 45 points**. In the retained run, the largest logit change was approximately `2.15e-6`, consistent with floating-point rounding. Reversing both axes of the original heatmap also reproduces the reversed sequence's attention map up to rounding. The model changes which array index names a point, but not the pooled class decision.
+Reverse all 45 points and inspect the new output beside the original. In the retained run, the largest logit change was approximately `2.15e-6`, consistent with floating-point rounding. Reversing both axes of the original heatmap reproduces the reversed sequence's attention map up to rounding. The array index naming each point changes; the pooled class decision does not.
 
 Now edit point 23's x-coordinate from about `.64217` to `.35783`, leaving its y-coordinate unchanged. That changes the set of observed coordinates. The clockwise-arc probability drops from about `81.11%` to `49.74%`; the anticlockwise-arc probability rises to about `18.15%`. The predicted class stays clockwise arc, but the distribution changes substantially. This is a hypothetical edited trajectory, so its correct real-world class is unknown. The experiment distinguishes “the model ignores order” from “the model ignores its input.”
 
@@ -595,7 +628,7 @@ This does not make attention maps useless. They can reveal a broken mask, repeat
 
 For our trajectory, a defensible statement is “this head assigns these weights to these donor frames.” To investigate importance, specify an intervention and measure the resulting change: edit one coordinate, mask a donor while renormalizing, or compare a trained model with a declared baseline. State what was held fixed. Removing a head only at inference is a different question from retraining a model with fewer heads. Neither becomes a general explanation just because the chart is colorful.
 
-**Investigate an unchanged output.** Choose two different attention distributions, then edit the donor values until both distributions yield the same mixture. Predict whether an output map could recover a difference that has already vanished. Reveal the exact vectors and explain your construction. The goal is to reason about information flow, not to find the “right-looking” heatmap.
+**Investigate an unchanged output.** Choose two different attention distributions, then edit the donor values until both distributions yield the same mixture. Inspect the exact vectors immediately and explain whether an output map could recover a difference that has already vanished. The goal is to reason about information flow, not to find the “right-looking” heatmap.
 
 <!-- Investigation SA9: editable distributions and values, with mixture difference and entropy. -->
 
@@ -736,7 +769,7 @@ Per-head width is 4. Split Q is `3 × 3 × 5 × 4`; weights are `3 × 3 × 5 × 
 
 ### 4. Duplicate points: a second invariance to test
 
-Take one nonempty trajectory in the no-position, mean-pooled attention classifier. Make a new input by repeating **every** point exactly twice. Predict the output change. Then predict whether the same argument holds if only the first point is repeated once.
+Take one nonempty trajectory in the no-position, mean-pooled attention classifier. Make a new input by repeating **every** point exactly twice. Derive the output change. Then determine whether the same argument holds if only the first point is repeated once.
 
 You can test this using the retained model: `points.repeat_interleave(2, dim=1)` repeats all points, while `torch.cat([points, points[:, :1]], dim=1)` repeats only the first. These are changes to the represented multiset, not newly collected independent observations.
 

@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Semi-Supervised Learning — prepared content, design and evidence
 
 Mode: research and write only. Revision1, 2026-09-12. Author classical_probabilistic_content. Content prepared for root checkpoint; implementation not started. This is an author record, not a claim of independent review or browser validation.

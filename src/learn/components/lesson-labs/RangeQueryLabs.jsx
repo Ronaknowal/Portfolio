@@ -108,7 +108,7 @@ export function SegmentRangeLab() {
   return <section className="range-lab" aria-label="Segment range investigation">
     <div className="range-eyebrow">Investigate · interval summaries</div>
     <h3>Cover the range once, in array order</h3>
-    <p>Predict which nodes cover [1,4). Then assign index 2 to 8: which ancestors must change? Edit drafts and apply to restart; finish an operation before starting another.</p>
+    <p>Inspect which nodes cover [1,4). Then assign index 2 to 8: which ancestors must change? Edit drafts and apply to restart; finish an operation before starting another.</p>
     <div className="range-controls"><RangeField label="Array draft · up to 8 integers, −99…99" type="text" value={draft} onChange={setDraft} /><RangeField label="Combine draft" value={operation} onChange={setOperation}><option value="sum">Sum</option><option value="min">Minimum</option><option value="max">Maximum</option></RangeField><button type="button" onClick={() => load()}>Apply array and combine</button><button type="button" onClick={() => {
         setDraft('2, 1, 3, 4');
         setOperation('sum');
@@ -156,7 +156,7 @@ export function FenwickBlockLab() {
   }
   return <section className="range-lab" aria-label="Fenwick block investigation">
     <div className="range-eyebrow">Investigate · binary prefix blocks</div><h3>Read backward; update containing blocks forward</h3>
-    <p>For prefix length 7, predict 7→6→4→0. Each green lane supplies one disjoint block. An increment at external index 4 instead visits internal positions 5→6→8.</p>
+    <p>For prefix length 7, follow 7→6→4→0. Each green lane supplies one disjoint block. An increment at external index 4 instead visits internal positions 5→6→8.</p>
     <div className="range-controls"><RangeField label="Array draft · up to 8 integers, −99…99" type="text" value={draft} onChange={setDraft} /><button type="button" onClick={() => run(() => {
         const next = fenwickState(parseRangeValues(draft));
         setEnd(String(next.values.length));

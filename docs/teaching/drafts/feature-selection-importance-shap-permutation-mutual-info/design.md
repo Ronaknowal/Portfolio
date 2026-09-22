@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Feature selection: design, evidence and continuation
 
 Stable ID `feature-selection-importance-shap-permutation-mutual-info`; batch position5, author `/root/classical_feature_content`, 12 September2026. Research/write only. The complete manuscript and visual contracts are ready for content reconciliation; implementation and formal finish/review remain pending. Root owns shared ledger and checkpoint hashes.

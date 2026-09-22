@@ -1,19 +1,6 @@
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './nmf-labs.css';
 
-/** Shared primitives for the non-negative matrix factorization figures and
- * investigations.
- *
- * The contract every investigation keeps: the learner edits a draft, records a
- * prediction, and commits both together. An answer is always computed from the
- * inputs committed with it, so editing anything retires the recorded prediction
- * instead of quietly re-grading an old choice against a new model.
- *
- * Every intensity panel states its scale in numbers. Nothing is clipped: a value
- * above the stated maximum is marked, because hiding it would misreport the
- * reconstruction the page is teaching.
- */
-
 export const round = (value, digits = 6) => {
   if (value === null || value === undefined || Number.isNaN(value)) return '—';
   if (!Number.isFinite(value)) return value > 0 ? '∞' : '−∞';
@@ -58,7 +45,7 @@ export const componentColours = ['#e7b94a', '#8eb9a5', '#91aecf', '#c8a2c8', '#d
 // ---------------------------------------------------------------- the shell
 export function Investigation({ title, question, note, children, onReset }) {
   const id = useId();
-  return <section className="nm-investigation" aria-labelledby={id}>
+  return <section className="nm-investigation" aria-labelledby={id} data-live-exploration>
     <header><h3 id={id}>{title}</h3><button type="button" onClick={onReset}>Reset</button></header>
     {question && <p className="nm-question">{question}</p>}
     {note && <p className="nm-note">{note}</p>}
@@ -102,7 +89,7 @@ export function NumberField({ label, value, onChange, min, max, step, suffix }) 
     if (Math.abs(parsed / step - Math.round(parsed / step)) > 1e-9) return `Use steps of ${step}.`;
     return null;
   })();
-  return <Field label={label} error={problem} value={suffix}>
+  return <div><Field label={label} error={problem} value={suffix}>
     <input type="number" inputMode="decimal" min={min} max={max} step={step} value={shown}
       onChange={event => {
         setDraft(event.target.value);
@@ -111,7 +98,7 @@ export function NumberField({ label, value, onChange, min, max, step, suffix }) 
           && Math.abs(parsed / step - Math.round(parsed / step)) <= 1e-9) onChange(parsed);
       }}
       onBlur={() => setDraft(null)} aria-invalid={Boolean(problem)} />
-  </Field>;
+  </Field>{/^Amount [ab]/i.test(label) && Number.isFinite(value) && Number.isFinite(min) && Number.isFinite(max) && <input type="range" aria-label={label + ' slider'} min={min} max={max} step={step} value={value} disabled={false} style={{width:'100%',accentColor:'var(--accent, #e7b94a)'}} onChange={event => {setDraft(null);onChange(Number(event.target.value));}} />}</div>;
 }
 
 export function Table({ caption, headings, rows, rowClass = () => undefined, scroll = false }) {
@@ -124,85 +111,12 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, scr
   </div>;
 }
 
-/** Draft inputs, an unset prediction, and one action that commits both.
- * `describeKey` turns the active inputs into a string, so a recorded result can
- * never be shown beside inputs it was not computed from. */
-export function useInvestigation(initial, describeKey = JSON.stringify) {
+export function useInvestigation(initial) {
   const [draft, setDraft] = useState(initial);
-  const [active, setActive] = useState(initial);
-  const [choice, setChoice] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const pending = describeKey(draft) !== describeKey(active);
-  return {
-    draft, active, choice, setChoice, reason, setReason, result, pending,
-    edit: update => { setDraft(previous => ({ ...previous, ...update })); setResult(null); setChoice(''); },
-    // The answer comes from the draft at the moment of committing, never from
-    // whatever happened to be rendered before the learner edited it.
-    check: answerFor => {
-      setActive(draft);
-      setResult({ key: describeKey(draft), choice, reason, answer: answerFor(draft), graded: true });
-    },
-    explore: answerFor => {
-      setActive(draft);
-      setResult({ key: describeKey(draft), choice: '', reason, answer: answerFor(draft), graded: false });
-    },
-    reset: () => { setDraft(initial); setActive(initial); setChoice(''); setReason(''); setResult(null); },
-    load: inputs => { setDraft(inputs); setActive(inputs); setChoice(''); setReason(''); setResult(null); },
+  return { draft, active: draft,
+    edit: update => setDraft(current => ({ ...current, ...update })),
+    reset: () => setDraft(initial), load: inputs => setDraft(inputs),
   };
-}
-
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="nm-field nm-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
-}
-
-export function Prediction({ prompt, options, state, answerFor, describe, exploreLabel = 'Calculate without recording a prediction' }) {
-  const name = useId();
-  const label = key => options.find(([value]) => value === key)?.[1] ?? key;
-  const shown = state.result;
-  const correct = shown?.graded && shown.choice === shown.answer;
-  return <div className="nm-prediction">
-    <fieldset>
-      <legend>Record a prediction first.</legend>
-      <p>{prompt}</p>
-      <div className="nm-choices">
-        {options.map(([value, text]) => (
-          <label className="nm-choice" key={value}>
-            <input type="radio" name={name} value={value} checked={state.choice === value}
-              onChange={() => state.setChoice(value)} disabled={Boolean(shown)} />
-            <span>{text}</span>
-          </label>
-        ))}
-      </div>
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && <p className="nm-pending" role="status">
-      Inputs changed; record a new prediction. The calculation below will use the values now in the fields.
-    </p>}
-    <div className="nm-buttons">
-      <button type="button" className="is-primary" disabled={state.choice === '' || Boolean(shown)} onClick={() => state.check(answerFor)}>Check prediction</button>
-      {/* Once a result stands, exploring again would recompute a difference of
-          zero and silently replace a graded verdict. Edit an input to move on. */}
-      <button type="button" disabled={Boolean(shown)} onClick={() => state.explore(answerFor)}>{exploreLabel}</button>
-    </div>
-    {shown?.reason && <p className="nm-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && (shown.graded
-      ? <p className={`nm-verdict ${correct ? '' : 'is-miss'}`} role="status">
-        <span className="nm-verdict-mark" aria-hidden="true">{correct ? '=' : '≠'}</span>
-        {correct ? `Your prediction matches: ${label(shown.answer)}.`
-          : `You recorded ${label(shown.choice)}; the calculation gives ${label(shown.answer)}.`}
-        {describe ? ` ${describe}` : ''}
-      </p>
-      : <p className="nm-verdict is-plain" role="status">
-        <span className="nm-verdict-mark" aria-hidden="true">·</span>
-        Calculated without a recorded prediction: {label(shown.answer)}. {describe}
-      </p>)}
-  </div>;
 }
 
 // ------------------------------------------------------------ the visual kit

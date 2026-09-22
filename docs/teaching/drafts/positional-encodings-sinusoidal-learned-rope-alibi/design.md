@@ -58,7 +58,7 @@ RoFormer inspected section inventory also helps check breadth: §2.1 preliminary
 |Computable long positions are equated with performance|Three length questions and precise extension formulas|Wavelength/phase/temperature investigation with no fake empirical axes|
 |One-dimensional text indices are applied to every data modality|Actual time-unit conversion and grid coordinate construction|Three-event timeline and 2D patch adjacency diagram|
 
-Investigations are independent mechanism tasks, not six mandatory identical widgets. Each uses genuine editable entities and input-bound unset predictions. Text alternatives, keyboard/mobile designs, quantitative contrasts/nulls, exact feedback, bounded computation and phase-two checks are fully specified. The real workspace does not hide original errors, grade edited trajectories against invented labels or train in the browser.
+Investigations are independent mechanism tasks, not six mandatory identical widgets. Each uses genuine editable entities and immediate outputs tied to the current inputs. Text alternatives, keyboard/mobile designs, quantitative contrasts/nulls, exact feedback, bounded computation and phase-two checks are fully specified. The real workspace does not hide original errors, grade edited trajectories against invented labels or train in the browser.
 
 ## Research record — substantive inspection
 
@@ -92,7 +92,7 @@ Bounded final checks passed: all four Markdown files have no unexpected control 
 1. **Route:** the immediate first-pass path is explicit; core readiness is §§1–7 and exercises 1–4. Context extension and advanced exercises remain a named deeper route, not hidden prerequisites for GQA.
 2. **Cautions:** each important limitation sits at its mechanism or real-study protocol. No repetitive warning chapter or code-printed caveat substitutes for explanation.
 3. **Real question/data:** the full, licensed trajectory input, duplicate boundary, fixed split, actual model weights and all five outcomes are retained. The predeclared example's five original failures remain visible.
-4. **Investigations:** six distinct tasks use real editable entities, unset input-bound predictions, computed feedback and checked contrasts/nulls. No generic preset-only lab or automatic success message.
+4. **Investigations:** six distinct tasks use real editable entities, unset input-bound results, computed feedback and checked contrasts/nulls. No generic preset-only lab or automatic diagnostic readout.
 5. **Perceptible figures:** explicit arrows, clocks, signed projections, score competition, trajectory/slot distinctions, cache rails and wavelength units are specified beside the relevant prose. Every visual has a table/text equivalent.
 6. **Connections:** previous/next actual module routes, canonical section dispositions, position/causality/cache boundaries and later MLA/vision applications are explicit. No unowned essential concept remains.
 7. **Code:** complete transparent NumPy mechanisms and the actual five-model CPU study are supplied with setup and observed outputs. No large-model run or browser implementation is claimed.
@@ -100,3 +100,28 @@ Bounded final checks passed: all four Markdown files have no unexpected control 
 9. **Screenshots and implementation:** intentionally deferred with browser parity, accessibility, mobile and loading checks specified for phase two. Content completion is not rendered or formal implementation acceptance.
 
 No unresolved material writing gap remains. Next action is the root-owned content checkpoint, then an authorized future finish request to implement the figures/investigations and perform formal review. Preserve all eleven pending files; no disposable scratch was created by this packet.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Move a position without confusing it with content. Edit position IDs, frequencies, RoPE vectors, ALiBi slopes/scores, cache identities and supported trajectory coordinates. Synchronize phase geometry, relative-score changes, distance penalty, legal cache relations and final mixture. Show whole-record reorder and ID-only edit as different operations. Choose and troubleshoot positional mechanisms by relative/absolute behavior and cache consistency; do not infer long-context quality from a toy phase plot.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+## Implementation ownership and completed writing — 22 September 2026
+
+**Phase: content-prepared; implementation not started.** The following map is the current scope decision under the scratch-and-library rule. Actual code and explanatory teaching are already supplied in the manuscript/packet. Finishing executes, reviews, corrects and integrates these artifacts; it is not assigned to invent the missing core mechanism. The original title, sequence, data and retained experiments are conserved.
+
+| Outcome | Scratch owner | Ordinary tool/library | Bridge | Changed-constraint practice | Scope decision |
+| --- | --- | --- | --- | --- | --- |
+| Sinusoidal and learned absolute positions | lesson §7 complete sinusoidal/learned_positions; PositionClassifier in author-calculations.py | nn.Embedding demonstrated in position_library_bridge.py | Lookup equals indexing; repeated ID accumulates gradients, unused IDs stay unchanged | Repeated ID edit and shifted position exercise | Local fixed features versus learned parameter table distinguished |
+| RoPE, ALiBi and cached coordinate contracts | lesson §7 rotate/slopes/mix and mechanism-calculations.py | position_library_bridge.py composing transformed Q/K or additive bias with SDPA | Explicit query/key IDs, legal masks, scale, zero dropout; same forward/input gradients | Common shift, query-only shift and cache-frequency mismatch | Local standard adjacent pairs; checkpoint-specific variants explicitly different |
+| Relative buckets and context scaling | mechanism-calculations.py::t5_bucket and §8 frequency calculations; lesson §§3/5/8 | Torch formulas and configuration-aware model composition; no universal one-call RoPE API implied | Shaw vector versus T5 scalar bias; PI/base/YaRN/XPos equations retain their exact conventions | Directional encoder, scaling claims and partial-rotation temperature practice | Local mechanism comparison; full checkpoint re-training/quality is not claimed by an angle plot |
+| Real movement direction experiment | PositionClassifier plus full five-model fitting protocol | PyTorch modules/optimizer and retained parameter states | Position-only and input-order interventions preserve stated data boundary | Reverse path directly and inspect actual model output | Local; no prediction gate, retained fits conserved |
+
+**Reuse status:** references to other packets in Deep Learning are prepared manuscripts, not newly published implementations. The existing published historical article at the same route does not certify the replacement code. Implemented mathematics/normalization owners are linked as prerequisites; this packet owns only its new operations. Preserve the complete prerequisite program and required file links when packaging the download.
+
+**Authoring checks and evidence:** [the writing report](../../implementation-depth/PREPARED-ATTENTION-WRITING.md) and [source-bound manifest](../../implementation-depth/prepared-attention-writing.json) distinguish source review, small new arithmetic/API probes and unexecuted optional routes. Existing fit outputs keep their original dates and evidence; no new large fit, GPU benchmark or full scientific replication is claimed.
+
+**Deferred phase-two work:** execute the supplied native code under the recorded/compatible versions, compare independent references on meaningful changed cases, review every claimed output and derivative, integrate accessible topic-specific visuals and exact matching code downloads, then perform browser/layout/performance checks. Resolve failures by updating the content checkpoint; never mark these written additions as implementation complete without that evidence.

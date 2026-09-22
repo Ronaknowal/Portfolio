@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { tracks } from "../data/tracks";
 import { topicMap } from "../data/catalogue";
 import PlaceholderContent from "./PlaceholderContent";
@@ -8,6 +8,7 @@ import LessonGuide from "./LessonGuide";
 import useTopicResource from "../hooks/useTopicResource.js";
 import LessonBoundary, { LessonLoadError } from "./LessonBoundary.jsx";
 import "./topic-content.css";
+import { projects } from "../data/projects/catalogue.js";
 
 export default function TopicContent({ topic, context, track, currentModule, previousStep, nextStep, isComplete, toggleComplete, basePath }) {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function TopicContent({ topic, context, track, currentModule, pre
   };
 
   return (
-    <main className="reader-content">
+    <main className="reader-content" id="learning-main" tabIndex={-1}>
       <nav className="reader-breadcrumb" aria-label="Breadcrumb">
         <button type="button" onClick={() => navigate("/learn")}>Learn</button>
         <span aria-hidden="true">→</span>
@@ -54,6 +55,12 @@ export default function TopicContent({ topic, context, track, currentModule, pre
         </div>
       )}
 
+      {projects.filter(project => project.relatedTopicIds?.includes(topic.id)).map(project => (
+        <div className="related-projects" key={project.id}>
+          <span>BUILD WITH THIS</span>
+          <Link to={`/learn/projects/${project.id}`}>{project.title} ↗</Link>
+        </div>
+      ))}
       <header className="reader-header">
         <h1>{topic.title}</h1>
         <div className="reader-header__meta">

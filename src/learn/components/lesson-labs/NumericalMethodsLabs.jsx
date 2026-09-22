@@ -94,7 +94,7 @@ export function BracketLab() {
     setStep(0);
   }
   return <Investigation id="numerical-bracket" kicker="ROOTS · RETAIN AN INTERVAL" title="What stays known after one evaluation?">
-    <p>Predict which half contains a root before advancing. Continuity of these polynomial fixtures is known; opposite signs alone would not establish continuity for an arbitrary function.</p>
+    <p>Inspect which half contains a root before advancing. Continuity of these polynomial fixtures is known; opposite signs alone would not establish continuity for an arbitrary function.</p>
     <Select label="Bracket problem" value={key} onChange={change} options={Object.entries(rootProblems).map(([id, item]) => [id, item.label])} />
     <Plot label={`${problem.label}: function and current bracket`} domain={problem.domain} range={problem.range} curves={[{
       f: problem.f
@@ -219,7 +219,7 @@ export function QuadratureLab() {
     setMethod('trapezoid');
   }
   return <Investigation id="numerical-quadrature" kicker="AREA · INTEGRATE THE LOCAL SHAPE" title="The weights come from an interpolating curve">
-    <p>Gold is the actual function; blue is the line or parabola being integrated. Predict the sign of the error on x² before changing panel count.</p><div className="nm-controls"><Select label="Area function" value={key} onChange={setKey} options={['polynomial', 'sine'].map(id => [id, integralProblems[id].label])} /><Select label="Area method" value={method} onChange={setMethod} options={[["trapezoid", "Trapezoids"], ["simpson", "Simpson parabolas"]]} /><Select label="Number of panels" value={panels} onChange={setPanels} options={['2', '4', '8', '16'].map(value => [value, value])} /></div>
+    <p>Gold is the actual function; blue is the line or parabola being integrated. Inspect the sign of the error on x² before changing panel count.</p><div className="nm-controls"><Select label="Area function" value={key} onChange={setKey} options={['polynomial', 'sine'].map(id => [id, integralProblems[id].label])} /><Select label="Area method" value={method} onChange={setMethod} options={[["trapezoid", "Trapezoids"], ["simpson", "Simpson parabolas"]]} /><Select label="Number of panels" value={panels} onChange={setPanels} options={['2', '4', '8', '16'].map(value => [value, value])} /></div>
     <Plot label="Actual curve and numerical interpolant with sampled nodes" range={[0, 1.1]} curves={[{
       f: problem.f
     }, {

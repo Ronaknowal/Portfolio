@@ -1,31 +1,9 @@
+import { useLiveInvestigation, useLiveResult, useLiveStages } from './LiveInvestigationState.js';
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import { MISSING, edgeWidth, edgeWidthRange, localLikelihood, trellis, trellisEdges } from '../../data/hmm-models.js';
 import './hmm-labs.css';
 
-/** Shared controls for the hidden Markov model investigations.
- *
- * The contract every investigation keeps: the learner edits a draft, records a
- * prediction, and commits both together. A result is always computed from the
- * draft at the moment of committing, so a prediction is graded against the
- * inputs it was recorded with and never against whatever is on screen later.
- * Any relevant edit retires the recorded prediction and hides its feedback.
- *
- * Three things this topic needs that the earlier lessons' kit did not have:
- *
- *   * A prediction can have SEVERAL independent parts. Investigation A is
- *     meaningless unless filtering and smoothing are answered separately: a
- *     learner who predicts "it changes" without saying which query changes has
- *     not distinguished them, which is the whole point of section 4.
- *   * A CONSTRUCTION task, which is graded from the computed consequence of the
- *     committed draft rather than from the name of a preset. "Edit the last
- *     report so that the smoothed belief falls below .41 while the filtered one
- *     does not move" is checked by running inference, not by recognising which
- *     button was pressed.
- *   * A PROBABILITY ROW editor. A distribution cannot be edited one entry at a
- *     time without either breaking the row or silently changing an entry the
- *     learner did not touch, so the whole row is edited as a draft and then
- *     validated and applied as one action.
- */
+
 
 /** Every printed number uses a typographic minus sign, matching the prose. */
 const sign = text => String(text).replace('-', '−');
@@ -236,183 +214,19 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, cel
   </div>;
 }
 
-/** Draft inputs, unset commitments, and one action that commits them together.
- *
- * `describeKey` turns the active inputs into a string, so a recorded result can
- * never be shown beside inputs it was not computed from. `previous` is the state
- * the commit replaced, which is what a direction-of-change prediction is graded
- * against. `history` keeps retired verdicts as clearly previous attempts,
- * because several tasks here are about an answer NOT moving and that comparison
- * needs the earlier result to still be readable.
- */
-export function useInvestigation(initial, describeKey = JSON.stringify) {
-  const [draft, setDraft] = useState(initial);
-  const [active, setActive] = useState(initial);
-  const [previous, setPrevious] = useState(initial);
-  const [choices, setChoices] = useState({});
-  const [guess, setGuess] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const [history, setHistory] = useState([]);
-  const [attempts, setAttempts] = useState([]);
-  const pending = describeKey(draft) !== describeKey(active);
-  const retire = () => {
-    setResult(current => {
-      if (current) setHistory(entries => [...entries.slice(-2), current]);
-      return null;
-    });
-    setChoices({}); setGuess('');
-  };
-  return {
-    draft, active, previous, choices, guess, setGuess, reason, setReason, result, pending, history, attempts,
-    choose: (key, value) => setChoices(current => ({ ...current, [key]: value })),
-    edit: update => { setDraft(previousDraft => ({ ...previousDraft, ...update })); retire(); },
-    check: answerFor => {
-      setPrevious(active);
-      setActive(draft);
-      setResult({
-        key: describeKey(draft), previousKey: describeKey(active),
-        choices, guess, reason, answer: answerFor(draft, active),
-      });
-    },
-    /** A construction attempt is graded from the committed draft's computed
-     * consequence. It does not touch the prediction state, because a learner may
-     * legitimately try several constructions after one prediction. */
-    submit: gradeFor => {
-      setActive(draft);
-      setAttempts(entries => [...entries.slice(-4), { key: describeKey(draft), verdict: gradeFor(draft) }]);
-    },
-    reset: () => {
-      setDraft(initial); setActive(initial); setPrevious(initial);
-      setChoices({}); setGuess(''); setReason(''); setResult(null); setHistory([]); setAttempts([]);
-    },
-    load: inputs => {
-      setDraft(inputs); setActive(inputs); setPrevious(inputs);
-      setChoices({}); setGuess(''); setReason(''); setResult(null); setAttempts([]);
-    },
-    /** Fill the draft from a suggested setup without applying or grading it. */
-    suggest: inputs => { setDraft(inputs); retire(); },
-  };
-}
 
-/** An optional sentence saying why. It is never graded. */
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="hmm-field hmm-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
-}
+export const useInvestigation = useLiveInvestigation;
 
-/** One or more radio groups that start with nothing selected, optionally a
- * numeric commitment, and one action that commits them all together.
- *
- * There is deliberately no way to reach the answer without recording every
- * part: the contract requires them before Apply. Suggested setups fill inputs,
- * never outcomes. A question with several parts is graded part by part, because
- * "something changed" is not an answer to "which of these two changed".
- */
-export function Prediction({
-  groups, state, answerFor, describe, numeric, committed,
-  applyLabel = 'Apply and check', historyLabel, requireChange, pendingHint, sameQuestion,
-}) {
-  const name = useId();
-  const numericId = useId();
-  const shown = state.result;
-  const labelOf = (group, key) => group.options.find(([value]) => value === key)?.[1] ?? key;
-  /** A graded quantity can legitimately have no value: an impossible sequence
-   * has no posterior at all. A numeric guess against such an answer is neither
-   * inside nor outside a tolerance, and saying so is the point of section 7. */
-  const answerIsNumeric = shown && numeric ? Number.isFinite(shown.answer.value) : false;
-  const guessed = shown && numeric && shown.guess !== '' && answerIsNumeric
-    ? Math.abs(Number(shown.guess) - shown.answer.value) <= numeric.tolerance
-      + (numeric.tolerance === 0 ? 0 : 4 * Number.EPSILON * Math.max(1, Math.abs(Number(shown.guess)), Math.abs(shown.answer.value)))
-    : null;
-  const changeMissing = requireChange ? !requireChange(state.draft, state.active) : false;
-  const ready = groups.every(group => state.choices[group.key] !== undefined && state.choices[group.key] !== '')
-    && !changeMissing
-    && (!numeric?.required || (state.guess.trim() !== '' && Number.isFinite(Number(state.guess))));
-  const previous = state.history.at(-1);
-  const comparable = previous && shown && (!sameQuestion || sameQuestion(previous.key, shown.key));
-  const parts = shown ? groups.map(group => ({
-    group,
-    recorded: shown.choices[group.key],
-    actual: shown.answer.outcomes[group.key],
-  })) : [];
-  const allRight = parts.length > 0 && parts.every(part => part.recorded === part.actual);
-  return <div className="hmm-prediction">
-    <fieldset>
-      <legend>Record {groups.length === 2 ? 'both predictions' : groups.length > 2 ? `all ${groups.length} predictions` : 'a prediction'} first.</legend>
-      {groups.map(group => <div className="hmm-group" key={group.key}>
-        <p>{group.prompt}</p>
-        <div className="hmm-choices">
-          {group.options.map(([value, text]) => (
-            <label className="hmm-choice" key={value}>
-              <input type="radio" name={`${name}-${group.key}`} value={value}
-                checked={state.choices[group.key] === value} disabled={Boolean(shown)}
-                onChange={() => state.choose(group.key, value)} />
-              <span>{text}</span>
-            </label>
-          ))}
-        </div>
-      </div>)}
-      {numeric && <label className="hmm-field hmm-numeric-guess" htmlFor={numericId}>
-        <span>{numeric.label}</span>
-        <span className="hmm-caption">{numeric.tolerance === 0 ? 'An exact answer is required.' : `Answers within ${numeric.tolerance} are accepted.`} If the quantity is undefined, a number cannot match it.</span>
-        <input id={numericId} type="number" inputMode="decimal" step="any" value={state.guess} disabled={Boolean(shown)}
-          placeholder={numeric.placeholder ?? 'your number'} onChange={event => state.setGuess(event.target.value)} />
-      </label>}
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && <p className="hmm-pending" role="status">
-      Draft inputs differ from the applied ones. The calculation below will use the values now in the fields, and the
-      comparison will be against the state currently applied.
-    </p>}
-    <div className="hmm-buttons">
-      <button type="button" className="is-primary" disabled={!ready || Boolean(shown)}
-        onClick={() => state.check(answerFor)}>{applyLabel}</button>
-      {!shown && <span>The answer appears once every prediction is recorded. Reset, or edit an input, to try another setup.</span>}
-    </div>
-    {changeMissing && !shown && <p className="hmm-note" role="status">
-      {pendingHint ?? 'This question compares two states, so it needs a change to compare. Edit an input, or load one of the setups above, before applying.'}
-    </p>}
-    {committed && shown && <p className="hmm-caption">Graded against the committed state: {committed(shown)}</p>}
-    {shown?.reason && <p className="hmm-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && <div className={`hmm-verdict ${allRight ? '' : 'is-miss'}`} role="status">
-      {parts.map(part => <p key={part.group.key}>
-        <span className="hmm-verdict-mark" aria-hidden="true">{part.recorded === part.actual ? '=' : '≠'}</span>
-        <strong>{part.group.short ?? part.group.key}:</strong>{' '}
-        {part.recorded === part.actual
-          ? `your prediction matches — ${labelOf(part.group, part.actual)}.`
-          : `you recorded ${labelOf(part.group, part.recorded)}; the calculation gives ${labelOf(part.group, part.actual)}.`}
-      </p>)}
-      {numeric && shown.guess !== '' && <p>{answerIsNumeric
-        ? `You wrote ${shown.guess} for ${numeric.name}; the calculation gives ${round(shown.answer.value, numeric.digits ?? 6)}, ${guessed ? `within ${numeric.tolerance}` : `outside ${numeric.tolerance}`}.`
-        : `You wrote ${shown.guess} for ${numeric.name}, but there is no number to compare it against here: ${numeric.undefinedNote ?? 'the quantity is undefined for these inputs'}. That is not a near miss, and it is not zero.`}</p>}
-      {describe && <p>{describe}</p>}
-    </div>}
-    {/* A retired verdict appears ONLY beside a new one. Several of this
-        lesson's questions grade an absolute property of the committed draft, so
-        printing the previous outcome while the next prediction is being
-        recorded would hand over the answer — and for a null, the previous
-        outcome IS the answer. */}
-    {!shown && previous && <p className="hmm-history is-pending" role="status">
-      An earlier attempt is held. It stays hidden until you apply, so that it cannot answer the question now on
-      screen; the two results are then shown side by side.
-    </p>}
-    {shown && previous && (comparable
-      ? <p className="hmm-history">
-        {historyLabel ?? 'Compared with your previous attempt'}:{' '}
-        {groups.map(group => `${group.short ?? group.key} gave ${labelOf(group, previous.answer.outcomes[group.key])} then and ${labelOf(group, shown.answer.outcomes[group.key])} now`).join('; ')}.
-        {' '}{groups.every(group => previous.answer.outcomes[group.key] === shown.answer.outcomes[group.key])
-          ? 'The response categories agree; this alone does not mean the numerical values or inputs stayed fixed.'
-          : 'At least one response category changed between attempts.'}
-      </p>
-      : <p className="hmm-history">
-        Your previous attempt answered a different question, so the two results are not put side by side: comparing
-        them would compare two different quantities.
-      </p>)}
+
+
+
+
+export function LiveResult({ state, calculateInputs, blocked, describe }) {
+  const problem = useLiveResult(state, calculateInputs, blocked);
+  return <div data-live-exploration="result">
+    {problem ? <p role="status">{problem} The plots retain the last valid calculation; correct the inputs to update them.</p>
+      : <p role="status">Live calculation for the current controls. {describe}</p>}
+    <button type="button" disabled={Boolean(problem) || !state.result} onClick={state.snapshot}>Use current values as comparison baseline</button>
   </div>;
 }
 
@@ -562,11 +376,7 @@ export function Trellis({
   model, observations, mode = 'sum', focusTime = null, path = null, queryTime = null,
   showForbidden = false, showValues = true, label, describe,
 }) {
-  /* `showValues` is not decoration. Inside an investigation whose graded
-     quantity is derivable from the cell values, drawing them on first paint
-     hands over the answer before the prediction is recorded. The structure -
-     which reports are where, which edges exist, which node is queried - stays
-     visible, because that is what a learner is editing. */
+  
   const columns = observations.length;
   if (columns > maximumDrawnColumns) return null;
   const states = model.start.length;

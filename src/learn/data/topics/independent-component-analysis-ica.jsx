@@ -280,7 +280,7 @@ const icaContent = {
 
     <Prose>{'At the worked instant s = (1, −1)ᵀ, observed x = (1, −1)ᵀ. Component 2 contributes (−1, −2)ᵀ; subtracting that contribution leaves (2, 1)ᵀ, the first source’s contribution. The altered result is not expected to equal the original sensors.'}</Prose>
 
-    <Prose><strong>{'Investigation C1 — edit a contribution.'}</strong>{' Enter a new two-source amplitude pair and choose which component to keep. Record a predicted sensor amplitude before reconstructing. Observe the contribution vectors, their sum, and the removed difference. Then rescale a source and inversely rescale its mixing column: the reconstructed observations should stay fixed.'}</Prose>
+    <Prose><strong>{'Investigation C1 — edit a contribution.'}</strong>{' Enter a new two-source amplitude pair and choose which component to keep. Watch the sensor amplitudes update as you edit. Observe the contribution vectors, their sum, and the removed difference. Then rescale a source and inversely rescale its mixing column: the reconstructed observations should stay fixed.'}</Prose>
 
     <IcaContributionLab />
 

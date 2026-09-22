@@ -1,5 +1,8 @@
 # Dropout, DropPath & Stochastic Depth
 
+**Explore as you read.** Edit features/weights, probability, survivor scale, mask grouping, branch position, per-block rates and train/eval mode; inspect retained Monte Carlo prefixes. Update weighted outcome means/variances, gradient routes, call counts, state buffers and saved prediction distributions immediately. Keep the sampled mask fixed while comparing a parameter, with resampling a separate action. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose masking scope and evaluation behavior from their actual effects; distinguish expected active depth from work that was really skipped.
+
+
 ## Learn with some information temporarily missing
 
 Imagine recognizing a handwritten 8. A model might use its upper loop, lower loop, central narrowing and stroke locations. If training makes one combination indispensable, the model may struggle when a new handwriting style changes part of that combination. One possible training intervention is to randomly hide some intermediate values and still ask for the correct digit.
@@ -45,7 +48,7 @@ A gradient is the local sensitivity of loss to a small change. A gradient-descen
 
 That is not a promise that its optimizer value never changes: other examples, other paths, momentum or weight decay can still contribute. A fresh mask belongs to the next forward pass. Backpropagation must use the mask from the forward computation it differentiates.
 
-**Try before revealing:** keep the original weights but change the mask to \([0,1]\). Which weight receives a gradient? The masked representation becomes \([0,4]\), output −2, error −3 and weight gradient \([0,-12]\). The two masks train different dependencies of the same model.
+**Try a different mask:** keep the original weights and change the mask to $[0,1]$. Follow the changed gradient route: the masked representation becomes $[0,4]$, output −2, error −3 and weight gradient $[0,-12]$. The two masks train different dependencies of the same model.
 
 ## 2. Why divide by the keep probability?
 
@@ -179,6 +182,41 @@ Placing masking after a particular BatchNorm avoids directly masking that layer'
 
 For MC dropout, put the model in evaluation mode first, then selectively enable its dropout modules. Keep BatchNorm in evaluation mode. Our state probe verifies that `no_grad()` in training still increments a BatchNorm counter, while selective dropout activation does not. For functional calls, pass `training=self.training` during ordinary operation; a hardcoded `True` deliberately ignores `eval()`.
 
+## Use the mask contract in a library without changing its meaning
+
+Read `mask_values` in [the complete program](dropout-experiments.py) before the model. It is the scratch implementation: choose the broadcast shape, draw Bernoulli bits once, multiply, divide by keep probability, and bypass sampling in evaluation. Its array work is O(number of activation values); the random mask contains only as many independent entries as its chosen shape. `fixtures` keeps masks fixed for forward/backward arithmetic, while `DigitModel` shows ordinary `nn.Dropout` training. A stochastic sample is not an implementation-equivalence test just because two final losses look close.
+
+The usual interfaces for the four scopes are:
+
+```python
+import torch
+from torch import nn
+from torchvision.ops import stochastic_depth
+
+torch.manual_seed(9)
+features = torch.arange(1., 17.).reshape(2, 2, 2, 2)
+element = nn.Dropout(p=0.25)
+channel = nn.Dropout2d(p=0.25)
+print(element(features).shape, channel(features).shape)
+for mode in ("row", "batch"):
+    branch = stochastic_depth(features, p=0.25, mode=mode, training=True)
+    print(mode, branch)
+    torch.testing.assert_close(
+        stochastic_depth(features, p=0.25, mode=mode, training=False), features)
+element.eval()
+channel.eval()
+torch.testing.assert_close(element(features), features)
+torch.testing.assert_close(channel(features), features)
+```
+
+This standalone code needs compatible PyTorch/Torchvision versions. It requests the same mask geometry as the scratch implementation, but does not claim the random masks are identical. In `stochastic_depth`, row means one bit per batch member, even when each member contains many tokens or pixels; batch means one bit for the entire supplied tensor. Both mask the supplied **correction**, so the caller still adds the untouched residual input. The [maintained implementation](https://docs.pytorch.org/vision/main/_modules/torchvision/ops/stochastic_depth.html) makes that convention visible. Record the installed version when executing this newly prepared example.
+
+**Independent modification:** add a `locked_features` case for a sequence `[B,T,D]`, with independent bits shaped `[B,1,D]`. Let the caller supply a fixed mask for a deterministic comparison. Return identity in eval, zeros at p1 in training, and `values * mask / (1-p)` otherwise. Then differentiate the sum of the output.
+
+<details><summary>Hint</summary>The forward bit belongs to a feature/example pair; every time step must use the same bit, including backward.</details>
+
+<details><summary>Solution and success criteria</summary>For one example with time rows [1,2] and [3,4], p0.5 and mask [1,0], the result is [2,0] and [6,0]. The gradient of their total with respect to the input is [2,0] on both rows. A fresh backward mask or a `[B,T,D]` draw changes the contract. Test identity evaluation, p0 and p1 separately, and only then use random masks during training. A mask factory is a meaningful customization point; the loss, tensor gradients and optimizer can remain ordinary library operations.</details>
+
 ## 6. A complete experiment: does masking help these digits?
 
 Download [dropout-experiments.py](dropout-experiments.py), [digits-400.csv](digits-400.csv) and the [data provenance](data-provenance.md) into one directory. The program uses Python, PyTorch, NumPy and scikit-learn; run:
@@ -217,7 +255,7 @@ All but the element-0.8 configuration classify all 280 training images correctly
 
 Across seeds, the MLP's no-dropout validation correct count is 117–118, compared with 118 for all three element-0.2 runs. Seed 2's loss improves from 0.071144 to 0.067003 with 0.2, while seeds 1 and 3 slightly worsen. All recorded residual masking variants have worse final validation CE than their corresponding unmasked residual baseline. These observations support a narrow conclusion: masking is not clearly needed for this setup. They do not establish that a different dataset, architecture, schedule or training budget cannot benefit.
 
-**Investigate:** predict which of two saved runs has lower validation loss before opening the trace. Then compare correct counts and training loss. Explain why a smaller training–validation gap alone does not decide the winner. If you change a rate or budget in the program, keep the baseline, retain the new outputs and identify that as another validation experiment. A final generalization claim requires a separate evaluation plan.
+**Investigate:** compare the two saved runs with their validation-loss traces visible. Also compare correct counts and training loss. Explain why a smaller training–validation gap alone does not decide the winner. If you change a rate or budget in the program, keep the baseline, retain the new outputs and identify that as another validation experiment. A final generalization claim requires a separate evaluation plan.
 
 ## 7. Optional: several predictions from one dropout model
 

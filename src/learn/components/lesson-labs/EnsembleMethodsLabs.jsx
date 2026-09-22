@@ -1,7 +1,7 @@
 import { useId, useState } from 'react';
-import { Investigation, Predict, Stepper } from './LessonInvestigation.jsx';
+import { Investigation, Stepper } from './LessonInvestigation.jsx';
 import { LessonTable } from './LessonElements.jsx';
-import { ensembleNumber as number, errorBlendPresets, errorBlendState, votingState, bootstrapRows, bootstrapPresets, bootstrapState, boostingPresets, signedBoostingTrace, oofOwnershipState, calibratedAverageLaw } from '../../data/ensemble-methods-models.js';
+import { ensembleNumber as number, errorBlendPresets, errorBlendState, votingState, bootstrapRows, bootstrapState, boostingPresets, signedBoostingTrace, oofOwnershipState, calibratedAverageLaw } from '../../data/ensemble-methods-models.js';
 import './ensemble-methods-labs.css';
 import predictionMap from '../../data/ensemble-prediction-map.json';
 const colors = {
@@ -53,7 +53,7 @@ export function VotingComparisonLab() {
   const [lastWeight, setLastWeight] = useState(1);
   const state = votingState(probabilities, [1, 1, lastWeight]);
   return <Investigation id="ensemble-votes" kicker="WHAT DOES A MODEL CONTRIBUTE?" title="The same three forecasts can produce different decisions">
-    <Predict>Two models assign a 51% chance of delay. A third assigns 1%. Predict the majority ballot and the mean probability before changing anything.</Predict>
+    <p className="lesson-live-note">Two models assign a 51% chance of delay. A third assigns 1%. Compare the majority ballot and the mean probability before changing anything.</p>
     <p>Every probability refers to class 1: <strong>delayed</strong>. Class 0 means on time. Each member votes for its larger probability; all exact ties choose class 0.</p>
     <div className="ensemble-controls">
       {probabilities.map((value, index) => <Range key={index} label={`Model ${rowName(index)}: probability of delay`} value={value} min={0} max={1} onChange={next => setProbabilities(previous => previous.map((old, position) => position === index ? next : old))} />)}
@@ -78,7 +78,7 @@ export function ErrorCancellationLab() {
   const [weight, setWeight] = useState(0.5);
   const state = errorBlendState(preset, weight);
   return <Investigation id="ensemble-errors" kicker="AVERAGE SIGNED ERRORS" title="Move the prediction, then square its error">
-    <Predict>Can a weighted average have less squared error than both members? Predict what changes when both members are wrong in the same direction.</Predict>
+    <p className="lesson-live-note">Can a weighted average have less squared error than both members? Inspect what changes when both members are wrong in the same direction.</p>
     <label className="ensemble-select">Held-out error pattern<select value={preset} onChange={event => {
         setPreset(event.target.value);
         setWeight(0.5);
@@ -131,7 +131,7 @@ export function BootstrapOwnershipLab() {
   const state = bootstrapState(preset, bag, row);
   const fit = state.fits[bag];
   return <Investigation id="ensemble-bootstrap" kicker="DRAW ROWS, FIT, THEN CHECK ELIGIBILITY" title="A repeated row counts repeatedly in this fitted rule">
-    <Predict>In bag 1, A appears twice. May that fitted model provide an out-of-bag prediction for A? Predict which other models are allowed.</Predict>
+    <p className="lesson-live-note">In bag 1, A appears twice. May that fitted model provide an out-of-bag prediction for A? Inspect which other models are allowed.</p>
     <div className="ensemble-controls">
       <label className="ensemble-select">Draw preset<select value={preset} onChange={event => {
           setPreset(event.target.value);
@@ -181,7 +181,7 @@ export function AdaBoostWeightsLab() {
   const trace = signedBoostingTrace(preset);
   const frame = trace.frames[Math.min(step, trace.frames.length - 1)];
   return <Investigation id="ensemble-boosting" kicker="FIT USING WEIGHTS, THEN UPDATE THEM" title="One threshold changes which observations matter next">
-    <Predict>With six equally weighted cases, the best first stump misses only E. Predict E's share after the normalized update. Does a large point mean a confident model probability?</Predict>
+    <p className="lesson-live-note">With six equally weighted cases, the best first stump misses only E. Follow E's share through the normalized update. Does a large point mean a confident model probability?</p>
     <label className="ensemble-select">Training cases<select value={preset} onChange={event => {
         setPreset(event.target.value);
         setStep(0);
@@ -207,7 +207,7 @@ export function OOFOwnershipLab() {
   const state = oofOwnershipState(mode, completed, query);
   const active = state.stages[Math.max(0, completed - 1)];
   return <Investigation id="ensemble-oof" kicker="WHO WAS ALLOWED TO TRAIN ON THIS ROW?" title="Build the combiner's input matrix without leaking its targets">
-    <Predict>A one-nearest-neighbor regressor exactly recalls each training row. Would its training-set predictions tell the combiner how it behaves on a new row? Inspect what changes when that row is held out.</Predict>
+    <p className="lesson-live-note">A one-nearest-neighbor regressor exactly recalls each training row. Would its training-set predictions tell the combiner how it behaves on a new row? Inspect what changes when that row is held out.</p>
     <label className="ensemble-select">Base-fit ownership<select value={mode} onChange={event => {
         setMode(event.target.value);
         setCompleted(1);
@@ -275,7 +275,7 @@ export function EnsemblePredictionLab() {
   const cell = 276 / 24;
   const color = value => `rgb(${Math.round(64 + 74 * value)}, ${Math.round(97 - 25 * value)}, ${Math.round(112 + 26 * value)})`;
   return <Investigation id="ensemble-boundaries" kicker="ACTUAL FITTED RULES, ONE FIXED EXPERIMENT" title="Which differences survive the combination?">
-    <Predict>The line cannot surround an inner circle with one linear boundary. Will adding its probabilities necessarily improve a neighbor model that can follow the ring? Compare the saved models and their validation losses.</Predict>
+    <p className="lesson-live-note">The line cannot surround an inner circle with one linear boundary. Will adding its probabilities necessarily improve a neighbor model that can follow the ring? Compare the saved models and their validation losses.</p>
     <p>These are native scikit-learn predictions from the complete experiment below: 216 training, 72 validation and 72 test points. Both features are dimensionless synthetic coordinates. Controls inspect fixed fitted models; they do not retrain them.</p>
     <label className="ensemble-select">Saved fitted rule<select value={model} onChange={event => setModel(event.target.value)}>{Object.entries(mapLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
     <div className="ensemble-controls">

@@ -1,5 +1,8 @@
 # Long-Context Sequence Models: Transformer-XL, Griffin and Perceiver
 
+**Explore as you read.** Edit sequence records, segment and memory lengths, recurrence/input gates, latent queries and supported trajectory coordinates. Show legal donors, cache contents, retained/injected state, latent mixtures and exact frozen-model readouts as controls change. Compare reordering whole records with changing their positions. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a memory/compression scheme by what it preserves and loses, and separate context reach from usable information.
+
+
 A note at the beginning of a document says, “The backup entrance is on the east side.” Much later, someone asks which entrance to use. A model must carry that earlier information forward or be able to consult it again. Merely accepting the whole document as input does not tell us whether it can answer.
 
 The same problem appears outside text. A sound is a sequence of measurements; its identifying features may be spread across different moments. A long video contains many more pixels than we want to compare with every other pixel at every layer. We need a way to keep useful information available while controlling the work required to process it.
@@ -106,7 +109,7 @@ At the final query, compare three memory lengths:
 
 The output is a soft combination, not a lookup returning exactly 6. The larger cache makes the strong matching key available again. With M=4, every query in this five-position example sees the same legal keys as the full causal calculation, so their outputs agree. This equality holds here because the projections and positions are fixed and every required key remains available.
 
-**Investigation 1 — build the retained context.** Edit the five keys and values, place segment boundaries, and choose a memory length. Before revealing a selected query, record which positions you think will be visible and predict its output. The display exposes the actual cache, legal edges, denominator and weighted contributions. Change a future value and test an earlier query: its result should stay fixed. Move an informative key outside the retained cache and explain the change.
+**Investigation 1 — build the retained context.** Edit the five keys and values, place segment boundaries, and choose a memory length; show a selected query, record which positions you think will be visible and inspect its output. The display exposes the actual cache, legal edges, denominator and weighted contributions. Change a future value and test an earlier query: its result should stay fixed. Move an informative key outside the retained cache and explain the change.
 
 A real multilayer Transformer-XL can pass older information through representations that were themselves contextualized. Its indirect dependency paths differ from a single layer's list of visible positions. With the paper's one-segment memory construction, crossing a segment boundary also moves through a layer, giving a depth-dependent receptive field. A finite network and cache do not imply unlimited exact recall.
 
@@ -161,7 +164,7 @@ The normalization has a useful explanation. If hₜ₋₁ and the gated input ea
 
 For the six-step impulse above, use r₁=1/8 and r₂…r₆=.001. The final state is about .594668, close to the first state's .6. If we only set the later input gates to zero while leaving rₜ=1/8, the final state remains .196608. The inputs were already zero; stopping input admission did not stop the recurrence from decaying.
 
-**Investigation 2 — preserve or replace a memory.** Place nonzero events in a short sequence and edit the two gate sequences separately. Record a prediction about the final state, then step through retained and injected contributions. Test a later distractor or reverse two input events. The all-zero input from a zero initial state is a checked no-change case. Learn to say which gate caused a change, not just that “gating helps memory.”
+**Investigation 2 — preserve or replace a memory.** Place nonzero events in a short sequence and edit the two gate sequences separately. Show the current computed result and its contributing terms immediately. Test a later distractor or reverse two input events. The all-zero input from a zero initial state is a checked no-change case. Learn to say which gate caused a change, not just that “gating helps memory.”
 
 ### 4.1 The recurrent unit is one component of Griffin
 
@@ -199,7 +202,7 @@ The first workspace vector summarizes earlier values more strongly; the second s
 
 A uniform query gives the mean 6 for both [2,6,10] and [0,6,12]. If a later computation receives only that single mean, it cannot distinguish those two inputs. Once the inputs have collapsed to an identical representation, any deterministic downstream function must give them the same output. This is a concrete bottleneck failure, not a claim that every one-latent nonlinear model is exactly a mean.
 
-**Investigation 3 — choose what the workspace can distinguish.** Edit the values and their attached positions, and move the latent queries. Before revealing, predict which input will contribute most to each latent and whether two different input arrays will remain distinguishable. Reorder whole position/value records and observe the unchanged read; move values to different positions and observe the changed problem. Add a second query when it preserves a distinction your single summary discarded.
+**Investigation 3 — choose what the workspace can distinguish.** Edit the values and their attached positions, and move the latent queries; show inspect which input will contribute most to each latent and whether two different input arrays will remain distinguishable. Reorder whole position/value records and observe the unchanged read; move values to different positions and observe the changed problem. Add a second query when it preserves a distinction your single summary discarded.
 
 ### 5.2 Position is data when the encoder reads a set
 
@@ -335,11 +338,33 @@ This comparison is useful precisely because it separates representational possib
 
 **Inline figure: individual measured error marks.** Use separate validation and test panels, both on a zero-to-one-hundred-percent error axis. Show both baselines and the four individual runs, labeled with counts and seeds. Avoid a fitted line or a single average that hides disagreement.
 
-**Investigation 4 — inspect a learned read.** Select a validation trajectory, look at its numbered path and each latent's second-read weights, then record a prediction before moving one point, masking points or changing their attached positions. Recompute the frozen model's logits and weights. Compare its response with the mean-coordinate baseline on the same retained points. A changed hypothetical path has no automatically known new class label: predicting the model's behavior is different from proving it classified the edited movement correctly.
+**Investigation 4 — inspect a learned read.** Select a validation trajectory, look at its numbered path and each latent's second-read weights, then Show the current computed result and its contributing terms immediately. Recompute the frozen model's logits and weights. Compare its response with the mean-coordinate baseline on the same retained points. A changed hypothetical path has no automatically known new class label: predicting the model's behavior is different from proving it classified the edited movement correctly.
 
-Look for two different outcomes: an edit that changes the winning class, and a smaller edit that changes probabilities without changing that class. The distinction matters because a class label hides all changes that fall short of crossing a decision boundary. Explain both outcomes using the observed inputs and outputs after committing your prediction.
+Look for two different outcomes: an edit that changes the winning class, and a smaller edit that changes probabilities without changing that class. The distinction matters because a class label hides all changes that fall short of crossing a decision boundary. Explain both outcomes using the observed inputs and outputs ting the retained baseline.
 
 Two null checks passed for all four fitted models. Permuting complete coordinate-plus-position records preserves logits within floating-point tolerance. Appending five points filled with 1,000 but masked out also preserves logits. If masked points alter the output, a mask or an earlier operation has admitted information that was supposed to be absent.
+
+## Three complete implementation routes, with their boundaries exposed
+
+The local [sequence_mechanisms.py](sequence_mechanisms.py) owns the transparent cache, gated recurrence and latent-read arithmetic. The [latent_trajectory_classifier.py](latent_trajectory_classifier.py) owns a complete differentiable model and its learning/evaluation loop. The new [memory_library_bridge.py](memory_library_bridge.py) connects these mechanisms to ordinary maintained operators without calling a small fixture a full reproduction of three named systems.
+
+**Segment memory:** `check_segmented_attention` builds a real K/V cache, appends the current segment, constructs a causal mask using absolute retained positions, then keeps the last four entries. Its explicit stable score→softmax→weighted-sum path is compared to `F.scaled_dot_product_attention` on exactly the same projected values, including a final short segment. In SDPA's Boolean mask, `True` means allowed. Calling `is_causal=True` on a nonsquare query/cache matrix without considering alignment can select the wrong history. Detaching cache tensors cuts gradient history; it does not reset their values or make a stream's cache suitable for another stream.
+
+This is the segment-memory mechanism described in §3. It is not a complete Transformer-XL checkpoint: the paper also specifies layerwise hidden-state recurrence, relative-position scoring, normalization and a language-model head. Our illustrative distance bias and already-projected one-layer K/V cache must keep those labels. The later prepared [Self-Attention mechanism source](../self-attention-multi-head-attention/lesson.md) owns the full projected multihead attention construction; that improved page is not yet published and is a deeper reference rather than an unstated prerequisite for this local small read.
+
+**Recurrent memory:** `rglru_reference` goes beyond the earlier fixed scalar gates. It calculates learned block-diagonal input and retention gates, stable `-expm1(2*log_decay)` injection scale, per-example reset positions and each updated vector state. No recurrent-cell API hides that computation. The optional `check_griffin_component` copies actual DeepMind `RGLRU` parameters, compares outputs and the last cache, continues in two chunks and checks gradients. The native implementation clips an extreme square-root derivative for training stability; the comparison explicitly uses moderate float32 decay outside that clipped regime. This is the RG-LRU component, not an entire Griffin language model or its short temporal convolution/local-attention schedule. [Official recurrent component source](https://raw.githubusercontent.com/google-deepmind/recurrentgemma/main/recurrentgemma/torch/layers.py), inspected22September2026, owns the exact package convention.
+
+**Latent workspace:** `check_latent_read` reuses our existing learned `Attention` class, obtains its projected query/key/value tensors and passes those exact tensors to SDPA. It then applies the same output projection and compares outputs plus gradients for source, latent query and every parameter. The complete classifier alternates this read with latent self-attention and its feed-forward block. A generic full-input model would erase the architectural question; replacing only the matching read preserves it.
+
+Run `python memory_library_bridge.py` with PyTorch, NumPy and scikit-learn. Adding `--griffin` requires a compatible `recurrentgemma` installation with its Torch dependencies. The ordinary Torch comparisons and optional specialist program are supplied as executable instructional content; optional package parity is not claimed executed. Record the resolved package version when running it.
+
+The explicit attention reference materializes query×visible-key scores; the normal SDPA backend can avoid retaining that matrix under supported conditions. A bounded segment of length Q with M retained positions uses O(Q(Q+M)) score cells per head in the reference. RG-LRU streaming retains one width-sized state per example, while training retains its needed history. Latent reads use L×S score cells for L latents and S source positions. These are separate computational contracts, so there is no one “linear-memory” claim covering all three.
+
+**Change the stream.** Set segment length4, keep only2 previous positions, and process11 inputs. Then place a recurrent reset at position6 while preserving every input. Compare the supplied reference and package paths again.
+
+<details><summary>Hint</summary>The last segment has3 queries. Cache truncation discards earlier keys; a recurrent reset clears prior state for exactly the selected example.</details>
+
+<details><summary>Solution and success criteria</summary>Build legal key positions from the retained absolute indices plus the current segment, mask future indices, and trim the cache only after obtaining that segment's outputs. The first query of the last segment sees indices6,7,8; its later queries can also see9 and10 as they arrive. In RG-LRU, set `segment_pos[:,6]=0` and restart its within-document counter; the reset input uses the special fresh-document injection and cannot depend on the earlier cache. Verify unaffected earlier outputs and a changed post-reset state. This tests state ownership rather than memorizing model names.</details>
 
 ## 8. Deeper: gradients, budgets and a useful evaluation plan
 
@@ -396,7 +421,7 @@ For the movement exercise, the held-out unit is a complete trajectory, not a shu
 
 The named papers report historical experiments under their own data and hardware settings. We use them to investigate mechanisms and research evidence, without transplanting their numerical speedups into the small CPU examples here. The important practical habit is to preserve one interpretable change, a credible baseline, the task's information boundary and a result you can inspect.
 
-## 9. Practice: explain a change before running it
+## 9. Practice: implement a change and explain its effect
 
 ### 1. Repair a masked weighted average
 

@@ -32,7 +32,7 @@ Hurdle map:
 | LSTM as four unexplained boxes | Retain/write/add/expose arithmetic before gate equations | Signed cell accounting; output-only intervention |
 | Positive forget bias guarantees long memory | Exact fixed-factor decay/half-life and separate full-state Jacobian | Design retained fraction/horizon; optional derivative block |
 | GRU reset confused with clearing memory | Candidate path separate from z-retain blend | Before/after matrix mixing with computed counterexample |
-| High confidence implies correct/robust | Actual development probabilities and reversal/swap probes | Edit real points with fixed model, grade probability/class separately |
+| High confidence implies correct/robust | Actual development probabilities and reversal/swap probes | Edit real points with fixed model, Calculate and explain probability/class separately |
 | Chunking, detaching and resetting collapsed | Separate forward-state and backward-credit connections | Boundary intervention and exact forward/null gradient checks |
 | Padding zero treated as nonexistent | Valid-position ownership, causal versus backward path | Editable padding, packed/individual comparison, true final states |
 | Cell names substituted for deployment reasoning | Completed-trace availability and actual data split | Changed live-prefix study-design exercise |
@@ -118,7 +118,7 @@ All links checked/retrieved 13 September 2026. Only primary technical sources an
 Retained source/data packet:
 
 - `lesson.md` full learner manuscript with a complete nine-fit Python program and complete independent packing example.
-- `visual-specifications.md` six mechanism-specific forms, including real point edits, explicit prediction binding/grading and computed contrasts/nulls.
+- `visual-specifications.md` six mechanism-specific forms, including real point edits, explicit input/output consistency/result checks and computed contrasts/nulls.
 - `prepare-pen-data.py` / `pen-trajectories.csv` / `data-extraction.json` / `data-provenance.md` reproduce and explain the openly licensed real inputs.
 - `pen-sequence-learning.py` / `calculated-inputs.json` retain all actual fits, baselines, fixed-model probes and weights.
 - `recurrent-mechanics.py` / `mechanics-results.json` provide independent NumPy gates/traces, actual scalar/manual backward check, state/padding fixtures, Jacobian and mathematical contrasts.
@@ -133,12 +133,34 @@ Author closure: full manuscript and visual-specification reread, equation/variab
 
 ## Completed author closure
 
-Read the full written manuscript in three bounded file reads and the entire visual specification after writing. The reread corrected a changed-practice arithmetic approximation to 0.733564, made the elementwise product notation explicit, aligned the fitted-path prediction question with the selected-class grading contract, widened the manual forget-factor bound to include every derived target/horizon pair, and retained exact native boundary/padding weights for portable implementation. It also motivated the bounded A/B ownership contrast above. No model fits were repeated.
+Read the full written manuscript in three bounded file reads and the entire visual specification after writing. The reread corrected a changed-practice arithmetic approximation to 0.733564, made the elementwise product notation explicit, aligned the fitted-path prediction question with the selected-class grading contract, widened the manual forget-factor bound to include every derived target/horizon pair, and retained exact native boundary/padding weights for portable implementation. It also motivated the bounded A/B ownership contrast above. No model fits were repeated. **Historical interaction record:** the earlier prediction/reveal behavior described here is superseded by the 21 September live-exploration contract; it is not a phase-two implementation requirement. Preserve the recorded mathematical checks and fixtures.
 
 Learning-experience checklist completed: intuition before terms; explicit first-pass route; local notation and tensor axes; prior/next links in actual order; full mechanism and runnable real-data program; computed visual forms matched to each hurdle; distinct exact-formula and empirical evidence; useful application and availability limits; changed independent practice with 16 closed hint/solution blocks; annotated alternate resources; deeper material separated from readiness; browser compute bounded and lazy-load handoff explicit. Data and published-source hashes still match. Native and author checks passed after the final affected calculation changes. This is author closure of content, not independent phase-two review, publication or user acceptance.
 
 ## Focused reconciliation: fresh investigation defaults
 
-13 September 2026: root identified that B/C/D and E reused immediately worked examples as gated defaults. The manuscript and all nine fits remain unchanged. The visual specification now explicitly separates A's ungraded representation diagram from E's graded real-input investigation and B's scalar credit investigation from F's later state-boundary investigation. B uses fresh inputs/weights/target, C fresh cell/gate and retention questions, D a fresh matrix/reset problem, E a different real specimen (pendigits.tes:6, actual1), and F a fresh boundary3 plus lengths5/4/2 padding problem. Existing worked values remain explanatory fixtures; all fresh answers are author-only until prediction/reveal.
+13 September 2026: root identified that B/C/D and E reused immediately worked examples as gated defaults. The manuscript and all nine fits remain unchanged. The visual specification now explicitly separates A's ungraded representation diagram from E's computed real-input investigation and B's scalar credit investigation from F's later state-boundary investigation. B uses fresh inputs/weights/target, C fresh cell/gate and retention questions, D a fresh matrix/reset problem, E a different real specimen (pendigits.tes:6, actual1), and F a fresh boundary3 plus lengths5/4/2 padding problem. Existing worked values remain explanatory fixtures; all fresh answers are author-only until live comparison.
 
 Executed fresh-investigation-fixtures.py once with the existing NumPy/PyTorch CPU runtime and fixed saved models. Retained the full fresh inputs, actual original/changed pen-state traces, scalar losses/gradients, gate/retention curves, GRU placement values, state gradients/ownership and padding checks in fresh-investigation-fixtures.json. Verified target-only, zero-rate, zero-input-gate, reset-ones/diagonal, repeated-input, unchanged-prefix, reverse-twice, carry/detach, owned-state reorder and ignored-padding nulls. No data change, repeated fit, browser work or phase-two review. Reread the changed specification sections and checked whitespace. Original author checks/results remain valid for the unchanged manuscript/model experiments; the new file records the additional bounded calculations.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Carry and edit recurrent state. Edit sequence entries, recurrent weights, LSTM gates, GRU reset placement and supported pen-trajectory coordinates. Update state trajectories, retained/injected terms, shared-weight credit and exact learned outputs. Step, rewind and reset state explicitly; padding and request boundaries remain visible. Choose what must persist or reset, and diagnose saturation, reset-order differences and accidental cross-sequence leakage.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Translate gate equations into a reusable recurrent implementation” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| RNN/LSTM/GRU mechanisms, states and gate conventions | `recurrent-mechanics.py:manual_sequence, scalar_credit`; NumPy exact native-weight route | `pen-sequence-learning.py:PenClassifier`; nn.RNN/LSTM/GRU actual training | Chunk5 full/short-tail/detach extension with solution; exact gate/bias mapping |
+| Padding, batch identity, clipping and gradient memory | `state_and_padding`, author-checks and current complete model loop | pack_padded_sequence and clip_grad_norm_ used with stated semantics | Existing reorder/reset/pad practice retained; general AD is actual earlier owner |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.

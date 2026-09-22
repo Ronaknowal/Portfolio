@@ -1,0 +1,32 @@
+# Depthwise and dilated convolutions — independent implementation review
+
+22 September2026. Reviewer `convnext_finish`, separate from the Depthwise author. Reviewed prepared revision3 and current production body, generator, pure model, all six lab components, CSS, canonical code/data, author verification and [implementation record](DEPTHWISE-CONVOLUTIONS-IMPLEMENTATION.md). This review neither reruns the six fits nor claims final browser integration. Root owns corrections and that closure.
+
+## Coverage and teaching assessment
+
+The complete ten-section prepared sequence is retained: local tensor/channel vocabulary and weighted-sum example, shared-filter gradient update, bias-free cost calculation and exact rank restriction, dilation/stride/output shape distinctions, structural support versus influence, grouped code and bias/BN boundaries, mobile/segmentation context, real six-fit/SVD comparison, reuse/library ownership, eight changed tasks and annotated references. The beginner route is stated before technical branches. Later techniques have explained local meaning rather than unexplained API imports. Canonical downloads include complete code; on-page snippets are connected to those sources. Prior convolution/pullback links resolve to actual published code owners.
+
+Representations fit the topic: separate channel lanes and editable factors, read-address/product views, exact offset lattice, distinct finite-boundary map, parallel context routes, actual edited-digit inference and signed class scores. Current results are visible; no learner prediction/answer gate was added. Recorded all-seed metrics are separate from the two fixed live models. Source299/source32 diagnostic selection, arbitrary-edit label limits and full-rank cost tradeoff are explicit. No major missing conceptual, scratch or library route was found.
+
+## Complementary numerical evidence
+
+Reviewer scripts import no author Python model/helper and do no fitting:
+
+- `scripts/verify-depthwise-independent.py` constructs a float64 Torch inference oracle from stored state. For the compressed path it contracts factors into a dense effective kernel, then uses native dense convolution; the browser instead executes two grouped/pointwise passes. Three new images (continuous ramp, checkerboard, corner impulse) × two dilations × dense/four ranks give30score vectors,300logits. It also uses convolution/autograd for three new signed arithmetic fixtures and simultaneous updates.
+- `scripts/verify-depthwise-independent.mjs` compares those outputs/gradients with production mechanisms; maximum absolute discrepancy is1.4210854715202004e−14, below1e−10. It checks all6561four-layer schedules supported by the UI using polynomial coefficients/path multiplicity, including each81path total, complementing the author's three-layer enumeration. Deliberately wrong and nonfinite inputs make the comparison guard fail.
+- Results and current source digests are [independent evidence](evidence/depthwise-independent.json); the distinct [native oracle](evidence/depthwise-independent-native.json) records inputs and outputs. These are bounded mechanism checks, not claims that every future input/device or mathematical implementation is perfect.
+
+## Findings and closure contract
+
+1. **P1 — the weight-cost diagram's geometry can contradict its numbers.** The broad `.depthwise-architecture > div > span` declaration also matches `.depthwise-budget` segments and imposes `flex:1 1 130px`, padding and border. Both reduced segments can grow and visually fill the entire bar, undermining the intended comparison8768/73728. The budget container also inherits gap. Root must isolate/reset these styles, then assert painted segment widths proportional to576/73728 and8192/73728 and total8768/73728 at representative widths. A text-number check cannot close this.
+2. **P2 — small pixel/map buttons need full-size coordinate alternatives.** Eight-column finite-map/digit grids allow26px or smaller controls on phones; keyboard aria labels alone do not satisfy the current44px touch-target contract. Root should add full-size row/column/index controls or use an explicit44px scroll grid. Preserve a readable visual grid and the selection state; verify both editing routes drive the same output.
+
+Both findings were sent to root and accepted for correction. At this initial record the arithmetic review passes and the two presentation findings await correction/confirmation. Root's later browser checks must also cover actual range dragging, invalid-input retention, all supported largest-grid cases, fetched-source/model failure and retry, phone/desktop readability, theme, KaTeX radicals and the full reading flow. Do not infer that they passed from this source review.
+
+## Source and browser correction follow-up
+
+Root isolated the cost-bar flex/padding/gap styles and gave the mixing segment a sufficiently specific neutral selector. It added synchronized full-size row/column controls for both finite-map and digit selections; a measured43px initial select height was raised to44px. All six labs were exercised with meaningful changes, boundary/null/reset cases and real pointer/keyboard movement. A new complementary browser script verified the exact painted576/73728 and8192/73728 ratios at1366/390/320, distinct segment colors, coordinate-to-grid selection,44px targets, actual saved-model edits, deferred model/source failures and retries, canonical code bytes, no document overflow and intact KaTeX.
+
+At this follow-up those checks pass against current development source; final production refresh is recorded separately in [modern convolution browser evidence](evidence/modern-convolution-browser/report.json). Twelve captured viewports cover both modern-convolution lessons. The reviewer actually inspected desktop cost/digit views,390px cost and320px digit controls: reduced bars have their correct shared scale; visible text, diagrams and selections remain readable. No remaining Depthwise source finding; parent owns the final build/source-bound completion.
+
+Final production follow-up: the current4194build passed all17modern-convolution groups on22September2026; the report binds corrected source and all12captures. Both Depthwise findings are closed by actual painted geometry/interaction evidence, with no remaining scoped finding. The reviewer inspected the final320px cost and390px digit view as well as the earlier same-source desktop/phone views. Shared phase/ledger completion remains the integration owner's responsibility.

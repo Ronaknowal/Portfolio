@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "timestamp": "2026-09-21T17:44:25.714Z",
+  "reviewer": "implement_dl_backprop (independent of Perceptrons author)",
+  "groups": [
+    "54 off-grid smooth-point derivative checks use finite differences of the forward values, independently of the saved PyTorch oracle.",
+    "Orthogonal projection, signed distance and coefficient scaling checked at four changed states, including an off-window foot and exact tie.",
+    "Changed XOR, piecewise triangle and separate feature/sequence resource calculations.",
+    "Exact displayed-program identity and all-sample chart domains checked; existing complete training and dense oracle receipts reused."
+  ],
+  "assertions": 100,
+  "largestDerivativeError": 2.0429746783179326e-10,
+  "reusedEvidence": [
+    "docs/teaching/evidence/perceptron-native.json",
+    "docs/teaching/evidence/perceptron-models.json",
+    "docs/teaching/evidence/perceptron-activation-oracle.json",
+    "docs/teaching/evidence/perceptron-browser.json"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "f4fd2a1e6e55e2779dda00ab856a727168b06f4db0c7b713db9f49455085b7c7",
+    "src/learn/data/perceptron-models.js": "629fca099a9b936f8a74251e834b93732c8dfcc900ec42e770e73b49cab5f0fd",
+    "src/learn/data/perceptron-data.js": "ef7354f1e75e1da77ae0333b9e44fa60b3987aa8fbf0c3b7066e3a54a680023a",
+    "src/learn/data/perceptron-examples.js": "bc8d5c61058d5a2492de0dcf4158d6db56cda12b23fc57a9b7ac5c83370807ef",
+    "src/learn/components/lesson-labs/PerceptronShared.jsx": "35887315deacf6c1c58cafaf4cd4b41c674e379f78bb9169539179e2d2be364d",
+    "src/learn/components/lesson-labs/PerceptronLabs.jsx": "e954605d3df0bf4d8d583ddfa174eceef1da49ae182dee01395e8dffc852aeee",
+    "src/learn/components/lesson-labs/PerceptronFigures.jsx": "914e9264d76e3c68be60ec8e6e180a97ee76659c203b227a3e8e843d4c492919",
+    "src/learn/components/lesson-labs/perceptron-labs.css": "bd7ae52d92ca3c9b50f6075e1f35ae0144fe7dc474909f48f43e6cf5b4a21f1c",
+    "src/learn/data/curriculum/blueprints/perceptrons-neurons-activation-functions.js": "2a1564b94df6647600097212f90f076d42e2face6944da092105624bc9a2cf23",
+    "scripts/verify-perceptron-review.mjs": "0e09c43e9201f0cd1b7f45fb35d084d0128d87d7b1f5670622690045eb12f828"
+  }
+}

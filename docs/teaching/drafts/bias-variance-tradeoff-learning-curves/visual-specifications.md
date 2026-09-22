@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Bias–variance visual and investigation contracts
 
 Content specifications, 12 September 2026. Consume [lesson.md](lesson.md), [design.md](design.md), [calculated-inputs.json](calculated-inputs.json) and the retained data/calculation files. These contracts are written; no production component, interactive model, rendered figure or independent phase-two review exists yet.

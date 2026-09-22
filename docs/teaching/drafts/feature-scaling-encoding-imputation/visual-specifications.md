@@ -1,5 +1,14 @@
 # Feature preparation: visual and investigation contracts
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit query coordinates and divisors and inspect distance contributions live; clear donor measurements, change target column and neighbour count and inspect eligible donors and imputation; select or edit a held-out record and inspect its transformation under the frozen training-fitted bundle; change categories, targets, folds or smoothing and follow the donor graph without crossing held-out-label boundaries.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Research/write packet, 12 September 2026. These are complete implementation instructions, not a claim that UI or a live lab exists. Read lesson.md in sequence before implementing. All concrete observed results are in calculated-inputs.json; constructed fixtures are explicitly identified below. Preserve the distinction between a training-fitted rule and a changed later record.
 
 ## Shared behavior without forcing shared appearance

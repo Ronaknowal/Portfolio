@@ -76,7 +76,7 @@ const pcaContent = {
       <Prose>The score changes sign. The direction also changes sign, so their product does not: (−z)(−v₁) = zv₁. The reconstruction is still (1.5, 0.5). This is why a sign-flipped component describes exactly the same model.</Prose>
     </Checkpoint>
     <H3>Investigation: find the most useful ruler</H3>
-    <Prose>Start with the four observations. Record whether you expect turning the horizontal ruler toward the diagonal to decrease, increase or preserve the total squared reconstruction error. Rotate it, compare the result with your prediction, and inspect the perpendicular residual segments.</Prose>
+    <Prose>Start with the four observations. Turn the horizontal ruler toward the diagonal and follow the total squared reconstruction error live. Compare different angles and inspect the perpendicular residual segments that account for the change.</Prose>
     <PcaProjectionLab />
     <Prose>Then change one observation yourself. Does the best direction move toward it? Finally, translate all four observations by the same amount and refit. The mean moves; the centered geometry, the variances and every loss stay exactly the same. Reset restores the four original observations so you can check the calculation above.</Prose>
 
@@ -126,7 +126,7 @@ const pcaContent = {
     <MathBlock>{'y_{ij}=\\frac{x_{ij}-\\mu_j}{s_j}.'}</MathBlock>
     <Prose>A difference of one then means one fitted standard deviation for that feature. On the rectangle, standardization produces a square with equal variance along the two coordinates. No unique first direction is preferred. It does not uncover a secret diagonal; it makes the symmetry explicit.</Prose>
     <PcaMetricLab />
-    <Prose>Try a multiplier you choose, then repeat with standardization. Edit the rectangle’s width or height and predict the multiplier at which the two axes tie: it is the ratio of width to height.</Prose>
+    <Prose>Try a multiplier you choose, then repeat with standardization. Edit the rectangle’s width or height and locate the multiplier at which the two axes tie: it is the ratio of width to height.</Prose>
     <H3>Make a scaling decision for the wines</H3>
     <Prose>For this exploratory view, we want each chemical feature to contribute on a comparable relative scale. We will standardize. That is a modeling choice, not a universal preprocessing law. If a later task supplies measurement-error variances or physical costs, those may define a more appropriate weighting. Standardizing a nearly constant noisy feature can give its noise disproportionate influence.</Prose>
     <Prose>The following analysis describes <strong>all 178 supplied observations</strong>. Its purpose is to compare representations of this fixed collection. The next section starts a separate train/validation analysis for choosing a representation for other observations.</Prose>

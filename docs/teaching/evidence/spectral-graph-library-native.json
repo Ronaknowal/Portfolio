@@ -1,0 +1,16 @@
+{
+  "source": "public/learn-assets/spectral-graph/spectral_library.py",
+  "sha256": "5f5f2b64466a71c91eaca7eca324a306be8eea93aa1a64e6e741aa3f475ac0fd",
+  "command": "python public/learn-assets/spectral-graph/spectral_library.py",
+  "environment": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "torch": "2.14.0+cpu"
+  },
+  "pytensorCache": "workspace-local; default compiler backend",
+  "exitCode": 0,
+  "seconds": 7.321,
+  "stdout": "Small eigenvalues: [0.0, 0.012599, 0.038124]\nDense/sparse eigenspace and residual errors < 1e-10\nAll routes group ABC / DEF / GHI; normalized cut 0.052290\nChanged k=1 has cut 0; isolated vertex rejected by explicit policy\n",
+  "stderr": ""
+}

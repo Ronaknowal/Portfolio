@@ -1,16 +1,22 @@
 {
-  "verifiedAt": "2026-09-14T17:11:22.529459+00:00",
+  "verifiedAt": "2026-09-21T18:26:32.627268+00:00",
   "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
   "source": "src/learn/data/scaling-examples.js",
-  "sourceHash": "0ef4de579fe7b3a38a15d10dbc8e6f8265081d6f13a82894cd5d91140aefd2ef",
+  "sourceHash": "c5bd20f01db2d04ef6185621a654dad09f10bd78695eb6b36dc3ee588db60287",
   "verifier": "scripts/verify-scaling-examples.py",
-  "verifierHash": "55ad5ebc51eaa9b08325ac27e7d73b96f507c55cbede14bafbe2b7be5ab31921",
+  "verifierHash": "1ff12cebd34c8f59ea87dc2211bb7571b4260ea1444864f752989aa9d00d2cd6",
   "versions": {
     "numpy": "2.3.5",
     "pandas": "3.0.1",
     "scikit-learn": "1.9.1"
   },
   "programs": {
+    "fittedStateParity": {
+      "file": "fitted_preparation.py",
+      "codeHash": "c2a37882bc45cf94533dba7d187d9957aec17b018a77ae135399647348d57f05",
+      "stdoutHash": "84d92eefa8ad451c377ab583b9e0e6ec0f3fbd45dca14ef45977770c5fcc08eb",
+      "stdout": "category columns: ['a', 'b', 'not_recorded']\nmedians: [20.0, 300.0, 7.0]\nnew rows: [[0.707107, 0.0, 2.0, 0.0, 0.0, 0.0], [0.0, 2.828427, 0.0, 0.0, 0.0, 1.0]]\nlibrary parity: True\nedited second coordinate: 4.949747"
+    },
     "penguinExperiment": {
       "file": "penguins_prepare.py",
       "codeHash": "71e52b36515fbff999894994ad24605a83099c115539e8870562dbcd190a9e94",
@@ -24,7 +30,7 @@
       "stdout": "[0.555556 0.777778 0.222222 0.444444 0.222222 0.777778]\n[0.555556 0.222222 0.222222 0.222222 0.222222 0.555556]"
     }
   },
-  "oracles": 24,
+  "oracles": 37,
   "limits": [
     "The penguin program ran against the served copy of the supplied CSV; no network access was used.",
     "One fixed stratified split of one curated collection; the comparison is a single controlled demonstration.",

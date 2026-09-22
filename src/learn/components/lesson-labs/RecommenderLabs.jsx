@@ -23,7 +23,7 @@ function Investigation({
   reset,
   children
 }) {
-  return <section className="rec-investigation" aria-label={title}><div className="rec-heading"><h3>{title}</h3><button onClick={reset}>Reset</button></div><p className="rec-predict"><strong>Predict first.</strong> {prompt}</p>{children}</section>;
+  return <section className="rec-investigation" aria-label={title} data-live-exploration><div className="rec-heading"><h3>{title}</h3><button onClick={reset}>Reset</button></div><p className="rec-predict">{prompt}</p>{children}</section>;
 }
 function Matrix({
   rows,

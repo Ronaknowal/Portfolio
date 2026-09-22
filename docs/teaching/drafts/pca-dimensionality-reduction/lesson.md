@@ -1,5 +1,7 @@
 # PCA & Dimensionality Reduction
 
+> Current lab UX, 21 September 2026: controls show live calculations and topic-specific visuals without learner prediction entry, grading or guess-to-reveal screens. Genuine algorithm steps, separate practice and data-role boundaries remain. See [the current migration record](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md).
+
 <!-- Content-first manuscript, 12 September 2026. Visual anchors refer to visual-specifications.md; they are authoring instructions, not learner-facing placeholders. Rendered visuals/labs and website integration are deferred. Preserve the explanations even when adapting their presentation. -->
 
 ## 1. Can we keep fewer numbers without losing the pattern?
@@ -106,7 +108,7 @@ The score changes sign. The direction also changes sign, so their product does n
 
 ### Investigation: find the most useful ruler
 
-<!-- Lab L1: projection workbench. Record a prediction before comparing; editable observations, direction handle and exact-value keyboard inputs. -->
+<!-- Lab L1: projection workbench. Compare live residuals on editable observations using a direction handle and exact-value keyboard inputs. -->
 
 Start with the four observations. Record whether you expect turning the horizontal ruler toward the diagonal to decrease, increase or preserve the total squared reconstruction error. Rotate it, compare the result with your prediction, and inspect the perpendicular residual segments.
 
@@ -389,7 +391,7 @@ Seven components leave 12.65% of baseline error. Eight leave 9.60%, so **eight i
 
 <!-- Lab L3: component-budget explorer. Exact training/validation split, empirical error curve including k=0 and all 13; user-set budget and feature-level residual inspection. -->
 
-In the budget explorer, commit your predicted smallest count before revealing the crossing. Set a different error budget yourself. Then choose a validation observation and compare its original and reconstructed feature values. Does acceptable average error hide a particularly poor measurement? This connects the whole-dataset curve to an individual record.
+In the budget explorer, change the error budget and follow the first qualifying count and curve crossing immediately. Then choose a validation observation and compare its original and reconstructed feature values. Does acceptable average error hide a particularly poor measurement? This connects the whole-dataset curve to an individual record.
 
 **Why not just minimize validation reconstruction error?** With one fixed orthonormal basis, each added component removes a nonnegative squared residual for every observation. The error therefore cannot increase as `k` grows—even on validation data. Minimizing that error alone selects all dimensions. Compression needs a budget, penalty or constraint in addition to error.
 

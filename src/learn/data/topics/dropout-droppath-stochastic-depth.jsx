@@ -1,923 +1,410 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+// Full prepared revision-3 manuscript, rendered at authoring time.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { DropoutUpdateLab, DropoutExpectationLab, DropoutGeometryLab, DropoutBranchLab, DropoutDepthLab, DropoutModeLab, DropoutMeasuredLab, DropoutMonteCarloLab, DropoutProgram } from '../../components/lesson-labs/DropoutLabs.jsx';
 
-const dropoutDroppathContent = {
-  title: "Dropout, DropPath & Stochastic Depth",
-  readTime: "~38 min",
-  content: () => (
-    <div>
+export default {
+  title: 'Dropout, DropPath & Stochastic Depth',
+  readTime: '~65 min read + experiments and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="neural-lesson dropout-lesson">
+    <LessonIntro prerequisites="Activations, multiplication, means and a loss gradient. The previous residual-connections lesson explains the direct and correction paths; mask probabilities and tensor axes are introduced here." sections={[["learn-with-some-information-temporarily-missing","Learn with some information temporarily missing"],["1-a-mask-changes-values-then-changes-an-update","1. A mask changes values, then changes an update"],["2-why-divide-by-the-keep-probability","2. Why divide by the keep probability?"],["3-what-gets-hidden-geometry-matters","3. What gets hidden? Geometry matters"],["4-drop-the-correction-while-keeping-the-direct-path","4. Drop the correction while keeping the direct path"],["5-modes-state-and-a-normalization-trap","5. Modes, state and a normalization trap"],["use-the-mask-contract-in-a-library-without-changing-its-meaning","Use the mask contract in a library without changing its meaning"],["6-a-complete-experiment-does-masking-help-these-digits","6. A complete experiment: does masking help these digits?"],["7-optional-several-predictions-from-one-dropout-model","7. Optional: several predictions from one dropout model"],["8-optional-choose-a-noise-pattern-for-a-reason","8. Optional: choose a noise pattern for a reason"],["9-practice-with-changed-inputs","9. Practice with changed inputs"],["10-continue-and-read-another-explanation","10. Continue and read another explanation"]]}>Follow a mask through values, gradients, network geometry and real training evidence.</LessonIntro>
+<Prose>{""}<strong>{"Explore as you read."}</strong>{" Edit features/weights, probability, survivor scale, mask grouping, branch position, per-block rates and train/eval mode; inspect retained Monte Carlo prefixes. Update weighted outcome means/variances, gradient routes, call counts, state buffers and saved prediction distributions immediately. Keep the sampled mask fixed while comparing a parameter, with resampling a separate action. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose masking scope and evaluation behavior from their actual effects; distinguish expected active depth from work that was really skipped."}</Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+<H2>{"Learn with some information temporarily missing"}</H2>
 
-      <Prose>
-        Deep networks have more parameters than samples. A 60-layer ResNet, a ViT-Large, a modern LLM — all of them could, in principle, memorize their training set. The mathematical definition of overfitting is when the gap between training loss and held-out loss widens indefinitely. Weight decay helps. Data augmentation helps. Early stopping helps. But none of these address the specific pathology of overparameterized deep networks: co-adaptation — where a neuron becomes dependent on a specific combination of other neurons being present to produce a meaningful signal. Co-adapted features are brittle. They work on the training distribution and collapse on anything else.
-      </Prose>
+<Prose>{"Imagine recognizing a handwritten 8. A model might use its upper loop, lower loop, central narrowing and stroke locations. If training makes one combination indispensable, the model may struggle when a new handwriting style changes part of that combination. One possible training intervention is to randomly hide some intermediate values and still ask for the correct digit."}</Prose>
 
-      <Prose>
-        The first attack on this problem came from Geoffrey Hinton and his students at the University of Toronto in 2012. In a technical report titled "Improving neural networks by preventing co-adaptation of feature detectors" (arXiv:1207.0580), Hinton, Srivastava, Krizhevsky, Sutskever, and Salakhutdinov proposed a deliberately destructive intervention: at each forward pass during training, pick a random half of the hidden units and zero them out. The network has to learn representations that are robust to this sabotage. No neuron can assume its neighbor will be there to pick up the slack. They called it dropout. The technique appeared prominently in AlexNet that same year (Krizhevsky, Sutskever, Hinton, NeurIPS 2012) and was credited as one of the reasons AlexNet shattered ImageNet records.
-      </Prose>
+<Prose>{""}<strong>{"Dropout"}</strong>{" does this temporary hiding. The values return on another pass; parameters are not permanently deleted. "}<strong>{"DropPath"}</strong>{", commonly used for a form of "}<strong>{"stochastic depth"}</strong>{", hides an entire learned correction in a residual block. Both modify the training problem. Their usefulness must be checked on examples excluded from fitting."}</Prose>
 
-      <Prose>
-        The full theoretical treatment came two years later. Srivastava, Hinton, Krizhevsky, Sutskever, and Salakhutdinov published "Dropout: A Simple Way to Prevent Neural Networks from Overfitting" in the Journal of Machine Learning Research, volume 15, pages 1929–1958, in 2014. This paper formalized the method, connected it to model averaging over an exponential family of subnetworks, and documented gains across MNIST, SVHN, CIFAR, ImageNet, TIMIT, and Reuters. The paper explicitly framed dropout as an ensemble method in disguise — a single network that behaves like an average over <Code>{"2^N"}</Code> thinned networks sharing weights. The JMLR paper is the one everyone cites today.
-      </Prose>
+<Prose>{"The "}<a href={"/learn/path/full-curriculum/residual-connections-skip-connections?module=deep-learning-fundamentals"}>{"previous lesson on residual connections"}</a>{" showed that a direct path can preserve a representation while another path changes it. Here we ask what happens when the correction is sometimes absent."}</Prose>
 
-      <Prose>
-        Theoretical understanding followed quickly. Stefan Wager, Sida Wang, and Percy Liang published "Dropout Training as Adaptive Regularization" at NeurIPS 2013 (arXiv:1307.1493), proving that for generalized linear models dropout is approximately equivalent to an adaptive L2 penalty, with per-feature strength determined by the Fisher information. Dropout was not just a heuristic — it was a principled form of regularization with a well-defined expectation. Yarin Gal and Zoubin Ghahramani then pushed the interpretation further. In "Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning" (ICML 2016, arXiv:1506.02142), they showed that training a network with dropout is mathematically equivalent to variational inference in a deep Gaussian process — and that keeping dropout on at test time and averaging multiple forward passes yields a Bayesian posterior predictive distribution. Monte Carlo Dropout was born.
-      </Prose>
+<Prose>{""}<strong>{"First pass:"}</strong>{" follow the two-value example, mask geometry, residual branch calculation, train/evaluation mode distinction and real digit comparison; then try practice 1–5. Monte Carlo uncertainty and specialized noise families are optional deeper branches. You need multiplication, averages, a loss and its gradient; these are refreshed where used."}</Prose>
 
-      <Prose>
-        Meanwhile the vision community was hitting its own wall. ResNets (He et al. 2015) had shown that depth beyond 100 layers was possible, but training 1000-layer ResNets was punishingly slow and gradients still degraded. Gao Huang, Yu Sun, Zhuang Liu, Daniel Sedra, and Kilian Weinberger proposed a counter-intuitive fix in "Deep Networks with Stochastic Depth" (ECCV 2016, arXiv:1603.09382): during training, randomly drop entire residual blocks. If block <Code>{"l"}</Code> is dropped, the forward pass becomes <Code>{"x_{l+1} = x_l"}</Code> — just the identity shortcut. With a linear schedule of drop probabilities growing from 0 at the input to <Code>{"0.5"}</Code> at the output, a 1202-layer ResNet trained faster than the standard 110-layer version and achieved lower test error. The trick was that the expected network depth during training was shorter than the architectural depth, but the full depth was used at inference.
-      </Prose>
+<H2>{"1. A mask changes values, then changes an update"}</H2>
 
-      <Prose>
-        Xavier Gastaldi's "Shake-Shake regularization" (ICLR 2017 Workshop, arXiv:1705.07485) and Yoshihiro Yamada, Masakazu Iwamura, and Koichi Kise's "ShakeDrop Regularization" (arXiv:1802.02375) extended the idea by mixing branch outputs with random coefficients rather than dropping them entirely. The modern Vision Transformer era took the stochastic-depth concept and renamed the per-sample branch-drop operation DropPath. Touvron et al.'s "CaiT: Class-Attention in Image Transformers" (arXiv:2103.17239) and Liu et al.'s ConvNeXt (arXiv:2201.03545) use DropPath with linearly ramped drop rates as a standard regularizer — the timm library (<Code>timm.layers.DropPath</Code>) made the implementation universal.
-      </Prose>
+<Prose>{"Suppose a hidden representation is "}<InlineMath>{"h=[1,2]"}</InlineMath>{". A scalar output uses weights "}<InlineMath>{"w=[1,-0.5]"}</InlineMath>{":"}</Prose>
 
-      <Prose>
-        The recurrent world adapted the idea differently. David Krueger et al.'s Zoneout (arXiv:1606.01305, 2016) stochastically preserves hidden states across timesteps rather than zeroing activations — a recurrence-aware regularizer. For convolutional feature maps, Golnaz Ghiasi, Tsung-Yi Lin, and Quoc Le's DropBlock (NeurIPS 2018, arXiv:1810.12890) observed that standard dropout on feature maps is weak because spatially adjacent activations are highly correlated: dropping one pixel is trivially recovered from its neighbors. DropBlock drops contiguous square regions instead. And Xiang Li et al.'s "Understanding the Disharmony between Dropout and Batch Normalization" (CVPR 2019, arXiv:1801.05134) explained why mixing dropout with batch normalization degrades performance — the variance shift caused by dropped activations breaks BN's running statistics.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\hat y=w^\\top h=1(1)-0.5(2)=0."}</MathBlock></div>
 
-      <Callout type="insight">
-        Each method adds stochasticity at a different granularity. Dropout zeros individual activations. Spatial Dropout zeros whole channels. DropBlock zeros contiguous spatial regions. DropPath zeros entire residual branches per sample. Stochastic Depth zeros blocks per batch. Zoneout preserves recurrence states. The right granularity depends on what structure in your network is correlated — and thus what kind of sabotage actually destroys information.
-      </Callout>
+<Prose>{"Let the target be 1. We use half-squared error "}<InlineMath>{"L=\\tfrac12(\\hat y-1)^2"}</InlineMath>{", so the unmasked loss is 0.5."}</Prose>
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<Prose>{"Set the "}<strong>{"drop probability"}</strong>{" to "}<InlineMath>{"p=0.5"}</InlineMath>{". The keep probability is "}<InlineMath>{"q=1-p=0.5"}</InlineMath>{". Independently for each value, sample a bit: 1 means keep, 0 means hide. Such a bit is a "}<strong>{"Bernoulli random variable"}</strong>{". Suppose the sampled mask is "}<InlineMath>{"m=[1,0]"}</InlineMath>{"."}</Prose>
 
-      <H3>2.1 Dropout as ensemble averaging</H3>
+<Prose>{"Modern inverted dropout multiplies by the mask and divides surviving values by the keep probability:"}</Prose>
 
-      <Prose>
-        The cleanest way to think about dropout is as implicit ensembling. A network with <Code>N</Code> hidden units has <Code>{"2^N"}</Code> possible subsets of active units — each subset defines a different subnetwork (a "thinned" network in Srivastava's terminology). At each training step, dropout samples one of these <Code>{"2^N"}</Code> subnetworks uniformly and trains it. All subnetworks share weights, which is what makes the procedure tractable. At inference, you would ideally average over all <Code>{"2^N"}</Code> subnetworks, which is intractable. The dropout trick is that using the full network with scaled activations is an excellent approximation to that ensemble average — exact for linear networks, approximate but accurate for nonlinear ones.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\widetilde h=\\frac{m\\odot h}{q}=[2,0],\\qquad\n\\hat y=w^\\top\\widetilde h=2."}</MathBlock></div>
 
-      <Prose>
-        This ensemble view explains why dropout works well even on small datasets. Bagging — training many different models on bootstrapped subsets of the data — is a classical variance-reduction technique. Dropout achieves a similar variance reduction without training many models: the single weight-sharing network represents the entire ensemble implicitly. The cost is paid only at training time (extra stochasticity slows convergence slightly) and is zero at inference.
-      </Prose>
+<Prose>{"The output moved from 0 to 2; it did not become the target. The sampled loss is again 0.5, now with error in the opposite direction."}</Prose>
 
-      <H3>2.2 Inverted dropout scaling</H3>
+<Prose>{"Trace the gradient through these actual values:"}</Prose>
 
-      <Prose>
-        A neuron that survives with probability <Code>{"1-p"}</Code> during training has expected activation <Code>{"(1-p)·a"}</Code> where <Code>a</Code> is its value when kept. At test time, with all neurons active, the activation is <Code>a</Code> — so the expected scale at test differs from training by a factor of <Code>{"1/(1-p)"}</Code>. To make training and evaluation numerically compatible without any special case at inference, frameworks use inverted dropout: during training the surviving activations are divided by <Code>{"1-p"}</Code>. This preserves expected activation magnitude at training time and makes test time a pure pass-through — a single code path instead of two. PyTorch's <Code>nn.Dropout</Code>, TensorFlow's <Code>tf.keras.layers.Dropout</Code>, and every modern library use inverted dropout.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\frac{\\partial L}{\\partial w}\n=(\\hat y-1)\\widetilde h=[2,0],\n\\qquad\n\\frac{\\partial L}{\\partial h}\n=(\\hat y-1)w\\odot m/q=[2,0]."}</MathBlock></div>
 
-      <H3>2.3 Co-adaptation prevention</H3>
+<Prose>{"A gradient is the local sensitivity of loss to a small change. A gradient-descent step of size 0.1 gives "}<InlineMath>{"w_{\\mathrm{new}}=[0.8,-0.5]"}</InlineMath>{". With this same mask, the new output is 1.6 and loss is 0.18. The second weight receives no contribution from this example through the dropped coordinate."}</Prose>
 
-      <Prose>
-        The original 2012 paper's framing was that neurons co-adapt: neuron A learns to produce feature <Code>f</Code> only in the context of neuron B also firing, so neither A nor B alone is meaningful. This is a form of redundancy elimination that looks efficient on the training set but is catastrophic under distribution shift. Dropout forces each neuron to be useful on its own, because the context in which it appears at each forward pass is unpredictable. The resulting features are more redundant (multiple neurons learn similar things) but each is individually robust. Redundancy is what we want — it is the opposite of memorization.
-      </Prose>
+<Prose>{"That is not a promise that its optimizer value never changes: other examples, other paths, momentum or weight decay can still contribute. A fresh mask belongs to the next forward pass. Backpropagation must use the mask from the forward computation it differentiates."}</Prose>
 
-      <H3>2.4 Stochastic depth and DropPath</H3>
+<DropoutUpdateLab />
 
-      <Prose>
-        In a residual network, a block computes <Code>{"x_{l+1} = x_l + F(x_l)"}</Code>. Stochastic depth replaces this with <Code>{"x_{l+1} = x_l + m · F(x_l)"}</Code> where <Code>{"m ~ Bernoulli(1-p)"}</Code>. When <Code>{"m = 0"}</Code>, the block is skipped — only the identity shortcut remains. The crucial architectural property that makes this work is the residual structure: with standard layers, skipping the layer would produce a completely different signal. With residuals, skipping produces the same signal you would have had without that layer's refinement.
-      </Prose>
+<Prose>{""}<strong>{"Try a different mask:"}</strong>{" keep the original weights and change the mask to "}<InlineMath>{"[0,1]"}</InlineMath>{". Follow the changed gradient route: the masked representation becomes "}<InlineMath>{"[0,4]"}</InlineMath>{", output −2, error −3 and weight gradient "}<InlineMath>{"[0,-12]"}</InlineMath>{". The two masks train different dependencies of the same model."}</Prose>
 
-      <Prose>
-        DropPath is the per-sample version. Instead of deciding once per batch whether to drop the block, the mask is per-sample: <Code>{"m"}</Code> has shape <Code>{"(B, 1, 1, ...)"}</Code>, so within one batch some samples bypass the block entirely while others see <Code>{"F(x)"}</Code> at full strength. This preserves batch normalization statistics better (BN sees a mix of both cases) and gives finer-grained regularization. Modern ViT and ConvNeXt implementations use DropPath, not block-level stochastic depth.
-      </Prose>
+<H2>{"2. Why divide by the keep probability?"}</H2>
 
-      <H3>2.5 Bayesian interpretation</H3>
+<Prose>{"For a fixed value "}<InlineMath>{"h_i"}</InlineMath>{","}</Prose>
 
-      <Prose>
-        Gal and Ghahramani (2016) showed something remarkable: training a network with dropout is equivalent to variational inference over a particular posterior over weights. If you keep dropout on at test time and run <Code>T</Code> forward passes, the distribution of predictions approximates the posterior predictive distribution of a Bayesian neural network. The variance across those <Code>T</Code> samples is a calibrated uncertainty estimate. This is Monte Carlo Dropout, and it is why dropout shows up not just as a regularizer but as a cheap uncertainty quantification tool in active learning, out-of-distribution detection, and Bayesian optimization.
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\mathbb E[\\widetilde h_i\\mid h_i]\n=q(h_i/q)+p(0)=h_i."}</MathBlock></div>
 
-      {/* ======================================================================
-          3. MATH FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<Prose>{"The expectation is an average over repeated masks, not a statement about every pass. Here are "}<strong>{"all four outcomes"}</strong>{" for "}<InlineMath>{"h=[1,2]"}</InlineMath>{", "}<InlineMath>{"p=0.5"}</InlineMath>{":"}</Prose>
 
-      <H3>3.1 Dropout forward pass</H3>
+<NeuralTable caption={"2. Why divide by the keep probability?"} headers={[<>{"Mask"}</>,<>{"Probability"}</>,<>{"Masked representation"}</>]} rows={[[<>{"[0,0]"}</>,<>{"0.25"}</>,<>{"[0,0]"}</>],[<>{"[0,1]"}</>,<>{"0.25"}</>,<>{"[0,4]"}</>],[<>{"[1,0]"}</>,<>{"0.25"}</>,<>{"[2,0]"}</>],[<>{"[1,1]"}</>,<>{"0.25"}</>,<>{"[2,4]"}</>]]} />
 
-      <Prose>
-        Let <Code>{"x ∈ R^d"}</Code> be the activation vector at some layer. With drop probability <Code>{"p ∈ [0, 1)"}</Code>, dropout samples an independent Bernoulli mask <Code>{"m_i ~ Bernoulli(1-p)"}</Code> for each dimension and produces:
-      </Prose>
+<Prose>{"Their weighted mean is "}<InlineMath>{"[1,2]"}</InlineMath>{". Their coordinate variances are "}<InlineMath>{"[1,4]"}</InlineMath>{". Generally,"}</Prose>
 
-      <MathBlock>{"y_i = \\frac{m_i \\cdot x_i}{1 - p}, \\qquad m_i \\sim \\text{Bernoulli}(1-p)"}</MathBlock>
+<div className="neural-equation"><MathBlock>{"\\operatorname{Var}(\\widetilde h_i\\mid h_i)=\\frac{p}{1-p}h_i^2."}</MathBlock></div>
 
-      <Prose>
-        The denominator <Code>{"1-p"}</Code> is the inverted-dropout scaling. Taking the expectation over the mask:
-      </Prose>
+<Prose>{"For "}<InlineMath>{"p=0.25"}</InlineMath>{", the four probabilities are "}<InlineMath>{"0.0625,0.1875,0.1875,0.5625"}</InlineMath>{", in the same row order. They are not uniform. The mean stays "}<InlineMath>{"[1,2]"}</InlineMath>{", while variances become "}<InlineMath>{"[1/3,4/3]"}</InlineMath>{". Increasing "}<InlineMath>{"p"}</InlineMath>{" changes both how often information disappears and the amplitude of surviving values."}</Prose>
 
-      <MathBlock>{"\\mathbb{E}[y_i] = \\frac{x_i \\cdot \\mathbb{E}[m_i]}{1 - p} = \\frac{x_i (1-p)}{1-p} = x_i"}</MathBlock>
+<Prose>{"At ordinary evaluation, inverted dropout returns "}<InlineMath>{"h"}</InlineMath>{" directly. It applies neither a random mask nor an extra keep-probability multiplier. Historical implementations instead left training survivors unscaled and multiplied by "}<InlineMath>{"q"}</InlineMath>{" at evaluation. Both conventions need internally consistent initialization/training scale; mixing their evaluation rules is an error. See the explicit current "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.Dropout.html"}>{"PyTorch Dropout contract"}</a>{"."}</Prose>
 
-      <Prose>
-        So in expectation the dropout layer is the identity — at eval time, setting <Code>{"m_i = 1"}</Code> for all <Code>i</Code> and skipping the division recovers the same expected scale. The variance, however, is nonzero:
-      </Prose>
+<Prose>{"At "}<InlineMath>{"p=0"}</InlineMath>{", training also becomes identity. At "}<InlineMath>{"p=1"}</InlineMath>{", division by zero is invalid; the supplied implementation explicitly returns zeros during training and identity during evaluation. The expectation-preservation formula applies to "}<InlineMath>{"p<1"}</InlineMath>{"."}</Prose>
 
-      <MathBlock>{"\\text{Var}[y_i] = \\frac{x_i^2}{(1-p)^2} \\cdot \\text{Var}[m_i] = \\frac{x_i^2 \\cdot p(1-p)}{(1-p)^2} = \\frac{p}{1-p} \\cdot x_i^2"}</MathBlock>
+<DropoutExpectationLab />
 
-      <Prose>
-        The injected noise has variance proportional to <Code>{"p/(1-p)"}</Code>. At <Code>{"p=0.5"}</Code>, <Code>{"\\text{Var}[y_i] = x_i^2"}</Code> — the noise equals the signal in variance. At <Code>{"p=0.1"}</Code>, the noise is <Code>{"0.111 x_i^2"}</Code> — much gentler. This formula predicts exactly the variance we observe in practice, as the from-scratch experiments in section 4 confirm to four decimal places.
-      </Prose>
+<H3>{"Preserved means do not imply an unchanged network"}</H3>
 
-      <H3>3.2 Dropout as adaptive L2 regularization</H3>
+<Prose>{"Use signed contributions "}<InlineMath>{"[1,-1]"}</InlineMath>{", independent masks and "}<InlineMath>{"p=0.5"}</InlineMath>{", then apply ReLU to their sum. Unmasked, the result is "}<InlineMath>{"\\max(0,1-1)=0"}</InlineMath>{". Across the four equally likely masks, the results are "}<InlineMath>{"0,0,2,0"}</InlineMath>{", whose mean is 0.5:"}</Prose>
 
-      <Prose>
-        Wager, Wang, and Liang (2013) analyzed dropout on generalized linear models. For a logistic regression with input <Code>x</Code>, weights <Code>w</Code>, and dropout applied to <Code>x</Code> rather than activations, the expected loss under the dropout distribution can be Taylor-expanded:
-      </Prose>
+<div className="neural-equation"><MathBlock>{"\\mathbb E[\\operatorname{ReLU}(Z)]\\ne\n\\operatorname{ReLU}(\\mathbb E[Z])."}</MathBlock></div>
 
-      <MathBlock>{"\\mathbb{E}_{m}[\\mathcal{L}(y, w^\\top (m \\odot x / (1-p)))] \\approx \\mathcal{L}(y, w^\\top x) + \\frac{p}{2(1-p)} \\sum_i V_{ii}(w) x_i^2"}</MathBlock>
+<Prose>{"Even when a linear output preserves its mean, its expected loss can change. “An ensemble of thinned networks” is a useful interpretation of shared parameters under different masks, not a claim of independently trained models or exact arithmetic averaging by one deterministic nonlinear pass."}</Prose>
 
-      <Prose>
-        where <Code>{"V_{ii}(w)"}</Code> is the diagonal of the Fisher information matrix. The second term is a quadratic penalty on the weights — an L2-like regularizer — but weighted by <Code>{"x_i^2"}</Code>. Unlike static L2 which penalizes every weight equally, dropout penalizes more strongly in directions where features are large. It is adaptive L2. This result explains why dropout and weight decay are not redundant: they penalize different things. Dropout's penalty depends on the data; weight decay's does not.
-      </Prose>
+<Prose>{"The training objective is"}</Prose>
 
-      <H3>3.3 DropPath mask structure</H3>
+<div className="neural-equation"><MathBlock>{"\\min_\\theta\\frac1N\\sum_{i=1}^N\n\\mathbb E_m[\\ell(f_\\theta(x_i;m),y_i)]."}</MathBlock></div>
 
-      <Prose>
-        For a residual block output <Code>{"F(x)"}</Code> with batch dimension first, DropPath applies:
-      </Prose>
+<Prose>{"Each sampled update estimates this noisy objective. The goal is to learn useful predictions under that perturbation, not to make each hidden unit a complete classifier. Overfitting means fitting sample-specific patterns that generalize poorly; it does not require a gap that widens forever, and parameter count alone does not diagnose it."}</Prose>
 
-      <MathBlock>{"y = x + \\frac{m \\cdot F(x)}{1 - p}, \\qquad m \\in \\{0, 1\\}^B, \\; m_b \\sim \\text{Bernoulli}(1-p)"}</MathBlock>
+<H2>{"3. What gets hidden? Geometry matters"}</H2>
 
-      <Prose>
-        The mask shape is <Code>{"(B, 1, 1, ...)"}</Code> with a singleton along every non-batch dimension, so broadcasting drops the entire branch for a selected sample. The inverted-dropout factor is again <Code>{"1/(1-p)"}</Code>. Note an important consequence: the skip path <Code>x</Code> is always active. If it were not, dropping a block would produce zero output and gradients would vanish — residual connections are what make branch-dropping safe.
-      </Prose>
+<Prose>{"A tensor is an array with named axes. For an image representation "}<InlineMath>{"[B,C,H,W]"}</InlineMath>{", "}<InlineMath>{"B"}</InlineMath>{" indexes examples, "}<InlineMath>{"C"}</InlineMath>{" feature channels, and "}<InlineMath>{"H,W"}</InlineMath>{" spatial positions. A channel might respond to a learned pattern over the image. Convolution will explain how those maps are built in the next lesson."}</Prose>
 
-      <H3>3.4 Stochastic depth: expected depth</H3>
+<NeuralTable caption={"3. What gets hidden? Geometry matters"} headers={[<>{"Operation"}</>,<>{"Independent mask shape"}</>,<>{"What disappears together"}</>]} rows={[[<>{"Element dropout"}</>,<>{"[B,C,H,W]"}</>,<>{"One activation value"}</>],[<>{"Channel dropout"}</>,<>{"[B,C,1,1]"}</>,<>{"A whole feature map for one example"}</>],[<>{"Per-example branch dropout"}</>,<>{"[B,1,1,1]"}</>,<>{"The whole correction for one example"}</>],[<>{"Batchwise branch dropout"}</>,<>{"[1,1,1,1]"}</>,<>{"The correction for every example in that batch"}</>]]} />
 
-      <Prose>
-        With a linear schedule <Code>{"p_l = p_L \\cdot l / L"}</Code> for layer <Code>l</Code> out of <Code>L</Code>, the expected number of surviving blocks during training is:
-      </Prose>
+<Prose>{"Dimensions of size 1 are "}<strong>{"broadcast"}</strong>{": the same bit is repeated along that axis. This small shape choice defines the intervention. On a sequence shaped "}<InlineMath>{"[B,T,D]"}</InlineMath>{", a branch mask "}<InlineMath>{"[B,1,1]"}</InlineMath>{" is shared across tokens and features for an example. An element mask "}<InlineMath>{"[B,T,D]"}</InlineMath>{" makes separate decisions. Neither shape can be inferred from the word “dropout” alone."}</Prose>
 
-      <MathBlock>{"\\mathbb{E}[\\text{depth}] = \\sum_{l=1}^{L} (1 - p_l) = L - \\frac{p_L}{L} \\sum_{l=1}^{L} l = L \\cdot \\left(1 - \\frac{p_L (L+1)}{2L}\\right)"}</MathBlock>
+<Prose>{"Take two examples with two "}<InlineMath>{"2\\times2"}</InlineMath>{" channels each, filled with values 1–16 in order. Under channel mask "}<InlineMath>{"[1,0]"}</InlineMath>{" for example 1 and "}<InlineMath>{"[0,1]"}</InlineMath>{" for example 2, with "}<InlineMath>{"p=0.5"}</InlineMath>{", the surviving maps contain "}<InlineMath>{"[[2,4],[6,8]]"}</InlineMath>{" and "}<InlineMath>{"[[26,28],[30,32]]"}</InlineMath>{". The other two maps are entirely zero. Under a branch mask "}<InlineMath>{"[1,0]"}</InlineMath>{", both maps of example 1 survive and both of example 2 disappear."}</Prose>
 
-      <Prose>
-        For a 110-layer ResNet with <Code>{"p_L = 0.5"}</Code>, expected training depth is approximately <Code>{"0.75 L = 82.5"}</Code> blocks — a 25% reduction. Training time drops roughly proportionally. At inference, all blocks are used at full weight, giving the full representational capacity.
-      </Prose>
+<Prose>{""}<strong>{"Build the intervention:"}</strong>{" make an entire second channel disappear for example 1 while preserving its first channel and all channels of example 2. Choose the mask axes and enter its bits. Then check that no spatial position inside a channel contradicts another."}</Prose>
 
-      <H3>3.5 MC Dropout variance</H3>
+<Prose>{"The difference is more than appearance. For fixed values "}<InlineMath>{"[1,2]"}</InlineMath>{" and "}<InlineMath>{"p=0.5"}</InlineMath>{", independent masks give covariance 0; one shared mask gives covariance 2. Shared masking makes values move together. Spatial neighbors can carry redundant evidence, so removing isolated values may leave that evidence nearby. Channel or contiguous-region masking can challenge a different dependency. This motivates comparison, not a rule that element dropout after convolution is always useless. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.nn.Dropout2d.html"}>{"PyTorch Dropout2d"}</a>{" explicitly defines the channel operation; use a four-dimensional batched input here because its three-dimensional interpretation has a version-specific warning."}</Prose>
 
-      <Prose>
-        Gal and Ghahramani's MC Dropout computes predictive uncertainty by keeping dropout active at inference and averaging <Code>T</Code> forward passes. For a regression output <Code>{"\\hat{y}"}</Code>:
-      </Prose>
+<DropoutGeometryLab />
 
-      <MathBlock>{"\\mu_* = \\frac{1}{T} \\sum_{t=1}^{T} \\hat{y}^{(t)}, \\qquad \\sigma_*^2 = \\tau^{-1} + \\frac{1}{T} \\sum_{t=1}^{T} (\\hat{y}^{(t)} - \\mu_*)^2"}</MathBlock>
+<H2>{"4. Drop the correction while keeping the direct path"}</H2>
 
-      <Prose>
-        where <Code>{"\\tau^{-1}"}</Code> is the model's noise precision (aleatoric uncertainty) and the second term is the epistemic (model) uncertainty. The paper shows this approximates a Bayesian neural network with a specific prior. Practitioners typically use <Code>{"T = 50"}</Code> to <Code>{"T = 200"}</Code> — more samples reduce Monte Carlo variance but increase inference cost linearly.
-      </Prose>
+<Prose>{"A residual block computes "}<InlineMath>{"y=x+F(x)"}</InlineMath>{". With inverted branch dropout,"}</Prose>
 
-      {/* ======================================================================
-          4. FROM-SCRATCH
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
+<div className="neural-equation"><MathBlock>{"y=x+\\frac{m}{q}F(x)."}</MathBlock></div>
 
-      <Prose>
-        The theoretical claims above are precise. A from-scratch implementation lets us verify them numerically. All code in this section was executed; the <Code>{"# Output:"}</Code> blocks show real stdout.
-      </Prose>
+<Prose>{"Let "}<InlineMath>{"x=[2,-1]"}</InlineMath>{", "}<InlineMath>{"F(x)=[0.5,1]"}</InlineMath>{", "}<InlineMath>{"q=0.5"}</InlineMath>{"."}</Prose>
 
-      <H3>4.1 Vanilla inverted dropout — verify E[y] = x and Var[y] = p/(1-p)</H3>
-
-      <CodeBlock language="python">
-{`import torch
-
-torch.manual_seed(0)
+<NeuralTable caption={"4. Drop the correction while keeping the direct path"} headers={[<>{"Branch bit"}</>,<>{"Block output"}</>]} rows={[[<>{"0"}</>,<>{"[2,−1]"}</>],[<>{"1"}</>,<>{"[3,1]"}</>],[<>{"Average"}</>,<>{"[2.5,0]"}</>]]} />
 
-def dropout_inverted(x, p, training):
-    """Inverted dropout: scale at training time, identity at eval."""
-    if not training or p == 0.0:
-        return x
-    keep = 1.0 - p
-    mask = (torch.rand_like(x) < keep).float()
-    return x * mask / keep
+<Prose>{"The average equals the unmasked block output for this fixed input. If instead you mask the "}<strong>{"whole sum"}</strong>{", a dropped pass gives "}<InlineMath>{"[0,0]"}</InlineMath>{", removing the direct path too. It is a different architecture."}</Prose>
 
-x = torch.ones(10_000)
-y_train = dropout_inverted(x, p=0.5, training=True)
-y_eval  = dropout_inverted(x, p=0.5, training=False)
-print(f"train mean={y_train.mean().item():.4f}  var={y_train.var().item():.4f}")
-print(f"eval  mean={y_eval.mean().item():.4f}  var={y_eval.var().item():.4f}")
-
-# Output:
-# train mean=0.9940  var=1.0001
-# eval  mean=1.0000  var=0.0000`}
-      </CodeBlock>
-
-      <Prose>
-        Training mean is 0.994 (≈ 1.0, matching identity expectation) and training variance is 1.0001 ≈ <Code>{"p/(1-p) = 0.5/0.5 = 1.0"}</Code>. Eval mean is exactly 1.0 with zero variance because dropout is off. Both confirm the formulas from section 3.1 to four decimal places.
-      </Prose>
-
-      <H3>4.2 Sweep across drop probabilities</H3>
-
-      <CodeBlock language="python">
-{`for p in [0.0, 0.1, 0.3, 0.5, 0.7]:
-    samples = torch.stack([dropout_inverted(torch.ones(4096), p, True)
-                           for _ in range(50)])
-    e = samples.mean().item()
-    v = samples.var().item()
-    theory = p/(1-p) if p < 1 else float("inf")
-    print(f"p={p:.1f}  E[y]={e:.4f}  Var[y]={v:.4f}  theory={theory:.4f}")
-
-# Output:
-# p=0.0  E[y]=1.0000  Var[y]=0.0000  theory=0.0000
-# p=0.1  E[y]=1.0000  Var[y]=0.1111  theory=0.1111
-# p=0.3  E[y]=0.9999  Var[y]=0.4286  theory=0.4286
-# p=0.5  E[y]=1.0006  Var[y]=1.0000  theory=1.0000
-# p=0.7  E[y]=1.0011  Var[y]=2.3348  theory=2.3333`}
-      </CodeBlock>
-
-      <Prose>
-        The empirical variance matches the theoretical <Code>{"p/(1-p)"}</Code> to three decimal places across all rates. This is the core invariant: higher <Code>p</Code> means more injected noise, but the mean is always preserved.
-      </Prose>
-
-      <H3>4.3 Spatial dropout (Dropout2d)</H3>
-
-      <Prose>
-        For 4D activations <Code>{"[B, C, H, W]"}</Code> in a CNN, standard per-pixel dropout is weak because nearby pixels in a feature map are highly correlated. Spatial dropout drops whole channels per sample — the mask has shape <Code>{"[B, C, 1, 1]"}</Code>.
-      </Prose>
-
-      <CodeBlock language="python">
-{`def spatial_dropout(x, p, training):
-    """Mask shape [B, C, 1, 1] — drop whole channels per sample."""
-    if not training or p == 0.0:
-        return x
-    keep = 1.0 - p
-    mask = (torch.rand(x.shape[0], x.shape[1], 1, 1, device=x.device) < keep).float()
-    return x * mask / keep
-
-torch.manual_seed(1)
-xc = torch.ones(2, 4, 3, 3)  # batch=2, channels=4, 3x3 spatial
-yc = spatial_dropout(xc, p=0.5, training=True)
-print(yc[:, :, 0, 0])  # one spatial location reveals the per-channel mask
-
-# Output:
-# tensor([[0., 2., 2., 0.],
-#         [2., 0., 2., 0.]])`}
-      </CodeBlock>
-
-      <Prose>
-        Each entry is either 0 (channel dropped) or 2 (channel kept, scaled by <Code>{"1/(1-0.5) = 2"}</Code>). Crucially, the same channel is either alive or dead across all 9 spatial positions for a given sample. This is <Code>nn.Dropout2d</Code> in PyTorch.
-      </Prose>
-
-      <H3>4.4 DropPath — per-sample residual branch drop</H3>
-
-      <CodeBlock language="python">
-{`def drop_path(x, drop_prob, training):
-    """Per-sample drop of a residual branch. x shape: [B, ...]."""
-    if drop_prob == 0.0 or not training:
-        return x
-    keep = 1.0 - drop_prob
-    shape = (x.shape[0],) + (1,) * (x.ndim - 1)  # broadcast singleton on non-batch dims
-    mask = (torch.rand(shape, device=x.device) < keep).float()
-    return x * mask / keep
-
-# Monte Carlo over 10k trials to confirm keep rate
-alive_count = 0
-B, trials = 8, 10_000
-for _ in range(trials):
-    out = drop_path(torch.ones(B, 1), drop_prob=0.25, training=True)
-    alive_count += (out.sum(dim=1) > 0).float().sum().item()
-print(f"MC over {trials} trials: alive rate={alive_count/(trials*B):.4f}")
-
-# Output:
-# MC over 10000 trials: alive rate=0.7501`}
-      </CodeBlock>
-
-      <Prose>
-        Observed alive rate 0.7501 matches <Code>{"1 - drop_prob = 0.75"}</Code>. This is exactly what <Code>timm.layers.DropPath</Code> does under the hood.
-      </Prose>
-
-      <H3>4.5 Linear-ramp stochastic depth across layers</H3>
-
-      <CodeBlock language="python">
-{`L = 12          # number of residual blocks
-dp_rate = 0.2   # max drop prob at last layer
-rates = [dp_rate * i / (L - 1) for i in range(L)]
-print("Layer | drop_prob | E[survives]")
-for i, r in enumerate(rates):
-    print(f"  {i:2d}  |  {r:.4f}  |  {1-r:.4f}")
-
-# Output:
-# Layer | drop_prob | E[survives]
-#    0  |  0.0000  |  1.0000
-#    1  |  0.0182  |  0.9818
-#    2  |  0.0364  |  0.9636
-#    3  |  0.0545  |  0.9455
-#    4  |  0.0727  |  0.9273
-#    5  |  0.0909  |  0.9091
-#    6  |  0.1091  |  0.8909
-#    7  |  0.1273  |  0.8727
-#    8  |  0.1455  |  0.8545
-#    9  |  0.1636  |  0.8364
-#   10  |  0.1818  |  0.8182
-#   11  |  0.2000  |  0.8000`}
-      </CodeBlock>
-
-      <Prose>
-        The first block is never dropped (<Code>{"p_0 = 0"}</Code>); the last block is dropped 20% of the time. Early layers see more signal; late layers are the most regularized. Huang et al. (2016) argued this is correct because early features are more fundamental and shared across subnetworks.
-      </Prose>
-
-      <H3>4.6 MC Dropout for regression uncertainty</H3>
-
-      <CodeBlock language="python">
-{`import torch.nn as nn
-import torch.nn.functional as F
-import numpy as np
-
-torch.manual_seed(0)
-X_train = torch.linspace(-3, 3, 60).unsqueeze(1)
-y_train = torch.sin(X_train) + 0.1 * torch.randn_like(X_train)
-
-class MCDropoutMLP(nn.Module):
-    def __init__(self, p=0.2):
-        super().__init__()
-        self.p = p
-        self.fc1 = nn.Linear(1, 64)
-        self.fc2 = nn.Linear(64, 64)
-        self.fc3 = nn.Linear(64, 1)
-
-    def forward(self, x):
-        h = F.relu(self.fc1(x))
-        h = F.dropout(h, p=self.p, training=True)  # ALWAYS on (MC Dropout)
-        h = F.relu(self.fc2(h))
-        h = F.dropout(h, p=self.p, training=True)
-        return self.fc3(h)
-
-model = MCDropoutMLP(p=0.2)
-opt = torch.optim.Adam(model.parameters(), lr=1e-2)
-for _ in range(2000):
-    opt.zero_grad()
-    loss = F.mse_loss(model(X_train), y_train)
-    loss.backward()
-    opt.step()
-
-X_test = torch.linspace(-5, 5, 9).unsqueeze(1)   # extrapolate outside training range
-with torch.no_grad():
-    samples = torch.stack([model(X_test).squeeze() for _ in range(200)])
-mu = samples.mean(dim=0)
-sigma = samples.std(dim=0)
-print("x      true_sin    mu       std")
-for xi, mui, si in zip(X_test.squeeze().tolist(), mu.tolist(), sigma.tolist()):
-    print(f"{xi:+.2f}   {np.sin(xi):+.4f}   {mui:+.4f}  {si:.4f}")
-
-# Output:
-# x      true_sin    mu       std
-# -5.00   +0.9589   -0.0243  0.0600
-# -3.75   +0.5716   -0.1092  0.0639
-# -2.50   -0.5985   -0.5427  0.0878
-# -1.25   -0.9490   -0.9322  0.1119
-# +0.00   +0.0000   +0.1121  0.0751
-# +1.25   +0.9490   +1.0082  0.1196
-# +2.50   +0.5985   +0.6480  0.1079
-# +3.75   -0.5716   +0.0947  0.0381
-# +5.00   -0.9589   +0.1609  0.0767`}
-      </CodeBlock>
-
-      <Prose>
-        Inside the training range (<Code>{"x ∈ [-3, 3]"}</Code>) the predicted mean <Code>{"\\mu"}</Code> tracks <Code>{"\\sin(x)"}</Code> closely and <Code>{"\\sigma"}</Code> stays small. Outside the training range the mean collapses toward zero (the network was never taught to extrapolate) — this is a well-known failure of plain MC Dropout: epistemic uncertainty grows somewhat but not enough. For properly calibrated uncertainty you need a good prior (SWAG, Deep Ensembles, or Laplace approximation). MC Dropout is cheap but miscalibrated without careful tuning.
-      </Prose>
-
-      <H3>4.7 Test accuracy vs dropout rate on synthetic classification</H3>
-
-      <Prose>
-        On a synthetic 10-class problem deliberately noisier than the signal supports, we train an MLP with <Code>{"\\{256 → 256 → 10\\}"}</Code> for 80 epochs at five drop rates:
-      </Prose>
-
-      <CodeBlock language="python">
-{`def train_one(p_drop, epochs=80):
-    torch.manual_seed(42)
-    m = nn.Sequential(
-        nn.Linear(N_feat, 256), nn.ReLU(),
-        nn.Dropout(p_drop),
-        nn.Linear(256, 256), nn.ReLU(),
-        nn.Dropout(p_drop),
-        nn.Linear(256, N_cls),
-    )
-    opt = torch.optim.Adam(m.parameters(), lr=1e-3)
-    for _ in range(epochs):
-        m.train(); opt.zero_grad()
-        loss = F.cross_entropy(m(X_tr), y_tr)
-        loss.backward(); opt.step()
-    m.eval()
-    with torch.no_grad():
-        train_acc = (m(X_tr).argmax(1) == y_tr).float().mean().item()
-        val_acc   = (m(X_va).argmax(1) == y_va).float().mean().item()
-    return train_acc, val_acc
-
-for p in [0.0, 0.1, 0.3, 0.5, 0.7]:
-    tra, val = train_one(p)
-    print(f" p={p:.1f}  train={tra:.4f}  val={val:.4f}  gap={tra - val:+.4f}")
-
-# Output:
-#  p=0.0  train=1.0000  val=0.1870  gap=+0.8130
-#  p=0.1  train=0.9785  val=0.1850  gap=+0.7935
-#  p=0.3  train=0.7940  val=0.2100  gap=+0.5840
-#  p=0.5  train=0.5685  val=0.2150  gap=+0.3535
-#  p=0.7  train=0.3915  val=0.2140  gap=+0.1775`}
-      </CodeBlock>
-
-      <Prose>
-        At <Code>{"p=0.0"}</Code>, training accuracy saturates at 100% while validation accuracy is 18.7% — pure memorization, gap of 0.81. As dropout increases, the train-val gap shrinks monotonically: 0.79 at <Code>{"p=0.1"}</Code>, 0.58 at <Code>{"p=0.3"}</Code>, 0.35 at <Code>{"p=0.5"}</Code>, 0.18 at <Code>{"p=0.7"}</Code>. Validation accuracy peaks around <Code>{"p=0.5"}</Code> at 21.5%. Beyond that the model underfits — training accuracy drops below 40% and there is no longer enough capacity to fit the real signal.
-      </Prose>
-
-      <Callout type="insight">
-        The classic regularization tradeoff is fully visible: gap shrinks as dropout grows, but validation accuracy has a sweet spot. This is why dropout rate is a hyperparameter, not a fixed value — the right rate depends on the gap between model capacity and dataset size.
-      </Callout>
-
-      {/* ======================================================================
-          5. PRODUCTION
-          ====================================================================== */}
-      <H2>5. Production patterns</H2>
-
-      <H3>5.1 PyTorch built-ins</H3>
-
-      <CodeBlock language="python">
-{`import torch.nn as nn
-
-# Standard dropout on activations
-layer = nn.Dropout(p=0.5)                # p is DROP probability, not keep
-
-# Spatial dropout for convolutional feature maps (drop whole channels)
-spatial = nn.Dropout2d(p=0.2)            # for 4D tensors [B, C, H, W]
-spatial3 = nn.Dropout3d(p=0.2)           # for 5D volumetric features
-
-# Dropout layers are automatically disabled in eval mode
-model.train()   # dropout active
-model.eval()    # dropout becomes identity
-
-# Inside a forward(): use functional form if you need dynamic behavior
-h = F.dropout(h, p=0.3, training=self.training)    # respects mode
-h = F.dropout(h, p=0.3, training=True)             # always on (MC Dropout)`}
-      </CodeBlock>
-
-      <H3>5.2 timm DropPath for ViT / ConvNeXt</H3>
-
-      <CodeBlock language="python">
-{`from timm.layers import DropPath  # standard in every modern vision backbone
-
-class TransformerBlock(nn.Module):
-    def __init__(self, dim, drop_path=0.0):
-        super().__init__()
-        self.norm1 = nn.LayerNorm(dim)
-        self.attn  = nn.MultiheadAttention(dim, num_heads=8, batch_first=True)
-        self.norm2 = nn.LayerNorm(dim)
-        self.mlp   = nn.Sequential(nn.Linear(dim, 4*dim), nn.GELU(), nn.Linear(4*dim, dim))
-        # One DropPath per residual branch
-        self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
-
-    def forward(self, x):
-        x = x + self.drop_path(self.attn(self.norm1(x), self.norm1(x), self.norm1(x))[0])
-        x = x + self.drop_path(self.mlp(self.norm2(x)))
-        return x
-
-# Linear ramp: early blocks 0, last block dp_rate
-dp_rate = 0.1
-depth = 12
-blocks = nn.ModuleList([
-    TransformerBlock(768, drop_path=dp_rate * i / (depth - 1))
-    for i in range(depth)
-])`}
-      </CodeBlock>
-
-      <H3>5.3 HuggingFace Transformer dropout knobs</H3>
-
-      <CodeBlock language="python">
-{`from transformers import BertConfig
-
-cfg = BertConfig(
-    hidden_dropout_prob=0.1,           # applied to most hidden states
-    attention_probs_dropout_prob=0.1,  # applied to attention scores after softmax
-    classifier_dropout=None,           # defaults to hidden_dropout_prob
-)
-
-# GPT-2 style (embd, resid, attn all separate)
-from transformers import GPT2Config
-cfg2 = GPT2Config(
-    embd_pdrop=0.1,       # after token + position embedding sum
-    resid_pdrop=0.1,      # before residual add (after mlp/attn)
-    attn_pdrop=0.1,       # after attention softmax
-)
-
-# ViT / DeiT / CaiT — hydra knobs
-# drop_rate:     classification head dropout
-# attn_drop_rate: attention softmax dropout
-# drop_path_rate: stochastic depth ramp rate`}
-      </CodeBlock>
-
-      <H3>5.4 DropBlock for convolutional backbones</H3>
-
-      <CodeBlock language="python">
-{`# Ghiasi, Lin, Le (NeurIPS 2018) — drops contiguous spatial regions
-# size = side length of the dropped block, drop_prob tuned so expected area matches
-from timm.layers import DropBlock2d
-
-block = DropBlock2d(drop_prob=0.1, block_size=7)
-# Typical use: ResNet stage 3+ to regularize late feature maps
-# Often ramped over training (gamma schedule) like stochastic depth`}
-      </CodeBlock>
-
-      <H3>5.5 Common defaults in modern stacks</H3>
-
-      <CodeBlock language="python">
-{`# BERT / GPT-2 pretraining:     hidden_dropout=0.1, attn_dropout=0.1
-# LLaMA / modern decoder LLMs:   dropout=0.0 during pretrain, small at SFT
-# ViT-Base (16M params):         drop_path=0.1, attn_drop=0.0
-# ViT-Huge (600M+):              drop_path=0.3-0.5, attn_drop=0.0
-# ConvNeXt-Small:                drop_path=0.4
-# ConvNeXt-Large:                drop_path=0.5
-# ResNet-50 (ImageNet):          dropout=0 (BN is sufficient)
-# ResNet-1001 stochastic depth:  p_L=0.5 linear ramp (Huang 2016)
-# MLP on small tabular data:     dropout=0.3-0.5
-# Regression MLP:                dropout=0.1-0.2 (or MC Dropout)`}
-      </CodeBlock>
-
-      <Callout type="info" title="Dropout on LLM pretraining">
-        Modern foundation models (LLaMA, Mistral, Qwen, DeepSeek) typically set dropout to 0 during pretraining. The reasoning: datasets are so large that the model cannot overfit in the classical sense, and the extra stochasticity slows convergence without regularization benefit. Dropout reappears during SFT and fine-tuning where datasets are smaller and overfitting returns.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 Train vs val loss at different dropout rates</H3>
-
-      <Prose>
-        These curves are from the synthetic classification experiment in section 4.7, logged every 5 epochs. With no dropout (gold) training loss drops sharply while validation rises — classic overfitting. With moderate dropout (green) training loss stays higher but validation loss plateaus lower. With heavy dropout (purple) both curves are close together — the model is well-regularized but its capacity is choked.
-      </Prose>
-
-      <Plot
-        label="Training loss vs dropout rate — synthetic 10-class MLP"
-        xLabel="Epoch"
-        yLabel="Cross-entropy loss"
-        series={[
-          { name: "p=0.0 train", color: colors.gold, points: [[0, 2.2796], [5, 2.1324], [10, 1.9808], [15, 1.8310], [20, 1.6938], [25, 1.5557], [30, 1.4096], [35, 1.2511]] },
-          { name: "p=0.2 train", color: colors.green, points: [[0, 2.2843], [5, 2.1680], [10, 2.0458], [15, 1.9196], [20, 1.8066], [25, 1.7055], [30, 1.6073], [35, 1.5110]] },
-          { name: "p=0.5 train", color: "#c084fc", points: [[0, 2.2930], [5, 2.2218], [10, 2.1664], [15, 2.1131], [20, 2.0432], [25, 1.9677], [30, 1.8925], [35, 1.8252]] },
-        ]}
-      />
-
-      <Plot
-        label="Validation loss vs dropout rate — overfitting visible at p=0.0"
-        xLabel="Epoch"
-        yLabel="Cross-entropy loss"
-        series={[
-          { name: "p=0.0 val", color: colors.gold, points: [[0, 2.2923], [5, 2.2258], [10, 2.1840], [15, 2.1674], [20, 2.1995], [25, 2.2434], [30, 2.2930], [35, 2.3537]] },
-          { name: "p=0.2 val", color: colors.green, points: [[0, 2.2943], [5, 2.2368], [10, 2.1975], [15, 2.1720], [20, 2.1739], [25, 2.1996], [30, 2.2177], [35, 2.2298]] },
-          { name: "p=0.5 val", color: "#c084fc", points: [[0, 2.3005], [5, 2.2584], [10, 2.2352], [15, 2.2183], [20, 2.1941], [25, 2.1736], [30, 2.1602], [35, 2.1591]] },
-        ]}
-      />
-
-      <Prose>
-        The gold (p=0.0) validation curve U-turns near epoch 15 and climbs — this is the signature of overfitting. The green (p=0.2) curve is shallower and reverses later. The purple (p=0.5) curve keeps descending smoothly — the model is still learning because dropout delays overfitting until well past where we stopped.
-      </Prose>
-
-      <H3>6.2 Dropout forward pass — step by step</H3>
-
-      <StepTrace
-        label="Inverted dropout forward pass — p=0.5, input size 6"
-        steps={[
-          { label: "Input activations x", render: () => (
-            <Prose>
-              Start with activation vector{" "}
-              <Code>{"x = [1.2, -0.7, 0.9, 2.1, -1.4, 0.5]"}</Code>. At this stage no dropout has been applied; these are the outputs of a ReLU or Linear layer.
-            </Prose>
-          )},
-          { label: "Sample Bernoulli mask", render: () => (
-            <Prose>
-              Draw mask <Code>{"m_i ~ Bernoulli(1-p) = Bernoulli(0.5)"}</Code> for each position. Suppose we sample{" "}
-              <Code>{"m = [1, 0, 1, 1, 0, 1]"}</Code>. Positions 2 and 5 will be zeroed.
-            </Prose>
-          )},
-          { label: "Apply mask", render: () => (
-            <Prose>
-              Element-wise multiply: <Code>{"x ⊙ m = [1.2, 0, 0.9, 2.1, 0, 0.5]"}</Code>. Four survivors, two zeros. At this point expected magnitude is half of the input.
-            </Prose>
-          )},
-          { label: "Inverted-dropout rescale", render: () => (
-            <Prose>
-              Divide by <Code>{"1 - p = 0.5"}</Code>, equivalently multiply by 2:{" "}
-              <Code>{"y = [2.4, 0, 1.8, 4.2, 0, 1.0]"}</Code>. Expected magnitude is restored. Forward to the next layer.
-            </Prose>
-          )},
-          { label: "Backward pass", render: () => (
-            <Prose>
-              The gradient with respect to a zeroed position is zero (no gradient flows through a dead neuron). The gradient for surviving positions is also scaled by <Code>{"1/(1-p)"}</Code> — the same mask is stored and reused during backprop.
-            </Prose>
-          )},
-          { label: "At eval time", render: () => (
-            <Prose>
-              Set <Code>{"training = False"}</Code>. The layer becomes the identity:{" "}
-              <Code>{"y_eval = x = [1.2, -0.7, 0.9, 2.1, -1.4, 0.5]"}</Code>. No randomness, no scaling — the inverted-dropout trick gave us this for free.
-            </Prose>
-          )},
-        ]}
-      />
-
-      <H3>6.3 Dropout mask heatmap over features × samples</H3>
-
-      <Prose>
-        A batch of 8 samples passing through a 12-dimensional dropout layer with <Code>{"p = 0.5"}</Code>. Bright cells are kept (scaled by 2); dark cells are zeroed. Every row (sample) has a different mask — this is what gives dropout its ensemble character across the batch.
-      </Prose>
-
-      <Heatmap
-        label="Dropout mask per sample × feature (p=0.5) — bright = kept, dark = dropped"
-        rowLabels={["s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7"]}
-        colLabels={["f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11"]}
-        colorScale="gold"
-        matrix={[
-          [2, 0, 2, 2, 0, 2, 0, 2, 2, 0, 2, 0],
-          [0, 2, 2, 0, 2, 0, 2, 2, 0, 2, 0, 2],
-          [2, 2, 0, 2, 2, 0, 2, 0, 0, 2, 2, 0],
-          [0, 0, 2, 2, 0, 2, 2, 2, 2, 0, 0, 2],
-          [2, 0, 0, 0, 2, 2, 0, 2, 2, 2, 2, 0],
-          [0, 2, 2, 0, 0, 0, 2, 2, 0, 2, 2, 2],
-          [2, 2, 0, 2, 2, 0, 0, 0, 2, 0, 2, 2],
-          [0, 0, 2, 2, 2, 2, 2, 0, 2, 2, 0, 0],
-        ]}
-      />
-
-      <H3>6.4 Stochastic depth keep rates across a 12-block network</H3>
-
-      <Plot
-        label="Linear-ramp stochastic depth keep probability per layer (dp_rate=0.2, L=12)"
-        xLabel="Layer index"
-        yLabel="P(block survives)"
-        series={[
-          { name: "keep rate", color: colors.gold, points: [[0, 1.0], [1, 0.9818], [2, 0.9636], [3, 0.9455], [4, 0.9273], [5, 0.9091], [6, 0.8909], [7, 0.8727], [8, 0.8545], [9, 0.8364], [10, 0.8182], [11, 0.8]] },
-        ]}
-      />
-
-      <Prose>
-        The first block always survives; the last is dropped 20% of the time. Expected active depth is ~10.8 out of 12 blocks — a 10% speedup during training while the inference network is still 12 blocks deep.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        The right stochastic regularizer depends on what structure you have in your network and what correlations exist between the activations you might drop.
-      </Prose>
-
-      <H3>7.1 By architecture</H3>
-
-      <CodeBlock>
-{`ARCHITECTURE         | METHOD                  | TYPICAL RATE      | NOTES
----------------------+-------------------------+-------------------+----------------------------
-MLP (fully connected)| nn.Dropout              | 0.3 - 0.5         | Between Linear+ReLU layers
-CNN (feature maps)   | Dropout2d / DropBlock   | 0.1 - 0.3         | Per-pixel dropout is weak
-ResNet (deep)        | Stochastic Depth        | p_L=0.2 (shallow) | Linear ramp
-                     |                         | p_L=0.5 (1000+)   |
-Vision Transformer   | DropPath + attn_drop    | 0.1 - 0.3 (path)  | ViT-Base 0.1, ViT-H 0.5
-ConvNeXt             | DropPath                | 0.1 - 0.5         | Same ramp as ViT
-Transformer LLM (pre)| usually 0               | 0                 | Not needed w/ huge data
-Transformer LLM (SFT)| hidden_dropout          | 0.05 - 0.1        | Small dataset regime
-RNN / LSTM           | Zoneout + var. dropout  | 0.1 - 0.2         | Not vanilla Dropout
-Regression + UQ      | MC Dropout              | 0.1 - 0.2         | T=50-200 forward passes
-Small tabular MLP    | Dropout                 | 0.3 - 0.5         | Often most important reg`}
-      </CodeBlock>
-
-      <H3>7.2 Granularity by correlation structure</H3>
-
-      <Prose>
-        Pick the drop granularity to match the correlated structure in your activations:
-      </Prose>
-
-      <CodeBlock>
-{`SITUATION                              | RIGHT GRANULARITY   | WRONG GRANULARITY
----------------------------------------+---------------------+--------------------
-Fully connected layer (i.i.d. units)   | Per-activation      | (any — works)
-Conv feature maps (spatially correlated)| Per-channel (Dropout2d) or
-                                       |   contiguous block (DropBlock) | Per-pixel (weak)
-Residual network                       | Per-sample per-block (DropPath) or
-                                       |   per-batch per-block (StochasticDepth) | Per-activation
-Recurrent state                        | Timestep-preserving (Zoneout) or
-                                       |   Variational Dropout | Per-timestep activation`}
-      </CodeBlock>
-
-      <H3>7.3 Uncertainty vs regularization</H3>
-
-      <Prose>
-        Dropout does two different jobs that are often confused. As a regularizer it is active at training and off at inference. As an uncertainty tool (MC Dropout) it is active at both and you average over multiple forward passes. You pick based on the downstream need:
-      </Prose>
-
-      <CodeBlock>
-{`NEED                              | CONFIGURATION
-----------------------------------+---------------------------------
-Prevent overfitting only          | Train dropout on, eval dropout off
-Regression uncertainty            | MC Dropout, T=50-200 samples
-OOD detection                     | MC Dropout variance threshold
-Active learning acquisition       | MC Dropout (BALD, variation ratios)
-Deep ensembles (Lakshminarayanan) | Replace MC Dropout with N full models
-                                  | (better calibrated, N× training cost)`}
-      </CodeBlock>
-
-      {/* ======================================================================
-          8. WHAT SCALES
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 Compute cost breakdown</H3>
-
-      <Prose>
-        Plain dropout is essentially free. The operations are (a) generating a Bernoulli mask with a uniform RNG, (b) element-wise multiply, (c) element-wise divide by <Code>{"1-p"}</Code>. All three are bandwidth-bound and fuse into the preceding activation. On modern GPUs the overhead is in the 1-3% range — often smaller than measurement noise.
-      </Prose>
-
-      <CodeBlock>
-{`OPERATION                      | TRAINING FLOPS     | INFERENCE COST
--------------------------------+---------------------+----------------
-Dropout                        | ~0 (mask + scale)   | 0 (identity)
-Dropout2d                      | ~0 (smaller mask)   | 0
-DropPath                       | ~0 (B-sized mask)   | 0
-Stochastic Depth (block skip)  | SAVES ~p · L·F     | 0 (full depth)
-DropBlock                      | small (sparsity op) | 0
-MC Dropout                     | 0 (train), T× (eval)| T× forward
-Variational dropout (learned)  | 2× parameter count  | 0 (or still 2×)`}
-      </CodeBlock>
-
-      <H3>8.2 Where stochastic depth actually wins</H3>
-
-      <Prose>
-        Huang et al. (2016) report that a 110-layer ResNet with stochastic depth (<Code>{"p_L = 0.5"}</Code>) trains roughly 25% faster per epoch than the baseline and reaches lower final test error. For a 1202-layer ResNet the speedup is larger (expected depth is ~0.75·L) and training is what makes the difference between feasible and infeasible. This is one of the few regularizers that makes training cheaper instead of more expensive.
-      </Prose>
-
-      <Prose>
-        The wall-clock speedup is less than the expected-depth fraction because (a) when a block is dropped the GPU still has to synchronize with the next layer, (b) forward/backward of un-dropped layers is unchanged, and (c) memory allocations are typically sized for the full network. In practice, a 40-50% expected-depth reduction yields 20-30% wall-clock speedup.
-      </Prose>
-
-      <H3>8.3 MC Dropout inference cost</H3>
-
-      <Prose>
-        If you need uncertainty estimates, <Code>T = 50</Code> forward passes means 50× the per-query cost. For a 1B-parameter vision model serving at 100 QPS this is often prohibitive. Alternatives: Deep Ensembles (N independent models, N× training and memory but only N× inference, where N is typically 5-10 rather than 50); Last-layer Bayesian methods (cheap); Conformal prediction (calibration-based uncertainty with a single forward pass — covered in a separate topic).
-      </Prose>
-
-      <H3>8.4 Variational Dropout parameter overhead</H3>
-
-      <Prose>
-        Gal and Ghahramani's variational dropout treats drop rates as learnable parameters per weight, doubling the parameter count. Kingma, Salimans, and Welling's "Variational Dropout and the Local Reparameterization Trick" (NeurIPS 2015, arXiv:1506.02557) and Molchanov et al.'s "Variational Dropout Sparsifies Deep Neural Networks" (ICML 2017, arXiv:1701.05369) push this further to learn which weights to zero out entirely. The parameter overhead is 2× and training is noticeably harder, but the result is a sparse model at inference.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Forgetting model.eval()</H3>
-
-      <Prose>
-        The most common dropout bug in production. Dropout layers check <Code>self.training</Code> on every forward pass. In PyTorch, <Code>model.train()</Code> sets <Code>training = True</Code> and <Code>model.eval()</Code> sets it to False. Forgetting <Code>eval()</Code> at inference means dropout fires — predictions become stochastic, evaluation metrics drop by 1-3 percentage points, and you may spend days debugging a "regression" that is actually a mode flag. Always set <Code>model.eval()</Code> before scoring or serving. If a random subset of your predictions changes across identical inputs, this is the first place to look.
-      </Prose>
-
-      <H3>9.2 Dropout + BatchNorm interaction</H3>
-
-      <Prose>
-        Xiang Li et al. (CVPR 2019, arXiv:1801.05134) identified a specific failure mode: when dropout is applied before a batch normalization layer, the statistics that BN accumulates at training time do not match what the layer sees at inference. Dropout injects variance <Code>{"p/(1-p) · x^2"}</Code>; BN estimates mean and variance using these noisy activations; at inference dropout is off, so the activations entering BN have a different variance than what BN is calibrated for. The resulting distribution shift can degrade accuracy by 1-3 points.
-      </Prose>
-
-      <Prose>
-        Mitigations: (1) put dropout AFTER the last BN layer in a block, not between Conv and BN; (2) prefer stochastic depth / DropPath on residual branches, which keeps BN statistics clean because when the branch is dropped the skip path is unchanged; (3) use Group Normalization or Layer Normalization, which compute statistics per-sample and are immune to the dropout variance shift; (4) in Vision Transformers, this is why you see LayerNorm + DropPath combined without concern — LN is stable under dropout.
-      </Prose>
-
-      <H3>9.3 Dropout on correlated feature maps</H3>
-
-      <Prose>
-        Per-pixel dropout on convolutional feature maps is weak because spatially adjacent pixels encode almost identical information (the receptive field overlaps). Dropping one pixel leaves its neighbors to carry the same signal — the network easily routes around the sabotage. Use Dropout2d (whole channels) or DropBlock (contiguous patches) instead. Applying plain <Code>nn.Dropout</Code> after a 2D convolution is a common beginner mistake that looks like regularization but barely moves the needle.
-      </Prose>
-
-      <H3>9.4 Too-high dropout causes underfitting</H3>
-
-      <Prose>
-        If <Code>p = 0.8</Code> in every hidden layer of a 10-layer network, only <Code>{"0.2^{10} ≈ 10^{-7}"}</Code> of pathways survive end-to-end. The signal-to-noise ratio collapses, training loss plateaus at chance level, and validation looks like random guessing. The sweep in section 4.7 showed the effect directly: at <Code>{"p=0.7"}</Code> training accuracy dropped to 39%. This is not regularization — it is deletion. A good rule: if training accuracy is not at least 10-20 points above random, dropout is too high (or the model is too small).
-      </Prose>
-
-      <H3>9.5 MC Dropout miscalibration</H3>
-
-      <Prose>
-        Gal and Ghahramani proved MC Dropout is equivalent to a specific variational approximation — but only when the prior and likelihood are set correctly. In practice, practitioners apply dropout without thinking about the prior; the resulting uncertainty estimates are often overconfident (too tight) in the interpolation regime and still under-estimated in extrapolation (as seen in section 4.6). For production uncertainty, calibrate against held-out data using temperature scaling, use conformal prediction for coverage guarantees, or switch to Deep Ensembles which are better calibrated out of the box (Lakshminarayanan et al., NeurIPS 2017).
-      </Prose>
-
-      <H3>9.6 Stochastic depth rate too high</H3>
-
-      <Prose>
-        If <Code>{"p_L = 0.9"}</Code> at the last layer, 90% of the time the last block is skipped. The final layers never receive enough gradient signal to learn anything useful — they become glorified identity layers. Training appears to work (loss decreases because early layers keep learning) but test accuracy of the full-depth network is worse than a shallow baseline. Huang et al. recommend <Code>{"p_L ≤ 0.5"}</Code> and linear ramp from 0 at the input. Going higher without extreme depth is unjustified.
-      </Prose>
-
-      <H3>9.7 Dropout inside LayerNorm or attention softmax</H3>
-
-      <Prose>
-        Applying dropout to the softmax output of attention (attention_probs_dropout) is a standard Transformer pattern — and there is a subtle issue: after dropout, rows of the attention matrix no longer sum to 1. This is usually fine in practice because attention acts as a weighted average, but it means the head's output is no longer a proper convex combination of values. At high dropout rates this becomes noticeable; ViT and modern LLMs typically set <Code>attn_pdrop = 0</Code> or a very small value (0.0 to 0.1) for this reason. The "dropout in the residual path" pattern (drop the output of attention/MLP before adding back to residual) is safer.
-      </Prose>
-
-      <Callout type="info" title="Summary of production gotchas">
-        Always call <Code>model.eval()</Code> before inference. Don't mix dropout and BN unless you know where to place each. Use Dropout2d on feature maps, not Dropout. Keep dropout rates modest (0.1-0.5). Don't trust MC Dropout uncertainty without calibration. For stochastic depth use linear ramp with <Code>{"p_L ≤ 0.5"}</Code>. When in doubt on modern Transformers: DropPath 0.1 and move on.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        Canonical papers in order of appearance — the reading list that defined this area:
-      </Prose>
-
-      <Prose>
-        <strong>Hinton, Srivastava, Krizhevsky, Sutskever, Salakhutdinov (2012).</strong> "Improving neural networks by preventing co-adaptation of feature detectors." arXiv:1207.0580. The original dropout proposal. Short, readable, and establishes the co-adaptation framing that every subsequent paper builds on.
-      </Prose>
-
-      <Prose>
-        <strong>Srivastava, Hinton, Krizhevsky, Sutskever, Salakhutdinov (2014).</strong> "Dropout: A Simple Way to Prevent Neural Networks from Overfitting." Journal of Machine Learning Research 15:1929–1958. The definitive journal treatment. Contains the ensemble-of-subnetworks interpretation, extensive experiments across MNIST, CIFAR, ImageNet, TIMIT, and Reuters, and empirical studies of drop rates.
-      </Prose>
-
-      <Prose>
-        <strong>Wager, Wang, Liang (2013).</strong> "Dropout Training as Adaptive Regularization." NeurIPS 26. arXiv:1307.1493. Proves that for GLMs, dropout is approximately an adaptive L2 penalty with per-feature weighting by Fisher information. The theoretical foundation for why dropout works.
-      </Prose>
-
-      <Prose>
-        <strong>Wang, Manning (2013).</strong> "Fast dropout training." ICML. Shows that the expected gradient under dropout can be computed in closed form for Gaussian approximations, leading to a deterministic fast-dropout algorithm and clarifying the noise-injection equivalence.
-      </Prose>
-
-      <Prose>
-        <strong>Huang, Sun, Liu, Sedra, Weinberger (2016).</strong> "Deep Networks with Stochastic Depth." ECCV. arXiv:1603.09382. Introduces stochastic depth, the linear-ramp schedule, and demonstrates that a 1202-layer ResNet can be trained to lower error than a 110-layer baseline in less wall-clock time.
-      </Prose>
-
-      <Prose>
-        <strong>Gal, Ghahramani (2016).</strong> "Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning." ICML. arXiv:1506.02142. The Bayesian interpretation and MC Dropout. Also the PhD thesis version ("Uncertainty in Deep Learning") is an excellent longer reference.
-      </Prose>
-
-      <Prose>
-        <strong>Kingma, Salimans, Welling (2015).</strong> "Variational Dropout and the Local Reparameterization Trick." NeurIPS. arXiv:1506.02557. Learnable drop rates per weight, with variance-reduced gradient estimators via the local reparameterization trick.
-      </Prose>
-
-      <Prose>
-        <strong>Krueger, Maharaj, Kramár, Pezeshki, Ballas, Ke, Goyal, Bengio, Larochelle, Courville, Pal (2016).</strong> "Zoneout: Regularizing RNNs by Randomly Preserving Hidden Activations." arXiv:1606.01305. The recurrent adaptation — instead of zeroing, preserve the previous hidden state with some probability.
-      </Prose>
-
-      <Prose>
-        <strong>Gastaldi (2017).</strong> "Shake-Shake regularization." ICLR Workshop. arXiv:1705.07485. Randomly mixes residual-branch outputs with per-sample coefficients — a continuous analog of DropPath.
-      </Prose>
-
-      <Prose>
-        <strong>Yamada, Iwamura, Kise (2018).</strong> "ShakeDrop Regularization for Deep Residual Learning." arXiv:1802.02375. Extends Shake-Shake to single-branch architectures; combines stochastic depth with signed noise on the branch output.
-      </Prose>
-
-      <Prose>
-        <strong>Ghiasi, Lin, Le (2018).</strong> "DropBlock: A regularization method for convolutional networks." NeurIPS. arXiv:1810.12890. Drops contiguous spatial regions of feature maps rather than individual pixels — fixes the weak-regularization problem of plain dropout on conv features.
-      </Prose>
-
-      <Prose>
-        <strong>Li, Chen, Hu, Yang (2019).</strong> "Understanding the Disharmony between Dropout and Batch Normalization by Variance Shift." CVPR. arXiv:1801.05134. Diagnoses why naive combinations of dropout and BN degrade performance and proposes practical placement rules.
-      </Prose>
-
-      <Prose>
-        <strong>Touvron, Cord, Sablayrolles, Synnaeve, Jégou (2021).</strong> "Going deeper with Image Transformers" (CaiT). arXiv:2103.17239. Canonical use of DropPath in Vision Transformers with per-layer ramping — the pattern now adopted across ConvNeXt, Swin-V2, DiNOv2.
-      </Prose>
-
-      <Prose>
-        <strong>Liu, Mao, Wu, Feichtenhofer, Darrell, Xie (2022).</strong> "A ConvNet for the 2020s" (ConvNeXt). arXiv:2201.03545. Demonstrates DropPath as a critical ingredient in modern CNN recipes, with drop rates scaled by model size.
-      </Prose>
-
-      <Prose>
-        <strong>Lakshminarayanan, Pritzel, Blundell (2017).</strong> "Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles." NeurIPS. arXiv:1612.01474. The main competitor to MC Dropout for uncertainty — usually better calibrated but more expensive.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <H3>Q1. Why does inverted dropout divide by <Code>{"1-p"}</Code> during training?</H3>
-
-      <Callout type="answer">
-        To preserve expected activation magnitude. A neuron survives with probability <Code>{"1-p"}</Code>, so its expected value without scaling is <Code>{"(1-p)·x"}</Code>. Dividing surviving values by <Code>{"1-p"}</Code> restores the expectation to <Code>x</Code>. This makes test time a simple identity (no special case) — the inverted-dropout trick is what decoupled training and inference in modern frameworks. The alternative (scaling at eval time by <Code>{"1-p"}</Code>) is called "vanilla dropout" and is rarely used today.
-      </Callout>
-
-      <H3>Q2. Why is plain dropout weak on convolutional feature maps?</H3>
-
-      <Callout type="answer">
-        Adjacent pixels in a conv feature map are highly correlated — they encode overlapping receptive fields of the same spatial location. Zeroing one pixel leaves its neighbors to reconstruct the same signal, so the network can route around the sabotage with trivial effort. Effective conv regularization needs to destroy coherent chunks of information: Dropout2d zeros whole channels (breaking channel-wise correlation) and DropBlock zeros contiguous spatial regions (breaking spatial correlation). See Ghiasi, Lin, Le (2018) for the empirical demonstration that DropBlock &gt; Dropout on ResNet ImageNet.
-      </Callout>
-
-      <H3>Q3. A ViT trains fine without dropout but a 10K-sample SFT dataset overfits badly. What do you add and why?</H3>
-
-      <Callout type="answer">
-        Small-dataset fine-tuning is the classical overfitting regime, so enable dropout. Two places matter: (1) hidden dropout in the Transformer blocks (<Code>{"hidden_dropout_prob = 0.1"}</Code> or so — the HuggingFace default for BERT is a reasonable starting point); (2) DropPath on residual branches (<Code>{"drop_path_rate = 0.1"}</Code> linearly ramped). Attention-probs dropout usually stays at 0 to avoid breaking softmax normalization. If overfitting persists, bump both to 0.2-0.3 and add weight decay (<Code>{"weight_decay = 0.05"}</Code>). The SFT setting is where dropout reappears in modern LLM stacks even though pretraining uses 0.
-      </Callout>
-
-      <H3>Q4. When would you pick MC Dropout over Deep Ensembles for uncertainty estimation?</H3>
-
-      <Callout type="answer">
-        MC Dropout wins when you need uncertainty cheaply and have already trained a model. It is one model with <Code>{"T"}</Code> forward passes — no retraining, no extra parameters. Deep Ensembles win when you have the compute budget to train <Code>{"N = 5-10"}</Code> independent models, and when calibration quality matters. Lakshminarayanan et al. (2017) show Deep Ensembles are consistently better-calibrated and detect out-of-distribution inputs more reliably. MC Dropout is known to be overconfident under distribution shift. Rule of thumb: MC Dropout for rapid prototyping and cheap active learning acquisition; Deep Ensembles for production safety-critical uncertainty.
-      </Callout>
-
-      <H3>Q5. You enable stochastic depth with <Code>{"p_L = 0.5"}</Code> on a 50-layer ResNet. Training loss is stuck at chance. What went wrong?</H3>
-
-      <Callout type="answer">
-        Likely either (a) you applied the constant rate <Code>{"p = 0.5"}</Code> to every layer instead of the linear ramp <Code>{"p_l = p_L · l / (L-1)"}</Code>, which means every block is dropped half the time — effectively you are training a 25-layer network on average with random-depth noise that BN cannot handle; (b) you forgot the inverted-dropout scaling so branches survive with wrong magnitude; or (c) dropout and BN interact badly on your particular architecture — see Li et al. (2018). The fix: use the linear ramp, keep the scaling, and verify that at least the first 3-4 blocks have near-zero drop probability so early feature learning is unimpaired. If the problem persists, switch from pre-BN to post-BN placement or to GroupNorm.
-      </Callout>
-
-    </div>
-  ),
+<Prose>{"For a sampled branch bit, the local derivative is "}<InlineMath>{"I+(m/q)J_F"}</InlineMath>{", where "}<InlineMath>{"J_F"}</InlineMath>{" describes how the correction changes with input. A dropped correction leaves "}<InlineMath>{"I"}</InlineMath>{". A surviving correction can still cancel, shrink or amplify the total derivative, as the preceding residual lesson demonstrated. The preserved path is useful, not an unconditional gradient guarantee."}</Prose>
+
+<DropoutBranchLab />
+
+<Prose>{"Terminology varies. Modern libraries commonly call per-example residual-branch masking "}<strong>{"DropPath"}</strong>{", and also call it stochastic depth. Torchvision's "}<a href={"https://docs.pytorch.org/vision/main/_modules/torchvision/ops/stochastic_depth.html"}>{"stochastic-depth implementation"}</a>{" supports both row and batch modes. The "}<a href={"https://raw.githubusercontent.com/huggingface/pytorch-image-models/main/timm/layers/drop.py"}>{"timm implementation"}</a>{" uses one bit per example and has a keep-scaling option. Read the mask and scaling contract instead of assuming two names imply two incompatible algorithms."}</Prose>
+
+<H3>{"Expected active branches are not measured runtime"}</H3>
+
+<Prose>{"For "}<InlineMath>{"L"}</InlineMath>{" residual blocks with drop probabilities "}<InlineMath>{"p_l"}</InlineMath>{", the expected active count is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\mathbb E[A]=\\sum_{l=1}^L(1-p_l)."}</MathBlock></div>
+
+<Prose>{"The original stochastic-depth schedule corresponds, in our drop-probability notation, to "}<InlineMath>{"p_l=p_{\\max}l/L"}</InlineMath>{", for "}<InlineMath>{"l=1,\\ldots,L"}</InlineMath>{". It gives"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\mathbb E[A]=L-p_{\\max}(L+1)/2."}</MathBlock></div>
+
+<Prose>{"Four blocks with "}<InlineMath>{"p_{\\max}=0.5"}</InlineMath>{" have rates "}<InlineMath>{"[0.125,0.25,0.375,0.5]"}</InlineMath>{", giving 2.75 expected active blocks. A zero-first schedule "}<InlineMath>{"[0,1/6,1/3,1/2]"}</InlineMath>{" gives 3. These are different conventions, both explicit. For a one-block zero-first schedule, our code uses "}<InlineMath>{"[0]"}</InlineMath>{" rather than dividing by "}<InlineMath>{"L-1=0"}</InlineMath>{"."}</Prose>
+
+<Prose>{"Also count "}<strong>{"blocks"}</strong>{", not every layer within them. Huang et al.'s 110-layer example has 54 residual blocks. Their original convention used unscaled surviving branches in training and survival-scaled branches in evaluation. Their speed results involved actually bypassing computation. "}<a href={"https://arxiv.org/pdf/1603.09382"}>{"Deep Networks with Stochastic Depth, §3"}</a>{"."}</Prose>
+
+<Prose>{"In the expression "}<code>{"mask_values(F(x), ...)"}</code>{", Python has already evaluated "}<code>{"F(x)"}</code>{". Multiplication by zero cannot undo that work. Batchwise conditional execution can avoid a branch if the decision comes first; per-example skipping may need gathering, scattering and different batch-statistic treatment. Unequal block costs, random generation, memory traffic and hardware scheduling also matter. Expected active depth is a structural quantity, not a speedup benchmark."}</Prose>
+
+<DropoutDepthLab />
+
+<H2>{"5. Modes, state and a normalization trap"}</H2>
+
+<Prose>{"In PyTorch, "}<code>{"model.train()"}</code>{" enables modules' training behavior; "}<code>{"model.eval()"}</code>{" selects evaluation behavior. "}<code>{"torch.no_grad()"}</code>{" controls recording gradients. It does "}<strong>{"not"}</strong>{" turn dropout off or stop BatchNorm running-statistic updates."}</Prose>
+
+<Prose>{"Ordinary validation uses both evaluation behavior and no gradient recording. The complete experiment calls these explicitly before measuring either training or validation rows. Measuring training data with dropout enabled and validation data with it disabled mixes two forward procedures and can create a misleading “generalization gap.”"}</Prose>
+
+<Prose>{"BatchNorm stores running means and variances for evaluation. Suppose an activation "}<InlineMath>{"X"}</InlineMath>{" is equally likely to be 1 or 3. Its mean is 2 and variance is 1. With independent inverted dropout at "}<InlineMath>{"q=0.5"}</InlineMath>{","}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\mathbb E[\\widetilde X^2]=\\mathbb E[X^2]/q=5/0.5=10,\n\\quad \\operatorname{Var}(\\widetilde X)=10-2^2=6."}</MathBlock></div>
+
+<Prose>{"The mean was preserved; the variance was not. A BatchNorm downstream can learn statistics of this noisier distribution, then see the clean distribution at evaluation. That is the variance-shift mechanism studied by "}<a href={"https://arxiv.org/abs/1801.05134"}>{"Li et al."}</a>{"."}</Prose>
+
+<Prose>{"The exact fixture sends "}<InlineMath>{"[0,2,0,6]"}</InlineMath>{" through BatchNorm with momentum 1. Its training variance uses divisor 4, giving 6; the stored unbiased running variance uses divisor 3, giving 8. Clean evaluation inputs "}<InlineMath>{"[1,3]"}</InlineMath>{" are therefore mapped to approximately "}<InlineMath>{"[-0.353553,0.353553]"}</InlineMath>{". Do not confuse population variance 6 with the stored finite-batch estimate 8."}</Prose>
+
+<Prose>{"Placing masking after a particular BatchNorm avoids directly masking that layer's input, but later normalization layers may still see altered distributions. LayerNorm and GroupNorm do not have the same running-statistic mismatch, yet they are not immune to masking. LayerNorm of "}<InlineMath>{"[1,3]"}</InlineMath>{" is approximately "}<InlineMath>{"[-1,1]"}</InlineMath>{"; after the mask produces "}<InlineMath>{"[2,0]"}</InlineMath>{", it is approximately "}<InlineMath>{"[1,-1]"}</InlineMath>{". The representation reversed."}</Prose>
+
+<Prose>{"For MC dropout, put the model in evaluation mode first, then selectively enable its dropout modules. Keep BatchNorm in evaluation mode. Our state probe verifies that "}<code>{"no_grad()"}</code>{" in training still increments a BatchNorm counter, while selective dropout activation does not. For functional calls, pass "}<code>{"training=self.training"}</code>{" during ordinary operation; a hardcoded "}<code>{"True"}</code>{" deliberately ignores "}<code>{"eval()"}</code>{"."}</Prose>
+
+<DropoutModeLab />
+
+<H2>{"Use the mask contract in a library without changing its meaning"}</H2>
+
+<Prose>{"Read "}<code>{"mask_values"}</code>{" in "}<a href={"/learn-assets/dropout-droppath-stochastic-depth/dropout-experiments.py"}>{"the complete program"}</a>{" before the model. It is the scratch implementation: choose the broadcast shape, draw Bernoulli bits once, multiply, divide by keep probability, and bypass sampling in evaluation. Its array work is O(number of activation values); the random mask contains only as many independent entries as its chosen shape. "}<code>{"fixtures"}</code>{" keeps masks fixed for forward/backward arithmetic, while "}<code>{"DigitModel"}</code>{" shows ordinary "}<code>{"nn.Dropout"}</code>{" training. A stochastic sample is not an implementation-equivalence test just because two final losses look close."}</Prose>
+
+<DropoutProgram title="Read the scratch mask and its axis contract" start="def mask_values" end="def fixtures" />
+
+<Prose>{"The usual interfaces for the four scopes are:"}</Prose>
+
+<CodeBlock language={"python"}>{"import torch\nfrom torch import nn\nfrom torchvision.ops import stochastic_depth\n\ntorch.manual_seed(9)\nfeatures = torch.arange(1., 17.).reshape(2, 2, 2, 2)\nelement = nn.Dropout(p=0.25)\nchannel = nn.Dropout2d(p=0.25)\nprint(element(features).shape, channel(features).shape)\nfor mode in (\"row\", \"batch\"):\n    branch = stochastic_depth(features, p=0.25, mode=mode, training=True)\n    print(mode, branch)\n    torch.testing.assert_close(\n        stochastic_depth(features, p=0.25, mode=mode, training=False), features)\nelement.eval()\nchannel.eval()\ntorch.testing.assert_close(element(features), features)\ntorch.testing.assert_close(channel(features), features)"}</CodeBlock>
+
+<Prose>{"This standalone code needs compatible PyTorch/Torchvision versions. It requests the same mask geometry as the scratch implementation, but does not claim the random masks are identical. In "}<code>{"stochastic_depth"}</code>{", row means one bit per batch member, even when each member contains many tokens or pixels; batch means one bit for the entire supplied tensor. Both mask the supplied "}<strong>{"correction"}</strong>{", so the caller still adds the untouched residual input. The "}<a href={"https://docs.pytorch.org/vision/main/_modules/torchvision/ops/stochastic_depth.html"}>{"maintained implementation"}</a>{" makes that convention visible. Record the installed version when executing this newly prepared example."}</Prose>
+
+<DropoutProgram file="dropout-library-checks.py" title="Read the matched library checks and locked-feature solution" />
+
+<Prose>{""}<strong>{"Independent modification:"}</strong>{" add a "}<code>{"locked_features"}</code>{" case for a sequence "}<code>{"[B,T,D]"}</code>{", with independent bits shaped "}<code>{"[B,1,D]"}</code>{". Let the caller supply a fixed mask for a deterministic comparison. Return identity in eval, zeros at p1 in training, and "}<code>{"values * mask / (1-p)"}</code>{" otherwise. Then differentiate the sum of the output."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"The forward bit belongs to a feature/example pair; every time step must use the same bit, including backward."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution and success criteria</summary>
+
+<Prose>{"For one example with time rows [1,2] and [3,4], p0.5 and mask [1,0], the result is [2,0] and [6,0]. The gradient of their total with respect to the input is [2,0] on both rows. A fresh backward mask or a "}<code>{"[B,T,D]"}</code>{" draw changes the contract. Test identity evaluation, p0 and p1 separately, and only then use random masks during training. A mask factory is a meaningful customization point; the loss, tensor gradients and optimizer can remain ordinary library operations."}</Prose>
+
+</details>
+
+<H2>{"6. A complete experiment: does masking help these digits?"}</H2>
+
+<Prose>{"Download "}<a href={"/learn-assets/dropout-droppath-stochastic-depth/dropout-experiments.py"}>{"dropout-experiments.py"}</a>{", "}<a href={"/learn-assets/dropout-droppath-stochastic-depth/digits-400.csv"}>{"digits-400.csv"}</a>{" and the "}<a href={"/learn-assets/dropout-droppath-stochastic-depth/data-provenance.md"}>{"data provenance"}</a>{" into one directory. The program uses Python, PyTorch, NumPy and scikit-learn; run:"}</Prose>
+
+<CodeBlock language={"sh"}>{"python -m pip install torch numpy scikit-learn\npython dropout-experiments.py"}</CodeBlock>
+
+<Prose>{"The recorded run used Python 3.12.14, PyTorch 2.14.0 CPU, NumPy 2.3.5 and scikit-learn 1.9.1. The dataset contains 400 real "}<InlineMath>{"8\\times8"}</InlineMath>{" UCI digit images, not MNIST: 40 per class. A fixed stratified split uses 280 training and 120 validation examples, seed 22. Pixel values are divided by their known maximum 16. No fitted preprocessing uses validation data, and this small reused teaching split is not an official benchmark or final test."}</Prose>
+
+<DropoutProgram />
+
+<Prose>{"The program contains two controlled comparisons:"}</Prose>
+
+<ul><li>{"An MLP: "}<InlineMath>{"64\\to64\\to64\\to10"}</InlineMath>{", tanh hidden activations, element dropout after each hidden activation, "}<InlineMath>{"p\\in\\{0,0.2,0.5,0.8\\}"}</InlineMath>{"."}</li><li>{"A residual MLP: a "}<InlineMath>{"64\\to64"}</InlineMath>{" tanh stem, four corrections "}<InlineMath>{"F_l(h)=0.5\\tanh(W_lh+b_l)"}</InlineMath>{", and a "}<InlineMath>{"64\\to10"}</InlineMath>{" head. Compare no branch masking with row or batch masking using zero-first schedules ending at 0.2 or 0.5."}</li></ul>
+
+<Prose>{"Each family uses the same initial learned parameters for its masking variants at a given seed. The two families have different parameter counts, 8,970 and 21,450, so comparisons between them are not a matched architecture ablation. Every configuration uses Adam at 0.003 for 400 full-batch updates, with three initialization/mask seeds. No augmentation, weight decay, normalization, early stopping or hidden pretrained dependency is included."}</Prose>
+
+<Prose>{"The mask producer is implemented explicitly for element, channel, row and batch shapes. The model's forward method makes placement visible. Training minimizes cross-entropy of raw logits; reported losses are deterministic evaluation-mode cross-entropy in natural-log units per example. Saved points at steps 0, 1, 25, 100, 200 and 400 are actual measurements, available in "}<a href={"/learn-assets/dropout-droppath-stochastic-depth/calculated-inputs.json"}>{"calculated-inputs.json"}</a>{"."}</Prose>
+
+<Prose>{""}<strong>{"Executed final validation results, seed 1:"}</strong>{""}</Prose>
+
+<NeuralTable caption={"6. A complete experiment: does masking help these digits?"} headers={[<>{"Family"}</>,<>{"Mask configuration"}</>,<>{"CE"}</>,<>{"Correct / 120"}</>]} rows={[[<>{"MLP"}</>,<>{"none"}</>,<>{"0.088034"}</>,<>{"118"}</>],[<>{"MLP"}</>,<>{"element 0.2"}</>,<>{"0.090138"}</>,<>{"118"}</>],[<>{"MLP"}</>,<>{"element 0.5"}</>,<>{"0.111671"}</>,<>{"116"}</>],[<>{"MLP"}</>,<>{"element 0.8"}</>,<>{"0.144736"}</>,<>{"116"}</>],[<>{"Residual"}</>,<>{"none"}</>,<>{"0.136714"}</>,<>{"117"}</>],[<>{"Residual"}</>,<>{"row, endpoint 0.2"}</>,<>{"0.150095"}</>,<>{"117"}</>],[<>{"Residual"}</>,<>{"batch, endpoint 0.2"}</>,<>{"0.146876"}</>,<>{"117"}</>],[<>{"Residual"}</>,<>{"row, endpoint 0.5"}</>,<>{"0.157595"}</>,<>{"117"}</>],[<>{"Residual"}</>,<>{"batch, endpoint 0.5"}</>,<>{"0.167144"}</>,<>{"116"}</>]]} />
+
+<Prose>{"All but the element-0.8 configuration classify all 280 training images correctly; that configuration gets 279. Even high dropout did not force chance-level training accuracy here."}</Prose>
+
+<Prose>{"Across seeds, the MLP's no-dropout validation correct count is 117–118, compared with 118 for all three element-0.2 runs. Seed 2's loss improves from 0.071144 to 0.067003 with 0.2, while seeds 1 and 3 slightly worsen. All recorded residual masking variants have worse final validation CE than their corresponding unmasked residual baseline. These observations support a narrow conclusion: masking is not clearly needed for this setup. They do not establish that a different dataset, architecture, schedule or training budget cannot benefit."}</Prose>
+
+<Prose>{""}<strong>{"Investigate:"}</strong>{" compare the two saved runs with their validation-loss traces visible. Also compare correct counts and training loss. Explain why a smaller training–validation gap alone does not decide the winner. If you change a rate or budget in the program, keep the baseline, retain the new outputs and identify that as another validation experiment. A final generalization claim requires a separate evaluation plan."}</Prose>
+
+<DropoutMeasuredLab />
+
+<H2>{"7. Optional: several predictions from one dropout model"}</H2>
+
+<Prose>{"Keep trained dropout active at inference and repeat a forward pass. This is "}<strong>{"Monte Carlo dropout"}</strong>{". For classification, each pass produces a probability vector "}<InlineMath>{"p^{(t)}"}</InlineMath>{"; average those vectors:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\bar p=\\frac1T\\sum_{t=1}^Tp^{(t)}."}</MathBlock></div>
+
+<Prose>{"Average probabilities, not class IDs. Softmax of average logits is generally a different calculation. The supplied "}<code>{"mc_measure"}</code>{" function uses the seed-1 MLP trained with "}<InlineMath>{"p=0.5"}</InlineMath>{", selected in advance for demonstration, and 100 fresh masks. It sets only "}<code>{"nn.Dropout"}</code>{" modules to training mode and restores evaluation afterward."}</Prose>
+
+<Prose>{"Deterministic evaluation has CE 0.111671, Brier score 0.040718 and 116/120 correct. The actual MC mean has CE 0.113693, Brier score 0.042566 and the same correct count. Brier here is the mean over examples of the "}<strong>{"sum across ten classes"}</strong>{" of squared probability errors. Repeated inference did not improve these scores."}</Prose>
+
+<Prose>{"Probability spread can reveal sensitivity to learned-feature availability. To separate two kinds of ambiguity, define categorical entropy "}<InlineMath>{"H(p)=-\\sum_kp_k\\log p_k"}</InlineMath>{", in nats. Compare entropy of the mean with mean entropy:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"D=H(\\bar p)-\\frac1T\\sum_tH(p^{(t)})."}</MathBlock></div>
+
+<Prose>{"If two hypothetical passes give "}<InlineMath>{"[0.9,0.1]"}</InlineMath>{" and "}<InlineMath>{"[0.1,0.9]"}</InlineMath>{", the mean is "}<InlineMath>{"[0.5,0.5]"}</InlineMath>{", entropy 0.693147 and disagreement "}<InlineMath>{"D=0.368064"}</InlineMath>{". If both passes instead give "}<InlineMath>{"[0.5,0.5]"}</InlineMath>{", the mean is identical but "}<InlineMath>{"D=0"}</InlineMath>{". The first model's sampled predictions disagree; the second is ambiguous on every pass. This arithmetic is illustrative, separate from the measured digit outputs."}</Prose>
+
+<Prose>{"In the actual run, validation specimen source ID 299 is a digit 1 but the mean predicts 6; predictive entropy is 1.216163 and disagreement 0.493401. Source ID 251 is correctly classified as 4, with entropy 0.061497 and disagreement 0.020239. Those two examples help interpret the quantities, but do not validate a universal error-detection threshold."}</Prose>
+
+<DropoutMonteCarloLab />
+
+<Prose>{""}<a href={"https://proceedings.mlr.press/v48/gal16.html"}>{"Gal and Ghahramani"}</a>{" give an approximate Bayesian interpretation under a specified variational family and prior/objective relationships. Arbitrary masks added to a model trained without them are not automatically posterior samples. Our experiment measures mask-induced prediction variability; it does not claim an exact Bayesian posterior, calibrated uncertainty or guaranteed detection of unfamiliar inputs."}</Prose>
+
+<Prose>{"For regression, spread of sampled prediction means omits observation noise. In a model that explicitly assumes Gaussian observation variance "}<InlineMath>{"\\tau^{-1}"}</InlineMath>{", predictive variance includes that term plus variability of the means; "}<InlineMath>{"\\tau"}</InlineMath>{" is precision, and "}<InlineMath>{"\\tau^{-1}"}</InlineMath>{" is variance. Increasing "}<InlineMath>{"T"}</InlineMath>{" reduces Monte Carlo estimation noise, not model bias or all uncertainty."}</Prose>
+
+<Prose>{"A useful application is selecting examples for labeling: disagreement can suggest where another label might help. Another is routing ambiguous inputs for human review. Both require validating the acquisition/deferral policy on the deployment setting. They are possible uses of these quantities, not safety or coverage certificates."}</Prose>
+
+<H2>{"8. Optional: choose a noise pattern for a reason"}</H2>
+
+<Prose>{"Several related methods answer different questions:"}</Prose>
+
+<ul><li>{""}<strong>{"DropBlock"}</strong>{" hides contiguous regions within feature maps. A "}<InlineMath>{"3\\times3"}</InlineMath>{" blank region interrupts local redundant evidence differently from nine scattered zeros. Overlapping blocks and boundaries mean the seed probability for block centers is not simply the final fraction removed. Read the "}<a href={"https://arxiv.org/abs/1810.12890"}>{"original DropBlock paper"}</a>{" before implementing its sampling and normalization recipe."}</li><li>{""}<strong>{"DropConnect"}</strong>{" masks weights rather than activations. A missing activation removes its contribution to every recipient; missing individual weights can remove different connections to different recipients. "}<a href={"https://proceedings.mlr.press/v28/wan13.html"}>{"Wan et al."}</a>{" develop that distinction."}</li><li>{""}<strong>{"Zoneout"}</strong>{" carries selected previous recurrent-state values forward instead of replacing them with zero. If the old state is 0.7 and a proposed update is 0.2, a preserve decision returns 0.7. It is a memory-preserving intervention across time, not ordinary hidden dropout under another name. "}<a href={"https://arxiv.org/abs/1606.01305"}>{"Zoneout"}</a>{"."}</li><li>{""}<strong>{"Shake-Shake"}</strong>{" uses stochastic affine combinations of parallel branches; "}<strong>{"ShakeDrop"}</strong>{" develops a related residual regularizer with its own stabilization behavior. Their forward/backward recipes require separate study; arbitrary branch noise is not an interchangeable substitute. "}<a href={"https://arxiv.org/abs/1705.07485"}>{"Shake-Shake"}</a>{", "}<a href={"https://arxiv.org/abs/1802.02375"}>{"ShakeDrop"}</a>{"."}</li><li>{""}<strong>{"Gaussian/variational dropout"}</strong>{" extends multiplicative noise and can learn noise parameters. Kingma et al.'s local reparameterization and Molchanov et al.'s sparsification are distinct developments from ordinary fixed-rate MC dropout. Additional parameter cost depends on whether noise parameters are shared or per weight; fixed Bernoulli dropout does not double model parameters. "}<a href={"https://arxiv.org/abs/1506.02557"}>{"Local reparameterization"}</a>{", "}<a href={"https://arxiv.org/abs/1701.05369"}>{"variational sparsification"}</a>{"."}</li></ul>
+
+<Prose>{"Attention probability dropout offers another instructive preview. A normalized row "}<InlineMath>{"[0.25,0.75]"}</InlineMath>{", mask "}<InlineMath>{"[1,0]"}</InlineMath>{" and "}<InlineMath>{"q=0.5"}</InlineMath>{" becomes "}<InlineMath>{"[0.5,0]"}</InlineMath>{", whose sum is 0.5. The operation preserves each weight's expectation, not the row sum on every pass. Renormalizing afterward defines a different operation. The attention lesson will explain the values being mixed; the masking calculation already shows why a sampled result need not be a convex average."}</Prose>
+
+<Prose>{"A practical choice starts with the unmasked baseline, the dependency you want to perturb, and a valid validation procedure. Compare a small set of rates and placement choices. Revisit learning rate or training duration if the noisy objective is difficult to fit. Do not copy an architecture's default as a theorem about your data, or assume massive datasets make memorization impossible."}</Prose>
+
+<H2>{"9. Practice with changed inputs"}</H2>
+
+<H3>{"1. Repair the scaling"}</H3>
+
+<Prose>{"A value 3 survives with probability 0.75. A program multiplies survivors by 0.75. What are its expected output and the correct survivor value?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Distinguish the chance of survival from the value conditional on survival."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Worked solution</summary>
+
+<Prose>{"Its expectation is "}<InlineMath>{"0.75(3\\cdot0.75)=1.6875"}</InlineMath>{". Correct inverted scaling returns "}<InlineMath>{"3/0.75=4"}</InlineMath>{" when kept and 0 otherwise, giving expectation 3."}</Prose>
+
+</details>
+
+<H3>{"2. Follow a different update"}</H3>
+
+<Prose>{"Let "}<InlineMath>{"h=[2,-1]"}</InlineMath>{", "}<InlineMath>{"w=[0.5,1]"}</InlineMath>{", target 0, "}<InlineMath>{"q=0.5"}</InlineMath>{", mask "}<InlineMath>{"[0,1]"}</InlineMath>{", half-squared loss. Find output, weight gradient and weights after an SGD step of 0.1."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Form the masked input before differentiating."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Worked solution</summary>
+
+<Prose>{"Masked input "}<InlineMath>{"[0,-2]"}</InlineMath>{", output −2, loss 2, gradient "}<InlineMath>{"[0,4]"}</InlineMath>{", new weights "}<InlineMath>{"[0.5,0.6]"}</InlineMath>{". With the same mask the new output is −1.2 and loss 0.72."}</Prose>
+
+</details>
+
+<H3>{"3. Design the mask axes"}</H3>
+
+<Prose>{"For "}<InlineMath>{"[B,T,D]=[3,5,4]"}</InlineMath>{", hide a feature consistently over all time positions for each example, but allow different examples to keep different features. What mask shape is appropriate?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"List which axis must share a decision, and which axes need independent decisions."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Worked solution</summary>
+
+<Prose>{""}<InlineMath>{"[3,1,4]"}</InlineMath>{". A "}<InlineMath>{"[3,5,4]"}</InlineMath>{" mask varies over time; "}<InlineMath>{"[3,1,1]"}</InlineMath>{" hides the whole example's branch; "}<InlineMath>{"[1,1,4]"}</InlineMath>{" forces the same feature decisions across examples. Actual recurrent placement needs its own temporal-state reasoning."}</Prose>
+
+</details>
+
+<H3>{"4. Catch two validation bugs"}</H3>
+
+<Prose>{"A model with dropout and BatchNorm is scored inside "}<code>{"no_grad()"}</code>{" after training. A second engineer “fixes” its randomness by resetting the random seed before each prediction."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Separate whether gradients are recorded, whether modules use training behavior, and whether a random draw is repeated."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Worked solution</summary>
+
+<Prose>{""}<code>{"no_grad()"}</code>{" alone leaves training behavior active. Resetting the seed repeats randomness rather than making the intended deterministic predictor; BatchNorm state can still change. Use "}<code>{"eval()"}</code>{" plus no gradient recording for ordinary validation. For an explicitly requested MC procedure, selectively enable dropout and draw fresh masks without modifying BatchNorm state."}</Prose>
+
+</details>
+
+<H3>{"5. Choose from evidence"}</H3>
+
+<Prose>{"Model A scores training CE 0.01 and validation CE 0.20. Model B scores 0.30 on both. Which has the smaller gap, and which has the better observed validation loss?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Compute the two gaps, then compare the validation objective independently of those gaps."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Worked solution</summary>
+
+<Prose>{"B has zero gap; A has lower validation loss. B's small gap is compatible with underfitting. These values are a hypothetical diagnostic, not the digit measurements. The gap alone is not the selection objective."}</Prose>
+
+</details>
+
+<H3>{"6. Count blocks and distinguish conventions"}</H3>
+
+<Prose>{"Six blocks use a zero-first schedule ending at drop probability 0.4. Find the rates and expected active count. A programmer computes every correction before masking. Does your answer predict saved computation?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Write the endpoint schedule using block indices beginning at zero. Then distinguish contributing branches from executed branch functions."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Worked solution</summary>
+
+<Prose>{"Rates "}<InlineMath>{"[0,0.08,0.16,0.24,0.32,0.4]"}</InlineMath>{" sum to 1.2, so expected active count is 4.8. Every correction was computed; 20% fewer active contributions does not imply 20% less computation."}</Prose>
+
+</details>
+
+<H3>{"7. Explain a zero uncertainty score"}</H3>
+
+<Prose>{"Every MC pass assigns probability 0.99 to the same wrong class. What does low mask disagreement establish?"}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"Ask what changes across the sampled predictions and what information about correctness the masks actually provide."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Worked solution</summary>
+
+<Prose>{"The sampled masks agree, not that the prediction is correct or the input familiar. More passes estimate that agreement more precisely. Assess probability quality and any deferral policy against observed outcomes on relevant held-out data."}</Prose>
+
+</details>
+
+<H2>{"10. Continue and read another explanation"}</H2>
+
+<Prose>{"You can now trace a sampled mask through values, gradients and mode changes, distinguish masking units, and interpret an actual validation comparison. Next, "}<a href={"/learn/path/full-curriculum/convolution-pooling-receptive-fields?module=deep-learning-fundamentals"}>{"Convolution, Pooling & Receptive Fields"}</a>{" explains how spatially arranged features are created and combined—the structure that made channel and region masks meaningful here."}</Prose>
+
+<Prose>{"For another learning route, "}<a href={"https://d2l.ai/chapter_multilayer-perceptrons/dropout.html"}>{"Dive into Deep Learning §5.6"}</a>{" offers a small network diagram and a from-scratch/built-in comparison. Its example uses Fashion-MNIST and a different experiment budget. Use it to connect the masked diagram to code, not as a substitute for checking this lesson's outcomes."}</Prose>
+
+<Prose>{"The "}<a href={"https://jmlr.org/papers/v15/srivastava14a.html"}>{"2014 JMLR dropout paper"}</a>{" is the historical reference: §§4–5 formalize model/training, §7 studies rates and model averaging, and §9 explores marginalization. Its symbol "}<InlineMath>{"p"}</InlineMath>{" is a "}<strong>{"keep"}</strong>{" probability; this lesson uses "}<InlineMath>{"p"}</InlineMath>{" for "}<strong>{"drop"}</strong>{" probability. The exact input-dropout squared-loss penalty is taught in the "}<a href={"/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml"}>{"Classical ML regularization lesson"}</a>{"; the deep nonlinear objective here should not be silently replaced by a generic L2 penalty. The paper's RBM and unsupervised-pretraining extensions are further probabilistic-model study, not prerequisites for this route."}</Prose>
+  </div>,
 };
-
-export default dropoutDroppathContent;

@@ -84,7 +84,7 @@ export function FiniteSamplesLab() {
     setSize(2);
     setSelected(0);
   };
-  return <section className="sampling-lab" aria-label="Finite sampling investigation"><h3>Which samples can actually happen?</h3><p>Predict what happens to the center when you take a census of an incomplete frame. The target stays the mean of all eight units: 9.</p>
+  return <section className="sampling-lab" aria-label="Finite sampling investigation"><h3>Which samples can actually happen?</h3><p>Inspect what happens to the center when you take a census of an incomplete frame. The target stays the mean of all eight units: 9.</p>
     <div className="sampling-controls"><label>Available frame<select aria-label="Available frame" value={frame} onChange={event => {
           setFrame(event.target.value);
           setSize(Math.min(size, event.target.value === 'complete' ? 8 : 4));
@@ -131,7 +131,7 @@ export function UnitsRepeatsLab() {
   const [readingVariance, setReadingVariance] = useState(1);
   const [bias, setBias] = useState(0);
   const state = groupedMeasurementState(units, repeats, unitVariance, readingVariance, bias);
-  return <section className="sampling-lab" aria-label="Independent units and repeated readings investigation"><h3>Buy another unit, or repeat the same measurement?</h3><p>Hold the model fixed: a unit effect is shared by its readings; different units have independent effects. Predict what changing only the repeat count can reduce.</p>
+  return <section className="sampling-lab" aria-label="Independent units and repeated readings investigation"><h3>Buy another unit, or repeat the same measurement?</h3><p>Hold the model fixed: a unit effect is shared by its readings; different units have independent effects. Inspect what changing only the repeat count can reduce.</p>
     <div className="sampling-controls"><Slider label="Independent units G" value={units} minimum={1} maximum={16} onChange={setUnits} /><Slider label="Readings per unit m" value={repeats} minimum={1} maximum={16} onChange={setRepeats} /><Slider label="Unit variance" value={unitVariance} minimum={0} maximum={9} onChange={setUnitVariance} /><Slider label="Reading variance" value={readingVariance} minimum={0} maximum={9} onChange={setReadingVariance} /><Slider label="Fixed offset b" value={bias} minimum={-3} maximum={3} step={.5} onChange={setBias} /></div>
     <div className="reading-groups">{Array.from({
         length: units
@@ -161,7 +161,7 @@ export function AssignmentInvestigation() {
   const [reveal, setReveal] = useState(false);
   const state = assignmentState(design, effect);
   const allocation = state.states[selected];
-  return <section className="sampling-lab" aria-label="Random assignment investigation"><h3>Change the allocation, not the enrolled units</h3><p>Predict whether one balanced assignment must recover the target effect. Then change which pairs may be split between treatment and control.</p>
+  return <section className="sampling-lab" aria-label="Random assignment investigation"><h3>Change the allocation, not the enrolled units</h3><p>Inspect whether one balanced assignment must recover the target effect. Then change which pairs may be split between treatment and control.</p>
     <div className="sampling-controls"><label>Assignment rule<select aria-label="Assignment rule" value={design} onChange={event => {
           setDesign(event.target.value);
           setSelected(0);
@@ -189,16 +189,14 @@ export function AssignmentInvestigation() {
 export function FactorialInvestigation() {
   const [interaction, setInteraction] = useState(4);
   const [share, setShare] = useState(.5);
-  const [reveal, setReveal] = useState(false);
   const state = factorialState(interaction, share);
-  return <section className="sampling-lab" aria-label="Factorial interaction investigation"><h3>Find the combination an OFAT path never visited</h3><p>The first three cells stay fixed. Before revealing the fourth, decide whether they determine A's effect when B=1.</p>
-    <div className="factorial-board"><span /><strong>A=0</strong><strong>A=1</strong><strong>B=0</strong><div>10</div><div>12</div><strong>B=1</strong><div>9</div><div className={reveal ? 'fourth-revealed' : ''}>{reveal ? f(state.cells[1][1]) : '?'}</div></div>
-    <div className="sampling-controls"><Slider label="Interaction contrast" value={interaction} minimum={-6} maximum={6} onChange={setInteraction} /><Slider label="Share with B at one" value={share} minimum={0} maximum={1} step={.25} onChange={setShare} /></div><button onClick={() => setReveal(!reveal)}>{reveal ? 'Hide fourth cell' : 'Reveal fourth cell'}</button>
-    {reveal ? <div className="sampling-readout" aria-live="polite">A effect at B=0: 12−10 = 2<br />A effect at B=1: {f(state.cells[1][1])}−9 = {f(state.highBEffect)}<br />Interaction: {f(state.highBEffect)}−2 = {f(state.interaction)}<br />A effect in the declared B mixture: {f(state.averageAEffect)}</div> : <p role="status">The fourth cell is hidden. Its value can change while the three observed cells remain identical. The contrast is therefore not identified by those three cells.</p>}
+  return <section className="sampling-lab" aria-label="Factorial interaction investigation"><h3>Find the combination an OFAT path never visited</h3><p>The first three cells stay fixed. Change the interaction contrast and watch the fourth cell and A's conditional effects update together. Those three fixed cells alone cannot identify the missing combination.</p>
+    <div className="factorial-board"><span /><strong>A=0</strong><strong>A=1</strong><strong>B=0</strong><div>10</div><div>12</div><strong>B=1</strong><div>9</div><div className="fourth-live">{f(state.cells[1][1])}</div></div>
+    <div className="sampling-controls"><Slider label="Interaction contrast" value={interaction} minimum={-6} maximum={6} onChange={setInteraction} /><Slider label="Share with B at one" value={share} minimum={0} maximum={1} step={.25} onChange={setShare} /></div>
+    <div className="sampling-readout" aria-live="polite">A effect at B=0: 12−10 = 2<br />A effect at B=1: {f(state.cells[1][1])}−9 = {f(state.highBEffect)}<br />Interaction: {f(state.highBEffect)}−2 = {f(state.interaction)}<br />A effect in the declared B mixture: {f(state.averageAEffect)}</div>
     <p>The cells are declared synthetic means in score units. The population mixture weights the two conditional effects; it does not change the cell means. Replicated randomized observations would be needed to estimate these means and their uncertainty in a real experiment.</p><button onClick={() => {
       setInteraction(4);
       setShare(.5);
-      setReveal(false);
     }}>Reset factorial</button>
   </section>;
 }

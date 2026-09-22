@@ -70,7 +70,7 @@ export function SubsetChoicesLab() {
   }
   return <section className="bd-lab" data-bd-lab="subsets" aria-labelledby={heading}>
     <p className="bd-eyebrow">INVESTIGATION · CHOOSE, EXPLORE, UNDO</p><h3 id={heading}>A temporary path is not a saved answer</h3>
-    <p>Find subsets of positions whose values reach the target. Repeated values are separate occurrences. Predict the next choice, then watch the shared path change while saved answers remain intact.</p>
+    <p>Find subsets of positions whose values reach the target. Repeated values are separate occurrences. Inspect the next choice, then watch the shared path change while saved answers remain intact.</p>
     <form className="bd-controls" onSubmit={apply}><label>Values · at most three<input value={values} onChange={event => setValues(event.target.value)} maxLength={30} /></label><label>Target sum<input value={target} onChange={event => setTarget(event.target.value)} inputMode="numeric" maxLength={3} /></label><label className="bd-checkbox"><input type="checkbox" checked={prune} onChange={event => setPrune(event.target.checked)} />Use positive-value pruning</label><button type="submit">Apply search</button><button type="button" onClick={() => {
         setValues('2, 4, 5');
         setTarget('5');

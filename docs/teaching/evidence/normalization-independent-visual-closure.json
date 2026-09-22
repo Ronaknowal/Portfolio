@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:4197",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/NormalizationLabs.jsx": "f99d918b1d1ba055886b8ca1a4dcea44644734eb42281dbb21d689d4e31000c3",
+    "src/learn/components/lesson-labs/normalization-labs.css": "c0aa0e6e85c961c918b30ea60423eac99954652257d1017ea9a68da7614166f9",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "117f860029951ad4277eec573693d986c4f69500f5191a97c5135edd55a5321a",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "aafb75ec5071ca3c182e326f9cb869aa779eab289d456664ebf7c7844b61cd44"
+  },
+  "captures": [
+    "docs/teaching/evidence/normalization-independent-browser/1366-gradients.png",
+    "docs/teaching/evidence/normalization-independent-browser/1366-placement.png",
+    "docs/teaching/evidence/normalization-independent-browser/320-gradients.png",
+    "docs/teaching/evidence/normalization-independent-browser/320-gradients-scroll-end.png",
+    "docs/teaching/evidence/normalization-independent-browser/320-placement.png"
+  ],
+  "checks": [
+    "Every gradient and residual graph text box fits its actual SVG viewBox",
+    "320 px dependency graph exposes its remaining branch in its own scroll region; page stays contained at 1366 and 320 px"
+  ]
+}

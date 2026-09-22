@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "ancestryCases": 225,
+  "polynomialCases": 18,
+  "adjointCases": 27,
+  "method": "Forward source-set propagation vs backward tracing; exact multinomial path counts vs recursive averaging; arbitrary strided dot-product identities.",
+  "sourceHash": "57fddf3dc09c15eb277f228196b263e6a9b5a93d7b9fb5d520fb5877df9af136"
+}

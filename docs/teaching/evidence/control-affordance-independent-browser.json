@@ -1,0 +1,257 @@
+{
+  "startedAt": "2026-09-21T15:39:05.218Z",
+  "base": "http://127.0.0.1:4193",
+  "records": [
+    {
+      "check": "initial complementary confidence conceals error",
+      "values": [
+        0.2,
+        0.3,
+        0.8,
+        0.9
+      ],
+      "points": [
+        2,
+        1
+      ]
+    },
+    {
+      "check": "two distinct perfectly calibrated forecasts",
+      "values": [
+        0.3,
+        0.3,
+        0.9,
+        0.9
+      ],
+      "points": [
+        2,
+        2
+      ]
+    },
+    {
+      "check": "equal forecasts pool exactly at tie boundary",
+      "values": [
+        0.5,
+        0.2,
+        0.5,
+        0.8
+      ],
+      "points": [
+        1,
+        1
+      ]
+    },
+    {
+      "check": "deterministic endpoints",
+      "values": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "points": [
+        2,
+        1
+      ]
+    },
+    {
+      "check": "matching means do not establish conditional calibration",
+      "values": [
+        0.6,
+        0.7,
+        0.8,
+        0.7
+      ],
+      "points": [
+        2,
+        2
+      ]
+    },
+    {
+      "check": "decimal-complement pooling avoids binary roundoff split",
+      "values": [
+        0.45,
+        0.3,
+        0.55,
+        0.9
+      ],
+      "points": [
+        2,
+        1
+      ]
+    },
+    {
+      "check": "Calibration buttons reset/match and keyboard ArrowRight update values and visible output"
+    },
+    {
+      "check": "Calibration responsive controls",
+      "width": 390,
+      "boxes": [
+        {
+          "width": 322.40625,
+          "height": 44
+        },
+        {
+          "width": 322.40625,
+          "height": 44
+        },
+        {
+          "width": 322.40625,
+          "height": 44
+        },
+        {
+          "width": 322.40625,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "check": "Calibration responsive controls",
+      "width": 320,
+      "boxes": [
+        {
+          "width": 252.40625,
+          "height": 44
+        },
+        {
+          "width": 252.40625,
+          "height": 44
+        },
+        {
+          "width": 252.40625,
+          "height": 44
+        },
+        {
+          "width": 252.40625,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "pca-dimensionality-reduction",
+      "width": 1366,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 46.796875,
+        "left": 348.296875,
+        "right": 718.5625
+      }
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "pca-dimensionality-reduction",
+      "width": 390,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 75.59375,
+        "left": 20,
+        "right": 370
+      }
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "pca-dimensionality-reduction",
+      "width": 320,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 75.59375,
+        "left": 20,
+        "right": 300
+      }
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "bias-variance-tradeoff-learning-curves",
+      "width": 1366,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 46.796875,
+        "left": 348.296875,
+        "right": 606.875
+      }
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "bias-variance-tradeoff-learning-curves",
+      "width": 390,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 46.796875,
+        "left": 20,
+        "right": 278.578125
+      }
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "bias-variance-tradeoff-learning-curves",
+      "width": 320,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 46.796875,
+        "left": 20,
+        "right": 278.578125
+      }
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "width": 1366,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 46.796875,
+        "left": 365.296875,
+        "right": 721.59375
+      }
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "width": 390,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 75.59375,
+        "left": 37,
+        "right": 353
+      }
+    },
+    {
+      "check": "Previously native-grey control remains usable",
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "width": 320,
+      "style": {
+        "bg": "rgb(20, 19, 15)",
+        "fg": "rgb(226, 181, 90)",
+        "height": 75.59375,
+        "left": 37,
+        "right": 283
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/control-affordance-calibration-390.png",
+      "sha256": "28358fc9e5a7a5a3ceca81e81335610c13a9e64fa5cf0c3e92d1ffd284b99206"
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "capturedAt": "2026-09-21T15:39:27.704Z",
+  "sourceHashes": {
+    "scripts/verify-inline-lesson-controls.cjs": "b42a11c89db96d4c7a0305e7ae34857f382e850528a9ae44e42497e517f45c3e",
+    "src/index.css": "fda1350802780d0dfafdb5b173264fb6c09e510105b6356f490b019b57d92458",
+    "src/learn/components/topic-content.css": "cfa8a67c69d4de7ec0d3f0bb17bb4dd0ecf321884187e5ba2597b7f64b6dbd84",
+    "src/learn/components/lesson-labs/CalibrationFigures.jsx": "becb45391dfe14a7e1d6c4cfb238bbe6b0291899f2c5b83dfe3fdbabf133032d",
+    "src/learn/components/lesson-labs/calibration-labs.css": "158c5fe4a51a01ed7d74b1cd0f8393ca105961406b204b9392871552c92260a0",
+    "src/learn/data/calibration-models.js": "0bb784fe620cc398c154474031888b2c11aa06a3e5c8f237c3d3cafe6b97470e"
+  },
+  "manifestHash": "0fe4f103b8a540facf3f999b333ec3756d05c99b532b9f137207cc066fd3cf79"
+}

@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "capturedAt": "2026-09-21T16:26:31.578Z",
+  "base": "http://127.0.0.1:4194",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/VectorTensorLabs.jsx": "440dd5ad6b1848f33f035ee5e3d97915e2529c88b6eec320ed3c77e44c75bb80",
+    "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "4d55cfb57e948aa2e1a70a584205805c81fa36011338487fa953eaca40326710",
+    "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "65f0cba1aa8b46dfe40b57d9d7318c76b0e968ac584ca83440a2ba3a9542abea",
+    "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "88803df4561dbb9bf7c8de0097807a696b13be2e22a323bfaa3c98f67cccb932",
+    "src/learn/components/lesson-labs/TopologyTdaLabs.jsx": "84cc7ed463c62009d137d3bc693a2189f4aa462003d9fd790d60be4c5678d320",
+    "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "40569d751316b6e28a8b69be26f785353e5f2780598c9043ee6f9692228fb4e1",
+    "src/learn/components/lesson-labs/matrix-calculus-labs.css": "555d177848192c092bf2feeadf76f625a56a0513cec4929a532e1949aa6ba0d9",
+    "scripts/verify-math-control-affordances.cjs": "2d8f41601429c9b2532c7140270406f0361e80eff45c0e8acbf4ecc8aa0bb21c"
+  },
+  "records": [
+    {
+      "check": "Six coordinate sliders have real label associations and keyboard changes",
+      "sliders": 6
+    },
+    {
+      "check": "Momentum preview responds before stepping, retains cursor, and disables inapplicable controls",
+      "independentArithmetic": "At update 2: beta .5 -> theta (1.6128,-.44), F=3.23656192; beta .8 -> theta (1.5648,-.92), F=9.68829952."
+    },
+    {
+      "check": "Clock and plateau previews recompute while preserving inspection positions",
+      "singleton": "One validation value renders a point and disables the zero-width inspection control."
+    },
+    {
+      "check": "Rips slider endpoint equals the exact full complex for all offered samples and scales",
+      "fixtureScalePairs": 12
+    },
+    {
+      "check": "Advection edits retain the transport step and move the real cell values"
+    }
+  ],
+  "captures": [
+    {
+      "path": "docs/teaching/evidence/screenshots/math-control-momentum-desktop.png",
+      "sha256": "f41dbdd161d4947e079bf3b62139ffd90c3237981a28f1123a99e2ab5976d5a0"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/math-control-plateau-phone.png",
+      "sha256": "fe110da30ebad15f1227124b392189f667983872a38d12f3ca725361b2cbd613"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/math-control-rips-phone.png",
+      "sha256": "3733a0781f6d2e22e1e77521fc1f0bcc9f5e7a6612e6725bc5342124a9adeb2a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/math-control-advection-phone.png",
+      "sha256": "50f1ec713d689a2d5a0c1559e9fffcd68feb1a465e959e3fd0c69df3db65e2ce"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-09-20T07:28:47.308999+00:00",
+  "verifier": "scripts/verify-pac-sources.py",
+  "verifierSha256": "744e8eb5bd3ff8f7ab91aec62a1ce37fee43d9ea0bccd2af1df1f6928dc1d29d",
+  "filesAudited": 16,
+  "filesDeclared": 16,
+  "checks": 98,
+  "displayBlocksChecked": 16,
+  "requiredKatexSequences": 19,
+  "fileHashes": {
+    "src/learn/data/pac-models.js": "36d80a2f5b2960a57543b3f0aba2f26801fadeb8669bd11fe0ee265a967ffa9c",
+    "src/learn/data/pac-data.js": "8754a2d5228e6f5a391df5d7bc9ca385aac4c6083ba2e6b497106d33b3131285",
+    "src/learn/data/pac-examples.js": "2ad31dd00134354d3de0a6176bf4d4fae16cc6c39cc8ab47db3c1b72c429d05a",
+    "src/learn/data/topics/pac-learning-vc-dimension.jsx": "0fb33c185a7a339c339c99c4fc98f8bbcff609e041728eaae732ab15c2a415f7",
+    "src/learn/data/curriculum/blueprints/pac-learning-vc-dimension.js": "e55c9aed4e11698a80bce0fb602faae8aa4bc3565e11a30f6672f5e24f0717b7",
+    "src/learn/components/lesson-labs/PacShared.jsx": "eb7ccc0b50835d8452f7f809708a1bcc8a77113efeaa00c49fb55cedcc88161b",
+    "src/learn/components/lesson-labs/PacLabs.jsx": "aeb72989938671c0936248ef43ed9c7585cd33825f0c87b4fe448e77f2f42674",
+    "src/learn/components/lesson-labs/PacFigures.jsx": "21c0fff8b50e896920948588109a9e1a3cde8db4854fd6585535fc5f45f37420",
+    "src/learn/components/lesson-labs/pac-labs.css": "2943d4850ec64d73571e4ff31694affc9b4c39c90abf4d20d814af6ab3858d28",
+    "scripts/verify-pac-models.mjs": "7dedd51644a5db9e738aafb52ecca8616ef4373460b6a23414aab4072666813b",
+    "scripts/verify-pac-examples.py": "aef52787ab0622675a2a3dc13d1efdb46391e4b57a51d79577f87ba40405083c",
+    "scripts/verify-pac-data.py": "9cd3177848766b9462745d1c86594760b7a2261e40ba3c8a338fe80a8764c07a",
+    "scripts/verify-pac-browser.cjs": "026e36e63067e2a630e319f268446a3d7ab714c1acd8af114a57cfc6337597b8",
+    "scripts/verify-pac-sources.py": "744e8eb5bd3ff8f7ab91aec62a1ce37fee43d9ea0bccd2af1df1f6928dc1d29d",
+    "scripts/falsify-pac-guards.mjs": "fd8a62786f477fd447067c40678008ce0c5c3eab74017fae09a8fad0d011474c",
+    "public/learn-assets/pac-learning/ATTRIBUTION.txt": "e94c1d385dfc94ef9a961c75d08f9279f41cfda9fee163ed0d58cc79b91a35be"
+  },
+  "scope": "Raw control bytes and undefined backslash escapes in every file this lesson owns, its own five verifiers and its falsification harness included; the KaTeX sequences the body depends on; that every display block is short or wrapped; that no JSX conditional has identical branches; that the lesson body never reaches for a member of the global Math object in a module where `Math` is the KaTeX component; and that no owned file references the two sibling lessons' copies of the same banknote extract.",
+  "limitations": [
+    "Text-level hygiene only. It does not parse JSX or KaTeX, and a wrapped block can still overflow: the rendered width is measured by scripts/verify-pac-browser.cjs.",
+    "The escape allow-list is deliberately broad; it catches a byte a shell replaced, not every questionable escape.",
+    "The CRLF question is deliberately not checked: this repository sets core.autocrlf=true and the convention is about stored bytes, so such a guard would test nothing."
+  ],
+  "passed": true
+}

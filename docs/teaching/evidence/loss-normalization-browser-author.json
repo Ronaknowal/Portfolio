@@ -1,0 +1,269 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-21T17:49:25.054Z",
+  "base": "http://127.0.0.1:4197",
+  "checks": [
+    "Regression: outlier/Huber/null, actual drag/endpoints and invalid/reset",
+    "Focal: signed reversal and exact BCE cancellation",
+    "Recorded decisions: correct threshold counts, invariant probability metrics, specimen identity",
+    "Triplet: editable candidate, skip policy, translation invariance",
+    "InfoNCE: exact loss, live temperature and equal-score null",
+    "loss-functions 1366px: figure captures, contained page, labelled controls, finite results",
+    "loss-functions 390px: figure captures, contained page, labelled controls, finite results",
+    "loss-functions 320px: figure captures, contained page, labelled controls, finite results",
+    "Membership: BatchNorm cross-example effect and LayerNorm null",
+    "Normalization geometry: offset sensitivity, equal-output null",
+    "BatchNorm: one genuine buffer update, evaluation forward leaves state unchanged",
+    "Gradient graph: checked affine step and zero-rate identity",
+    "Measured runs, pre/post placement and real pointer endpoints",
+    "normalization 1366px: figure captures, contained page, labelled controls, finite results",
+    "normalization 390px: figure captures, contained page, labelled controls, finite results",
+    "normalization 320px: figure captures, contained page, labelled controls, finite results"
+  ],
+  "captures": [
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-0-1366.png",
+      "hash": "94105f917a2957a0ab9db21531f02922845823e897723783d6723d0533901b1c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-1-1366.png",
+      "hash": "656321dd204436c17c69630b3ec734314dd00ff84458190aa9119e7aaa53aaf6"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-2-1366.png",
+      "hash": "13fc96629b9a79684de5cd2139bba8fac57196b516e6987e3350161fabed4a31"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-3-1366.png",
+      "hash": "cb027f6ab08032928ea81bf7bdc699c32a2b74695f46263d65d917e06c7d8be5"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-4-1366.png",
+      "hash": "91ec85b0e8580806f50e456bbc2d973dfa3bc7a44085430eadf1bf37a695938b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-5-1366.png",
+      "hash": "383f56df81d8f7c96fc229f6e23ef5802f16e4e297e2156b40d15158ab902d9c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-6-1366.png",
+      "hash": "6bb19a51825eb67fb13c663a4122399d760041f21b9bc2a49ad8f9d9076079aa"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-7-1366.png",
+      "hash": "e7a8f759b1e511a97fee5b19940767dadd7aee9b2f93fff6dc7beb84eaa83f15"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-8-1366.png",
+      "hash": "f7ba04bbf617befb8162304b1874225713430968f05bc1207b23c94602460750"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-0-390.png",
+      "hash": "4fd275c188dabf7b934b202366abf3e530a8f507e16eb704b2e31672a7145035"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-1-390.png",
+      "hash": "fbada5c08bd05742f6e052f948b13202d122e9f5c8d73f331f84496e8fd1e593"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-2-390.png",
+      "hash": "775f87260f749fb03c5f6ecd467c7918ee2abe5204cf79e1b56c2b43549a942b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-3-390.png",
+      "hash": "29a50d1d4243fe4a3248338b8eeecaf6b3039430a4f8936edf32da8e72fe51ee"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-4-390.png",
+      "hash": "c8154ed201eb1d5af8480d4a66e26ade77e6c68b003020eaab6314886657e778"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-5-390.png",
+      "hash": "ec83de10e13283b614e61516fced72eaa9e8c51f3d45930e098764f029fec580"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-6-390.png",
+      "hash": "80199b550d1d72599bbacd2f3451bc9ced47c558cae1f52c717786f575ac33d6"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-7-390.png",
+      "hash": "56bdaa48e18b3208a6f89529ceccf1b2223a5646417530262513a15052a504fe"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-8-390.png",
+      "hash": "781074b880d2f2fba6a95b590e627354daf6911bda7edecf53bc00806c40402c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-0-320.png",
+      "hash": "d1869fbe1bd67ac81a97b199b045632c2a27388730fee7b210b7590fc63486a0"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-1-320.png",
+      "hash": "8cca3df26d5c3bef410f890e4d12c87840e8db42569a32b8bf02c60c7c9cbb2e"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-2-320.png",
+      "hash": "8e5bedb6a7b7261771b644d2f0e3c548f6ac606ca149326a7b6cb4de160d99df"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-3-320.png",
+      "hash": "9bdeaddca6a08b4aaa0e66607faf6a04e37967ebe2657058adf9475341b58c6a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-4-320.png",
+      "hash": "4cad91cf176be4560e45309efb62e32a92c018a3aaa9a84b9e2ccfe18748b2e7"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-5-320.png",
+      "hash": "de6895a17871f68fe7da2e54a7b41fbfe2d672f4af9399f5e76502056786afa0"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-6-320.png",
+      "hash": "d344f099895ed2f4063a20129c606bc90affd69f063a1cf1f4e8b07f5ea0193a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-7-320.png",
+      "hash": "812a232ea99bf3dd9201f7e4deb30658cbfe5c636fa11ee876bafa82c3fa8145"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/loss-functions-figure-8-320.png",
+      "hash": "e1343c748920095591ca8d527a093e9fddc78b0f8dad602faf0f4f193b634133"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-0-1366.png",
+      "hash": "33ea55dd93ab352da7daa0f88d5450960610aca5e08e0a546497a6920dfd12f8"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-1-1366.png",
+      "hash": "828ffa68700a34cc3e437a9c748422727c0fa7eb3d1023e46a61a7f8f672537d"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-2-1366.png",
+      "hash": "34cebdc76791f644986e6f1487f5ba276bf9b0cb93c471a2afc63b388dd7c7e3"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-3-1366.png",
+      "hash": "ebf224fa3f960c28699fa14031eb1c77c7de41f16ada955fa280cfc01af95d6f"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-4-1366.png",
+      "hash": "15d88bc13aed59900ac1fe067a6d813b17ef8e126613eae7de51fa0d6ae6859b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-5-1366.png",
+      "hash": "9c400d805e2168cd93c14a62a414384bd0d82880ed4a6d674977f2a5c8cb5869"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-6-1366.png",
+      "hash": "029f577ecc6c0ee8bd46103d0a9c6c9088dbd307b17ad395d2a029c2433e946d"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-7-1366.png",
+      "hash": "38636ba450b07a327dc48a62d2b7070fbbae90499c749afeca2ffadc40ed5d4c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-8-1366.png",
+      "hash": "4845b88009baaa073a0b8389b2331bd317279ba55d841f781395742e87f6b46e"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-9-1366.png",
+      "hash": "8fd0f32b803de75f617350dff6887c2becbad5752b0429d1a4bdd061d4f48c8b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-0-390.png",
+      "hash": "4507bdcf698894b35078df8d78d1488df7cd94ec2a98445cc7efadb997b6dc5c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-1-390.png",
+      "hash": "8cc578f189b4bd8035a4f7d70fbabda270f47b3bdfb1f6d2735805728160dc2a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-2-390.png",
+      "hash": "f7a43247b66b63f0f10bd7e2fd62192792ad015d8de7c0cc28843762a85fab30"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-3-390.png",
+      "hash": "feefcfad15c8d280b1f09f77e012eca0405a435d435dfd2e180dec40eca74f57"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-4-390.png",
+      "hash": "852e1f0967aa6657cf40e8e4d47b25730b1251b1dc7ff37c1b7b59e78746c8cc"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-5-390.png",
+      "hash": "e38f953a90f67790cc3a8bd0acb0bfa5064c11aa72cbcabcad7f86f1b36879fb"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-6-390.png",
+      "hash": "47f94886ab6de4155d1be8b6f5bf1e317f027535d5112d1225d8d36e767fbb92"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-7-390.png",
+      "hash": "0f9c4caefc38250c8746c76e0619039e189a0b12566458f443c31aff843cdd2a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-8-390.png",
+      "hash": "791e5ac69c3c185688211145c50a04b566e4b39916a7f25ea3df139265323c42"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-9-390.png",
+      "hash": "d2441ebc6097c582e3d3f8be6a52b2c2ad515ee2fc0c211c9587142afdd342e2"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-0-320.png",
+      "hash": "9ab8cb8ccc7042480def035765536a85aa292ae4f2d266c0011986f50538ee1c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-1-320.png",
+      "hash": "6fe369a81e8940c564d928ea82f6615c84ec365e566a100c51df1c4564d124a4"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-2-320.png",
+      "hash": "af67215cad52b635a12a3b39f7a2d0da43c9b4f1c91ef3eecc288f288bb0d89e"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-3-320.png",
+      "hash": "a6757db958b3b804191467042da439fb8b44fc504ea4f0ed52264207cf283302"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-4-320.png",
+      "hash": "6b213c607e98d24c985f3f893899f800019764eba652e354e11bbe67a87557e1"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-5-320.png",
+      "hash": "a476fe80fdb2504275e262f7ef59ff252a866f022c036ca630481b191e7cc97a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-6-320.png",
+      "hash": "8a8c8e499eb190428efd541e28cf7a17a1b4ae8d726a3697a298442670282e86"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-7-320.png",
+      "hash": "3a49dee45772c8ccdfe368f2cf4d3cf174c73c8a1a7149a79412ff704385cc91"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-8-320.png",
+      "hash": "0d819d1f465d9bc2af248ac30d43c520228b2f692d98f8f7ba3a966e4a5a20bc"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/normalization-figure-9-320.png",
+      "hash": "b2e974ce8e0a9d83adb223d787a2269694141f9ceceb908eb6a49a4141d9bae7"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "117f860029951ad4277eec573693d986c4f69500f5191a97c5135edd55a5321a",
+    "src/learn/components/lesson-labs/LossFunctionsLabs.jsx": "4d783fde77c141197a9e9bc76deacebd475d3428774f89242215b1e9a86ffc68",
+    "src/learn/components/lesson-labs/NormalizationLabs.jsx": "03fcadaf0d69f6673a260d499bab26a896afa4f1be47c50f214ea7442bac145a",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "f671286f3fe5166167e5aab96f6f3db826d84b12bdbca1dfc3cb5e63fa00d494",
+    "src/learn/components/lesson-labs/loss-functions-labs.css": "95d2709d5bd9c0b35055aad1109e3581dfd547361727e0177c218f5f39a91d3b",
+    "src/learn/components/lesson-labs/normalization-labs.css": "c0aa0e6e85c961c918b30ea60423eac99954652257d1017ea9a68da7614166f9",
+    "src/learn/data/loss-functions-models.js": "083702170012fdb0a929621ec5071d38e22e4c0c3203ed9ba3006c26dc1478fa",
+    "src/learn/data/normalization-models.js": "a356b309d6d80b79bdbec528f42104cdfaf42d0a86304f841a2fb56919df813f",
+    "src/learn/data/loss-functions-measurements.js": "ab2a6bcb8158d9b6dace853e2d32f1bcd76073fa0ae60c60ec0031fa7e7ac777",
+    "src/learn/data/normalization-measurements.js": "54c6c01b8c49135dab2e3caf56666af63e3856b17ed4eff474686d8c8cf3c5ba",
+    "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx": "6fb544d64ef66062f21f11095c677b6c3bb22b9cf7b6a473d9f4d33582f48d03",
+    "src/learn/data/topics/batch-layer-group-rms-normalization.jsx": "611d5cceea7b148a69c219018bbfb6f06c0475fd69118e62c9dc5de2e9ad96ff"
+  },
+  "verifierHash": "28e8b57c7a72452fd27a0f2e839a6ee7ca5b52aa1b4cb3fc7abba6dcc4652c81"
+}

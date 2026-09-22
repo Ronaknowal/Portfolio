@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu",
+    "sklearn": "1.9.1"
+  },
+  "checks": [
+    "Canonical downloadable programs, CSV and measured six-run record equal frozen packet bytes",
+    "Reexecuted every direct-loop, gradient, geometry, rank, boundary, saved-inference and practice calculation; full JSON identical",
+    "Mobile/context building blocks execute real input, forward shapes and finite nonzero stem gradients",
+    "Native per-input SVD conversion, spectral-error equality, grouped/effective-kernel output parity and full-rank reconstruction across both retained models and all ranks",
+    "Complete displayed float64 effective-kernel program executes and agrees at 1e-12"
+  ],
+  "maximumFloat32GroupedDifference": 4.76837158203125e-06,
+  "sourceHashes": {
+    "public/learn-code/depthwise-separable-dilated-convolutions/author-check-results.json": "fd3d7950e934000f8ebed3a4a89cd5315d93050f721c0be53c8ca7f18b55cdfa",
+    "public/learn-code/depthwise-separable-dilated-convolutions/author-checks.py": "3109cf739adaeebadcfaec2b851ef75497c23281ab8c0f1a0bf46e6b5dd246ec",
+    "public/learn-code/depthwise-separable-dilated-convolutions/block-check-results.json": "aec99dbeedbc39eb2755815b38305300f6a5a737b746e464a99ab1d00882f130",
+    "public/learn-code/depthwise-separable-dilated-convolutions/calculated-inputs.json": "6eb77106cd6a4dfb8a378e04d5b930c4ce422be561536bfe44522e7cb56eb449",
+    "public/learn-code/depthwise-separable-dilated-convolutions/context-blocks.py": "6fd160b263d7dc581e753e4986d8345d08fa7d4200731946ce0884f1e7562721",
+    "public/learn-code/depthwise-separable-dilated-convolutions/convolution-factorization.py": "5b89c0f3b7cf4d1e662afa93695dbc971d8f5290e33a9be89bf3e97d8105e2d1",
+    "public/learn-code/depthwise-separable-dilated-convolutions/data-provenance.md": "15e079280e021c1f517cd91d3c0a29968577be795674df6ea6278f03db577396",
+    "public/learn-code/depthwise-separable-dilated-convolutions/digit-inference.json": "cda4964748b78e8be3142d00235271f3aeb2b2a03e2c1e76ee2a51ffb9dbabd2",
+    "public/learn-code/depthwise-separable-dilated-convolutions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672"
+  },
+  "limits": "Historical six training runs are preserved source-bound evidence, not rerun for this presentation-only integration. Saved inference, conversion, operators and blocks executed now."
+}

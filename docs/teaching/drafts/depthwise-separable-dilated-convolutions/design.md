@@ -73,11 +73,11 @@ Supplementary coverage decisions: WangHDC§3.2 gap recurrence versus common-fact
 
 | Hurdle/outcome | Local prior bridge and mechanism | Complete example | Representation and learner evidence |
 | --- | --- | --- | --- |
-| Channel axis is not spatial axis | Refresh NCHW, map versus scalar, shared weighted sum | Two channels/two taps→two outputs; one gradient update | Distinct channel lanes and mixing matrix; predict touched/untouched output |
-| Savings impose a restriction | Rank as independent patterns, no assumed SVD mastery | Identity two-probe failure; multiplier2 repair; exact k3 budgets | Editable spatial/mixing coefficients and simultaneous probes, actual residual grading |
+| Channel axis is not spatial axis | Refresh NCHW, map versus scalar, shared weighted sum | Two channels/two taps→two outputs; one gradient update | Distinct channel lanes and mixing matrix; inspect touched/untouched output |
+| Savings impose a restriction | Rank as independent patterns, no assumed SVD mastery | Identity two-probe failure; multiplier2 repair; exact k3 budgets | Editable spatial/mixing coefficients and simultaneous probes, actual residual result checks |
 | Dilation differs from stride | Explain sampled coordinates, output centers and zero padding | Nine-value signal, equal-ramp/null and asymmetric edits | Movable disconnected stencil with numeric products |
 | RF outline is not coverage | Refresh incoming width/jump | [1,4] gap/gcd counterexample and finite8×8 boundary | Layer lattice/offset sets, unsolved gap-repair task and true reordering null |
-| Architecture diagrams must correspond to shapes | Expansion before stride, branch source identity, concatenation axis | MBConv32t6 arithmetic; parallel mean/local fixture; complete block program | Shape diagram, parallel dependency plot and branchwise prediction |
+| Architecture diagrams must correspond to shapes | Expansion before stride, branch source identity, concatenation axis | MBConv32t6 arithmetic; parallel mean/local fixture; complete block program | Shape diagram, parallel dependency plot and linked branchwise output |
 | Weight approximation differs from task quality | Local SVD rank terms and labels/logits/CE | Six fits,24 fixed factorizations, full costs/actual failure | Real digit pixel editor, signed logits and filter residuals; bounded actual inference |
 | Evaluation and deployment need separate evidence | Refresh development consumption and operation count convention | Plan adaptation without invented recovery/timing | Changed open practice with criteria and worked valid answer |
 
@@ -117,9 +117,31 @@ Author full manuscript and visual-specification reread completed in ordered full
 - First-pass route precedes technical detail; advanced interval construction is closed and optional. Deep applications do not silently replace core readiness.
 - Mechanisms connect prose, symbols, tables, complete programs and interpreted numbers. Every major fixture has a meaningful changed input and null case.
 - Topic-specific forms: channel lanes, independent-probe rank repair, sampled-site lattice, parallel context branches and actual digit/filter/logit comparison. No fixed lab quota or generic text panel substituted.
-- Seven changed practice tasks have separate closed hints and explained solutions; open experimental-design question supplies criteria. The two-probe task begins unsolved and grades outputs.
+- Seven changed practice tasks have separate closed hints and explained solutions; open experimental-design question supplies criteria. The two-probe task begins unsolved and computed comparisons outputs.
 - Sources are annotated with real read extent and version caveats. Historical accuracy/speed claims are not manufactured; all new reported numerical results are retained.
 - Data leakage/protocol limits, finite-map assumptions, normalization mode and inference cost caveats appear at useful homes; runtime instructions do not print disclaimers into product flows.
-- Phase-two rendering, accessibility, prediction-state behavior, responsive layouts and complete implementation checks explicitly deferred. Content completion does not imply publication or user acceptance.
+- Phase-two rendering, accessibility, live input/output synchronization, responsive layouts and complete implementation checks explicitly deferred. Content completion does not imply publication or user acceptance.
 
 Current state: complete written lesson/specifications and bounded author calculations, author reread/checklist complete, pending root checkpoint. Implementation not started. Next author action after freeze: actual ConvNeXt preflight/full source research; next implementation action only under future finish authorization: consume this entire packet and build/verify its specified mechanisms.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Construct channel routes and sampling coverage. Edit depthwise/pointwise filter entries, channel cells, stencil dilation/offsets, serial rates and parallel branch choices; manipulate retained digit inputs where weights are available. Update output contributions, rank restrictions, visited lattice sites, branch union and exact frozen-model outputs. Keep coverage geometry separate from learned influence. Choose separability, dilation or parallel context from expressiveness, blind spots and the measured budget.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Reuse the spatial operator and own the factorization” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| Separable rank and SVD conversion | `convolution-factorization.py:factor_spatial, reconstructed_weight`; published matrix decompositions own SVD | Native grouped and pointwise Conv2d with explicit channel/bias mapping | Adaptive energy budget exercise with solved singular-value case; common-rank layout limit |
+| Dilated address geometry, inverted residual and context branches | Actual prepared convolution direct_conv2d reused; local author-checks support and context-blocks.py composition | F.conv2d/nn.Conv2d and F.interpolate/BatchNorm as explicit model primitives | Coverage/stride/context practice retained; full segmentation training is not claimed |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.

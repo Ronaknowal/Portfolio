@@ -1,0 +1,323 @@
+/* Calibration & conformal prediction: investigations, plots and their tables.
+   Calm dark ground with the site's gold accent. Every encoding that carries
+   meaning also carries a shape, a word or a printed value, so nothing here
+   depends on colour alone.
+
+   Four rules below are deliberate and have each been shipped wrong before.
+
+   0. Every selector here names the SVG's OWN class, `svg.cal-plot`, and never
+      a bare `svg`. This is NOT the narrowing that rule 1 forbids: the ancestor
+      is still the lesson root, so a diagram inside an investigation wrapper is
+      still reached. The reason is KaTeX. It renders accents, radicals and
+      stretchy delimiters as real <svg> elements and sizes them with
+      `.katex svg { height: inherit }`; a bare `.cal-lesson svg { height: auto }`
+      has the same specificity, loads later, and therefore wins. In a sibling
+      lesson that collapsed every radical to zero height, so a bound printed as
+      its own radicand. Here it drew the one `\widehat` in the lesson at
+      9.078px against KaTeX's 4.641px — a factor of 1.956 — which is the hat
+      over the EMPIRICAL ECE painted at twice its intended size, on a page
+      whose whole argument is that the empirical and the population quantity
+      are different things. Measured on the built page at 1366, 390 and 320px,
+      not inferred. `scripts/verify-calibration-sources.py` now refuses a bare
+      `.cal-lesson svg` selector and requires every SVG this lesson draws to
+      carry `cal-plot`; `scripts/verify-calibration-browser.cjs` measures the
+      accent against KaTeX's own height.
+
+   1. `.cal-lesson svg.cal-plot text` is scoped at the LESSON ROOT, not at a
+      figure class. A rule scoped to an ANCESTOR figure class misses any
+      diagram sitting inside an investigation wrapper; such a diagram then
+      renders at the browser default 16px inside a ~300-unit viewBox and scales
+      to illegible. It also uses font LONGHANDS, because the `font` shorthand
+      silently resets every font-size set on a descendant.
+   2. No blanket `fill` is set on shapes. A CSS `fill` rule beats a `fill="none"`
+      presentation attribute, which is how an outline band once vanished while
+      every assertion passed. Each shape class states its own fill, and
+      outline-only shapes state `fill: none` in CSS rather than relying on the
+      attribute.
+   3. No blanket `stroke-width` either. A stylesheet rule beats a presentation
+      attribute, so a width that encodes a quantity can paint at a constant
+      pixel while every model assertion stays green. Widths that carry meaning
+      are set as attributes and are NOT overridden here; the classes below set
+      only the widths that carry nothing. */
+
+.cal-lesson svg.cal-plot {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+.cal-lesson svg.cal-plot text {
+  fill: #cfd7d2;
+  font-size: 12px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 400;
+  font-style: normal;
+}
+.cal-lesson svg.cal-plot text.cal-small { font-size: 9.5px; fill: #a3aeaa; }
+.cal-lesson svg.cal-plot text.cal-axis-name { font-size: 10px; fill: #b5bfbb; }
+.cal-lesson svg.cal-plot text.cal-strong { font-size: 12px; font-weight: 600; fill: #f0e6c8; }
+.cal-lesson svg.cal-plot text.cal-point-label { font-size: 9.5px; fill: #e7b94a; }
+/* A label printed ON a filled bar needs ink the fill does not swallow. Gold
+   text on the gold winning segment was there, correctly sized, and unreadable. */
+.cal-lesson svg.cal-plot text.is-on-fill { fill: #12160f; font-weight: 600; }
+/* And near-white ink on the darker non-leading segments: the shared label grey
+   reaches only 3.01:1 on #4a5f54, below what 9.5px text needs. */
+.cal-lesson svg.cal-plot text.is-on-bar { fill: #eef2ef; font-weight: 600; }
+
+/* Plot furniture. */
+.cal-lesson svg.cal-plot .cal-axis { fill: none; stroke: #6f7b76; stroke-width: 1.2; }
+.cal-lesson svg.cal-plot .cal-tick { fill: none; stroke: #6f7b76; stroke-width: 1; }
+.cal-lesson svg.cal-plot .cal-diagonal { fill: none; stroke: #7f8a85; stroke-width: 1.2; stroke-dasharray: 5 4; }
+.cal-lesson svg.cal-plot .cal-gridline { fill: none; stroke: #232a28; stroke-width: 1; }
+
+/* Reliability dots. Shape carries the sign of the gap as well as position:
+   a dot above the diagonal is a ring, one below is a filled disc, and the
+   printed gap says which in words. */
+.cal-lesson svg.cal-plot .cal-dot { fill: #e7b94a; stroke: #12160f; stroke-width: 1; }
+.cal-lesson svg.cal-plot .cal-dot.is-above { fill: none; stroke: #8eb9a5; stroke-width: 2; }
+.cal-lesson svg.cal-plot .cal-dot.is-below { fill: #da9c86; stroke: #1a0f0c; stroke-width: 1; }
+.cal-lesson svg.cal-plot .cal-gap-line { fill: none; stroke: #9a8347; stroke-width: 1.2; stroke-dasharray: 2 2; }
+.cal-lesson svg.cal-plot .cal-rail-bar { fill: #3d4a44; stroke: none; }
+.cal-lesson svg.cal-plot .cal-rail-bar.is-empty { fill: none; stroke: #4a5650; stroke-width: 1; stroke-dasharray: 2 2; }
+
+/* Pooled blocks. */
+.cal-lesson svg.cal-plot .cal-block { fill: #1d2119; stroke: #9a8347; stroke-width: 1.4; }
+/* A deliberate backplate: the role lanes carry their titles on top of them. */
+.cal-lesson svg.cal-plot .cal-lane { fill: #161d18; stroke: #4a5650; stroke-width: 1.2; }
+.cal-lesson svg.cal-plot .cal-block.is-merged { fill: #23281c; stroke: #e7b94a; stroke-width: 1.8; }
+.cal-lesson svg.cal-plot .cal-raw-mark { fill: #8eb9a5; stroke: none; }
+.cal-lesson svg.cal-plot .cal-fit-line { fill: none; stroke: #e7b94a; stroke-width: 1.8; }
+.cal-lesson svg.cal-plot .cal-sigmoid-line { fill: none; stroke: #7fa7c7; stroke-width: 1.6; stroke-dasharray: 5 3; }
+
+/* The score rail and its threshold marker. */
+.cal-lesson svg.cal-plot .cal-rail { fill: none; stroke: #6f7b76; stroke-width: 1.2; }
+.cal-lesson svg.cal-plot .cal-rail-mark { fill: #8eb9a5; stroke: none; }
+.cal-lesson svg.cal-plot .cal-rail-mark.is-selected { fill: #e7b94a; stroke: #12160f; stroke-width: 1; }
+.cal-lesson svg.cal-plot .cal-rail-mark.is-above { fill: none; stroke: #da9c86; stroke-width: 1.6; }
+.cal-lesson svg.cal-plot .cal-threshold { fill: none; stroke: #e7b94a; stroke-width: 1.6; }
+/* The decision threshold where it is drawn ON a bar rather than on the dark
+   ground. Dark ink, because the bar it crosses may be the same gold the
+   rule uses elsewhere, and gold on gold is not a line. */
+.cal-lesson svg.cal-plot .cal-threshold-on-bar { fill: none; stroke: #12160f; stroke-width: 1.8; }
+
+/* Interval segments. Their drawn length is the width in target units, so no
+   minimum length is imposed anywhere. */
+/* Width lives on the element as an attribute, not here: a stylesheet width
+   would beat it silently, and there would be nothing to compare against. */
+.cal-lesson svg.cal-plot .cal-interval { fill: none; stroke: #4a5f54; stroke-linecap: butt; }
+.cal-lesson svg.cal-plot .cal-interval.is-missed { stroke: #8a5a4c; }
+.cal-lesson svg.cal-plot .cal-target { fill: #e7b94a; stroke: none; }
+.cal-lesson svg.cal-plot .cal-target.is-missed { fill: #da9c86; stroke: #1a0f0c; stroke-width: 1; }
+.cal-lesson svg.cal-plot .cal-cap { fill: none; stroke: #6f8a7c; stroke-width: 1.2; }
+
+/* Mosaic areas. */
+.cal-lesson svg.cal-plot .cal-area-covered { fill: #3d5a4c; stroke: #8eb9a5; stroke-width: 1; }
+.cal-lesson svg.cal-plot .cal-area-missed { fill: none; stroke: #da9c86; stroke-width: 1.2; stroke-dasharray: 3 3; }
+
+/* Simplex / temperature bars drawn in SVG. */
+.cal-lesson svg.cal-plot .cal-prob-bar { fill: #4a5f54; stroke: none; }
+.cal-lesson svg.cal-plot .cal-prob-bar.is-leading { fill: #e7b94a; }
+
+.cal-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.cal-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.cal-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.cal-investigation button,
+.cal-figure button,
+.cal-figure-block button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.cal-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.cal-investigation button:disabled, .cal-figure button:disabled, .cal-figure-block button:disabled { opacity: .4; cursor: default; }
+.cal-investigation button.is-selected,
+.cal-figure-block button[aria-pressed="true"] { background: #1d2119; border-color: #9a8347; color: #f0e6c8; }
+.cal-investigation :is(button, input, select, summary, textarea, [tabindex]):focus-visible,
+.cal-figure :is(button, input, select, summary, textarea, [tabindex]):focus-visible,
+.cal-figure-block :is(button, input, select, summary, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #a5c7b5; outline-offset: 3px;
+}
+
+.cal-question, .cal-caption, .cal-note, .cal-pending { font-size: .92rem; line-height: 1.75; }
+.cal-caption { color: #b5bfbb; margin: .5rem 0; }
+.cal-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.cal-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+.cal-role { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; font-size: .9rem; line-height: 1.7; }
+.cal-role.is-exploratory { border-left-color: #da9c86; color: #e3c1b4; }
+.cal-role.is-constructed { border-left-color: #9a8347; color: #e0d3ae; }
+.cal-role.is-measured { border-left-color: #7fa7c7; color: #c3d5e3; }
+.cal-undefined { color: #da9c86; }
+
+/* The three kinds of number. A tag is a word plus a colour, never a colour. */
+.cal-kind { display: block; font-size: .84rem; line-height: 1.65; margin: .35rem 0 .6rem; padding-left: .7rem; border-left: 2px solid #4a5650; }
+.cal-kind-label { display: block; font-family: var(--font-mono, monospace); font-size: .8rem; letter-spacing: .02em; text-transform: uppercase; }
+.cal-kind.is-population { border-left-color: #9a8347; }
+.cal-kind.is-population .cal-kind-label { color: #e0d3ae; }
+.cal-kind.is-calibration { border-left-color: #8eb9a5; }
+.cal-kind.is-calibration .cal-kind-label { color: #a9d4c0; }
+.cal-kind.is-assessment { border-left-color: #7fa7c7; }
+.cal-kind.is-assessment .cal-kind-label { color: #b6cfe0; }
+.cal-kind .cal-caption { margin: .1rem 0 0; }
+
+/* Controls */
+.cal-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.cal-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.cal-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.cal-field > span { display: flex; justify-content: space-between; gap: .6rem; color: #d0ddd5; }
+.cal-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.cal-field :is(input[type="number"], input[type="text"], select) {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.cal-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.cal-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.cal-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: .8rem; }
+.cal-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.cal-presets { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+.cal-fork-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 1rem; margin-block: 1rem; }
+.cal-fork-controls fieldset { min-width: 0; margin: 0; padding: .8rem; border: 1px solid #3c4643; border-radius: 4px; }
+.cal-fork-controls legend { color: #e0d3ae; padding-inline: .3rem; font-size: .9rem; }
+.cal-fork-controls .cal-field + .cal-field { margin-top: .5rem; }
+.cal-fork-controls input[type="range"] { width: 100%; min-width: 0; margin-inline: 0; min-height: 44px; accent-color: #e2b55a; }
+
+.cal-outcome-choice { display: flex; flex-direction: column; gap: .4rem; font-size: .9rem; min-width: 0; }
+.cal-outcome-label { color: #d0ddd5; }
+.cal-outcome-options { display: flex; flex-wrap: wrap; gap: .5rem; }
+.cal-outcome-options label {
+  display: inline-flex; align-items: center; gap: .35rem; min-height: 40px;
+  padding: .2rem .55rem; border: 1px solid #3c4643; border-radius: 3px; background: #121816;
+}
+.cal-outcome-options input { accent-color: #e7b94a; }
+
+.cal-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.cal-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.cal-prediction legend { padding: 0; font-weight: 600; }
+.cal-choices { display: flex; flex-direction: column; gap: .45rem; margin: .6rem 0; }
+.cal-choice { display: flex; align-items: flex-start; gap: .5rem; min-height: 40px; padding: .25rem 0; }
+.cal-choice input { margin-top: .35rem; accent-color: #e7b94a; }
+.cal-numeric-guess input {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.cal-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #dce4e0; }
+.cal-verdict.is-miss { border-left-color: #da9c86; }
+.cal-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.cal-history { margin: .6rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #c0cac5; font-size: .88rem; line-height: 1.7; }
+.cal-history.is-pending { border-left: 2px dotted #5d6862; color: #9fa9a4; font-size: .86rem; }
+.cal-reason textarea {
+  min-height: 60px; padding: .45rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+
+/* Tables. The caption is a sibling paragraph, never a <caption> inside the
+   scroll box: below the narrow breakpoint the table blockifies and a caption
+   inside it collapses to the width of its longest word. */
+.cal-table { margin: 1.1rem 0; }
+.cal-table-scroll { overflow-x: auto; border: 1px solid #262b2a; border-radius: 4px; }
+.cal-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+/* Cells WRAP. A blanket `white-space: nowrap` is right for a table of numbers
+   and catastrophic for one of sentences: four columns of prose became a table
+   692 pixels wider than its own container at desktop width, reachable only by
+   scrolling sideways. Numbers contain no spaces, so they do not wrap anyway,
+   and tabular figures keep their columns aligned. */
+.cal-table-scroll :is(th, td) {
+  padding: .4rem .55rem; border-bottom: 1px solid #1f2523; text-align: right;
+  white-space: normal; font-variant-numeric: tabular-nums; vertical-align: top;
+}
+.cal-table-scroll th { color: #d0ddd5; font-weight: 600; }
+.cal-table-scroll thead th { border-bottom: 1px solid #3c4643; }
+.cal-table-scroll tbody th { text-align: left; color: #cfd7d2; }
+.cal-table-scroll tr.is-leading td, .cal-table-scroll tr.is-leading th { background: #151c18; }
+.cal-table-scroll tr.is-muted td, .cal-table-scroll tr.is-muted th { color: #9fa9a4; }
+.cal-table-scroll tr.is-primary td, .cal-table-scroll tr.is-primary th { background: #131a16; color: #e7e2d4; }
+
+/* Figures */
+.cal-figure { margin: 1.6rem 0; padding: 0; }
+.cal-figure figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; color: #dce4e0; }
+.cal-figure-row { display: flex; flex-wrap: wrap; gap: 1.1rem; align-items: flex-start; }
+.cal-figure-row > * { flex: 1 1 260px; min-width: 0; }
+.cal-figure-block { margin: 1.6rem 0; }
+.cal-figure-block > .cal-caption:first-child { margin-top: 0; }
+
+.cal-bars { margin: 1rem 0; }
+.cal-bars dl { margin: 0; display: grid; grid-template-columns: minmax(7rem, auto) 1fr; gap: .35rem .8rem; }
+.cal-bars dt { color: #cfd7d2; font: .84rem/1.6 var(--font-mono, monospace); }
+.cal-bars dd { margin: 0; display: flex; align-items: center; gap: .6rem; min-width: 0; }
+.cal-bar-row { display: contents; }
+.cal-bar-row.is-leading dt { color: #e7b94a; }
+.cal-bar-track { flex: 1 1 auto; height: 12px; background: #161c1b; border: 1px solid #2f3735; border-radius: 2px; min-width: 40px; }
+.cal-bar-fill { display: block; height: 100%; background: #8eb9a5; }
+.cal-bar-row.is-leading .cal-bar-fill { background: #e7b94a; }
+.cal-bar-value { font: .8rem/1.5 var(--font-mono, monospace); color: #d8dcd9; white-space: nowrap; }
+
+.cal-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .7rem; margin: 1rem 0; }
+.cal-card {
+  border: 1px solid #3c4643; border-radius: 3px; padding: .55rem .65rem; background: #121816;
+  font-size: .85rem; line-height: 1.6;
+}
+.cal-card.is-edited { border-color: #da9c86; }
+.cal-card-name { display: flex; justify-content: space-between; color: #f0e6c8; font-family: var(--font-mono, monospace); }
+.cal-card .cal-bin { color: #8eb9a5; display: block; font-size: .8rem; }
+
+.cal-chips { display: flex; flex-wrap: wrap; gap: .45rem; margin: .7rem 0; }
+.cal-pill {
+  display: inline-flex; align-items: center; gap: .3rem; padding: .18rem .5rem;
+  border: 1px solid #3c4643; border-radius: 3px; background: #121816;
+  font: .8rem/1.6 var(--font-mono, monospace); color: #cfd7d2;
+}
+.cal-pill.is-in { border-color: #9a8347; color: #f0e6c8; background: #1d2119; }
+.cal-pill.is-out { border-color: #46524d; color: #9fa9a4; }
+.cal-pill.is-warn { border-color: #8a5a4c; color: #e3c1b4; }
+.cal-pill-mark { font-weight: 600; }
+
+/* The four label roles. Reflowing HTML, because only the bar width encodes a
+   quantity; the titles and descriptions are prose and must be free to wrap. */
+.cal-lanes { list-style: none; margin: 1.1rem 0; padding: 0; display: grid; gap: .55rem; }
+.cal-lanes li {
+  border: 1px solid #3c4643; border-left: 3px solid #9a8347; border-radius: 3px;
+  padding: .55rem .7rem; background: #121816; font-size: .88rem; line-height: 1.65;
+}
+.cal-lane-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; }
+.cal-lane-head b { color: #f0e6c8; font-family: var(--font-mono, monospace); font-weight: 600; }
+.cal-lane-head > span { color: #8eb9a5; font-family: var(--font-mono, monospace); font-size: .82rem; }
+.cal-lane-track {
+  display: block; height: 10px; margin: .4rem 0; background: #161c1b;
+  border: 1px solid #2f3735; border-radius: 2px;
+}
+.cal-lane-fill { display: block; height: 100%; background: #4a5f54; }
+.cal-lane-what { display: block; color: #cfd7d2; }
+.cal-lane-freeze { display: block; color: #d7c6a4; font-size: .84rem; margin-top: .3rem; }
+.cal-lane-freeze.is-final { color: #da9c86; }
+
+.cal-route { margin: 1.4rem 0; padding: .8rem 1rem; border-left: 3px solid #9a8347; background: #10140f; }
+
+/* The provenance prints 64-character SHA-256 digests inline. Each is a single
+   unbreakable word; inline code in this lesson may break anywhere. */
+.cal-lesson code { overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
+
+.cal-steps { display: flex; flex-wrap: wrap; gap: .5rem; margin: .8rem 0; }
+.cal-step {
+  border: 1px solid #3c4643; border-radius: 3px; padding: .4rem .6rem; background: #121816;
+  font: .78rem/1.6 var(--font-mono, monospace); color: #cfd7d2;
+}
+.cal-step.is-current { border-color: #9a8347; background: #1d2119; color: #f0e6c8; }
+.cal-step.is-done { border-color: #46524d; color: #9fa9a4; }
+.cal-step b { display: block; color: #e7b94a; font-weight: 600; }
+
+@media (max-width: 560px) {
+  .cal-table-scroll table, .cal-table-scroll thead, .cal-table-scroll tbody,
+  .cal-table-scroll tr, .cal-table-scroll th, .cal-table-scroll td { display: block; }
+  .cal-table-scroll thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .cal-table-scroll tr { border-bottom: 1px solid #3c4643; padding: .35rem 0; }
+  .cal-table-scroll :is(th, td) { border: 0; display: flex; justify-content: space-between; gap: 1rem; white-space: normal; text-align: right; }
+  .cal-table-scroll :is(th, td)::before { content: attr(data-label); color: #9fa9a4; text-align: left; }
+  .cal-bars dl { grid-template-columns: 1fr; }
+  .cal-figure-row > * { flex: 1 1 100%; }
+  .cal-cards { grid-template-columns: 1fr 1fr; }
+}
