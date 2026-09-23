@@ -1,0 +1,30 @@
+from bisect import bisect_right
+
+def weighted_schedule(jobs):
+    # (start, finish, value); original input indices identify jobs.
+    if any(start >= finish for start, finish, value in jobs):
+        raise ValueError("Jobs must have positive duration")
+    ordered = sorted(enumerate(jobs), key=lambda entry: (entry[1][1], entry[0]))
+    finishes = [job[1] for original, job in ordered]
+    best = [0] * (len(jobs) + 1)
+    compatible = []
+    for index, (original, (start, finish, value)) in enumerate(ordered):
+        prefix = bisect_right(finishes, start, 0, index)
+        compatible.append(prefix)
+        best[index + 1] = max(best[index], value + best[prefix])
+
+    chosen = []
+    count = len(jobs)
+    while count:
+        original, (start, finish, value) = ordered[count - 1]
+        if best[count] == best[count - 1]:
+            count -= 1  # Skip ties; preserve earlier finish-order solution.
+        else:
+            chosen.append(original)
+            count = compatible[count - 1]
+    chosen.reverse()
+    return best[-1], chosen
+
+print(weighted_schedule([(0, 5, 10), (0, 2, 4), (2, 5, 4)]))
+print(weighted_schedule([(0, 2, 4), (2, 5, 7), (0, 5, 10)]))
+print(weighted_schedule([]))

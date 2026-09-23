@@ -1,18 +1,27 @@
 // Read-only classification of working images; never deletes or executes lesson code.
-// Usage: node scripts/audit-working-artifacts.mjs [output-json-path]
+// Usage: node scripts/audit-working-artifacts.mjs [output-json-path] [--protect scratch-folder-prefix ...]
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 const root = process.cwd();
-const output = process.argv[2] || 'scratch/artifact-cleanup/audit.json';
-const activePrefixes = ['lesson-tools', 'linear-logistic', 'decision-tree', 'knn', 'gradient-boosted-trees', 'naive-bayes', 'recommender', 'ensemble', 'support-vector', 'svm', 'multioutput', 'multi-label', 'survival', 'artifact-cleanup'];
+const args = process.argv.slice(2);
+const output = args[0] && !args[0].startsWith('--') ? args.shift() : 'scratch/artifact-cleanup/audit.json';
+// Shared environments are always protected. Active work is supplied for this run,
+// rather than inferred from a permanently hard-coded, already completed batch.
+const activePrefixes = ['lesson-tools', 'classical-depth-runtime', 'endtoend-venv', 'manifold-learning-runtime', 'math-library-runtime', 'programming-three-runtime', 'survival-tools', 'artifact-cleanup'];
+while (args.length) {
+  if (args.shift() !== '--protect') throw new Error('Expected --protect <scratch-folder-prefix>');
+  const prefix = args.shift();
+  if (!prefix || !/^[a-z0-9][a-z0-9_-]*$/i.test(prefix)) throw new Error('Use a scratch folder-name prefix, not a path');
+  activePrefixes.push(prefix);
+}
 function walk(directory, skip = () => false) {
   if (!fs.existsSync(directory)) return [];
   return fs.readdirSync(directory, {
     withFileTypes: true
   }).flatMap(entry => {
     const filename = path.join(directory, entry.name);
-    if (entry.isSymbolicLink() || skip(filename, entry)) return [];
+    if (entry.isSymbolicLink() || (entry.isDirectory() && ['node_modules', '.venv', 'venv', '__pycache__', '.git'].includes(entry.name)) || skip(filename, entry)) return [];
     return entry.isDirectory() ? walk(filename, skip) : [filename.replaceAll('\\', '/')];
   });
 }
@@ -58,7 +67,7 @@ for (const group of hashes.values()) {
 const unreferenced = images.filter(item => !item.referenced && !duplicateCandidates.some(candidate => candidate.path === item.path));
 const report = {
   auditedAt: new Date().toISOString(),
-  policy: 'Active Classical ML work and shared runtime excluded. Every remaining documentation/source/script/scratch text checked for image basenames. Dynamic paths may need manual inspection. No deletions performed.',
+  policy: 'Shared runtimes and explicitly supplied active prefixes excluded. Remaining documentation/source/script/scratch text checked for image basenames. A candidate is not deletion approval; dynamic paths and live owners require manual inspection. No deletions performed.',
   activePrefixes,
   imageCount: images.length,
   imageBytes: images.reduce((s, i) => s + i.bytes, 0),

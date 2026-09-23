@@ -1,0 +1,681 @@
+{
+  "date": "2026-09-24",
+  "files": [
+    {
+      "path": "scratch/archive-functional-analysis-original.py",
+      "bytes": 2284,
+      "sha256": "037e196b5c9298f5124abba060ddd23ab07e15d9e7fd8f95c287d046a28b5cd3",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/archive-numerical-methods.cjs",
+      "bytes": 1835,
+      "sha256": "afb2b642987d608f575d17ce1e6aea9b9ddd196431e91c37616db70179214873",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/close-random-matrix-independent-review.py",
+      "bytes": 5797,
+      "sha256": "cb11bb62c823922e6818e427645bdd9cb014d51c2ce7d337f02aefd065805472",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/close-spectral-independent.py",
+      "bytes": 2385,
+      "sha256": "5919ddd4ebe3e6bede4744ca53597f489e291f2d548674a6c6c096055465d211",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/close-stochastic-processes-independent-review.py",
+      "bytes": 6704,
+      "sha256": "2ff43550e3fa1997bb8b92b71ac7b6b0e5f79f38b8e72e120f40ecdf2cf91651",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/close-topic.py",
+      "bytes": 2559,
+      "sha256": "f7a0c1e05cba28c35243e80992a16b4231187530bcf46c1a418505d910867302",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/final-conditioning-practice.py",
+      "bytes": 1862,
+      "sha256": "1a001250b24bfe454fb1c900b1fa7966fcca24af4550e93760ef5ec07ac873c7",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/final-vi-style-format.mjs",
+      "bytes": 879,
+      "sha256": "e64b6daa545b4730f0986548c1c6220cf1a47d85ebd2b263a58c685fb12866e1",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-algebra-functions.py",
+      "bytes": 3251,
+      "sha256": "d4645ecea9460928b287d91c679e39ca5b838893541298b76556384718760225",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-bayesian-author-review.cjs",
+      "bytes": 2180,
+      "sha256": "497ac96778e4a9ae3c20de25814f2b0488424a50841e04cf928007673427b906",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-functional-analysis.py",
+      "bytes": 3907,
+      "sha256": "40aea87766a36ce2aed262ee72fbfd9ab75b4dda1135ea447b5fdb8c5341685b",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-geometry-trigonometry.py",
+      "bytes": 10499,
+      "sha256": "3488d56a70f302706866b4848a000d88307ed1f429613629641ebc308804b040",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-ito-sde-independent.py",
+      "bytes": 3741,
+      "sha256": "4e12e68d3d3aa522eb5e8f786628d121bb6c661a72349b958f42f885f065614f",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-persistent-structures.cjs",
+      "bytes": 1025,
+      "sha256": "87b0a1d53ea2be690f3627f7b7b37a114cc3bdc06c41105f7db1f2a0356e6a5d",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-probability-optimization-reviews.cjs",
+      "bytes": 2342,
+      "sha256": "739eb9ed100c3af939c1203dd1932376a1f9be2983f3c933ade05ef94ac5b0ef",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-queueing-precision-amendment.py",
+      "bytes": 6012,
+      "sha256": "2140063e843528343a78d90301e3acb909c03b3b69356df5cdeb2d98b1835279",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-sampling-measurement-author.py",
+      "bytes": 15019,
+      "sha256": "097210d84785b70d07d5d03fbaa7152c3ff1b8f24609dfac9a17664cd9e02ebb",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/freeze-vi-source.mjs",
+      "bytes": 1257,
+      "sha256": "41bd973005726b778b33b3649233615308565516e352a4ab302ae438c86aa012",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/handoff-update.py",
+      "bytes": 5537,
+      "sha256": "0f00da1bca23118282ebc7405262fd45e346875d909481b94a38cb3643a0fedf",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-causal-information-reviews.cjs",
+      "bytes": 6540,
+      "sha256": "9f1dc1fc4172503a0e11376f1f1e85359e41d7880a166bf15e51ca6778c55f16",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-flow-and-optimization-reviews.cjs",
+      "bytes": 1467,
+      "sha256": "fdfe7dbf677d3918e2cab9db8da869bdfd2e978574fede9abc6b48af3344e2e6",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-graph-optimization-reviews.cjs",
+      "bytes": 6386,
+      "sha256": "215dece67815ab0eefa4e832a3211088c7bc98de247db4899c4540bf847bf51b",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-hashing-convex.cjs",
+      "bytes": 4300,
+      "sha256": "7234712b3b5682e04e8e70fa060a674dc4b6366912e13e71f37074a7aafde746",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-inference-reviews.cjs",
+      "bytes": 4041,
+      "sha256": "5c0be7dfff94fd90b9b39385d1b179f5ee3444475fb878234264ecc78281441f",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-range-correctness-multivariate.cjs",
+      "bytes": 4976,
+      "sha256": "0bcaf0afc3adc01f60c1c3637660e7c788fdc1065e03b4dae1e26f78be6a5221",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-schedule-string-weighted-variants.cjs",
+      "bytes": 6938,
+      "sha256": "3f28fcb077f9267ad95b64967984ba63e7dfff81e29478a1638c51b330810ac6",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-stochastic-dynamics-reviews.cjs",
+      "bytes": 4601,
+      "sha256": "978ed2e6c97f5db9848dfcd84bd0982faf7369d997101e8ce06fd9d08ac01db5",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-storage-probability-reviews.cjs",
+      "bytes": 3046,
+      "sha256": "4dd941795a717a4387ffc457cfb128c327b551a46432532ee2c200b4c971a581",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/integrate-transport-inference-reviews.cjs",
+      "bytes": 5914,
+      "sha256": "52ff7b5be34519cb90f70cd242b36b40c681232ff2359f2d3d6ecd822aaa177c",
+      "reason": "Obsolete one-off mutation/closure helper for already completed work; final source and evidence retained."
+    },
+    {
+      "path": "scratch/causal-inference-lesson.jsx",
+      "bytes": 51558,
+      "sha256": "0ef04003b97b8f4143407a2934548da79bec0a8240260df7ddc65c381aca8db9",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/causal-inference-do-calculus.jsx"
+    },
+    {
+      "path": "scratch/differential-geometry-body-part1.txt",
+      "bytes": 20549,
+      "sha256": "0f84ee1d9892bdb6ba31e9ee033455f8e2e020bef231a50c2133bfa51682e30e",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx"
+    },
+    {
+      "path": "scratch/differential-geometry-body-part2.txt",
+      "bytes": 28785,
+      "sha256": "1f1714f07245302b7fdb2a920075a79caa5954c19ab236c3c346dc396901c867",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx"
+    },
+    {
+      "path": "scratch/gradient-variants-lesson-draft.jsx",
+      "bytes": 46926,
+      "sha256": "411379344ffb6bc18004fbd128dc7eb50335a05abef70e96d3f2db51c2fba138",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx"
+    },
+    {
+      "path": "scratch/graph-fundamentals-lesson.jsx",
+      "bytes": 48689,
+      "sha256": "e81838dfc0dce4d1560d2e67ba058d0bf43cb555d2d068419f5f67104a71c7d6",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx"
+    },
+    {
+      "path": "scratch/hypothesis-testing-lesson-draft.jsx",
+      "bytes": 50982,
+      "sha256": "53eb90dd11979f5babf5ffbea164fdde92e2356e53a2f140d54a35dd7858ee2e",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/hypothesis-testing-confidence-intervals.jsx"
+    },
+    {
+      "path": "scratch/learning-rate-schedule-lesson.jsx",
+      "bytes": 39422,
+      "sha256": "385d7f00eea409785b22fcf88a64d1f973bcd5a37626753fa2d37ccda1afceaf",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx"
+    },
+    {
+      "path": "scratch/linear-logistic-lesson-draft.jsx",
+      "bytes": 46609,
+      "sha256": "47b49b781948d1832b643b89b6dbe761e922d8fc6d0165e5f4cd893b98e56b58",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/linear-logistic-regression.jsx"
+    },
+    {
+      "path": "scratch/maximum-likelihood-lesson-draft.jsx",
+      "bytes": 45907,
+      "sha256": "0b9a4f5e9da3955413074f7eaf05787c1c13d55e462091912f5a606e8654fa34",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/maximum-likelihood-map-estimation.jsx"
+    },
+    {
+      "path": "scratch/monte-carlo-mcmc-lesson-draft.jsx",
+      "bytes": 52284,
+      "sha256": "a96f5218c3f463d20214ee3fe086f76da1f40aeb34d625e4c3673ae7ba6aebf1",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx"
+    },
+    {
+      "path": "scratch/multivariate-calculus-lesson-draft.jsx",
+      "bytes": 37213,
+      "sha256": "dd5d817b0d5037cbbd1aa0ea0d05db5fa21c9e5f5c344c1a3a2e404306c0cfc8",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/multivariate-calculus-gradients.jsx"
+    },
+    {
+      "path": "scratch/mutual-information-lesson-draft.jsx",
+      "bytes": 42354,
+      "sha256": "e1a790b45c987b2517b39a5430782f4b8cef168d9dc580de5cabfb9e6833c625",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/mutual-information-information-bottleneck.jsx"
+    },
+    {
+      "path": "scratch/naive-bayes-lesson-draft.jsx",
+      "bytes": 71948,
+      "sha256": "1c55e26b963d28d0edc72ed95a5ea68c7619babe6d411f63abbf1be026889b4a",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx"
+    },
+    {
+      "path": "scratch/numerical-methods-lesson.jsx",
+      "bytes": 41280,
+      "sha256": "4f63da3d69ab1cf10ef3cc231c049bd14089a0e1938bf5a41c2c2a3949e2ed74",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/numerical-methods-finite-differences-quadrature-root-finding.jsx"
+    },
+    {
+      "path": "scratch/probability-distributions-body.jsx",
+      "bytes": 46732,
+      "sha256": "2449c56b4d37a5c2ad41bf14c7fe2da091caeeb8f8e1319f8c0298dee919ce69",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/probability-distributions-bayes-theorem.jsx"
+    },
+    {
+      "path": "scratch/randomized-linear-algebra-lesson-draft.jsx",
+      "bytes": 39431,
+      "sha256": "605bc6fa024791258e63c2ddd9ba3cb3911b4c0495da38379315589a02a3e8ac",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/randomized-linear-algebra.jsx"
+    },
+    {
+      "path": "scratch/recommender-lesson.jsx",
+      "bytes": 66748,
+      "sha256": "62f49e6d5c4175ddb869acafa624c731919ee245c603e38df3ed03d129dd0c1d",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx"
+    },
+    {
+      "path": "scratch/second-order-lesson.jsx",
+      "bytes": 40091,
+      "sha256": "f3fbabb8d4a62fa9f2b37254709833fd3581eb81c4fcb0a8c74c584c73350480",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx"
+    },
+    {
+      "path": "scratch/variational-inference-lesson-draft.jsx",
+      "bytes": 45652,
+      "sha256": "e63d3bb0b28bfea03ea5380236b66e034af96a8701d301c7793d6338caa31105",
+      "reason": "Superseded working manuscript for an implemented/reviewed lesson; not a pending content packet.",
+      "retained": "src/learn/data/topics/variational-inference.jsx"
+    },
+    {
+      "path": "scratch/multivariate-first-mobile.png",
+      "bytes": 73428,
+      "sha256": "d8e9aa9598643252690f3ad40be724fd1f5d3d3b23e8f1d3683ec05f26020c1d",
+      "reason": "Unused initial mobile capture; final topic reviews and screenshots retained."
+    },
+    {
+      "path": "scratch/tree-anatomy-mobile-initial.png",
+      "bytes": 31097,
+      "sha256": "5b62aab9c4b1e582bc81dcfcce68137aba4fa50814076d9aac14f91775619c4e",
+      "reason": "Unused initial mobile capture; final topic reviews and screenshots retained."
+    },
+    {
+      "path": "scratch/tree-search-mobile-initial.png",
+      "bytes": 83685,
+      "sha256": "f16bbca3351805a0333aae07bc4ae8c0e5b0ddb37b3014c22724d4f94209a2b0",
+      "reason": "Unused initial mobile capture; final topic reviews and screenshots retained."
+    },
+    {
+      "path": "scratch/cal-independent/shots/fig06.png",
+      "bytes": 51648,
+      "sha256": "b681eeddde1cdf060942b0a5f373538bb2899b5d827fc32b17a6fe0b6e73a0da",
+      "reason": "Byte-identical redundant capture; exact retained counterpart recorded.",
+      "retained": "scratch/cal-independent/shots/svg6.png"
+    },
+    {
+      "path": "scratch/imb-independent/shots/fig2.png",
+      "bytes": 221699,
+      "sha256": "878b950b7ba66e0893664a78a7ce148509b1d65f1dc70367ad4502701552defe",
+      "reason": "Byte-identical redundant capture; exact retained counterpart recorded.",
+      "retained": "scratch/imb-independent/shots/b1366-02.png"
+    },
+    {
+      "path": "scratch/imb-independent/shots/fig3.png",
+      "bytes": 237926,
+      "sha256": "c3934e55068ec69a025c0b42874c1b4675d1a9b6e6f9369dd59caf6ba2fccfee",
+      "reason": "Byte-identical redundant capture; exact retained counterpart recorded.",
+      "retained": "scratch/imb-independent/shots/b1366-04.png"
+    },
+    {
+      "path": "scratch/rad-review/shots/fig-01-1366.png",
+      "bytes": 52433,
+      "sha256": "93fbdfe3ec1d9b43227f6ec2bba98c9b644509c623687f4e06c6d4fbc09f5745",
+      "reason": "Byte-identical redundant capture; exact retained counterpart recorded.",
+      "retained": "scratch/timeseries-independent/evidence-backup/screenshots-all/rademacher-figure-1-desktop.png"
+    },
+    {
+      "path": "scratch/rad-review/shots/fig-02-1366.png",
+      "bytes": 69286,
+      "sha256": "a6c272f9871b4434b400f4b7d75573fbcd0836df62f7b7198a803dcc142ecb4e",
+      "reason": "Byte-identical redundant capture; exact retained counterpart recorded.",
+      "retained": "scratch/timeseries-independent/evidence-backup/screenshots-all/rademacher-figure-2-desktop.png"
+    },
+    {
+      "path": "scratch/rad-review/shots/fig-14-1366.png",
+      "bytes": 69081,
+      "sha256": "aa8374868040e8a30647a3cc4f0f9513ed946d0ae6a2f86717ea15e079a34bc1",
+      "reason": "Byte-identical redundant capture; exact retained counterpart recorded.",
+      "retained": "scratch/timeseries-independent/evidence-backup/screenshots-all/rademacher-figure-14-desktop.png"
+    },
+    {
+      "path": "scratch/timeseries-independent/shots/tall-fig2.png",
+      "bytes": 176720,
+      "sha256": "66a6c412feb747844e18fac3407d6d4746ba8a2214b16dfeaffb333da98bb184",
+      "reason": "Byte-identical redundant capture; exact retained counterpart recorded.",
+      "retained": "scratch/timeseries-independent/shots/fig2-desktop.png"
+    },
+    {
+      "path": "scratch/eigenvalue-final-reading.log",
+      "bytes": 2840,
+      "sha256": "7a049c8ba0b5313118b97536eef2f61f044823186a68d79431858a521c0b9720",
+      "reason": "Unreferenced completed build/preview working log."
+    },
+    {
+      "path": "scratch/first-five-build.log",
+      "bytes": 14187,
+      "sha256": "11fb3f2744f035e824bf073c2d0cffcb0763b38a2dfcc3d2f9ce0a3fc52de084",
+      "reason": "Unreferenced completed build/preview working log."
+    },
+    {
+      "path": "scratch/regularization-preview.log",
+      "bytes": 77,
+      "sha256": "20a6157de1154443c1c46a0baccd6a2120b0509b47ef8288b6aedf1c390c77a6",
+      "reason": "Unreferenced completed build/preview working log."
+    },
+    {
+      "path": "docs/teaching/evidence/live-exploration-build.log",
+      "bytes": 127245,
+      "sha256": "b11e356c15e2cd04670b830e411d7d146ea761c17a9cfaf369736fbcf8085bc8",
+      "reason": "Unreferenced raw build listing; current integration and source-bound evidence retained.",
+      "retained": "docs/teaching/LIVE-EXPLORATION-IMPLEMENTATION.md"
+    },
+    {
+      "path": "scratch/__pycache__/attn_demo.cpython-312.pyc",
+      "bytes": 13907,
+      "sha256": "1d7a8f98a17bf15e65c159924d3c9a3554af664420468bc00bcca787343a4d3c",
+      "reason": "Regenerable Python bytecode cache; source program retained."
+    },
+    {
+      "path": "scripts/__pycache__/verify-formulation-sources.cpython-312.pyc",
+      "bytes": 27485,
+      "sha256": "4cae01dfd4b38e25bcde59151ef9fa09d1f5a4a7a9998035a1c63d6dc6790a57",
+      "reason": "Regenerable Python bytecode cache; source program retained."
+    },
+    {
+      "path": "scripts/__pycache__/verify-hmm-data.cpython-312.pyc",
+      "bytes": 90293,
+      "sha256": "a5ebf86ce9caec0285ee4cc093081792c9a5fe3c2abccfa7c268b2e9f82a8fcc",
+      "reason": "Regenerable Python bytecode cache; source program retained."
+    },
+    {
+      "path": "docs/teaching/drafts/active-learning/__pycache__/author-calculations.cpython-312.pyc",
+      "bytes": 17038,
+      "sha256": "b00ad7258ecf69bb38bde62f03f2aa3415025ccf274c5e3bade06e4ecd994a0e",
+      "reason": "Regenerable Python bytecode cache; source program retained."
+    },
+    {
+      "path": "docs/teaching/drafts/gaussian-processes-gp/__pycache__/author-calculations.cpython-312.pyc",
+      "bytes": 13844,
+      "sha256": "bc84af9e24bcbaea04a821a846584a751f0eb91a69d321386ffdfb16ed4a77b9",
+      "reason": "Regenerable Python bytecode cache; source program retained."
+    }
+  ],
+  "verification": {
+    "verifiedAt": "2026-09-23T19:02:53.268Z",
+    "protectedFilesUnchanged": 5739,
+    "pendingPackets": 27,
+    "allRemovalTargetsAbsent": true,
+    "readOnlyAuditFixturePassed": true,
+    "localInstructionLinksResolve": true,
+    "sourceHashes": {
+      "LESSON-AUTHORING-HANDOFF.md": "a45861d84d548546eabd2d6ae3dfc36941ee3f7c4c6fb149daaf1f19747ab3d2",
+      "AGENTS.md": "eeeba8efd39b393c14033b9070d803dd940ffa8216297f7875b92b8c943681c0",
+      "docs/teaching/WORKSPACE-INSTRUCTIONS.md": "72598ade4dc0ce08e628b756da39c79f909ebc040885e3e1d59843a066f0d2bf",
+      "docs/engineering/LESSON-VERIFICATION-PITFALLS.md": "10112184a00145eba9b5258b97885f146e5c5964b6f5fabd215bf9e0f67ce847",
+      "docs/engineering/WORKING-ARTIFACT-RETENTION.md": "a844044e4c2b921b4e26ef479678b78160a6625d63d6f3d000f516aec25e9d90",
+      "scripts/audit-working-artifacts.mjs": "a29aa8b70b5331c1b54748b04cc189f1f4b733f40348942c1619f8e450b992c4"
+    },
+    "pendingSourceIdentityStates": [
+      {
+        "id": "attention-mechanism-bahdanau-luong",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 15
+      },
+      {
+        "id": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 13
+      },
+      {
+        "id": "state-space-models-s4-mamba-mamba-2",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 15
+      },
+      {
+        "id": "rwkv-linear-attention-models",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 15
+      },
+      {
+        "id": "self-attention-multi-head-attention",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 11
+      },
+      {
+        "id": "transformer-block-architecture",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 11
+      },
+      {
+        "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 12
+      },
+      {
+        "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 11
+      },
+      {
+        "id": "multi-head-latent-attention-mla",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 14
+      },
+      {
+        "id": "sparse-linear-attention-variants",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 15
+      },
+      {
+        "id": "vision-transformers-vit-deit-swin-dinov2",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 17
+      },
+      {
+        "id": "mixture-of-experts-transformers-moe",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 12
+      },
+      {
+        "id": "interleaved-cross-attention-architectures",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 9
+      },
+      {
+        "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 10
+      },
+      {
+        "id": "graph-transformers-geometric-deep-learning",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 13
+      },
+      {
+        "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 9
+      },
+      {
+        "id": "spectral-normalization-gradient-penalty",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 9
+      },
+      {
+        "id": "modern-hopfield-networks",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 16
+      },
+      {
+        "id": "xlstm-extended-lstm",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 16
+      },
+      {
+        "id": "hyena-long-convolution-models",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 16
+      },
+      {
+        "id": "ring-attention-sequence-parallelism",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 12
+      },
+      {
+        "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 13
+      },
+      {
+        "id": "neural-ode-continuous-depth-models",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 14
+      },
+      {
+        "id": "hybrid-ssm-transformer-architectures-jamba",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 19
+      },
+      {
+        "id": "titans-multi-memory-architecture",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 14
+      },
+      {
+        "id": "mini-batches-training-loops-gradient-accumulation",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 11
+      },
+      {
+        "id": "neural-training-diagnostics-reproducible-experiments",
+        "revision": 3,
+        "content": "complete",
+        "implementation": "not-started",
+        "canFinish": true,
+        "contentFiles": 16
+      }
+    ],
+    "allPendingPacketsHaveMatchingCheckpoints": true,
+    "deliveryLedgerValidation": {
+      "status": "passed",
+      "trackedTopics": 177,
+      "behaviorGroups": 8
+    },
+    "removedBytes": 2364363,
+    "handoff": {
+      "beforeBytes": 80259,
+      "afterBytes": 14038
+    },
+    "legacyDiagramFeedbackAnchorRetained": true,
+    "temporaryInventoriesRemoved": true
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-09-10T08:43:10.601Z",
+  "results": [
+    {
+      "width": 1440,
+      "defaultGraphFits": true,
+      "activeLongGraphVisible": true,
+      "capacityWritesVisible": 18,
+      "keyboardLocalScrolling": false,
+      "readingViews": 10,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "defaultGraphFits": true,
+      "activeLongGraphVisible": true,
+      "capacityWritesVisible": 18,
+      "keyboardLocalScrolling": true,
+      "readingViews": 10,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

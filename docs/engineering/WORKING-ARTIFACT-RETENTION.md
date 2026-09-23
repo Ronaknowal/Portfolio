@@ -24,8 +24,29 @@ The user's 11 September 2026 cleanup request applies to `scratch/` and temporary
 6. Archive only material worth recovering; do not perpetually move all junk into a new folder. A compact recovery archive is appropriate for obsolete editing utilities when their history may matter. Generated unused screenshots usually need no archive once their final review evidence is retained.
 7. Verify selected files are gone and protected files remain. Documentation/cleanup changes need these checks, not a new application build or all historical lesson tests. Remove the cleanup's own temporary inventory afterward and resume the authorized lesson task.
 
+## Prevent obsolete instructions and mutation helpers from accumulating
+
+Keep the active authoring handoff focused on current phase counts, the next eligible
+work and links to canonical standards. Do not prepend a full completion narrative
+after every batch. Record that narrative once in the topic/integration record;
+distill a useful general lesson into the relevant standard or focused engineering
+reference. Dated history must not require every future author to read it again.
+
+Retire an unreferenced one-off script after its patch, source freeze or ledger update
+is recorded. Especially remove helpers with fixed dates/status text or scripts that
+would overwrite newer source, archives or handoffs. Reusable verifiers, required
+inputs and recovery sidecars have a different lifetime: keep them while their
+recorded purpose remains. A cache or duplicate working manuscript is not a pending
+content packet merely because its filename says “draft”; use the ledger and retained
+production owner to establish the difference before removal.
+
+For a cleanup, record exact removed paths/reasons and any duplicate's retained
+counterpart, then prove that runtime source, pending manuscript/specification packets
+and ledgers were unchanged. Keep the small final record, not the temporary broad
+inventory. Lack of a filename reference alone still does not authorize deletion.
+
 ## Optional inspection tool
 
-`node scripts/audit-working-artifacts.mjs` produces a **read-only candidate report** for old scratch images, including direct references and byte-identical duplicates. It excludes the currently protected work/runtime prefixes listed in the script. Update those prefixes for a different active task. It does not approve deletion, interpret every dynamically constructed path or run any lesson checks. Use it only for an actual cleanup request or a concrete accumulation problem, not at every session start.
+`node scripts/audit-working-artifacts.mjs [output-json-path] [--protect scratch-folder-prefix ...]` produces a **read-only candidate report** for old scratch images, including direct references and byte-identical duplicates. Shared runtimes and dependency/cache directories are always excluded. Supply each active work prefix with `--protect`; the helper no longer assumes a historical Classical ML batch is still active. It does not approve deletion, interpret every dynamically constructed path or run any lesson checks. Use it only for an actual cleanup request or a concrete accumulation problem, not at every session start.
 
 The teaching standard's bounded verification policy still applies: reuse passing evidence for unchanged code, rerun affected checks after relevant changes, and keep completed modules closed. Repository history and archived scripts are not authoring instructions.

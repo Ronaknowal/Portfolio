@@ -1,0 +1,19 @@
+from functools import cache
+
+def constrained_reward(rewards, initially_blocked=False):
+    values = tuple(rewards)
+
+    @cache
+    def solve(index, blocked):
+        if index == len(values):
+            return 0
+        skip = solve(index + 1, False)
+        if blocked:
+            return skip
+        return max(skip, values[index] + solve(index + 1, True))
+
+    return solve(0, initially_blocked)
+
+print(constrained_reward([9], False))
+print(constrained_reward([9], True))
+print(constrained_reward([4, 7, 2, 9]))

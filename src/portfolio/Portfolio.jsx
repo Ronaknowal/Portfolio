@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import SiteHeader from "../shared/layout/SiteHeader.jsx";
+import "./portfolio.css";
 
 // --- Noise Canvas Component ---
 const NoiseCanvas = ({ opacity }) => {
@@ -722,17 +723,10 @@ export default function Portfolio() {
     { title: "Founder Journey: From Idea to MVP", type: "Thread", icon: "◈" },
   ];
 
-  // Inline styles for Google Fonts
-  useEffect(() => {
-    const link = document.createElement("link");
-    link.href =
-      "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-  }, []);
+  useEffect(() => { document.title = "Portfolio · Ronak Sharma"; }, []);
 
   return (
-    <div
+    <div className="portfolio-page"
       style={{
         background: "#050505",
         color: "#e8e8e8",
@@ -744,76 +738,15 @@ export default function Portfolio() {
       <NoiseCanvas opacity={noiseOpacity} />
       <MiniLossCurve progress={scrollProgress} />
 
-      {/* ===== NAV ===== */}
-      <nav
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 10001,
-          padding: "16px 32px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          background: scrollProgress > 0.05 ? "rgba(5,5,5,0.8)" : "transparent",
-          backdropFilter: scrollProgress > 0.05 ? "blur(12px)" : "none",
-          borderBottom: scrollProgress > 0.05 ? "1px solid #111" : "1px solid transparent",
-          transition: "all 0.3s ease",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 13,
-            color: "#e2b55a",
-            fontWeight: 600,
-            letterSpacing: 1,
-          }}
-        >
-          ronak.ai
-        </span>
-        <div style={{ display: "flex", gap: 28 }}>
-          {["about", "experience", "projects", "architecture", "journey", "contact"].map(
-            (s) => (
-              <a
-                key={s}
-                href={`#${s}`}
-                style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: 11,
-                  color: "#555",
-                  textDecoration: "none",
-                  letterSpacing: 1,
-                  textTransform: "uppercase",
-                  transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => (e.target.style.color = "#e2b55a")}
-                onMouseLeave={(e) => (e.target.style.color = "#555")}
-              >
-                {s}
-              </a>
-            )
-          )}
-          <Link
-            to="/learn"
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 11,
-              color: "#555",
-              textDecoration: "none",
-              letterSpacing: 1,
-              textTransform: "uppercase",
-              transition: "color 0.2s",
-            }}
-            onMouseEnter={(e) => (e.target.style.color = "#e2b55a")}
-            onMouseLeave={(e) => (e.target.style.color = "#555")}
-          >
-            learn
-          </Link>
-        </div>
-      </nav>
+      <SiteHeader section="portfolio" skipTarget="portfolio-main" className="site-header--portfolio">
+        <nav className="portfolio-nav" aria-label="Portfolio sections">
+          {["about", "experience", "projects", "architecture", "journey", "contact"].map(section => (
+            <a key={section} href={`#${section}`}>{section[0].toUpperCase() + section.slice(1)}</a>
+          ))}
+        </nav>
+      </SiteHeader>
 
+      <main id="portfolio-main" tabIndex={-1}>
       {/* ===== HERO ===== */}
       <section
         style={{
@@ -1693,6 +1626,7 @@ export default function Portfolio() {
       </Section>
 
       {/* ===== FOOTER ===== */}
+      </main>
       <footer
         style={{
           padding: "40px 32px",

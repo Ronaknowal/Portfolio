@@ -1,0 +1,39 @@
+def grid_plan(grid):
+    if not grid or not grid[0] or any(len(row) != len(grid[0]) for row in grid):
+        raise ValueError("Use a nonempty rectangular grid")
+    rows, columns = len(grid), len(grid[0])
+    best = [[None] * columns for _ in range(rows)]
+    parent = [[None] * columns for _ in range(rows)]
+    for row in range(rows):
+        for column in range(columns):
+            if grid[row][column] is None:  # Blocked cell.
+                continue
+            if row == column == 0:
+                best[row][column] = grid[row][column]
+                continue
+            candidates = []
+            for prior_row, prior_column in [(row - 1, column), (row, column - 1)]:
+                if prior_row >= 0 and prior_column >= 0:
+                    cost = best[prior_row][prior_column]
+                    if cost is not None:
+                        candidates.append((cost, prior_row, prior_column))
+            if candidates:
+                # Cost first, then upper predecessor on ties.
+                cost, prior_row, prior_column = min(candidates)
+                best[row][column] = cost + grid[row][column]
+                parent[row][column] = (prior_row, prior_column)
+
+    if best[-1][-1] is None:
+        return None, []
+    path = []
+    cell = (rows - 1, columns - 1)
+    while cell is not None:
+        path.append(cell)
+        cell = parent[cell[0]][cell[1]]
+    path.reverse()
+    return best[-1][-1], path
+
+grid = [[1, 6, 2, 1], [2, 1, 5, 2], [4, 1, 1, 1]]
+print(grid_plan(grid))
+print(grid_plan([[0, None], [None, 0]]))
+print(grid_plan([[2, -5], [3, 1]]))

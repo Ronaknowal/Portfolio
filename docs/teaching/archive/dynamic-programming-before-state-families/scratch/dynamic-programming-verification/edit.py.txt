@@ -1,0 +1,15 @@
+def edit_distance(first, second):
+    previous = list(range(len(second) + 1))
+    for row, first_character in enumerate(first, start=1):
+        current = [row] + [0] * len(second)
+        for column, second_character in enumerate(second, start=1):
+            replace_or_match = previous[column - 1] + (first_character != second_character)
+            delete = previous[column] + 1
+            insert = current[column - 1] + 1
+            current[column] = min(replace_or_match, delete, insert)
+        previous = current
+    return previous[-1]
+
+print(edit_distance("CAT", "CUT"))
+print(edit_distance("", "ABC"))
+print(edit_distance("kitten", "sitting"))

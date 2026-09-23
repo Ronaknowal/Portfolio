@@ -1,0 +1,90 @@
+{
+  "checkedAt": "2026-09-23T18:07:43.292Z",
+  "scope": "Modular site structure, Articles publishing, repository ignore rules",
+  "sources": {
+    ".gitignore": "4857e1102b3f8d552cc861bd4463d6ed530110b135b7a860ef1dd5e330aaf1ee",
+    ".github/workflows/deploy.yml": "2b8934a4c51e063930301438cfadfc06d8c242d3642e1a4b3cff828324590222",
+    "package.json": "11c175561fc437894b1bc8ba3d185804ae16aa0878e4f00296f82778e22727d4",
+    "package-lock.json": "0d784befff683f7899e7ddadf547146da0f9f957dbdb23bf527b2f8831704f23",
+    "vite.config.js": "f49937258762406c7bb726633d1a871f54c2d8715421194600676c0706a890e9",
+    "src/main.jsx": "f6e02ba29f6fbaf66c58b17efd28ed33adc76e64cc1e5b78fa6aca26aafda328",
+    "src/app/SiteRoutes.jsx": "9edf881eabd7992310ad7cdc437c8960e8bb6f8bcb507842e580fd241a3179a0",
+    "src/app/navigation.js": "f57eff57d21a739097329b6882ca3dfc53ec5cf4d394523e30b634d171fd80e9",
+    "src/shared/layout/SiteHeader.jsx": "f5b90ba55d236d22a9633a74017e582a38436642102006b292365a0202a20978",
+    "src/shared/layout/site-shell.css": "e19e63fb44e4cf90ea1c6d8cd77c9669d183aff4a34fb9d75124a5a8f96f09d2",
+    "src/home/Home.jsx": "ec720fad5313ab63fed67697ee00b5a57e91df9aa4670fe72735fcd1b515ba41",
+    "src/home/home.css": "660e00bd34b60469a041827f0cd0cbb307e359b5dad9981fe898c43eb86571f8",
+    "src/portfolio/Portfolio.jsx": "62abb3c75b61b9e388d29998fe22c385bd90f88a0266218c50d3118309b00f8b",
+    "src/portfolio/portfolio.css": "3aa963211e18446d2b956e2cf505e9a89b77077e61314164112e01b0f96e2026",
+    "src/portfolio/navigation.js": "6bada7d8c5c1e30d1c2434635b1ee82c97668dc4362f8581245776062cc9022c",
+    "src/learn/components/LearningNav.jsx": "7bfc838beb17b1fb0360f74921402321d94d6eb580ce87987c47eb60d07f88db",
+    "src/articles/ArticleLayout.jsx": "b19b63696a9cf972c4469f1cc48f489ac93086673d9932be60e79bcc4872a659",
+    "src/articles/ArticlesIndex.jsx": "2d7c5e9399ff6afd147ab02025d55ad2aadcac4af9cd83dcff3ee7d7979dedb2",
+    "src/articles/ArticleReader.jsx": "611fe6cbf71aa8c9128357ba52630e4912ce56cd7a1ce2c8adc18a0d5b4565db",
+    "src/articles/articles.css": "c63f15c403f3f8427c28a06f78717bc4a61e38d86ab022267c912ba7eba4ac53",
+    "src/articles/article-format.js": "791ef32b805e1f70c592f79f11ef5d3ad4b78efc4da47e13b3f1c90aa4bad05c",
+    "src/articles/generated/catalogue.js": "7e4a58667f5b84ca9e0a1f3dc5d4590fd38743217213d78eb5385d988fd234d5",
+    "src/articles/generated/loaders.js": "89f692cfb20b52f05afe8d48268b7015c83636545adeedf094bfcfaea71d2c43",
+    "scripts/lib/article-content.mjs": "5ccec686c67a632d1ba951d359321795ec47bdcbb84ea1091ea0cdddf5ca250c",
+    "scripts/lib/site-build.mjs": "5713f55caad8a11eae9f2ff894c38cd019394d64d53e9561861c78553edc51bd",
+    "scripts/new-article.mjs": "abdbc39ccea9c95f90e95824b180dfca45a6582b27c633ffb562716588a8b7c6",
+    "scripts/generate-articles.mjs": "a2610e506a3774cf8474edda1c50252e44fb6878760b43ad6c8041fa765523c7",
+    "scripts/verify-articles.mjs": "cbd5f04fcc1eaa5623d8bf60e23d89915eb16f8ec338664dc4a55951087819e1",
+    "scripts/verify-repository-files.mjs": "0549067327b0e5fd221d3a40ad173d6719d1454a91668b6215ef381644aaf19b",
+    "scripts/verify-site-build.mjs": "79897366947aac94ad81aa370f46c23dea26f1d70696f44645b116daef7d7fa5"
+  },
+  "payload": {
+    "home": {
+      "files": 2,
+      "rawBytes": 259208,
+      "gzipBytes": 81659
+    },
+    "articlesIndex": {
+      "files": 5,
+      "rawBytes": 270604,
+      "gzipBytes": 85328
+    },
+    "articleReader": {
+      "files": 5,
+      "rawBytes": 427487,
+      "gzipBytes": 132802
+    }
+  },
+  "publishedArticles": 0,
+  "temporaryArticlesRemoved": true,
+  "browser": {
+    "surface": "Codex in-app browser",
+    "base": "http://127.0.0.1:4194",
+    "checks": [
+      "Published fixture discovery and date ordering",
+      "Search no-results and clear filters",
+      "Subject filter reflected in URL",
+      "Reader prose, links, table, code and footnotes",
+      "Article-to-article body replacement",
+      "Unsafe Markdown link removed and raw HTML skipped",
+      "Footnote reference/back-reference navigation after repair",
+      "Keyboard code focus and skip-to-main",
+      "Section switcher Escape/focus return",
+      "Draft slug unavailable",
+      "Final empty Articles page",
+      "Final Home directory contains Portfolio/Learn/Articles",
+      "Narrow 320px viewport (305px content with scrollbar): no document/header overflow",
+      "Tables and code scroll within their frames",
+      "Learn and Portfolio headers load after source relocation",
+      "Legacy /#projects redirects to /portfolio#projects",
+      "Desktop Articles screenshot reviewed",
+      "No browser console errors at final check"
+    ],
+    "screenshotFiles": [],
+    "viewportOverrideReset": true
+  },
+  "limitations": [
+    "No user-written articles supplied; temporary verification articles removed.",
+    "Article load retry is implemented; network-failure injection was not browser-tested.",
+    "Existing shared learning chunk warning remains; no lesson content rewritten.",
+    "GitHub Pages nested Learn fallback can return HTTP 404; emitted section/article entry routes are real files.",
+    "React client rendering, not full body prerendering/SSR.",
+    "Repository ignore rules checked; machine-global Git excludes not audited.",
+    "No remote deploy or commit performed."
+  ]
+}

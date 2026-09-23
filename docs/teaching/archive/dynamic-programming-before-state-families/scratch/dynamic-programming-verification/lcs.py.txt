@@ -1,0 +1,26 @@
+def longest_common_subsequence(first, second):
+    rows, columns = len(first), len(second)
+    lengths = [[0] * (columns + 1) for _ in range(rows + 1)]
+    for row in range(1, rows + 1):
+        for column in range(1, columns + 1):
+            if first[row - 1] == second[column - 1]:
+                lengths[row][column] = 1 + lengths[row - 1][column - 1]
+            else:
+                lengths[row][column] = max(lengths[row - 1][column], lengths[row][column - 1])
+
+    result = []
+    row, column = rows, columns
+    while row and column:
+        if first[row - 1] == second[column - 1]:
+            result.append(first[row - 1])
+            row -= 1
+            column -= 1
+        elif lengths[row - 1][column] >= lengths[row][column - 1]:
+            row -= 1  # Prefer up on ties; no lexicographic guarantee.
+        else:
+            column -= 1
+    return lengths[rows][columns], "".join(reversed(result))
+
+print(longest_common_subsequence("CABAC", "ABC"))
+print(longest_common_subsequence("AB", "BA"))
+print(longest_common_subsequence("", "ABC"))

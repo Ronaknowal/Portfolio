@@ -1,18 +1,25 @@
 {
-  "name": "portfolio",
+  "name": "ronak-site",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "article:new": "node scripts/new-article.mjs",
+    "content:generate": "node scripts/generate-articles.mjs",
+    "check:content": "node scripts/verify-articles.mjs",
+    "check:repository": "node scripts/verify-repository-files.mjs",
+    "check:site-build": "node scripts/verify-site-build.mjs"
   },
   "dependencies": {
     "katex": "^0.16.45",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.13.2"
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.13.2",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@babel/parser": "^7.29.0",

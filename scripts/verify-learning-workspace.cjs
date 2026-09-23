@@ -150,7 +150,7 @@ async function capture(page, filename) {
       assert.match(await page.locator('main h1').innerText(), /not found/i);
     }
     await ready(page, '/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml', '.reader-article');
-    assert.ok(await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Projects', exact: true }).isVisible());
+    assert.ok(await page.getByRole('navigation', { name: 'Learning navigation' }).getByRole('link', { name: 'Projects', exact: true }).isVisible());
     await checkLayout(page, 'Existing lesson and shared navigation at 320px');
     assert.deepEqual(pageErrors, []);
     report.checks.push({ case: 'Unknown route recovery and existing lesson compatibility', passed: true });
