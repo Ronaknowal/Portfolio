@@ -1,0 +1,45 @@
+{
+  "checkedAt": "2026-09-23T16:58:18.961Z",
+  "method": "Production dependency graph, source parse, and in-app-browser UI review",
+  "buildPassed": true,
+  "staticEntryIds": [
+    "index.html"
+  ],
+  "homeAssets": [
+    {
+      "file": "assets/index-DCCNZq_E.js",
+      "rawBytes": 245735,
+      "gzipBytes": 78436
+    },
+    {
+      "file": "assets/index-kJm9hOys.css",
+      "rawBytes": 12745,
+      "gzipBytes": 3055
+    }
+  ],
+  "browserReview": {
+    "viewportWidthsRequested": [
+      320,
+      390,
+      768
+    ],
+    "defaultDesktopViewportWidth": 1265,
+    "observedHorizontalOverflow": false,
+    "verifiedDestinations": [
+      "/learn/paths",
+      "/learn/projects",
+      "/learn/catalogue",
+      "/portfolio#about"
+    ],
+    "verifiedControls": [
+      "Back to top",
+      "Skip to content"
+    ],
+    "visualReview": "Desktop and tablet screenshots, and the full mobile page inspected in the in-app browser; default viewport restored.",
+    "scope": "Home refinement only. The unchanged shared route, progress and failure handling retains the previous source-bound integration evidence."
+  },
+  "sourceHashes": {
+    "src/site/Home.jsx": "24b50b763feaf83be5ca4ded4dadec771dceca687221eafa9606003d81423ef6",
+    "src/site/home.css": "f1e2135b13d0f8240aa471c0611a1da1b3f15d4f9fadc07388c80cb962246e78"
+  }
+}

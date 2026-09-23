@@ -1,0 +1,88 @@
+{
+  "checkedAt": "2026-09-11T08:18:16.446504+00:00",
+  "passed": true,
+  "programs": [
+    {
+      "key": "stencil",
+      "codeSha256": "09f1584e99c2d45d344f234610766fba03f0e76ad0034d917014aa040589d411",
+      "stdout": "N=4: -Dxx=23/8, f=3, defect=1/8\nN=8: -Dxx=95/32, f=3, defect=1/32\nfirst scaled RHS with left=2: 17/8\nfirst scaled row: 2*U1 - U2 = 17/8"
+    },
+    {
+      "key": "poisson",
+      "codeSha256": "172326d5ed32eb19bad0d995166d761a629ec230a9492a7fbffa4f68486a7364",
+      "stdout": "endpoints: 0.0 0.0\nnodes: [0.0, 0.25, 0.5, 0.75, 1.0]\nsolution: [0.0, 0.1875, 0.25, 0.1875, 0.0]\nphysical residual: 4.44e-16\nscaled residual: 2.78e-17\nendpoints: 2.0 -1.0\nnodes: [0.0, 0.25, 0.5, 0.75, 1.0]\nsolution: [2.0, 1.4375, 0.75, -0.0625, -1.0]\nphysical residual: 0.00e+00\nscaled residual: 0.00e+00"
+    },
+    {
+      "key": "certificate",
+      "codeSha256": "37d2a310f02f5c36b60c291dd1ea8932e66eba4fbd2479bd07914a7992e6e492",
+      "stdout": "budget/used/status: 25 25 not certified\nmesh plus interpolation: 5/8192\nexact residual <= allowed: False\ntotal field bound: 0.338996619\nbudget/used/status: 4000 1450 certified\nmesh plus interpolation: 5/8192\nexact residual <= allowed: True\ntotal field bound: 0.000963614\nA residual allowance: 399/128000\nT residual allowance: 399/131072000"
+    },
+    {
+      "key": "refinement",
+      "codeSha256": "c35d5ce162ddf6b7706c199a7f84a4dd6cba2f3b318dd4245781e889a8f5907f",
+      "stdout": "quartic\nN=8: exact nodal error=1/256, order=undefined\nN=16: exact nodal error=1/1024, order=2.000000\nN=32: exact nodal error=1/4096, order=2.000000\nN=64: exact nodal error=1/16384, order=2.000000\nquadratic\nN=8: exact nodal error=0, order=undefined\nN=16: exact nodal error=0, order=undefined\nN=32: exact nodal error=0, order=undefined\nN=64: exact nodal error=0, order=undefined"
+    },
+    {
+      "key": "diffusion",
+      "codeSha256": "74ee5eb61e355cbbd0914d516d21ca5e7fa6c4458dcbabe909fd90363024cf32",
+      "stdout": "explicit t= 0.05 r= 3.2 first value= -4.32923223 error= 11.31282901\nexplicit t= 0.1 r= 3.2 first value= 48.97586401 error= 127.98010017\nbackward t= 0.05 r= 3.2 first value= 0.02874546 error= 0.07511551\nbackward t= 0.1 r= 3.2 first value= 0.00215923 error= 0.00564234\ncrank t= 0.05 r= 3.2 first value= -0.27573506 error= 0.72053044\ncrank t= 0.1 r= 3.2 first value= 0.19867551 error= 0.51916412\nEach pair uses the same dt; compare methods at the same physical time."
+    },
+    {
+      "key": "timeRefinement",
+      "codeSha256": "8e606c35e85ddca22cfa2e474389ca0d3ae6f53167504b23614759f96f041f94",
+      "stdout": "explicit\n16 time error=1.00133823e-03 order=-\n32 time error=4.98757840e-04 order=1.006\n64 time error=2.48904223e-04 order=1.003\n128 time error=1.24333824e-04 order=1.001\nbackward\n16 time error=9.86245534e-04 order=-\n32 time error=4.94984895e-04 order=0.995\n64 time error=2.47961001e-04 order=0.997\n128 time error=1.24098020e-04 order=0.999\ncrank\n16 time error=2.03675549e-06 order=-\n32 time error=5.09180681e-07 order=2.000\n64 time error=1.27294657e-07 order=2.000\n128 time error=3.18236447e-08 order=2.000"
+    },
+    {
+      "key": "interface",
+      "codeSha256": "c1014dd54203e39c7b44a556beef2c54fbf4a3cceeef1f7ec7a5afded2cce3cc",
+      "stdout": "interface: 1/2 flux: 20/11 temperature: 1/11\narithmetic replacement flux: 11/2\ninterface: 1/3 flux: 5/2 temperature: 1/6\narithmetic replacement flux: 7"
+    },
+    {
+      "key": "neumann",
+      "codeSha256": "ce468dd421a2fb889959ee3cd393527157a664831bfad5607df89f5efbc2c915",
+      "stdout": "right outward: 1 mismatch: 0\nmean-zero values: ['-1/16', '1/16', '1/16', '-1/16']\nright outward: 0 mismatch: 1\nmean-zero values: None"
+    },
+    {
+      "key": "advection",
+      "codeSha256": "1de72b0bac2490143179bfb68d7f7f72294b9dcb810459f0b8bd4eadc5b9d03c",
+      "stdout": "upwind c= 0.75 v= 1\nmass/min/max: 0.250000 0.000000 0.886185\ncell-average L1 error: 0.116749\ncentered c= 0.75 v= 1\nmass/min/max: 0.250000 -1.499431 2.411561\ncell-average L1 error: 0.773862\nupwind c= 1.0 v= -1\nmass/min/max: 0.250000 0.000000 1.000000\ncell-average L1 error: 0.000000"
+    },
+    {
+      "key": "godunov",
+      "codeSha256": "4b7f1e03c77ecdae4d96d4beb28724e297de22e4e6fc4218f0a6c5b6a2272f30",
+      "stdout": "-1 2 rarefaction flux= 0\n2 -1 shock flux= 2\n-3 -1 rarefaction flux= 1/2\n1 3 rarefaction flux= 1/2\n2 -2 shock flux= 2"
+    },
+    {
+      "key": "finiteElement",
+      "codeSha256": "73968aed99a3911676ee2b4f31d784193fe58bb362583f5561cf74619db15fbf",
+      "stdout": "stiffness:\n[[ 4. -4.  0.  0.  0.]\n [-4.  8. -4.  0.  0.]\n [ 0. -4.  8. -4.  0.]\n [ 0.  0. -4.  8. -4.]\n [ 0.  0.  0. -4.  4.]]\npoint load: [0.       0.666667 0.333333 0.       0.      ]\nnodal values: [0.       0.166667 0.166667 0.083333 0.      ]\npeak error: 0.05555556\naligned peak error: 0.00000000\nnonuniform changed boundary values: [ 2.    1.56  0.44 -1.  ]"
+    },
+    {
+      "key": "norms",
+      "codeSha256": "fc9f1f802da6ca8f43fd2af4f59943b799aa0ba08cc5c44b6cf02b0ff96aa294",
+      "stdout": "4 nodal=0 sup= 1/64 L2= 0.01141089 energy= 0.14433757\n8 nodal=0 sup= 1/256 L2= 0.00285272 energy= 0.07216878\n16 nodal=0 sup= 1/1024 L2= 0.00071318 energy= 0.03608439"
+    },
+    {
+      "key": "poisson2D",
+      "codeSha256": "ab61424c8ccdf9c6951515e70cbdca500366946ec3f3242436efde1981182f2d",
+      "stdout": "shape/nonzeros: (135, 135) 627\nnodal error: 0.03017038\nresidual below 1e-10: True\nshape/nonzeros: (589, 589) 2845\nnodal error: 0.00782341\nresidual below 1e-10: True\nRuntime packages: NumPy and SciPy; version details belong in your run report."
+    },
+    {
+      "key": "triangle",
+      "codeSha256": "1f5ef577c5e757a9eb1557ad47d22c208af2374708e6ba2a17d944d564b44cec",
+      "stdout": "area: 0.5\nstiffness:\n[[ 1.  -0.5 -0.5]\n [-0.5  0.5  0. ]\n [-0.5  0.   0.5]]\nabsolute constant-field energy residual: 0.00e+00\narea: 3.0\nstiffness:\n[[ 1.083333 -0.75     -0.333333]\n [-0.75      0.75      0.      ]\n [-0.333333  0.        0.333333]]\nabsolute constant-field energy residual: 5.55e-17"
+    },
+    {
+      "key": "twoGrid",
+      "codeSha256": "0f74dc0d524e89fac369d487a1ab569b8494f9f65b4395a03de26f0dc7ab481d",
+      "stdout": "mode 1 norms: 0.70710678 0.67122325 0.03612879\nenergy norms: 2.20719503 2.09518656 0.40875062\ncoarse residual removed: True\nmode 7 norms: 0.70710678 0.19981873 0.27183105\nenergy norms: 11.09631876 3.13566827 3.07541729\ncoarse residual removed: True\nThis is one fixed two-grid operation, not a general multigrid complexity claim."
+    },
+    {
+      "key": "changedReport",
+      "codeSha256": "96bdc4a539e3e25a5f94da3f1dd853930725a138971a6bc6d887a92882a97df8",
+      "stdout": "budget/used/certified: 200 200 False\nmesh+interpolation: 45/65536\nresidual: 20.65735410\nwhole-field bound: 5.810567487\nbudget/used/certified: 12000 7700 True\nmesh+interpolation: 45/65536\nresidual: 0.00109632\nwhole-field bound: 0.000994986\nA-equation allowance: 2567/2304000"
+    }
+  ],
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "exampleFileSha256": "5fe77ae7e4378df69a1c2763579be68dd6eaac70e85132ea6623bed1f00051c3"
+}

@@ -1,5 +1,6 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import SiteHeader from "../../shared/layout/SiteHeader.jsx";
+import "../learning-base.css";
 import "../learning-workspace.css";
 
 const sections = [
@@ -9,24 +10,9 @@ const sections = [
 ];
 
 export default function LearningNav({ active = "explore" }) {
-  useEffect(() => {
-    if (document.querySelector('link[href*="JetBrains+Mono"]')) return;
-    const link = document.createElement("link");
-    link.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
-  }, []);
-
   return (
-    <>
-      <a className="learning-skip" href="#learning-main">Skip to content</a>
-      <nav className="learn-nav workspace-nav" aria-label="Primary navigation">
-        <div className="workspace-brand">
-          <Link to="/" className="workspace-logo">ronak.ai</Link>
-          <span aria-hidden="true">/</span>
-          <Link to="/learn" className="workspace-wordmark">learn</Link>
-        </div>
-        <div className="workspace-nav__sections">
+    <SiteHeader section="learn" skipTarget="learning-main" className="site-header--learn">
+        <nav className="workspace-nav__sections" aria-label="Learning navigation">
           {sections.map(section => (
             <Link
               key={section.id}
@@ -48,8 +34,7 @@ export default function LearningNav({ active = "explore" }) {
             </svg>
             <span>Search</span>
           </Link>
-        </div>
-      </nav>
-    </>
+        </nav>
+    </SiteHeader>
   );
 }

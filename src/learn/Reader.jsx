@@ -45,6 +45,10 @@ export default function Reader() {
   const currentModule = navigationGroups.find(group => group.id === currentModuleId);
 
   useEffect(() => {
+    if (topic) document.title = `${topic.title} · Learn · ronak.ai`;
+  }, [topic]);
+
+  useEffect(() => {
     if ((pathId && !path) || (trackId && !track)) {
       navigate("/learn", { replace: true });
     } else if (!topicIsInContext) {

@@ -1,0 +1,20 @@
+def reward_plan(rewards):
+    count = len(rewards)
+    best = [0] * (count + 2)
+    for index in range(count - 1, -1, -1):
+        best[index] = max(best[index + 1], rewards[index] + best[index + 2])
+
+    chosen = []
+    index = 0
+    while index < count:
+        # Skip on ties: a deterministic policy, not earliest-index selection.
+        if best[index + 1] >= rewards[index] + best[index + 2]:
+            index += 1
+        else:
+            chosen.append(index)
+            index += 2
+    return best[0], chosen
+
+print(reward_plan([4, 7, 2, 9]))
+print(reward_plan([2, 2]))
+print(reward_plan([]))

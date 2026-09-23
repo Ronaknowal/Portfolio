@@ -2,6 +2,8 @@
 
 Updated 22 September 2026. Current information architecture for the researcher-oriented learning section. Read with the teaching and learning-code standards; lesson depth, accuracy, delivery phases and curriculum sequence remain authoritative.
 
+Site-level navigation now follows [SITE-ARCHITECTURE.md](SITE-ARCHITECTURE.md) (23 September): `/` is the personal hub, `/portfolio` contains the portfolio, and all `/learn` URLs remain stable. `LearningNav` supplies learning-local links to the shared `SiteHeader`; the section switcher connects Home, Portfolio and Learn. Research notes, articles and standalone tools can become separate site sections when real content is published.
+
 ## Product decisions
 
 The user asked for the breadth of fanout.sh with an original UI and stronger research orientation. The public [directory](https://fanout.sh/), [AI route](https://fanout.sh/ai) and [labs directory](https://fanout.sh/labs) were inspected for scope/navigation. Preserve our dark/amber identity, readable editorial hierarchy and concept-specific visuals; avoid copying its presentation or creating interchangeable course cards.
@@ -25,7 +27,7 @@ The user selected the finished Typed Decision Model depth revision 2 as the teac
 
 ## Source ownership and loading
 
-- `components/LearningNav.jsx`: shared navigation. Add future destinations here only when useful content exists.
+- `components/LearningNav.jsx`: local learning navigation inside the shared site header. Add learning destinations here only when useful content exists; site sections belong in `src/app/navigation.js`.
 - `LearnHub.jsx`, `learning-workspace.css`: discovery views; no lesson or project bodies in metadata imports.
 - `ProjectReader.jsx`, `project-reader.css`: stages, prerequisites, accessible loading/recovery, milestone checklist, Previous/Next and unknown-address recovery.
 - `data/projects/<stable-project-id>/metadata.js`: compact ID, title, description, kind, level, honest availability, prerequisite/related topic IDs, stage IDs/titles/summaries/deliverables and optional declarative preview. No React, weights, whole programs or manuscripts.

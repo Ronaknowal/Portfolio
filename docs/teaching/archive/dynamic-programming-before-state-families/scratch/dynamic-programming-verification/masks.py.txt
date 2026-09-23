@@ -1,0 +1,19 @@
+names = ["A", "B", "C", "D"]
+full = (1 << len(names)) - 1
+mask = (1 << 0) | (1 << 2)  # A and C.
+print(format(mask, "04b"), [name for index, name in enumerate(names) if mask & (1 << index)])
+print("B present:", bool(mask & (1 << 1)))
+mask |= 1 << 1  # Add B; adding twice has the same effect.
+mask &= ~(1 << 2)  # Remove C, even if C was already absent.
+print(format(mask, "04b"), format(full & ~mask, "04b"))
+print("bitwise/logical:", 5 & 2, 5 and 2)
+print("unbounded complement:", ~5)
+
+subset = 5
+subsets = []
+while True:
+    subsets.append(subset)
+    if subset == 0:
+        break
+    subset = (subset - 1) & 5
+print("submasks:", subsets)

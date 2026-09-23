@@ -1,0 +1,18 @@
+from functools import cache
+
+def best_reward(rewards):
+    values = tuple(rewards)  # Keep this problem fixed for this cache.
+
+    @cache
+    def solve(index):
+        if index >= len(values):
+            return 0
+        skip = solve(index + 1)
+        take = values[index] + solve(index + 2)
+        return max(skip, take)
+
+    return solve(0)
+
+print(best_reward([4, 7, 2, 9]))
+print(best_reward([-5, -2]))
+print(best_reward([]))
