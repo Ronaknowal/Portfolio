@@ -1,0 +1,165 @@
+{
+  "data": "constructed vocabulary-matching fixtures, not a real task benchmark",
+  "seed": 7,
+  "steps": 600,
+  "torch_version": "2.14.0+cpu",
+  "parameter_count": 30977,
+  "temperature": 0.049787068367863944,
+  "temperature_at_search_boundary": true,
+  "training_trace": [
+    {
+      "step": 1,
+      "train_nll": 1.09237
+    },
+    {
+      "step": 20,
+      "train_nll": 1.107208
+    },
+    {
+      "step": 40,
+      "train_nll": 1.106236
+    },
+    {
+      "step": 60,
+      "train_nll": 1.103751
+    },
+    {
+      "step": 80,
+      "train_nll": 1.101046
+    },
+    {
+      "step": 100,
+      "train_nll": 1.100463
+    },
+    {
+      "step": 120,
+      "train_nll": 1.095019
+    },
+    {
+      "step": 140,
+      "train_nll": 1.099234
+    },
+    {
+      "step": 160,
+      "train_nll": 1.098772
+    },
+    {
+      "step": 180,
+      "train_nll": 1.097907
+    },
+    {
+      "step": 200,
+      "train_nll": 1.098114
+    },
+    {
+      "step": 220,
+      "train_nll": 1.096285
+    },
+    {
+      "step": 240,
+      "train_nll": 1.098831
+    },
+    {
+      "step": 260,
+      "train_nll": 1.10232
+    },
+    {
+      "step": 280,
+      "train_nll": 1.098286
+    },
+    {
+      "step": 300,
+      "train_nll": 1.09707
+    },
+    {
+      "step": 320,
+      "train_nll": 1.060583
+    },
+    {
+      "step": 340,
+      "train_nll": 1.000317
+    },
+    {
+      "step": 360,
+      "train_nll": 0.914312
+    },
+    {
+      "step": 380,
+      "train_nll": 0.981746
+    },
+    {
+      "step": 400,
+      "train_nll": 0.742284
+    },
+    {
+      "step": 420,
+      "train_nll": 0.545349
+    },
+    {
+      "step": 440,
+      "train_nll": 0.246436
+    },
+    {
+      "step": 460,
+      "train_nll": 0.1774
+    },
+    {
+      "step": 480,
+      "train_nll": 0.09109
+    },
+    {
+      "step": 500,
+      "train_nll": 0.057353
+    },
+    {
+      "step": 520,
+      "train_nll": 0.075151
+    },
+    {
+      "step": 540,
+      "train_nll": 0.015623
+    },
+    {
+      "step": 560,
+      "train_nll": 0.001066
+    },
+    {
+      "step": 580,
+      "train_nll": 0.000198
+    },
+    {
+      "step": 600,
+      "train_nll": 0.000104
+    }
+  ],
+  "test_lexical": {
+    "n": 18,
+    "accuracy": 1.0,
+    "nll": 0.551445,
+    "brier_sum": 0.269515
+  },
+  "test_model_raw": {
+    "n": 18,
+    "accuracy": 0.666667,
+    "nll": 2.047912,
+    "brier_sum": 0.548923
+  },
+  "test_model_calibrated": {
+    "n": 18,
+    "accuracy": 0.666667,
+    "nll": 39.975479,
+    "brier_sum": 0.657157
+  },
+  "stress_model_calibrated": {
+    "n": 3,
+    "accuracy": 0.333333,
+    "nll": 84.989662,
+    "brier_sum": 1.332842
+  },
+  "stress_lexical": {
+    "n": 3,
+    "accuracy": 0.333333,
+    "nll": 1.098612,
+    "brier_sum": 0.666667
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "date": "2026-09-22",
+  "scope": "seven already implemented math lessons; no new curriculum topics",
+  "topics": [
+    {
+      "id": "randomized-linear-algebra",
+      "body": "src/learn/data/topics/randomized-linear-algebra.jsx",
+      "programUrl": "/learn-assets/randomized-linear-algebra/randomized_svd_library.py",
+      "changedFiles": [
+        "src/learn/data/topics/randomized-linear-algebra.jsx",
+        "src/learn/data/randomized-linear-algebra-library-output.js",
+        "public/learn-assets/randomized-linear-algebra/randomized_svd_library.py",
+        "docs/teaching/topic-notes/randomized-linear-algebra.md",
+        "scripts/verify-math-library-route.py"
+      ],
+      "evidencePaths": [
+        "docs/teaching/evidence/randomized-linear-algebra-library-native.json"
+      ],
+      "status": "author-complete; independent review and production integration pending",
+      "sourceHashes": {
+        "src/learn/data/topics/randomized-linear-algebra.jsx": "e186d90ad3e497bd674f2165392ed3226a7036fec3ab23d0f2119aefa52772fd",
+        "src/learn/data/randomized-linear-algebra-library-output.js": "372f51872e7c63ffa059593f6d2b0d03351c1104b160b183b8679f892619ec2a",
+        "public/learn-assets/randomized-linear-algebra/randomized_svd_library.py": "2ac9db0a41b6cd70a978cb1f7eba45db1b163a8f46fb526e12a44e9ef5d4a622",
+        "docs/teaching/topic-notes/randomized-linear-algebra.md": "3ec97845ba54204e0a3e09f67435a40a3246a093aa40ef23b7bd861d34e55dce",
+        "scripts/verify-math-library-route.py": "56f756fe781f5416498d49bb9c795fd0e50d9d2841029084c537e0a8a262dfeb",
+        "docs/teaching/evidence/randomized-linear-algebra-library-native.json": "bc8e30203de0051485ff406d9e1b0547e597d841dd1e89bac93b9c8d487bfc19"
+      }
+    },
+    {
+      "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "body": "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx",
+      "programUrl": "/learn-assets/gradient-variants/optimizer_library_bridge.py",
+      "changedFiles": [
+        "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx",
+        "src/learn/data/gradient-variants-library-output.js",
+        "public/learn-assets/gradient-variants/optimizer_library_bridge.py",
+        "docs/teaching/topic-notes/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.md",
+        "scripts/verify-math-library-route.py"
+      ],
+      "evidencePaths": [
+        "docs/teaching/evidence/gradient-variants-library-native.json"
+      ],
+      "status": "author-complete; independent review and production integration pending",
+      "sourceHashes": {
+        "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx": "1d68e94f0a5cd13f20eac582cddb098e48060365597b3ee2c5a670f167ea70f9",
+        "src/learn/data/gradient-variants-library-output.js": "da4a3b37eb2196bb6a0b721d691ad6766637dbf13d5589a1a12ac7a8255ad504",
+        "public/learn-assets/gradient-variants/optimizer_library_bridge.py": "f91e933ca3b6574cac574055388b73f2a2a47030550534482aed0ef6f916c02b",
+        "docs/teaching/topic-notes/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.md": "feb8fde66ae31b14f320d4f7e69c04813a3eb3958398fb76353c77e2a237e55d",
+        "scripts/verify-math-library-route.py": "56f756fe781f5416498d49bb9c795fd0e50d9d2841029084c537e0a8a262dfeb",
+        "docs/teaching/evidence/gradient-variants-library-native.json": "ac0647ae838297eab9252fce9ed5f23fff54345111c74719276a051f1dad44a3"
+      }
+    },
+    {
+      "id": "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+      "body": "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx",
+      "programUrl": "/learn-assets/monte-carlo-mcmc/pymc_posterior.py",
+      "changedFiles": [
+        "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx",
+        "src/learn/data/monte-carlo-mcmc-library-output.js",
+        "public/learn-assets/monte-carlo-mcmc/pymc_posterior.py",
+        "docs/teaching/topic-notes/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.md",
+        "scripts/verify-math-library-route.py"
+      ],
+      "evidencePaths": [
+        "docs/teaching/evidence/monte-carlo-mcmc-library-native.json"
+      ],
+      "status": "author-complete; independent review and production integration pending",
+      "sourceHashes": {
+        "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx": "f703e255d7dd83678c879c9d825437d5e97ea4a10705d4c6e587d2235f808313",
+        "src/learn/data/monte-carlo-mcmc-library-output.js": "6ca63b3e510959dfebb946ae170cf02d9c6ecd8a52668253ded9f981b8406fb2",
+        "public/learn-assets/monte-carlo-mcmc/pymc_posterior.py": "8b8dc278204a48ce66652309bc6c47c3c1f71ecf74b81130b89bf4462727bcd8",
+        "docs/teaching/topic-notes/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.md": "acc2fa3a0ac09f1646ff1257e59b180ac567e8aa54aabc7cfc51b2404e2ea153",
+        "scripts/verify-math-library-route.py": "56f756fe781f5416498d49bb9c795fd0e50d9d2841029084c537e0a8a262dfeb",
+        "docs/teaching/evidence/monte-carlo-mcmc-library-native.json": "fc7db5767634b0c9ea3d8e0eed07a88c9de27c219a98eef643f29871bc978ea9"
+      }
+    },
+    {
+      "id": "variational-inference",
+      "body": "src/learn/data/topics/variational-inference.jsx",
+      "programUrl": "/learn-assets/variational-inference/pymc_variational.py",
+      "changedFiles": [
+        "src/learn/data/topics/variational-inference.jsx",
+        "src/learn/data/variational-inference-library-output.js",
+        "public/learn-assets/variational-inference/pymc_variational.py",
+        "docs/teaching/topic-notes/variational-inference.md",
+        "scripts/verify-math-library-route.py"
+      ],
+      "evidencePaths": [
+        "docs/teaching/evidence/variational-inference-library-native.json"
+      ],
+      "status": "author-complete; independent review and production integration pending",
+      "sourceHashes": {
+        "src/learn/data/topics/variational-inference.jsx": "cf020ff6ba6e924f3c9b3c64c69eaabcdac652e6448bb46c9de8d883b2d3c032",
+        "src/learn/data/variational-inference-library-output.js": "c0dc2d61b2a6c7085d79e04ea1dbd5f5f9995a3073487b42d6f7fc21990c7f11",
+        "public/learn-assets/variational-inference/pymc_variational.py": "4c95fdbd03e20c2e68a38a24aeac5b1d060abd5188a006fc05419a11e4e280c4",
+        "docs/teaching/topic-notes/variational-inference.md": "c97c37b8c15d7d35445d1df3f2b0a747554b7c64d9562330259971cfae7a3ec1",
+        "scripts/verify-math-library-route.py": "56f756fe781f5416498d49bb9c795fd0e50d9d2841029084c537e0a8a262dfeb",
+        "docs/teaching/evidence/variational-inference-library-native.json": "962a6e42f592cd1245c909df32001289baf8f1ea56b765f29e8e3edb012548e2"
+      }
+    },
+    {
+      "id": "spectral-graph-theory",
+      "body": "src/learn/data/topics/spectral-graph-theory.jsx",
+      "programUrl": "/learn-assets/spectral-graph/spectral_library.py",
+      "changedFiles": [
+        "src/learn/data/topics/spectral-graph-theory.jsx",
+        "src/learn/data/spectral-graph-library-output.js",
+        "public/learn-assets/spectral-graph/spectral_library.py",
+        "docs/teaching/topic-notes/spectral-graph-theory.md",
+        "scripts/verify-math-library-route.py"
+      ],
+      "evidencePaths": [
+        "docs/teaching/evidence/spectral-graph-library-native.json"
+      ],
+      "status": "author-complete; independent review and production integration pending",
+      "sourceHashes": {
+        "src/learn/data/topics/spectral-graph-theory.jsx": "0164a3eef7a350bfa6253c01ef9f7bbc77b2d86991e9d93b9ed6befdb63ef4f4",
+        "src/learn/data/spectral-graph-library-output.js": "758a6d9ba252a0428aea88a35fa5fc1a71fc30f6d7ad83c02f2710cdbe0f3b97",
+        "public/learn-assets/spectral-graph/spectral_library.py": "5f5f2b64466a71c91eaca7eca324a306be8eea93aa1a64e6e741aa3f475ac0fd",
+        "docs/teaching/topic-notes/spectral-graph-theory.md": "31906fefa22a6f101110c8ebfc99dbf2753af2b55443f9fdbf2d0505d14d5667",
+        "scripts/verify-math-library-route.py": "56f756fe781f5416498d49bb9c795fd0e50d9d2841029084c537e0a8a262dfeb",
+        "docs/teaching/evidence/spectral-graph-library-native.json": "5f4b7e678445705128a4ae8ea31a935e07b06a44dd2fe86522b0ba99f390786e"
+      }
+    },
+    {
+      "id": "functional-analysis-rkhs",
+      "body": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+      "programUrl": "/learn-assets/functional-analysis/kernel_ridge_library.py",
+      "changedFiles": [
+        "src/learn/data/topics/functional-analysis-rkhs.jsx",
+        "src/learn/data/functional-analysis-library-output.js",
+        "public/learn-assets/functional-analysis/kernel_ridge_library.py",
+        "docs/teaching/topic-notes/functional-analysis-rkhs.md",
+        "scripts/verify-math-library-route.py"
+      ],
+      "evidencePaths": [
+        "docs/teaching/evidence/functional-analysis-library-native.json"
+      ],
+      "status": "author-complete; independent review and production integration pending",
+      "sourceHashes": {
+        "src/learn/data/topics/functional-analysis-rkhs.jsx": "63c997a0cc9186f76072397a353161efd7395d84f457ed67a45eff89e8deb037",
+        "src/learn/data/functional-analysis-library-output.js": "7e133a621fdf662e2177a7bca6e76b4cf3c8e03517a009ff80925a4d8ece3ec3",
+        "public/learn-assets/functional-analysis/kernel_ridge_library.py": "f064ca3e2f0b481311393be1c5c9fb957e7bd04b8c1c349ae4b17fcc1d450d89",
+        "docs/teaching/topic-notes/functional-analysis-rkhs.md": "4dbe983b390c872b1e956d7f1170ad270fd23dca70cb27d3e0d738e86df73300",
+        "scripts/verify-math-library-route.py": "56f756fe781f5416498d49bb9c795fd0e50d9d2841029084c537e0a8a262dfeb",
+        "docs/teaching/evidence/functional-analysis-library-native.json": "556b9b6ef087d79d0c7261b5e71ab826999dc995f80e34b2b56ac8a6f07dc4d0"
+      }
+    },
+    {
+      "id": "topology-topological-data-analysis-tda",
+      "body": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+      "programUrl": "/learn-assets/topology-tda/gudhi_rips.py",
+      "changedFiles": [
+        "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+        "src/learn/data/topology-tda-library-output.js",
+        "public/learn-assets/topology-tda/gudhi_rips.py",
+        "docs/teaching/topic-notes/topology-topological-data-analysis-tda.md",
+        "scripts/verify-math-library-route.py"
+      ],
+      "evidencePaths": [
+        "docs/teaching/evidence/topology-tda-library-native.json"
+      ],
+      "status": "author-complete; independent review and production integration pending",
+      "sourceHashes": {
+        "src/learn/data/topics/topology-topological-data-analysis-tda.jsx": "e9ad236088fa069503894951ab582319f30bcd56233938ecfa33e2183746ba9d",
+        "src/learn/data/topology-tda-library-output.js": "64f81637ac5c4d80fe9e7282abcccc6778dd9be177b3a66108635c25ff48876a",
+        "public/learn-assets/topology-tda/gudhi_rips.py": "232817770fde234b3114e53f848d7bd85d9809ef111ecfcaa99654cf120619ea",
+        "docs/teaching/topic-notes/topology-topological-data-analysis-tda.md": "b62cad4bedb5e97db359283846e1d678bea6fc66201e4b7900b55af05bea4c7f",
+        "scripts/verify-math-library-route.py": "56f756fe781f5416498d49bb9c795fd0e50d9d2841029084c537e0a8a262dfeb",
+        "docs/teaching/evidence/topology-tda-library-native.json": "018552097844273404cfa8d9ac62ffd2c3e5d8b4bac105d6a38c7b19c7bd32a4"
+      }
+    }
+  ],
+  "structureCheck": "node scripts/verify-math-library-structure.mjs",
+  "verifierHashes": {
+    "scripts/verify-math-library-route.py": "56f756fe781f5416498d49bb9c795fd0e50d9d2841029084c537e0a8a262dfeb",
+    "scripts/verify-math-library-structure.mjs": "b28b064d427e0da855b24be331e62749772c2ed582cc1650829f8b37bd4f009d"
+  },
+  "integration": {
+    "status": "complete",
+    "report": "docs/teaching/implementation-depth/REMEDIATION.md",
+    "browserEvidence": "docs/teaching/evidence/depth-remediation-browser.json"
+  }
+}

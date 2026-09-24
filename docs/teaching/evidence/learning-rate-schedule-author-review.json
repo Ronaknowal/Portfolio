@@ -1,0 +1,305 @@
+{
+  "recordedAt": "2026-09-10T11:43:02.143Z",
+  "sources": {
+    "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx": "557b67ea918e17b1b9c499409ea825dcaf65eae4d7e7389490af47eef0f945a1",
+    "src/learn/data/learning-rate-schedule-models.js": "cf3db9b95a15f38577ae26db8f49059f5d238dd8ce220ce4c3c3aeebd9657126",
+    "src/learn/data/learning-rate-schedule-examples.js": "d0736b1353b13b6e1a6ea4b4c376810b9d6c69a8d859ffd92b7d3feb30f2c771",
+    "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "a6b29e507b1d4ed6c5bf64a3e95e3ef86499eb2576b1f36218bc3e4185a1031b",
+    "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "9fd90951133fcfa46948a27815c07d3190409bc6713f1ff168d84bffd04a5789",
+    "src/learn/data/curriculum/blueprints/learning-rate-schedules-cosine-warmup-onecyclelr.js": "7be2e6fa70e9b2a602c806c23bfd8332284c268cfe7f2aebfcc48c09ec06e6ff"
+  },
+  "native": {
+    "checkedAt": "2026-09-10T11:17:13.202Z",
+    "scheduleCases": 138,
+    "noiseCases": 36,
+    "clockCases": 18,
+    "plateauCases": 108,
+    "rejected": 19,
+    "independent": {
+      "torch": "2.14.0+cpu",
+      "numpy": "2.3.5",
+      "actualSchedulerConfigurations": 72,
+      "exhaustiveNoiseOutcomes": 18396,
+      "actualClockUpdates": 104,
+      "actualPlateauStates": 1242
+    },
+    "examples": [
+      {
+        "key": "finiteEndpoints",
+        "passed": true
+      },
+      {
+        "key": "noiseMoments",
+        "passed": true
+      },
+      {
+        "key": "oneCycleRuntime",
+        "passed": true
+      },
+      {
+        "key": "cosineAndRestarts",
+        "passed": true
+      },
+      {
+        "key": "plateauRuntime",
+        "passed": true
+      },
+      {
+        "key": "accumulationAndSkip",
+        "passed": true
+      },
+      {
+        "key": "checkpointResume",
+        "passed": true
+      },
+      {
+        "key": "decayAndMomentum",
+        "passed": true
+      },
+      {
+        "key": "controlledExperiment",
+        "passed": true
+      }
+    ]
+  },
+  "practice": {
+    "torch": "2.14.0+cpu",
+    "exercises": 7,
+    "finiteRates": [
+      0.06,
+      0.12,
+      0.10535533905932738,
+      0.07,
+      0.03464466094067263,
+      0.02
+    ],
+    "noiseExact": [
+      "-6/25",
+      "113/5000",
+      "401/5000"
+    ],
+    "plateau": [
+      [
+        1,
+        0,
+        0,
+        0.4
+      ],
+      [
+        1,
+        1,
+        0,
+        0.4
+      ],
+      [
+        0.89,
+        0,
+        0,
+        0.4
+      ],
+      [
+        0.89,
+        1,
+        0,
+        0.4
+      ],
+      [
+        0.89,
+        0,
+        1,
+        0.2
+      ],
+      [
+        0.89,
+        0,
+        0,
+        0.2
+      ],
+      [
+        0.7,
+        0,
+        0,
+        0.2
+      ]
+    ],
+    "identicalResumeUpdates": 9,
+    "changedHorizonFirstMismatch": {
+      "remainingIndex": 1,
+      "originalRate": 0.057201185507073586,
+      "changedRate": 0.06614227403034925
+    },
+    "comparison": [
+      {
+        "policy": "constant",
+        "candidates": [
+          {
+            "peak": 0.1,
+            "validation": [
+              0.08214077867935841,
+              0.12917837633859794,
+              0.08550559619062816
+            ],
+            "mean": 0.09894158373619483
+          },
+          {
+            "peak": 0.2,
+            "validation": [
+              0.07615307586921342,
+              0.18968672197962955,
+              0.08856027722200407
+            ],
+            "mean": 0.118133358356949
+          }
+        ],
+        "selectedPeak": 0.1,
+        "test": [
+          0.11267229597206621,
+          0.10386150919619366,
+          0.11609747937766801
+        ]
+      },
+      {
+        "policy": "linear",
+        "candidates": [
+          {
+            "peak": 0.1,
+            "validation": [
+              0.11617453083505787,
+              0.08956150173261825,
+              0.1081856666981636
+            ],
+            "mean": 0.10464056642194657
+          },
+          {
+            "peak": 0.2,
+            "validation": [
+              0.07591944226708391,
+              0.06627117375750995,
+              0.07682512873141419
+            ],
+            "mean": 0.07300524825200268
+          }
+        ],
+        "selectedPeak": 0.2,
+        "test": [
+          0.10310314766787058,
+          0.10389973500192808,
+          0.10974124110389422
+        ]
+      },
+      {
+        "policy": "warmup-cosine",
+        "candidates": [
+          {
+            "peak": 0.1,
+            "validation": [
+              0.11258724683624735,
+              0.09299769416605352,
+              0.10867585334654688
+            ],
+            "mean": 0.10475359811628258
+          },
+          {
+            "peak": 0.2,
+            "validation": [
+              0.07389329440876177,
+              0.06502477198920047,
+              0.07824128952944973
+            ],
+            "mean": 0.07238645197580398
+          }
+        ],
+        "selectedPeak": 0.2,
+        "test": [
+          0.10391597368141303,
+          0.1039736789800131,
+          0.10658943093248141
+        ]
+      }
+    ],
+    "testWinners": [
+      "linear",
+      "constant",
+      "warmup-cosine"
+    ],
+    "selectionUpdates": 2160,
+    "finalAssessmentUpdates": 1080
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T11:34:15.758Z",
+    "results": [
+      {
+        "width": 1440,
+        "anchors": 9,
+        "examples": 9,
+        "clockStates": 108,
+        "plateauStates": 12,
+        "equations": 7,
+        "sources": 14,
+        "errors": []
+      },
+      {
+        "width": 390,
+        "anchors": 9,
+        "examples": 9,
+        "clockStates": 108,
+        "plateauStates": 12,
+        "equations": 7,
+        "sources": 14,
+        "errors": []
+      },
+      {
+        "width": 320,
+        "anchors": 9,
+        "examples": 9,
+        "clockStates": 108,
+        "plateauStates": 12,
+        "equations": 7,
+        "sources": 14,
+        "errors": []
+      }
+    ]
+  },
+  "reading": {
+    "checkedAt": "2026-09-10T11:39:22.146Z",
+    "results": [
+      {
+        "width": 1440,
+        "exercises": 7,
+        "keyboardReveals": 21,
+        "sourceLinks": 14,
+        "table": {
+          "width": 760,
+          "content": 760,
+          "focused": true
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "exercises": 7,
+        "keyboardReveals": 21,
+        "sourceLinks": 14,
+        "table": {
+          "width": 350,
+          "content": 350,
+          "focused": true
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "exercises": 7,
+        "keyboardReveals": 21,
+        "sourceLinks": 14,
+        "table": {
+          "width": 280,
+          "content": 300,
+          "focused": true
+        },
+        "errors": []
+      }
+    ]
+  },
+  "independentRecord": "docs/teaching/LEARNING-RATE-SCHEDULES-INDEPENDENT-REVIEW.md"
+}

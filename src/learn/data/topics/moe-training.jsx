@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -608,36 +609,30 @@ total_loss = main_loss + 0.01 * l_aux`}
       </Prose>
 
       <Plot
-        title="Expert usage fraction over training"
+        label="Expert usage fraction over training"
         xLabel="Training step"
         yLabel="Top-1 usage fraction"
         series={[
           {
-            label: "Expert 0 (no aux loss — collapse)",
-            color: colors?.red ?? "#f87171",
+            name: "Expert 0 (no aux loss — collapse)",
+            color: "#f87171",
             points: [
-              {x: 0, y: 0.14}, {x: 10, y: 0.31}, {x: 20, y: 0.51},
-              {x: 30, y: 0.67}, {x: 40, y: 0.78}, {x: 50, y: 0.85},
-              {x: 60, y: 0.89}, {x: 70, y: 0.92}, {x: 80, y: 0.94},
-              {x: 90, y: 0.95}, {x: 100, y: 0.96},
+              [0, 0.14], [10, 0.31], [20, 0.51], [30, 0.67], [40, 0.78],
+              [50, 0.85], [60, 0.89], [70, 0.92], [80, 0.94], [90, 0.95], [100, 0.96],
             ],
           },
           {
-            label: "Expert 0 (with aux loss α=0.01)",
-            color: colors?.green ?? "#4ade80",
+            name: "Expert 0 (with aux loss α=0.01)",
+            color: "#4ade80",
             points: [
-              {x: 0, y: 0.14}, {x: 10, y: 0.16}, {x: 20, y: 0.14},
-              {x: 30, y: 0.13}, {x: 40, y: 0.12}, {x: 50, y: 0.13},
-              {x: 60, y: 0.12}, {x: 70, y: 0.13}, {x: 80, y: 0.12},
-              {x: 90, y: 0.13}, {x: 100, y: 0.12},
+              [0, 0.14], [10, 0.16], [20, 0.14], [30, 0.13], [40, 0.12],
+              [50, 0.13], [60, 0.12], [70, 0.13], [80, 0.12], [90, 0.13], [100, 0.12],
             ],
           },
           {
-            label: "Uniform baseline (1/N = 0.125)",
-            color: colors?.muted ?? "#6b7280",
-            points: [
-              {x: 0, y: 0.125}, {x: 100, y: 0.125},
-            ],
+            name: "Uniform baseline (1/N = 0.125)",
+            color: "#6b7280",
+            points: [[0, 0.125], [100, 0.125]],
           },
         ]}
       />
@@ -649,21 +644,31 @@ total_loss = main_loss + 0.01 * l_aux`}
       </Prose>
 
       <StepTrace
+        label="MoE forward pass: dispatch → expert compute → combine"
         steps={[
           {
             label: "1. Router dispatch",
-            description: "Router logits → softmax → top-2 → assign each token to 2 expert buckets. All-to-all sends tokens to their assigned expert's GPU.",
-            tokens: ["tok0→E5,E6", "tok1→E0,E6", "tok2→E1,E3", "tok3→E1,E5"],
+            render: () => (
+              <Prose>
+                Router logits → softmax → top-2 → assign each token to 2 expert buckets. All-to-all sends tokens to their assigned expert's GPU. Routing: tok0→E5,E6 · tok1→E0,E6 · tok2→E1,E3 · tok3→E1,E5.
+              </Prose>
+            ),
           },
           {
             label: "2. Expert forward",
-            description: "Each expert runs its FFN on its assigned tokens independently. Experts on different GPUs run in parallel. Capacity check: overflow tokens are dropped.",
-            tokens: ["E0: [tok1]", "E1: [tok2,tok3]", "E3: [tok2]", "E5: [tok0,tok3]", "E6: [tok0,tok1]"],
+            render: () => (
+              <Prose>
+                Each expert runs its FFN on its assigned tokens independently. Experts on different GPUs run in parallel. Capacity check: overflow tokens are dropped. Buckets: E0: [tok1] · E1: [tok2, tok3] · E3: [tok2] · E5: [tok0, tok3] · E6: [tok0, tok1].
+              </Prose>
+            ),
           },
           {
             label: "3. Weighted combine",
-            description: "Expert outputs are gathered back to origin GPUs (reverse all-to-all). Each token's contributions are multiplied by gate weights and summed into the final hidden state.",
-            tokens: ["tok0: g0·E5(x0) + g1·E6(x0)", "tok1: g0·E0(x1) + g1·E6(x1)", "tok2: g0·E1(x2) + g1·E3(x2)", "tok3: g0·E1(x3) + g1·E5(x3)"],
+            render: () => (
+              <Prose>
+                Expert outputs are gathered back to origin GPUs (reverse all-to-all). Each token's contributions are multiplied by gate weights and summed into the final hidden state. Output: tok0 = g0·E5(x0) + g1·E6(x0); tok1 = g0·E0(x1) + g1·E6(x1); tok2 = g0·E1(x2) + g1·E3(x2); tok3 = g0·E1(x3) + g1·E5(x3).
+              </Prose>
+            ),
           },
         ]}
       />

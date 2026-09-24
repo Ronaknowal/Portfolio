@@ -1,0 +1,332 @@
+/* Time-series validation and forecasting baselines: investigations, calendar
+   lanes, timelines, charts and their tables. Calm dark ground with the site's
+   gold accent. Every encoding that carries meaning also carries a shape, a
+   pattern, a word or a printed value, so nothing here depends on colour alone.
+
+   Four rules below are deliberate and each has been shipped wrong before in
+   this repository.
+
+   1. EVERY SELECTOR THAT MENTIONS `svg` IMMEDIATELY QUALIFIES IT WITH
+      `.ts-diagram`. There is no bare `.ts-lesson svg` rule anywhere in this
+      file, and the source-hygiene verifier refuses one. An unscoped rule also
+      matches KaTeX's own radical SVGs, whose height comes from
+      `height: inherit`; `height: auto` leaves them no intrinsic height and
+      every square root on the page collapses to nothing. In one lesson that
+      turned `sqrt(ln(2K/d)/(2n))` into `ln(2K/d)/(2n)` -- the radius squared,
+      a different quantity -- while the DOM was correct, there were zero
+      `.katex-error` nodes, and four offline verifiers were green.
+
+      Tagging the ELEMENT is safe in the way tagging a CONTAINER would not be:
+      the class is applied by `Diagram` in TimeSeriesShared.jsx, which is the
+      only place in this lesson that opens an svg tag, so a figure sitting
+      inside an investigation wrapper still carries it.
+
+   2. No blanket `fill` is set on shapes. A CSS `fill` rule beats a
+      `fill="none"` presentation attribute, which is how a figure's bands once
+      became entirely invisible while every offline assertion passed. Each
+      shape class states its own fill, and outline-only shapes state
+      `fill: none` in CSS.
+
+   3. A table caption is a sibling paragraph, never a `<caption>`: below the
+      narrow breakpoint the table blockifies and a caption inside it collapses
+      to the width of its longest word.
+
+   4. Font LONGHANDS inside diagrams. The `font` shorthand silently resets
+      every font-size set on a descendant, so a small tick label inherits the
+      parent size and a 300-unit viewBox renders its labels at browser
+      default. */
+
+.ts-lesson svg.ts-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+.ts-lesson svg.ts-diagram text {
+  fill: #cfd7d2;
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 400;
+  font-style: normal;
+}
+.ts-lesson svg.ts-diagram text.ts-small { font-size: 9px; }
+.ts-lesson svg.ts-diagram text.ts-strong { font-size: 11px; font-weight: 600; fill: #f0e6c8; }
+.ts-lesson svg.ts-diagram text.ts-muted { fill: #9fa9a4; }
+.ts-lesson svg.ts-diagram text.ts-axis-title { fill: #8eb9a5; font-size: 9px; }
+.ts-lesson svg.ts-diagram text.ts-invalid { fill: #e3a08d; }
+
+/* Lines and marks. Each states its own fill. */
+.ts-lesson svg.ts-diagram .ts-axis { fill: none; stroke: #6f7b76; stroke-width: 1.2; }
+.ts-lesson svg.ts-diagram .ts-tick { fill: none; stroke: #6f7b76; stroke-width: 1; }
+.ts-lesson svg.ts-diagram .ts-grid { fill: none; stroke: #232a28; stroke-width: 1; }
+.ts-lesson svg.ts-diagram .ts-series-line { fill: none; stroke-width: 1.6; }
+.ts-lesson svg.ts-diagram .ts-series-mark { stroke: none; }
+
+/* One colour AND one dash pattern per method, held constant across the
+   development and final views. Named for the method, never for a series
+   index: a lesson whose h = 7 point is shared by two methods must not have
+   its identities depend on drawing order. */
+.ts-lesson svg.ts-diagram .ts-series.is-ridge_expanding .ts-series-line { stroke: #e7b94a; }
+.ts-lesson svg.ts-diagram .ts-series.is-ridge_expanding .ts-series-mark { fill: #e7b94a; }
+.ts-lesson svg.ts-diagram .ts-series.is-naive .ts-series-line { stroke: #8eb9a5; stroke-dasharray: 5 3; }
+.ts-lesson svg.ts-diagram .ts-series.is-naive .ts-series-mark { fill: #8eb9a5; }
+.ts-lesson svg.ts-diagram .ts-series.is-seasonal .ts-series-line { stroke: #b58ec0; stroke-dasharray: 2 3; }
+.ts-lesson svg.ts-diagram .ts-series.is-seasonal .ts-series-mark { fill: #b58ec0; }
+.ts-lesson svg.ts-diagram .ts-series.is-mean .ts-series-line { stroke: #da9c86; stroke-dasharray: 9 4; }
+.ts-lesson svg.ts-diagram .ts-series.is-mean .ts-series-mark { fill: #da9c86; }
+.ts-lesson svg.ts-diagram .ts-series.is-drift .ts-series-line { stroke: #7f9ec4; stroke-dasharray: 6 2 2 2; }
+.ts-lesson svg.ts-diagram .ts-series.is-drift .ts-series-mark { fill: #7f9ec4; }
+.ts-lesson svg.ts-diagram .ts-series.is-ridge_90 .ts-series-line { stroke: #c2a86a; stroke-dasharray: 3 3; }
+.ts-lesson svg.ts-diagram .ts-series.is-ridge_90 .ts-series-mark { fill: #c2a86a; }
+.ts-lesson svg.ts-diagram .ts-series.is-actual .ts-series-line { stroke: #d6dedb; stroke-width: 2; }
+.ts-lesson svg.ts-diagram .ts-series.is-actual .ts-series-mark { fill: #d6dedb; }
+
+/* A point two methods share gets a ring of its own, drawn over both marks.
+   Outline only, and painted last on purpose: a solid fill here would cover the
+   very coincidence it exists to announce. */
+.ts-lesson svg.ts-diagram .ts-coincident { fill: none; stroke: #f0e6c8; stroke-width: 1.3; }
+
+/* Calendar cells. The known region is a filled band; the unknown region is
+   outlined and hatched, so the two differ in pattern as well as in colour. */
+.ts-lesson svg.ts-diagram .ts-cell { fill: #141a19; stroke: #2f3735; stroke-width: 0.8; }
+.ts-lesson svg.ts-diagram .ts-cell.is-known { fill: #23312b; stroke: #4e6a5c; }
+.ts-lesson svg.ts-diagram .ts-cell.is-target { fill: #4a3f1d; stroke: #9a8347; stroke-width: 1.6; }
+.ts-lesson svg.ts-diagram .ts-cell.is-origin { fill: #2d3a33; stroke: #8eb9a5; stroke-width: 1.6; }
+.ts-lesson svg.ts-diagram .ts-known-band { fill: #1b2a24; stroke: #4e6a5c; stroke-width: 1; }
+.ts-lesson svg.ts-diagram .ts-hatch-line { fill: none; stroke-width: 1; }
+/* #6d7c75, not #4a5650. The hatch is the REDUNDANT CHANNEL that tells an
+   unobserved day from an observed one; the two cell fills differ by only
+   1.30:1 and their strokes by 2.06:1, both under the 3:1 floor for non-text
+   contrast, so with the hatch invisible the distinction this figure exists to
+   draw rested on differences a reader may not resolve. Against the unobserved
+   cell fill #141a19 this stroke measures 4.02:1. */
+.ts-lesson svg.ts-diagram .ts-hatch-line.is-unknown { stroke: #7d8c85; }
+.ts-lesson svg.ts-diagram .ts-hatch-line.is-invalid { stroke: #da9c86; }
+
+/* Arrows. The horizon arrow is solid; an arrow that carries a value the claim
+   could not have known is dashed AND red AND labelled, because an invalid
+   information flow must not be told apart by hue alone. */
+.ts-lesson svg.ts-diagram .ts-arrow { fill: none; stroke: #e7b94a; stroke-width: 1.4; }
+/* A THIRD input kind. Every lane's first arrow carries the origin's own
+   observed count, which is neither "this chain's own prediction" nor "a newly
+   observed outcome"; drawing it as either was a false claim about the arrow.
+   Gold and solid, distinct from both in hue and in dash pattern. */
+.ts-lesson svg.ts-diagram .ts-arrow.is-origin-observation { stroke: #e7b94a; stroke-width: 1.5; }
+.ts-lesson svg.ts-diagram .ts-arrow.is-prediction-fed { stroke: #8eb9a5; stroke-dasharray: 4 2; }
+.ts-lesson svg.ts-diagram .ts-arrow.is-observation-fed { stroke: #7f9ec4; }
+.ts-lesson svg.ts-diagram .ts-arrow.is-invalid { stroke: #da9c86; stroke-width: 1.6; stroke-dasharray: 3 2; }
+.ts-lesson svg.ts-diagram .ts-arrow-head { fill: #e7b94a; stroke: none; }
+.ts-lesson svg.ts-diagram .ts-arrow-head.is-origin-observation { fill: #e7b94a; }
+.ts-lesson svg.ts-diagram .ts-arrow-head.is-prediction-fed { fill: #8eb9a5; }
+.ts-lesson svg.ts-diagram .ts-arrow-head.is-observation-fed { fill: #7f9ec4; }
+.ts-lesson svg.ts-diagram .ts-arrow-head.is-invalid { fill: #da9c86; }
+
+/* The split boundary. A vertical rule whose position IS the mathematical
+   claim, so it is drawn from the model's own coordinate and never nudged. */
+.ts-lesson svg.ts-diagram .ts-boundary { fill: none; stroke: #e7b94a; stroke-width: 1.4; stroke-dasharray: 3 2; }
+.ts-lesson svg.ts-diagram .ts-cutoff { fill: none; stroke: #f0e6c8; stroke-width: 1.4; }
+
+/* Training and target bands of the staircase. */
+.ts-lesson svg.ts-diagram .ts-train-band { fill: #2b3a33; stroke: #5d7c6c; stroke-width: 1; }
+.ts-lesson svg.ts-diagram .ts-train-band.is-sliding { fill: #37322b; stroke: #8a7a55; }
+.ts-lesson svg.ts-diagram .ts-target-mark { fill: #4a3f1d; stroke: #9a8347; stroke-width: 1; }
+.ts-lesson svg.ts-diagram .ts-target-mark.is-inspected { fill: #e7b94a; stroke: #f0e6c8; }
+.ts-lesson svg.ts-diagram .ts-issue-mark { fill: #8eb9a5; stroke: none; }
+/* A rehearsal the learner has not advanced to yet. Drawn rather than left as
+   empty space, so the figure keeps one height and a reader can see what is
+   coming; outlined and unfilled so it cannot be mistaken for an issued one. */
+.ts-lesson svg.ts-diagram .ts-train-band.is-pending { fill: none; stroke: #3a4540; stroke-dasharray: 3 2; }
+.ts-lesson svg.ts-diagram .ts-target-mark.is-pending { fill: none; stroke: #4a5650; }
+
+/* Timeline marks of the arrival figure. */
+.ts-lesson svg.ts-diagram .ts-day-dot { fill: #6f7b76; stroke: none; }
+.ts-lesson svg.ts-diagram .ts-feature-mark { fill: #23312b; stroke: #8eb9a5; stroke-width: 1.2; }
+.ts-lesson svg.ts-diagram .ts-label-mark { fill: #4a3f1d; stroke: #e7b94a; stroke-width: 1.2; }
+.ts-lesson svg.ts-diagram .ts-arrival-mark { fill: #3a2b28; stroke: #da9c86; stroke-width: 1.2; }
+
+/* Development comparison bars. Length encodes MAE from a true zero. */
+.ts-lesson svg.ts-diagram .ts-bar { fill: #3a4640; stroke: none; }
+.ts-lesson svg.ts-diagram .ts-bar.is-selected { fill: #9a8347; }
+.ts-lesson svg.ts-diagram .ts-bar-track { fill: #151a19; stroke: #262b2a; stroke-width: 1; }
+
+/* ------------------------------------------------------------ investigations */
+
+.ts-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.ts-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.ts-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.ts-investigation button,
+.ts-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.ts-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.ts-investigation button:disabled, .ts-figure button:disabled { opacity: .4; cursor: default; }
+.ts-investigation button.is-selected, .ts-figure button.is-selected {
+  background: #1d2119; border-color: #9a8347; color: #f0e6c8;
+}
+.ts-investigation :is(button, input, select, summary, textarea, [tabindex]):focus-visible,
+.ts-figure :is(button, input, select, summary, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #a5c7b5; outline-offset: 3px;
+}
+
+.ts-question, .ts-caption, .ts-note, .ts-pending { font-size: .92rem; line-height: 1.75; }
+.ts-caption { color: #b5bfbb; margin: .5rem 0; }
+.ts-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.ts-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+.ts-blocked {
+  font-size: .92rem; line-height: 1.75; color: #e3c1b4;
+  border-left: 2px solid #da9c86; padding-left: .8rem; margin: .6rem 0 0;
+}
+.ts-role { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; font-size: .9rem; line-height: 1.7; }
+.ts-role.is-constructed { border-left-color: #9a8347; color: #e0d3ae; }
+.ts-role.is-measured { border-left-color: #b58ec0; color: #dcc9e2; }
+.ts-role.is-counterfactual { border-left-color: #da9c86; color: #e3c1b4; }
+
+/* Controls */
+.ts-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.ts-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.ts-controls.is-tight { grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); }
+.ts-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.ts-field > span { display: flex; justify-content: space-between; gap: .6rem; color: #d0ddd5; }
+.ts-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.ts-field :is(input[type="number"], input[type="text"], select) {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.ts-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.ts-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.ts-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: .8rem; }
+.ts-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.ts-presets { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+
+.ts-checklist { border: 1px dashed #4a5650; border-radius: 4px; margin: 1rem 0; padding: .7rem .8rem; }
+.ts-checklist legend { padding: 0 .35rem; font-size: .9rem; color: #d0ddd5; }
+.ts-checklist-options { display: flex; flex-wrap: wrap; gap: .5rem; }
+.ts-checkbox {
+  display: inline-flex; align-items: center; gap: .4rem; min-height: 42px;
+  padding: .25rem .6rem; border: 1px solid #3c4643; border-radius: 3px; background: #121816;
+  font-size: .86rem; color: #cfd7d2;
+}
+.ts-checkbox.is-on { border-color: #9a8347; background: #1d2119; color: #f0e6c8; }
+.ts-checkbox input { accent-color: #e7b94a; }
+
+.ts-prediction {
+  margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px;
+  font-size: .92rem; line-height: 1.7;
+}
+.ts-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.ts-prediction legend { padding: 0; font-weight: 600; }
+.ts-choices { display: flex; flex-direction: column; gap: .45rem; margin: .6rem 0; }
+.ts-choice { display: flex; align-items: flex-start; gap: .5rem; min-height: 40px; padding: .25rem 0; }
+.ts-choice input { margin-top: .35rem; accent-color: #e7b94a; }
+.ts-numeric-guess input {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.ts-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #dce4e0; }
+.ts-verdict.is-miss { border-left-color: #da9c86; }
+.ts-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.ts-numeric-verdict {
+  margin: .6rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5;
+  color: #dce4e0; font-size: .9rem; line-height: 1.7;
+}
+.ts-numeric-verdict.is-miss { border-left-color: #da9c86; }
+.ts-history { margin: .6rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #c0cac5; font-size: .88rem; line-height: 1.7; }
+.ts-history.is-pending { border-left: 2px dotted #5d6862; color: #9fa9a4; font-size: .86rem; }
+.ts-reveal {
+  margin: .8rem 0 0; padding: .6rem .75rem; border: 1px solid #3c4643; border-radius: 3px;
+  background: #101615; font-size: .9rem; line-height: 1.75;
+}
+.ts-reveal dl { margin: 0; display: grid; grid-template-columns: minmax(8rem, auto) 1fr; gap: .3rem .9rem; }
+.ts-reveal dt { color: #9fa9a4; }
+.ts-reveal dd { margin: 0; color: #e7b94a; font-family: var(--font-mono, monospace); overflow-wrap: anywhere; }
+.ts-reason textarea {
+  min-height: 60px; padding: .45rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+
+/* Tables */
+.ts-table { margin: 1.1rem 0; }
+.ts-table-scroll { overflow-x: auto; border: 1px solid #262b2a; border-radius: 4px; }
+.ts-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+.ts-table-scroll :is(th, td) { padding: .4rem .55rem; border-bottom: 1px solid #1f2523; text-align: right; white-space: nowrap; }
+/* A prose column, admitted by the Table component's `wrap` prop. Values stay
+   nowrap so a number never breaks across lines; a sentence must be allowed to
+   wrap, or the table grows past its own box and clips a column at desktop. */
+.ts-table-scroll :is(th, td).is-wrap { white-space: normal; text-align: left; max-width: 17rem; }
+.ts-table-scroll th { color: #d0ddd5; font-weight: 600; }
+.ts-table-scroll thead th { border-bottom: 1px solid #3c4643; }
+.ts-table-scroll tbody th { text-align: left; color: #cfd7d2; }
+.ts-table-scroll tr.is-leading td, .ts-table-scroll tr.is-leading th { background: #151c18; }
+.ts-table-scroll tr.is-excluded td, .ts-table-scroll tr.is-excluded th { color: #7f8a85; }
+.ts-table-scroll tr.is-invalid td, .ts-table-scroll tr.is-invalid th { color: #e3c1b4; }
+
+/* Figures */
+.ts-figure { margin: 1.7rem 0; padding: 0; }
+.ts-figure-inline { margin: .9rem 0; padding: 0; }
+.ts-figure-row { display: flex; flex-wrap: wrap; gap: 1.1rem; align-items: flex-start; }
+.ts-figure-row > * { flex: 1 1 260px; min-width: 0; }
+.ts-legend { display: flex; flex-wrap: wrap; gap: .5rem .9rem; margin: .5rem 0; font-size: .85rem; color: #b5bfbb; }
+.ts-legend span { display: inline-flex; align-items: center; gap: .35rem; }
+.ts-swatch { display: inline-block; width: 18px; height: 3px; border-radius: 2px; }
+.ts-swatch.is-ridge_expanding { background: #e7b94a; }
+.ts-swatch.is-ridge_90 { background: #c2a86a; }
+.ts-swatch.is-naive { background: #8eb9a5; }
+.ts-swatch.is-seasonal { background: #b58ec0; }
+.ts-swatch.is-mean { background: #da9c86; }
+.ts-swatch.is-drift { background: #7f9ec4; }
+.ts-swatch.is-actual { background: #d6dedb; height: 4px; }
+/* Region swatches carry a border pattern as well as a fill, because these rows
+   are told apart by more than hue. */
+.ts-swatch.is-known { height: 9px; background: #23312b; border: 1px solid #4e6a5c; }
+.ts-swatch.is-unknown { height: 9px; background: #141a19; border: 1px dashed #7d8c85; }
+.ts-swatch.is-target { height: 9px; background: #4a3f1d; border: 1px solid #9a8347; }
+.ts-swatch.is-origin { height: 9px; background: #2d3a33; border: 1px solid #8eb9a5; }
+.ts-swatch.is-train { height: 9px; background: #2b3a33; border: 1px solid #5d7c6c; }
+.ts-swatch.is-train-sliding { height: 9px; background: #37322b; border: 1px solid #8a7a55; }
+.ts-swatch.is-pending { height: 9px; background: transparent; border: 1px dashed #4a5650; }
+.ts-swatch.is-origin-observation { background: #e7b94a; height: 3px; }
+.ts-swatch.is-prediction-fed { background: #8eb9a5; height: 2px; border-top: 2px dashed #8eb9a5; }
+.ts-swatch.is-observation-fed { background: #7f9ec4; }
+.ts-swatch.is-invalid { background: #da9c86; height: 2px; border-top: 2px dashed #da9c86; }
+.ts-swatch.is-coincident { height: 9px; background: transparent; border: 1px solid #f0e6c8; border-radius: 50%; width: 9px; }
+
+.ts-strip { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; }
+.ts-strip-cell {
+  border: 1px solid #3c4643; border-radius: 3px; padding: .4rem .6rem; background: #121816;
+  font: .78rem/1.6 var(--font-mono, monospace); color: #cfd7d2; min-width: 0; text-align: center;
+}
+.ts-strip-cell.is-used { border-color: #9a8347; background: #1d2119; color: #f0e6c8; }
+.ts-strip-cell.is-muted { border-style: dashed; color: #8b948f; }
+.ts-strip-cell b { display: block; color: #e7b94a; font-weight: 600; }
+.ts-strip-cell.is-muted b { color: #9fa9a4; }
+
+.ts-route { margin: 1.4rem 0; padding: .8rem 1rem; border-left: 3px solid #9a8347; background: #10140f; }
+.ts-practice { margin: 1.6rem 0; }
+
+/* A 64-character SHA-256 is a single unbreakable word and would push the page
+   sideways at 320px. */
+.ts-lesson code { overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
+
+@media (max-width: 560px) {
+  .ts-table-scroll table, .ts-table-scroll thead, .ts-table-scroll tbody,
+  .ts-table-scroll tr, .ts-table-scroll th, .ts-table-scroll td { display: block; }
+  .ts-table-scroll thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .ts-table-scroll tr { border-bottom: 1px solid #3c4643; padding: .35rem 0; }
+  .ts-table-scroll :is(th, td) { border: 0; display: flex; justify-content: space-between; gap: 1rem; white-space: normal; text-align: right; }
+  .ts-table-scroll :is(th, td)::before { content: attr(data-label); color: #9fa9a4; text-align: left; }
+  .ts-reveal dl { grid-template-columns: 1fr; }
+  .ts-figure-row > * { flex: 1 1 100%; }
+  .ts-controls, .ts-controls.is-wide, .ts-controls.is-tight { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-lesson * { animation: none !important; transition: none !important; }
+}

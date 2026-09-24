@@ -1,0 +1,39 @@
+def visit_once(costs):
+    count = len(costs)
+    if not count or any(len(row) != count for row in costs):
+        raise ValueError("Use a nonempty square cost matrix; None means no edge")
+    full = (1 << count) - 1
+    best = [[None] * count for _ in range(full + 1)]
+    parent = [[None] * count for _ in range(full + 1)]
+    best[1][0] = 0  # Start at vertex 0; no edge traveled.
+    for mask in range(1, full + 1):
+        for endpoint in range(count):
+            if best[mask][endpoint] is None:
+                continue
+            for next_vertex in range(count):
+                edge = costs[endpoint][next_vertex]
+                if mask & (1 << next_vertex) or edge is None:
+                    continue
+                next_mask = mask | (1 << next_vertex)
+                candidate = best[mask][endpoint] + edge
+                if best[next_mask][next_vertex] is None or candidate < best[next_mask][next_vertex]:
+                    best[next_mask][next_vertex] = candidate
+                    parent[next_mask][next_vertex] = endpoint
+
+    candidates = [(cost, endpoint) for endpoint, cost in enumerate(best[full]) if cost is not None]
+    if not candidates:
+        return None, []
+    cost, endpoint = min(candidates)  # Smaller endpoint on final ties.
+    path = []
+    mask = full
+    while endpoint is not None:
+        path.append(endpoint)
+        previous = parent[mask][endpoint]
+        mask &= ~(1 << endpoint)
+        endpoint = previous
+    return cost, path[::-1]
+
+costs = [[0, 1, 1, 8], [1, 0, 1, 9], [1, 1, 0, 1], [8, 9, 1, 0]]
+print(visit_once(costs))
+print(visit_once([[0, None], [None, 0]]))
+print(visit_once([[0]]))

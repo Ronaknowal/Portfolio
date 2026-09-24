@@ -1,0 +1,829 @@
+{
+  "reviewedAt": "2026-09-11T08:25:46.286Z",
+  "topicId": "abstract-algebra-groups-symmetry-actions",
+  "status": "Independent review closed; production integration and user acceptance remain separate.",
+  "reviewer": "root",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+      "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca",
+      "bytes": 47602
+    },
+    {
+      "path": "src/learn/data/abstract-algebra-models.js",
+      "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c",
+      "bytes": 12467
+    },
+    {
+      "path": "src/learn/data/abstract-algebra-examples.js",
+      "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14",
+      "bytes": 22981
+    },
+    {
+      "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+      "sha256": "9ea9a96115ee8d32e424eeb687764c5853dc02945cbb019a726b9429f42cf0a0",
+      "bytes": 22318,
+      "authorSha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4",
+      "amended": true,
+      "authorBytes": 22317
+    },
+    {
+      "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+      "sha256": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43",
+      "bytes": 8592
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+      "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421",
+      "bytes": 4767
+    }
+  ],
+  "originalAuthorFrozenAt": "2026-09-11T08:09:21.646660+00:00",
+  "originalAuthorPacket": {
+    "path": "docs/teaching/evidence/abstract-algebra-author-review.json",
+    "sha256": "9cc66167751e5e6b4afb9f293a31cb5a79f57474cdd99407c82dec6460dd751c",
+    "bytes": 58217
+  },
+  "originalAuthorSources": {
+    "path": "docs/teaching/evidence/abstract-algebra-original-author-sources.json",
+    "sha256": "9695fbc375594b41ca9b3d8e3c7088192cff9eba599cf4de2faeb40ef0c1eb38",
+    "bytes": 160046
+  },
+  "sourceReview": "Full body, group/coset/action/counting/quotient/representation/projection/ring proofs, all eight changed practice solutions and two checkpoints, all ten actual programs, model exports, final labs/CSS and brief read. Final lab/CSS display amendments were read after author freeze.",
+  "findingsResolved": [
+    {
+      "finding": "Three reverse-cycle arrowheads terminate inside destination circles, hiding their direction in the actual Cayley diagram.",
+      "amendment": "Move only those path endpoints from89+140i to105+140i, beyond the circles and marker tip; all other production sources unchanged.",
+      "source": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+      "originalSha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4"
+    }
+  ],
+  "native": {
+    "evidence": {
+      "path": "scratch/abstract-algebra-independent/native-results.json",
+      "sha256": "c7176dc5d27a75ba58f798680695ec3c3bc28b896424e1243c3cbe615b291faa",
+      "bytes": 2693
+    },
+    "result": {
+      "checkedAt": "2026-09-11T08:21:34.255318+00:00",
+      "status": "passed",
+      "reviewer": "root",
+      "sources": [
+        {
+          "path": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+          "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca",
+          "bytes": 47602
+        },
+        {
+          "path": "src/learn/data/abstract-algebra-models.js",
+          "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c",
+          "bytes": 12467
+        },
+        {
+          "path": "src/learn/data/abstract-algebra-examples.js",
+          "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14",
+          "bytes": 22981
+        },
+        {
+          "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+          "sha256": "9ea9a96115ee8d32e424eeb687764c5853dc02945cbb019a726b9429f42cf0a0",
+          "bytes": 22317,
+          "authorSha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4",
+          "amended": true
+        },
+        {
+          "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+          "sha256": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43",
+          "bytes": 8592
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+          "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421",
+          "bytes": 4767
+        }
+      ],
+      "authorPacket": {
+        "path": "docs/teaching/evidence/abstract-algebra-author-review.json",
+        "sha256": "9cc66167751e5e6b4afb9f293a31cb5a79f57474cdd99407c82dec6460dd751c"
+      },
+      "checks": {
+        "actual_program_stdout": 10,
+        "full_orthogonal_projection_operator": 2,
+        "projection_rank_and_trace": 2,
+        "projection_eigenvalue_multiplicities": 2,
+        "changed_pair_relation_averages": 40,
+        "changed_operator_application": 40,
+        "changed_actual_native_average": 40,
+        "all_C2_homomorphisms": 1,
+        "every_subgroup_quotient_contract": 10,
+        "changed_actual_native_quotient": 10,
+        "normal_subgroup_count": 1,
+        "kernels_have_subgroup_owner": 1,
+        "changed_four_color_native_enumeration": 2,
+        "changed_four_color_partition": 2,
+        "changed_exact_sensor_routes": 60,
+        "changed_exact_sensor_defect": 60,
+        "changed_exact_sensor_pooled_values": 60,
+        "changed_native_congruence_solution_count": 30,
+        "changed_native_congruence_witnesses": 30,
+        "final_source_unchanged": 6
+      },
+      "limits": [
+        "Complementary exact finite examples and complete production projection operators support the source-read proofs; they do not prove arbitrary infinite-group statements or empirical learning outcomes."
+      ]
+    }
+  },
+  "browser": {
+    "evidence": {
+      "path": "scratch/abstract-algebra-independent/browser-results.json",
+      "sha256": "43d1e6eb3f5bbdef14760fcb9adf8989dba25856f94f96848dd6a2345b1da399",
+      "bytes": 18333
+    },
+    "result": {
+      "checkedAt": "2026-09-11T08:15:56.001Z",
+      "status": "passed",
+      "sources": [
+        {
+          "path": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+          "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca",
+          "bytes": 47602
+        },
+        {
+          "path": "src/learn/data/abstract-algebra-models.js",
+          "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c",
+          "bytes": 12467
+        },
+        {
+          "path": "src/learn/data/abstract-algebra-examples.js",
+          "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14",
+          "bytes": 22981
+        },
+        {
+          "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+          "sha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4",
+          "bytes": 22317
+        },
+        {
+          "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+          "sha256": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43",
+          "bytes": 8592
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+          "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421",
+          "bytes": 4767
+        }
+      ],
+      "records": [
+        {
+          "width": 1440,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "captures": [
+            {
+              "path": "scratch/abstract-algebra-independent/changed-composition-1440.png",
+              "sha256": "e69cac054a96ece91a27b98cf482fe9bee9083c962ce31c7a10f12137b2fadc6",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/cayley-local-scroll-1440.png",
+              "sha256": "2f2da30039c5a35fadbde58f641a8ea0e21cd4c32df6613c45f3887f1b1c1e95",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/action-state-loops-1440.png",
+              "sha256": "eb1e827bb43dd53f039c6de6443e8031cf82c2fb0179d92c9bfc533edb24c457",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-chiral-orbit-1440.png",
+              "sha256": "57887387c7a68fe489a3f12dbbe900b6229e6bf5736e4900c7076d5edd41f463",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/rotation-fixed-count-1440.png",
+              "sha256": "123281a5705bf8750d33eb4075f998ea4e6144a48d76a04d2ed2f2c5c281906a",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/representative-failure-1440.png",
+              "sha256": "e1c0f9b6808f0991c207793b7cec20f50f4923bf64f5e3df4b5065a0b3c73846",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/normal-representative-1440.png",
+              "sha256": "439de9bd0125b15de571d07af2af3a4739e6ae2fed6621de23add06e02d10e59",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-raw-1440.png",
+              "sha256": "d5ed5e3056050dab918c461268c69eb0472db12f639199ae169cf21738f07972",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-rotations-1440.png",
+              "sha256": "d9f8dafbe4e3b94b422982142b85ac9c8a2f0c15f4806a70d48354c67a13a058",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-averaged-1440.png",
+              "sha256": "6bd5f6a58ba47cf3d3c150bd2bb59e0cf1c82795a23d582412b5a97c2d83e599",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-shift-1440.png",
+              "sha256": "11dc68607dce36dcb5c58ea09cf2b86c44f5dfa56deeb961fc224fcc42a4490c",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/invalid-draft-preserves-state-1440.png",
+              "sha256": "219ba60c4bed161def9c7c72b4e9944ff9cacecc62fd122e57a00546df80e444",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/projection-proof-1440.png",
+              "sha256": "5457cc71cad07da5a36d1a90216a64d60def120179e09f2c9663b82bac2bc72d",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-audit-answer-1440.png",
+              "sha256": "d0bedf81a4c0fefc8073e06cdb71cab14bcc67b245baeae08f99b85a78d7001a",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/modular-preimages-1440.png",
+              "sha256": "d3b4ffb521843fd4c97d9171cb5c011f6d1b9e4213bcb6c8ab6d5715517011fe",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/actual-program-1440.png",
+              "sha256": "9e4c1f87775cad097a098ca9f141d10c5659c6fa27fc1009321d01d0ff73fb8f",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/references-1440.png",
+              "sha256": "317d6e1ef68a449e07f98f1dff1ce17973b19a21b45c6fd0d7415020814b8f2a",
+              "opened": false
+            }
+          ],
+          "anchors": [
+            "1-follow-a-transformation",
+            "2-extract-the-group-laws",
+            "3-build-subgroups-and-cosets",
+            "4-distinguish-moves-from-states",
+            "5-count-configurations-by-fixed-points",
+            "6-forget-information-without-breaking-composition",
+            "7-represent-the-same-group-on-different-data",
+            "8-build-a-symmetry-respecting-calculation",
+            "9-know-when-division-is-legal",
+            "10-practise-with-changed-contracts",
+            "11-continue-with-a-clear-boundary"
+          ],
+          "operatedStates": [
+            "rs after r²s; reversed order; intermediate tracked vertex",
+            "changed ternary coloring; D4 versus C4 orbit and total counts",
+            "nonnormal and normal representative choices",
+            "changed negative/fractional readings, raw map, r³s",
+            "changed negative/fractional readings, rotations map, r³s",
+            "changed negative/fractional readings, averaged map, r³s",
+            "changed negative/fractional readings, shift map, r³s",
+            "invalid draft preserves calculation; keyboard reset"
+          ],
+          "actualPrograms": 10,
+          "equations": 10,
+          "errors": [],
+          "deliberatelyDisconnectedHmrMessages": [
+            "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+          ],
+          "documentOverflow": false
+        },
+        {
+          "width": 390,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "captures": [
+            {
+              "path": "scratch/abstract-algebra-independent/changed-composition-390.png",
+              "sha256": "4c224483592dec65a1b4665694d3455b32d73d344f589a455d348927aaba0c56",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/cayley-local-scroll-390.png",
+              "sha256": "7928cd2fc1ab2b23c5181978de45251d528117b56fa63d2ae38111515bcd589d",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/action-state-loops-390.png",
+              "sha256": "f5614c07cc94843d1857f1e65c16116dfeb63d651ffeb315e7891a8b6a808991",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-chiral-orbit-390.png",
+              "sha256": "60baab40aff36d89eaa01ef7defde7ebe8ec4fca658588c08db8398b4e1fa6f9",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/rotation-fixed-count-390.png",
+              "sha256": "e92a242b048afbfbe99407a1cc6753d16cda9a78e6b6bd83c40cc9c190a838e6",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/representative-failure-390.png",
+              "sha256": "cdcc47b5f42d3addfc864d633a2c4839d7e771a820f4f4cdba13bf2cee2f3361",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/normal-representative-390.png",
+              "sha256": "48730a4185e487ce32299c1bb6b4fccffca7e1a4c4c3d083bea2880caf8f805f",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-raw-390.png",
+              "sha256": "86d849a5b9d09b4658edc2313e8e4076b44a2993b0889964291253c9ee2a6deb",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-rotations-390.png",
+              "sha256": "9b3d4213c10b516c00d093d0ec7113eea4ac9dc35a51ee79b7283040dbff8bc0",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-averaged-390.png",
+              "sha256": "8b5442119448e14e1d5e3bd3133e7167ca66472fb46402384444758d26fdb0ce",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-shift-390.png",
+              "sha256": "cc9c1f6423fc49fd00dadefaabc3a5c12dc458333354b949b5aa58dfbe91dca5",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/invalid-draft-preserves-state-390.png",
+              "sha256": "fc88d9fa0090a5a942573476416acb6a4908fedafd7b6f912324e166e652abc9",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/projection-proof-390.png",
+              "sha256": "62907815c6a52ce6b54d78ca9d3d72049dbc1413797bccf418d9bb0e03c06840",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-audit-answer-390.png",
+              "sha256": "c7658623123c373bb73607657f96e4354d601b636f429315632766c590d92c1d",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/modular-preimages-390.png",
+              "sha256": "e7fe4ca04b3cb7cb2710bbad0c1bdd68202314667c55ac729118a5023d8729a2",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/actual-program-390.png",
+              "sha256": "645bca53e381e0cbc85d07f9f5ec158f4634cc00b7ba21f55e1b579bb0d6a5c0",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/references-390.png",
+              "sha256": "f52e0121e1ade15aa003342de229765a3f9875f9fc64b7d9fb00eed9003a783f",
+              "opened": false
+            }
+          ],
+          "anchors": [
+            "1-follow-a-transformation",
+            "2-extract-the-group-laws",
+            "3-build-subgroups-and-cosets",
+            "4-distinguish-moves-from-states",
+            "5-count-configurations-by-fixed-points",
+            "6-forget-information-without-breaking-composition",
+            "7-represent-the-same-group-on-different-data",
+            "8-build-a-symmetry-respecting-calculation",
+            "9-know-when-division-is-legal",
+            "10-practise-with-changed-contracts",
+            "11-continue-with-a-clear-boundary"
+          ],
+          "operatedStates": [
+            "rs after r²s; reversed order; intermediate tracked vertex",
+            "changed ternary coloring; D4 versus C4 orbit and total counts",
+            "nonnormal and normal representative choices",
+            "changed negative/fractional readings, raw map, r³s",
+            "changed negative/fractional readings, rotations map, r³s",
+            "changed negative/fractional readings, averaged map, r³s",
+            "changed negative/fractional readings, shift map, r³s",
+            "invalid draft preserves calculation; keyboard reset"
+          ],
+          "actualPrograms": 10,
+          "equations": 10,
+          "errors": [],
+          "deliberatelyDisconnectedHmrMessages": [
+            "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+          ],
+          "documentOverflow": false
+        },
+        {
+          "width": 320,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "captures": [
+            {
+              "path": "scratch/abstract-algebra-independent/changed-composition-320.png",
+              "sha256": "2d40c5c38bf304f8a8bf2531416190bd4290320633b5b62678aa187a9261b3af",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/cayley-local-scroll-320.png",
+              "sha256": "0d0c65cf6c025ad0b9c82bfcf44ce3e23945d869132b5795701fdfbd375381f1",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/action-state-loops-320.png",
+              "sha256": "13f6a42c213353dbc251b2b1c048bb084f0ac21b87bdf44080bab2d110b2e0ae",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-chiral-orbit-320.png",
+              "sha256": "0f872c745483a3b13ef624353799835c56a4f8b2aff2a88f623bc887b261330e",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/rotation-fixed-count-320.png",
+              "sha256": "b88a93fc1f842d61100653bf117bebe42cbb742988db0b78a221c393727bb9d0",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/representative-failure-320.png",
+              "sha256": "84b6083520b3b9e1cbeb82e21e94c44ae22375b15c454daf979c02b302408a93",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/normal-representative-320.png",
+              "sha256": "b5ec261c65f1d2aa497832e9b41f9e7ad0e4889413cba9dcf30b08a0504368b4",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-raw-320.png",
+              "sha256": "66266521922499c7b3426ae233158bc3e21178cdc8c749adf8716020cb33e0bf",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-rotations-320.png",
+              "sha256": "c1e6406ade1e825fe1113d0f4bd0b7b658feba466219f72024ad243b54f256b6",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-averaged-320.png",
+              "sha256": "774d9b7ea364b2817f4ddc5ccea470d17bb8c705b0ac76d814c988ec70afa98f",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-map-shift-320.png",
+              "sha256": "f874c41068d57c4232fd213d1b2f0a265ee5a7f35818aff6fbf939315973ec06",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/invalid-draft-preserves-state-320.png",
+              "sha256": "50d00d0b42a205abc7eb28db3dd48cd05a9d227577bc35f2ab9495fcc75e1970",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/projection-proof-320.png",
+              "sha256": "77dba7d5cb17f789038d8fe01415c8155e9225d7a3fec8fec0cc9f610eb51e34",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/changed-audit-answer-320.png",
+              "sha256": "59096e28372416aae6a992598d2e8cc7e3fcb29ca876bd5b2737ca548e9d22db",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/modular-preimages-320.png",
+              "sha256": "a2ea9a7c203519ec21d39bc862ed7220aca583338e6d6d1fad073266338039bd",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/actual-program-320.png",
+              "sha256": "3af076f37b13fe481757e4dddf1b8cb4fd8e7dd75025439093e75aca35b774c2",
+              "opened": false
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/references-320.png",
+              "sha256": "c37b8eca9846dbe885ecf89389560a4f018031a85dfa918d45e724e617fcfc8f",
+              "opened": false
+            }
+          ],
+          "anchors": [
+            "1-follow-a-transformation",
+            "2-extract-the-group-laws",
+            "3-build-subgroups-and-cosets",
+            "4-distinguish-moves-from-states",
+            "5-count-configurations-by-fixed-points",
+            "6-forget-information-without-breaking-composition",
+            "7-represent-the-same-group-on-different-data",
+            "8-build-a-symmetry-respecting-calculation",
+            "9-know-when-division-is-legal",
+            "10-practise-with-changed-contracts",
+            "11-continue-with-a-clear-boundary"
+          ],
+          "operatedStates": [
+            "rs after r²s; reversed order; intermediate tracked vertex",
+            "changed ternary coloring; D4 versus C4 orbit and total counts",
+            "nonnormal and normal representative choices",
+            "changed negative/fractional readings, raw map, r³s",
+            "changed negative/fractional readings, rotations map, r³s",
+            "changed negative/fractional readings, averaged map, r³s",
+            "changed negative/fractional readings, shift map, r³s",
+            "invalid draft preserves calculation; keyboard reset"
+          ],
+          "actualPrograms": 10,
+          "equations": 10,
+          "errors": [],
+          "deliberatelyDisconnectedHmrMessages": [
+            "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+          ],
+          "documentOverflow": false
+        }
+      ]
+    },
+    "scope": "Independent three-width changed interactions and actual question/code/output/anchor/equation review precedes the static arrow amendment. It is not relabeled as a full post-amendment run."
+  },
+  "finalGraphClosure": {
+    "evidence": {
+      "path": "scratch/abstract-algebra-independent/graph-paint-results.json",
+      "sha256": "d62ffd94b2d82a95a8a29535bd1d8bb45bdb7e225c19c9bf441f3eb4f515ba28",
+      "bytes": 3976
+    },
+    "result": {
+      "checkedAt": "2026-09-11T08:22:45.494Z",
+      "status": "passed",
+      "sources": [
+        {
+          "path": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+          "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca",
+          "bytes": 47602
+        },
+        {
+          "path": "src/learn/data/abstract-algebra-models.js",
+          "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c",
+          "bytes": 12467
+        },
+        {
+          "path": "src/learn/data/abstract-algebra-examples.js",
+          "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14",
+          "bytes": 22981
+        },
+        {
+          "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+          "sha256": "9ea9a96115ee8d32e424eeb687764c5853dc02945cbb019a726b9429f42cf0a0",
+          "bytes": 22317,
+          "authorSha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4",
+          "amended": true
+        },
+        {
+          "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+          "sha256": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43",
+          "bytes": 8592
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+          "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421",
+          "bytes": 4767
+        }
+      ],
+      "records": [
+        {
+          "width": 1440,
+          "captures": [
+            {
+              "path": "scratch/abstract-algebra-independent/final-cayley-paint-1440.png",
+              "sha256": "82888ca96fbf877880decd8911da1786610dafce7e1bfcaec49a0e2353da14d6",
+              "rectangle": {
+                "top": 99.828125,
+                "height": 392.65625
+              }
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/final-action-paint-1440.png",
+              "sha256": "f1309f8468a11538e5de7db80e49d637d411f6bda05f407617440896bfa8c958",
+              "rectangle": {
+                "top": 100.03125,
+                "height": 150
+              }
+            }
+          ],
+          "reverseArrowEndpointsOutsideCircles": [
+            105,
+            245,
+            385
+          ],
+          "localScrollBefore": 0,
+          "localScrollAfter": 0
+        },
+        {
+          "width": 390,
+          "captures": [
+            {
+              "path": "scratch/abstract-algebra-independent/final-cayley-paint-390.png",
+              "sha256": "07a5512532a59df1b27260cb61068caf888c626cb87de8f7bbfeac3ca0e28b90",
+              "rectangle": {
+                "top": 99.578125,
+                "height": 310
+              }
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/final-action-paint-390.png",
+              "sha256": "291f8d55b729b5062917cae4e760224f720ad71cc0b50ab4672b7705859b8c64",
+              "rectangle": {
+                "top": 100.046875,
+                "height": 150
+              }
+            }
+          ],
+          "reverseArrowEndpointsOutsideCircles": [
+            105,
+            245,
+            385
+          ],
+          "localScrollBefore": 0,
+          "localScrollAfter": 40
+        },
+        {
+          "width": 320,
+          "captures": [
+            {
+              "path": "scratch/abstract-algebra-independent/final-cayley-paint-320.png",
+              "sha256": "8ad4383dbc32ab8b18714ca939d51a8f66b00bb79459d895e6d2e17bf48abdb6",
+              "rectangle": {
+                "top": 99.84375,
+                "height": 310
+              }
+            },
+            {
+              "path": "scratch/abstract-algebra-independent/final-action-paint-320.png",
+              "sha256": "45d469e761e461e2d52010c3a14510a86b071fd992a8cee6789ec63e99437af7",
+              "rectangle": {
+                "top": 100.3125,
+                "height": 150
+              }
+            }
+          ],
+          "reverseArrowEndpointsOutsideCircles": [
+            105,
+            245,
+            385
+          ],
+          "localScrollBefore": 0,
+          "localScrollAfter": 40
+        }
+      ],
+      "scope": "Focused replacement captures after inspecting blank/stale raster snapshots from keyboard End in the original harness. Uses local ArrowRight scrolling and observed stable element bounds; no production source change."
+    },
+    "scope": "Post-amendment actual-font three-width graph geometry/local keyboard scrolling and replacement captures on all six final hashes; two corrected graph images and the unchanged action image actually opened."
+  },
+  "finalImagesActuallyOpened": [
+    {
+      "path": "scratch/abstract-algebra-independent/changed-composition-320.png",
+      "sha256": "2d40c5c38bf304f8a8bf2531416190bd4290320633b5b62678aa187a9261b3af",
+      "bytes": 34011
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/changed-chiral-orbit-320.png",
+      "sha256": "0f872c745483a3b13ef624353799835c56a4f8b2aff2a88f623bc887b261330e",
+      "bytes": 34141
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/representative-failure-320.png",
+      "sha256": "84b6083520b3b9e1cbeb82e21e94c44ae22375b15c454daf979c02b302408a93",
+      "bytes": 27595
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/normal-representative-320.png",
+      "sha256": "b5ec261c65f1d2aa497832e9b41f9e7ad0e4889413cba9dcf30b08a0504368b4",
+      "bytes": 44188
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/changed-map-raw-320.png",
+      "sha256": "66266521922499c7b3426ae233158bc3e21178cdc8c749adf8716020cb33e0bf",
+      "bytes": 29514
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/changed-map-averaged-320.png",
+      "sha256": "774d9b7ea364b2817f4ddc5ccea470d17bb8c705b0ac76d814c988ec70afa98f",
+      "bytes": 31150
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/projection-proof-320.png",
+      "sha256": "77dba7d5cb17f789038d8fe01415c8155e9225d7a3fec8fec0cc9f610eb51e34",
+      "bytes": 69024
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/changed-audit-answer-320.png",
+      "sha256": "59096e28372416aae6a992598d2e8cc7e3fcb29ca876bd5b2737ca548e9d22db",
+      "bytes": 62420
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/modular-preimages-320.png",
+      "sha256": "a2ea9a7c203519ec21d39bc862ed7220aca583338e6d6d1fad073266338039bd",
+      "bytes": 34789
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/actual-program-320.png",
+      "sha256": "3af076f37b13fe481757e4dddf1b8cb4fd8e7dd75025439093e75aca35b774c2",
+      "bytes": 61126
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/references-320.png",
+      "sha256": "c37b8eca9846dbe885ecf89389560a4f018031a85dfa918d45e724e617fcfc8f",
+      "bytes": 85794
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/final-cayley-paint-1440.png",
+      "sha256": "82888ca96fbf877880decd8911da1786610dafce7e1bfcaec49a0e2353da14d6",
+      "bytes": 162298
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/final-cayley-paint-320.png",
+      "sha256": "8ad4383dbc32ab8b18714ca939d51a8f66b00bb79459d895e6d2e17bf48abdb6",
+      "bytes": 33944
+    },
+    {
+      "path": "scratch/abstract-algebra-independent/final-action-paint-320.png",
+      "sha256": "45d469e761e461e2d52010c3a14510a86b071fd992a8cee6789ec63e99437af7",
+      "bytes": 51296
+    }
+  ],
+  "imageAttribution": "Eleven unaffected view captures were opened from the full independent pass. Three graph captures were opened after the arrow amendment. Earlier blank/stale captures from keyboard End are rejected; stable target bounds and local ArrowRight replaced them. The actual-program capture visibly shows the modular program; all ten programs were separately compared through the DOM.",
+  "primarySourceRevisited": [
+    {
+      "url": "https://proceedings.mlr.press/v48/cohenc16.pdf",
+      "inspected": "Introduction and section2, explicit potentially different input/output representations and invariance as identity output action. No universal accuracy inference."
+    },
+    {
+      "url": "https://www.math.clemson.edu/~macaule/classes/m18_math4120/slides/math4120_lecture-5-01_h.pdf",
+      "inspected": "Fresh tool fetch failed with cache miss; original author inspection remains separately attributed."
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/verify-abstract-algebra-independent.mjs",
+      "sha256": "b32d46f0babc235f00b8af65ac541eb43553cb4fdeb26fd97ff005a26a83cba9",
+      "bytes": 3902
+    },
+    {
+      "path": "scripts/verify-abstract-algebra-independent.py",
+      "sha256": "e21fe82ecfe627fb0152055741458fa3c68a91ffbb1ea60195f6d7c53508dd8e",
+      "bytes": 6604
+    },
+    {
+      "path": "scripts/review-abstract-algebra-independent.cjs",
+      "sha256": "58cb0708f870dc4277d2951d2bab4fd69ec5383c3f2bd90f27017e74f3c54522",
+      "bytes": 10642
+    },
+    {
+      "path": "scripts/review-abstract-algebra-graph-paint.cjs",
+      "sha256": "c6516ae15871f24bee67219d7d1c1b445ffcd9ddd6f4f0351f2e80853ec43f7b",
+      "bytes": 3506
+    }
+  ],
+  "harnessCorrections": [
+    "The initial exact sensor assertion compared SymPy Rational with Float structural values; converting serialized values to exact Rational corrected the oracle without changing production.",
+    "Keyboard End moved the long page and yielded stale/blank captures; the focused graph recapture asserts element position and local ArrowRight scrolling."
+  ],
+  "limits": [
+    "The complete finite projection operators and changed exact cases complement source-read proofs; they do not establish arbitrary-group implementation behavior or predictive accuracy.",
+    "Browser observations are local Edge at1440/390/320, not a screen-reader or learner study.",
+    "Original author evidence remains immutable; integrated reviewed status is not promoted by this record."
+  ],
+  "metadataNote": "The final amended source byte count is corrected from the inherited author size; embedded earlier raw payloads retain their captured metadata. SHA-256 source identities are unchanged."
+}

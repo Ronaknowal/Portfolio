@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T00:03:08.704Z",
+  "groups": [
+    "Moments default, actual entity changes, rapid updates, identity, invalid buffer and reset",
+    "Geometry contrast, identity, zero vector, gated Jacobian and kink convention",
+    "Actual zero-rail fixture and exact recurrence identity",
+    "Zero head opens later gradient route; zero step is a real null",
+    "Width arithmetic and measured-training selection preserve distinct evidence",
+    "Real pointer gesture and keyboard endpoints change a meaningful value",
+    "Both canonical long programs load on explicit disclosure",
+    "Desktop390/320 layouts, actual math glyph geometry, neutral surfaces and retained captures"
+  ],
+  "captures": [
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-moments-1366.png",
+      "bytes": 63522,
+      "sha256": "74607156a42764a3d893482fa14956b827d1ec27224c474d65fca9e4600e8258"
+    },
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-geometry-1366.png",
+      "bytes": 85002,
+      "sha256": "23cf827244581a19686966c4c6025ff61126d530bcb2927dbde3f8f44e64fec2"
+    },
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-width-1366.png",
+      "bytes": 165465,
+      "sha256": "86d9bac71e761ea7be7dc65c9fb2a3f21a8519b93175d2226e08bcf23594d529"
+    },
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-moments-390.png",
+      "bytes": 92265,
+      "sha256": "db3b8bb67f041b3b3a55daf44cee3ad20d0b874b208db4cf1ba906e1e82a714f"
+    },
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-geometry-390.png",
+      "bytes": 87017,
+      "sha256": "7bc600ba9a2c51807f7e0c4424b67c2643d68e6902c3556bab7e759dbc6b3295"
+    },
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-width-390.png",
+      "bytes": 162877,
+      "sha256": "6004cc225dbb336b0381a894764ddda159d50de7f3109fc49d53fa8c4333947e"
+    },
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-moments-320.png",
+      "bytes": 89928,
+      "sha256": "e93e810152bc0e53e516e473a476278d69afd55d2d490196aa82cc505da567e9"
+    },
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-geometry-320.png",
+      "bytes": 89582,
+      "sha256": "ca4bb005cc8d73ffe25e2104fb1beb1bdf11b4d1750d3256543752a560c6ec4f"
+    },
+    {
+      "file": "docs/teaching/evidence/weight-initialization-browser/initialization-width-320.png",
+      "bytes": 162778,
+      "sha256": "b0758bfcd703120108b16fc2ac40c1b298ca2f301a2f4339e805f2cb307c4e21"
+    }
+  ],
+  "limits": "Source/model/native proof and human visual review are separate; screenshots must be inspected."
+}

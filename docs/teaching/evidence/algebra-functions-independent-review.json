@@ -1,0 +1,234 @@
+{
+  "topicId": "algebra-functions-exponentials-logarithms",
+  "reviewedAt": "2026-09-10T23:56:11.996487+00:00",
+  "reviewer": "workflow_visual_improvements; independent of the author",
+  "authorFrozenAt": "2026-09-10T23:48:28.099970+00:00",
+  "status": "closed; no remaining material finding in the bounded review",
+  "production": [
+    {
+      "path": "src/learn/data/topics/algebra-functions-exponentials-logarithms.jsx",
+      "sha256": "8a4b770a1ccadae81cc40071715ad4c2ed62fdd380499bd8ce25764161ed9c6c",
+      "bytes": 43442
+    },
+    {
+      "path": "src/learn/data/algebra-functions-models.js",
+      "sha256": "a44e199e45ed8d796ade78cf013499461890f436010be53fb23a44f20b563419",
+      "bytes": 5038
+    },
+    {
+      "path": "src/learn/data/algebra-functions-examples.js",
+      "sha256": "1c6b87162632377bcf714de2a7e39bd57bb9ad43656d9057913ccbae825ad743",
+      "bytes": 7545
+    },
+    {
+      "path": "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx",
+      "sha256": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99",
+      "bytes": 18270
+    },
+    {
+      "path": "src/learn/components/lesson-labs/algebra-functions-labs.css",
+      "sha256": "a12d1e2402f9d4bf0717174faccddc23b9e04f89b09199309a08760e1d24d398",
+      "bytes": 4193
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/algebra-functions-exponentials-logarithms.js",
+      "sha256": "dd13960fd65a2582d7330c42d63fee9dbf014be599bafec4cae73d60999b0fa9",
+      "bytes": 4174
+    }
+  ],
+  "readScope": [
+    "complete lesson",
+    "all pure models",
+    "all nine executable examples",
+    "all labs and CSS",
+    "complete design and stable-ID blueprint",
+    "all twelve independent practice tasks",
+    "author verification and amendment"
+  ],
+  "finding": {
+    "location": "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx: GrowthScaleLab additive curve",
+    "initialLabSha256": "fbbe251af2c1d82e7dd82d07c6320ed56830b98c128b07253c1ecd54ee4214e4",
+    "initialAuthorFrozenAt": "2026-09-10T23:17:48.767354+00:00",
+    "evidenceType": "direct source inspection and analytic counterexample; no pre-fix browser screenshot was claimed",
+    "problem": "A polyline joining only (0,100) and (8,260) after logarithmic transformation implies sqrt(26000) at t=4, although the additive rule and table require 180. It falsely makes additive and exponential models both straight on the semilog plot.",
+    "incorrectImpliedValue": 161.24515496597098,
+    "correctValue": 180,
+    "remedy": "Author sampled the actual additive rule at all 81 displayed time points before the log-axis transform. Models, program source/output, body, CSS and blueprint remained unchanged.",
+    "finalLabSha256": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99",
+    "finalEvidence": "Independent actual-font Edge at390/320: all81 additive log coordinates, all81 exponential log coordinates and all81 additive linear coordinates match their own rule for three rates. Midpoint log fraction0.6151539763976774 rather than0.5; visible readout180.",
+    "resolved": true
+  },
+  "independentNative": {
+    "at": "2026-09-10T23:51:54.907519+00:00",
+    "passed": true,
+    "production": [
+      {
+        "path": "src/learn/data/topics/algebra-functions-exponentials-logarithms.jsx",
+        "sha256": "8a4b770a1ccadae81cc40071715ad4c2ed62fdd380499bd8ce25764161ed9c6c",
+        "bytes": 43442
+      },
+      {
+        "path": "src/learn/data/algebra-functions-models.js",
+        "sha256": "a44e199e45ed8d796ade78cf013499461890f436010be53fb23a44f20b563419",
+        "bytes": 5038
+      },
+      {
+        "path": "src/learn/data/algebra-functions-examples.js",
+        "sha256": "1c6b87162632377bcf714de2a7e39bd57bb9ad43656d9057913ccbae825ad743",
+        "bytes": 7545
+      },
+      {
+        "path": "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx",
+        "sha256": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99",
+        "bytes": 18270
+      },
+      {
+        "path": "src/learn/components/lesson-labs/algebra-functions-labs.css",
+        "sha256": "a12d1e2402f9d4bf0717174faccddc23b9e04f89b09199309a08760e1d24d398",
+        "bytes": 4193
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/algebra-functions-exponentials-logarithms.js",
+        "sha256": "dd13960fd65a2582d7330c42d63fee9dbf014be599bafec4cae73d60999b0fa9",
+        "bytes": 4174
+      }
+    ],
+    "actualPrograms": 9,
+    "changedFractionEquations": 8,
+    "compositionPolynomialIdentities": 33,
+    "domainPreimageStates": 42,
+    "offPresetGrowthFactors": 42,
+    "growthRelativeError": 7.930625463565468e-16,
+    "decimalLogStates": 18,
+    "signedGeneralQuadraticChecks": 9,
+    "exactNearPowerThresholds": 36
+  },
+  "independentBrowser": {
+    "at": "2026-09-10T23:53:55.580Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 390,
+        "originalFontLoaded": true,
+        "cases": [
+          {
+            "rate": 0.2,
+            "actualLogMidpointFraction": 0.6151539763976774,
+            "additiveSamplesChecked": 81,
+            "exponentialSamplesChecked": 81,
+            "linearSamplesChecked": 81
+          },
+          {
+            "rate": -0.5,
+            "actualLogMidpointFraction": 0.6151539763976774,
+            "additiveSamplesChecked": 81,
+            "exponentialSamplesChecked": 81,
+            "linearSamplesChecked": 81
+          },
+          {
+            "rate": 1,
+            "actualLogMidpointFraction": 0.6151539763976775,
+            "additiveSamplesChecked": 81,
+            "exponentialSamplesChecked": 81,
+            "linearSamplesChecked": 81
+          }
+        ],
+        "errors": []
+      },
+      {
+        "width": 320,
+        "originalFontLoaded": true,
+        "cases": [
+          {
+            "rate": 0.2,
+            "actualLogMidpointFraction": 0.6151539763976774,
+            "additiveSamplesChecked": 81,
+            "exponentialSamplesChecked": 81,
+            "linearSamplesChecked": 81
+          },
+          {
+            "rate": -0.5,
+            "actualLogMidpointFraction": 0.6151539763976774,
+            "additiveSamplesChecked": 81,
+            "exponentialSamplesChecked": 81,
+            "linearSamplesChecked": 81
+          },
+          {
+            "rate": 1,
+            "actualLogMidpointFraction": 0.6151539763976775,
+            "additiveSamplesChecked": 81,
+            "exponentialSamplesChecked": 81,
+            "linearSamplesChecked": 81
+          }
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "openedScreenshots": [
+    {
+      "path": "scratch/algebra-functions-independent/independent-log-geometry-390.png",
+      "sha256": "b66f811330ca7c8f5b211ef33912f37c263913855473db15f7e5761e11c16678",
+      "bytes": 63230,
+      "attribution": "reviewer-created"
+    },
+    {
+      "path": "scratch/algebra-functions-independent/independent-log-geometry-320.png",
+      "sha256": "ee1f7ecbf6f69d4af4531fec4c7152e1a2c02606d939e331fbf3e1bd1c0937d5",
+      "bytes": 60567,
+      "attribution": "reviewer-created"
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-3-390.png",
+      "sha256": "da619e0701cd87c6510f828bf09559b5c5eda08cfef1c15a3e2a955f302add5f",
+      "bytes": 74967,
+      "attribution": "author-created; opened by reviewer"
+    },
+    {
+      "path": "scratch/algebra-functions-browser/practice-inverse-390.png",
+      "sha256": "4d3db7a744d59a0ffa6abed5aa614cea695c8727b38c63a3254d5082d818dce5",
+      "bytes": 77424,
+      "attribution": "author-created; opened by reviewer"
+    },
+    {
+      "path": "scratch/algebra-functions-browser/final-fractional-powers-390.png",
+      "sha256": "37b80996cc46ac058561a7266124c18c316a183db133ad6aa558480e7e767476",
+      "bytes": 103551,
+      "attribution": "author-created; opened by reviewer"
+    },
+    {
+      "path": "scratch/algebra-functions-browser/inline-2-390.png",
+      "sha256": "f1d758a2e7745fe63a9b5552316feffe2f65f46f64ebab3ddf690bb18e497abc",
+      "bytes": 71493,
+      "attribution": "author-created; opened by reviewer"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/verify-algebra-functions-independent.mjs",
+      "sha256": "37c9ef6cc3b73f6be1715755ee454a38e6f6bcc1c059a2942822300240bf2cd2",
+      "bytes": 1860
+    },
+    {
+      "path": "scripts/verify-algebra-functions-independent.py",
+      "sha256": "fee74510f377f031e34d18c3bc276d312e8a0b50d57f11a374414998d19b86b4",
+      "bytes": 5737
+    },
+    {
+      "path": "scripts/review-algebra-functions-independent.cjs",
+      "sha256": "c08c19e68b65db2553170cf9cc7ce523cea00c0a4768f5a71831e431744f30be",
+      "bytes": 4465
+    },
+    {
+      "path": "scripts/finalize-algebra-functions-independent.py",
+      "sha256": "4013ed591d23421bdb3f5c33163c2e1455916592f3c8026ff1f05a24931f9c7c",
+      "bytes": 4846
+    }
+  ],
+  "harnessCorrections": [
+    "For the largest plotted vertical range, a subpixel-height additive line requires2e-12 relative coordinate-ratio tolerance to account for cancellation; mathematical values were unchanged.",
+    "Removed intentional Vite WebSocket closure, which otherwise generated a harness-created console error.",
+    "The first390 capture showed page restoration instead of the graph; added actual bounding-rectangle assertion/retry and opened both final replacement captures."
+  ],
+  "limits": "Bounded source/proof/computation and targeted visual review; not a learner study, full external-source playback, general numerical library certification, deployment or integrated production build. Author's wider browser/keyboard suite is attributed separately."
+}

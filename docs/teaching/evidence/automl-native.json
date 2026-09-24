@@ -1,0 +1,101 @@
+{
+  "verifiedAt": "2026-09-15T20:17:44.562926+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/automl-examples.js",
+  "sourceHash": "5fac2302b73d265fd2605460ea7c80fd02e1bc85fc261ce3927a29b0117bccf9",
+  "verifier": "scripts/verify-automl-examples.py",
+  "verifierHash": "066ff1691d07d83536bcd17ea9abea5bcdc64367bd614eba4beb29d2c8c188a4",
+  "manuscript": "docs/teaching/drafts/automl-neural-architecture-search-nas/lesson.md",
+  "manuscriptHash": "7604d8ca4947c0271a11358df4272715b8d9bc07bc299b324a88e86ab32ab0d4",
+  "extraction": "verbatim from the manuscript's fenced code blocks, each pinned by SHA-256",
+  "versions": {
+    "numpy": "2.3.5",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "threadpoolctl": "3.6.0"
+  },
+  "blocks": {
+    "searchSpaceGrammar": {
+      "fence": 0,
+      "language": "text",
+      "sha256": "8345d578f086b11d2a919a522f93f1c553ef37adefcdc561e6e814cda5c87cc4"
+    },
+    "banknoteSearch.setup": {
+      "fence": 1,
+      "language": "bash",
+      "sha256": "78374cd7ff10ae1c5a478bc8669a1da7fc6fb8041680c54d45c240c4d96f379a"
+    },
+    "banknoteSearch.code": {
+      "fence": 2,
+      "language": "python",
+      "sha256": "48d9d2bc69d593be4865c66fb6d45bb86459cdc7587bd32e8c19a1b45672682f"
+    },
+    "banknoteFlaml.setup": {
+      "fence": 3,
+      "language": "bash",
+      "sha256": "09fd98265c3919f39c2b44adc9c850a2caa903d5aec1011e1122c962691730aa"
+    },
+    "banknoteFlaml.code": {
+      "fence": 4,
+      "language": "python",
+      "sha256": "61121a043f633ea344822eda37b5126e53a768831b131cfc42219e690de1bb2a"
+    },
+    "banknoteKerasSearch.setup": {
+      "fence": 5,
+      "language": "bash",
+      "sha256": "e57dd287c31238b178332e6390369659d532bb39a4365f47845fa10edd0cb2c6"
+    },
+    "banknoteKerasSearch.code": {
+      "fence": 6,
+      "language": "python",
+      "sha256": "ecf1f8653cbfb60d0d3b11b804cee82161dae6a0553e13b9baf757a27baa28a8"
+    }
+  },
+  "programs": {
+    "banknoteSearch": {
+      "file": "banknote_search.py",
+      "executed": true,
+      "codeHash": "ff5d19e82796b2c1924d648cc2488ef64efb01b3d136947eb4c94e85d5f76bce",
+      "stdoutHash": "d8d27623920cf9e30080aacc7aaf790adf4477d1fa3f3c1a875e5b6e09cad5c1"
+    },
+    "banknoteFlaml": {
+      "file": "banknote_flaml.py",
+      "executed": false,
+      "codeHash": "d60fd2c7e26ba4793be70a0cf9c88d034fd5377f451bc6f2ed0e6802c9d33347",
+      "stdoutHash": null
+    },
+    "banknoteKerasSearch": {
+      "file": "banknote_keras_search.py",
+      "executed": false,
+      "codeHash": "315352cfa1908bbb900b30fe61fa62b8382370742a89c974faa6ec76fd0f7c37",
+      "stdoutHash": null
+    },
+    "searchSpaceGrammar": {
+      "file": null,
+      "executed": false,
+      "codeHash": "1f052d5519c195684589cdb2fa185a605b028de7ae4d27286f83ec6b15dd7674",
+      "stdoutHash": null
+    }
+  },
+  "estimatorFits": 35,
+  "firstFoldBoundary": {
+    "firstFoldFittingRows": 605,
+    "firstFoldValidationRows": 314,
+    "protectedRowsTouched": 0
+  },
+  "oracles": 104,
+  "notInstalled": [
+    "flaml",
+    "tensorflow",
+    "keras",
+    "keras-tuner"
+  ],
+  "notInstalledReason": "Installing them into the shared lesson runtime can move NumPy or scikit-learn and invalidate other completed topics' recorded outputs. The optional programs are therefore displayed without output, exactly as the manuscript presents them.",
+  "limits": [
+    "The study ran against this lesson's served copy of the CSV; no network access was used.",
+    "One fixed row-level protocol on one small public collection; the scores are development results.",
+    "No reserved row was predicted or scored by any program here.",
+    "Numerical fitting can differ on other library versions."
+  ],
+  "passed": true
+}

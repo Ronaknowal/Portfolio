@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": [
+    "Threshold counts/rates/costs match independently executed Python fixtures",
+    "Tied thresholds, no-class domains, constant-score null and changed C match Python",
+    "Independent pair-credit enumeration agrees with ROC area over 40 changed datasets",
+    "Squared probabilities preserve ranking while probability loss changes; exact boundary infinities",
+    "Residuals, unit conversions, fitted/evaluation references, perfect and constant cases match Python",
+    "Actual/ideal retrieval shelves, zero-grade undefineds, swap/null and both gain conventions match Python",
+    "Undefined and invalid inputs remain distinct; changed numeric judgments are tolerance-aware",
+    "Every actual JSX math string parses; all nine figures/four labs and eight worked practices retained"
+  ],
+  "mathExpressions": 14,
+  "independentChangedRankings": 40,
+  "files": {
+    "src/learn/data/evaluation-metrics-models.js": "97549ac98d40ddf268973a1b0f77324ea2b3e5df995d9f8209e4a89db5b464d8",
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "b20c6ee6bb8b6835b2740e0b45afe00082b4f4e71a457e5dacc70cb37e5f3c6a",
+    "scripts/verify-evaluation-metrics-models.mjs": "61bea627cbb3c00cd9e93c59a10eaaa5b3a2b6bd9001714f7fbe08d8c3a5b3a4"
+  }
+}

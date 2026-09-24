@@ -1,0 +1,290 @@
+/* ML Problem Formulation, Baselines & Data Leakage: investigations, timelines,
+   bars and their tables. Calm dark ground with the site's gold accent. Every
+   encoding that carries meaning also carries a shape, a pattern, a word or a
+   printed value, so nothing here depends on colour alone.
+
+   Three rules below are deliberate and each has been shipped wrong before in
+   this repository.
+
+   1. THE SVG LAYOUT RULE IS SCOPED BY CLASS, NEVER BY ELEMENT. A rule written
+      as `.formulation-lesson svg { width: 100%; height: auto }` also matches
+      KaTeX's own radical SVGs, whose height comes from `height: inherit`;
+      `auto` leaves them with no intrinsic height and every square root on the
+      page collapses to nothing. A collapsed radical turns sqrt(x) into x --
+      a different quantity, not a blemish -- and the DOM stays correct while it
+      happens, so no offline check can see it. Every SVG this lesson draws is
+      created by `Drawing` in FormulationShared.jsx, which applies `form-svg`;
+      no figure writes an `<svg>` element of its own, and the source-hygiene
+      verifier refuses one that does.
+   2. NO BLANKET `fill` ON SHAPES. A CSS `fill` rule beats a `fill="none"`
+      presentation attribute, which is how a figure's bands once became
+      entirely invisible while every offline assertion passed. Each shape class
+      states its own fill, and outline-only shapes state `fill: none` in CSS.
+   3. A TABLE CAPTION IS A SIBLING PARAGRAPH, never a `<caption>`: below the
+      narrow breakpoint the table blockifies and a caption inside it collapses
+      to the width of its longest word. */
+
+.formulation-lesson svg.form-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+.formulation-lesson svg.form-svg text {
+  fill: #cfd7d2;
+  font-size: 10px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 400;
+  font-style: normal;
+}
+.formulation-lesson svg.form-svg text.form-small { font-size: 8.5px; }
+.formulation-lesson svg.form-svg text.form-label { font-size: 9.5px; fill: #f0e6c8; }
+.formulation-lesson svg.form-svg text.form-muted { fill: #9aa5a0; }
+.formulation-lesson svg.form-svg text.form-axis-title { fill: #8eb9a5; font-size: 8.5px; }
+
+/* Lines and marks. Each states its own fill. */
+.formulation-lesson svg.form-svg .form-axis { fill: none; stroke: #6f7b76; stroke-width: 1.2; }
+.formulation-lesson svg.form-svg .form-tick { fill: none; stroke: #6f7b76; stroke-width: 1; }
+.formulation-lesson svg.form-svg .form-grid { fill: none; stroke: #232a28; stroke-width: 1; }
+.formulation-lesson svg.form-svg .form-cutoff { fill: none; stroke: #e7b94a; stroke-width: 1.4; stroke-dasharray: 3 2; }
+.formulation-lesson svg.form-svg .form-arrow { fill: none; stroke: #8eb9a5; stroke-width: 1.2; }
+.formulation-lesson svg.form-svg .form-arrow.is-feedback { stroke: #b58ec0; stroke-dasharray: 5 3; }
+.formulation-lesson svg.form-svg .form-arrowhead { fill: #8eb9a5; stroke: none; }
+/* The feedback channel is purple and dashed; a shared arrowhead marker is
+   filled once, so it terminated in a green triangle. Each arrow carries a
+   head in its own colour. */
+.formulation-lesson svg.form-svg .form-arrowhead.is-feedback { fill: #b58ec0; }
+.formulation-lesson svg.form-svg .form-line { fill: none; stroke-width: 1.7; }
+.formulation-lesson svg.form-svg .form-line.is-acting { stroke: #da9c86; }
+.formulation-lesson svg.form-svg .form-line.is-waiting { stroke: #8eb9a5; stroke-dasharray: 6 3; }
+.formulation-lesson svg.form-svg .form-crossing { fill: #e7b94a; stroke: #121816; stroke-width: 1; }
+.formulation-lesson svg.form-svg .form-bracket { fill: none; stroke: #b58ec0; stroke-width: 1.6; }
+
+/* The five boxes of the decision flow. */
+.formulation-lesson svg.form-svg .form-flow-box rect { fill: #161d1b; stroke: #3c4643; stroke-width: 1.1; }
+.formulation-lesson svg.form-svg .form-flow-box.is-prediction rect { stroke: #9a8347; }
+.formulation-lesson svg.form-svg .form-flow-box.is-outcome rect { stroke: #b58ec0; }
+
+/* Identity lanes of the split figure. Fill AND a border pattern, so the two
+   sides are told apart without relying on hue. */
+.formulation-lesson svg.form-svg .form-cell.is-train rect { fill: #1d2a24; stroke: #8eb9a5; stroke-width: 1.1; }
+.formulation-lesson svg.form-svg .form-cell.is-validation rect { fill: #2a2418; stroke: #e7b94a; stroke-width: 1.1; stroke-dasharray: 3 2; }
+
+/* Partition bars. The reserved segment is outlined and hatched-looking rather
+   than filled, because nothing is ever scored on it. */
+.formulation-lesson svg.form-svg .form-partition rect { stroke-width: 1.1; }
+.formulation-lesson svg.form-svg .form-partition.is-development rect { fill: #24312b; stroke: #6f8f7d; }
+.formulation-lesson svg.form-svg .form-partition.is-reserved rect { fill: #14191b; stroke: #6f7b76; stroke-dasharray: 4 3; }
+.formulation-lesson svg.form-svg .form-partition.is-fit rect { fill: #2e4a3c; stroke: #8eb9a5; }
+.formulation-lesson svg.form-svg .form-partition.is-validation rect { fill: #3b3320; stroke: #e7b94a; }
+
+/* Feature families against the call cutoff. */
+.formulation-lesson svg.form-svg .form-availability rect { stroke-width: 1.1; }
+.formulation-lesson svg.form-svg .form-availability.is-before rect { fill: #1d2a24; stroke: #6f8f7d; }
+.formulation-lesson svg.form-svg .form-availability.is-after rect { fill: #3a2422; stroke: #da9c86; stroke-dasharray: 3 2; }
+
+/* Metric bars. The unavailable-feature row is outlined, never given a
+   winner's fill, whatever its length. */
+.formulation-lesson svg.form-svg .form-metric-bar rect { stroke-width: 1.1; }
+.formulation-lesson svg.form-svg .form-metric-bar.is-prior rect { fill: #2a3330; stroke: #93a09a; }
+.formulation-lesson svg.form-svg .form-metric-bar.is-candidate rect { fill: #9a8347; stroke: #e7b94a; }
+.formulation-lesson svg.form-svg .form-metric-bar.is-duration rect { fill: #3a2422; stroke: #da9c86; stroke-dasharray: 4 3; }
+
+.formulation-lesson svg.form-svg .form-strip-cell { fill: #1a201e; stroke: #333c39; stroke-width: .5; }
+.formulation-lesson svg.form-svg .form-strip-cell.is-positive { fill: #e7b94a; stroke: none; }
+
+.formulation-lesson svg.form-svg .form-lineage-node rect { fill: #161d1b; stroke: #4a5650; stroke-width: 1.1; }
+.formulation-lesson svg.form-svg .form-lineage.is-temporal .form-lineage-node rect { stroke: #da9c86; }
+.formulation-lesson svg.form-svg .form-lineage.is-preprocessing .form-lineage-node rect { stroke: #8eb9a5; }
+.formulation-lesson svg.form-svg .form-lineage.is-selection .form-lineage-node rect { stroke: #b58ec0; }
+
+.formulation-lesson svg.form-svg .form-uplift { stroke-width: 1.1; }
+.formulation-lesson svg.form-svg .form-uplift.is-called { fill: #9a8347; stroke: #e7b94a; }
+.formulation-lesson svg.form-svg .form-uplift.is-notcalled { fill: #22302a; stroke: #8eb9a5; stroke-dasharray: 4 3; }
+
+/* The availability timeline. An event is a filled circle, an arrival an open
+   diamond, and the delay between them a line; when the two coincide the
+   diamond outlines the circle rather than hiding it. */
+.formulation-lesson svg.form-svg .form-event { fill: #e7b94a; stroke: none; }
+/* OUTLINE ONLY. The arrival diamond is painted after the event circle, so an
+   opaque fill covered it wherever the two times coincide -- and they coincide
+   in two of the four default records. Both marks were drawn, both were correct,
+   and one of them was invisible; paint order beat colour, and no attribute
+   check can see that. The fill is `none` so the gold event dot shows through
+   the diamond that surrounds it. */
+.formulation-lesson svg.form-svg .form-arrival { fill: none; stroke: #8eb9a5; stroke-width: 1.4; }
+.formulation-lesson svg.form-svg .form-delay { fill: none; stroke: #5d6862; stroke-width: 1.2; stroke-dasharray: 2 2; }
+.formulation-lesson svg.form-svg .form-age-window { fill: #1b2a24; stroke: #476053; stroke-width: 1; }
+.formulation-lesson svg.form-svg .form-lane.is-other .form-event { fill: #6f7b76; }
+.formulation-lesson svg.form-svg .form-lane.is-other .form-arrival { stroke: #6f7b76; }
+.formulation-lesson svg.form-svg .form-lane.is-rejected .form-event { fill: #4a423a; }
+.formulation-lesson svg.form-svg .form-lane.is-rejected .form-arrival { stroke: #5d5148; }
+.formulation-lesson svg.form-svg .form-lane.is-rejected text { fill: #8b938f; }
+.formulation-lesson svg.form-svg .form-selected-outline { fill: none; stroke: #e7b94a; stroke-width: 1.6; }
+
+.formulation-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.formulation-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.formulation-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.formulation-investigation button,
+.formulation-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.formulation-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.formulation-investigation button:disabled, .formulation-figure button:disabled { opacity: .4; cursor: default; }
+.formulation-investigation button.is-selected,
+.formulation-figure button.is-selected { background: #1d2119; border-color: #9a8347; color: #f0e6c8; }
+.formulation-investigation :is(button, input, select, summary, textarea, [tabindex]):focus-visible,
+.formulation-figure :is(button, input, select, summary, textarea, [tabindex]):focus-visible { outline: 2px solid #a5c7b5; outline-offset: 3px; }
+
+.formulation-question, .formulation-caption, .formulation-note, .formulation-pending { font-size: .92rem; line-height: 1.75; }
+.formulation-caption { color: #b5bfbb; margin: .5rem 0; }
+.formulation-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.formulation-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+.formulation-blocked { font-size: .92rem; line-height: 1.75; color: #e3c1b4; border-left: 2px solid #da9c86; padding-left: .8rem; margin: .6rem 0 0; }
+.formulation-role { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; font-size: .9rem; line-height: 1.7; }
+.formulation-role.is-constructed { border-left-color: #9a8347; color: #e0d3ae; }
+.formulation-role.is-measured { border-left-color: #b58ec0; color: #dcc9e2; }
+.formulation-role.is-exploratory { border-left-color: #da9c86; color: #e3c1b4; }
+
+/* The information contract beside each procedure's scores. A definition list
+   rather than a table column: these are sentences, and a sentence in a numeric
+   table either wraps badly or pushes the numbers off the edge. */
+.formulation-contracts { margin: 1.1rem 0; display: grid; gap: .7rem; font-size: .88rem; line-height: 1.7; }
+.formulation-contracts > div { border-left: 2px solid #3c4643; padding-left: .8rem; }
+.formulation-contracts dt { color: #e7b94a; font-weight: 600; }
+.formulation-contracts dd { margin: .2rem 0 0; color: #b5bfbb; }
+
+/* Controls */
+.formulation-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.formulation-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.formulation-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.formulation-field > span { display: flex; justify-content: space-between; gap: .6rem; color: #d0ddd5; }
+.formulation-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.formulation-field :is(input[type="number"], input[type="text"], select) {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.formulation-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.formulation-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.formulation-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: .8rem; }
+.formulation-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.formulation-presets { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+
+.formulation-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.formulation-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.formulation-prediction legend { padding: 0; font-weight: 600; }
+.formulation-choices { display: flex; flex-direction: column; gap: .45rem; margin: .6rem 0; }
+.formulation-choice { display: flex; align-items: flex-start; gap: .5rem; min-height: 40px; padding: .25rem 0; }
+.formulation-choice input { margin-top: .35rem; accent-color: #e7b94a; }
+.formulation-numeric-guess input {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.formulation-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #dce4e0; }
+.formulation-verdict.is-miss { border-left-color: #da9c86; }
+.formulation-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.formulation-history { margin: .6rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #c0cac5; font-size: .88rem; line-height: 1.7; }
+.formulation-history.is-pending { border-left: 2px dotted #5d6862; color: #9fa9a4; font-size: .86rem; }
+.formulation-reveal { margin: .8rem 0 0; padding: .6rem .75rem; border: 1px solid #3c4643; border-radius: 3px; background: #101615; font-size: .9rem; line-height: 1.75; }
+.formulation-reveal dl { margin: .4rem 0 0; display: grid; grid-template-columns: minmax(9rem, auto) 1fr; gap: .3rem .9rem; }
+.formulation-reveal dt { color: #9fa9a4; }
+.formulation-reveal dd { margin: 0; color: #e7b94a; font-family: var(--font-mono, monospace); overflow-wrap: anywhere; }
+.formulation-reason textarea {
+  min-height: 60px; padding: .45rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+
+/* Tables */
+.formulation-table { margin: 1.1rem 0; }
+.formulation-table-scroll { overflow-x: auto; border: 1px solid #262b2a; border-radius: 4px; }
+.formulation-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+.formulation-table-scroll :is(th, td) { padding: .4rem .55rem; border-bottom: 1px solid #1f2523; text-align: right; }
+.formulation-table-scroll th { color: #d0ddd5; font-weight: 600; }
+.formulation-table-scroll thead th { border-bottom: 1px solid #3c4643; }
+.formulation-table-scroll tbody th { text-align: left; color: #cfd7d2; }
+/* Long explanatory cells wrap; short numeric cells do not. A blanket nowrap
+   turned the lineage repair column into one 90-character line that scrolled
+   the whole figure sideways at desktop width. */
+.formulation-table-scroll td { white-space: normal; }
+.formulation-table-scroll tr.is-leading td, .formulation-table-scroll tr.is-leading th { background: #151c18; }
+.formulation-table-scroll tr.is-selected-row td, .formulation-table-scroll tr.is-selected-row th { background: #171f1b; }
+.formulation-table-scroll tr.is-rejected td, .formulation-table-scroll tr.is-rejected th { color: #8b938f; }
+.formulation-table-scroll tr.is-unavailable td, .formulation-table-scroll tr.is-unavailable th { color: #e3c1b4; }
+.formulation-table-scroll button { font-size: .78rem; min-height: 34px; padding: .25rem .5rem; }
+
+/* Figures */
+.formulation-figure { margin: 1.7rem 0; padding: 0; }
+.formulation-figure-inline { margin: .9rem 0; padding: 0; }
+.formulation-legend { display: flex; flex-wrap: wrap; gap: .5rem .9rem; margin: .5rem 0; font-size: .85rem; color: #b5bfbb; }
+.formulation-legend span { display: inline-flex; align-items: center; gap: .35rem; }
+.formulation-swatch { display: inline-block; width: 18px; height: 9px; border-radius: 2px; }
+.formulation-swatch.is-train { background: #1d2a24; border: 1px solid #8eb9a5; }
+.formulation-swatch.is-validation { background: #2a2418; border: 1px dashed #e7b94a; }
+.formulation-swatch.is-acting { height: 3px; background: #da9c86; }
+.formulation-swatch.is-waiting { height: 3px; background: #8eb9a5; }
+.formulation-swatch.is-threshold { height: 3px; background: #e7b94a; }
+.formulation-swatch.is-before { background: #1d2a24; border: 1px solid #6f8f7d; }
+.formulation-swatch.is-after { background: #3a2422; border: 1px dashed #da9c86; }
+.formulation-swatch.is-prior { background: #2a3330; border: 1px solid #93a09a; }
+.formulation-swatch.is-candidate { background: #9a8347; border: 1px solid #e7b94a; }
+.formulation-swatch.is-duration { background: #3a2422; border: 1px dashed #da9c86; }
+.formulation-swatch.is-called { background: #9a8347; border: 1px solid #e7b94a; }
+.formulation-swatch.is-notcalled { background: #22302a; border: 1px dashed #8eb9a5; }
+.formulation-swatch.is-event { width: 9px; height: 9px; border-radius: 50%; background: #e7b94a; }
+.formulation-swatch.is-arrival { width: 9px; height: 9px; background: transparent; border: 1px solid #8eb9a5; transform: rotate(45deg); }
+.formulation-swatch.is-delay { height: 3px; background: #5d6862; }
+.formulation-swatch.is-age-window { background: #1b2a24; border: 1px solid #476053; }
+.formulation-swatch.is-cutoff { height: 3px; background: #e7b94a; }
+
+.formulation-strip { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; }
+.formulation-strip-cell {
+  border: 1px solid #3c4643; border-radius: 3px; padding: .4rem .6rem; background: #121816;
+  font: .78rem/1.6 var(--font-mono, monospace); color: #cfd7d2; min-width: 0;
+}
+.formulation-strip-cell.is-used { border-color: #9a8347; background: #1d2119; color: #f0e6c8; }
+.formulation-strip-cell b { display: block; color: #e7b94a; font-weight: 600; }
+.formulation-strip-list { margin: 1rem 0; display: grid; gap: .5rem; }
+/* Label beside its strip, not above a strip that then centres itself half a
+   column away. The drawing's auto margins are cleared here so the two line up. */
+.formulation-strip-row { display: grid; grid-template-columns: minmax(8.5rem, max-content) 1fr; gap: .2rem .8rem; align-items: center; }
+.formulation-strip-row .formulation-caption { margin: 0; }
+.formulation-strip-row .formulation-figure-inline { margin: 0; min-width: 0; }
+.formulation-strip-row svg.form-svg { margin-inline: 0; }
+
+.formulation-route { margin: 1.4rem 0; padding: .8rem 1rem; border-left: 3px solid #9a8347; background: #10140f; }
+/* The three quoted statements -- the operational question, a feature
+   definition, the defensible conclusion -- are the thing this lesson asks a
+   reader to write. They get their own frame rather than inheriting whatever a
+   bare blockquote picks up from the reader shell. */
+.formulation-lesson blockquote {
+  margin: 1.3rem 0; padding: .1rem 0 .1rem 1rem;
+  border-left: 3px solid #746138; background: transparent; color: #e0d3ae;
+}
+.formulation-practice { margin: 1.6rem 0; }
+
+/* The provenance prints a 64-character SHA-256 inline. That is a single
+   unbreakable word and would push the page sideways at 320 px. */
+.formulation-lesson code { overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
+
+@media (max-width: 560px) {
+  .formulation-table-scroll table, .formulation-table-scroll thead, .formulation-table-scroll tbody,
+  .formulation-table-scroll tr, .formulation-table-scroll th, .formulation-table-scroll td { display: block; }
+  .formulation-table-scroll thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .formulation-table-scroll tr { border-bottom: 1px solid #3c4643; padding: .35rem 0; }
+  .formulation-table-scroll :is(th, td) { border: 0; display: flex; justify-content: space-between; gap: 1rem; white-space: normal; text-align: right; }
+  .formulation-table-scroll :is(th, td)::before { content: attr(data-label); color: #9fa9a4; text-align: left; }
+  .formulation-reveal dl { grid-template-columns: 1fr; }
+  .formulation-strip-row { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .formulation-lesson * { animation: none !important; transition: none !important; }
+}

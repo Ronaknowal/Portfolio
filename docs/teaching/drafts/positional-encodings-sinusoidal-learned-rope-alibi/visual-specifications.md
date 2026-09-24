@@ -1,0 +1,169 @@
+# Positional Encodings — visual and investigation contracts
+
+## Live exploration contract — 21 September 2026
+
+Open each investigation with its current inputs, intermediate mechanism and complete current output visible. Apply valid edits to meaningful entities immediately and update diagrams, tables, units and causal explanation together. No prediction entry, predicted-answer choices, commitment, prediction grading or answer-unlock feature is part of this packet, even optionally. Model predictions and mathematical masks/gates remain subject matter.
+
+Use the topic-specific controls and checked fixtures below. Pair sliders or direct manipulation with labeled keyboard/numeric controls; keep presets as starting points, not the only editable values. A pinned baseline preserves its inputs, seed, units and outputs while the current case changes. Explain both a meaningful contrast and an unchanged/null result, then connect the observed effect to a practical design decision. Reset restores the stated fixture and current result. Invalid text has a local explanation and a clearly identified last valid result; never silently clamp or pair new inputs with old output.
+
+Step/Back and bounded Run controls advance a real computation or reveal its chronological stages, not permission to view an answer. Show the current state and its result throughout. Keep exact small calculations live. For costly frozen inference, debounce or run bounded work with pending/current state labels and stale-result cancellation; inspect saved measurements without implying fresh training. Respect reduced motion, keep focus stable and avoid announcing every animation frame. Independent written practice and its hints/solutions stay separate.
+
+Phase two must test default results without any action, meaningful edits, quick consecutive edits, valid extremes, null/invalid cases, reset, linked-view agreement, keyboard operation and readable phone layouts. The mathematical/reference checks already specified below remain; these live browser checks have not been performed in this content-only revision.
+
+### Topic-specific live route
+**Move a position without confusing it with content.** Edit position IDs, frequencies, RoPE vectors, ALiBi slopes/scores, cache identities and supported trajectory coordinates.
+**See the consequence.** Synchronize phase geometry, relative-score changes, distance penalty, legal cache relations and final mixture. Show whole-record reorder and ID-only edit as different operations.
+**Decision connection.** Choose and troubleshoot positional mechanisms by relative/absolute behavior and cache consistency; do not infer long-context quality from a toy phase plot.
+
+
+Research/write phase only. Implement these within the topic during a later authorized finish request. The manuscript is complete learner prose, and all figures should appear beside their named explanation. Do not replace the diagrams with a generic dropdown-plus-text lab, nor append every investigation to one final section. Reuse accessible primitives where appropriate while preserving the different geometry, ordering, competition and cache tasks.
+
+## Evidence and shared interaction rules
+
+Exact source: `mechanism-calculations.py` and `mechanism-fixtures.json` for deterministic geometry/counts; `author-calculations.py`, `author-results.json`, `position-models.json` and original Libras files for actual trained models and interventions. Numerical traces are author evidence, not browser implementation. No source publication's manually entered length/perplexity curves are empirical evidence for this revision.
+
+Every lab is a live exploration by default. Valid changes update the numerical result and its explanation immediately, with no prediction or optional assessment mode. Separate practice keeps its own hints and solutions.
+
+Inputs are editable entities, not answer choices masquerading as a lab. A learner may use fixtures to start, then alter numeric vectors, positions, content scores, point coordinates or cache IDs. Every output comes from that resulting entity. Provide the declared contrast and null controls, but do not make them the only possible inputs. Explanations of a result must use its actual difference and mechanism rather than a fixed positive message. For free-form predictions, show the numerical comparison and an explicit rubric; do not pretend to parse arbitrary prose semantically.
+
+Use Reset and meaningful process/inspection controls; no answer-submission or answer-unlock controls are present. Numeric inputs and drag adjustments operate on the same state. Invalid/nonfinite values receive local feedback and all-masked rows remain explicitly undefined rather than entering a softmax divide.
+
+Use readable signed diverging scales for values in −1…1 or signed scores, and sequential 0…1 scales for probabilities. Color is supplemental: label vectors, include shapes/arrows, numeric tables and textual summaries. Explain the units on each plot: radians, positions, seconds in the specific time example, logit units, attention weight, normalized x/y coordinate, or MiB. No graph labeled “performance” may show geometric calculations. Long code/table/figure areas must have bounded local scrolling and not widen the page.
+
+## F1 / I1: point records, slots and a multiscale position signature
+
+**Placement:** F1 at §1 after the array/function distinction; I1 beside §2's learned table and sinusoidal clocks. Static F1 shows an unambiguous small path with four marked points, the reversed arrows on the same points and an identical unordered point cloud. This is a hand schematic, not the real recorded trajectory. Beneath it show records carrying `(point, position ID)`; a storage-order arrow must differ visually from a reassignment arrow.
+
+**Learner task:** “If I move the whole labeled record, does its combined content-plus-position vector change? What if I attach the same content to a new position?” Editable entity: three content cards with two coordinates each; default A `[1,2]`, B `[−1,1]`, C `[0.5,−0.5]`, slots `[0,1,2]`; the hand position table is `[[.2,0],[0,.3],[−.1,.1]]`. Display the table explicitly as invented teaching parameters, never as a trained model. All six table numbers and six content numbers can be edited in −4…4. Move cards with keyboard reorder buttons and accessible drag; separately assign each point to a slot using swaps to retain one-to-one mapping. Keep mode labels “Move labeled record” and “Assign to a different slot” visible.
+
+The current computed result is visible.: whether the **three content-plus-position records** are unchanged up to reordering, changed, or require inspection, plus a short reason. The answer panel shows original and edited `x+p` vectors with linked arrows and a row-by-row difference, not a fake downstream classifier. Under paired reorder C, A, B / IDs 2, 0, 1, combined records are unchanged up to order. Under points C, A, B / IDs 0, 1, 2, the vectors change unless the learner's custom values produce a degeneracy. Recompute and recognize that null if the position table rows happen to be equal. Do not always label reassignment “changes output”; it changes the generic input construction, not a guaranteed class.
+
+**Sinusoidal companion:** editable width `{4,8,16,32}`, base `[10,1,000,000]` and selected position integer 0…255; default width 8/base 10000 / position 3. Show up to four selected pairs as unit circles with hand angle, numeric sin/cos and a trace over a learner-selected span capped 256 positions. Formula generation uses full selected width, then displays the selected coordinates. Static table of positions 0…3 matches the manuscript. A 32-channel, 16-position heatmap is built from the saved exact full 32-column fixture; do not reuse the old incorrect 8-column source matrix. Default mobile view selects two pairs with the remaining ones accessible; no tiny unreadable 32-column squeeze.
+
+Here the live comparison asks which selected pair changes phase more under a proposed position step, and whether the fastest frequency changes under a base change. Record the original/proposed inputs in the current live view. Control: offset 0 gives identical phase; changing base leaves pair 0 frequency 1; a full `2π` angle increment on a selected single pair returns its vector in the continuous-position exploration, without asserting an integer-slot period. A separate text explanation distinguishes floating-point/rounded collisions from exact identity.
+
+**Feedback:** identify actual pair frequency, angle delta and sin/cos difference. A phase-circle angle may display modulo 2π, but the full unwrapped radians and turn count remain accessible. The code must not say “position repeats” merely because one hand wraps. Text fallback contains the table and the two edit definitions. Phase two verifies the additive numbers, exact matrix labels, base/width changes and keyboard reorder/reassignment distinctions.
+
+## F2 / I2: RoPE pair geometry and a controlled attention matrix
+
+**Placement:** §3, immediately after the two-dimensional rotation, with a static worked state beside the four-coordinate example. Two stacked planes show query and key rotation, one for frequency 1 and one for 0.01. Same coordinate scale within each before/after pair; vector lengths must visibly remain fixed under rotation. Show signed projections onto the query direction and pairwise dot contributions, summed into an unscaled dot product and divided by √4 into the logit.
+
+Editable entity: q `[.8,−.5,.3,1.2]`, k `[1,.25,−.5,.75]`, m=3, n=7, rotary width 4, base 10000. Numeric q/k entries each −3…3, position IDs −128…256 for the pure geometry experiment, base 10…1,000,000. Negative positions here are legal mathematical coordinates; label that distinction from strict learned-table indices. Drag arrow tips in a pair plane, with the numeric controls as an equivalent accessible interface. The query/key position sliders belong to separate records. Provide an independent shared-offset control that changes both by the same amount.
+
+Change m/n or q/k directly and show both dot products, their difference and the responsible relative rotation. A pinned baseline makes unchanged, increasing and decreasing cases inspectable without recording an answer.
+
+**Checked fixtures:** baseline q′ `[−.7214339933,.6078922547,.2638704099,1.2084586906]`, k′ `[.5896556047,.8454621623,−.5512326356,.7131918265]`, dot 0.8049611819, logit 0.40248059096, query norm 1.5556349186. Shift both IDs by 100: same dot. Move only n=7→8: dot 1.5705488481. Move n→m=3: dot 1.425. The latter values make “farther always weaker” visibly untenable.
+
+**Matrix branch:** default four positions 0…3 share the same q as both Q and K, creating exact Toeplitz unscaled scores saved in `geometry.constant_content`. Show diagonal strips linked to signed offset labels. Let the learner select any one position and edit any of its four content entries; do not restrict to scaling buttons. The declared contrast doubles position 1's content vector: diagonal 1 changes 2.42→9.68 and its relevant row/column doubles (`changing_content`). Other diagonals no longer match despite valid relative rotations. A reset/equal-content control restores Toeplitz structure. Explicitly label this matrix as a hand-controlled content fixture, not a pretrained attention map. Changing Q/K content independently is allowed; symmetric matrix behavior is only expected when Q and K are the same arrays.
+
+**Nonmonotone branch:** one pair q=k=`[1,0]` against editable integer offsets 0…32. Plot the exact cos(offset) values as discrete points with an optional labeled continuous curve, showing distance 3 about −.990 and distance 6 about.960. The learner inspects sign/change before expanding the offset. No shaded decay envelope can imply a universal monotone theorem.
+
+**Basis inset:** display adjacent pairs and half-split pairs, with permutation `[0,2,1,3]` on the four coordinates. A correctly transformed representation gives the same restored result; applying a half-split routine to unchanged adjacent-layout weights is a different function. This is a static explained mapping, not a whole extra required lab. Partial-rotation inset labels rotary and unrotated coordinates and shows the two dot-product contributions; values remain separate.
+
+Keyboard table mode can perform the entire exercise without interpreting spatial diagrams. On mobile planes stack; score contributions appear below rather than requiring horizontal comparison. Do not animate rotation past 2π without a turn count. The implementation should calculate only the selected matrix (≤8 positions, width ≤16), not a full model's attention at this stage.
+
+## F3 / I3: ALiBi evidence-versus-distance competition
+
+**Placement:** §4 by the worked four-key table. The static view has aligned content-score bars, negative distance penalties, final-score bars and normalized weights. Key identity persists across all four columns. The current query is drawn on a numbered timeline; masked future positions are visibly crossed out rather than shown as tiny-probability legal keys.
+
+Editable entity: one query position 3; four keys at positions 0, 1, 2, 3; scaled content scores `[2,0,0,0]`; head slope 0.5. The learner can edit every key's position and content score, add/remove keys up to 8, and choose a positive slope 0…1. Include the explicit slope 0 control. Values are not required for this score-focused investigation; avoid invented semantic embeddings. Positions integers −16…32, scores −8…8. Require at least one legal key; reject a change that makes all keys future, or show a deliberate “no legal key” state with no softmax result.
+
+Live observation: highlight the legal key with the largest computed weight and display the odds of two selected keys. Key-pair selectors inspect actual inputs; they do not collect an expected result. Tie choices must be allowed. Reveal actual logits/probabilities and the decomposition of the selected odds: `exp(content difference) × exp(−slope × distance difference)`. Valid input changes recompute every dependent result and explanation; retained baselines keep their original inputs. Switching the inspected key pair changes the linked odds display only. Changing model inputs recomputes every dependent result and explanation; retained baselines keep their original inputs.
+
+**Fixtures:** baseline weights `[.4550542339,.1015363241,.1674050973,.2760043447]`. No-bias weights `[.7112345942,.0962551353,.0962551353,.0962551353]`. Equal content gives `[.1015363241,.1674050973,.2760043447,.4550542339]`. With extra distance 10 and slope 0.5, equal-content odds 0.006737947 and half-odds distance 1.386294361. At distance difference 8 and slope 0.25, extra content advantage 2 ties the two keys. These numeric comparisons must be computed from learner-edited entities, not looked up from a preset label.
+
+**Null/contrast controls:** add an arbitrary common constant −8…8 to every legal score and verify identical probabilities; compare full causal distance bias to `slope × key_position` under the same mask; move a key into the future and show prohibition even if its content score is large; choose slope 0 and recover ordinary scores; stronger distant content can still win. Adding an unrelated legal key changes individual probabilities but not the pairwise odds of the original pair. This last control helps prevent the common probability/odds confusion.
+
+**Head preference figure:** plot derived odds factor `exp(−a D)` at bounded distances for the actual schedule, with head count selectable 2, 3, 4, 8. Show the correct three-head schedule `[.0625,.00390625,.25]`; do not sort and silently remap checkpoint head IDs. Axis range 0…1; optional log axis must label actual odds values and explain log scaling. Adjacent static slope table prevents “every first head has slope 0.5.” No hard window boundary is drawn because finite penalties are not masks.
+
+**Relative-bucket inset:** signed offset ruler linked to the saved T5 bucket table. Exact nearby bins, wider distant bins and saturated end buckets use labels rather than only colors. Optional offset edit −256…256 computes the bucket and explains lost precision; no learned scalar values are fabricated. Shaw relation inset shows a shared relation vector receiving different query dot contributions from `[2,0]` and `[0,2]`. These concise diagrams distinguish learned scalar, query-dependent vector and fixed linear bias.
+
+Accessible HTML tables expose key position, legality, content, bias, final score and weight. Announce a settled-result summary without reading every slider movement. Computation is ≤8 keys, and no matrix larger than the declared head view is needed.
+
+## F4 / I4: the real Libras trajectory workspace
+
+**Placement:** §6, after data/protocol and the complete five-model observation table. The mechanism task is independent of whether a particular model predicts the original label correctly. Never replace source row 77 with a more favorable example. Never convert edited samples into newly labeled test data.
+
+### Inputs and exact function
+
+Default source row 77, actual class 4, its 45 original points, IDs 0…44. Two separate modes of change: reorder whole `(point, ID)` records, or reattach points to a fixed chronological grid. Every point's x/y can be edited in 0…1 with pointer and numeric inputs; provide previous/next-frame selection and keyboard nudge increments. A list view shows every point and its assigned position. Baseline trace uses all 45 points, no downsampled model input. A visual thumbnail may simplify line drawing but must not alter the inference input.
+
+Model selector: none/sinusoidal/learned/RoPE/symmetric ALiBi, all actual seed 101 selected checkpoints from `position-models.json`. The selection uses the model's true parameters, not a common hypothetical Q/K transform. Run the complete `PositionClassifier` inference, including position injection, two heads, biases, float layer normalization epsilon 1e−5, GELU, residual updates, final normalization, valid pooling and classifier. JS may compute in float64 with an explicitly checked float32-reference tolerance; no GPU library is required for these tiny tensors. PyTorch Linear storage is output-by-input. Packed QKV output order in this packet is Q24, K24, V24, split into two 12-coordinate heads. Do not reuse TransformerBlock weights or packing without checking this source.
+
+Query/head selection shows linked attention weights along the 45-point time strip and on a small trajectory overlay. Label row=query, column=key. RoPE pair view links actual raw/rotated query/key coordinates for the selected head/frames; input-additive modes show actual table or sinusoidal vector and combined state. The ALiBi view shows actual content logits and the signed distance bias. The no-position view explains its absence. Do not force all five into an identical rotation display.
+
+### Live comparison sequence
+
+Show the current model logits and probabilities immediately. A trajectory edit recomputes the exact model and displays the difference from the original under the numerical tolerance. Show the largest-probability class as another readout, including ties; no class guess is requested.
+
+Feedback has three linked levels: changed trajectory/position assignment; changed selected-head scores/weights; full 15-class logit/probability comparison. Show maximum absolute logit difference and its class, not only argmax. Original probabilities sum to 1 from model softmax; a signed logit plot is not normalized or clipped into a probability scale. The true label belongs to the unedited source only.
+
+### Checked contrasts and nulls
+
+1. Joint reversal of points and original IDs: every model's logits match baseline within author float32 max 1.55e−6. This is a representation permutation, not reversed movement. Arbitrary record permutations must also recompute correctly.
+2. Reverse only points, keep IDs 0…44: max logit changes none 9.54e−7, sinusoidal 3.6527064, learned 6.8805723, RoPE 6.1103134, symmetric ALiBi 1.55e−6. Baseline/reversed winners are none 5→5, sinusoidal 9→9, learned 7→5, RoPE 3→5, ALiBi 9→9. Preserve the sinusoidal changed-logits/same-argmax contrast.
+3. Reflect frame 23 x: max differences none 2.8903782, sinusoidal 2.7873483, learned 11.5668755, RoPE 1.7760681, ALiBi 3.2648718. ALiBi winner 9→4; this is not an earned correct prediction on a newly labeled sample. Custom edits may give very different responses or a null.
+4. Append 5 points(.75,.75), ID 0, mask them from keys and pool: valid outputs recover within 1.5e−6. Preserve original IDs 0…44. The model must reject an all-pad record. In the deliberate “ignore padding mask” contrast, sinusoidal max change 8.8160772, ALiBi 9.5779524; other actual values are in the model JSON. Padding labels never become temporal zero observations.
+5. No edit and repeated reveal under the same model/input are deterministic. No dropout, training or random seed regeneration in the browser.
+
+Static observation table uses exact recorded metrics: test correct 33/42/40/40/39 of 60. Chart optional: compact categorical dot plot with explicit 60-record denominator, no connected trend line, confidence band or implied architecture scaling law. Keep the one-seed/row-split limitation at its home by the protocol, then brief local labels only. All five misclassify source row 77; that fact must not be hidden behind a success-themed UI.
+
+### Accessibility, performance and verification
+
+On mobile stack path, time strip and result; time strip may scroll locally with frame labels, and 15-class table remains available. A chosen query is outlined, a chosen key has a separate marker and color is supplemented by labels. An editable frame description announces x/y, slot and whether it is source or modified. Escape cancels an unfinished drag; keyboard edits have the same live update behavior. Reduced motion uses immediate state swaps; direction arrows still show order.
+
+Derived production assets should contain one selected model's weights and the needed 45-point source input, loaded on demand. The author JSON includes all traces and training evidence and should be an optional download, not an eager page asset. First-pass prose/static figures must render without fetching five models. Keep inference bounded at ≤50 points, 24 features, 2 heads and one block; throttle dragging and compute on explicit live update. Prefer a worker only if actual profiling shows meaningful blocking; the small native calculation does not require a framework-sized runtime. Release large trace arrays when the selected model changes; retain only the selected query/head view plus necessary inference state. No training, full 330-record scoring or historical-fit rendering in the page.
+
+Phase two checks browser inference against all five saved baseline/intervention outputs (target max absolute logit difference ≤2e−4 for the declared browser arithmetic; investigate larger discrepancy, do not inflate tolerance to hide errors). Independently check exact symmetry with appropriate floating-point tolerances, empty-padding rejection, class/probability labels, edit invalidation, keyboard flow and mobile trajectory readability. These are required later implementation checks; no browser output exists yet.
+
+## F5 / I5: repair a cache timeline
+
+**Placement:** §7 next to the standalone program. Static figure has separate rails for logical positions, physical cache slots and legality. Three keys occupy cache slots 0, 1, 2 but carry logical IDs 7, 8, 9; a new query has length 1 and logical ID 9. This makes the local-index trap visible before formulas.
+
+Editable entity: the complete hand Q3×4, K3×4 and V3×2 arrays from `cache_inputs`, query/key logical IDs, a permutation of cache slots, and separate “rotary IDs” and “mask IDs” when deliberately debugging. Default keys/values/metadata move together. In the repair task one chosen rotary ID is unset or wrong; learners enter their own correction. Do not auto-populate the answer. Inputs bounded entries −3…3, positions 0…256, 3…8 keys; a fresh random variant is not required, but changing arrays is genuinely allowed.
+
+Live observation: cached-last output matches the full reference / differs / no legal output, with a reason. compute full causal attention with the explicit full ID list and the selected cached calculation. Display the selected row's score components, legal mask, weights and mixed 2-coordinate output. Mark only the actual source of mismatch: rotation, values/keys no longer paired, stale frequencies, or mask legality. Do not infer diagnosis solely from an output threshold; show the changed inputs.
+
+**Reference fixtures:** with positions 7, 8, 9, RoPE last output `[1.0353317433,1.2971595323]`, weights `[.4876973011,.4523655578,.0599371411]`; ALiBi slope 0.5 last `[.3404343524,2.2816480382]`, weights `[.1286770896,.7882427372,.0830801733]`. Full/cached difference ≤2.3e−16 under NumPy float64. Query rotary ID 0 with mask ID 9 against rotated keys 7, 8, 9 gives `[.6585203384,1.2916970345]`; this isolates rotation from legality. Query mask ID 0 against keys 7…9 creates no legal key and must display a rejection state rather than NaNs.
+
+**Controls:** shift every logical ID by 100 with fixed frequencies and unchanged legal relation—same local output; reorder cache records while moving IDs/K/V together—same output; reattach one ID only—generally changes; edit V while preserving scores—weights same but mixed output generally changes. Compute every case from input. Learned/additive model cache behavior is explained in text, not simulated by pretending projected Q/K are unchanged after a changed additive input.
+
+**Advanced stale-frequency branch:** base 10000→100. Rephase only the query against old cached rotations: `[.9739117262,1.3895282754]`; recompute all rotations from fixed raw Q/K at new base: `[.9987882827,1.3442421830]`. Include a stored raw-key view or inverse old rotation followed by new rotation as the repair. Label this exact scope “fixed content in one attention layer.” Do not state that it restores all hidden/value states of a multilayer decoder under a new global frequency configuration; that requires a different reference and possibly prefix recomputation.
+
+The cache view is a column/timeline schematic with editable tables, not a terminal wall of arrays. On mobile use one selected cache entry and a horizontally scrollable ID rail. All slot moves have buttons and maintain focus. Default comparisons use float64 tolerance 1e−10. No actual long sequence or cache memory allocation is required;≤8 entries is enough to expose the error.
+
+## F6 / I6: stretch frequencies without inventing a benchmark
+
+**Placement:** §8 beside PI/base/YaRN discussion. This investigation covers continuous geometry and score sharpness, separately from the real classifier. It never changes saved trained models to fabricate a context-length score.
+
+Editable entity: even rotary width `{4,8,16,32,64,128}`, base 10…1,000,000, original nominal context 16…8192, extension factor 1…32, selected pair index and position/offset. Default d=64, b=10000, L=4096, s=8. Learners can edit a small q/k pair and inspect an adjacent-token phase difference or full dot product; the selected edit immediately updates both phase and dot-product views. Keep positions bounded 0…262144 and use float64 phase arithmetic. The frequency vector has at most 64 pairs. A line plot has at most 128 sampled points per selected curve; do not create a point per context token.
+
+Show original, uniform PI, base-scaled and **paper-ramp YaRN** wavelengths with formula-derived labels. For base scaling use `b*s**(d/(d-2))`; the width 2 case is intentionally unavailable for that rule and explained, not silently clamped. For paper ramp use `r=L*frequency/(2π)`, `gamma=clip((r-1)/31,0,1)`, blended frequency `(1-gamma)*frequency/s+gamma*frequency`. The labels must distinguish this continuous rotation-count ramp from checkpoint implementations that discretize pair-index boundaries. No claim to reproduce a particular library's full YaRN from this one formula.
+
+Live observation: fastest pair changes or stays; slowest wavelength factor; or whether the q/k dot increases/decreases/stays under the selected change. The current computed result is visible. and binding includes all frequencies, positions and vector values. Feedback shows numerical before/after values and the local formula. Include a one-pair unit circle to connect a logarithmic wavelength plot to an understandable angle. A separately labeled score-temperature panel reports q/k multiplier `c=1+.1*ln(s)` and completed-logit multiplier `c*c`.
+
+**Fixtures/controls:** original d=64 longest wavelength 47117.2427802; base 500000 longest 2084764.7732591; first wavelength 2π in both. PI 64→256 maps 255→63.75. s=1 returns original frequencies in every scheme and c=1; PI reduces adjacent phase differences by $s$; base scaling leaves pair 0 unchanged and stretches the last wavelength by $s$. At $s=8$, c=1.2079441542 and c²=1.4591290796 (display exact computed value from JSON). Partial rotation hand fixture rotary 2 + content 3: scaling only rotary Q/K by 2 gives 11 instead of uniformly scaled 20. Compute and explain any user-changed contributions.
+
+Static XPos inset shows q amplitude multiplier and reciprocal k multiplier entering one pair's relative factor. Use first pair ζ=2/7, S=512, delta=512→2/7. Compare with a deliberately missing S formula only as a labeled incorrect construction; avoid rendering underflow as evidence of a trained model's failure. Label individual norms as changed; this is not pure norm-preserving RoPE.
+
+**Evaluation planner, text only:** list the three length questions and the later evidence needed: legal compute, retained quality, useful extra context. Do not supply successful test marks for a slider-selected extension. The source paper's large-model results are reading references, not rows in this local plot. Any future real benchmark requires its own protocol and evidence, outside this prepared packet.
+
+Keyboard/text table displays pair index, frequency, wavelength, turns in original context and scale factors. On mobile choose one scheme comparison at a time, retaining access to all rather than overlaying unreadable curves. Use a log scale only for positive wavelength, with visible tick values. No animation or loop over target-length tokens; cost is bounded by pair count.
+
+## F7: applications and what is stored
+
+**Placement:** §9. A small matrix schematic labels B, N, Hkv, L, dk/dv cache axes and compares “rotate stored values” with “change number of stored heads”; do not conflate these. The exact 512 MiB example follows the manuscript's units and excludes metadata. It is a derived count, not observed GPU allocation or latency. Actual GQA/MLA execution belongs to the next lessons.
+
+A three-event timeline shows 0, 1, 20 seconds versus ordinal 0, 1, 2, then converts timestamps and frequencies consistently to milliseconds. A 2×3 image patch grid links row/column coordinates to flattened order and highlights the row-boundary adjacency artifact. A two-axis rotary schematic allocates separate pairs to x and y; it is a conceptual construction, not a claim to reproduce every vision checkpoint. These concise diagrams connect the core mechanisms to distinct applications without new decorative labs.
+
+## Phase-two closure
+
+Implement all core explanatory figures and the investigations that remain necessary after reviewing the complete packet; any simplification must preserve the learning hurdles, genuine edits and checked contrasts. Do not impose a fixed lab count. Independent review must cover formulas/basis conventions, actual model parity/data claims, input/output state consistency and real-data limitations. Then exercise keyboard, screen reader summaries, narrow viewport, reduced motion, overflow and lazy-load failure recovery. Render screenshots only in that authorized implementation phase; this specification does not claim rendered acceptance.
+
+Keep all pending packet inputs until their purposes are fulfilled. Package actual programs/data/provenance as optional downloads and compact runtime assets by semantic purpose; no temporal batch filenames. Do not eagerly import topic source or whole training histories. When implementation finds a material issue, fix the affected content/specification/evidence and ask the root owner to refresh the content checkpoint. Unchanged fit campaigns need not be repeated.
+
+## Written implementation route and placement — 22 September 2026
+
+Connect the existing offset timeline to position_library_bridge.py. A small key explains boolean legality versus floating additive bias; the repeated-position table highlights accumulated gradient in row7 twice and row9 once. Keep rotary geometry and learned table axes distinct. No new uniform simulator is required.
+
+Use topic-owned responsive diagrams and local scrolling for code/matrices. Long filenames and links wrap within the reader at 320px. Show source/setup/download dependencies at the relevant explanation; deferred Python programs load only on request. Keep labels outside geometric marks where possible, fixed scale comparisons truthful, and current results visible during edits. No learner prediction field, submit button, answer lock or optional prediction gate is specified. Existing numerical/interaction checks still apply, and optional package/checkpoint routes carry their actual unexecuted status until phase two supplies evidence.

@@ -1,0 +1,42 @@
+{
+  "verifiedAt": "2026-09-14T22:59:52.844915+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/bias-variance-examples.js",
+  "sourceHash": "fb2acb3099d5898f07939043b7dcccaa51146aa9c310011a579708436ff815a7",
+  "verifier": "scripts/verify-bias-variance-examples.py",
+  "verifierHash": "11d9f3b6c1a0734a43d710fd14b87d26255ee5b822cceccec9b882460e86794d",
+  "versions": {
+    "numpy": "2.3.5",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "finiteWorlds": {
+      "file": "bias_variance_worlds.py",
+      "appended": false,
+      "codeHash": "a353f2844d7c28c5d9d12a5bcc048ccb2104fdc956fe4668c49d55f5f86caa32",
+      "stdoutHash": "b243a8081d5a5a0148d42cef00f2a76e19d5c65f414077ce904e11259a525c91",
+      "stdout": "0 [1.666667 1.666667] [0.444444 0.006944] [0.083333 0.083333] [0.777778 0.340278]\n1 [1.666667 2.166667] [0.444444 0.173611] [0.083333 0.114583] [0.777778 0.538194]\n2 [1.   1.75] [0. 0.] [0.25     0.179688] [0.5      0.429688]"
+    },
+    "airfoilLearningCurve": {
+      "file": "airfoil_learning_curve.py",
+      "appended": false,
+      "codeHash": "13d4142f9f5b430e95e050d95ae8de836e14e4e0d97515a4c3879bd8a379a303",
+      "stdoutHash": "54bf93bd7666f17166e86dcc373b106aea069857d183d43f1f876b214e8842fa",
+      "stdout": "mean\n60 43.1969 45.4545\n120 41.0584 45.081\n240 44.2372 45.2469\n480 43.4767 45.2065\n900 45.0987 45.222\nridge\n60 17.7898 24.9831\n120 20.0128 23.8044\n240 21.2317 23.6478\n480 22.0263 23.4994\n900 22.7528 23.372\ntree_leaf1\n60 -0.0 41.8405\n120 -0.0 24.4041\n240 -0.0 20.1754\n480 -0.0 13.7464\n900 -0.0 8.1412\ntree_leaf20\n60 32.8389 39.9286\n120 23.75 32.3389\n240 21.9108 28.1945\n480 16.1018 21.6109\n900 12.5438 16.6298"
+    },
+    "settingAndTrajectory": {
+      "file": "airfoil_learning_curve.py",
+      "appended": true,
+      "codeHash": "5e1a92dabc7064b53830f30ff7eeac49301fe425e9619e33d32d1a997b6d2bd6",
+      "stdoutHash": "1ff5408859856dc6189c600b8e34b66b840763de64683aca39ed1ced3faba1cc",
+      "stdout": "leaf 1 -0.0 8.2079\nleaf 2 1.267 8.5475\nleaf 5 4.5952 10.1516\nleaf 10 8.2474 12.3799\nleaf 20 12.2123 15.7762\nleaf 40 18.8711 21.8071\nround 1 41.5026 42.9204\nround 10 26.9413 28.0979\nround 30 17.5512 20.0168\nround 60 13.0405 15.3584\nround 120 9.1042 12.3338\nbest inspected round 120"
+    }
+  },
+  "oracles": 55,
+  "limits": [
+    "The airfoil programs ran against this lesson's served copy of the supplied .dat; no network access was used.",
+    "One row-level split of one collection; the scores are model-development results.",
+    "No reserved row was predicted or scored by any program here.",
+    "Numerical fitting can differ on other library versions."
+  ]
+}

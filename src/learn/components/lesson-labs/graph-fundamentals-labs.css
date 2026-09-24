@@ -1,0 +1,485 @@
+.graph-fundamentals-lesson {
+  --gf-gold: #edc26a;
+  --gf-green: #7ecfa6;
+  --gf-blue: #8ab9ec;
+  --gf-red: #e89992;
+  --gf-bg: #101419;
+  --gf-line: #3c454e;
+}
+
+.graph-fundamentals-lesson .lesson-lab,
+.gf-inline {
+  color: #c9d0d6;
+}
+
+.gf-inline {
+  margin: 1.6rem 0 2rem;
+  border-block: 1px solid #2b3037;
+  padding: 1.3rem 0;
+}
+
+.gf-inline figcaption, .gf-caption {
+  font-size: .9rem;
+  line-height: 1.65;
+  color: #a4afb9;
+}
+
+.gf-linked {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 1.2rem;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.gf-network, .gf-trajectories {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+.graph-fundamentals-lesson .gf-network text, .graph-fundamentals-lesson .gf-trajectories text {
+  font-family: inherit;
+  font-size: 17px;
+  fill: #d8dfe5;
+}
+
+.gf-network circle {
+  fill: #172027;
+  stroke: #adb8c1;
+  stroke-width: 1.5;
+}
+
+.gf-network .gf-active-node circle {
+  stroke: var(--gf-gold);
+  stroke-width: 3;
+}
+
+.gf-network .gf-anchor-node > rect {
+  fill: transparent;
+  stroke: var(--gf-green);
+  stroke-width: 1.5;
+}
+
+.gf-network .gf-edge {
+  color: #8d9ca8;
+}
+
+.gf-network .gf-edge rect {
+  fill: #101419;
+}
+
+.gf-network .gf-edge text {
+  fill: var(--gf-gold);
+  font-size: 14px;
+}
+
+.gf-network .gf-signal-label {
+  fill: var(--gf-gold);
+  font-size: 16px;
+}
+
+.gf-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .9rem 1.1rem;
+  margin: 1.2rem 0;
+}
+
+.gf-controls label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  font-size: .9rem;
+  line-height: 1.6;
+  max-width: 100%;
+}
+
+.gf-controls input[type="checkbox"] {
+  accent-color: var(--gf-gold);
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.gf-controls button, .gf-controls select {
+  color: #e0c488;
+  background: #151a20;
+  border: 1px solid #4b4d49;
+  border-radius: 4px;
+  min-height: 42px;
+  padding: .5rem .65rem;
+  font: inherit;
+  font-size: .85rem;
+  max-width: 100%;
+}
+
+.gf-controls button {
+  cursor: pointer;
+}
+
+.gf-controls button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+
+.gf-controls :is(button, select, input):focus-visible, .gf-matrix:focus-visible {
+  outline: 2px solid var(--gf-gold);
+  outline-offset: 4px;
+}
+
+.gf-controls .gf-range {
+  display: block;
+  width: min(100%, 240px);
+}
+
+.gf-range > span {
+  display: flex;
+  justify-content: space-between;
+  gap: .7rem;
+}
+
+.gf-range input {
+  width: 100%;
+  min-height: 32px;
+  accent-color: var(--gf-gold);
+}
+
+.gf-signal-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .15rem;
+}
+
+.gf-signal-controls .gf-range {
+  width: 100%;
+}
+
+.gf-matrix {
+  overflow-x: auto;
+  max-width: 100%;
+  padding: .3rem 0 .6rem;
+}
+
+.gf-matrix table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: .8rem;
+  margin: 0 auto;
+  min-width: max-content;
+}
+
+.gf-matrix caption {
+  text-align: left;
+  color: #d4b574;
+  font-size: .85rem;
+  padding-block: .5rem;
+}
+
+.gf-matrix th, .gf-matrix td {
+  text-align: center;
+  padding: .42rem .38rem;
+  border: 1px solid #313b43;
+  min-width: 29px;
+}
+
+.gf-matrix thead th:first-child {
+  font-size: .65rem;
+  max-width: 66px;
+  white-space: normal;
+}
+
+.gf-matrix th {
+  font-weight: 500;
+  color: #bec7ce;
+}
+
+.gf-matrix td {
+  color: #88939d;
+}
+
+.gf-matrix td.gf-nonzero {
+  color: #e0c483;
+  background: #211f19;
+}
+
+.gf-matrix td.gf-selected {
+  outline: 2px solid var(--gf-gold);
+  outline-offset: -2px;
+}
+
+.gf-result {
+  border-block: 1px solid #3c403c;
+  padding-block: .8rem;
+}
+
+.gf-result strong {
+  color: var(--gf-gold);
+}
+
+.gf-walks {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  max-height: 310px;
+  overflow-y: auto;
+}
+
+.gf-walks > div {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #29313a;
+  padding: .35rem .2rem;
+  font-size: .9rem;
+}
+
+.gf-walks > div span:first-child {
+  color: var(--gf-gold);
+}
+
+.gf-group {
+  display: inline-block;
+  padding: .1rem .4rem;
+  margin: .15rem .35rem .15rem 0;
+  border-bottom: 2px solid var(--gf-green);
+  font-size: .9rem;
+}
+
+.gf-node-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: .7rem 0;
+}
+
+.gf-node-values > span {
+  display: inline-flex;
+  gap: .5rem;
+  align-items: center;
+  padding: .28rem .5rem;
+  border: 1px solid #38424a;
+  font-size: .86rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.gf-node-values strong {
+  color: var(--gf-gold);
+  font-weight: 500;
+}
+
+.gf-row-equation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.gf-row-equation > span {
+  border-bottom: 2px solid #849cb2;
+  padding: .5rem .6rem;
+  font-size: .9rem;
+}
+
+.gf-row-equation small {
+  display: block;
+  color: #a8b6c0;
+}
+
+.gf-energy-bars {
+  margin-block: 1.2rem;
+  display: grid;
+  gap: .7rem;
+}
+
+.gf-energy-bars > div {
+  display: grid;
+  grid-template-columns: 42px minmax(30px, 1fr) minmax(90px, 1fr);
+  gap: .55rem;
+  align-items: center;
+  font-size: .84rem;
+}
+
+.gf-energy-bars > div > div {
+  height: 13px;
+  background: #222b30;
+}
+
+.gf-energy-bars i {
+  display: block;
+  height: 100%;
+  background: var(--gf-gold);
+}
+
+.gf-incidence-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.gf-incidence-flow > div {
+  border-left: 1px solid #6a706b;
+  padding-left: .8rem;
+}
+
+.gf-incidence-flow strong, .gf-flow-result > strong {
+  font-size: .93rem;
+}
+
+.gf-incidence-flow p {
+  font-size: .85rem;
+  margin: .5rem 0;
+}
+
+.gf-flow-result {
+  margin-block: 1rem;
+  padding-block: .7rem;
+  border-block: 1px solid #313b43;
+}
+
+.gf-trajectories line {
+  stroke: #35414a;
+  stroke-width: 1;
+}
+
+.gf-series polyline {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.gf-series circle {
+  fill: currentColor;
+}
+
+.gf-series-0 {
+  color: var(--gf-gold);
+}
+
+.gf-series-1 {
+  color: var(--gf-green);
+}
+
+.gf-series-2 {
+  color: var(--gf-blue);
+}
+
+.gf-series-3 {
+  color: var(--gf-red);
+}
+
+.gf-series-3 polyline {
+  stroke-dasharray: 4 4;
+}
+
+.gf-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem;
+  margin-block: .6rem;
+  font-size: .9rem;
+}
+
+.gf-legend > span {
+  border-bottom: 2px solid currentColor;
+}
+
+.gf-cutoff-flow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.gf-cutoff-flow > div {
+  padding: .2rem .8rem;
+  border-left: 2px solid var(--gf-green);
+}
+
+.gf-cutoff-flow .gf-future {
+  border-color: var(--gf-red);
+}
+
+.gf-cutoff-flow strong {
+  display: block;
+  font-size: .95rem;
+}
+
+.gf-time-edge {
+  display: block;
+  font-size: 1.3rem;
+  margin: .8rem 0;
+  letter-spacing: .04em;
+}
+
+.gf-time-edge small {
+  display: block;
+  color: #b4bdc7;
+  font-size: .8rem;
+  letter-spacing: normal;
+}
+
+.gf-cutoff-flow p {
+  font-size: .87rem;
+  line-height: 1.65;
+}
+
+.graph-fundamentals-lesson .gf-practice {
+  margin-block: 1.5rem;
+}
+
+.graph-fundamentals-lesson details > summary {
+  cursor: pointer;
+  line-height: 1.6;
+}
+
+@media (max-width: 780px) {
+  .gf-linked {
+    grid-template-columns: 1fr;
+    gap: .7rem;
+  }
+  .gf-network, .gf-trajectories {
+    max-width: 360px;
+  }
+  .gf-incidence-flow {
+    grid-template-columns: 1fr;
+    gap: .7rem;
+  }
+  .gf-incidence-flow > div {
+    border-left: 2px solid #6a706b;
+  }
+  .gf-cutoff-flow {
+    grid-template-columns: 1fr;
+  }
+  .gf-controls .gf-range {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .graph-fundamentals-lesson .lesson-lab {
+    padding-inline: .75rem;
+  }
+  .gf-matrix th, .gf-matrix td {
+    padding-inline: .28rem;
+    min-width: 25px;
+  }
+  .gf-controls {
+    gap: .75rem;
+  }
+  .gf-selects label {
+    flex: 1 1 65px;
+  }
+  .gf-controls select {
+    font-size: .8rem;
+  }
+  .gf-energy-bars > div {
+    grid-template-columns: 36px minmax(25px, .7fr) minmax(90px, 1.3fr);
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T15:15:04.198Z",
+  "base": "http://127.0.0.1:4191",
+  "browser": "153.0.4234.48",
+  "records": [
+    {
+      "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+      "labs": 6,
+      "controlChanges": 6,
+      "semanticChecks": []
+    },
+    {
+      "id": "clustering-evaluation-validation-silhouette-ari-nmi",
+      "labs": 5,
+      "controlChanges": 5,
+      "semanticChecks": [
+        "Invalid coincident probe locations preserve valid fitted centers and show explicit error"
+      ]
+    },
+    {
+      "id": "cross-validation-hyperparameter-tuning",
+      "labs": 4,
+      "controlChanges": 4,
+      "semanticChecks": [
+        "Empty validation fold shows error and clears invalid output; Reset restores calculation"
+      ]
+    },
+    {
+      "id": "dbscan-density-based-clustering",
+      "labs": 4,
+      "controlChanges": 4,
+      "semanticChecks": []
+    },
+    {
+      "id": "decision-trees-random-forests",
+      "labs": 7,
+      "controlChanges": 7,
+      "semanticChecks": []
+    },
+    {
+      "id": "ensemble-methods-stacking",
+      "labs": 6,
+      "controlChanges": 6,
+      "semanticChecks": []
+    },
+    {
+      "id": "feature-scaling-encoding-imputation",
+      "labs": 4,
+      "controlChanges": 4,
+      "semanticChecks": []
+    },
+    {
+      "id": "gaussian-mixture-models-gmm-em-algorithm",
+      "labs": 3,
+      "controlChanges": 3,
+      "semanticChecks": [
+        "Identical-component responsibilities equal edited mixing weights",
+        "E-step preserves likelihood; M-step increases it; setup edit restarts the actual trace"
+      ]
+    },
+    {
+      "id": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+      "labs": 6,
+      "controlChanges": 5,
+      "semanticChecks": []
+    },
+    {
+      "id": "independent-component-analysis-ica",
+      "labs": 3,
+      "controlChanges": 3,
+      "semanticChecks": [
+        "Invalid zero compensation retains explicitly labelled last valid table; Reset clears error"
+      ]
+    },
+    {
+      "id": "k-nearest-neighbors-knn",
+      "labs": 6,
+      "controlChanges": 6,
+      "semanticChecks": []
+    },
+    {
+      "id": "linear-logistic-regression",
+      "labs": 5,
+      "controlChanges": 5,
+      "semanticChecks": []
+    },
+    {
+      "id": "multi-label-multi-output-learning",
+      "labs": 6,
+      "controlChanges": 4,
+      "semanticChecks": []
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "labs": 6,
+      "controlChanges": 4,
+      "semanticChecks": []
+    },
+    {
+      "id": "non-negative-matrix-factorization-nmf",
+      "labs": 3,
+      "controlChanges": 3,
+      "semanticChecks": [
+        "NMF edited contributions update immediately and explicit saved reference remains fixed"
+      ]
+    },
+    {
+      "id": "pca-dimensionality-reduction",
+      "labs": 4,
+      "controlChanges": 4,
+      "semanticChecks": [
+        "Projection angle moves actual conserved retained/residual sums 10/10→18/2"
+      ]
+    },
+    {
+      "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+      "labs": 8,
+      "controlChanges": 8,
+      "semanticChecks": []
+    },
+    {
+      "id": "regularization-l1-l2-elastic-net-dropout",
+      "labs": 4,
+      "controlChanges": 4,
+      "semanticChecks": []
+    },
+    {
+      "id": "support-vector-machines-svm",
+      "labs": 7,
+      "controlChanges": 6,
+      "semanticChecks": []
+    },
+    {
+      "id": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+      "labs": 8,
+      "controlChanges": 8,
+      "semanticChecks": []
+    },
+    {
+      "id": "t-sne-umap-manifold-learning",
+      "labs": 4,
+      "controlChanges": 4,
+      "semanticChecks": []
+    }
+  ],
+  "phone": {
+    "width": 390,
+    "height": 844,
+    "topicIds": [
+      "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+      "clustering-evaluation-validation-silhouette-ari-nmi",
+      "cross-validation-hyperparameter-tuning",
+      "dbscan-density-based-clustering",
+      "decision-trees-random-forests",
+      "ensemble-methods-stacking",
+      "feature-scaling-encoding-imputation",
+      "gaussian-mixture-models-gmm-em-algorithm",
+      "gradient-boosted-trees-xgboost-lightgbm-catboost",
+      "independent-component-analysis-ica",
+      "k-nearest-neighbors-knn",
+      "linear-logistic-regression",
+      "multi-label-multi-output-learning",
+      "naive-bayes-probabilistic-classifiers",
+      "non-negative-matrix-factorization-nmf",
+      "pca-dimensionality-reduction",
+      "recommender-systems-collaborative-filtering-matrix-factorization",
+      "regularization-l1-l2-elastic-net-dropout",
+      "support-vector-machines-svm",
+      "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+      "t-sne-umap-manifold-learning"
+    ],
+    "pageOverflow": false
+  },
+  "reusedDesktop": {
+    "record": "docs/teaching/evidence/live-exploration-classical-early-desktop.json",
+    "sha256": "bd0a6160a229ac69d9f9590fadd035c96d7719724f17b9e297f5c8d43b9adeb2",
+    "topics": 20,
+    "sourceUnchangedVerified": true,
+    "freshDesktopTopic": "survival-analysis-cox-regression-kaplan-meier-hazard-models"
+  },
+  "sourceHashes": {
+    "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx": "f2934b93c83fac39133d0cc541bc591751d36e2e7575886d6db1db2b01c4c44f",
+    "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": "2ef14cfa068202c4722594fea26c0d29ba30ddec760f8892a05d1932ff946f97",
+    "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx": "5bdfef7cf8ea2790b2052d18881c5e63ddc2c905b39c297dd0a8e63e2ca017e1",
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx": "d7d3f8d01c52421cf6e96695ffe5b3dbc8e00ae278d1d4b8f0c06d33978617a7",
+    "src/learn/data/topics/decision-trees-random-forests.jsx": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad",
+    "src/learn/data/topics/ensemble-methods-stacking.jsx": "53980d005996d206a0cd58d43dc0110bb222409bd52ac3b27a8db064e03dc911",
+    "src/learn/data/topics/feature-scaling-encoding-imputation.jsx": "9f903641dec12140e18787802f11319359936ab43c4a09c6d7b091406bcacd6c",
+    "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx": "9e362850421b6e71c633638bed1a94920b97118bf69bd43950a4b72a4f7f1832",
+    "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx": "59aa6411f61cbc9ef8e9c96480a2111e7d46e518825aa5926aa5223f9507ac3f",
+    "src/learn/data/topics/independent-component-analysis-ica.jsx": "2566e0d147422058bc8c5785caaf6fc9885e5965fc7f07b3171eb14cf73d4092",
+    "src/learn/data/topics/k-nearest-neighbors-knn.jsx": "912c8deb930610864c1a448572d40cdb6bd9721aefeeec38b01e8be9d1523516",
+    "src/learn/data/topics/linear-logistic-regression.jsx": "01fc9b7a36cd61fa58db89e34a6d465abf91b68b3b1b7cd9a0208328119c2791",
+    "src/learn/data/topics/multi-label-multi-output-learning.jsx": "331e22b460f9aae9395f3ac05c3cefcc23e28329083564fa9f1bd2faa296528b",
+    "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "6a73f01a50c186b519e678b15a11b5ac80d663c45f9fb986162785ffe7cf4a95",
+    "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx": "28347f106476c2afe621e04ede34beeb022c0c3b547e0eb3b0b8112a880eb5f3",
+    "src/learn/data/topics/pca-dimensionality-reduction.jsx": "072b72f8354d6341dfdb9d538968c196bb1e613b72795068160aa49beac7fc85",
+    "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "66c718d1ff57ed35bd8735807578a746bc6f116783367bc17e1811e797a3d12c",
+    "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx": "5d3a850e514f0d7e51593f5595b4f2e066c473137cdf03604e824ad7f334d78e",
+    "src/learn/data/topics/support-vector-machines-svm.jsx": "6be84f25e70585a9337e5ad9f583c5bce6d2101d139b2e39370f459d2d6ca3e9",
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "3596586fafb24aba04a904d7e5f4eefe18196bff0c1c524a80d709f1b5ae7d08",
+    "src/learn/data/topics/t-sne-umap-manifold-learning.jsx": "a714cd9aaafd2dc794666a57d06bf0383b963ef447cb34d8bd581d8951ca8ef5",
+    "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": "4c60761c52d1da210ee948ba4f877d4830dab3a45c8abe9bbb461cf65afcf8df",
+    "src/learn/components/lesson-labs/AnomalyDetectionShared.jsx": "13cbecbe6b059f970c1d636c969561dbf48618cf6e76562c1aa63ff7c18d9169",
+    "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx": "1b4e562ebe7b26dd0d34628cd67032fa6558630b381c5a66ba8a3632f8a9ba26",
+    "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": "510a227d889fb553b905f9ab7665121b24964e3323879889f4e9121ac32cbf62",
+    "src/learn/components/lesson-labs/DbscanLabs.jsx": "8194794bff7f3bf13e0000d92d66c0507d064744e12f9fe4b93ec13e7632531b",
+    "src/learn/components/lesson-labs/DecisionTreeLabs.jsx": "adfb49ceffd0c89a96898e24e48c842c2d1d054e3e631f25c8e0ee9de3341da1",
+    "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "01eef067649f9337ecd9150c9becf0d673db6afad82a312d14c16ad756c27b42",
+    "src/learn/components/lesson-labs/GmmLabs.jsx": "72cd79fd10897a5db3a3f565709b2df2c274c94ef8149f7f5f7104d742fbc918",
+    "src/learn/components/lesson-labs/GmmShared.jsx": "643494276347906de3bea0d9a9bc2b6eef7c5b336fb271269a948f826027814e",
+    "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx": "438e99e10ce921293f2bebb582a815f2dce5dcf5e9ecfbe97a13f0ca58848208",
+    "src/learn/components/lesson-labs/IcaLabs.jsx": "63c67833d366da2da92090f4471e6172fb3b0afb8ee8885ece21bb69daca705d",
+    "src/learn/components/lesson-labs/IcaShared.jsx": "a06ca69bad0e6faaea4b986da242daeb4a3cbf95d1bf5a734d8fc1bb0e735d96",
+    "src/learn/components/lesson-labs/KnnLabs.jsx": "458fdb4433e98c9a8e0728a345b00e4600c0b1b0703ce9ae0245a49f2dfba282",
+    "src/learn/components/lesson-labs/LinearLogisticLabs.jsx": "3fac0ca4df05542373c8078a9772b218f1708d6066a64d23b16a8123ae1e7b33",
+    "src/learn/components/lesson-labs/ManifoldLabs.jsx": "ef50172ee5825e0665c07755b8a34554b0961b902d1afdc8c9227d1e63267015",
+    "src/learn/components/lesson-labs/ManifoldShared.jsx": "bb727bbdb87c3017e7a7aa58fbaa54bbad8fa150bb9072bea2457b3feefebfa6",
+    "src/learn/components/lesson-labs/MultioutputLabs.jsx": "6f8c3f0eb534605884f6a72b11b524234e09c2a9f08d3b86307ec7b0d17fadc2",
+    "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "5eee49de19943ac73a8ad41ab246e1ce9b4cb528b015fa4dcb8b3b5227e79747",
+    "src/learn/components/lesson-labs/NmfLabs.jsx": "79eb2129f86c313e409cf66bffe3ee6e0805c07fbef1c37203a0632cbdea51d8",
+    "src/learn/components/lesson-labs/NmfShared.jsx": "c31dcb81b7f1a7522a7d4a050905d470cb02e0f369fc8a48261602634a4e60a7",
+    "src/learn/components/lesson-labs/PcaLabs.jsx": "3facc5b04be7dd2be728bc1a8f466e8d2058f8b4d6b83387e0c4e5a018d9ba3f",
+    "src/learn/components/lesson-labs/RecommenderLabs.jsx": "16141ecd8832aa7a4fce3f6e62181cb16ed8045a66b46030481b797850204177",
+    "src/learn/components/lesson-labs/RegularizationLabs.jsx": "f856694df6be54a58030e67fba6630d7d851afe609b592c2249d177188e0adad",
+    "src/learn/components/lesson-labs/RegularizationShared.jsx": "18214392dd4fb1a5e6f1c7bd341738930a153111edfbb6da2dd65b6607d65795",
+    "src/learn/components/lesson-labs/ScalingLabs.jsx": "b77cafeb110e92d154372f2921be0989e6011f25e54e531f329de094c782cc97",
+    "src/learn/components/lesson-labs/ScalingShared.jsx": "48ae0461ae9880f200b5403ccc871d66bf9ec69856623c61275f471c955d719a",
+    "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx": "7f8b78c07598dfe3d6e60c8aecc55981d2ef4e32836d840ac2fdb8384b272abb",
+    "src/learn/components/lesson-labs/SurvivalLabs.jsx": "1016af0b18efdf6a975a8b9fa15557ee8ac8a2a09372e4f5bcf36d882c30bb8c",
+    "src/learn/components/lesson-labs/ValidationLabs.jsx": "d22d96f1a80d328b7c08d4de1d29127f3b897432e4dd280f54a20e5e272691ca",
+    "src/learn/components/lesson-labs/ValidationShared.jsx": "2e3484fc2f53b258f595176a3d30fd7e362c859c667713b169b94ed5b84100e8"
+  },
+  "verifierSha256": "b690d0ee896ee2139fa8c8f3a9f3bb6744dd90c9f8d5700d0282a7248ef4f93e",
+  "limitations": "One Chromium engine. Control smoke checks establish an observable update; selected arithmetic, algorithm-step and invalid-input cases have explicit assertions. Direct model math is unchanged. Reused desktop groups are named explicitly; all21phone routes run fresh."
+}

@@ -1,0 +1,16 @@
+Banknote Authentication
+Volker Lohweg (2012), donated 2013. UCI Machine Learning Repository.
+https://doi.org/10.24432/C55P57  ·  https://archive.ics.uci.edu/dataset/267/banknote+authentication
+Licensed CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+banknote-data.csv holds the unchanged bytes of the ZIP member data_banknote_authentication.txt,
+46400 bytes, SHA-256 d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9.
+The containing archive, banknote+authentication.zip, has SHA-256
+1e2acd9a2085fadf3d8145c12d3d22af853320d52294a6590c2eaf75fdc05227.
+Only the filename changed; no row, column, header or separator was altered.
+Comma separated, CRLF line endings, 1,372 rows and five columns: variance, skewness,
+kurtosis (spelled "curtosis" at the source) and entropy of image-derived measurements,
+then the original numeric class, 0 or 1. Physical units, the meaning of each numeric class,
+and any specimen or capture-session identifier are not supplied by the source record.
+1,348 of the feature vectors are distinct; 11 vectors repeat, accounting for 24 further rows,
+and every repeated vector carries one consistent class label.
+This lesson serves its own copy so that no other lesson's asset edit can change it.

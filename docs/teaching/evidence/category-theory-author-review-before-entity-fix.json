@@ -1,0 +1,706 @@
+{
+  "topicId": "category-theory-emerging-use-in-ml",
+  "modulePosition": 41,
+  "authorFreezeAt": "2026-09-10T23:56:13.710Z",
+  "status": "author-frozen; independent review, production integration and user acceptance are separate",
+  "production": [
+    {
+      "path": "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx",
+      "sha256": "bbb866c7ac5fcbb1bd2b87c191d90e37f63d0b033665f93de51941fa6658e120",
+      "bytes": 48210
+    },
+    {
+      "path": "src/learn/data/category-theory-models.js",
+      "sha256": "75ba527d2ee1a67cb84af56e52119f0f1ae5e11e6c916b974e74ec09bf15f770",
+      "bytes": 9777
+    },
+    {
+      "path": "src/learn/data/category-theory-examples.js",
+      "sha256": "130fb496e82ec5e387f3e08f3eef2421bcca8281b8a33a0b47944666c57ce593",
+      "bytes": 21193
+    },
+    {
+      "path": "src/learn/components/lesson-labs/CategoryTheoryLabs.jsx",
+      "sha256": "21ea46af7a2330b962d9f5cab0dad2d15811549ec54ca975121220fa33f46c69",
+      "bytes": 22328
+    },
+    {
+      "path": "src/learn/components/lesson-labs/category-theory-labs.css",
+      "sha256": "6da55514358eebcab7bc018e6bb19e79e7c842758ac4a21e4a71aeb43cef5083",
+      "bytes": 10186
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/category-theory-emerging-use-in-ml.js",
+      "sha256": "0f6516d1304442d1975fb2d3c14a77f5df8beeff3510429099c931d9c06c685d",
+      "bytes": 4482
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/teaching/CATEGORY-THEORY-LESSON-DESIGN.md",
+      "sha256": "59a0ee4f21a2787f5b4a10eedd58deb17d6a88a7050f9465155cb536feb04b0f",
+      "bytes": 19999
+    },
+    {
+      "path": "docs/teaching/CATEGORY-THEORY-VERIFICATION.md",
+      "sha256": "359535005ad0340e12ea82d316c8197206f9521a2571c1d5d026d972a2204e06",
+      "bytes": 8227
+    },
+    {
+      "path": "docs/teaching/evidence/category-theory-original-content.json",
+      "sha256": "43d2500a678700aa9fe9f1eed5a9ccb5db999eb787dc50e5ad461547f17fd314",
+      "bytes": 7990
+    },
+    {
+      "path": "docs/teaching/topic-notes/category-theory-emerging-use-in-ml.md",
+      "sha256": "248ea29d179ca976cc6b960a8bcb79f977b2472f3699ecfb0cdd6d5bd313eecb",
+      "bytes": 4264
+    },
+    {
+      "path": "scripts/build-category-theory-examples.py",
+      "sha256": "7bcb6e5620f13c9b82f08078b02667f72b9b46a832696caf782245cdebf701f5",
+      "bytes": 19654
+    },
+    {
+      "path": "scripts/verify-category-theory-models.mjs",
+      "sha256": "f79de8e9cf1c45636ed7bf2d463a572d44583f32162bb0808c21773cff842d5b",
+      "bytes": 3311
+    },
+    {
+      "path": "scripts/verify-category-theory-native.py",
+      "sha256": "8352c6fa99eea239190e0f8513a346ab74ae8f842ffe495f3f209bf84dcca76f",
+      "bytes": 7566
+    },
+    {
+      "path": "scripts/review-category-theory-lesson.cjs",
+      "sha256": "2f51ad18577b1e1e9578acec7ea84b7b02e80ef26abfc9aad06f287fae9fa4c9",
+      "bytes": 14118
+    },
+    {
+      "path": "scripts/review-category-theory-keyboard.cjs",
+      "sha256": "0e2498fcc5d1256e1bff243b435bf69aa4c167291c04560176c558f0621d0112",
+      "bytes": 2451
+    },
+    {
+      "path": "scripts/format-category-theory-source.cjs",
+      "sha256": "791e3f49a2e10d2f9e14561fdc046ae7375793b358d63462f55b305afd455810",
+      "bytes": 2631
+    }
+  ],
+  "nativeVerification": {
+    "passed": true,
+    "verifiedAt": "2026-09-10T23:43:12.946158+00:00",
+    "programs": 11,
+    "modelCases": {
+      "compositions": 192,
+      "naturality": 968,
+      "products": 12,
+      "probability": 101,
+      "tangents": 2745,
+      "adjunctions": 10368
+    },
+    "actualHelperChangedCases": {
+      "schema": 8,
+      "option": 448,
+      "homology": 113,
+      "channels": 625
+    },
+    "limits": "Finite exact oracles and displayed-program execution support these implementation cases; the lesson's general laws require its separate mathematical proofs."
+  },
+  "browserVerification": {
+    "passed": true,
+    "verifiedAt": "2026-09-10T23:45:04.586Z",
+    "browser": "152.0.4191.66",
+    "sources": [
+      {
+        "file": "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx",
+        "sha256": "bbb866c7ac5fcbb1bd2b87c191d90e37f63d0b033665f93de51941fa6658e120"
+      },
+      {
+        "file": "src/learn/data/category-theory-models.js",
+        "sha256": "75ba527d2ee1a67cb84af56e52119f0f1ae5e11e6c916b974e74ec09bf15f770"
+      },
+      {
+        "file": "src/learn/data/category-theory-examples.js",
+        "sha256": "130fb496e82ec5e387f3e08f3eef2421bcca8281b8a33a0b47944666c57ce593"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/CategoryTheoryLabs.jsx",
+        "sha256": "21ea46af7a2330b962d9f5cab0dad2d15811549ec54ca975121220fa33f46c69"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/category-theory-labs.css",
+        "sha256": "6da55514358eebcab7bc018e6bb19e79e7c842758ac4a21e4a71aeb43cef5083"
+      }
+    ],
+    "records": [
+      {
+        "width": 1440,
+        "states": 272,
+        "programs": 11,
+        "practiceAndCheckpoints": 14,
+        "anchors": [
+          {
+            "hash": "#1-start-with-things-you-can-connect",
+            "exists": true
+          },
+          {
+            "hash": "#2-name-the-system-and-its-laws",
+            "exists": true
+          },
+          {
+            "hash": "#3-translate-a-whole-system",
+            "exists": true
+          },
+          {
+            "hash": "#4-compare-two-compatible-translations",
+            "exists": true
+          },
+          {
+            "hash": "#5-specify-an-object-by-what-it-must-do",
+            "exists": true
+          },
+          {
+            "hash": "#6-compose-parallel-work-and-possible-failure",
+            "exists": true
+          },
+          {
+            "hash": "#7-compose-randomness-without-losing-dependence",
+            "exists": true
+          },
+          {
+            "hash": "#8-keep-the-point-when-you-differentiate",
+            "exists": true
+          },
+          {
+            "hash": "#9-answer-a-forward-question-with-a-backward-filter",
+            "exists": true
+          },
+          {
+            "hash": "#10-reconstruct-a-system-from-compatible-probes",
+            "exists": true
+          },
+          {
+            "hash": "#11-audit-a-complete-data-migration",
+            "exists": true
+          },
+          {
+            "hash": "#12-practise-the-reasoning",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 35,
+        "geometry": {
+          "width": 1440,
+          "documentWidth": 1440,
+          "equations": [
+            {
+              "index": 0,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 1,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 2,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 3,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 4,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 5,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 6,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 7,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 8,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 9,
+              "width": 760,
+              "scroll": 760
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 23.99871575342466,
+          "nonfinitePaths": 0,
+          "loadedFonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "states": 272,
+        "programs": 11,
+        "practiceAndCheckpoints": 14,
+        "anchors": [
+          {
+            "hash": "#1-start-with-things-you-can-connect",
+            "exists": true
+          },
+          {
+            "hash": "#2-name-the-system-and-its-laws",
+            "exists": true
+          },
+          {
+            "hash": "#3-translate-a-whole-system",
+            "exists": true
+          },
+          {
+            "hash": "#4-compare-two-compatible-translations",
+            "exists": true
+          },
+          {
+            "hash": "#5-specify-an-object-by-what-it-must-do",
+            "exists": true
+          },
+          {
+            "hash": "#6-compose-parallel-work-and-possible-failure",
+            "exists": true
+          },
+          {
+            "hash": "#7-compose-randomness-without-losing-dependence",
+            "exists": true
+          },
+          {
+            "hash": "#8-keep-the-point-when-you-differentiate",
+            "exists": true
+          },
+          {
+            "hash": "#9-answer-a-forward-question-with-a-backward-filter",
+            "exists": true
+          },
+          {
+            "hash": "#10-reconstruct-a-system-from-compatible-probes",
+            "exists": true
+          },
+          {
+            "hash": "#11-audit-a-complete-data-migration",
+            "exists": true
+          },
+          {
+            "hash": "#12-practise-the-reasoning",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 35,
+        "geometry": {
+          "width": 390,
+          "documentWidth": 390,
+          "equations": [
+            {
+              "index": 0,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 1,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 2,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 3,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 4,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 5,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 6,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 7,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 8,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 9,
+              "width": 350,
+              "scroll": 350
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 19.339036673553718,
+          "nonfinitePaths": 0,
+          "loadedFonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "states": 272,
+        "programs": 11,
+        "practiceAndCheckpoints": 14,
+        "anchors": [
+          {
+            "hash": "#1-start-with-things-you-can-connect",
+            "exists": true
+          },
+          {
+            "hash": "#2-name-the-system-and-its-laws",
+            "exists": true
+          },
+          {
+            "hash": "#3-translate-a-whole-system",
+            "exists": true
+          },
+          {
+            "hash": "#4-compare-two-compatible-translations",
+            "exists": true
+          },
+          {
+            "hash": "#5-specify-an-object-by-what-it-must-do",
+            "exists": true
+          },
+          {
+            "hash": "#6-compose-parallel-work-and-possible-failure",
+            "exists": true
+          },
+          {
+            "hash": "#7-compose-randomness-without-losing-dependence",
+            "exists": true
+          },
+          {
+            "hash": "#8-keep-the-point-when-you-differentiate",
+            "exists": true
+          },
+          {
+            "hash": "#9-answer-a-forward-question-with-a-backward-filter",
+            "exists": true
+          },
+          {
+            "hash": "#10-reconstruct-a-system-from-compatible-probes",
+            "exists": true
+          },
+          {
+            "hash": "#11-audit-a-complete-data-migration",
+            "exists": true
+          },
+          {
+            "hash": "#12-practise-the-reasoning",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 35,
+        "geometry": {
+          "width": 320,
+          "documentWidth": 320,
+          "equations": [
+            {
+              "index": 0,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 1,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 2,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 3,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 4,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 5,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 6,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 7,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 8,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 9,
+              "width": 280,
+              "scroll": 280
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 15.119770144628099,
+          "nonfinitePaths": 0,
+          "loadedFonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        "errors": []
+      }
+    ]
+  },
+  "keyboardVerification": {
+    "verifiedAt": "2026-09-10T23:54:02.319Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "nativeSelectKeys": true,
+        "resetEnter": true,
+        "focusVisible": true
+      },
+      {
+        "width": 390,
+        "nativeSelectKeys": true,
+        "resetEnter": true,
+        "focusVisible": true
+      },
+      {
+        "width": 320,
+        "nativeSelectKeys": true,
+        "resetEnter": true,
+        "focusVisible": true
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T23:43:12.018Z",
+    "records": [
+      {
+        "file": "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/components/lesson-labs/CategoryTheoryLabs.jsx",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/data/category-theory-models.js",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/category-theory-emerging-use-in-ml.js",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/components/lesson-labs/category-theory-labs.css",
+        "normalizedAstConserved": true
+      }
+    ]
+  },
+  "researchFiles": [
+    {
+      "source": "https://emilyriehl.github.io/files/context.pdf",
+      "file": "scratch\\category-theory-research\\riehl-context.pdf",
+      "sha256": "e4779f34ff0432508f1105912f39a84af3c64799b969507325c80e27c2d994dd",
+      "pages": 299,
+      "downloadedAt": "2026-09-10T22:49:08.067225+00:00"
+    },
+    {
+      "source": "https://dspivak.net/7Sketches.pdf",
+      "file": "scratch\\category-theory-research\\seven-sketches.pdf",
+      "sha256": "2ab5633a48f460ec8d37675c891ac385079e93145d97d34b5490b7cecda25700",
+      "pages": 353,
+      "downloadedAt": "2026-09-10T22:49:17.206367+00:00"
+    },
+    {
+      "source": "https://arxiv.org/pdf/1908.07021",
+      "file": "scratch\\category-theory-research\\markov-kernels.pdf",
+      "sha256": "99ee420f2e620a1e40e23d7dd8b3608c01f9f07bb32850703d33b9e03d48cb4e",
+      "pages": 98,
+      "downloadedAt": "2026-09-10T22:49:21.037563+00:00"
+    },
+    {
+      "source": "https://arxiv.org/pdf/1711.10455",
+      "file": "scratch\\category-theory-research\\backprop-functor.pdf",
+      "sha256": "1c5fe132e696e4a6b2d8e9ca8c45ca1c30a65c501e8f45a234548f05e14abb13",
+      "pages": 17,
+      "downloadedAt": "2026-09-10T22:49:22.638129+00:00"
+    }
+  ],
+  "visualReview": {
+    "openedAt": "2026-09-10T23:56:13.724Z",
+    "scope": "Author actually opened these seventeen final screenshots using view_image; other captures are not counted as viewed.",
+    "images": [
+      {
+        "path": "scratch/category-theory-browser/default-lab-0-320.png",
+        "sha256": "f23ddf24bd8349de5723835b0f683b339ed11a0334555557dddf4a473600180a",
+        "bytes": 82943
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-1-390.png",
+        "sha256": "277dd1f1de4b37ae9b98c91dfb46f3b2907a2213bce83c6ac4179dafa4e12328",
+        "bytes": 59559
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-2-390.png",
+        "sha256": "abf219b6256ca6f0f927e7ea6ae2fbf272558358bfe4c187f3018a8b21208514",
+        "bytes": 56790
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-3-320.png",
+        "sha256": "cbf04959294db65399f8a02c26a54dbaeec27e3e085ed5005a4d369a0f0c1399",
+        "bytes": 59920
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-4-320.png",
+        "sha256": "95992b1e35ac97f6af13f3aef228a4fa6d8eafb7863e5eb08ab8e0fe5ae89ba0",
+        "bytes": 66409
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-5-320.png",
+        "sha256": "f4e97f9e66cfa274f72c03a40ccf59263e0d9e1cf25266994acce83180de6a02",
+        "bytes": 74819
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-6-390.png",
+        "sha256": "7b654ea03a180956b7eb06536b55c078b82f2b10511780d04926de0abd1b187d",
+        "bytes": 51654
+      },
+      {
+        "path": "scratch/category-theory-browser/inline-0-320.png",
+        "sha256": "4f1a0a0ddb2698dfbf29e892f42d15655f780a35e43d4e2706f285ea5376771b",
+        "bytes": 53652
+      },
+      {
+        "path": "scratch/category-theory-browser/inline-1-390.png",
+        "sha256": "38fd501c7a1de85c9d925c4974e188e3e3eb3bc5fccbc14c0c41818aad83e7c2",
+        "bytes": 20830
+      },
+      {
+        "path": "scratch/category-theory-browser/inline-2-320.png",
+        "sha256": "ffb3c86bd5b448af87e0b57c82da8848f9630d3fd82e4b3922446775e3b30282",
+        "bytes": 21220
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-0-1440.png",
+        "sha256": "7cedbf5b3136a8b4ef01fa83c20934b32fce3b0842ef82bc75e4c37386223911",
+        "bytes": 108232
+      },
+      {
+        "path": "scratch/category-theory-browser/naturality-counterexample-1440.png",
+        "sha256": "c73568b20bb8500ad74cc50ed58e1b2e06b9a337da4365aecb849bdf767101d8",
+        "bytes": 59866
+      },
+      {
+        "path": "scratch/category-theory-browser/reading-1-390.png",
+        "sha256": "43e9c8ae5585c663ba3d9239b547ec580be13dd81a8af9aeef0db82fc782f8a6",
+        "bytes": 102092
+      },
+      {
+        "path": "scratch/category-theory-browser/reading-7-320.png",
+        "sha256": "12c05937a57d25af45901bf534f12b4c42875b9f8f445db39e65bbafe432d4c6",
+        "bytes": 74587
+      },
+      {
+        "path": "scratch/category-theory-browser/reading-10-320.png",
+        "sha256": "2a099d1ea64cb7a68032ab9f164aeefee64a687432c08ff6d310a62ae4077e09",
+        "bytes": 72665
+      },
+      {
+        "path": "scratch/category-theory-browser/reading-12-390.png",
+        "sha256": "e3e4d0575d0badadbfb049d593435b0a3fb9d3d10b0e20fab00e8d5e43863829",
+        "bytes": 71601
+      },
+      {
+        "path": "scratch/category-theory-browser/keyboard-program-320.png",
+        "sha256": "75a6836ddadcdbdd27ffddf4de3670b1c9826309a8c47ef1ec4e9d04b3926e07",
+        "bytes": 60187
+      }
+    ]
+  },
+  "limits": [
+    "Finite implementation checks do not establish general category-theoretic laws; the lesson supplies separate proofs.",
+    "Video metadata and official companion material were reviewed, not complete playback.",
+    "Author heuristic review does not imply a beginner study or user acceptance.",
+    "Independent review and integrated production loading remain separate."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "scope": "Native phase-two checks; source-bound. --replay-full reruns the full sweep. Initial22September implementation ran that full producer before this verification.",
+  "fullReplayInThisCommand": false,
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5",
+    "sklearn": "1.9.1",
+    "mup": "1.0.0"
+  },
+  "checks": [
+    "Complete saved 18-digit/54-width/18-probe output equals the conserved packet exactly; producer and data bytes unchanged",
+    "Actual mup1.0.0 outputs, gradients and two Adam updates match the explicit model at widths32/96",
+    "Changed rectangular exercise:3x7 gain0.5 has row Gram0.25I and rank3",
+    "Changed width160 exercise checks multiplier5 and separate Adam group rates",
+    "Both inline Python blocks execute; ordinary nn.init example produces the declared2x3 logits",
+    "All9 base-width standard/mu traces are exactly identical"
+  ],
+  "stdout": "orthogonal rectangular Gram contracts passed\n{'width': 32, 'readout_divisor': 1.0, 'groups': [0.003, 0.003]}\n{'width': 96, 'readout_divisor': 3.0, 'groups': [0.001, 0.003]}\ntorch.Size([2, 3])\n",
+  "sources": {
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/initialization-experiments.py": "8344ad0418e70c2b766bf8d9d3c3afb3ce85805fb101b25465487b06b8cc164b",
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/initialization_library_bridge.py": "a23b106f241159e7e642d9663f26bee8407985eb2f2de4886c203409c96bf37a",
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-assets/weight-initialization-xavier-kaiming-p/calculated-inputs.json": "5eb7934b301fb95d6bb35c875c84a6dcdff94a80d4c7882f28ab1982139b7c84"
+  },
+  "limits": [
+    "CPU-only teaching experiments, no benchmark speed or generalization claim",
+    "LSUV/Fixup are optional explanations, not implemented experimental procedures",
+    "No arbitrary-architecture muP or SGD equivalence claim"
+  ]
+}

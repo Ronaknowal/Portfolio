@@ -1,0 +1,36 @@
+{
+  "capturedAt": "2026-09-11T12:56:24.699Z",
+  "topic": "support-vector-machines-svm",
+  "sourcePath": "src/learn/data/topics/support-vector-machines-svm.jsx",
+  "sha256": "edcc0b20c3c8dae6e74dac451c3b05df9eab899866a6db9f8a63b76c67b4baf4",
+  "bytes": 54398,
+  "snippets": [
+    {
+      "path": "docs/teaching/archive/support-vector-machines-before-rewrite/original-snippet-1.py",
+      "sha256": "3fac7c84747831f7da44793fe0e9c0032bd526685f7664eda17786257a3cc3f2"
+    },
+    {
+      "path": "docs/teaching/archive/support-vector-machines-before-rewrite/original-snippet-2.py",
+      "sha256": "6ea2aec7d1b3d2c767d00a31b8d54b36e5b6c913a3b885e195b8f8016716836e"
+    },
+    {
+      "path": "docs/teaching/archive/support-vector-machines-before-rewrite/original-snippet-3.py",
+      "sha256": "cf16e2a748eb75404eac6ca8798a4e190405d6251af8113f9635b48b851378b7"
+    },
+    {
+      "path": "docs/teaching/archive/support-vector-machines-before-rewrite/original-snippet-4.py",
+      "sha256": "0cb370e69580b94e89f9f8df53254103016dceddb39668aeeb06fad3382cc532"
+    },
+    {
+      "path": "docs/teaching/archive/support-vector-machines-before-rewrite/original-snippet-5.py",
+      "sha256": "a58937c16080ef9f26c4bf663c8f515e1b5fab50e876c184b5d932e7feede15a"
+    },
+    {
+      "path": "docs/teaching/archive/support-vector-machines-before-rewrite/original-snippet-6.py",
+      "sha256": "96cf65b025bff4c42ebc4cee749e2ce279271013407cfe9a2bcf32c9de94e1e8"
+    }
+  ],
+  "note": "Exact preservation, not verification. Original CodeBlocks include dependent fragments and comments-only output/sweep material. Printed assertions in the old body are not accepted as executed evidence.",
+  "parentBaseline": "docs/teaching/evidence/classical-ml-supervised-baseline.json",
+  "supportOwnership": "Original imports shared content/viz only; no dedicated support source to replace."
+}

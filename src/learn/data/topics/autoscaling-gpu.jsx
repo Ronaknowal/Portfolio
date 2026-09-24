@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -929,7 +930,7 @@ spec:
       </Prose>
 
       <Prose>
-        Answer: TTFT can rise without queue depth or KV utilization breaching if the requests currently being served have unusually long prompts — the prefill phase is taking longer than average, directly inflating time-to-first-token. With chunked prefill disabled, a single 10,000-token prefill blocks all decode steps for its full duration. The autoscaler should have TTFT p99 as a standalone scale-up trigger (it should in the composite rule from Section 4c). If TTFT is excluded, the system is blind to prefill-dominated latency spikes. The fix: ensure the composite decision function includes <Code>ttft_p99_ms > SLO_threshold</Code> as an independent OR branch, and if chunked prefill is not enabled, enable it to bound per-step prefill impact.
+        Answer: TTFT can rise without queue depth or KV utilization breaching if the requests currently being served have unusually long prompts — the prefill phase is taking longer than average, directly inflating time-to-first-token. With chunked prefill disabled, a single 10,000-token prefill blocks all decode steps for its full duration. The autoscaler should have TTFT p99 as a standalone scale-up trigger (it should in the composite rule from Section 4c). If TTFT is excluded, the system is blind to prefill-dominated latency spikes. The fix: ensure the composite decision function includes <Code>{"ttft_p99_ms > SLO_threshold"}</Code> as an independent OR branch, and if chunked prefill is not enabled, enable it to bound per-step prefill impact.
       </Prose>
 
       <H3>Exercise 3 — Predictive autoscaler lead time</H3>

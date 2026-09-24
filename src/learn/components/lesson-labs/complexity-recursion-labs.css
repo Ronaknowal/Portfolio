@@ -1,0 +1,50 @@
+.complexity-lab, .complexity-inline { font-family: 'Space Grotesk', sans-serif; }
+.complexity-lab .lesson-controls { align-items: end; }
+.complexity-lab .lesson-controls label, .complexity-lab .lesson-controls select { min-width: 0; max-width: 100%; }
+.complexity-lab .lesson-controls input:not([type='range']) { min-height: 44px; box-sizing: border-box; background: #141414; border: 1px solid #777; border-radius: 4px; color: #eee; padding: 8px 10px; font: inherit; }
+.complexity-lab .lesson-controls input[type='range'] { min-height: 44px; }
+.complexity-lab button:disabled { opacity: .45; cursor: default; }
+.complexity-readout { padding: 14px 0; border-top: 1px solid #655231; border-bottom: 1px solid #39342c; font-variant-numeric: tabular-nums; }
+.complexity-scroll { max-width: 100%; overflow-x: auto; padding: 4px; }
+.complexity-lattice { width: max-content; min-width: 100%; }
+.complexity-lattice-row { display: grid; grid-template-columns: 48px repeat(var(--columns), 30px); gap: 3px; margin: 3px 0; }
+.complexity-lattice-row > span { display: grid; place-items: center; min-height: 30px; color: #979189; }
+.complexity-lattice-row button { min-height: 44px; color: #e9d3a5; background: #1a1814; border: 1px solid #635438; font: inherit; cursor: pointer; }
+.complexity-lattice-row .is-work { background: #423820; color: #f5d483; font-size: 22px; }
+.complexity-lattice-row.is-selected .is-work { outline: 1px solid #caa254; outline-offset: -1px; }
+.complexity-inline { margin: 26px 0; padding: 18px 0; border-top: 1px solid #655231; border-bottom: 1px solid #37332d; }
+.complexity-inline figcaption { color: #e2c48d; margin-bottom: 16px; }
+.complexity-inline p { font-size: 14px; line-height: 1.65; }
+.complexity-return-ladder > div { margin-left: calc(var(--depth) * 14px); display: grid; grid-template-columns: 100px 1fr 1fr; gap: 12px; padding: 10px 12px; border-left: 1px solid #a8894d; border-bottom: 1px solid #36332e; font-size: 14px; }
+.complexity-return-ladder > div > span:last-child { color: #b9d6be; }
+.complexity-array { display: flex; flex-wrap: wrap; gap: 4px; }
+.complexity-array > span { display: grid; min-width: 54px; text-align: center; border: 1px solid #615337; padding: 7px; }
+.complexity-array small { font-size: 12px; color: #c1b49b; }
+.complexity-array strong { font-size: 22px; }
+.complexity-frames { display: flex; flex-direction: column; gap: 7px; border-left: 2px solid #5a4b31; padding-left: 12px; }
+.complexity-frame { display: grid; grid-template-columns: minmax(120px, 1fr) 1fr; border: 1px solid #413c33; padding: 11px 13px; gap: 6px; }
+.complexity-frame.is-current { background: #211d15; border-color: #b39354; }
+.complexity-frame strong small { display: block; font-weight: normal; }
+.complexity-frame > small { grid-column: 1 / -1; }
+.complexity-frame small { color: #b7afa1; font-size: 13px; }
+.complexity-levels { display: grid; gap: 4px; margin: 22px 0; }
+.complexity-levels > button { display: grid; grid-template-columns: 112px 1fr 80px; align-items: center; gap: 12px; width: 100%; background: transparent; color: #ded8cb; font: inherit; font-size: 14px; text-align: left; border: 1px solid #3f3a30; padding: 8px; cursor: pointer; }
+.complexity-levels > button.is-selected { border-color: #c3a264; }
+.complexity-levels small { display: block; font-size: 12px; color: #bdb39f; }
+.complexity-work-bar { height: 18px; display: block; border-left: 1px solid #797166; }
+.complexity-work-bar i { display: block; height: 100%; background: #a88a4c; min-width: 2px; }
+.complexity-levels strong { text-align: right; }
+.complexity-node-strip { display: flex; flex-wrap: wrap; gap: 5px; }
+.complexity-node-strip > span { padding: 6px 10px; border: 1px solid #6b5733; font-size: 12px; }
+.complexity-node-strip strong { display: block; }
+.complexity-slices > div { display: grid; grid-template-columns: 140px 1fr 66px; gap: 8px; align-items: center; margin: 8px 0; font-size: 14px; }
+.complexity-slot-row { display: flex; gap: 4px; }
+.complexity-slot-row i { display: block; width: 32px; height: 26px; border: 1px solid #c2a064; background: #332a1b; }
+@media (max-width: 550px) {
+  .complexity-return-ladder > div { grid-template-columns: 1fr; gap: 2px; margin-left: calc(var(--depth) * 9px); }
+  .complexity-frame { grid-template-columns: 1fr; }
+  .complexity-levels > button { grid-template-columns: 86px 1fr 62px; gap: 8px; }
+  .complexity-slices > div { grid-template-columns: 110px 1fr 54px; font-size: 12px; }
+  .complexity-slot-row { gap: 2px; }
+  .complexity-slot-row i { width: 18px; height: 23px; }
+}

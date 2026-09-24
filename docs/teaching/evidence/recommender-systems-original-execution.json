@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-09-11T10:54:12.678969+00:00",
+  "numpy": "2.3.5",
+  "passedExecution": true,
+  "implicit": "0.7.3",
+  "surprise": "1.1.5",
+  "records": [
+    {
+      "index": 0,
+      "sourceSha256": "697d442c188c9cd1ee6e0b6c85587247fc1c844e91ec6c099c4657147d79ccd8",
+      "setupBlock": null,
+      "stdout": "Matrix shape: 5 users x 7 items\nObserved ratings: 20 / 35  (sparsity 42.9%)\n"
+    },
+    {
+      "index": 1,
+      "sourceSha256": "0960f8b8dcb2964dc86addcd3dbef9987b96b02ed67d5c7186dc328559229488",
+      "setupBlock": 0,
+      "stdout": "Item-CF predictions for user 0 (missing items: 2, 4, 6):\n  item 2: predicted=3.063\n  item 4: predicted=2.686\n  item 6: predicted=3.086\nTop-3 recs for user 0: [(6, np.float64(3.09)), (2, np.float64(3.06)), (4, np.float64(2.69))]\n"
+    },
+    {
+      "index": 2,
+      "sourceSha256": "6d045bdbfa64128ac7c9b48a234b63d1b38a5f39c49c2af099bad1b249929c6f",
+      "setupBlock": 0,
+      "stdout": "Epoch   1: RMSE=1.3438\nEpoch  21: RMSE=1.2220\nEpoch  41: RMSE=1.1251\nEpoch  61: RMSE=0.9156\nEpoch  81: RMSE=0.5591\nEpoch 100: RMSE=0.3680\n\nPredicted ratings matrix:\n[[4.79 3.18 4.15 1.33 3.   3.66 3.41]\n [3.86 2.4  3.7  1.22 2.59 3.02 2.75]\n [3.6  2.56 4.63 3.04 3.64 3.51 3.21]\n [1.41 1.14 4.6  4.66 3.83 2.7  2.33]\n [2.33 1.72 4.67 4.04 3.8  3.04 2.71]]\n\nTop-3 recs for user 0 (missing items: 2, 4, 6):\n  rank 1: item 2  predicted=4.15\n  rank 2: item 6  predicted=3.41\n  rank 3: item 4  predicted=3.00\n\nTop-3 recs for user 2 (missing items: 0, 2, 3, 6):\n  rank 1: item 2  predicted=4.63\n  rank 2: item 0  predicted=3.60\n  rank 3: item 6  predicted=3.21\n"
+    },
+    {
+      "index": 3,
+      "sourceSha256": "f4b177c24aec2fb4e45a976a84161f5841c1958c0d61d36d332953bd6e09b59c",
+      "setupBlock": 0,
+      "stdout": "Epoch  1: weighted loss=137.60\nEpoch  4: weighted loss=83.67\nEpoch  7: weighted loss=66.10\nEpoch 10: weighted loss=56.95\nEpoch 13: weighted loss=50.30\nEpoch 15: weighted loss=46.78\nTop-3 unseen items for user 0 (implicit ALS):\n  rank 1: item 6  score=0.1304\n  rank 2: item 2  score=0.1143\n  rank 3: item 4  score=-0.1452\n"
+    },
+    {
+      "index": 4,
+      "sourceSha256": "cfdb1c3ab7cadf3319ca20b7763d99cc9e2af5f525f46ec8ab23e09e2bb44e96",
+      "setupBlock": null,
+      "stdout": "Top-3 for user 0 (implicit ALS library):\n  rank 1: item 6  score=0.0425\n  rank 2: item 2  score=0.0219\n  rank 3: item 4  score=0.0152\n"
+    },
+    {
+      "index": 5,
+      "sourceSha256": "d94b01f60a6fd8f3b95c77411631e4c64a0c215b454b201a5d813676c2ff00ca",
+      "setupBlock": null,
+      "stdout": "user=0, item=2: predicted=4.116\nuser=0, item=4: predicted=3.425\nuser=0, item=6: predicted=3.020\n"
+    }
+  ],
+  "pendingOriginalLibraryBlocks": [],
+  "note": "Execution is not endorsement of claimed comments or teaching. Dependencies are restored explicitly for fragment execution."
+}

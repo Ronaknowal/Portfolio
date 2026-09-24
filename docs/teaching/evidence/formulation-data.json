@@ -1,0 +1,45 @@
+{
+  "checkedAt": "2026-09-20T23:20:12.437962+00:00",
+  "verifier": "scripts/verify-formulation-data.py",
+  "verifierSha256": "9182931fdff0bb906c4c0b30f66a6ecff27a6278bb8104fb68cd1dc5ffe88e28",
+  "mode": "read-only",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.9.1"
+  },
+  "packet": {
+    "calculatedInputsSha256": "d694b6546ba00e7bc6d4592d21e973a4f7faa3d81551b252762b5b7d26b405a7",
+    "manuscriptSha256": "1ff63549d7055024cdc8a4a982d1af05b6c575e305b824f88f90d8f0642b3139",
+    "datasetSha256": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+    "datasetBytes": 583898
+  },
+  "served": {
+    "dataset": "/learn-assets/problem-formulation/bank-additional.csv",
+    "sha256": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+    "attribution": "/learn-assets/problem-formulation/ATTRIBUTION.txt",
+    "program": "/learn-assets/problem-formulation/formulation-calculations.py"
+  },
+  "module": {
+    "path": "src/learn/data/formulation-data.js",
+    "sha256": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+    "regeneration": "byte-identical"
+  },
+  "trustRootScalarLeaves": 10099,
+  "trustRootLeavesAsserted": 10099,
+  "trustRootCoverage": 1.0,
+  "trustRootUncoveredPaths": [],
+  "trustRootLeavesReDerivedIndependently": 3506,
+  "trustRootLeavesValidatedByRefit": 2474,
+  "trustRootLeavesRecordedInputsRegeneratedFromSeeds": 4119,
+  "trustRootPropertyChecks": 35,
+  "checks": 10163,
+  "scope": "Every scalar leaf of the content packet's calculated-inputs.json is recomputed from the dataset this lesson serves and compared, with the path of each compared leaf recorded so the coverage figure is measured rather than asserted. Average precision is summed over distinct score thresholds from its definition; log loss is the mean negative log likelihood written out; the confusion cells, correct count and top-50 counts are counted here; the ranking is an explicit sort by descending probability then ascending source row rather than numpy.lexsort; the one-hot feature names are rebuilt from the sorted distinct categories of the training rows; the as-known calibration results come from an independent implementation of the manuscript's five-step rule; and the two feature lists and the calibration history are parsed out of the frozen manuscript rather than retyped.",
+  "notCovered": [
+    "The 2,472 fitted probabilities and the 2 iteration counts are VALIDATED BY REFITTING with the same scikit-learn estimator, not re-derived from an independent implementation of regularised logistic regression. The estimator is the object under study. Everything computed from those probabilities -- every metric, ranking, confusion cell and policy fixture -- is independent of scikit-learn.",
+    "The 4,119 split membership indices are RECORDED INPUTS regenerated from their seeds through StratifiedShuffleSplit, a different entry point from the packet's train_test_split, and separately checked for the structural properties the lesson claims: disjoint, exhaustive, correctly sized and stratified to the recorded per-class counts. Their exact order is a property of scikit-learn's random state and is not independently reproduced.",
+    "This verifier checks numbers and data. Rendering, layout, interaction and the teaching itself are separate steps and are not claimed here."
+  ],
+  "passed": true
+}

@@ -1,0 +1,26 @@
+# Authoring notes: Hashing, Collision Resolution & Amortized Analysis
+
+Canonical topic ID: hashing-collision-resolution-amortized-analysis
+
+## 2026-09-10 — Resizing needs a gap between growing and shrinking
+
+- Status: resolved by the destination lesson on 10 September 2026.
+- Origin: `arrays-strings-hash-maps`; [systems/structures design](../systems-and-structures-design.md), dynamic-array movement and amortized append branch.
+- Destination and ownership rationale: this topic already owns resizing and amortized analysis. Arrays introduces geometric growth; the later analysis lesson can explain why a superficially reasonable shrink rule breaks the bound. No new topic or title change is needed.
+- Idea and learning benefit: distinguish proving append-only growth from proving a mixed insertion/deletion policy. Explain why different growth/shrink thresholds prevent repeated expensive reallocations near one boundary.
+- Coverage at origin: `cross-domain-expansion.js` included resizing and cumulative work but no shrink-thrashing counterexample. Arrays teaches doubling and explicitly retains capacity on its deletion trace. The destination now has its own semantic blueprint and authored lesson.
+- Proposed treatment: adapt the planned cost timeline after basic amortization. Compare a flawed shrink-at-half policy with shrinking below one-quarter and resizing to half occupancy. Introduce the term hysteresis only after showing why the separated thresholds help.
+- Explanation/example: start full at capacity 8. Inserting a ninth element doubles capacity to 16; deleting it leaves eight elements. A rule that immediately shrinks at half occupancy returns capacity to 8. Alternating the two operations repeatedly copies many elements. With a lower shrink threshold, those nearby updates reuse the allocation. Track both live length and capacity, cumulative copies and logical sequence preservation. This is a proposed teaching fixture, not a measured allocator result.
+- Prerequisites and boundaries: preceding Arrays and Complexity. State exact inequalities, resize targets, minimum capacity and counted work; do not present CPython's policy as exact doubling/quarter thresholds.
+- Evidence: [MIT 6.006 Lecture 2 notes, Dynamic Array Deletion](https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/79a07dc1cb47d76dae2ffedc701e3d2b_MIT6_006S20_lec2.pdf), page 4, read 10 September 2026. The destination implements exact model counts; these are not allocator benchmarks.
+- Resolution: adapted within one resize investigation rather than adding a duplicate lab. Section 6 proves append-only growth; section 7 compares touching and separated thresholds on the same stream and proves the mixed-update bound. The implemented good policy halves after a successful pop leaves **n≤C/4**, with minimum capacity 1 in the simulator (4 in the separately explained chained map). This specifies equality deliberately rather than leaving “below a quarter” ambiguous. Eight initial appends followed by eight append/pop pairs cost 159 counted units under half shrink versus 39 under quarter shrink. Counted work is one successful append/pop plus retained-reference copies; allocation is excluded from exact values and discussed separately.
+- Implementation/verification links: [destination design](../HASHING-AMORTIZED-LESSON-DESIGN.md), [destination verification](../HASHING-AMORTIZED-VERIFICATION.md), `src/learn/data/hashing-amortized-models.js`, `ResizeAccountingLab`, `scripts/verify-hashing-amortized.mjs`. The origin's verified movement model remains in [the increment record](../../../SYSTEMS-STRUCTURES-IMPLEMENTATION.md).
+
+## 2026-09-10 — Optional deeper collision-scheme extension
+
+- Status: future extension, not an unresolved defect in the completed exact-map core.
+- Origin and likely owner: this lesson's scope reconsideration. The current topic owns collision invariants most directly; do not move these details into the first Arrays/Hash Maps lesson merely because it introduces dictionaries.
+- Current treatment: step-size coverage proof, chaining and full bounded linear-probe maps, tombstone invariants, full-table termination, rebuild cost distinctions and a short orientation to Robin Hood/cuckoo alternatives. No claim that one probe scheme's theorem transfers to another.
+- Possible benefit: if a later requested rewrite needs lower probe-distance variance, backward-shift deletion or cuckoo displacement cycles, derive that specific scheme's invariant and a complete small counterexample/implementation instead of appending unsupported benchmark rankings. A relocation trace is likely useful; another generic controls panel is not automatically needed.
+- Owner reassessment: a future author must first check whether a dedicated hashing/data-system implementation topic now owns the need, whether the example genuinely extends the learner's capabilities and how much local prerequisite explanation is required. This note does not mandate adding every advanced scheme or auditing the whole site now.
+- Starting primary reference: [CMU 15-445 Fall 2022, Hash Tables](https://15445.courses.cs.cmu.edu/fall2022/notes/07-hashtables.pdf), sections 4.2–4.3 inspected for displacement mechanisms. Historical implementation/performance claims outside those sections were not adopted.

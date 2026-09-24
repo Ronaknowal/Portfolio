@@ -1,0 +1,1264 @@
+{
+  "frozenAt": "2026-09-10T16:25:20.506Z",
+  "files": {
+    "src/learn/data/topics/variational-inference.jsx": "132afdf569e08c744fe3effe7b036eb1ff61ec006731a311bd3b76f5c4cee55d",
+    "src/learn/data/variational-inference-models.js": "75401daaae5e5fb3356129baa7e6e23c29b1594d59c8176d43379dbcb2ba1538",
+    "src/learn/data/variational-inference-examples.js": "4aa75a6b07a1e923f1eae36c57d6912453e6cb7977bf2578402459b64a544c15",
+    "src/learn/components/lesson-labs/VariationalInferenceLabs.jsx": "6551017dcdeef480a1441e918fe5648006f7f076f375c438a237675a22cebc9b",
+    "src/learn/components/lesson-labs/variational-inference-labs.css": "56c57cd8be74c8a3c73a407a6abb526889d8f474a96276534c239d94c24fadd1",
+    "src/learn/data/curriculum/blueprints/variational-inference.js": "8c684866ebee2cc0fc66bea9d184986d3d776461002b7ebf094ecdeaf1ef08e8"
+  },
+  "native": {
+    "mixture_adaptive_quadrature": [
+      {
+        "mean": -4,
+        "sd": 0.3,
+        "separation": 0,
+        "kl": 8.748972804325934,
+        "quad_error": 1.2931930862587087e-7
+      },
+      {
+        "mean": -4,
+        "sd": 0.3,
+        "separation": 3,
+        "kl": 1.94211998469512,
+        "quad_error": 4.1767893357962e-9
+      },
+      {
+        "mean": -4,
+        "sd": 0.3,
+        "separation": 4,
+        "kl": 1.4421199848856556,
+        "quad_error": 3.531040692276944e-9
+      },
+      {
+        "mean": -4,
+        "sd": 1,
+        "separation": 0,
+        "kl": 7.999999999999998,
+        "quad_error": 8.14255311440415e-8
+      },
+      {
+        "mean": -4,
+        "sd": 1,
+        "separation": 3,
+        "kl": 1.1930436528084392,
+        "quad_error": 1.5104214444214263e-8
+      },
+      {
+        "mean": -4,
+        "sd": 1,
+        "separation": 4,
+        "kl": 0.6930536454829196,
+        "quad_error": 5.769586843924851e-9
+      },
+      {
+        "mean": -4,
+        "sd": 3,
+        "separation": 0,
+        "kl": 10.901387711331893,
+        "quad_error": 6.680147362525768e-8
+      },
+      {
+        "mean": -4,
+        "sd": 3,
+        "separation": 3,
+        "kl": 3.316394053260853,
+        "quad_error": 1.1496262256460159e-8
+      },
+      {
+        "mean": -4,
+        "sd": 3,
+        "separation": 4,
+        "kl": 2.565793761085364,
+        "quad_error": 2.6215856776764585e-8
+      },
+      {
+        "mean": -3,
+        "sd": 0.3,
+        "separation": 0,
+        "kl": 5.248972804325936,
+        "quad_error": 2.311965279343558e-8
+      },
+      {
+        "mean": -3,
+        "sd": 0.3,
+        "separation": 3,
+        "kl": 1.4421199079274936,
+        "quad_error": 3.531047032202292e-9
+      },
+      {
+        "mean": -3,
+        "sd": 0.3,
+        "separation": 4,
+        "kl": 1.942119984213368,
+        "quad_error": 4.1767912781424004e-9
+      },
+      {
+        "mean": -3,
+        "sd": 1,
+        "separation": 0,
+        "kl": 4.499999999999999,
+        "quad_error": 4.580186175229435e-8
+      },
+      {
+        "mean": -3,
+        "sd": 1,
+        "separation": 3,
+        "kl": 0.6892979330290776,
+        "quad_error": 1.8354626071141054e-9
+      },
+      {
+        "mean": -3,
+        "sd": 1,
+        "separation": 4,
+        "kl": 1.1890399560012053,
+        "quad_error": 1.1339414384633889e-9
+      },
+      {
+        "mean": -3,
+        "sd": 3,
+        "separation": 0,
+        "kl": 7.401387711331894,
+        "quad_error": 6.42179280275663e-8
+      },
+      {
+        "mean": -3,
+        "sd": 3,
+        "separation": 3,
+        "kl": 2.0727443645197394,
+        "quad_error": 1.3099390797837647e-8
+      },
+      {
+        "mean": -3,
+        "sd": 3,
+        "separation": 4,
+        "kl": 2.0783793039286462,
+        "quad_error": 5.997654801904786e-9
+      },
+      {
+        "mean": 0,
+        "sd": 0.3,
+        "separation": 0,
+        "kl": 0.7489728043259359,
+        "quad_error": 4.6632211528884555e-9
+      },
+      {
+        "mean": 0,
+        "sd": 0.3,
+        "separation": 3,
+        "kl": 4.93369458001598,
+        "quad_error": 1.0948048231085241e-8
+      },
+      {
+        "mean": 0,
+        "sd": 0.3,
+        "separation": 4,
+        "kl": 8.248914522111939,
+        "quad_error": 1.1713553800659846e-7
+      },
+      {
+        "mean": 0,
+        "sd": 1,
+        "separation": 0,
+        "kl": 0,
+        "quad_error": 0
+      },
+      {
+        "mean": 0,
+        "sd": 1,
+        "separation": 3,
+        "kl": 2.693351976596842,
+        "quad_error": 3.4450553371189255e-8
+      },
+      {
+        "mean": 0,
+        "sd": 1,
+        "separation": 4,
+        "kl": 5.420988688750646,
+        "quad_error": 3.779485449758278e-8
+      },
+      {
+        "mean": 0,
+        "sd": 3,
+        "separation": 0,
+        "kl": 2.9013877113318944,
+        "quad_error": 1.8847734075011887e-8
+      },
+      {
+        "mean": 0,
+        "sd": 3,
+        "separation": 3,
+        "kl": 0.8772447497959115,
+        "quad_error": 2.1486833120270687e-9
+      },
+      {
+        "mean": 0,
+        "sd": 3,
+        "separation": 4,
+        "kl": 1.9926314559552254,
+        "quad_error": 1.1975365865862172e-9
+      },
+      {
+        "mean": 1,
+        "sd": 0.3,
+        "separation": 0,
+        "kl": 1.2489728043259358,
+        "quad_error": 3.5213275440445874e-9
+      },
+      {
+        "mean": 1,
+        "sd": 0.3,
+        "separation": 3,
+        "kl": 3.4306003918793095,
+        "quad_error": 2.4885618682344046e-8
+      },
+      {
+        "mean": 1,
+        "sd": 0.3,
+        "separation": 4,
+        "kl": 5.9370409993174595,
+        "quad_error": 3.1571387487070864e-8
+      },
+      {
+        "mean": 1,
+        "sd": 1,
+        "separation": 0,
+        "kl": 0.4999999999999999,
+        "quad_error": 5.089095723018113e-9
+      },
+      {
+        "mean": 1,
+        "sd": 1,
+        "separation": 3,
+        "kl": 2.127016889658055,
+        "quad_error": 1.2526814182463143e-8
+      },
+      {
+        "mean": 1,
+        "sd": 1,
+        "separation": 4,
+        "kl": 4.47689602859225,
+        "quad_error": 1.0504060254502661e-8
+      },
+      {
+        "mean": 1,
+        "sd": 3,
+        "separation": 0,
+        "kl": 3.4013877113318944,
+        "quad_error": 1.9864558679742336e-8
+      },
+      {
+        "mean": 1,
+        "sd": 3,
+        "separation": 3,
+        "kl": 0.9839056169171174,
+        "quad_error": 7.520022431100956e-10
+      },
+      {
+        "mean": 1,
+        "sd": 3,
+        "separation": 4,
+        "kl": 1.9670484537918864,
+        "quad_error": 1.329913879193294e-9
+      },
+      {
+        "mean": 4,
+        "sd": 0.3,
+        "separation": 0,
+        "kl": 8.748972804325934,
+        "quad_error": 1.2931930862587087e-7
+      },
+      {
+        "mean": 4,
+        "sd": 0.3,
+        "separation": 3,
+        "kl": 1.94211998469512,
+        "quad_error": 4.1767893357962e-9
+      },
+      {
+        "mean": 4,
+        "sd": 0.3,
+        "separation": 4,
+        "kl": 1.4421199848856556,
+        "quad_error": 3.531040692276944e-9
+      },
+      {
+        "mean": 4,
+        "sd": 1,
+        "separation": 0,
+        "kl": 7.999999999999998,
+        "quad_error": 8.14255311440415e-8
+      },
+      {
+        "mean": 4,
+        "sd": 1,
+        "separation": 3,
+        "kl": 1.1930436528084392,
+        "quad_error": 1.5104214444214263e-8
+      },
+      {
+        "mean": 4,
+        "sd": 1,
+        "separation": 4,
+        "kl": 0.6930536454829196,
+        "quad_error": 5.769586843924851e-9
+      },
+      {
+        "mean": 4,
+        "sd": 3,
+        "separation": 0,
+        "kl": 10.901387711331893,
+        "quad_error": 6.680147362525768e-8
+      },
+      {
+        "mean": 4,
+        "sd": 3,
+        "separation": 3,
+        "kl": 3.316394053260853,
+        "quad_error": 1.1496262256460159e-8
+      },
+      {
+        "mean": 4,
+        "sd": 3,
+        "separation": 4,
+        "kl": 2.565793761085364,
+        "quad_error": 2.6215856776764585e-8
+      }
+    ],
+    "gradient_independent_integration": [
+      {
+        "mean": -2,
+        "sd": 0.2,
+        "integrated_gradients": [
+          7.1428571428571415,
+          0.9183673469387754,
+          7.142857142857154,
+          0.9183673469387772
+        ]
+      },
+      {
+        "mean": -2,
+        "sd": 0.7,
+        "integrated_gradients": [
+          7.1428571428571415,
+          1.3183898417423734e-16,
+          7.142857142857153,
+          -1.3322676295501878e-15
+        ]
+      },
+      {
+        "mean": -2,
+        "sd": 1.2,
+        "integrated_gradients": [
+          7.142857142857142,
+          -1.938775510204085,
+          7.142857142857153,
+          -1.938775510204087
+        ]
+      },
+      {
+        "mean": -2,
+        "sd": 2,
+        "integrated_gradients": [
+          7.1428571428571415,
+          -7.163265306122458,
+          7.142857142857151,
+          -7.163265306122465
+        ]
+      },
+      {
+        "mean": 0,
+        "sd": 0.2,
+        "integrated_gradients": [
+          3.0612244897959178,
+          0.9183673469387756,
+          3.061224489795922,
+          0.9183673469387778
+        ]
+      },
+      {
+        "mean": 0,
+        "sd": 0.7,
+        "integrated_gradients": [
+          3.061224489795918,
+          4.85722573273506e-17,
+          3.061224489795922,
+          8.326672684688674e-17
+        ]
+      },
+      {
+        "mean": 0,
+        "sd": 1.2,
+        "integrated_gradients": [
+          3.0612244897959178,
+          -1.9387755102040847,
+          3.061224489795922,
+          -1.9387755102040876
+        ]
+      },
+      {
+        "mean": 0,
+        "sd": 2,
+        "integrated_gradients": [
+          3.0612244897959178,
+          -7.163265306122457,
+          3.061224489795922,
+          -7.163265306122469
+        ]
+      },
+      {
+        "mean": 1.5,
+        "sd": 0.2,
+        "integrated_gradients": [
+          -2.854534058231972e-23,
+          0.9183673469387756,
+          1.8269017978910083e-20,
+          0.9183673469387779
+        ]
+      },
+      {
+        "mean": 1.5,
+        "sd": 0.7,
+        "integrated_gradients": [
+          -1.51252447899733e-17,
+          1.0408340855860843e-16,
+          0,
+          0
+        ]
+      },
+      {
+        "mean": 1.5,
+        "sd": 1.2,
+        "integrated_gradients": [
+          -1.0321060597759235e-16,
+          -1.9387755102040847,
+          -7.959516743424969e-17,
+          -1.9387755102040867
+        ]
+      },
+      {
+        "mean": 1.5,
+        "sd": 2,
+        "integrated_gradients": [
+          -6.473633436028407e-18,
+          -7.163265306122458,
+          -1.0492953602536965e-16,
+          -7.163265306122469
+        ]
+      },
+      {
+        "mean": 3,
+        "sd": 0.2,
+        "integrated_gradients": [
+          -3.0612244897959178,
+          0.9183673469387756,
+          -3.0612244897959213,
+          0.918367346938778
+        ]
+      },
+      {
+        "mean": 3,
+        "sd": 0.7,
+        "integrated_gradients": [
+          -3.061224489795918,
+          4.85722573273506e-17,
+          -3.061224489795922,
+          -3.469446951953614e-17
+        ]
+      },
+      {
+        "mean": 3,
+        "sd": 1.2,
+        "integrated_gradients": [
+          -3.0612244897959178,
+          -1.938775510204085,
+          -3.061224489795922,
+          -1.9387755102040871
+        ]
+      },
+      {
+        "mean": 3,
+        "sd": 2,
+        "integrated_gradients": [
+          -3.0612244897959178,
+          -7.163265306122457,
+          -3.061224489795922,
+          -7.163265306122469
+        ]
+      }
+    ],
+    "matched_target_pathwise_variances": [
+      2.0408163265306145,
+      2.000000000000005
+    ],
+    "changed_finite_exercise": {
+      "qA": 0.2240092346010884,
+      "KL": 0.11336992436646443
+    },
+    "matrix_coordinate_configurations": 19,
+    "all_minibatch_sizes": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "browser": [
+    {
+      "width": 1440,
+      "anchors": [
+        "1-fit-a-distribution-not-just-a-number",
+        "2-build-an-objective-without-the-evidence",
+        "3-see-what-a-restricted-family-loses",
+        "4-optimize-one-factor-at-a-time",
+        "5-test-a-posterior-with-two-explanations",
+        "6-differentiate-through-an-expectation",
+        "7-scale-data-work-and-share-inference",
+        "8-validate-the-answer-you-will-use",
+        "9-practise-and-connect-the-next-ideas"
+      ],
+      "programs": 7,
+      "practices": 8,
+      "geometry": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "math": [
+          {
+            "text": "qλ(θ)=N(θ;m,s2),λ=(m,log⁡s).\\begin{gathered}q_\\lambda(\\theta)=\\mathcal N(\\theta;m,s^2),\\\\ \\lambda=(m",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "KL⁡(q∥p)=Eq ⁣[log⁡q(θ)p(θ∣D)].\\operatorname{KL}(q\\Vert p)=\\mathbb E_q\\!\\left[\\log\\frac{q(\\theta)}{p(",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "log⁡p(θ∣D)=log⁡p(D,θ)−log⁡p(D),L(q)=Eq[log⁡p(D,θ)]−Eq[log⁡q(θ)].\\begin{aligned}\\log p(\\theta\\mid D)&",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "log⁡p(D)=L(q)+KL⁡(q∥p).\\log p(D)=\\mathcal L(q)+\\operatorname{KL}(q\\Vert p).logp(D)=L(q)+KL(q∥p).",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "L(q)=Eq[log⁡p(D∣θ)]−KL⁡(q∥p(θ)).\\begin{aligned}\\mathcal L(q)&=\\mathbb E_q[\\log p(D\\mid\\theta)]\\\\ &\\q",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "a∗=pApA+2pBpC≈0.205213.a^*=\\frac{p_A}{p_A+2\\sqrt{p_Bp_C}}\\approx0.205213.a∗=pA​+2pB​pC​​pA​​≈0.20521",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "P=Σ−1,vj∗=1/Pjj,KL⁡best=−12log⁡(1−ρ2).\\begin{gathered}P=\\Sigma^{-1},\\qquad v_j^*=1/P_{jj},\\\\ \\operat",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "δ=m−μ,P=Σ−1,2KL⁡(q∥p)=tr⁡(PC)+δ⊤Pδ−d+log⁡det⁡Σdet⁡C.\\begin{gathered}\\delta=m-\\mu,\\quad P=\\Sigma^{-1}",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "fj(θj)=Eq−j[log⁡p(D,θ)],qjnew(θj)∝exp⁡fj(θj).\\begin{gathered}f_j(\\theta_j)=\\mathbb E_{q_{-j}}[\\log p",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "m1←1+ρ(m2+1),m2←−1+ρ(m1−1),v1=v2←1−ρ2.\\begin{aligned}m_1&\\leftarrow1+\\rho(m_2+1),\\\\ m_2&\\leftarrow-1",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "p(θ)=12N(θ;−3,1)+12N(θ;3,1).\\begin{aligned}p(\\theta)&=\\tfrac12\\mathcal N(\\theta;-3,1)\\\\ &\\quad+\\tfra",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "θ=m+eaϵ,ϵ∼N(0,1),L(m,a)=Eϵ[log⁡p(D,m+eaϵ)]+a+12log⁡(2πe).\\begin{gathered}\\theta=m+e^a\\epsilon,\\quad\\",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "∂mL=E[g(θ)],∂aL=1+E[sϵg(θ)].\\begin{aligned}\\partial_m\\mathcal L&=\\mathbb E[g(\\theta)],\\\\ \\partial_a\\",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "f(θ)=log⁡p(D,θ)−log⁡qλ(θ),∇λL=Eq[f(θ)∇λlog⁡qλ(θ)].\\begin{gathered}f(\\theta)=\\log p(D,\\theta)-\\log q_",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "L^B=Nb∑i∈BEq[log⁡p(xi∣θ)]−KL⁡(q∥p(θ)).\\begin{aligned}\\widehat{\\mathcal L}_B&=\\frac{N}{b}\\sum_{i\\in B",
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "ηt+1=(1−ρt)ηt+ρtη^t.\\eta_{t+1}=(1-\\rho_t)\\eta_t+\\rho_t\\widehat\\eta_t.ηt+1​=(1−ρt​)ηt​+ρt​η​t​.",
+            "scroll": 760,
+            "parent": 760
+          }
+        ],
+        "labels": [
+          {
+            "text": "latent θ₂",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "latent θ₁",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "variational mean m₂",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "-3",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "-3",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "0.5",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "0.5",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "variational mean m₁",
+            "effectiveFont": 26.666389627659576,
+            "inside": true
+          },
+          {
+            "text": "density",
+            "effectiveFont": 26.666666666666664,
+            "inside": true
+          },
+          {
+            "text": "0.2",
+            "effectiveFont": 26.666666666666664,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 26.666666666666664,
+            "inside": true
+          },
+          {
+            "text": "-8",
+            "effectiveFont": 26.666666666666664,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 26.666666666666664,
+            "inside": true
+          },
+          {
+            "text": "8",
+            "effectiveFont": 26.666666666666664,
+            "inside": true
+          },
+          {
+            "text": "latent θ",
+            "effectiveFont": 26.666666666666664,
+            "inside": true
+          }
+        ]
+      },
+      "focus": {
+        "active": true,
+        "width": "2px"
+      },
+      "errors": [],
+      "failedRequests": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+          "failure": {
+            "errorText": "net::ERR_NETWORK_ACCESS_DENIED"
+          }
+        }
+      ],
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: net::ERR_NETWORK_ACCESS_DENIED",
+          "location": {
+            "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "anchors": [
+        "1-fit-a-distribution-not-just-a-number",
+        "2-build-an-objective-without-the-evidence",
+        "3-see-what-a-restricted-family-loses",
+        "4-optimize-one-factor-at-a-time",
+        "5-test-a-posterior-with-two-explanations",
+        "6-differentiate-through-an-expectation",
+        "7-scale-data-work-and-share-inference",
+        "8-validate-the-answer-you-will-use",
+        "9-practise-and-connect-the-next-ideas"
+      ],
+      "programs": 7,
+      "practices": 8,
+      "geometry": {
+        "pageWidth": 390,
+        "viewport": 390,
+        "math": [
+          {
+            "text": "qλ(θ)=N(θ;m,s2),λ=(m,log⁡s).\\begin{gathered}q_\\lambda(\\theta)=\\mathcal N(\\theta;m,s^2),\\\\ \\lambda=(m",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "KL⁡(q∥p)=Eq ⁣[log⁡q(θ)p(θ∣D)].\\operatorname{KL}(q\\Vert p)=\\mathbb E_q\\!\\left[\\log\\frac{q(\\theta)}{p(",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "log⁡p(θ∣D)=log⁡p(D,θ)−log⁡p(D),L(q)=Eq[log⁡p(D,θ)]−Eq[log⁡q(θ)].\\begin{aligned}\\log p(\\theta\\mid D)&",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "log⁡p(D)=L(q)+KL⁡(q∥p).\\log p(D)=\\mathcal L(q)+\\operatorname{KL}(q\\Vert p).logp(D)=L(q)+KL(q∥p).",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "L(q)=Eq[log⁡p(D∣θ)]−KL⁡(q∥p(θ)).\\begin{aligned}\\mathcal L(q)&=\\mathbb E_q[\\log p(D\\mid\\theta)]\\\\ &\\q",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "a∗=pApA+2pBpC≈0.205213.a^*=\\frac{p_A}{p_A+2\\sqrt{p_Bp_C}}\\approx0.205213.a∗=pA​+2pB​pC​​pA​​≈0.20521",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "P=Σ−1,vj∗=1/Pjj,KL⁡best=−12log⁡(1−ρ2).\\begin{gathered}P=\\Sigma^{-1},\\qquad v_j^*=1/P_{jj},\\\\ \\operat",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "δ=m−μ,P=Σ−1,2KL⁡(q∥p)=tr⁡(PC)+δ⊤Pδ−d+log⁡det⁡Σdet⁡C.\\begin{gathered}\\delta=m-\\mu,\\quad P=\\Sigma^{-1}",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "fj(θj)=Eq−j[log⁡p(D,θ)],qjnew(θj)∝exp⁡fj(θj).\\begin{gathered}f_j(\\theta_j)=\\mathbb E_{q_{-j}}[\\log p",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "m1←1+ρ(m2+1),m2←−1+ρ(m1−1),v1=v2←1−ρ2.\\begin{aligned}m_1&\\leftarrow1+\\rho(m_2+1),\\\\ m_2&\\leftarrow-1",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "p(θ)=12N(θ;−3,1)+12N(θ;3,1).\\begin{aligned}p(\\theta)&=\\tfrac12\\mathcal N(\\theta;-3,1)\\\\ &\\quad+\\tfra",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "θ=m+eaϵ,ϵ∼N(0,1),L(m,a)=Eϵ[log⁡p(D,m+eaϵ)]+a+12log⁡(2πe).\\begin{gathered}\\theta=m+e^a\\epsilon,\\quad\\",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "∂mL=E[g(θ)],∂aL=1+E[sϵg(θ)].\\begin{aligned}\\partial_m\\mathcal L&=\\mathbb E[g(\\theta)],\\\\ \\partial_a\\",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "f(θ)=log⁡p(D,θ)−log⁡qλ(θ),∇λL=Eq[f(θ)∇λlog⁡qλ(θ)].\\begin{gathered}f(\\theta)=\\log p(D,\\theta)-\\log q_",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "L^B=Nb∑i∈BEq[log⁡p(xi∣θ)]−KL⁡(q∥p(θ)).\\begin{aligned}\\widehat{\\mathcal L}_B&=\\frac{N}{b}\\sum_{i\\in B",
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "ηt+1=(1−ρt)ηt+ρtη^t.\\eta_{t+1}=(1-\\rho_t)\\eta_t+\\rho_t\\widehat\\eta_t.ηt+1​=(1−ρt​)ηt​+ρt​η​t​.",
+            "scroll": 350,
+            "parent": 350
+          }
+        ],
+        "labels": [
+          {
+            "text": "latent θ₂",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "latent θ₁",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "variational mean m₂",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "-3",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "-3",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "0.5",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "0.5",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "variational mean m₁",
+            "effectiveFont": 17.82247340425532,
+            "inside": true
+          },
+          {
+            "text": "density",
+            "effectiveFont": 17.822916666666664,
+            "inside": true
+          },
+          {
+            "text": "0.2",
+            "effectiveFont": 17.822916666666664,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 17.822916666666664,
+            "inside": true
+          },
+          {
+            "text": "-8",
+            "effectiveFont": 17.822916666666664,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 17.822916666666664,
+            "inside": true
+          },
+          {
+            "text": "8",
+            "effectiveFont": 17.822916666666664,
+            "inside": true
+          },
+          {
+            "text": "latent θ",
+            "effectiveFont": 17.822916666666664,
+            "inside": true
+          }
+        ]
+      },
+      "focus": {
+        "active": true,
+        "width": "2px"
+      },
+      "errors": [],
+      "failedRequests": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+          "failure": {
+            "errorText": "net::ERR_NETWORK_ACCESS_DENIED"
+          }
+        }
+      ],
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: net::ERR_NETWORK_ACCESS_DENIED",
+          "location": {
+            "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "anchors": [
+        "1-fit-a-distribution-not-just-a-number",
+        "2-build-an-objective-without-the-evidence",
+        "3-see-what-a-restricted-family-loses",
+        "4-optimize-one-factor-at-a-time",
+        "5-test-a-posterior-with-two-explanations",
+        "6-differentiate-through-an-expectation",
+        "7-scale-data-work-and-share-inference",
+        "8-validate-the-answer-you-will-use",
+        "9-practise-and-connect-the-next-ideas"
+      ],
+      "programs": 7,
+      "practices": 8,
+      "geometry": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "math": [
+          {
+            "text": "qλ(θ)=N(θ;m,s2),λ=(m,log⁡s).\\begin{gathered}q_\\lambda(\\theta)=\\mathcal N(\\theta;m,s^2),\\\\ \\lambda=(m",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "KL⁡(q∥p)=Eq ⁣[log⁡q(θ)p(θ∣D)].\\operatorname{KL}(q\\Vert p)=\\mathbb E_q\\!\\left[\\log\\frac{q(\\theta)}{p(",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "log⁡p(θ∣D)=log⁡p(D,θ)−log⁡p(D),L(q)=Eq[log⁡p(D,θ)]−Eq[log⁡q(θ)].\\begin{aligned}\\log p(\\theta\\mid D)&",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "log⁡p(D)=L(q)+KL⁡(q∥p).\\log p(D)=\\mathcal L(q)+\\operatorname{KL}(q\\Vert p).logp(D)=L(q)+KL(q∥p).",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "L(q)=Eq[log⁡p(D∣θ)]−KL⁡(q∥p(θ)).\\begin{aligned}\\mathcal L(q)&=\\mathbb E_q[\\log p(D\\mid\\theta)]\\\\ &\\q",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "a∗=pApA+2pBpC≈0.205213.a^*=\\frac{p_A}{p_A+2\\sqrt{p_Bp_C}}\\approx0.205213.a∗=pA​+2pB​pC​​pA​​≈0.20521",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "P=Σ−1,vj∗=1/Pjj,KL⁡best=−12log⁡(1−ρ2).\\begin{gathered}P=\\Sigma^{-1},\\qquad v_j^*=1/P_{jj},\\\\ \\operat",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "δ=m−μ,P=Σ−1,2KL⁡(q∥p)=tr⁡(PC)+δ⊤Pδ−d+log⁡det⁡Σdet⁡C.\\begin{gathered}\\delta=m-\\mu,\\quad P=\\Sigma^{-1}",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "fj(θj)=Eq−j[log⁡p(D,θ)],qjnew(θj)∝exp⁡fj(θj).\\begin{gathered}f_j(\\theta_j)=\\mathbb E_{q_{-j}}[\\log p",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "m1←1+ρ(m2+1),m2←−1+ρ(m1−1),v1=v2←1−ρ2.\\begin{aligned}m_1&\\leftarrow1+\\rho(m_2+1),\\\\ m_2&\\leftarrow-1",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "p(θ)=12N(θ;−3,1)+12N(θ;3,1).\\begin{aligned}p(\\theta)&=\\tfrac12\\mathcal N(\\theta;-3,1)\\\\ &\\quad+\\tfra",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "θ=m+eaϵ,ϵ∼N(0,1),L(m,a)=Eϵ[log⁡p(D,m+eaϵ)]+a+12log⁡(2πe).\\begin{gathered}\\theta=m+e^a\\epsilon,\\quad\\",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "∂mL=E[g(θ)],∂aL=1+E[sϵg(θ)].\\begin{aligned}\\partial_m\\mathcal L&=\\mathbb E[g(\\theta)],\\\\ \\partial_a\\",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "f(θ)=log⁡p(D,θ)−log⁡qλ(θ),∇λL=Eq[f(θ)∇λlog⁡qλ(θ)].\\begin{gathered}f(\\theta)=\\log p(D,\\theta)-\\log q_",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "L^B=Nb∑i∈BEq[log⁡p(xi∣θ)]−KL⁡(q∥p(θ)).\\begin{aligned}\\widehat{\\mathcal L}_B&=\\frac{N}{b}\\sum_{i\\in B",
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "ηt+1=(1−ρt)ηt+ρtη^t.\\eta_{t+1}=(1-\\rho_t)\\eta_t+\\rho_t\\widehat\\eta_t.ηt+1​=(1−ρt​)ηt​+ρt​η​t​.",
+            "scroll": 280,
+            "parent": 280
+          }
+        ],
+        "labels": [
+          {
+            "text": "latent θ₂",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "latent θ₁",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "variational mean m₂",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "-3",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "-3",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "0.5",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "0.5",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "variational mean m₁",
+            "effectiveFont": 13.933676861702127,
+            "inside": true
+          },
+          {
+            "text": "density",
+            "effectiveFont": 13.934027777777779,
+            "inside": true
+          },
+          {
+            "text": "0.2",
+            "effectiveFont": 13.934027777777779,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 13.934027777777779,
+            "inside": true
+          },
+          {
+            "text": "-8",
+            "effectiveFont": 13.934027777777779,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 13.934027777777779,
+            "inside": true
+          },
+          {
+            "text": "8",
+            "effectiveFont": 13.934027777777779,
+            "inside": true
+          },
+          {
+            "text": "latent θ",
+            "effectiveFont": 13.934027777777779,
+            "inside": true
+          }
+        ]
+      },
+      "focus": {
+        "active": true,
+        "width": "2px"
+      },
+      "errors": [],
+      "failedRequests": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+          "failure": {
+            "errorText": "net::ERR_NETWORK_ACCESS_DENIED"
+          }
+        }
+      ],
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: net::ERR_NETWORK_ACCESS_DENIED",
+          "location": {
+            "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ]
+    }
+  ],
+  "numericalCorrection": [
+    {
+      "width": 1440,
+      "checks": [
+        "restricted fit",
+        "free exact fit",
+        "full covariance",
+        "keyboard reset"
+      ],
+      "screenshot": "scratch/variational-inference-lesson-review/log-ratio-fix-gaussian-1440.png"
+    },
+    {
+      "width": 320,
+      "checks": [
+        "restricted fit",
+        "free exact fit",
+        "full covariance",
+        "keyboard reset"
+      ],
+      "screenshot": "scratch/variational-inference-lesson-review/log-ratio-fix-gaussian-320.png"
+    }
+  ],
+  "independentReview": "docs/teaching/VARIATIONAL-INFERENCE-INDEPENDENT-REVIEW.md"
+}

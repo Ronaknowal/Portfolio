@@ -1,0 +1,387 @@
+{
+  "checkedAt": "2026-09-21T19:53:06.623Z",
+  "scope": "Read-only source link, program setup and verifier review. No browser/native replay; final integration belongs to root. Seven math bridges were authored by this reviewer earlier; separate numerical independent review belongs to another agent.",
+  "topics": [
+    {
+      "id": "trees-binary-search-trees",
+      "body": "src/learn/data/topics/trees-binary-search-trees.jsx",
+      "programSources": [
+        "/learn-assets/trees-binary-search-trees/ordered_set_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "graphs-representations-bfs-dfs",
+      "body": "src/learn/data/topics/graphs-representations-bfs-dfs.jsx",
+      "programSources": [
+        "/learn-assets/graphs-representations-bfs-dfs/graph_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "segment-trees-fenwick-trees-range-queries",
+      "body": "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx",
+      "programSources": [
+        "/learn-assets/segment-trees-fenwick-trees-range-queries/range_library.cpp"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "shortest-paths-spanning-trees-topological-ordering",
+      "body": "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx",
+      "programSources": [
+        "/learn-assets/shortest-paths-spanning-trees-topological-ordering/weighted_graph_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "string-matching-prefix-functions-rolling-hashes",
+      "body": "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx",
+      "programSources": [
+        "/learn-assets/string-matching-prefix-functions-rolling-hashes/string_search_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "randomized-algorithms-sampling-error-guarantees",
+      "body": "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+      "programSources": [
+        "/learn-assets/randomized-algorithms-sampling-error-guarantees/sampling_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "network-flow-minimum-cuts-bipartite-matching",
+      "body": "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx",
+      "programSources": [
+        "/learn-assets/network-flow-minimum-cuts-bipartite-matching/flow_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "computational-geometry-robust-predicates-convex-hulls",
+      "body": "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx",
+      "programSources": [
+        "/learn-assets/computational-geometry-robust-predicates-convex-hulls/hull_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "persistent-data-structures-structural-sharing-versioned-queries",
+      "body": "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx",
+      "programSources": [
+        "/learn-assets/persistent-data-structures-structural-sharing-versioned-queries/persistent_map_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "external-memory-algorithms-b-trees-i-o-complexity",
+      "body": "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+      "programSources": [
+        "/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/external_sort_stream.py",
+        "/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/sqlite_index_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "matrix-calculus-jacobians",
+      "body": "src/learn/data/topics/matrix-calculus-jacobians.jsx",
+      "programSources": [
+        "/learn-assets/matrix-calculus/derivative-library-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "randomized-linear-algebra",
+      "body": "src/learn/data/topics/randomized-linear-algebra.jsx",
+      "programSources": [
+        "/learn-assets/randomized-linear-algebra/randomized_svd_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "body": "src/learn/data/topics/multivariate-calculus-gradients.jsx",
+      "programSources": [],
+      "disposition": "intentional reuse / existing inline implementation; requires section assertion"
+    },
+    {
+      "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "body": "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx",
+      "programSources": [
+        "/learn-assets/gradient-variants/optimizer_library_bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+      "body": "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx",
+      "programSources": [],
+      "disposition": "intentional reuse / existing inline implementation; requires section assertion"
+    },
+    {
+      "id": "constrained-multi-objective-optimization",
+      "body": "src/learn/data/topics/constrained-multi-objective-optimization.jsx",
+      "programSources": [
+        "/learn-assets/constrained-optimization/simplex-solver-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+      "body": "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx",
+      "programSources": [
+        "/learn-assets/monte-carlo-mcmc/pymc_posterior.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "variational-inference",
+      "body": "src/learn/data/topics/variational-inference.jsx",
+      "programSources": [
+        "/learn-assets/variational-inference/pymc_variational.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "optimal-transport-wasserstein-distance-sinkhorn",
+      "body": "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx",
+      "programSources": [
+        "/learn-assets/optimal-transport/sinkhorn-library-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "causal-inference-do-calculus",
+      "body": "src/learn/data/topics/causal-inference-do-calculus.jsx",
+      "programSources": [
+        "/learn-assets/causal-inference/causal-estimation-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "mutual-information-information-bottleneck",
+      "body": "src/learn/data/topics/mutual-information-information-bottleneck.jsx",
+      "programSources": [
+        "/learn-assets/mutual-information/mutual-information-library-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "f-divergences-integral-probability-metrics",
+      "body": "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+      "programSources": [
+        "/learn-assets/divergences/mmd-library-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "graph-fundamentals-adjacency-laplacian-connectivity",
+      "body": "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx",
+      "programSources": [
+        "/learn-assets/graph-fundamentals/laplacian-library-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "spectral-graph-theory",
+      "body": "src/learn/data/topics/spectral-graph-theory.jsx",
+      "programSources": [
+        "/learn-assets/spectral-graph/spectral_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "stochastic-processes-markov-chains-brownian-motion-poisson",
+      "body": "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+      "programSources": [],
+      "disposition": "intentional reuse / existing inline implementation; requires section assertion"
+    },
+    {
+      "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
+      "body": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+      "programSources": [
+        "/learn-assets/queueing/fcfs-simpy-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "it-calculus-stochastic-differential-equations",
+      "body": "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx",
+      "programSources": [
+        "/learn-assets/ito-calculus/sde-library-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "functional-analysis-rkhs",
+      "body": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+      "programSources": [
+        "/learn-assets/functional-analysis/kernel_ridge_library.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "topology-topological-data-analysis-tda",
+      "body": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+      "programSources": [
+        "/learn-assets/topology-tda/gudhi_rips.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "numerical-pdes-grids-finite-elements-stability",
+      "body": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+      "programSources": [
+        "/learn-assets/numerical-pdes/finite-element-banded-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "t-sne-umap-manifold-learning",
+      "body": "src/learn/data/topics/t-sne-umap-manifold-learning.jsx",
+      "programSources": [
+        "/learn-assets/manifold-learning/umap-mechanism.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "conditional-random-fields-crf",
+      "body": "src/learn/data/topics/conditional-random-fields-crf.jsx",
+      "programSources": [
+        "/learn-assets/crf/crfsuite-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "active-learning",
+      "body": "src/learn/data/topics/active-learning.jsx",
+      "programSources": [
+        "/learn-assets/active-learning/query-library-bridge.py"
+      ],
+      "disposition": "canonical program and setup present"
+    },
+    {
+      "id": "linear-logistic-regression",
+      "body": "src/learn/data/topics/linear-logistic-regression.jsx",
+      "programSources": [],
+      "disposition": "intentional reuse / existing inline implementation; requires section assertion"
+    },
+    {
+      "id": "gaussian-processes-gp",
+      "body": "src/learn/data/topics/gaussian-processes-gp.jsx",
+      "programSources": [],
+      "disposition": "intentional reuse / existing inline implementation; requires section assertion"
+    }
+  ],
+  "summary": {
+    "baselineTopics": 35,
+    "topicAndBridgeFiles": 45,
+    "literalInternalHrefToLinks": 67,
+    "unknownCatalogueTargets": 0,
+    "missingLiteralAnchors": 0,
+    "distinctLocalLearnAssetsReferences": 50,
+    "missingLocalAssets": 0,
+    "companionImportsVerified": 10,
+    "canonicalProgramCount": 31,
+    "topicsWithPrograms": 30
+  },
+  "sourceHashes": {
+    "src/learn/data/topics/trees-binary-search-trees.jsx": "e99de1e5ec78d05c4f28f4907904536a4c479cfd8f35ec67a01c24ae58a15443",
+    "src/learn/components/lesson-labs/TreeLibraryBridge.jsx": "77f8662b5e5c0475bdde4b4d7c7ea4d7f9b0edf99800eae05a722862d33ebc49",
+    "public/learn-assets/trees-binary-search-trees/ordered_set_library.py": "8d02abdc6a518343fd74131634c7379f550d78c65eeaad4b1949a2b17044b16c",
+    "src/learn/data/topics/graphs-representations-bfs-dfs.jsx": "08c959bc0453e0a0e00287712c07f0da0734522e3da3ba510813dae05158f5ba",
+    "src/learn/components/lesson-labs/GraphTraversalLibraryBridge.jsx": "59c71cc7ccf3eb9107f4f39210119e8c0a0783a4558adb25c2f559d8d2a9eed9",
+    "public/learn-assets/graphs-representations-bfs-dfs/graph_library.py": "6040f9a74aff935e5fea4771f8b0f250ad8f44023e1b4f1f864e37c375c9ef91",
+    "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx": "6466ca9179125054f9a40032e713f76644bbd60ec1b95322a00b744943fde55e",
+    "src/learn/components/lesson-labs/RangeQueryLibraryBridge.jsx": "8a37ce9dbd87632574ecb59c2d4f0f3ff65c96187c01a1ddca95638f6e9b3a5c",
+    "public/learn-assets/segment-trees-fenwick-trees-range-queries/range_library.cpp": "e827ece695f15a55e021e1ac1c958f3fb4cb2777efa967e472683a35bf64c139",
+    "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx": "066454a3225ca983ecaba013f69eb6eebc6bce2e63063278fe40960984136183",
+    "src/learn/components/lesson-labs/WeightedGraphLibraryBridge.jsx": "7c7a5c192dc13b9e3ecbc9da87abf571fb5830eea7b159027ccc7fbce0827983",
+    "public/learn-assets/shortest-paths-spanning-trees-topological-ordering/weighted_graph_library.py": "f9ff45ae5d48f27f51b59fdf8e18e606acde6e62cdb6be881d7e7fdce763ca30",
+    "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx": "94e4d34decb509cb6bb4365d3e2b14172cf2db6444283b9c8c09064c49512d56",
+    "src/learn/components/lesson-labs/StringSearchLibraryBridge.jsx": "d3bea0e2cdf2bf597982ab650ae21fb6604df540fce1e8587f5a7e8a6c7e665a",
+    "public/learn-assets/string-matching-prefix-functions-rolling-hashes/string_search_library.py": "0c699e1f85bbb02e72a08a3e5da16700e50482cc8e88a87685f8ab130c49e961",
+    "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx": "ff789e86d876ac09f42e5fa840665cc01bb28b04e91ee08b2646731331e89b11",
+    "src/learn/components/lesson-labs/SamplingLibraryBridge.jsx": "e1456240241a1e0870b617b6ed92a46f73c601eaa609a35dee6ddd9e6b4804d5",
+    "public/learn-assets/randomized-algorithms-sampling-error-guarantees/sampling_library.py": "ea3dac902e442d6af24940539006f3e176f61369dfcca5c403557b8c98f90fc2",
+    "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx": "f3547370e4cd1d89e4d0926704d699dac98c2eba3e9d39cd2579880c84a66b71",
+    "src/learn/components/lesson-labs/FlowLibraryBridge.jsx": "6f31f359b2ad94363e9b736fcef577432516c1729659ed2d9f98fca45eeb8111",
+    "public/learn-assets/network-flow-minimum-cuts-bipartite-matching/flow_library.py": "97363f87f128fe8b1c9270d8a395fcc637dafff55a95a0b8c64e572793c9e141",
+    "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx": "22a850dcad87fb773e662c0de2b2ccce7ce6a6520cd3eb6fb73f9096c7f5f44a",
+    "src/learn/components/lesson-labs/GeometryLibraryBridge.jsx": "1da0ec927ceb9902fb7d7b8f79671b0c66f89c31e1cac49b76c2a82370c95e5d",
+    "public/learn-assets/computational-geometry-robust-predicates-convex-hulls/hull_library.py": "06d7d6ecff699a53dc642b9b679ea2e28c1ee6c553bd5424ff4fff94a884f3c5",
+    "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx": "c8ebd85dcb94e132ecef7373a933dd8db11231fe4e8ca012a13438d7b4d4ea92",
+    "src/learn/components/lesson-labs/PersistentMapLibraryBridge.jsx": "3f591c568b0e9c21bdc9dac059453a7337a7639d2b11347812ca6f337a70bf26",
+    "public/learn-assets/persistent-data-structures-structural-sharing-versioned-queries/persistent_map_library.py": "24280cbd3c8f3d26ab2c589c27b11eb0dc94ef31b47274b5827152f4cf0e5eee",
+    "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx": "e634650a43ad66479c1f299b2f1b6ddaf3444c5b5ae5c4a26e55be7c8c122c3a",
+    "src/learn/components/lesson-labs/ExternalMemoryLibraryBridge.jsx": "73e4818a1edb4bf0d8810c674494b0e9ca9db2fec3644d95aaadb6ded98ad57b",
+    "public/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/external_sort_stream.py": "545310f36b438387bc0f337c20e767474f68167400e53d70af989391bdfcb633",
+    "public/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/sqlite_index_library.py": "832a557411fd722d3f7645a1981613019e6e8691f513eac6e60f2f968475b6f8",
+    "src/learn/data/topics/matrix-calculus-jacobians.jsx": "feda34dbaaafa255d3a357961e8e786111a457525e2d4c59b2df1e35d9824edb",
+    "src/learn/data/matrix-calculus-mechanism-program.js": "211e6f3ad9010b60ab63bddcf26a65d12aecb521f50bed2a8ca4c9614a9c5f67",
+    "public/learn-assets/matrix-calculus/derivative-library-bridge.py": "127b2e711ed5b0197009bf8a59513f5e697289e41b61c6409503565b8fda2af4",
+    "src/learn/data/topics/randomized-linear-algebra.jsx": "e186d90ad3e497bd674f2165392ed3226a7036fec3ab23d0f2119aefa52772fd",
+    "public/learn-assets/randomized-linear-algebra/randomized_svd_library.py": "2ac9db0a41b6cd70a978cb1f7eba45db1b163a8f46fb526e12a44e9ef5d4a622",
+    "src/learn/data/topics/multivariate-calculus-gradients.jsx": "6e2210b169f65c3bb6c5c9005cb564bfcdf991baad536c236470ab5df0b184fa",
+    "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx": "1d68e94f0a5cd13f20eac582cddb098e48060365597b3ee2c5a670f167ea70f9",
+    "public/learn-assets/gradient-variants/optimizer_library_bridge.py": "f91e933ca3b6574cac574055388b73f2a2a47030550534482aed0ef6f916c02b",
+    "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx": "39d64f62fa27e436eb7cb25b595ac60e83178d579fde23a5097302ae14f9c7e9",
+    "src/learn/data/topics/constrained-multi-objective-optimization.jsx": "d17dfbfdee3fcba8da47ba947161c419bebe48baeb8729cc003b644bae3f3e4e",
+    "src/learn/data/constrained-optimization-mechanism-program.js": "f3e5888c00ea7b21ab1957a2278c27c11c9b699447512848472b2fef31b6b893",
+    "public/learn-assets/constrained-optimization/simplex-solver-bridge.py": "0306bdddd4c9e4f8e9750459bae27a6027fa7ceab12f003511dcd59e8271f0c3",
+    "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx": "f703e255d7dd83678c879c9d825437d5e97ea4a10705d4c6e587d2235f808313",
+    "public/learn-assets/monte-carlo-mcmc/pymc_posterior.py": "8b8dc278204a48ce66652309bc6c47c3c1f71ecf74b81130b89bf4462727bcd8",
+    "src/learn/data/topics/variational-inference.jsx": "cf020ff6ba6e924f3c9b3c64c69eaabcdac652e6448bb46c9de8d883b2d3c032",
+    "public/learn-assets/variational-inference/pymc_variational.py": "4c95fdbd03e20c2e68a38a24aeac5b1d060abd5188a006fc05419a11e4e280c4",
+    "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx": "725260ea66c5f4c73a8d2720bf597febe1bc4571f7726a14a02449fa3124062e",
+    "src/learn/data/optimal-transport-mechanism-program.js": "7f3e5c407929db8f80cb002b1776acbb8b09d69f89383dba2c74501c58f24420",
+    "public/learn-assets/optimal-transport/sinkhorn-library-bridge.py": "8d2232d4913b1ee35ab4441e67d011c5991c332a1147733dbc48b84fb2c57e20",
+    "src/learn/data/topics/causal-inference-do-calculus.jsx": "8b3217b607046d9199e978b5f957d77f68fe247290746cd0428c0bcd54368a75",
+    "src/learn/data/causal-inference-mechanism-program.js": "4c610fc8b0a4cfbf6bb509eea8c387405eb8c421f334a14f16f6c3795eefdb11",
+    "public/learn-assets/causal-inference/causal-estimation-bridge.py": "eab865b0ec6c7276fb3cae7363e1546b610fbc0208d3b1f31a346492b6f7d093",
+    "src/learn/data/topics/mutual-information-information-bottleneck.jsx": "626d1e5b2ac2edfa7725adb278fac3db0472f2e1f963fa2cff633987f170cb5f",
+    "src/learn/data/mutual-information-mechanism-program.js": "97410c954dd95936f6054b4a72c1fbd2e76f587131e68f9e06d22865ce48e11a",
+    "public/learn-assets/mutual-information/mutual-information-library-bridge.py": "3a931191ff2d9729f5a8e5d970b537e825580cf36b364380325b9838a4e8fea2",
+    "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx": "5e255b375e1160607cf5ec3bc450e1bdba6a97a684721162aee6c19877a43759",
+    "src/learn/data/divergences-mechanism-program.js": "7cfe381bd9046c506f566ba3299c05ffee8c5d5f539bc5e33b8e1ef84543e39e",
+    "public/learn-assets/divergences/mmd-library-bridge.py": "708274444dc59476c4ebc6d4b334c94d60a7a65f31ecad1d777415e894fac08f",
+    "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": "2d26e274c9376cbcc1ff21ee4c4810fb2dfefc7a9c1921a4bd5eeb846b352871",
+    "src/learn/data/graph-fundamentals-mechanism-program.js": "5c8a796923cd0c99fea33f14bed3cd7b6115bce8f3e71c5be7516ef293fdf17f",
+    "public/learn-assets/graph-fundamentals/laplacian-library-bridge.py": "596707e3205c23a4992e3731197f4d14f5f6e912021ba666964a3334f88ad331",
+    "src/learn/data/topics/spectral-graph-theory.jsx": "0164a3eef7a350bfa6253c01ef9f7bbc77b2d86991e9d93b9ed6befdb63ef4f4",
+    "public/learn-assets/spectral-graph/spectral_library.py": "5f5f2b64466a71c91eaca7eca324a306be8eea93aa1a64e6e741aa3f475ac0fd",
+    "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx": "2e1016dad6be18049be2c354f1232feaba8047c485a981e1945e48b65b8832db",
+    "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx": "92d9cda59aca55ac3bd6f704ee005034e8d49ed716c109fbaa30e1abd835d4b4",
+    "src/learn/data/queueing-mechanism-program.js": "dd8491968752a9d84f95465821fa8a835c0b7f48fe0e2f0e05ad2cb67422a22a",
+    "public/learn-assets/queueing/fcfs-simpy-bridge.py": "c27d41a0dc73a7a5d396526fd33e7b8a6379d65abd25f5cd793dcb92849d6a9f",
+    "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx": "9d7dad6095992a068bc73483c0c9b4e9b6aa955d503b7b10ca66eeb00f7f8f2d",
+    "src/learn/data/ito-calculus-mechanism-program.js": "0302396d8cfe6e45cf7a12ae267c40a5b636758417958b63eb40a82264ac9730",
+    "public/learn-assets/ito-calculus/sde-library-bridge.py": "f294f4003beeec1068aa2a3f746b895738101f4f76c8e128ae106c911c21e13f",
+    "src/learn/data/topics/functional-analysis-rkhs.jsx": "63c997a0cc9186f76072397a353161efd7395d84f457ed67a45eff89e8deb037",
+    "public/learn-assets/functional-analysis/kernel_ridge_library.py": "f064ca3e2f0b481311393be1c5c9fb957e7bd04b8c1c349ae4b17fcc1d450d89",
+    "src/learn/data/topics/topology-topological-data-analysis-tda.jsx": "e9ad236088fa069503894951ab582319f30bcd56233938ecfa33e2183746ba9d",
+    "public/learn-assets/topology-tda/gudhi_rips.py": "232817770fde234b3114e53f848d7bd85d9809ef111ecfcaa99654cf120619ea",
+    "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "19f006bc9cfd2d5d58e2c9e5c75d3d29d8249c14dbe7696aeac30868b4085661",
+    "src/learn/data/numerical-pdes-mechanism-program.js": "fcdd33cd2ce92b1115a4d177808afc2550b979ab85c47e1b6048da60ca7732cf",
+    "public/learn-assets/numerical-pdes/finite-element-banded-bridge.py": "11688cc94e0ff503ed0055ddcf00a3b1a083b160daf50d3ca47f79afcfca2774",
+    "src/learn/data/topics/t-sne-umap-manifold-learning.jsx": "7eb0c2dcef57eea5eb21659f36cf8a9028747e3bac0901fa892746db26409163",
+    "src/learn/data/manifold-mechanism-program.js": "1076da294e71ecfaba1084a4cf5a60cb356337bdbb64a349680df1aca5d26afc",
+    "public/learn-assets/manifold-learning/umap-mechanism.py": "e110b22641eb8872a0e7c5b25175d8b215843c868f50889bfe6659ddf2c9e2ad",
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "1fa159f68bd3f2ccadd782124e7212cd8601f7792247ac80290ec79f579a3ab9",
+    "src/learn/data/crf-mechanism-program.js": "badc7c8bb96e032ac0a722cae8cd0080fc0007fe15380b9ab0e0e9c79f7944ae",
+    "public/learn-assets/crf/crfsuite-bridge.py": "a50f5f2059ad1884678faebc839a749c400884434dc4cc1562db02b632a056a4",
+    "src/learn/data/topics/active-learning.jsx": "b1948a929b1849d06d3247fb6708a1eaf0dab7502c7602d313718e8be766138d",
+    "src/learn/data/active-mechanism-program.js": "18611a5ca973c2bfe69049c02704a3d5d18edddcb0fbcf4c2d843608460c00a7",
+    "public/learn-assets/active-learning/query-library-bridge.py": "25623ae120cf18f2ca02096e4779848b66cb5d0fd8e30bdb485fe6b6e060a716",
+    "src/learn/data/topics/linear-logistic-regression.jsx": "59d6edc419c418d4f60b36212b0866c8fcbe259801d69bfe43f1b86464476112",
+    "src/learn/data/topics/gaussian-processes-gp.jsx": "3d706687fecee8f1357fe926b0d342ee126c31546d2d39ec5e14b0aaf702ece7",
+    "scripts/verify-depth-remediation-browser.cjs": "347f3aef531b9217d06fcd9b05177e331a28bbedffbc513326dfe2ac84386a53",
+    "src/main.jsx": "8ce75d2faa4379145e6513f589745d4014f4e9da7dcfe06a8c8b6215c6435db5",
+    "src/learn/Reader.jsx": "97fd3a48d56f18045a0a3ab2ad919ca331797d68a1806510e40623c8c4cc2f5a",
+    "src/learn/components/TopicContent.jsx": "cd1ff2a425af7db9a3f3a2c45626fbd1fe0059d81d8389df95ff9bd28b7f2925",
+    "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+    "src/learn/data/lesson-manifest.json": "82d36413aeb679ba6587f97795573f4edeea26aec90c68a7d3875c2d9be4c407"
+  },
+  "optimizerFollowup": "Canonical URL/setup unchanged after separately assigned five-family bridge repair; affected source hashes refreshed. Initial verifier hash intentionally preserved to identify the reported findings."
+}

@@ -1,0 +1,12 @@
+=== Gradient Boosting from Scratch (MSE loss) ===
+Round        MSE  Mean pseudo-residual
+--------------------------------------------
+    0     11.1778              0.000000
+    1      7.0542              0.000000
+    2      4.8519              0.000000
+    3      3.4488              0.000000
+    4      2.4556              0.000000
+ done      1.7821
+
+Predictions: [4.629 0.279 -4.36 ]
+True values:  [ 5.  0. -5.]

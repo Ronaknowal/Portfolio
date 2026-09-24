@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -175,19 +176,19 @@ const streamingSSE = {
       </Prose>
 
       <Plot
-        title="TTFT vs perceived latency (TPOT held constant at 20 ms)"
-        data={[
-          { x: 100, y: 0.12 },
-          { x: 200, y: 0.22 },
-          { x: 400, y: 0.38 },
-          { x: 600, y: 0.54 },
-          { x: 800, y: 0.68 },
-          { x: 1000, y: 0.82 },
-          { x: 1500, y: 1.12 },
-          { x: 2000, y: 1.42 },
-        ]}
+        label="TTFT vs perceived latency (TPOT held constant at 20 ms)"
         xLabel="TTFT (ms)"
         yLabel="perceived latency score (lower = better)"
+        series={[
+          {
+            name: "perceived latency",
+            color: "#e2b55a",
+            points: [
+              [100, 0.12], [200, 0.22], [400, 0.38], [600, 0.54],
+              [800, 0.68], [1000, 0.82], [1500, 1.12], [2000, 1.42],
+            ],
+          },
+        ]}
       />
 
       <Prose>
@@ -807,16 +808,17 @@ export function Chat() {
       </Prose>
 
       <Heatmap
-        title="transport choice by scenario"
+        label="transport choice by scenario"
         rowLabels={["browser client", "server client", "bidirectional needed", "low-event-rate", "old proxy env"]}
         colLabels={["SSE", "WebSocket", "gRPC stream", "long poll"]}
-        data={[
+        matrix={[
           [1.0, 0.5, 0.1, 0.2],
           [0.7, 0.6, 1.0, 0.1],
           [0.1, 1.0, 0.9, 0.1],
           [0.4, 0.4, 0.4, 1.0],
           [0.3, 0.3, 0.1, 1.0],
         ]}
+        colorScale="gold"
       />
 
       {/* ======================================================================

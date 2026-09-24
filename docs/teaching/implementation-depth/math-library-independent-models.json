@@ -1,0 +1,102 @@
+{
+  "status": "passed",
+  "scope": "complementary native/source review; no UI and no repeated MCMC/ADVI fitting",
+  "checks": [
+    {
+      "name": "randomized-SVD-rank-and-iteration-boundaries",
+      "detail": "12 exact-route comparisons include p=0, full rank, full probe width, square inputs and three iteration counts; inputs unchanged",
+      "status": "passed"
+    },
+    {
+      "name": "randomized-SVD-input-contract",
+      "detail": "Rank, probe width, iteration and orientation errors rejected",
+      "status": "passed"
+    },
+    {
+      "name": "RKHS-varied-regularization-and-kernel",
+      "detail": "Nine changed gamma/average-penalty contracts with conflicting duplicates; solve coefficients, held-out query predictions and normal equation agree",
+      "status": "passed"
+    },
+    {
+      "name": "spectral-disconnected-subspace-and-scale",
+      "detail": "Two repeated zero eigenvalues checked as a full projector, global affinity scaling cancels, pairwise partition relabeling and disconnected cut verified",
+      "status": "passed"
+    },
+    {
+      "name": "spectral-input-contract",
+      "detail": "Self-loops, negative weights, isolation and directed affinity rejected",
+      "status": "passed"
+    },
+    {
+      "name": "VI-exact-KL-and-family-optimum",
+      "detail": "Exact source Cholesky KL independently compared with solve/slogdet formula in dimensions 1,2,4; mean and variance perturbations raise reverse KL",
+      "status": "passed"
+    },
+    {
+      "name": "MCMC-changed-target-reference",
+      "detail": "Original and changed Beta posterior tails independently checked through finite binomial-sum identity; no new chain run claimed",
+      "status": "passed"
+    },
+    {
+      "name": "optimizer-sgd-weighted-history",
+      "detail": "Two three-coordinate initializations and eleven events; leading/interior None, active zero, epsilon-sensitive tiny gradients, coupled/decoupled decay, parameter clock and full weighted-history state oracle",
+      "status": "passed"
+    },
+    {
+      "name": "optimizer-adagrad-weighted-history",
+      "detail": "Two three-coordinate initializations and eleven events; leading/interior None, active zero, epsilon-sensitive tiny gradients, coupled/decoupled decay, parameter clock and full weighted-history state oracle",
+      "status": "passed"
+    },
+    {
+      "name": "optimizer-rmsprop-weighted-history",
+      "detail": "Two three-coordinate initializations and eleven events; leading/interior None, active zero, epsilon-sensitive tiny gradients, coupled/decoupled decay, parameter clock and full weighted-history state oracle",
+      "status": "passed"
+    },
+    {
+      "name": "optimizer-adam-weighted-history",
+      "detail": "Two three-coordinate initializations and eleven events; leading/interior None, active zero, epsilon-sensitive tiny gradients, coupled/decoupled decay, parameter clock and full weighted-history state oracle",
+      "status": "passed"
+    },
+    {
+      "name": "optimizer-adamw-weighted-history",
+      "detail": "Two three-coordinate initializations and eleven events; leading/interior None, active zero, epsilon-sensitive tiny gradients, coupled/decoupled decay, parameter clock and full weighted-history state oracle",
+      "status": "passed"
+    },
+    {
+      "name": "topology-graph-and-MST",
+      "detail": "32 graph filtrations checked against Euler cycle rank and Kruskal H0 deaths",
+      "status": "passed"
+    },
+    {
+      "name": "topology-invariance-and-scaling",
+      "detail": "Permutation/translation preserve interval multiplicity; coordinate/cutoff scaling scales finite endpoints",
+      "status": "passed"
+    },
+    {
+      "name": "topology-contract",
+      "detail": "Coincident points, empty input, bounded-coordinate/cutoff/dimension contracts",
+      "status": "passed"
+    }
+  ],
+  "runtime": {
+    "python": "3.12.14",
+    "packages": {
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "torch": "2.14.0+cpu"
+    },
+    "topologyPython": "3.12.14",
+    "gudhi": "3.13.0"
+  },
+  "sourceHashes": {
+    "public/learn-assets/randomized-linear-algebra/randomized_svd_library.py": "2ac9db0a41b6cd70a978cb1f7eba45db1b163a8f46fb526e12a44e9ef5d4a622",
+    "public/learn-assets/gradient-variants/optimizer_library_bridge.py": "f91e933ca3b6574cac574055388b73f2a2a47030550534482aed0ef6f916c02b",
+    "public/learn-assets/monte-carlo-mcmc/pymc_posterior.py": "8b8dc278204a48ce66652309bc6c47c3c1f71ecf74b81130b89bf4462727bcd8",
+    "public/learn-assets/variational-inference/pymc_variational.py": "4c95fdbd03e20c2e68a38a24aeac5b1d060abd5188a006fc05419a11e4e280c4",
+    "public/learn-assets/spectral-graph/spectral_library.py": "5f5f2b64466a71c91eaca7eca324a306be8eea93aa1a64e6e741aa3f475ac0fd",
+    "public/learn-assets/functional-analysis/kernel_ridge_library.py": "f064ca3e2f0b481311393be1c5c9fb957e7bd04b8c1c349ae4b17fcc1d450d89",
+    "public/learn-assets/topology-tda/gudhi_rips.py": "232817770fde234b3114e53f848d7bd85d9809ef111ecfcaa99654cf120619ea",
+    "scripts/verify-math-library-independent.py": "ee40175d79fdcc7b2fd6f3a261bfc9fce2c3ac7760e022c3ae460fa72d544daa"
+  }
+}

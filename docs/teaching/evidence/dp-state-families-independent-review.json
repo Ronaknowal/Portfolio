@@ -1,0 +1,486 @@
+{
+  "reviewedAt": "2026-09-11T10:08:47.791Z",
+  "topicId": "dynamic-programming-states-transitions-optimization",
+  "status": "independent review complete; no unresolved material finding",
+  "authorFrozenAt": "2026-09-11T10:04:23.333Z",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+      "sha256": "4b9ac1fa3c2e828a78544433c3774204791bf492aa2847fab1dd42cf8a016dd9"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "4334d6c5b31cc7263a60407076364423e635db35d47fb572de357c617d39cc93"
+    },
+    {
+      "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-models.js",
+      "sha256": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-examples.js",
+      "sha256": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+      "sha256": "f07349a9f07d5773bf727c94dc87a13019d1a54b73da33464d3aa62c8f63958d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+      "sha256": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2"
+    }
+  ],
+  "startingSourceRead": {
+    "checkedAt": "2026-09-11T09:55:46.699Z",
+    "status": "preliminary read; compare final author packet before closure",
+    "sourceHashes": [
+      {
+        "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+        "sha256": "4775925f5bd7e5c953d32777cb5500e6c4e4a081f74d4c1f342c9ec99d67fbd9"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+        "sha256": "4334d6c5b31cc7263a60407076364423e635db35d47fb572de357c617d39cc93"
+      },
+      {
+        "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+        "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7"
+      },
+      {
+        "path": "src/learn/data/dp-state-families-models.js",
+        "sha256": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d"
+      },
+      {
+        "path": "src/learn/data/dp-state-families-examples.js",
+        "sha256": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+        "sha256": "f07349a9f07d5773bf727c94dc87a13019d1a54b73da33464d3aa62c8f63958d"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+        "sha256": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2"
+      }
+    ]
+  },
+  "sourceConservation": {
+    "unchangedOriginalSupport": [
+      {
+        "path": "src/learn/data/dynamic-programming-models.js",
+        "sha256": "affba29a503b11eb4a3dde7fbad71794d3c7964d60d11f2fb63bc7d29864e51e"
+      },
+      {
+        "path": "src/learn/data/dynamic-programming-examples.js",
+        "sha256": "5262a24e6f55e32c1826cdf51cce18b2b736720c082df9674df68e1c23064f8b"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx",
+        "sha256": "3afe2b2bbef2c15aed08fe69c725e376eda1bdd4fb9c5b4e5f8996d1b232820c"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/dynamic-programming-labs.css",
+        "sha256": "a7452202039808866b83b4e978f9e773a66b6c8434dd75d363fa75b7b2f766ea"
+      }
+    ],
+    "originalProgramsExecuted": 16,
+    "addedProgramsExecuted": 4,
+    "originalPracticeObjectsPreserved": 12,
+    "addedPractice": 3,
+    "oldLessonElements": "144 ordered normalized elements retained by inspected author preservation checker; one original inline formula gained spaces, without changing its identifiers/operators.",
+    "subsequentDifference": "Reversing exactly the five added hint attributes/component names and removing the reviewed wrapper reproduces the entire preliminary normalized body AST. Other six source hashes unchanged."
+  },
+  "findings": [
+    {
+      "category": "teaching scaffold",
+      "initial": "Five new changed reasoning tasks exposed only the full explanation, despite the design promise of hints.",
+      "resolution": "Author added a topic-owned wrapper with prompt, optional hint and separate hidden explanation; original checkpoints and all numerical code retained.",
+      "verification": "Complete normalized-AST reverse comparison plus independent keyboard tests of each hint/answer at all three widths, with final screenshots opened.",
+      "remaining": false
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-11T10:01:30.503516+00:00",
+    "passed": true,
+    "scope": "Complementary reviewer checks; actual values/outputs, not author-test repetition or a proof for every input.",
+    "checks": {
+      "actual original stdout": 16,
+      "actual new stdout": 4,
+      "changed exact matrix products and priced expressions": 19,
+      "changed live-sequence removal search": 15,
+      "signed forced-removal changed task": 1,
+      "subtree conditional witness versus independent min cut": 312,
+      "larger actual native tree versus min cut": 18,
+      "prefix exact numeric interval and per-digit partition": 670,
+      "large native digit bound versus combinatorial rank": 66,
+      "changed native inclusive range": 5,
+      "changed adjacent versus all-distinct task": 1
+    },
+    "sourceHashes": [
+      {
+        "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+        "sha256": "4b9ac1fa3c2e828a78544433c3774204791bf492aa2847fab1dd42cf8a016dd9"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+        "sha256": "4334d6c5b31cc7263a60407076364423e635db35d47fb572de357c617d39cc93"
+      },
+      {
+        "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+        "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7"
+      },
+      {
+        "path": "src/learn/data/dp-state-families-models.js",
+        "sha256": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d"
+      },
+      {
+        "path": "src/learn/data/dp-state-families-examples.js",
+        "sha256": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+        "sha256": "f07349a9f07d5773bf727c94dc87a13019d1a54b73da33464d3aa62c8f63958d"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+        "sha256": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2"
+      }
+    ],
+    "unchangedOriginalSupport": [
+      {
+        "path": "src/learn/data/dynamic-programming-models.js",
+        "sha256": "affba29a503b11eb4a3dde7fbad71794d3c7964d60d11f2fb63bc7d29864e51e"
+      },
+      {
+        "path": "src/learn/data/dynamic-programming-examples.js",
+        "sha256": "5262a24e6f55e32c1826cdf51cce18b2b736720c082df9674df68e1c23064f8b"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx",
+        "sha256": "3afe2b2bbef2c15aed08fe69c725e376eda1bdd4fb9c5b4e5f8996d1b232820c"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/dynamic-programming-labs.css",
+        "sha256": "a7452202039808866b83b4e978f9e773a66b6c8434dd75d363fa75b7b2f766ea"
+      }
+    ],
+    "preservedPractice": 12
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T10:04:42.275Z",
+    "passed": true,
+    "sourceHashes": [
+      {
+        "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+        "sha256": "4b9ac1fa3c2e828a78544433c3774204791bf492aa2847fab1dd42cf8a016dd9"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+        "sha256": "4334d6c5b31cc7263a60407076364423e635db35d47fb572de357c617d39cc93"
+      },
+      {
+        "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+        "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7"
+      },
+      {
+        "path": "src/learn/data/dp-state-families-models.js",
+        "sha256": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d"
+      },
+      {
+        "path": "src/learn/data/dp-state-families-examples.js",
+        "sha256": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+        "sha256": "f07349a9f07d5773bf727c94dc87a13019d1a54b73da33464d3aa62c8f63958d"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+        "sha256": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2"
+      }
+    ],
+    "records": [
+      {
+        "width": 1440,
+        "states": [
+          "changed shape optimum",
+          "candidate differs from whole-chain optimum",
+          "single matrix cell",
+          "rejected dimensions retain old table",
+          "interval reset",
+          "changed star free witness",
+          "changed star conditional witness",
+          "same weights chain changes feasible sets",
+          "cursor is dependency inspection",
+          "empty tree",
+          "tree reset",
+          "real zero consumes zero",
+          "padding zero leaves zero available",
+          "same numerical zero now actual",
+          "prefix backward exact count",
+          "invalid bound preserves cache",
+          "all padding is excluded",
+          "digit reset"
+        ],
+        "images": [
+          "reading-interval-states-split-the-last-operation-1440.png",
+          "reading-tree-states-remember-the-parent-boundary-1440.png",
+          "reading-digit-states-count-constrained-continuations-1440.png",
+          "matrix-candidate-1440.png",
+          "matrix-postorder-1440.png",
+          "balloon-order-1440.png",
+          "star-conditional-1440.png",
+          "chain-values-1440.png",
+          "real-zero-state-1440.png",
+          "padding-then-real-zero-1440.png",
+          "nonempty-task-hint-1440.png"
+        ],
+        "anchors": [
+          "interval-states-split-the-last-operation",
+          "tree-states-remember-the-parent-boundary",
+          "digit-states-count-constrained-continuations"
+        ],
+        "hintStates": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk"
+        ]
+      },
+      {
+        "width": 390,
+        "states": [
+          "changed shape optimum",
+          "candidate differs from whole-chain optimum",
+          "single matrix cell",
+          "rejected dimensions retain old table",
+          "interval reset",
+          "changed star free witness",
+          "changed star conditional witness",
+          "same weights chain changes feasible sets",
+          "cursor is dependency inspection",
+          "empty tree",
+          "tree reset",
+          "real zero consumes zero",
+          "padding zero leaves zero available",
+          "same numerical zero now actual",
+          "prefix backward exact count",
+          "invalid bound preserves cache",
+          "all padding is excluded",
+          "digit reset"
+        ],
+        "images": [
+          "reading-interval-states-split-the-last-operation-390.png",
+          "reading-tree-states-remember-the-parent-boundary-390.png",
+          "reading-digit-states-count-constrained-continuations-390.png",
+          "matrix-candidate-390.png",
+          "matrix-postorder-390.png",
+          "balloon-order-390.png",
+          "star-conditional-390.png",
+          "chain-values-390.png",
+          "real-zero-state-390.png",
+          "padding-then-real-zero-390.png",
+          "nonempty-task-hint-390.png"
+        ],
+        "anchors": [
+          "interval-states-split-the-last-operation",
+          "tree-states-remember-the-parent-boundary",
+          "digit-states-count-constrained-continuations"
+        ],
+        "hintStates": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk"
+        ]
+      },
+      {
+        "width": 320,
+        "states": [
+          "changed shape optimum",
+          "candidate differs from whole-chain optimum",
+          "single matrix cell",
+          "rejected dimensions retain old table",
+          "interval reset",
+          "changed star free witness",
+          "changed star conditional witness",
+          "same weights chain changes feasible sets",
+          "cursor is dependency inspection",
+          "empty tree",
+          "tree reset",
+          "real zero consumes zero",
+          "padding zero leaves zero available",
+          "same numerical zero now actual",
+          "prefix backward exact count",
+          "invalid bound preserves cache",
+          "all padding is excluded",
+          "digit reset"
+        ],
+        "images": [
+          "reading-interval-states-split-the-last-operation-320.png",
+          "reading-tree-states-remember-the-parent-boundary-320.png",
+          "reading-digit-states-count-constrained-continuations-320.png",
+          "matrix-candidate-320.png",
+          "matrix-postorder-320.png",
+          "balloon-order-320.png",
+          "star-conditional-320.png",
+          "chain-values-320.png",
+          "real-zero-state-320.png",
+          "padding-then-real-zero-320.png",
+          "nonempty-task-hint-320.png"
+        ],
+        "anchors": [
+          "interval-states-split-the-last-operation",
+          "tree-states-remember-the-parent-boundary",
+          "digit-states-count-constrained-continuations"
+        ],
+        "hintStates": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk"
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/dp-state-families-independent/browser/reading-interval-states-split-the-last-operation-1440.png",
+      "sha256": "11b23219a002ddffa9a95d372ebe1dd8d41a241b65a46261f130c7a5b19260f5",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/matrix-candidate-320.png",
+      "sha256": "672acbc71fc972f1328a5121f70cb080aa010f154909a51cce366514c9600d4c",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/matrix-postorder-390.png",
+      "sha256": "117c7946ea5ce2bf05d9cba2d7074b16a9bf391ae9d6e776c3d77ea00b548fa7",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/balloon-order-320.png",
+      "sha256": "fb5ea327ba11578fc870ccfbf00bf590986576ffa4e67576f29678c650548f2b",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/star-conditional-390.png",
+      "sha256": "f8cbd44dfa1a83472a55b463f452e4ee0619f4389107e1e56927c44763ebf365",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/chain-values-1440.png",
+      "sha256": "e6a379f5429e1d5119be25512a8bf5566793c30a2235de427d2be8298ab426f3",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/padding-then-real-zero-320.png",
+      "sha256": "73775e852b6841699555fe5d70dcc618f82f530a08aeb19ccab38ce191f5f88f",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/real-zero-state-390.png",
+      "sha256": "7bf9d6b36f3b45eac4dfaad27786b7e9211325aef49413c4ee6f0921840cbc11",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/nonempty-task-hint-320.png",
+      "sha256": "467b01519bbd71cd0783b6ec8fa4671e7208fdae7dd213b2a6ea65df87bbe7cf",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/reading-tree-states-remember-the-parent-boundary-390.png",
+      "sha256": "61d060e4aba5ecadb5e098189bde1ab080421131de8044c4bf6356c08cb36d90",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/reading-digit-states-count-constrained-continuations-320.png",
+      "sha256": "a0cafc7c20346e542b73e53825aa40d8307bfa7bd495af436e7b5459cbae4931",
+      "openedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/dp-state-families-independent/browser/nonempty-task-hint-1440.png",
+      "sha256": "722850933821c738c01f47ad6c1a2ee4cb452b7882da1175acadaf09d83b4dfd",
+      "openedByIndependentReviewer": true
+    }
+  ],
+  "sourceReview": [
+    "Complete interval/tree/digit body additions, mechanism proofs, base/reconstruction/cost contracts, all seven changed/new source files, four actual added programs and all new changed practice.",
+    "Matrix child replacement preserves fixed shape; last-balloon reconstruction keeps boundaries alive. Counts optimize the declared arithmetic objective, not runtime or numerical accuracy.",
+    "Tree decomposition requires one parent edge and no cross-child conflict; parent weight stays outside the subtree, signed weights permit the empty set, and reconstructed choices propagate the actual parent permission.",
+    "Digit states distinguish bound equality, padding and used real zero. Prefix groups partition answers, caches are bound-specific, and the inclusive zero/endpoint conventions match native range behavior.",
+    "The original source archive and old support/program/practice conservation were inspected separately from the new extension evidence. The old entire numerical suite was not rerun by this reviewer; author regression remains attributed to its author."
+  ],
+  "freshOfficialResources": [
+    {
+      "url": "https://leetcode.com/problems/burst-balloons/",
+      "scope": "Public statement: ID312, Hard, nonnegative current-neighbor rewards, all removed, 1 sentinels, n<=300."
+    },
+    {
+      "url": "https://leetcode.com/problems/house-robber-iii/",
+      "scope": "Public statement: ID337, Medium, binary-tree objects, no adjacent selected nodes, up to10000 nodes."
+    },
+    {
+      "url": "https://leetcode.com/problems/count-special-integers/",
+      "scope": "Public statement: ID2376, Hard, positive all-distinct decimal integers, inclusive n<=2e9."
+    },
+    {
+      "url": "https://cses.fi/problemset/task/2220/",
+      "scope": "Public statement: adjacent digits unequal, nonnegative inclusive range through1e18. No difficulty label inferred."
+    }
+  ],
+  "evidenceHashes": {
+    "docs/teaching/evidence/dp-state-families-author-review.json": "c8e7fcaff9cd661271a9d3b6d8afd9a16c4f8e355ed75dbdd3be14b675332247",
+    "docs/teaching/evidence/dp-state-families-independent-start.json": "6faaee310652d764cc770a9a49962c5f3e8913c70a4eb6acce486a99b5d6f176",
+    "scratch/dp-state-families-independent/native-results.json": "2e36fa27e4aa7c8223e665e0c07296188a9f30116a8b15355b3fe712c873e9fa",
+    "scratch/dp-state-families-independent/browser/results.json": "6b565d0a3415a4895546990ddc41e31a7bd3084045be38d58dda2c1b9e83209f",
+    "docs/teaching/evidence/dp-state-families-original.json": "576d893c34c35133b155c9c300ac0f586a39a13f2871ecbd3113811d58d3b34a",
+    "docs/teaching/evidence/dp-state-families-preservation.json": "196adb5f00abbb5fd27f1057f6deaa4792ccc63795f81cf43f67e0a0c6c4bf63",
+    "scripts/verify-dp-state-families-independent.mjs": "2d0adb85f1c154ce4e001a1dcbcf5985ecbc9e021d837ef9f07bb4418f579909",
+    "scripts/verify-dp-state-families-independent.py": "0c2a9dead2fe69888afbef6d9866819de0165df0d03e59f8836d29fda3342f9b",
+    "scripts/review-dp-state-families-independent.cjs": "fe132b3b6b4ba201dc2bf1a26ad87a869b0c3929ede7cd1f81b02d507dd3f1fb",
+    "scripts/finalize-dp-state-families-independent.mjs": "3ca9f3fdb87475636e7c6819b2bf82e87270b0acf34f45ae8cf80ef73373d813"
+  },
+  "limits": [
+    "Finite complementary cases support the read proofs and concrete implementations, not every possible future DP problem.",
+    "Browser comparison is a changed subset and final-hint review, not a duplicate claim to have independently rerun the author full639-state suite.",
+    "No official judge submission, editorial access or full audiovisual playback is claimed.",
+    "Historical author packet and pre-amendment source remain preserved; later wording/layout evidence is bound to its exact final source.",
+    "Integrated production build/loading checks and user acceptance belong to separate records."
+  ]
+}

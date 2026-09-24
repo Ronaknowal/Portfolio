@@ -1,0 +1,893 @@
+{
+  "topicId": "functional-analysis-rkhs",
+  "authorFrozenAt": "2026-09-10T22:18:16.641918+00:00",
+  "status": "author-reviewed; independent exact-hash closure and parent integration are separate",
+  "production": [
+    {
+      "path": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+      "sha256": "3765cacb0054566b3a929d240b186a60a5e42e8185272054336a2ce862d48e01",
+      "bytes": 49868
+    },
+    {
+      "path": "src/learn/data/functional-analysis-models.js",
+      "sha256": "d4606e42993e5fd512b9006100d91a67b4da7ca78ba777477e2004622e65265c",
+      "bytes": 9717
+    },
+    {
+      "path": "src/learn/data/functional-analysis-examples.js",
+      "sha256": "d0b1768f86359681fcb729bc711bbdb03e441b5fc09865439dc1f16327572998",
+      "bytes": 19329
+    },
+    {
+      "path": "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx",
+      "sha256": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6",
+      "bytes": 21935
+    },
+    {
+      "path": "src/learn/components/lesson-labs/functional-analysis-labs.css",
+      "sha256": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938",
+      "bytes": 5014
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/functional-analysis-rkhs.js",
+      "sha256": "83bb2e9a5063d661e9855c8477a79f178efd2129b2098e1463b7b09944316587",
+      "bytes": 4702
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-LESSON-DESIGN.md",
+      "sha256": "9cf9edef8e2c5f7446339051c4db6025b4bc4c2676037ad5903c46ee750ec753",
+      "bytes": 36778
+    },
+    {
+      "path": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-VERIFICATION.md",
+      "sha256": "6395f3bb048265f6e3e940b862007abac5cb8cff031d3d1ae2257a4aeadce653",
+      "bytes": 9098
+    },
+    {
+      "path": "docs/teaching/topic-notes/functional-analysis-rkhs.md",
+      "sha256": "f94fb701517a64fce7454d7ed1f45c14e72e8bc269b401a4c092f9465692e781",
+      "bytes": 3136
+    },
+    {
+      "path": "docs/teaching/topic-notes/support-vector-machines-svm.md",
+      "sha256": "291b5f9c519983d82d5e3e2863f5ebe014dcde5f51ce8ef65cf8cd0ea386dfd6",
+      "bytes": 5715
+    },
+    {
+      "path": "docs/teaching/topic-notes/gaussian-processes-gp.md",
+      "sha256": "1f8b9216d8930313ae799f32542e2805917ea7921c212b212be68176030c1d27",
+      "bytes": 2007
+    },
+    {
+      "path": "scripts/verify-functional-analysis.mjs",
+      "sha256": "41648d19fc6179e4a2011b40d6a8ddbbcc721dd968abf37b94aec1cbd9bd7ecd",
+      "bytes": 3450
+    },
+    {
+      "path": "scripts/verify-functional-analysis.py",
+      "sha256": "be3176fe17cf7e25de35cb84463ddbaaaac981bd4dd3311a68f13a97a13f1f5e",
+      "bytes": 8387
+    },
+    {
+      "path": "scripts/review-functional-analysis-lesson.cjs",
+      "sha256": "a9e712772b51f35bbb9afea05e6ce958ae99f6fd134c84f8fc4f881894dda5ac",
+      "bytes": 11077
+    },
+    {
+      "path": "scripts/review-functional-analysis-reading.cjs",
+      "sha256": "27ee14c7eab5f0ec8a721edebf6783e50b965315ff1054dc3138a8554d1ec753",
+      "bytes": 3559
+    },
+    {
+      "path": "scratch/generate-functional-analysis-examples.py",
+      "sha256": "2639bd672097f1ac5033ffdf2408e683a932aec57a195a167320f94383680fa5",
+      "bytes": 15163
+    }
+  ],
+  "evidence": {
+    "native": {
+      "file": {
+        "path": "scratch/functional-analysis-verification/results.json",
+        "sha256": "d49c4bc54da78dec6a9cf164a8d9c05aff9520b0b35a09346e1de13319b3165c",
+        "bytes": 958
+      },
+      "result": {
+        "checkedAt": "2026-09-10T22:08:12.031558+00:00",
+        "status": "passed",
+        "counts": {
+          "actualDisplayedPrograms": 11,
+          "exactOriginalProgramAndOutput": 1,
+          "spikeIntegrals": 30,
+          "exactSlopeEvaluations": 205,
+          "gramConstructions": 3,
+          "changedWiggles": 122,
+          "independentRidgeSystems": 144,
+          "meanProductEnumerations": 12,
+          "residualIntegrals": 288,
+          "actualNativeChangedInterpolants": 56,
+          "actualNativeArithmeticBoundaries": 6,
+          "actualNativeChangedRidge": 20,
+          "actualNativeChangedQuadrature": 35,
+          "independentChangedPracticeChecks": 4,
+          "explicitModelDomainRejections": 19
+        },
+        "maximumAbsoluteDifference": 1.1083385675902946e-07,
+        "versions": {
+          "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+          "numpy": "2.3.5",
+          "scipy": "1.18.1"
+        },
+        "limits": "Finite oracles and actual native helpers; no browser or infinite-theorem claim."
+      }
+    },
+    "browser": {
+      "file": {
+        "path": "scratch/functional-analysis-browser/results.json",
+        "sha256": "c74505ec8db5fa1f2c8346f9aa3dbce7e82631be9b9dd1a45e00061dce7ad416",
+        "bytes": 5436
+      },
+      "result": {
+        "at": "2026-09-10T22:09:47.576Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "geometry": {
+              "width": 1440,
+              "document": 1440,
+              "font": "\"Space Grotesk\", sans-serif"
+            },
+            "fontLoaded": true,
+            "labCount": 7,
+            "readingSections": 11,
+            "examples": 11,
+            "practice": 9,
+            "checkpoints": 2,
+            "keyboardArrow": true,
+            "sequenceKeyboardScroll": true,
+            "quadratureSliderAgreement": true,
+            "mathWidths": [
+              {
+                "index": 0,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 1,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 2,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 3,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 4,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 5,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 6,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 7,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 8,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 9,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 10,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 11,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 12,
+                "width": 760,
+                "content": 760
+              },
+              {
+                "index": 13,
+                "width": 760,
+                "content": 760
+              }
+            ],
+            "invalidStatePreserved": true,
+            "errors": []
+          },
+          {
+            "width": 390,
+            "geometry": {
+              "width": 390,
+              "document": 390,
+              "font": "\"Space Grotesk\", sans-serif"
+            },
+            "fontLoaded": true,
+            "labCount": 7,
+            "readingSections": 11,
+            "examples": 11,
+            "practice": 9,
+            "checkpoints": 2,
+            "keyboardArrow": true,
+            "sequenceKeyboardScroll": true,
+            "quadratureSliderAgreement": true,
+            "mathWidths": [
+              {
+                "index": 0,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 1,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 2,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 3,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 4,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 5,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 6,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 7,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 8,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 9,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 10,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 11,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 12,
+                "width": 350,
+                "content": 350
+              },
+              {
+                "index": 13,
+                "width": 350,
+                "content": 350
+              }
+            ],
+            "invalidStatePreserved": true,
+            "errors": []
+          },
+          {
+            "width": 320,
+            "geometry": {
+              "width": 320,
+              "document": 320,
+              "font": "\"Space Grotesk\", sans-serif"
+            },
+            "fontLoaded": true,
+            "labCount": 7,
+            "readingSections": 11,
+            "examples": 11,
+            "practice": 9,
+            "checkpoints": 2,
+            "keyboardArrow": true,
+            "sequenceKeyboardScroll": true,
+            "quadratureSliderAgreement": true,
+            "mathWidths": [
+              {
+                "index": 0,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 1,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 2,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 3,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 4,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 5,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 6,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 7,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 8,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 9,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 10,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 11,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 12,
+                "width": 280,
+                "content": 280
+              },
+              {
+                "index": 13,
+                "width": 280,
+                "content": 280
+              }
+            ],
+            "invalidStatePreserved": true,
+            "errors": []
+          }
+        ]
+      }
+    },
+    "focusedReading": {
+      "file": {
+        "path": "scratch/functional-analysis-browser/reading-results.json",
+        "sha256": "349a55d7c95006800819843a6f2a0032da208ee1bc6f512fbffecb583d98eb28",
+        "bytes": 472
+      },
+      "result": {
+        "at": "2026-09-10T22:16:30.945Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "exactGuardVisible": true,
+            "inverseRankQualificationVisible": true,
+            "errors": []
+          },
+          {
+            "width": 390,
+            "exactGuardVisible": true,
+            "inverseRankQualificationVisible": true,
+            "errors": []
+          },
+          {
+            "width": 320,
+            "exactGuardVisible": true,
+            "inverseRankQualificationVisible": true,
+            "errors": []
+          }
+        ]
+      }
+    },
+    "original": {
+      "file": {
+        "path": "docs/teaching/evidence/functional-analysis-rkhs-original-content.json",
+        "sha256": "e829a49bfec2d3d505494464ae80dff862200e089eaa889a929f485603f6ce4e",
+        "bytes": 1763
+      },
+      "result": {
+        "status": "original preservation and execution only; replacement not implemented",
+        "capturedAt": "2026-09-10T21:07:00.071604+00:00",
+        "source": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+        "archive": "docs/teaching/evidence/functional-analysis-rkhs-original.jsx",
+        "sourceSha256": "56df99e5b364ad303e62539baf2c6f471714687eca65f83a7d0ac10b32918d18",
+        "sourceByteLength": 7123,
+        "archiveMatchesSource": true,
+        "pythonVersion": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+        "pythonExecutable": "C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\lesson-tools\\Scripts\\python.exe",
+        "comparison": "Exact decoded code/output retained, CRLF normalized only for subprocess stdout comparison; final output newline ignored.",
+        "programs": [
+          {
+            "number": 1,
+            "code": "import math\n\nxs, ys = [0.0, 1.0], [0.0, 1.0]\ngamma, regularisation = 1.0, 0.1\nk01 = math.exp(-gamma * (xs[0] - xs[1]) ** 2)\n\n# Invert K + lambda I for this 2-by-2 example.\na, b = 1 + regularisation, k01\ndeterminant = a * a - b * b\nalpha0 = (a * ys[0] - b * ys[1]) / determinant\nalpha1 = (-b * ys[0] + a * ys[1]) / determinant\n\nx = 0.5\nprediction = (\n    alpha0 * math.exp(-gamma * (x - xs[0]) ** 2)\n    + alpha1 * math.exp(-gamma * (x - xs[1]) ** 2)\n)\n\nprint(round(k01, 3))\nprint(round(alpha0, 3), round(alpha1, 3))\nprint(round(prediction, 3))",
+            "codeSha256": "3cc650c8f043c9578498156ca5fb323218bab3174940027af932546100019545",
+            "expectedOutput": "0.368\n-0.342 1.024\n0.531",
+            "outputSha256": "52a817e16c312dcd447f0e8d11c428867f60b0cb0495d607415ee97d92d8e816",
+            "actualStdout": "0.368\n-0.342 1.024\n0.531\n",
+            "stderr": "",
+            "exitCode": 0
+          }
+        ]
+      }
+    }
+  },
+  "openedScreenshots": [
+    {
+      "path": "scratch/functional-analysis-browser/reading-1-390.png",
+      "sha256": "105bb0bac3eb2186a2ed215dc8aaf3fb80f0c44c05600a21c6e5b5ac223ddd6c",
+      "bytes": 90983
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-2-320.png",
+      "sha256": "3c20eefba009952f73c7890b314b73cbc337e4922bd19aea172330a4a87aedb2",
+      "bytes": 79010
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-3-390.png",
+      "sha256": "518707ef77bf313fda341b3e4f63db822d78518a06f82958c059db3d3824525b",
+      "bytes": 100040
+    },
+    {
+      "path": "scratch/functional-analysis-browser/evaluation-attainment-390.png",
+      "sha256": "2f56a9e6cb343a5b00b4770b381e75b483b4de58822afca2d9e8106bba3ca570",
+      "bytes": 56249
+    },
+    {
+      "path": "scratch/functional-analysis-browser/changed-wiggle-320.png",
+      "sha256": "dcb5f01d0c71f8d96a9d067a55b347c1d6a63ec556e3f8f285af0f74c0fd1c0d",
+      "bytes": 54556
+    },
+    {
+      "path": "scratch/functional-analysis-browser/ridge-extrapolation-390.png",
+      "sha256": "1e9d71743ec44b85213cab74e2d51a3a59e1684f74049901bb61f34f33696b24",
+      "bytes": 57447
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-4-1440.png",
+      "sha256": "6885584daed7b9547245461c482d9eab54d070b54a973c80f1b48a0c83fa58d1",
+      "bytes": 187837
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-5-390.png",
+      "sha256": "82a9d4edfaead6084b0828cb934163c7596827f1f83e819710bff81fb0b94752",
+      "bytes": 94339
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-6-320.png",
+      "sha256": "1fa18f392dc511f3883ef00edafb15e975b7b3fa275362081126d0868dae1609",
+      "bytes": 71962
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-7-390.png",
+      "sha256": "ab8cd6f740ba020beee0a86c83ec3f41f433c504acc9a99f03e0c3a39f10ecce",
+      "bytes": 109521
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-8-390.png",
+      "sha256": "1204ad05e99c10442c89ff7a961cda1168800e2b23d5bca1b75898c2b709633f",
+      "bytes": 107623
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-9-320.png",
+      "sha256": "7e556274a328f81b42841089c7f0567bc7a0546dc2535fe1660384b30764b54e",
+      "bytes": 68920
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-10-390.png",
+      "sha256": "ab3adebe32227da97425ee9f293253abe1af86740430961dbcbe27c510edcfe4",
+      "bytes": 105125
+    },
+    {
+      "path": "scratch/functional-analysis-browser/reading-11-320.png",
+      "sha256": "59912d374aa84f8fa7eb91f354724c65f7cd14384b2d333869859a89a3676b3f",
+      "bytes": 61843
+    },
+    {
+      "path": "scratch/functional-analysis-browser/equation-2-320.png",
+      "sha256": "cca085c9cb62564c1cc414104e6b3b58a05ce7b23d34976aa1a0b7a9901110aa",
+      "bytes": 76365
+    },
+    {
+      "path": "scratch/functional-analysis-browser/equation-3-320.png",
+      "sha256": "36a354732f0a133ca5e75535ec5902583e42b63b42cd780ced109fce7d6bc3ac",
+      "bytes": 50566
+    },
+    {
+      "path": "scratch/functional-analysis-browser/equation-5-320.png",
+      "sha256": "ab8c22358904daaf1249289b16c4884b383872eac76dd7cdc130da0e9bc375c2",
+      "bytes": 73604
+    },
+    {
+      "path": "scratch/functional-analysis-browser/equation-7-320.png",
+      "sha256": "989cb337ee2045436453d0d2c34b08fa0ba2601a5ce8753fe6ac4ed60109f5d5",
+      "bytes": 71573
+    },
+    {
+      "path": "scratch/functional-analysis-browser/equation-11-320.png",
+      "sha256": "dccee41138f21c6ac8f4b16d2235a51d4d490387dac8e85c74066af8a61db4ef",
+      "bytes": 52169
+    },
+    {
+      "path": "scratch/functional-analysis-browser/equation-13-320.png",
+      "sha256": "8945da15f131f9b76163e641cb20d5b01a0eab7bf80aaba059a049ee3eaf4c63",
+      "bytes": 56658
+    },
+    {
+      "path": "scratch/functional-analysis-browser/invalid-gram-390.png",
+      "sha256": "da3695ce123850fa5da6651e7dfbead649af9e29a88b92d05f76ad53e823011d",
+      "bytes": 53640
+    },
+    {
+      "path": "scratch/functional-analysis-browser/distribution-witness-320.png",
+      "sha256": "3d3c1fe14031143a949409e5610571428d14e307783e3157c15073059f651186",
+      "bytes": 43324
+    },
+    {
+      "path": "scratch/functional-analysis-browser/quadrature-optimum-1440.png",
+      "sha256": "a33304ece0258e0515e17b472ca613a56553cd407bde2ac4c21221224c53348b",
+      "bytes": 160414
+    },
+    {
+      "path": "scratch/functional-analysis-browser/quadrature-manual-320.png",
+      "sha256": "1b6ff0133f1726b72da1646501ee9954bfa9282a6dc29369f8f7b067a1cff090",
+      "bytes": 53634
+    },
+    {
+      "path": "scratch/functional-analysis-browser/completion-390.png",
+      "sha256": "df8c863b33b1f177ce2721043a296fe6823ff507c48f919cb8d636933d1d9efd",
+      "bytes": 85432
+    },
+    {
+      "path": "scratch/functional-analysis-browser/practice-quadrature-390.png",
+      "sha256": "3238ce446e876d9cadbb1ae75dedf30a6fc3f266f42bb79bb33de21276b0995e",
+      "bytes": 83930
+    },
+    {
+      "path": "scratch/functional-analysis-browser/sources-390.png",
+      "sha256": "c6aba2bc1f802b792fd71d6dd6a66cc793727356b83e01cadeb35adad66106b1",
+      "bytes": 114780
+    },
+    {
+      "path": "scratch/functional-analysis-browser/evaluation-error-320.png",
+      "sha256": "1ed8b9203c47bc30c98a36630d58032b93c023f84002df1235378b7835c9650b",
+      "bytes": 51887
+    },
+    {
+      "path": "scratch/functional-analysis-browser/native-range-explanation-390.png",
+      "sha256": "24ca5a20faa98679655aea5b41f649605de135b4faf6b1bc7ae99edf8f95c6c2",
+      "bytes": 91207
+    },
+    {
+      "path": "scratch/functional-analysis-browser/interpolation-program-320.png",
+      "sha256": "cbe4fe0f6529b6b98fe74b2af272cd1ae72a7ae1a5e136ed75bf3b7848516f00",
+      "bytes": 67855
+    },
+    {
+      "path": "scratch/functional-analysis-browser/approximation-rank-320.png",
+      "sha256": "c96da3dc3b7278e448c093370b3edbd03da259f209bbf11892420724fe8d4224",
+      "bytes": 80011
+    },
+    {
+      "path": "scratch/functional-analysis-browser/duplicate-ridge-plot-390.png",
+      "sha256": "de4af0036fb030a8cc91bf3811599853a0e228ef8a0c682f6fe85807d50379cf",
+      "bytes": 70175
+    },
+    {
+      "path": "scratch/functional-analysis-browser/witness-plot-320.png",
+      "sha256": "b440a572ea016975bbbc6079d5853afd4b6e150c2b8f54b28016fba63c6852eb",
+      "bytes": 50787
+    },
+    {
+      "path": "scratch/functional-analysis-browser/spike-1440.png",
+      "sha256": "8091fb59f295b6d39eb351293a4297b053ac28140fb7a29a4476fc1e7d396c96",
+      "bytes": 154999
+    },
+    {
+      "path": "scratch/functional-analysis-browser/changed-capstone-solution-1440.png",
+      "sha256": "beec13b3b4e49f8aaa7baf4d20979b1f658fd248315cf56b544397a0c448d7f6",
+      "bytes": 231800
+    },
+    {
+      "path": "scratch/functional-analysis-browser/changed-capstone-solution-390.png",
+      "sha256": "d49985f173e36b618e072dc6f37d59589caa8e78b4a3fe7b9ae398a0545a4405",
+      "bytes": 114330
+    },
+    {
+      "path": "scratch/functional-analysis-browser/changed-capstone-solution-320.png",
+      "sha256": "46a26d85fc4bc31d77b7e9ecfede9191150ca585b784c1871cdd65bfeda975c5",
+      "bytes": 79659
+    }
+  ],
+  "reviewNotes": [
+    "Thirty-seven listed captures were actually opened; generated-only images are not counted.",
+    "The final full browser run supersedes pre-fix overlay, long-equation and early keyboard-timing attempts.",
+    "Focused final screenshots include the actual guarded native program and visible numerical limitation.",
+    "Preserved original decoded code/output; current reference versions are distinguished from installed runtime.",
+    "No observed beginner study, full video viewing, universal arithmetic guarantee or deployment claim."
+  ],
+  "postFreezeAmendments": [
+    {
+      "at": "2026-09-10T22:18:16.641918+00:00",
+      "reason": "Add checkable actual changed-noise and linear-target results to practice H after independent pedagogical review.",
+      "priorFreeze": {
+        "authorFrozenAt": "2026-09-10T22:14:36.299248+00:00",
+        "production": [
+          {
+            "path": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+            "sha256": "7a1d9f9773558ff0207b2fc48032ca3a5d6e9f305d94050a3109c641047347bd",
+            "bytes": 49106
+          },
+          {
+            "path": "src/learn/data/functional-analysis-models.js",
+            "sha256": "d4606e42993e5fd512b9006100d91a67b4da7ca78ba777477e2004622e65265c",
+            "bytes": 9717
+          },
+          {
+            "path": "src/learn/data/functional-analysis-examples.js",
+            "sha256": "d0b1768f86359681fcb729bc711bbdb03e441b5fc09865439dc1f16327572998",
+            "bytes": 19329
+          },
+          {
+            "path": "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx",
+            "sha256": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6",
+            "bytes": 21935
+          },
+          {
+            "path": "src/learn/components/lesson-labs/functional-analysis-labs.css",
+            "sha256": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938",
+            "bytes": 5014
+          },
+          {
+            "path": "src/learn/data/curriculum/blueprints/functional-analysis-rkhs.js",
+            "sha256": "83bb2e9a5063d661e9855c8477a79f178efd2129b2098e1463b7b09944316587",
+            "bytes": 4702
+          }
+        ],
+        "support": [
+          {
+            "path": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-LESSON-DESIGN.md",
+            "sha256": "9cf9edef8e2c5f7446339051c4db6025b4bc4c2676037ad5903c46ee750ec753",
+            "bytes": 36778
+          },
+          {
+            "path": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-VERIFICATION.md",
+            "sha256": "0d3496d10620704a6ad1ca0efb1741d13d0c1290a82e06d757be75e76f032a33",
+            "bytes": 8061
+          },
+          {
+            "path": "docs/teaching/topic-notes/functional-analysis-rkhs.md",
+            "sha256": "f94fb701517a64fce7454d7ed1f45c14e72e8bc269b401a4c092f9465692e781",
+            "bytes": 3136
+          },
+          {
+            "path": "docs/teaching/topic-notes/support-vector-machines-svm.md",
+            "sha256": "291b5f9c519983d82d5e3e2863f5ebe014dcde5f51ce8ef65cf8cd0ea386dfd6",
+            "bytes": 5715
+          },
+          {
+            "path": "docs/teaching/topic-notes/gaussian-processes-gp.md",
+            "sha256": "1f8b9216d8930313ae799f32542e2805917ea7921c212b212be68176030c1d27",
+            "bytes": 2007
+          },
+          {
+            "path": "scripts/verify-functional-analysis.mjs",
+            "sha256": "41648d19fc6179e4a2011b40d6a8ddbbcc721dd968abf37b94aec1cbd9bd7ecd",
+            "bytes": 3450
+          },
+          {
+            "path": "scripts/verify-functional-analysis.py",
+            "sha256": "be3176fe17cf7e25de35cb84463ddbaaaac981bd4dd3311a68f13a97a13f1f5e",
+            "bytes": 8387
+          },
+          {
+            "path": "scripts/review-functional-analysis-lesson.cjs",
+            "sha256": "a9e712772b51f35bbb9afea05e6ce958ae99f6fd134c84f8fc4f881894dda5ac",
+            "bytes": 11077
+          },
+          {
+            "path": "scripts/review-functional-analysis-reading.cjs",
+            "sha256": "c30901a6a4cf7dce01cad8459b1e981ea846ab501e31a8f64fe0b6d911df5e22",
+            "bytes": 3182
+          },
+          {
+            "path": "scratch/generate-functional-analysis-examples.py",
+            "sha256": "2639bd672097f1ac5033ffdf2408e683a932aec57a195a167320f94383680fa5",
+            "bytes": 15163
+          }
+        ],
+        "focusedReading": {
+          "file": {
+            "path": "scratch/functional-analysis-browser/reading-results.json",
+            "sha256": "aa10406fe315f90ea9f18447eb288b04e81254cc4fb5637a3dcbd4e25991ad6b",
+            "bytes": 472
+          },
+          "result": {
+            "at": "2026-09-10T22:11:31.629Z",
+            "passed": true,
+            "records": [
+              {
+                "width": 1440,
+                "exactGuardVisible": true,
+                "inverseRankQualificationVisible": true,
+                "errors": []
+              },
+              {
+                "width": 390,
+                "exactGuardVisible": true,
+                "inverseRankQualificationVisible": true,
+                "errors": []
+              },
+              {
+                "width": 320,
+                "exactGuardVisible": true,
+                "inverseRankQualificationVisible": true,
+                "errors": []
+              }
+            ]
+          }
+        }
+      },
+      "changedProduction": [
+        "src/learn/data/topics/functional-analysis-rkhs.jsx"
+      ],
+      "nativeAttribution": "Independent reviewer executed actual changed programs; author read full actual outputs and code hashes, not independently rerun here.",
+      "nativeEvidence": {
+        "checkedAt": "2026-09-10T22:15:27.253267+00:00",
+        "status": "passed",
+        "counts": {
+          "actualDisplayedPrograms": 11,
+          "seventyDigitRidgeAndObjectiveIdentities": 12,
+          "IndependentGaussianFourierDiscrepancies": 6,
+          "ExactMultipleNodeProjectionAndAttainment": 7,
+          "ExactSingleNodeResidualPolynomials": 24,
+          "ExactChangedOrthogonalWiggles": 27,
+          "ChangedRedundantFeatureQuotients": 8,
+          "ActualChangedCapstoneProtocols": 2
+        },
+        "originalConserved": true,
+        "maximumSeventyDigitRidgeNormDifference": 2.638671503518708e-10,
+        "maximumFourierDiscrepancyDifference": 4.440892098500626e-16,
+        "nativeArithmeticRegression": {
+          "rejected": true,
+          "exception": "ValueError",
+          "message": "Coefficients exceed the supported floating-point range"
+        },
+        "thresholdedInverseCounterexample": {
+          "smallPositiveEigenvalue": 1e-14,
+          "exactPseudoinverseRecoveredEntry": 1e-14,
+          "thresholdedRecoveredEntry": 0.0
+        },
+        "changedCapstones": [
+          {
+            "case": "noise035",
+            "codeSha256": "87eabb0663f5df1176938c24dba585e286ff09415b5ce76fb284ecfa46e0f4cc",
+            "actualStdout": "RBF gamma/lambda: 10.0 0.01\nRBF training MSE / squared RKHS norm: 0.056774 3.379214\nRBF validation/test MSE: 0.155172 0.177157\nlinear lambda: 0.1\nlinear validation/test MSE: 0.567841 0.633646\n"
+          },
+          {
+            "case": "linear035",
+            "codeSha256": "988d54bd295721d0ebdc2d6079ac91c88a933e890aec92a21b3e98160fb42f11",
+            "actualStdout": "RBF gamma/lambda: 0.1 0.001\nRBF training MSE / squared RKHS norm: 0.090188 16.774883\nRBF validation/test MSE: 0.127857 0.143528\nlinear lambda: 0.001\nlinear validation/test MSE: 0.09588 0.091864\n"
+          }
+        ],
+        "production": [
+          {
+            "path": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+            "sha256": "7a1d9f9773558ff0207b2fc48032ca3a5d6e9f305d94050a3109c641047347bd"
+          },
+          {
+            "path": "src/learn/data/functional-analysis-models.js",
+            "sha256": "d4606e42993e5fd512b9006100d91a67b4da7ca78ba777477e2004622e65265c"
+          },
+          {
+            "path": "src/learn/data/functional-analysis-examples.js",
+            "sha256": "d0b1768f86359681fcb729bc711bbdb03e441b5fc09865439dc1f16327572998"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx",
+            "sha256": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/functional-analysis-labs.css",
+            "sha256": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938"
+          },
+          {
+            "path": "src/learn/data/curriculum/blueprints/functional-analysis-rkhs.js",
+            "sha256": "83bb2e9a5063d661e9855c8477a79f178efd2129b2098e1463b7b09944316587"
+          }
+        ],
+        "limits": "Finite changed-input independent checks and source proof read; no browser or infinite-theorem proof from simulations."
+      },
+      "browserEvidence": {
+        "file": {
+          "path": "scratch/functional-analysis-browser/reading-results.json",
+          "sha256": "349a55d7c95006800819843a6f2a0032da208ee1bc6f512fbffecb583d98eb28",
+          "bytes": 472
+        },
+        "result": {
+          "at": "2026-09-10T22:16:30.945Z",
+          "passed": true,
+          "records": [
+            {
+              "width": 1440,
+              "exactGuardVisible": true,
+              "inverseRankQualificationVisible": true,
+              "errors": []
+            },
+            {
+              "width": 390,
+              "exactGuardVisible": true,
+              "inverseRankQualificationVisible": true,
+              "errors": []
+            },
+            {
+              "width": 320,
+              "exactGuardVisible": true,
+              "inverseRankQualificationVisible": true,
+              "errors": []
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,841 @@
+{
+  "topicId": "geometry-trigonometry-coordinate-reasoning",
+  "reviewedAt": "2026-09-11T00:23:26.556Z",
+  "reviewer": "root; independent of topic author",
+  "status": "closed; no remaining material finding within review scope",
+  "authorFrozenAt": "2026-09-11T00:13:34.836637+00:00",
+  "production": [
+    {
+      "path": "src/learn/data/topics/geometry-trigonometry-coordinate-reasoning.jsx",
+      "sha256": "a5e56a5d41a745a49b9c1de180ea53e32eb6ba8c08f05b5e3da66be75bac86d3",
+      "bytes": 41806
+    },
+    {
+      "path": "src/learn/data/geometry-trigonometry-models.js",
+      "sha256": "aca9db37bfcbfaa47324194f28695892439d20dc83f301b38714c6b9367e6369",
+      "bytes": 4533
+    },
+    {
+      "path": "src/learn/data/geometry-trigonometry-examples.js",
+      "sha256": "9648121d8334d420c126c7978c68389707ee7e8420df2a467739f438303d8853",
+      "bytes": 13314
+    },
+    {
+      "path": "src/learn/components/lesson-labs/GeometryTrigonometryLabs.jsx",
+      "sha256": "102525bf24cf2cd9c227965ec4c296b05d507d68ced8028c33e4ee9b872a937c",
+      "bytes": 21962
+    },
+    {
+      "path": "src/learn/components/lesson-labs/geometry-trigonometry-labs.css",
+      "sha256": "7e1913ddf83bd625ada20c22a04746d8c9492ba4db87f1fd5e11fe9d4925bf8a",
+      "bytes": 3096
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/geometry-trigonometry-coordinate-reasoning.js",
+      "sha256": "5f7ad2eafa9419d5aa3d1bc859d48e3e173172d2f29fea406e0f3abcb2859677",
+      "bytes": 4637
+    }
+  ],
+  "sourceRead": "Complete ten-section body/design/brief/models/nine actual programs and outputs/labs/CSS/two checkpoints/twelve practice groups.",
+  "preFreezeCopyCorrections": [
+    "Vectors is not called later in the module.",
+    "The arc uses fixed drawing scale, not a responsive CSS-pixel guarantee."
+  ],
+  "native": {
+    "reviewedAt": "2026-09-11T00:12:47.222343+00:00",
+    "passed": true,
+    "counts": {
+      "frames": 56,
+      "circles": 10,
+      "programs": 9,
+      "ssaBoundaryCases": 12,
+      "offGridNativeArcs": 16,
+      "changedScreenMaps": 18,
+      "changedLinkConfigurations": 45
+    },
+    "maximumAbsoluteDifference": 4.656612873077393e-10,
+    "precision": "mpmath 70 decimal digits",
+    "limits": "Finite implementation checks accompany an independent complete proof/source read; no all-input floating-point bound is asserted."
+  },
+  "browser": {
+    "reviewedAt": "2026-09-11T00:16:07.201Z",
+    "passed": true,
+    "sources": [
+      {
+        "path": "src/learn/data/topics/geometry-trigonometry-coordinate-reasoning.jsx",
+        "sha256": "a5e56a5d41a745a49b9c1de180ea53e32eb6ba8c08f05b5e3da66be75bac86d3"
+      },
+      {
+        "path": "src/learn/data/geometry-trigonometry-models.js",
+        "sha256": "aca9db37bfcbfaa47324194f28695892439d20dc83f301b38714c6b9367e6369"
+      },
+      {
+        "path": "src/learn/data/geometry-trigonometry-examples.js",
+        "sha256": "9648121d8334d420c126c7978c68389707ee7e8420df2a467739f438303d8853"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/GeometryTrigonometryLabs.jsx",
+        "sha256": "102525bf24cf2cd9c227965ec4c296b05d507d68ced8028c33e4ee9b872a937c"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/geometry-trigonometry-labs.css",
+        "sha256": "7e1913ddf83bd625ada20c22a04746d8c9492ba4db87f1fd5e11fe9d4925bf8a"
+      }
+    ],
+    "records": [
+      {
+        "width": 1440,
+        "captures": [
+          "scratch/geometry-trigonometry-independent/reflex-sector-1440.png",
+          "scratch/geometry-trigonometry-independent/smaller-similar-triangle-1440.png",
+          "scratch/geometry-trigonometry-independent/third-quadrant-components-1440.png",
+          "scratch/geometry-trigonometry-independent/invalid-input-retains-bearing-1440.png",
+          "scratch/geometry-trigonometry-independent/actual-ssa-circle-1440.png",
+          "scratch/geometry-trigonometry-independent/passive-quarter-turn-1440.png",
+          "scratch/geometry-trigonometry-independent/active-quarter-turn-1440.png",
+          "scratch/geometry-trigonometry-independent/inline-0-1440.png",
+          "scratch/geometry-trigonometry-independent/inline-1-1440.png",
+          "scratch/geometry-trigonometry-independent/inline-3-1440.png",
+          "scratch/geometry-trigonometry-independent/inline-4-1440.png",
+          "scratch/geometry-trigonometry-independent/changed-ssa-practice-1440.png"
+        ],
+        "arcGeometry": {
+          "length": 551.4268798828125,
+          "samples": [
+            [
+              277,
+              160
+            ],
+            [
+              274.77349853515625,
+              137.16873168945312
+            ],
+            [
+              268.1225280761719,
+              115.21546173095703
+            ],
+            [
+              257.29339599609375,
+              94.99349975585938
+            ],
+            [
+              242.73153686523438,
+              77.26853942871094
+            ],
+            [
+              225.00653076171875,
+              62.70667266845703
+            ],
+            [
+              204.78456115722656,
+              51.87748718261719
+            ],
+            [
+              182.8312225341797,
+              45.22651290893555
+            ],
+            [
+              159.99993896484375,
+              43.00001907348633
+            ],
+            [
+              137.16867065429688,
+              45.22654342651367
+            ],
+            [
+              115.21540832519531,
+              51.87751770019531
+            ],
+            [
+              94.99347686767578,
+              62.70669174194336
+            ],
+            [
+              77.26848602294922,
+              77.26856994628906
+            ],
+            [
+              62.70663070678711,
+              94.99356079101562
+            ],
+            [
+              51.87749481201172,
+              115.2154541015625
+            ],
+            [
+              45.226524353027344,
+              137.16873168945312
+            ],
+            [
+              43.00001907348633,
+              160.00003051757812
+            ],
+            [
+              45.226524353027344,
+              182.831298828125
+            ],
+            [
+              51.877471923828125,
+              204.7845458984375
+            ],
+            [
+              62.70664596557617,
+              225.00650024414062
+            ],
+            [
+              77.26849365234375,
+              242.7314910888672
+            ],
+            [
+              94.99346923828125,
+              257.29339599609375
+            ],
+            [
+              115.2154541015625,
+              268.12255859375
+            ],
+            [
+              137.16871643066406,
+              274.7735290527344
+            ],
+            [
+              160.00001525878906,
+              277.0000305175781
+            ]
+          ],
+          "maximumRadiusError": 0.030522634858627384
+        },
+        "ssaCircleSamples": [
+          [
+            102.70294189453125,
+            175
+          ],
+          [
+            109.9347152709961,
+            181.56370544433594
+          ],
+          [
+            117.64971160888672,
+            187.55191040039062
+          ],
+          [
+            125.80603790283203,
+            192.92343139648438
+          ],
+          [
+            134.35614013671875,
+            197.64303588867188
+          ],
+          [
+            143.24850463867188,
+            201.68099975585938
+          ],
+          [
+            152.4284210205078,
+            205.01388549804688
+          ],
+          [
+            161.83953857421875,
+            207.6234588623047
+          ],
+          [
+            171.42453002929688,
+            209.49636840820312
+          ],
+          [
+            181.12551879882812,
+            210.6236114501953
+          ],
+          [
+            190.88455200195312,
+            211
+          ],
+          [
+            200.64358520507812,
+            210.62362670898438
+          ],
+          [
+            210.34458923339844,
+            209.4963836669922
+          ],
+          [
+            219.9295654296875,
+            207.6234588623047
+          ],
+          [
+            229.34071350097656,
+            205.01388549804688
+          ],
+          [
+            238.52069091796875,
+            201.6809844970703
+          ],
+          [
+            247.4130401611328,
+            197.64300537109375
+          ],
+          [
+            255.96311950683594,
+            192.92343139648438
+          ],
+          [
+            264.1194152832031,
+            187.55186462402344
+          ],
+          [
+            271.8344421386719,
+            181.5636749267578
+          ],
+          [
+            279.0661926269531,
+            175.00001525878906
+          ]
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size3"
+        ],
+        "errors": []
+      },
+      {
+        "width": 390,
+        "captures": [
+          "scratch/geometry-trigonometry-independent/reflex-sector-390.png",
+          "scratch/geometry-trigonometry-independent/smaller-similar-triangle-390.png",
+          "scratch/geometry-trigonometry-independent/third-quadrant-components-390.png",
+          "scratch/geometry-trigonometry-independent/invalid-input-retains-bearing-390.png",
+          "scratch/geometry-trigonometry-independent/actual-ssa-circle-390.png",
+          "scratch/geometry-trigonometry-independent/passive-quarter-turn-390.png",
+          "scratch/geometry-trigonometry-independent/active-quarter-turn-390.png",
+          "scratch/geometry-trigonometry-independent/inline-0-390.png",
+          "scratch/geometry-trigonometry-independent/inline-1-390.png",
+          "scratch/geometry-trigonometry-independent/inline-3-390.png",
+          "scratch/geometry-trigonometry-independent/inline-4-390.png",
+          "scratch/geometry-trigonometry-independent/changed-ssa-practice-390.png"
+        ],
+        "arcGeometry": {
+          "length": 551.4268798828125,
+          "samples": [
+            [
+              277,
+              160
+            ],
+            [
+              274.77349853515625,
+              137.16873168945312
+            ],
+            [
+              268.1225280761719,
+              115.21546173095703
+            ],
+            [
+              257.29339599609375,
+              94.99349975585938
+            ],
+            [
+              242.73153686523438,
+              77.26853942871094
+            ],
+            [
+              225.00653076171875,
+              62.70667266845703
+            ],
+            [
+              204.78456115722656,
+              51.87748718261719
+            ],
+            [
+              182.8312225341797,
+              45.22651290893555
+            ],
+            [
+              159.99993896484375,
+              43.00001907348633
+            ],
+            [
+              137.16867065429688,
+              45.22654342651367
+            ],
+            [
+              115.21540832519531,
+              51.87751770019531
+            ],
+            [
+              94.99347686767578,
+              62.70669174194336
+            ],
+            [
+              77.26848602294922,
+              77.26856994628906
+            ],
+            [
+              62.70663070678711,
+              94.99356079101562
+            ],
+            [
+              51.87749481201172,
+              115.2154541015625
+            ],
+            [
+              45.226524353027344,
+              137.16873168945312
+            ],
+            [
+              43.00001907348633,
+              160.00003051757812
+            ],
+            [
+              45.226524353027344,
+              182.831298828125
+            ],
+            [
+              51.877471923828125,
+              204.7845458984375
+            ],
+            [
+              62.70664596557617,
+              225.00650024414062
+            ],
+            [
+              77.26849365234375,
+              242.7314910888672
+            ],
+            [
+              94.99346923828125,
+              257.29339599609375
+            ],
+            [
+              115.2154541015625,
+              268.12255859375
+            ],
+            [
+              137.16871643066406,
+              274.7735290527344
+            ],
+            [
+              160.00001525878906,
+              277.0000305175781
+            ]
+          ],
+          "maximumRadiusError": 0.030522634858627384
+        },
+        "ssaCircleSamples": [
+          [
+            102.70294189453125,
+            175
+          ],
+          [
+            109.9347152709961,
+            181.56370544433594
+          ],
+          [
+            117.64971160888672,
+            187.55191040039062
+          ],
+          [
+            125.80603790283203,
+            192.92343139648438
+          ],
+          [
+            134.35614013671875,
+            197.64303588867188
+          ],
+          [
+            143.24850463867188,
+            201.68099975585938
+          ],
+          [
+            152.4284210205078,
+            205.01388549804688
+          ],
+          [
+            161.83953857421875,
+            207.6234588623047
+          ],
+          [
+            171.42453002929688,
+            209.49636840820312
+          ],
+          [
+            181.12551879882812,
+            210.6236114501953
+          ],
+          [
+            190.88455200195312,
+            211
+          ],
+          [
+            200.64358520507812,
+            210.62362670898438
+          ],
+          [
+            210.34458923339844,
+            209.4963836669922
+          ],
+          [
+            219.9295654296875,
+            207.6234588623047
+          ],
+          [
+            229.34071350097656,
+            205.01388549804688
+          ],
+          [
+            238.52069091796875,
+            201.6809844970703
+          ],
+          [
+            247.4130401611328,
+            197.64300537109375
+          ],
+          [
+            255.96311950683594,
+            192.92343139648438
+          ],
+          [
+            264.1194152832031,
+            187.55186462402344
+          ],
+          [
+            271.8344421386719,
+            181.5636749267578
+          ],
+          [
+            279.0661926269531,
+            175.00001525878906
+          ]
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size3"
+        ],
+        "errors": []
+      },
+      {
+        "width": 320,
+        "captures": [
+          "scratch/geometry-trigonometry-independent/reflex-sector-320.png",
+          "scratch/geometry-trigonometry-independent/smaller-similar-triangle-320.png",
+          "scratch/geometry-trigonometry-independent/third-quadrant-components-320.png",
+          "scratch/geometry-trigonometry-independent/invalid-input-retains-bearing-320.png",
+          "scratch/geometry-trigonometry-independent/actual-ssa-circle-320.png",
+          "scratch/geometry-trigonometry-independent/passive-quarter-turn-320.png",
+          "scratch/geometry-trigonometry-independent/active-quarter-turn-320.png",
+          "scratch/geometry-trigonometry-independent/inline-0-320.png",
+          "scratch/geometry-trigonometry-independent/inline-1-320.png",
+          "scratch/geometry-trigonometry-independent/inline-3-320.png",
+          "scratch/geometry-trigonometry-independent/inline-4-320.png",
+          "scratch/geometry-trigonometry-independent/changed-ssa-practice-320.png"
+        ],
+        "arcGeometry": {
+          "length": 551.4268798828125,
+          "samples": [
+            [
+              277,
+              160
+            ],
+            [
+              274.77349853515625,
+              137.16873168945312
+            ],
+            [
+              268.1225280761719,
+              115.21546173095703
+            ],
+            [
+              257.29339599609375,
+              94.99349975585938
+            ],
+            [
+              242.73153686523438,
+              77.26853942871094
+            ],
+            [
+              225.00653076171875,
+              62.70667266845703
+            ],
+            [
+              204.78456115722656,
+              51.87748718261719
+            ],
+            [
+              182.8312225341797,
+              45.22651290893555
+            ],
+            [
+              159.99993896484375,
+              43.00001907348633
+            ],
+            [
+              137.16867065429688,
+              45.22654342651367
+            ],
+            [
+              115.21540832519531,
+              51.87751770019531
+            ],
+            [
+              94.99347686767578,
+              62.70669174194336
+            ],
+            [
+              77.26848602294922,
+              77.26856994628906
+            ],
+            [
+              62.70663070678711,
+              94.99356079101562
+            ],
+            [
+              51.87749481201172,
+              115.2154541015625
+            ],
+            [
+              45.226524353027344,
+              137.16873168945312
+            ],
+            [
+              43.00001907348633,
+              160.00003051757812
+            ],
+            [
+              45.226524353027344,
+              182.831298828125
+            ],
+            [
+              51.877471923828125,
+              204.7845458984375
+            ],
+            [
+              62.70664596557617,
+              225.00650024414062
+            ],
+            [
+              77.26849365234375,
+              242.7314910888672
+            ],
+            [
+              94.99346923828125,
+              257.29339599609375
+            ],
+            [
+              115.2154541015625,
+              268.12255859375
+            ],
+            [
+              137.16871643066406,
+              274.7735290527344
+            ],
+            [
+              160.00001525878906,
+              277.0000305175781
+            ]
+          ],
+          "maximumRadiusError": 0.030522634858627384
+        },
+        "ssaCircleSamples": [
+          [
+            102.70294189453125,
+            175
+          ],
+          [
+            109.9347152709961,
+            181.56370544433594
+          ],
+          [
+            117.64971160888672,
+            187.55191040039062
+          ],
+          [
+            125.80603790283203,
+            192.92343139648438
+          ],
+          [
+            134.35614013671875,
+            197.64303588867188
+          ],
+          [
+            143.24850463867188,
+            201.68099975585938
+          ],
+          [
+            152.4284210205078,
+            205.01388549804688
+          ],
+          [
+            161.83953857421875,
+            207.6234588623047
+          ],
+          [
+            171.42453002929688,
+            209.49636840820312
+          ],
+          [
+            181.12551879882812,
+            210.6236114501953
+          ],
+          [
+            190.88455200195312,
+            211
+          ],
+          [
+            200.64358520507812,
+            210.62362670898438
+          ],
+          [
+            210.34458923339844,
+            209.4963836669922
+          ],
+          [
+            219.9295654296875,
+            207.6234588623047
+          ],
+          [
+            229.34071350097656,
+            205.01388549804688
+          ],
+          [
+            238.52069091796875,
+            201.6809844970703
+          ],
+          [
+            247.4130401611328,
+            197.64300537109375
+          ],
+          [
+            255.96311950683594,
+            192.92343139648438
+          ],
+          [
+            264.1194152832031,
+            187.55186462402344
+          ],
+          [
+            271.8344421386719,
+            181.5636749267578
+          ],
+          [
+            279.0661926269531,
+            175.00001525878906
+          ]
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size3"
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "actualImagesOpened": [
+    {
+      "path": "scratch/geometry-trigonometry-independent/reflex-sector-320.png",
+      "sha256": "efcac89d758304398abc434c7716106aa916e1d5c583d1b5353fd2c841121464",
+      "bytes": 59946
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/smaller-similar-triangle-390.png",
+      "sha256": "cd41b5545c636254397c1c707f4d474bc015e763229fcc58236e1a993bacd52d",
+      "bytes": 71716
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/third-quadrant-components-320.png",
+      "sha256": "92597c845196d3140384fe32e8c939ec5be7674bb63c0293973d9b03bf1f29be",
+      "bytes": 68881
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/actual-ssa-circle-390.png",
+      "sha256": "f16173f65ff90710aee04387ad05a0bc2f01c4c89482483fc976d0c6cc746f64",
+      "bytes": 30413
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/passive-quarter-turn-320.png",
+      "sha256": "fd667faf5cbf2d8dd1332fd311e97a1785637e537c7ee24592dc86838b9fae6b",
+      "bytes": 83467
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/active-quarter-turn-1440.png",
+      "sha256": "f11a94f98000501ad2dad9d6ac39563a24c004c481629b48db592b1c6151dbc9",
+      "bytes": 83022
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/inline-0-390.png",
+      "sha256": "c41b19e9108a9da3d66f9f84ee2d0a1f72603006be7a974b19bfda0e78645a4f",
+      "bytes": 28726
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/inline-1-320.png",
+      "sha256": "f10cc194a8be70f45f32c7352978781a577a0276d8e8841637f7fe0b5a9dd7fe",
+      "bytes": 26417
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/inline-3-320.png",
+      "sha256": "9b6c0b227d0c9a732ba0bec4ba8809923f62044238adc39ffeacbc7507a3a37b",
+      "bytes": 22136
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/inline-4-390.png",
+      "sha256": "2fd04c81f2c375c3ff11f7817973ac48088134e09a83a2a2b6b058d18d83a56e",
+      "bytes": 22784
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/invalid-input-retains-bearing-320.png",
+      "sha256": "293446da4ee47f5670068eecf1006565300966a3dcb42ddf08cfe5945d848d86",
+      "bytes": 66663
+    },
+    {
+      "path": "scratch/geometry-trigonometry-independent/changed-ssa-practice-390.png",
+      "sha256": "56abab6fb42c2956561504f21432530fa2dd02e4894846d7bbdae8a9c87809d6",
+      "bytes": 45091
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/teaching/GEOMETRY-TRIGONOMETRY-INDEPENDENT-REVIEW.md",
+      "sha256": "ec3f04e22b7bcbea8e0e023ec8e595536204fdc3921db121f4bd29dec7bf5398",
+      "bytes": 5065
+    },
+    {
+      "path": "scripts/verify-geometry-trigonometry-independent.mjs",
+      "sha256": "1bb26161b9226a10b6f4c8899dc5e70936ba4c57cf2845341ba8f406fe3f5dc1",
+      "bytes": 1075
+    },
+    {
+      "path": "scripts/verify-geometry-trigonometry-independent.py",
+      "sha256": "c75b8553d27ace5d0e3d3d2defc1df7394e4a11ca916c0e52ae85f77f741b45f",
+      "bytes": 4653
+    },
+    {
+      "path": "scripts/review-geometry-trigonometry-independent.cjs",
+      "sha256": "b5b14d152f0648565d0076f0ee8a06efd776e296e7154467d2b3aee4e1cdd055",
+      "bytes": 8720
+    }
+  ],
+  "limits": [
+    "Finite high-precision cases do not establish an unrestricted floating-point bound.",
+    "SVG arc sampling is checked with explicit drawing tolerances.",
+    "Author full browser checks remain attributed.",
+    "Production integration and user acceptance are separate."
+  ]
+}

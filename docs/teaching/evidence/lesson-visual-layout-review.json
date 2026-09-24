@@ -1,0 +1,1675 @@
+{
+  "reviewedAt": "2026-09-14T09:11:43.191Z",
+  "status": "complete within the recorded layout scope",
+  "scope": "Presentation repair of published lessons; pending written revisions are not implemented.",
+  "buildManifestHash": "d6c238146c6188f26fe9d9f471028dbe8e9c6faf556e2794a07a79eb4e47ea45",
+  "sourceChanges": [
+    {
+      "path": "src/learn/components/viz/Plot.jsx",
+      "before": "2cb6957b543a23b72d7424d93002099e938921d7cbaa79d829ed08b18f0bb894",
+      "after": "9d674846a2fcad8b5f0b8b902981053f81c88802ae7a9b76056aa57f196ee99c"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/AnomalyDetectionShared.jsx",
+      "before": "7678139fc40508674b417f1b62629a29c6687c8545cbcfe0fbcc33a3012e8143",
+      "after": "d4ee3844348a6e29870e5360b1e49080af89d96dce8516f6e29fedf753cb97bd"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx",
+      "before": "7b35cf945bc94e68115941086a85a54419c02446da0ef4c26ddb82ea43ba1b87",
+      "after": "05d159bd96239d7a193cf15de1e796db6a856107df42ca2cc352b481a82ef676"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx",
+      "before": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99",
+      "after": "0baa16ee4ca18578087e7b2ceb907aa3855e60963acef23bbd189be0492322be"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx",
+      "before": "4c277461f04ff580df50b5442cca6ceb78fa67de8a4630b98b2ca85ac7917da7",
+      "after": "05f05daa033e241f322dd67dc2256aad7d3fcb61f49d37b202f3066498f7df63"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/backtracking-divide-labs.css",
+      "before": "6b98750449c50b142e4e89785b5b8fc088f04d7ea28bc033481ad168ba4c3195",
+      "after": "a42e00a0afa8900addc6f782e2932029d68c265d8277a75ddebb7928744bfde4"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "before": "5ce77a4d38523e25fa2b0cefc42f1e0d19c017ebdc0b2adc71b2512c29e267f7",
+      "after": "8180ed8cff3d56001f52ce7c6993ed4ecc468488e857f742efa651b0f1cacf83"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/conditioning-stability-labs.css",
+      "before": "6153a799c9e8380f740d19b80d4f608fbd5b71169c64d55d1ca9baf32d9ff6b4",
+      "after": "41cf2b148fc60d9fd0406a58de13b91429eef4ac9bb8cbae2f313fbccebd2f00"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "before": "45060210a4ab470b590cb54ffa56d64b2270c63976b76647ff38a3fbded878bd",
+      "after": "d23a5ffbbc2f82984a7f409e5d6a2f8ecdbdb617561bd59116bed53cf4765dc8"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx",
+      "before": "a88b98502518d0cb874ed38e1323443db56165bd2be06002c92e099cf7e47839",
+      "after": "ed0a9f5233528f6bd0631a43e3782f1129a5dcb2cef9ef2bebb6f03bc3a62480"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dynamical-systems-labs.css",
+      "before": "6ca3931852f9399ece613197548c307a77ad34fb656a454a69b69ea7d9cfdf62",
+      "after": "719e3bf2f52acfdffaee002f60d95e5991d20f045b1fe0c25005f728818b7d87"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DualityKktLabs.jsx",
+      "before": "49c439d12f8c334d72b04d189f4a25ac92e62f0dc32564d9e539a84808186b95",
+      "after": "826f494eb9e7d8ecea921a183a5820514f09f96dc568b5e3cdd49fea3f4fdf59"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx",
+      "before": "08406fb8fe003d769c523c18cc079ee289121ac8b27dec32fec30ff309044c0a",
+      "after": "f18fd73b954059d41377c1daea5c421aaf7b9be02bc0ebdbb99651ff01417be6"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DbscanLabs.jsx",
+      "before": "db1a1b86de5d6508fa708036569864998131b794881a6b4637b0e45ea6cd261f",
+      "after": "41a16614fcc1231fa9da1de8707d15fbbc93dcbf2a7bc4a98f0276e93d1550c6"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DbscanFigures.jsx",
+      "before": "3b047ec31e69f4124b1aca9b534ff5e26720288b343a8efda55a43348b5310f1",
+      "after": "6315b5a17b53608d046873cb4953145f767dacc3e1d499a3ff07d2a3322d8184"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx",
+      "before": "42cc19b9af5899015613b0b3badf4426da41fa9b48882157c17b55ced018edd9",
+      "after": "48b9c41e81843f8f53db2d9b01466e078092dea55bf83d240384b9cab76c2bd8"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/GradientVariantsLabs.jsx",
+      "before": "70a048459a683b06983db9501c11c205f8fbc5a296e1d94a84f402459e1eebce",
+      "after": "8be3726498fcd8460871699eccb84a564127a2b5532bfca3d5a67217c3310ecc"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/convex-optimization-labs.css",
+      "before": "b2bea6b5738f95d2d78e19ce7381e63cbaa1ab5e9e810c0f37f0010cee5947f2",
+      "after": "6cb7cf78c13a8eb8f29598760748f2b24601030755f9328a8f8682677d9c7d13"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/gradient-variants-labs.css",
+      "before": "c142961279cc36e593c7d911b12b739d92d1152d9710a029f3311d2f79921d12",
+      "after": "f4fb39b96a2d6ddf82d1e6ed41177ba686b860f48f1500e39a6894700959a38a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/GmmLabs.jsx",
+      "before": "c941c458ace40303ea338fd556976e200be4caf006fec4876db0ac6d8f387531",
+      "after": "61a98ee392851e34f27aa52e8014a126e07d35ff798518f5e016ef59e4ee2a56"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/GmmFigures.jsx",
+      "before": "165f946b13449913f70f4476a1095e112b3443c5f197973825f5417e61bd5c22",
+      "after": "99d8a4fc2cd90d4d9d2d8fbeb0dc1bd3e001db65f845a7d826033f780fd011b6"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/gmm-labs.css",
+      "before": "63588ff01ce924be969419cda2ded023227bb276e7a97989a908d727d675efd7",
+      "after": "e24fda13ed966f05c437759ff36396be36d4f3b667de1389d0787406fb84652b"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx",
+      "before": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6",
+      "after": "a6841d7de1f3c506884ae993a63d42acdd4063a36ae594d8eab7675ffb5ae1cf"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx",
+      "before": "bde1928bd2c16a2f8296a05ecca29eca393bb7f1e20f5c330b7b4d492ab15a3d",
+      "after": "da66242941db121ee9af2fa344a549e6af7087a7c0d9a3f5f7cf9f7bdbd8ee89"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx",
+      "before": "f9fca0ccadebccd067547d9e757686fbd032366faac88f23a9ad1a4c8d774a9d",
+      "after": "963c455d8c7d9d84417f68cbd4d8f55dd72f0c24c79f848d98528a7400f46f98"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/learning-rate-schedule-labs.css",
+      "before": "9fd90951133fcfa46948a27815c07d3190409bc6713f1ff168d84bffd04a5789",
+      "after": "cc7aa40b7dc3a84d7301cbb34d0eea96fc49ca5e8a611b16d3f05f229c88cfe9"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/KnnLabs.jsx",
+      "before": "086c56e9878b1701a890846ce8152d41c57ff7b3b0ea4d99cf686548bbd2aded",
+      "after": "24562c1dc5d2be0873651eb4fa0e330a9692f4148005062f5c0e7386f2ddb37c"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/knn-labs.css",
+      "before": "bd1ad00284fd2a068e128383d4b8f29bbad59f6b8f16b0c5c91ce550e8b620a4",
+      "after": "664314ff9aca49f551ddfaedec63ba8d4716f71d82b0ace78ef9d7b755777d0a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ItoSdeLabs.jsx",
+      "before": "84f631995d336c1a5e91ff01b7434d73d6c01f5dd881f15d9b4d5f971d96dfdb",
+      "after": "064ece5b69b0bc99e7200e867e0e928279952ee9aed40d66ca9ae53b4d421d68"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ito-sde-labs.css",
+      "before": "83f608e1e90c0a617fb7a5a9aa0074743edb593a14f0a7f495732d2b2bb5a5b5",
+      "after": "65cc1491cfe22001e557d82e35f2dd0d2cb185f6c56278536e46c8269dc5568c"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx",
+      "before": "44b0e97eb565050a622368d8d0f1d2293a1efde5ef628277d76fbfbf56e43281",
+      "after": "4112d66720d3f6591d8506925770d74d99bda1779ab431b9d5f1ae1f1d45c207"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx",
+      "before": "5ea8076f620693ece6630332fdb0aefb9b39707db0e83b77f491bbdf20cdf172",
+      "after": "6cc855073983d13c5a653f2959b293e674c5416436d17fb7bbbe6bd40344cb92"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx",
+      "before": "b2fad697b41bb376dcd7c344c31d9c8eb8dfe3a49785c4e6eada7c370d53a2a0",
+      "after": "8d5e41ab756a4a7b42a2f47ec4447f58a885663b78e004b00e618f0ee5497f95"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx",
+      "before": "65bd096fb897dad7f6c74e938f6d3aaaa2c853fb8cbe2458a1e4c0552817942b",
+      "after": "03483c45b32084af1904f4c7780bc09a5c1480da8bc54c82e1767c9a56cb333d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/EigenvalueLabs.jsx",
+      "before": "e37fcc065d99178742e4bec68468c9c3ae7614c60ff7ceeb89fa7bc27b34f6be",
+      "after": "9591e7a504932dd94ad126f5e6b8f67971b36b8f1550a019b2033451dea76a97"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx",
+      "before": "a6b29e507b1d4ed6c5bf64a3e95e3ef86499eb2576b1f36218bc3e4185a1031b",
+      "after": "ab3e71d829765e6e23336a49db24036e0c5a595bcb240e2ab9308412f7156d3e"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/NaiveBayesLabs.jsx",
+      "before": "f0b7a7631dd85d12516b1df7a80930b793801e40e6ba573d01b5bcaf9bab2e0b",
+      "after": "edba8e94ac0bad70a2a93138fa117f0ef1f841ff4b10ea170ba9ab7b5bca7d23"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/naive-bayes-labs.css",
+      "before": "a4d7f84adab9a7f179f35300fdc6c420497df87909dd99ccbfae64cf24e4dc76",
+      "after": "2bb500b3bb6acc27fafdaeacdc891499020674ba65660963b499f54167682228"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx",
+      "before": "051cb92fbed63c283f4f2856b4392e6b4b14de5deddce874a44b3f3bd1d8dfe3",
+      "after": "b4efa3bfd754b12f07d947c694849a2b87be33ca5049d1143b0562c475dc5794"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx",
+      "before": "05b3cd25da9aa3c5093f07e5ef61aabbef9ea7b38530fe5370992faac1d72371",
+      "after": "0e17c533ab3f9a001c71edbf5999c3a3d4d0d65fcffe2082c6f5428f8d50c0e1"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/random-variable-labs.css",
+      "before": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f",
+      "after": "a23e995cb0c6fc577207f9661ce6e06612b005cf6e673fcc8c4d795a8a7a0e14"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+      "before": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+      "after": "23da26b1eca2fb14c47f2a1ab848e49963dcb37deb921b4f1a846dd7506df7ea"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx",
+      "before": "14c095ee497c8afb66d90f3dcfa49ca132c74204d16cd0c6acdd56687fac7bee",
+      "after": "daafe18c4fc857afc74dbea815cda34a140a3791d77a21ba4545ab03cde0a636"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "before": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d",
+      "after": "718d151ce5349845ebe4046dd3b174598698becd853d412204d7a372b30bf9da"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/PcaFigures.jsx",
+      "before": "a0c2d03847f7b55c5250bf77ccf2e150aeaaa946fd920aec4b883645fba54a79",
+      "after": "2419498b8c7926cfb6d221cf5efbfee37cef4bd6a616c9ebf0fc11d3f4b72d5a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RandomVariableLabs.jsx",
+      "before": "3a439003800b275917a1d8bd6972cb90288ad541f828f306f9c8cba1231252d5",
+      "after": "56bc639cfc9631fe8ee095906db4f9563b8a308f3f5896389cd9752c2be57de0"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "before": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493",
+      "after": "94c0356ce0ec15d78f6ee34e8ebf3a2c1085ecb3afe719ece4127faf72ef6193"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/sampling-measurement-labs.css",
+      "before": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740",
+      "after": "8a8c8e03ebb4cd607cc08505436ea3de42465de8cccf47fa21dfefea93b31510"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RecommenderLabs.jsx",
+      "before": "0ebc44f76acc2221b5e883a37f50a536da6709591144562709ac5ef910be5598",
+      "after": "b1805aa2b0372af388be96711f89c019bdabc62b3930fab89c8ccb5099659650"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RealAnalysisLabs.jsx",
+      "before": "e171a1dbb2cc4c4d61db9d9528efe72b6bb22119cb34b2027643f9f63ae19e17",
+      "after": "e2366619a8a2c68bc99e407b5e169a24d72b81f415e5340e17f0d9b329842bc3"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+      "before": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41",
+      "after": "09958ab737f32b2d8871bcdd55985a3433bf7bcafc85bd4b1dd68c6ea372b8e7"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SpectralGraphLabs.jsx",
+      "before": "c93a6233ad4eab3d023e5ada39215d2a29050ada228d29470bb65d25d580c496",
+      "after": "06cb6cc3c73e6c86722c82333f99c9e1fc6af2912acd1f09e9efc0f09e844a30"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/spectral-graph-labs.css",
+      "before": "6f877f9a9a2f316d28b9782119ececf6dc9b45ab901f2655ebad70be3f8cd5c1",
+      "after": "4d2e3299b4569eb2eab993828c8db99effaff9cda7481180dcd7824b4e955887"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx",
+      "before": "56b4664f45ec9ce94c052e65eb1ed708ad5682ec0097db5dfdff4432c3b416c8",
+      "after": "35a10baf290aeddba3917050462cf7dec2ce9eb189f4a1566c96f07da01b4b0a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "before": "c1e74207f7d366b032099bcbbf593ac354b50fc0e174af1f2c187b7ce0e11f7b",
+      "after": "9543688f8eee410b9c66a53f6c2f7bbff901e9f28c55199c3b01864b69e23547"
+    },
+    {
+      "path": "src/learn/components/viz/plot.css",
+      "before": null,
+      "after": "32e51e475a71630d54315cb113e9e750f2db885796d3a9b89cc0e2e8e2687c03"
+    }
+  ],
+  "affectedTopicIds": [
+    "matrix-decompositions-svd-qr-cholesky-lu",
+    "eigenvalues-eigenvectors",
+    "matrix-calculus-jacobians",
+    "multivariate-calculus-gradients",
+    "convex-optimization",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+    "learning-rate-schedules-cosine-warmup-onecyclelr",
+    "convex-duality-lagrangian-methods-kkt-conditions",
+    "non-convex-optimization-landscape",
+    "probability-distributions-bayes-theorem",
+    "maximum-likelihood-map-estimation",
+    "hypothesis-testing-confidence-intervals",
+    "bayesian-inference-conjugate-priors",
+    "exponential-families-sufficient-statistics",
+    "spectral-graph-theory",
+    "stochastic-processes-markov-chains-brownian-motion-poisson",
+    "random-matrix-theory",
+    "queueing-theory-m-m-1-m-g-1-little-s-law",
+    "dynamical-systems-theory-chaos",
+    "it-calculus-stochastic-differential-equations",
+    "functional-analysis-rkhs",
+    "differential-geometry-riemannian-manifolds",
+    "algebra-functions-exponentials-logarithms",
+    "single-variable-calculus-limits-derivatives-integrals",
+    "random-variables-expectation-covariance",
+    "sampling-measurement-experimental-design",
+    "complex-numbers-fourier-laplace-transforms",
+    "conditioning-stability-numerical-analysis",
+    "real-analysis-sequences-modes-of-convergence",
+    "partial-differential-equations-conservation-boundary-conditions",
+    "backtracking-divide-and-conquer",
+    "k-nearest-neighbors-knn",
+    "naive-bayes-probabilistic-classifiers",
+    "ensemble-methods-stacking",
+    "recommender-systems-collaborative-filtering-matrix-factorization",
+    "pca-dimensionality-reduction",
+    "dbscan-density-based-clustering",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "gaussian-mixture-models-gmm-em-algorithm"
+  ],
+  "affectedLegacyBindings": [
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "matrix-decompositions-svd-qr-cholesky-lu",
+      "previousVerificationRecord": "docs/teaching/MATRIX-DECOMPOSITIONS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": "b2fad697b41bb376dcd7c344c31d9c8eb8dfe3a49785c4e6eada7c370d53a2a0"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "eigenvalues-eigenvectors",
+      "previousVerificationRecord": "docs/teaching/EIGENVALUES-EIGENVECTORS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "e37fcc065d99178742e4bec68468c9c3ae7614c60ff7ceeb89fa7bc27b34f6be"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "matrix-calculus-jacobians",
+      "previousVerificationRecord": "docs/teaching/MATRIX-CALCULUS-JACOBIANS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "65bd096fb897dad7f6c74e938f6d3aaaa2c853fb8cbe2458a1e4c0552817942b"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "multivariate-calculus-gradients",
+      "previousVerificationRecord": "docs/teaching/MULTIVARIATE-CALCULUS-GRADIENTS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx": "051cb92fbed63c283f4f2856b4392e6b4b14de5deddce874a44b3f3bd1d8dfe3"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "convex-optimization",
+      "previousVerificationRecord": "docs/teaching/CONVEX-OPTIMIZATION-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "42cc19b9af5899015613b0b3badf4426da41fa9b48882157c17b55ced018edd9",
+        "src/learn/components/lesson-labs/convex-optimization-labs.css": "b2bea6b5738f95d2d78e19ce7381e63cbaa1ab5e9e810c0f37f0010cee5947f2"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "previousVerificationRecord": "docs/teaching/GRADIENT-DESCENT-VARIANTS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "70a048459a683b06983db9501c11c205f8fbc5a296e1d94a84f402459e1eebce",
+        "src/learn/components/lesson-labs/gradient-variants-labs.css": "c142961279cc36e593c7d911b12b739d92d1152d9710a029f3311d2f79921d12"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "learning-rate-schedules-cosine-warmup-onecyclelr",
+      "previousVerificationRecord": "docs/teaching/LEARNING-RATE-SCHEDULES-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "a6b29e507b1d4ed6c5bf64a3e95e3ef86499eb2576b1f36218bc3e4185a1031b",
+        "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "9fd90951133fcfa46948a27815c07d3190409bc6713f1ff168d84bffd04a5789"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "convex-duality-lagrangian-methods-kkt-conditions",
+      "previousVerificationRecord": "docs/teaching/CONVEX-DUALITY-KKT-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/DualityKktLabs.jsx": "49c439d12f8c334d72b04d189f4a25ac92e62f0dc32564d9e539a84808186b95"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "non-convex-optimization-landscape",
+      "previousVerificationRecord": "docs/teaching/NONCONVEX-LANDSCAPE-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "05b3cd25da9aa3c5093f07e5ef61aabbef9ea7b38530fe5370992faac1d72371"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "probability-distributions-bayes-theorem",
+      "previousVerificationRecord": "docs/teaching/PROBABILITY-DISTRIBUTIONS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "14c095ee497c8afb66d90f3dcfa49ca132c74204d16cd0c6acdd56687fac7bee"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "maximum-likelihood-map-estimation",
+      "previousVerificationRecord": "docs/teaching/MAXIMUM-LIKELIHOOD-MAP-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "5ea8076f620693ece6630332fdb0aefb9b39707db0e83b77f491bbdf20cdf172"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "hypothesis-testing-confidence-intervals",
+      "previousVerificationRecord": "docs/teaching/HYPOTHESIS-TESTING-CONFIDENCE-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": "44b0e97eb565050a622368d8d0f1d2293a1efde5ef628277d76fbfbf56e43281"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "bayesian-inference-conjugate-priors",
+      "previousVerificationRecord": "docs/teaching/BAYESIAN-INFERENCE-CONJUGATE-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "4c277461f04ff580df50b5442cca6ceb78fa67de8a4630b98b2ca85ac7917da7"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "exponential-families-sufficient-statistics",
+      "previousVerificationRecord": "docs/teaching/EXPONENTIAL-FAMILIES-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx": "bde1928bd2c16a2f8296a05ecca29eca393bb7f1e20f5c330b7b4d492ab15a3d"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "spectral-graph-theory",
+      "previousVerificationRecord": "docs/teaching/SPECTRAL-GRAPH-THEORY-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "c93a6233ad4eab3d023e5ada39215d2a29050ada228d29470bb65d25d580c496",
+        "src/learn/components/lesson-labs/spectral-graph-labs.css": "6f877f9a9a2f316d28b9782119ececf6dc9b45ab901f2655ebad70be3f8cd5c1"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "stochastic-processes-markov-chains-brownian-motion-poisson",
+      "previousVerificationRecord": "docs/teaching/STOCHASTIC-PROCESSES-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": "c1e74207f7d366b032099bcbbf593ac354b50fc0e174af1f2c187b7ce0e11f7b"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "random-matrix-theory",
+      "previousVerificationRecord": "docs/teaching/RANDOM-MATRIX-THEORY-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
+      "previousVerificationRecord": "docs/teaching/QUEUEING-THEORY-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/QueueingLabs.jsx": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "dynamical-systems-theory-chaos",
+      "previousVerificationRecord": "docs/teaching/DYNAMICAL-SYSTEMS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": "a88b98502518d0cb874ed38e1323443db56165bd2be06002c92e099cf7e47839",
+        "src/learn/components/lesson-labs/dynamical-systems-labs.css": "6ca3931852f9399ece613197548c307a77ad34fb656a454a69b69ea7d9cfdf62"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "it-calculus-stochastic-differential-equations",
+      "previousVerificationRecord": "docs/teaching/ITO-CALCULUS-SDE-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/ItoSdeLabs.jsx": "84f631995d336c1a5e91ff01b7434d73d6c01f5dd881f15d9b4d5f971d96dfdb",
+        "src/learn/components/lesson-labs/ito-sde-labs.css": "83f608e1e90c0a617fb7a5a9aa0074743edb593a14f0a7f495732d2b2bb5a5b5"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "functional-analysis-rkhs",
+      "previousVerificationRecord": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "differential-geometry-riemannian-manifolds",
+      "previousVerificationRecord": "docs/teaching/DIFFERENTIAL-GEOMETRY-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx": "08406fb8fe003d769c523c18cc079ee289121ac8b27dec32fec30ff309044c0a"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "algebra-functions-exponentials-logarithms",
+      "previousVerificationRecord": "docs/teaching/ALGEBRA-FUNCTIONS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "single-variable-calculus-limits-derivatives-integrals",
+      "previousVerificationRecord": "docs/teaching/SINGLE-VARIABLE-CALCULUS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx": "56b4664f45ec9ce94c052e65eb1ed708ad5682ec0097db5dfdff4432c3b416c8"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "random-variables-expectation-covariance",
+      "previousVerificationRecord": "docs/teaching/RANDOM-VARIABLES-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/RandomVariableLabs.jsx": "3a439003800b275917a1d8bd6972cb90288ad541f828f306f9c8cba1231252d5",
+        "src/learn/components/lesson-labs/random-variable-labs.css": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "sampling-measurement-experimental-design",
+      "previousVerificationRecord": "docs/teaching/SAMPLING-MEASUREMENT-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41",
+        "src/learn/components/lesson-labs/sampling-measurement-labs.css": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "complex-numbers-fourier-laplace-transforms",
+      "previousVerificationRecord": "docs/teaching/COMPLEX-FOURIER-LAPLACE-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": "5ce77a4d38523e25fa2b0cefc42f1e0d19c017ebdc0b2adc71b2512c29e267f7"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "conditioning-stability-numerical-analysis",
+      "previousVerificationRecord": "docs/teaching/CONDITIONING-STABILITY-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "45060210a4ab470b590cb54ffa56d64b2270c63976b76647ff38a3fbded878bd",
+        "src/learn/components/lesson-labs/conditioning-stability-labs.css": "6153a799c9e8380f740d19b80d4f608fbd5b71169c64d55d1ca9baf32d9ff6b4"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "real-analysis-sequences-modes-of-convergence",
+      "previousVerificationRecord": "docs/teaching/REAL-ANALYSIS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "e171a1dbb2cc4c4d61db9d9528efe72b6bb22119cb34b2027643f9f63ae19e17"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "partial-differential-equations-conservation-boundary-conditions",
+      "previousVerificationRecord": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/PdeLabs.jsx": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+      "id": "backtracking-divide-and-conquer",
+      "previousVerificationRecord": "docs/teaching/BACKTRACKING-DIVIDE-VERIFICATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/backtracking-divide-labs.css": "6b98750449c50b142e4e89785b5b8fc088f04d7ea28bc033481ad168ba4c3195"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/classical-ml-supervised-progress.json",
+      "id": "k-nearest-neighbors-knn",
+      "previousVerificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/KnnLabs.jsx": "086c56e9878b1701a890846ce8152d41c57ff7b3b0ea4d99cf686548bbd2aded",
+        "src/learn/components/lesson-labs/knn-labs.css": "bd1ad00284fd2a068e128383d4b8f29bbad59f6b8f16b0c5c91ce550e8b620a4"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/classical-ml-supervised-progress.json",
+      "id": "naive-bayes-probabilistic-classifiers",
+      "previousVerificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "f0b7a7631dd85d12516b1df7a80930b793801e40e6ba573d01b5bcaf9bab2e0b",
+        "src/learn/components/lesson-labs/naive-bayes-labs.css": "a4d7f84adab9a7f179f35300fdc6c420497df87909dd99ccbfae64cf24e4dc76"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/classical-ml-supervised-progress.json",
+      "id": "ensemble-methods-stacking",
+      "previousVerificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "f9fca0ccadebccd067547d9e757686fbd032366faac88f23a9ad1a4c8d774a9d"
+      }
+    },
+    {
+      "ledgerPath": "docs/teaching/classical-ml-supervised-progress.json",
+      "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+      "previousVerificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "changedFiles": {
+        "src/learn/components/lesson-labs/RecommenderLabs.jsx": "0ebc44f76acc2221b5e883a37f50a536da6709591144562709ac5ef910be5598"
+      }
+    }
+  ],
+  "affectedCentralBindings": [
+    "pca-dimensionality-reduction",
+    "dbscan-density-based-clustering",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "gaussian-mixture-models-gmm-em-algorithm"
+  ],
+  "baselineEntryHashes": {
+    "abstract-algebra-groups-symmetry-actions": "a44461d8fcbd33e32e1cf2959b3c738cf9fd5e0358dce5c85ab836d70d8b1425",
+    "algebra-functions-exponentials-logarithms": "1ae650496ecacca64f6b911d30cc32b8ec6900d781e06335b792b8325678518e",
+    "algorithm-correctness-loop-invariants-termination": "a1fdab2725aa62648002972ec0bdaf07de34e53468c845e1c3290d25a7f70531",
+    "arrays-strings-hash-maps": "c1b0f56834ed8aa99b64c6b30ffd1255f02b81a1a653b4f9b77b86948e6aa8d7",
+    "backtracking-divide-and-conquer": "d8359766f77ac8e7c74a651fb605352611ba8b57735918a3d8a0128dc63c5b9e",
+    "bash-scripting-command-line-automation": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+    "bayesian-inference-conjugate-priors": "369a25f3367edc41227c7c5dbfc40c0a7bb853dc6892802db82506e6a57f3a37",
+    "binary-search-sorting-two-pointer-patterns": "a2668a66de7cc78188a59c75d301029c0339a79ea5c4cda952628af3b85a84e4",
+    "category-theory-emerging-use-in-ml": "558c928d8547e9e6ee12642ea7d50c04d079d7f2f626eeef217cbc3998f523ee",
+    "causal-inference-do-calculus": "892909b231047a272169e06a79accf5cf22b8485115d994ac97b2f445e0cdbac",
+    "code-documentation-type-hints-api-design": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+    "combinatorial-optimization-approximation-algorithms": "7402d303de73a0fae85feb87cb14cb7fd5cfd5527f0a7e39366e04af109877e4",
+    "complex-numbers-fourier-laplace-transforms": "f5472233782f1958412778d25db9b79de48dc71b66af99e6db9a0fe50775073a",
+    "complexity-analysis-recursion": "e30ef7df3c52e0c713a7f348b629f0567779b3175fff8c2d521e0494c7d9145c",
+    "computational-geometry-robust-predicates-convex-hulls": "1b20a520c2be19c0c2db9f9df1b0e10b6dbd83f3051a341351315f953a80bf9a",
+    "concentration-inequalities-hoeffding-bernstein-chernoff": "6d629ef33fd5c5d49481be11f92d1f1600916898b6d6a46de8709c2e2d7eec69",
+    "conditioning-stability-numerical-analysis": "697410f0e9c46c2ca9e09d747879f3f2d6e434828f9a962d49467627e01d6456",
+    "constrained-multi-objective-optimization": "c3ea28b77edfa9e54e1dcc07962ae951fce555e841d148f9353e66f77140f004",
+    "convex-duality-lagrangian-methods-kkt-conditions": "b3186de7abcd208bda477a23e82be606d4267ffec70c521958509a3138440da2",
+    "convex-optimization": "f907e39f31be6deda85ef88827b3728a1c2f0d4bafe9fca149daf49219984896",
+    "counting-combinatorics-mathematical-induction": "faf708f9478810dfe2dcf2f205fa86f8e7f21636b47f3c25b31692b9aa7efa62",
+    "decision-theory-risk-cost-sensitive-decisions": "6958d61d41858c04835dbdadcd80909f0a1aa00263fd0753df38a611719a17e2",
+    "decision-trees-random-forests": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "decorators-context-managers": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+    "differential-geometry-riemannian-manifolds": "60ebec887c0b5c53c682b0fc7e4fa7223b6f98e13c28f4cbb3dd023dbeda88da",
+    "disjoint-sets-union-find": "876cd28b57dc6705ad496dca178da1b35f4605b4889094b9285821f1c3ead5f0",
+    "dynamic-programming-states-transitions-optimization": "54481638658f1b45356012c7d21c96e071f373f59bdf915543308d89decaf832",
+    "dynamical-systems-theory-chaos": "12d5b48f07e285154ed33ae61a9a96a53f0151b4dc3afcea0c100fe2f14e207a",
+    "eigenvalues-eigenvectors": "b3571cce86faf67c357b0bd54d7fe541d6756f05e105efda383dc5db8b96b2ba",
+    "ensemble-methods-stacking": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "entropy-cross-entropy-kl-divergence": "af2516a44f25a3450b12440b11142ae645dc2a6af4760b8236ffa12dd1952ff3",
+    "exponential-families-sufficient-statistics": "2a4a0e357febd8577e02ac561c1ae92998bffa227fc89720fe6969fcbacfcd54",
+    "external-memory-algorithms-b-trees-i-o-complexity": "4a169f0a3844c68a87582364dec2c23a40733ba384d687838272af04dc2aca01",
+    "f-divergences-integral-probability-metrics": "9128912abd4ac595a1fd2ed3c3283bfafa411c801e28ceeca16271461c67ea58",
+    "functional-analysis-rkhs": "0d0cf52f4cea45ceaaf59aaf5546bc11cd1589cb25fa9e6dee74b34744f97d91",
+    "geometry-trigonometry-coordinate-reasoning": "3f1c67876138cc00dcff031957e8e16e06ee68ac9da374d46de78106856ca7da",
+    "git-github-collaborative-version-control": "ffa810ba65aa92d9401f594f3f54e36f82cbcf498e7e881f3c48db0429fd9612",
+    "gradient-boosted-trees-xgboost-lightgbm-catboost": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars": "5ba814e02290ab7838cc1bba512f9b99cd4dc18040e8ce70df78a6a9a24cf1cb",
+    "graph-fundamentals-adjacency-laplacian-connectivity": "cfda6e7bcf11b48d8b7abb0f91944cebffb9c8ffd84676d6c2fb0532a849d39a",
+    "graphs-representations-bfs-dfs": "27b6c92b055667bfcdc5f97906b7530d8c6f5cff28708e8ce17a72deeecee8c4",
+    "greedy-algorithms-exchange-arguments": "9bc4a5c4a9477565f91ad5653bfeae86a0c40df8a695d4e716ed2ea24e4a0daf",
+    "hashing-collision-resolution-amortized-analysis": "5e270388acf639ebb4c7a23f58fb48a4ae8eef2ffe8e30a51caa1adced731670",
+    "heaps-priority-queues-tries": "27b6c92b055667bfcdc5f97906b7530d8c6f5cff28708e8ce17a72deeecee8c4",
+    "hypothesis-testing-confidence-intervals": "9d709d6c3295973db379e03c4a508fb9fa62aceaa943c18d669562ec9a849876",
+    "it-calculus-stochastic-differential-equations": "cae4ec760fd12d73edf5d96044ceb5371c555df667e2e7cd849cfabba1615559",
+    "iterators-iterables-generators": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+    "k-means-hierarchical-clustering": "90694349a259245603e901094b324f69d75375cf5f93eb345b334b5de9bf210e",
+    "k-nearest-neighbors-knn": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "learning-rate-schedules-cosine-warmup-onecyclelr": "ed8b0e2096bcb7565b228563fa76aaa9c812ca8d63970bb91161312cf3a99edd",
+    "linear-logistic-regression": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "linked-lists-stacks-queues": "da6ad42c54644f4842550f59d5b8a2485233896c8929f60893000590ffa8d37d",
+    "linux-basics-filesystems-processes": "4a95f890b833f1de3d3d602f5c63b02bbb62509bb2d8563bd8c6dc40fc4703f4",
+    "matplotlib-scientific-plotting": "ffa810ba65aa92d9401f594f3f54e36f82cbcf498e7e881f3c48db0429fd9612",
+    "matrix-calculus-jacobians": "963f0ee3578455ecf4236af885b5df4da3aba8b9d60b32315edbd654cea6090d",
+    "matrix-decompositions-svd-qr-cholesky-lu": "20d5b83b58a72dbff1cc611db8deb4d1ae014ce084a9f89e990d4a812feda9bc",
+    "maximum-likelihood-map-estimation": "b6ee8af867cf418c0dea515d0789904f201b625b7cb3751c5d72bf265de70fc0",
+    "measure-theory-probability-spaces": "6c1c139677a9575fe4ff3df19559075f1e3357ecd19f27f763c5e72234c9d9e3",
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts": "83897b00473c6964e3447fdfcdd566346061df0affdad5a6f7fe5a06900de80a",
+    "multi-label-multi-output-learning": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "multivariate-calculus-gradients": "96d35d9742d05218cbc525522e10af00ff706d65048fedf77729bfe992532f4c",
+    "mutual-information-information-bottleneck": "dbd5b939b465b2d84ac6b7b5b3d5fb5888559a65a918d0d30bffd1be08642dcd",
+    "naive-bayes-probabilistic-classifiers": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "network-flow-minimum-cuts-bipartite-matching": "67ddff4a6ddd546356db7ed97400145865bb546849724bf3248034123ebc56ea",
+    "non-convex-optimization-landscape": "cda9feb6e641231ea6b9a5d6ac58d5171bb1be78964bd26a0b654d7b2f9ba9c0",
+    "numerical-methods-finite-differences-quadrature-root-finding": "244082bc0b5e788574a29a3835f96f306a0600206e1edf4899645cb0e9eb8ebc",
+    "numerical-pdes-grids-finite-elements-stability": "cab503eec41b0784089ea7ca0dd63a7ecee4095d9276959343de2268a112939a",
+    "numpy-arrays-broadcasting-vectorization": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+    "object-oriented-programming-in-python": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+    "optimal-transport-wasserstein-distance-sinkhorn": "281f0d4ff6a15b3d8f96097e1c929e08a9bbbf5e1c7fcefc8df9744ff05ba1d8",
+    "ordinary-differential-equations-linear-systems": "17068336b1b676703c37bbc1e5719ee959c9e561500105b4a7cdb9e1bdba0127",
+    "os-processes-virtual-memory-isolation": "207b77e9182f64258072a8fb22a5561eac8e3f56a8c480773817f927d2fb830c",
+    "pandas-data-wrangling-joins-grouping": "ffa810ba65aa92d9401f594f3f54e36f82cbcf498e7e881f3c48db0429fd9612",
+    "partial-differential-equations-conservation-boundary-conditions": "9aec1987e8cce4d0b9540f91d7d78ee58ea30ba73dd79639bdf2f4da47c129ea",
+    "persistent-data-structures-structural-sharing-versioned-queries": "0f881cd2b6b9076b225ede0c0535ed85d8831fe73d8321a19343302a9e273bc2",
+    "probability-distributions-bayes-theorem": "2fd2af2151d0eb14ba2199487b97b50910b4d9af8828261f2bb73a7d09ecfb67",
+    "python-basics-types-control-flow-functions-modules": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+    "queueing-theory-m-m-1-m-g-1-little-s-law": "430422d044edae5d801f18ddcd06f59770129c9bec6506702f7fa8a1040799ec",
+    "random-matrix-theory": "fee34a0f5b39a31fd18b402d42e6f37e628790d2e57481343f070b3a2af1437b",
+    "random-variables-expectation-covariance": "1e87dd7629cd4ab8dcc8bcac3c2d9ed3fcb6be0cb0a1a9eddc1f6340e7dd996d",
+    "randomized-algorithms-sampling-error-guarantees": "d1c583ec92ab57fc616ee2f3d63f1b805c1d023cb3a752a96876c58451482654",
+    "randomized-linear-algebra": "8cca2edbe4eedcfe003c997176a3226bd6b82ab258bb32ed19633dcc4ebc2269",
+    "rate-distortion-theory": "a10a246a4589de1a6231c869f83e78d9288c7d2b1ffac94a8be86b3d663e7f0b",
+    "real-analysis-sequences-modes-of-convergence": "7c1700241707e3c568083f2987ccdad9838adb144ff3081f9b6b1e2081de5d74",
+    "recommender-systems-collaborative-filtering-matrix-factorization": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "reductions-p-np-computational-intractability": "d672ce7892b33b5b677f8099ce164b905bf497f151187abe3263926c8dfc5838",
+    "reproducible-notebooks-experiment-structure": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+    "sampling-measurement-experimental-design": "bbe5987c1f384d026b90ef8a98b81788a0b5fff7bdc3af109cf7fa594606bb7a",
+    "scientific-file-formats-schemas-reliable-data-i-o": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient": "2290ed3e3d7bef7b874bda9fe4d23adfb46a51272910cf4e995588bbccfe0871",
+    "segment-trees-fenwick-trees-range-queries": "0717cb9c6311a519c02fa2dc58dae8a2e1cb6a88be4d7d968fe1d6b9364646c6",
+    "sets-logic-relations-proof-techniques": "bc98acb0eed1f0b6561cb8380e8f10a0b543c2e3fe2254acf50e9199876cdd4b",
+    "shortest-paths-spanning-trees-topological-ordering": "0f89c0fadfb7a76c2d3971912676c98cbca2346888c2533457cb0b8e07011e22",
+    "single-variable-calculus-limits-derivatives-integrals": "ee5abe376cced1f18ee42f5a5ed291d8f57bb39d27888263fd707422ae267c4b",
+    "spectral-graph-theory": "86bb18579c118c610945db1ccab910112ac7fab0022b13d6e1c72c4625f623fc",
+    "sql-relational-data-transactions-for-ml": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+    "stochastic-processes-markov-chains-brownian-motion-poisson": "95c20e139da103dd5a93a2f782698f729b9a94b6e04d0015cc826a57bd0e87bf",
+    "string-matching-prefix-functions-rolling-hashes": "e1ffe343b144ddc9c2aa6111240f97efbdc9212195bc8208e267ba162fc7aea7",
+    "support-vector-machines-svm": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+    "tensor-algebra-einsum-notation": "d8787c22a914f7654f2005ba5a4b9f90b38dd7db850929c53038d220568bfb22",
+    "testing-debugging-dependency-management": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+    "threads-concurrency-locks-deadlocks": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+    "topology-topological-data-analysis-tda": "7984180a7950399bfe380252752488348da5ded7475f7ba691cb2cb7cfba49ae",
+    "trees-binary-search-trees": "27b6c92b055667bfcdc5f97906b7530d8c6f5cff28708e8ce17a72deeecee8c4",
+    "variational-inference": "56dca0f99f25db80e7dfcf6960838e2873818b68802dab8ed183f385e796c2cf",
+    "vectors-matrices-tensor-operations": "e2d54de9d0d5b91fdf47b0d6a1ca4854aed2e5b13932507622d5a3ef1bc5506c",
+    "pca-dimensionality-reduction": "10a3dcd96d359bae351827317f31d8a76513b4596dbd341205371dcb8cf16a87",
+    "clustering-evaluation-validation-silhouette-ari-nmi": "6049cf1948898c6e5c94f2e8cb4e652b84aaf8aa0249292585ef5f167a69426b",
+    "dbscan-density-based-clustering": "7ad599924d92f4370adb085792c514bfa9454af72e5e10336b1bccc4418d6a5a",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof": "7af244a56a856e5f84274c1021de2d929b6c00b45344518528718d945dbe7d09",
+    "gaussian-mixture-models-gmm-em-algorithm": "5bffa11db5f24d0102eb5bc51bef569bcf5684d7f1de0866356e3368aa9150f0",
+    "t-sne-umap-manifold-learning": "6bba025598533be03d2d617b16b285919c273d119e653de1dd2744b864e40161",
+    "independent-component-analysis-ica": "2fe025f7b65291aded5e0552d66ef0a5264dfefe9ae93aff19c5cc8c8795b301",
+    "non-negative-matrix-factorization-nmf": "9ae4a5109230d371655a491c94ce06c616af60625e11b647d40b2ca27c6666c1",
+    "feature-scaling-encoding-imputation": "3d1e2a367e984851bf7cc3f4d20f108fd47d349b37aa6ee7cc53f5f75b7a43f6",
+    "cross-validation-hyperparameter-tuning": "27b11d7eb6aaa89dd975fbf107687a67116dfe7d0d765d59d13a961a9ba00f69",
+    "regularization-l1-l2-elastic-net-dropout": "455197eb4a40503c731d2014a3802f33ee4d8b9f3225c02ce9c0615d27086ab6",
+    "feature-selection-importance-shap-permutation-mutual-info": "ce49629ab756b79ce3e43b1edbf09ddacf075e312e4f0b5ab85175c480649f85",
+    "bias-variance-tradeoff-learning-curves": "2a9447621f1293451ed630004961fd0518097ae8c68f8a960927130df2d77294",
+    "imbalanced-learning-smote-cost-sensitive-learning": "50c5e0455cb82e3e641b6d8e322f46777299787541f854a67540f5b858f790ea",
+    "automl-neural-architecture-search-nas": "4d65acd437495985bfdd3ffa8d2a83fd1d283ed03a68823aed78adb80e7f7d8f",
+    "hidden-markov-models-hmm": "f822616833e972fc997494b7f889a9f64847d08a11472104acebd9325b83ac8b",
+    "bayesian-networks-causal-graphical-models": "1567283728f33e090a50e03e82e8fd1bdecc54429c5e42246006b6ed47ec5501",
+    "conditional-random-fields-crf": "08f5ca6aea602037f1f03ea05b9db1cd148881a76daf3e262466c8ffd333941c",
+    "gaussian-processes-gp": "99b5950101d207cbfb2d839def2a3c9a7adf25056cc721d62c26a5cfeead50b3",
+    "semi-supervised-learning-label-propagation-self-training-co-training": "99983ba8b70ce21a3c224497a8b52aa2410f082cac7ff77fb830b322ae639d86",
+    "active-learning": "b85f0b0f1a84ed475eb3d95ac6eecbb76e0f2c8eb48d66880fa7d62a5c6a339b",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae": "ef05f04b7f88fbe38d08c49d3fefec91707d8cbfcb51ad15868eadc84eaa4274",
+    "pac-learning-vc-dimension": "b3c8541d109dd1f00e152a8f605604feef8722718d4eb5d36493472c1d3ebb4a",
+    "calibration-conformal-prediction": "a4042f446a0c94e01237277447caa9a0dddf28540f47abb82118f1eb9e73e92e",
+    "rademacher-complexity-generalization-bounds": "9bea02fcb8bf034201d51f5168b3fb5138e4e19ccb90ae9edff58b92a94f4827",
+    "ml-problem-formulation-baselines-data-leakage": "74975bb22b1d2c051034da9ff7c1f65cc2555c00a780b33a1805f888d2725616",
+    "time-series-validation-forecasting-baselines": "e641b55e35a86efee22253fef092e99a59a07038496edd4c908ca16ccf4498de",
+    "end-to-end-supervised-learning-error-analysis": "e171a500c677d5961649b47ab5b4ec29d29536f9aa308e018d3512906371b714",
+    "perceptrons-neurons-activation-functions": "06ee3ed14d5a5c3e4aaceb97c3efdbbca792467164cd609915b8d52943588871",
+    "backpropagation-automatic-differentiation": "5a354bed107b266ac817e2128b910bc6b0bdf0f0d282a9416dae7398c48e17ef",
+    "loss-functions-ce-mse-focal-contrastive-triplet": "ec7051313756900227a11a184fc64f532f4157d8f9789db419e9be947a7bffa2",
+    "batch-layer-group-rms-normalization": "2f9dbe1f194c8563abf7d3ba7f4f11732caeea1fecca188a0c31fd692e39e82b",
+    "transfer-learning-fine-tuning-strategies": "fe1adaae0592bdfb7267c3723c7629869a50d986146228ce392579c10714fed8",
+    "weight-initialization-xavier-kaiming-p": "a266f6487ec7b2a6ed97a0fa8dd3eb82333181b16c13a04602b1ea58571a05c4",
+    "residual-connections-skip-connections": "796a3b5c390bb0f673be2dfb78367923c2e2d46f5232a8111dafa6715a381526",
+    "dropout-droppath-stochastic-depth": "5db4710e65b12b6efeecd7cd9adff576dcf83795cee844c87b59c061f36f41fd",
+    "convolution-pooling-receptive-fields": "95485b37e31f0438516e9563d6b014d44edce1fec98fe03835db8669d0e8b547",
+    "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet": "5e3053179c5d16af70eb91082a7e3154d3a550513111c81b979587d39f9e3bb3",
+    "depthwise-separable-dilated-convolutions": "1414d93c45b3fa86616fcb05e69f87889702ece4d4fa654f98d6fa89b1907f7a",
+    "convnext-modern-cnn-designs": "a785b4e83b439922ccb975a3d3bed954950c42b20f72c0a8a8e0b0775e107ebb",
+    "capsule-networks": "902edb88128c386b38606582ff00eb16d32f1fef121fce454c1521c6f5e46aef",
+    "rnns-lstms-grus": "1a6af316dd8c0686bb8de90c7a8f772f5e224db619a33c7c83d49dc7cafd5ce4",
+    "sequence-to-sequence-encoder-decoder": "b5c27203588bdb5eab790d1c602b92b015615ede96fe82503731de6dbc6de816",
+    "attention-mechanism-bahdanau-luong": "4f2ae0bfbe7834e1a46a523268e492bf9023cb22af614b3a091217e7b13063e6",
+    "long-context-sequence-models-transformer-xl-griffin-perceiver": "2d3485cf8a2b1c17b148c1613487e288109bfc4dff679d639b8ad55237ae8d35",
+    "state-space-models-s4-mamba-mamba-2": "90ba2ebecf4e926e0799e830b5fa4152e9c37cff00f74614f2f70a25397e790d",
+    "rwkv-linear-attention-models": "10018cd57aede6a692af6db1ef9250b68e5dcbfe387a20ac6e42c42d371df16e",
+    "self-attention-multi-head-attention": "2db4f228da8281a9ecb4ed88dc6beb464c143b03b48deb82779535d436c119ca",
+    "transformer-block-architecture": "c42de5f0857b2548f51a37549787f8e3da154aed4353f9d57457b4052df889e8",
+    "positional-encodings-sinusoidal-learned-rope-alibi": "a8c688e75360418548225719df2b79252345716bb41b25eace105f0be4235229",
+    "grouped-query-attention-gqa-multi-query-attention-mqa": "732f0f565ccd1a053b7826b260c1f5430770931f937101d1158fff24a2a43cc9",
+    "multi-head-latent-attention-mla": "8c59fd8f3dcea0d9348c6109b9439b2224bb2adc90d1be2d164ec49fdf1b3038",
+    "sparse-linear-attention-variants": "107bea4b287c1a3df28b67cec48b4f1b5c19703b2c49919f39256abb66a29144",
+    "vision-transformers-vit-deit-swin-dinov2": "e591c8e4a00d26ed14caeeece728aa32e50e489189326bd36148e41696865fd8",
+    "mixture-of-experts-transformers-moe": "db2fcc44e308a28bf2e6e41f0f78b94216914f082f286838c033abc2c9b98152",
+    "interleaved-cross-attention-architectures": "0757bb3b412a4a1ca497b873ded5e9dcc4ece3db8e78a7aa320d05830b3c1815",
+    "message-passing-graph-convolutions-gcn-gat-graphsage": "9fe290e85bcb17b9749ee0f942603d63cacae1fe5dac5f9bd7469f90bfd6629e",
+    "graph-transformers-geometric-deep-learning": "b3bd3d90e51aba401de3d29144d65df09c1ed3f82e84f9a3f905eb8474639162",
+    "boltzmann-machines-restricted-boltzmann-machines-rbm": "8349230f27e9fe5276d096267ca7befd9afebfe68cb664c89d115a4716565ebf",
+    "spectral-normalization-gradient-penalty": "aa1c23d0ebf855487caf4a34e1bca521321e503a87cda8dcc1dd477f659d5838",
+    "modern-hopfield-networks": "d5bd6635100a0253396ce6c75e720635240ebb06674e212c6e87350fb56c1c3d",
+    "xlstm-extended-lstm": "3b30ac62401a2f8c377e3a6148ae1587563d74ee885516991c06e6fe03a882a6",
+    "hyena-long-convolution-models": "c023fd6ecb64418bcc2b2ace134361d048d8f01309afe26234cc36856de7d9a8",
+    "ring-attention-sequence-parallelism": "ffef207b2e53b4c0d8fafd4a9472efb61969f90d2d3fb5a9abfe7aeb0aa87396",
+    "advanced-optimizers-lion-sophia-prodigy-schedule-free": "092b55752925f31611086c513d6755297b71a962375fecb16f188ccc50ea5bad",
+    "neural-ode-continuous-depth-models": "6bcd788d46d9cafaba439efba76855c389c0d94a43b180c41da187465199ab68",
+    "hybrid-ssm-transformer-architectures-jamba": "1a487b8dccf8a016f0bebf9cdb17db7507552f14d57ad6a901c7347a6a8ac042",
+    "titans-multi-memory-architecture": "c40b3bbf5648e374d29cf23c51914503b57d78958bc8a026a945da661db910a7",
+    "mini-batches-training-loops-gradient-accumulation": "dc7e43b605c1e2c31a2dc74beb7a83c25153275f506cb13e3c99f1ab92591c55",
+    "neural-training-diagnostics-reproducible-experiments": "4d1c4ea4c681a3876054daf71c56fd4b201be682e804445b72a9593a47bb8306"
+  },
+  "broadTriage": {
+    "topics": 228,
+    "widths": [
+      1366,
+      390,
+      320
+    ],
+    "snapshots": 684,
+    "loadErrors": 0,
+    "initialCandidateOccurrences": 353,
+    "remainingCandidateOccurrences": 45,
+    "remainingCandidateTopicIds": [
+      "trees-binary-search-trees",
+      "f-divergences-integral-probability-metrics",
+      "spectral-graph-theory",
+      "combinatorial-optimization-approximation-algorithms",
+      "topology-topological-data-analysis-tda",
+      "differential-geometry-riemannian-manifolds",
+      "reductions-p-np-computational-intractability",
+      "network-flow-minimum-cuts-bipartite-matching",
+      "sets-logic-relations-proof-techniques",
+      "backtracking-divide-and-conquer",
+      "complex-numbers-fourier-laplace-transforms"
+    ],
+    "remainingTypes": [
+      "line-through-label"
+    ],
+    "meaning": "Remaining candidates are source/render-reviewed opaque nodes, graph-label backplates, protected coordinate-axis labels and occluded stems; counts include repeated widths, not confirmed defect totals.",
+    "broadEvidence": "docs/teaching/evidence/lesson-visual-layout-final.json",
+    "targetedEvidence": "docs/teaching/evidence/lesson-visual-layout-targeted-closure.json",
+    "laterFilesCoveredByTargetedPass": [
+      "src/learn/components/lesson-labs/backtracking-divide-labs.css",
+      "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "src/learn/components/lesson-labs/GradientVariantsLabs.jsx",
+      "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx",
+      "src/learn/components/lesson-labs/naive-bayes-labs.css",
+      "src/learn/components/lesson-labs/NaiveBayesLabs.jsx",
+      "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx",
+      "src/learn/components/lesson-labs/random-variable-labs.css",
+      "src/learn/components/lesson-labs/RandomVariableLabs.jsx",
+      "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx"
+    ]
+  },
+  "behaviorChecks": {
+    "recentLessonBrowser": {
+      "pca": 14,
+      "dbscan": 12,
+      "anomaly": 13,
+      "gmm": 14
+    },
+    "sharedPlot": 17,
+    "foregroundLabels": 38
+  },
+  "sourceConservation": {
+    "allBaselineLessonBodiesUnchanged": true,
+    "affectedReviewedModelExampleAndDataBindingsUnchanged": true,
+    "contentPackets": "All unchanged content checkpoints verified byte-for-byte; only four implemented-topic design records gained a follow-up paragraph. Prepared manuscripts/specifications, pending revisions and completion timestamps are preserved."
+  },
+  "limits": [
+    "Geometry scan covers default visible SVG states, not every possible interaction or every HTML/canvas/path overlap.",
+    "Layout screenshots and focused states do not constitute renewed mathematical/native-program validation or user acceptance.",
+    "Unchanged source evidence is reused across the final targeted rebuild."
+  ],
+  "checkpointReconciliation": {
+    "at": "2026-09-14T09:13:28.078Z",
+    "changedEntries": [
+      {
+        "id": "algebra-functions-exponentials-logarithms",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "backtracking-divide-and-conquer",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "bayesian-inference-conjugate-priors",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "complex-numbers-fourier-laplace-transforms",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "conditioning-stability-numerical-analysis",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "convex-duality-lagrangian-methods-kkt-conditions",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "convex-optimization",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "differential-geometry-riemannian-manifolds",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "dynamical-systems-theory-chaos",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "eigenvalues-eigenvectors",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "ensemble-methods-stacking",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "exponential-families-sufficient-statistics",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "functional-analysis-rkhs",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "hypothesis-testing-confidence-intervals",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "it-calculus-stochastic-differential-equations",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "k-nearest-neighbors-knn",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "learning-rate-schedules-cosine-warmup-onecyclelr",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "matrix-calculus-jacobians",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "matrix-decompositions-svd-qr-cholesky-lu",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "maximum-likelihood-map-estimation",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "multivariate-calculus-gradients",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "naive-bayes-probabilistic-classifiers",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "non-convex-optimization-landscape",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "partial-differential-equations-conservation-boundary-conditions",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "probability-distributions-bayes-theorem",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "random-matrix-theory",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "random-variables-expectation-covariance",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "real-analysis-sequences-modes-of-convergence",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "sampling-measurement-experimental-design",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "single-variable-calculus-limits-derivatives-integrals",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "spectral-graph-theory",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "stochastic-processes-markov-chains-brownian-motion-poisson",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1
+        }
+      },
+      {
+        "id": "pca-dimensionality-reduction",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1,
+          "contentCompletedAt": "2026-09-11T21:51:11.450Z",
+          "implementationCompletedAt": "2026-09-11T22:38:39.939514+00:00"
+        }
+      },
+      {
+        "id": "dbscan-density-based-clustering",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1,
+          "contentCompletedAt": "2026-09-11T23:07:58.562Z",
+          "implementationCompletedAt": "2026-09-12T03:58:34.908095+00:00"
+        }
+      },
+      {
+        "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 2,
+          "contentCompletedAt": "2026-09-11T23:18:43.934Z",
+          "implementationCompletedAt": "2026-09-13T14:01:20.817219+00:00"
+        }
+      },
+      {
+        "id": "gaussian-mixture-models-gmm-em-algorithm",
+        "phasesPreserved": {
+          "content": "complete",
+          "implementation": "complete",
+          "revision": 1,
+          "contentCompletedAt": "2026-09-12T08:19:28.607Z",
+          "implementationCompletedAt": "2026-09-14T05:31:14.024691+00:00"
+        }
+      }
+    ],
+    "unchangedEntryHashes": {
+      "abstract-algebra-groups-symmetry-actions": "a44461d8fcbd33e32e1cf2959b3c738cf9fd5e0358dce5c85ab836d70d8b1425",
+      "algorithm-correctness-loop-invariants-termination": "a1fdab2725aa62648002972ec0bdaf07de34e53468c845e1c3290d25a7f70531",
+      "arrays-strings-hash-maps": "c1b0f56834ed8aa99b64c6b30ffd1255f02b81a1a653b4f9b77b86948e6aa8d7",
+      "bash-scripting-command-line-automation": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+      "binary-search-sorting-two-pointer-patterns": "a2668a66de7cc78188a59c75d301029c0339a79ea5c4cda952628af3b85a84e4",
+      "category-theory-emerging-use-in-ml": "558c928d8547e9e6ee12642ea7d50c04d079d7f2f626eeef217cbc3998f523ee",
+      "causal-inference-do-calculus": "892909b231047a272169e06a79accf5cf22b8485115d994ac97b2f445e0cdbac",
+      "code-documentation-type-hints-api-design": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+      "combinatorial-optimization-approximation-algorithms": "7402d303de73a0fae85feb87cb14cb7fd5cfd5527f0a7e39366e04af109877e4",
+      "complexity-analysis-recursion": "e30ef7df3c52e0c713a7f348b629f0567779b3175fff8c2d521e0494c7d9145c",
+      "computational-geometry-robust-predicates-convex-hulls": "1b20a520c2be19c0c2db9f9df1b0e10b6dbd83f3051a341351315f953a80bf9a",
+      "concentration-inequalities-hoeffding-bernstein-chernoff": "6d629ef33fd5c5d49481be11f92d1f1600916898b6d6a46de8709c2e2d7eec69",
+      "constrained-multi-objective-optimization": "c3ea28b77edfa9e54e1dcc07962ae951fce555e841d148f9353e66f77140f004",
+      "counting-combinatorics-mathematical-induction": "faf708f9478810dfe2dcf2f205fa86f8e7f21636b47f3c25b31692b9aa7efa62",
+      "decision-theory-risk-cost-sensitive-decisions": "6958d61d41858c04835dbdadcd80909f0a1aa00263fd0753df38a611719a17e2",
+      "decision-trees-random-forests": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+      "decorators-context-managers": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+      "disjoint-sets-union-find": "876cd28b57dc6705ad496dca178da1b35f4605b4889094b9285821f1c3ead5f0",
+      "dynamic-programming-states-transitions-optimization": "54481638658f1b45356012c7d21c96e071f373f59bdf915543308d89decaf832",
+      "entropy-cross-entropy-kl-divergence": "af2516a44f25a3450b12440b11142ae645dc2a6af4760b8236ffa12dd1952ff3",
+      "external-memory-algorithms-b-trees-i-o-complexity": "4a169f0a3844c68a87582364dec2c23a40733ba384d687838272af04dc2aca01",
+      "f-divergences-integral-probability-metrics": "9128912abd4ac595a1fd2ed3c3283bfafa411c801e28ceeca16271461c67ea58",
+      "geometry-trigonometry-coordinate-reasoning": "3f1c67876138cc00dcff031957e8e16e06ee68ac9da374d46de78106856ca7da",
+      "git-github-collaborative-version-control": "ffa810ba65aa92d9401f594f3f54e36f82cbcf498e7e881f3c48db0429fd9612",
+      "gradient-boosted-trees-xgboost-lightgbm-catboost": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+      "graph-fundamentals-adjacency-laplacian-connectivity": "cfda6e7bcf11b48d8b7abb0f91944cebffb9c8ffd84676d6c2fb0532a849d39a",
+      "graphs-representations-bfs-dfs": "27b6c92b055667bfcdc5f97906b7530d8c6f5cff28708e8ce17a72deeecee8c4",
+      "greedy-algorithms-exchange-arguments": "9bc4a5c4a9477565f91ad5653bfeae86a0c40df8a695d4e716ed2ea24e4a0daf",
+      "hashing-collision-resolution-amortized-analysis": "5e270388acf639ebb4c7a23f58fb48a4ae8eef2ffe8e30a51caa1adced731670",
+      "heaps-priority-queues-tries": "27b6c92b055667bfcdc5f97906b7530d8c6f5cff28708e8ce17a72deeecee8c4",
+      "iterators-iterables-generators": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+      "k-means-hierarchical-clustering": "90694349a259245603e901094b324f69d75375cf5f93eb345b334b5de9bf210e",
+      "linear-logistic-regression": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+      "linked-lists-stacks-queues": "da6ad42c54644f4842550f59d5b8a2485233896c8929f60893000590ffa8d37d",
+      "linux-basics-filesystems-processes": "4a95f890b833f1de3d3d602f5c63b02bbb62509bb2d8563bd8c6dc40fc4703f4",
+      "matplotlib-scientific-plotting": "ffa810ba65aa92d9401f594f3f54e36f82cbcf498e7e881f3c48db0429fd9612",
+      "measure-theory-probability-spaces": "6c1c139677a9575fe4ff3df19559075f1e3357ecd19f27f763c5e72234c9d9e3",
+      "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts": "83897b00473c6964e3447fdfcdd566346061df0affdad5a6f7fe5a06900de80a",
+      "multi-label-multi-output-learning": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+      "mutual-information-information-bottleneck": "dbd5b939b465b2d84ac6b7b5b3d5fb5888559a65a918d0d30bffd1be08642dcd",
+      "network-flow-minimum-cuts-bipartite-matching": "67ddff4a6ddd546356db7ed97400145865bb546849724bf3248034123ebc56ea",
+      "numerical-methods-finite-differences-quadrature-root-finding": "244082bc0b5e788574a29a3835f96f306a0600206e1edf4899645cb0e9eb8ebc",
+      "numerical-pdes-grids-finite-elements-stability": "cab503eec41b0784089ea7ca0dd63a7ecee4095d9276959343de2268a112939a",
+      "numpy-arrays-broadcasting-vectorization": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+      "object-oriented-programming-in-python": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+      "optimal-transport-wasserstein-distance-sinkhorn": "281f0d4ff6a15b3d8f96097e1c929e08a9bbbf5e1c7fcefc8df9744ff05ba1d8",
+      "ordinary-differential-equations-linear-systems": "17068336b1b676703c37bbc1e5719ee959c9e561500105b4a7cdb9e1bdba0127",
+      "os-processes-virtual-memory-isolation": "207b77e9182f64258072a8fb22a5561eac8e3f56a8c480773817f927d2fb830c",
+      "pandas-data-wrangling-joins-grouping": "ffa810ba65aa92d9401f594f3f54e36f82cbcf498e7e881f3c48db0429fd9612",
+      "persistent-data-structures-structural-sharing-versioned-queries": "0f881cd2b6b9076b225ede0c0535ed85d8831fe73d8321a19343302a9e273bc2",
+      "python-basics-types-control-flow-functions-modules": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+      "randomized-algorithms-sampling-error-guarantees": "d1c583ec92ab57fc616ee2f3d63f1b805c1d023cb3a752a96876c58451482654",
+      "randomized-linear-algebra": "8cca2edbe4eedcfe003c997176a3226bd6b82ab258bb32ed19633dcc4ebc2269",
+      "rate-distortion-theory": "a10a246a4589de1a6231c869f83e78d9288c7d2b1ffac94a8be86b3d663e7f0b",
+      "reductions-p-np-computational-intractability": "d672ce7892b33b5b677f8099ce164b905bf497f151187abe3263926c8dfc5838",
+      "reproducible-notebooks-experiment-structure": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+      "scientific-file-formats-schemas-reliable-data-i-o": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+      "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient": "2290ed3e3d7bef7b874bda9fe4d23adfb46a51272910cf4e995588bbccfe0871",
+      "segment-trees-fenwick-trees-range-queries": "0717cb9c6311a519c02fa2dc58dae8a2e1cb6a88be4d7d968fe1d6b9364646c6",
+      "sets-logic-relations-proof-techniques": "bc98acb0eed1f0b6561cb8380e8f10a0b543c2e3fe2254acf50e9199876cdd4b",
+      "shortest-paths-spanning-trees-topological-ordering": "0f89c0fadfb7a76c2d3971912676c98cbca2346888c2533457cb0b8e07011e22",
+      "sql-relational-data-transactions-for-ml": "dca2c1817a5b5f666e953d8f5c850f2734a4b52bd5281346876b5bd5ae35f3b4",
+      "string-matching-prefix-functions-rolling-hashes": "e1ffe343b144ddc9c2aa6111240f97efbdc9212195bc8208e267ba162fc7aea7",
+      "support-vector-machines-svm": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+      "survival-analysis-cox-regression-kaplan-meier-hazard-models": "dae836f415ba2238e9af2faa682c78ca777644017f0eff0f2c9d32f9d115f0a8",
+      "tensor-algebra-einsum-notation": "d8787c22a914f7654f2005ba5a4b9f90b38dd7db850929c53038d220568bfb22",
+      "testing-debugging-dependency-management": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+      "threads-concurrency-locks-deadlocks": "86c2b2f65469abc86673e07acce258da33272a887d787287b45850da8af0c4b1",
+      "topology-topological-data-analysis-tda": "7984180a7950399bfe380252752488348da5ded7475f7ba691cb2cb7cfba49ae",
+      "trees-binary-search-trees": "27b6c92b055667bfcdc5f97906b7530d8c6f5cff28708e8ce17a72deeecee8c4",
+      "variational-inference": "56dca0f99f25db80e7dfcf6960838e2873818b68802dab8ed183f385e796c2cf",
+      "vectors-matrices-tensor-operations": "e2d54de9d0d5b91fdf47b0d6a1ca4854aed2e5b13932507622d5a3ef1bc5506c",
+      "clustering-evaluation-validation-silhouette-ari-nmi": "6049cf1948898c6e5c94f2e8cb4e652b84aaf8aa0249292585ef5f167a69426b",
+      "t-sne-umap-manifold-learning": "6bba025598533be03d2d617b16b285919c273d119e653de1dd2744b864e40161",
+      "independent-component-analysis-ica": "2fe025f7b65291aded5e0552d66ef0a5264dfefe9ae93aff19c5cc8c8795b301",
+      "non-negative-matrix-factorization-nmf": "9ae4a5109230d371655a491c94ce06c616af60625e11b647d40b2ca27c6666c1",
+      "feature-scaling-encoding-imputation": "3d1e2a367e984851bf7cc3f4d20f108fd47d349b37aa6ee7cc53f5f75b7a43f6",
+      "cross-validation-hyperparameter-tuning": "27b11d7eb6aaa89dd975fbf107687a67116dfe7d0d765d59d13a961a9ba00f69",
+      "regularization-l1-l2-elastic-net-dropout": "455197eb4a40503c731d2014a3802f33ee4d8b9f3225c02ce9c0615d27086ab6",
+      "feature-selection-importance-shap-permutation-mutual-info": "ce49629ab756b79ce3e43b1edbf09ddacf075e312e4f0b5ab85175c480649f85",
+      "bias-variance-tradeoff-learning-curves": "2a9447621f1293451ed630004961fd0518097ae8c68f8a960927130df2d77294",
+      "imbalanced-learning-smote-cost-sensitive-learning": "50c5e0455cb82e3e641b6d8e322f46777299787541f854a67540f5b858f790ea",
+      "automl-neural-architecture-search-nas": "4d65acd437495985bfdd3ffa8d2a83fd1d283ed03a68823aed78adb80e7f7d8f",
+      "hidden-markov-models-hmm": "f822616833e972fc997494b7f889a9f64847d08a11472104acebd9325b83ac8b",
+      "bayesian-networks-causal-graphical-models": "1567283728f33e090a50e03e82e8fd1bdecc54429c5e42246006b6ed47ec5501",
+      "conditional-random-fields-crf": "08f5ca6aea602037f1f03ea05b9db1cd148881a76daf3e262466c8ffd333941c",
+      "gaussian-processes-gp": "99b5950101d207cbfb2d839def2a3c9a7adf25056cc721d62c26a5cfeead50b3",
+      "semi-supervised-learning-label-propagation-self-training-co-training": "99983ba8b70ce21a3c224497a8b52aa2410f082cac7ff77fb830b322ae639d86",
+      "active-learning": "b85f0b0f1a84ed475eb3d95ac6eecbb76e0f2c8eb48d66880fa7d62a5c6a339b",
+      "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae": "ef05f04b7f88fbe38d08c49d3fefec91707d8cbfcb51ad15868eadc84eaa4274",
+      "pac-learning-vc-dimension": "b3c8541d109dd1f00e152a8f605604feef8722718d4eb5d36493472c1d3ebb4a",
+      "calibration-conformal-prediction": "a4042f446a0c94e01237277447caa9a0dddf28540f47abb82118f1eb9e73e92e",
+      "rademacher-complexity-generalization-bounds": "9bea02fcb8bf034201d51f5168b3fb5138e4e19ccb90ae9edff58b92a94f4827",
+      "ml-problem-formulation-baselines-data-leakage": "74975bb22b1d2c051034da9ff7c1f65cc2555c00a780b33a1805f888d2725616",
+      "time-series-validation-forecasting-baselines": "e641b55e35a86efee22253fef092e99a59a07038496edd4c908ca16ccf4498de",
+      "end-to-end-supervised-learning-error-analysis": "e171a500c677d5961649b47ab5b4ec29d29536f9aa308e018d3512906371b714",
+      "perceptrons-neurons-activation-functions": "06ee3ed14d5a5c3e4aaceb97c3efdbbca792467164cd609915b8d52943588871",
+      "backpropagation-automatic-differentiation": "5a354bed107b266ac817e2128b910bc6b0bdf0f0d282a9416dae7398c48e17ef",
+      "loss-functions-ce-mse-focal-contrastive-triplet": "ec7051313756900227a11a184fc64f532f4157d8f9789db419e9be947a7bffa2",
+      "batch-layer-group-rms-normalization": "2f9dbe1f194c8563abf7d3ba7f4f11732caeea1fecca188a0c31fd692e39e82b",
+      "transfer-learning-fine-tuning-strategies": "fe1adaae0592bdfb7267c3723c7629869a50d986146228ce392579c10714fed8",
+      "weight-initialization-xavier-kaiming-p": "a266f6487ec7b2a6ed97a0fa8dd3eb82333181b16c13a04602b1ea58571a05c4",
+      "residual-connections-skip-connections": "796a3b5c390bb0f673be2dfb78367923c2e2d46f5232a8111dafa6715a381526",
+      "dropout-droppath-stochastic-depth": "5db4710e65b12b6efeecd7cd9adff576dcf83795cee844c87b59c061f36f41fd",
+      "convolution-pooling-receptive-fields": "95485b37e31f0438516e9563d6b014d44edce1fec98fe03835db8669d0e8b547",
+      "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet": "5e3053179c5d16af70eb91082a7e3154d3a550513111c81b979587d39f9e3bb3",
+      "depthwise-separable-dilated-convolutions": "1414d93c45b3fa86616fcb05e69f87889702ece4d4fa654f98d6fa89b1907f7a",
+      "convnext-modern-cnn-designs": "a785b4e83b439922ccb975a3d3bed954950c42b20f72c0a8a8e0b0775e107ebb",
+      "capsule-networks": "902edb88128c386b38606582ff00eb16d32f1fef121fce454c1521c6f5e46aef",
+      "rnns-lstms-grus": "1a6af316dd8c0686bb8de90c7a8f772f5e224db619a33c7c83d49dc7cafd5ce4",
+      "sequence-to-sequence-encoder-decoder": "b5c27203588bdb5eab790d1c602b92b015615ede96fe82503731de6dbc6de816",
+      "attention-mechanism-bahdanau-luong": "4f2ae0bfbe7834e1a46a523268e492bf9023cb22af614b3a091217e7b13063e6",
+      "long-context-sequence-models-transformer-xl-griffin-perceiver": "2d3485cf8a2b1c17b148c1613487e288109bfc4dff679d639b8ad55237ae8d35",
+      "state-space-models-s4-mamba-mamba-2": "90ba2ebecf4e926e0799e830b5fa4152e9c37cff00f74614f2f70a25397e790d",
+      "rwkv-linear-attention-models": "10018cd57aede6a692af6db1ef9250b68e5dcbfe387a20ac6e42c42d371df16e",
+      "self-attention-multi-head-attention": "2db4f228da8281a9ecb4ed88dc6beb464c143b03b48deb82779535d436c119ca",
+      "transformer-block-architecture": "c42de5f0857b2548f51a37549787f8e3da154aed4353f9d57457b4052df889e8",
+      "positional-encodings-sinusoidal-learned-rope-alibi": "a8c688e75360418548225719df2b79252345716bb41b25eace105f0be4235229",
+      "grouped-query-attention-gqa-multi-query-attention-mqa": "732f0f565ccd1a053b7826b260c1f5430770931f937101d1158fff24a2a43cc9",
+      "multi-head-latent-attention-mla": "8c59fd8f3dcea0d9348c6109b9439b2224bb2adc90d1be2d164ec49fdf1b3038",
+      "sparse-linear-attention-variants": "107bea4b287c1a3df28b67cec48b4f1b5c19703b2c49919f39256abb66a29144",
+      "vision-transformers-vit-deit-swin-dinov2": "e591c8e4a00d26ed14caeeece728aa32e50e489189326bd36148e41696865fd8",
+      "mixture-of-experts-transformers-moe": "db2fcc44e308a28bf2e6e41f0f78b94216914f082f286838c033abc2c9b98152",
+      "interleaved-cross-attention-architectures": "0757bb3b412a4a1ca497b873ded5e9dcc4ece3db8e78a7aa320d05830b3c1815",
+      "message-passing-graph-convolutions-gcn-gat-graphsage": "9fe290e85bcb17b9749ee0f942603d63cacae1fe5dac5f9bd7469f90bfd6629e",
+      "graph-transformers-geometric-deep-learning": "b3bd3d90e51aba401de3d29144d65df09c1ed3f82e84f9a3f905eb8474639162",
+      "boltzmann-machines-restricted-boltzmann-machines-rbm": "8349230f27e9fe5276d096267ca7befd9afebfe68cb664c89d115a4716565ebf",
+      "spectral-normalization-gradient-penalty": "aa1c23d0ebf855487caf4a34e1bca521321e503a87cda8dcc1dd477f659d5838",
+      "modern-hopfield-networks": "d5bd6635100a0253396ce6c75e720635240ebb06674e212c6e87350fb56c1c3d",
+      "xlstm-extended-lstm": "3b30ac62401a2f8c377e3a6148ae1587563d74ee885516991c06e6fe03a882a6",
+      "hyena-long-convolution-models": "c023fd6ecb64418bcc2b2ace134361d048d8f01309afe26234cc36856de7d9a8",
+      "ring-attention-sequence-parallelism": "ffef207b2e53b4c0d8fafd4a9472efb61969f90d2d3fb5a9abfe7aeb0aa87396",
+      "advanced-optimizers-lion-sophia-prodigy-schedule-free": "092b55752925f31611086c513d6755297b71a962375fecb16f188ccc50ea5bad",
+      "neural-ode-continuous-depth-models": "6bcd788d46d9cafaba439efba76855c389c0d94a43b180c41da187465199ab68",
+      "hybrid-ssm-transformer-architectures-jamba": "1a487b8dccf8a016f0bebf9cdb17db7507552f14d57ad6a901c7347a6a8ac042",
+      "titans-multi-memory-architecture": "c40b3bbf5648e374d29cf23c51914503b57d78958bc8a026a945da661db910a7",
+      "mini-batches-training-loops-gradient-accumulation": "dc7e43b605c1e2c31a2dc74beb7a83c25153275f506cb13e3c99f1ab92591c55",
+      "neural-training-diagnostics-reproducible-experiments": "4d1c4ea4c681a3876054daf71c56fd4b201be682e804445b72a9593a47bb8306"
+    },
+    "legacyBindingsBefore": [
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "matrix-decompositions-svd-qr-cholesky-lu",
+        "previousVerificationRecord": "docs/teaching/MATRIX-DECOMPOSITIONS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": "b2fad697b41bb376dcd7c344c31d9c8eb8dfe3a49785c4e6eada7c370d53a2a0"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "eigenvalues-eigenvectors",
+        "previousVerificationRecord": "docs/teaching/EIGENVALUES-EIGENVECTORS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "e37fcc065d99178742e4bec68468c9c3ae7614c60ff7ceeb89fa7bc27b34f6be"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "matrix-calculus-jacobians",
+        "previousVerificationRecord": "docs/teaching/MATRIX-CALCULUS-JACOBIANS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "65bd096fb897dad7f6c74e938f6d3aaaa2c853fb8cbe2458a1e4c0552817942b"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "multivariate-calculus-gradients",
+        "previousVerificationRecord": "docs/teaching/MULTIVARIATE-CALCULUS-GRADIENTS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx": "051cb92fbed63c283f4f2856b4392e6b4b14de5deddce874a44b3f3bd1d8dfe3"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "convex-optimization",
+        "previousVerificationRecord": "docs/teaching/CONVEX-OPTIMIZATION-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "42cc19b9af5899015613b0b3badf4426da41fa9b48882157c17b55ced018edd9",
+          "src/learn/components/lesson-labs/convex-optimization-labs.css": "b2bea6b5738f95d2d78e19ce7381e63cbaa1ab5e9e810c0f37f0010cee5947f2"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+        "previousVerificationRecord": "docs/teaching/GRADIENT-DESCENT-VARIANTS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "70a048459a683b06983db9501c11c205f8fbc5a296e1d94a84f402459e1eebce",
+          "src/learn/components/lesson-labs/gradient-variants-labs.css": "c142961279cc36e593c7d911b12b739d92d1152d9710a029f3311d2f79921d12"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "learning-rate-schedules-cosine-warmup-onecyclelr",
+        "previousVerificationRecord": "docs/teaching/LEARNING-RATE-SCHEDULES-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "a6b29e507b1d4ed6c5bf64a3e95e3ef86499eb2576b1f36218bc3e4185a1031b",
+          "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "9fd90951133fcfa46948a27815c07d3190409bc6713f1ff168d84bffd04a5789"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "convex-duality-lagrangian-methods-kkt-conditions",
+        "previousVerificationRecord": "docs/teaching/CONVEX-DUALITY-KKT-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/DualityKktLabs.jsx": "49c439d12f8c334d72b04d189f4a25ac92e62f0dc32564d9e539a84808186b95"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "non-convex-optimization-landscape",
+        "previousVerificationRecord": "docs/teaching/NONCONVEX-LANDSCAPE-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "05b3cd25da9aa3c5093f07e5ef61aabbef9ea7b38530fe5370992faac1d72371"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "probability-distributions-bayes-theorem",
+        "previousVerificationRecord": "docs/teaching/PROBABILITY-DISTRIBUTIONS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "14c095ee497c8afb66d90f3dcfa49ca132c74204d16cd0c6acdd56687fac7bee"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "maximum-likelihood-map-estimation",
+        "previousVerificationRecord": "docs/teaching/MAXIMUM-LIKELIHOOD-MAP-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "5ea8076f620693ece6630332fdb0aefb9b39707db0e83b77f491bbdf20cdf172"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "hypothesis-testing-confidence-intervals",
+        "previousVerificationRecord": "docs/teaching/HYPOTHESIS-TESTING-CONFIDENCE-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": "44b0e97eb565050a622368d8d0f1d2293a1efde5ef628277d76fbfbf56e43281"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "bayesian-inference-conjugate-priors",
+        "previousVerificationRecord": "docs/teaching/BAYESIAN-INFERENCE-CONJUGATE-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "4c277461f04ff580df50b5442cca6ceb78fa67de8a4630b98b2ca85ac7917da7"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "exponential-families-sufficient-statistics",
+        "previousVerificationRecord": "docs/teaching/EXPONENTIAL-FAMILIES-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx": "bde1928bd2c16a2f8296a05ecca29eca393bb7f1e20f5c330b7b4d492ab15a3d"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "spectral-graph-theory",
+        "previousVerificationRecord": "docs/teaching/SPECTRAL-GRAPH-THEORY-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "c93a6233ad4eab3d023e5ada39215d2a29050ada228d29470bb65d25d580c496",
+          "src/learn/components/lesson-labs/spectral-graph-labs.css": "6f877f9a9a2f316d28b9782119ececf6dc9b45ab901f2655ebad70be3f8cd5c1"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "stochastic-processes-markov-chains-brownian-motion-poisson",
+        "previousVerificationRecord": "docs/teaching/STOCHASTIC-PROCESSES-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": "c1e74207f7d366b032099bcbbf593ac354b50fc0e174af1f2c187b7ce0e11f7b"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "random-matrix-theory",
+        "previousVerificationRecord": "docs/teaching/RANDOM-MATRIX-THEORY-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
+        "previousVerificationRecord": "docs/teaching/QUEUEING-THEORY-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/QueueingLabs.jsx": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "dynamical-systems-theory-chaos",
+        "previousVerificationRecord": "docs/teaching/DYNAMICAL-SYSTEMS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": "a88b98502518d0cb874ed38e1323443db56165bd2be06002c92e099cf7e47839",
+          "src/learn/components/lesson-labs/dynamical-systems-labs.css": "6ca3931852f9399ece613197548c307a77ad34fb656a454a69b69ea7d9cfdf62"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "it-calculus-stochastic-differential-equations",
+        "previousVerificationRecord": "docs/teaching/ITO-CALCULUS-SDE-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/ItoSdeLabs.jsx": "84f631995d336c1a5e91ff01b7434d73d6c01f5dd881f15d9b4d5f971d96dfdb",
+          "src/learn/components/lesson-labs/ito-sde-labs.css": "83f608e1e90c0a617fb7a5a9aa0074743edb593a14f0a7f495732d2b2bb5a5b5"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "functional-analysis-rkhs",
+        "previousVerificationRecord": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "differential-geometry-riemannian-manifolds",
+        "previousVerificationRecord": "docs/teaching/DIFFERENTIAL-GEOMETRY-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx": "08406fb8fe003d769c523c18cc079ee289121ac8b27dec32fec30ff309044c0a"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "algebra-functions-exponentials-logarithms",
+        "previousVerificationRecord": "docs/teaching/ALGEBRA-FUNCTIONS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "single-variable-calculus-limits-derivatives-integrals",
+        "previousVerificationRecord": "docs/teaching/SINGLE-VARIABLE-CALCULUS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx": "56b4664f45ec9ce94c052e65eb1ed708ad5682ec0097db5dfdff4432c3b416c8"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "random-variables-expectation-covariance",
+        "previousVerificationRecord": "docs/teaching/RANDOM-VARIABLES-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/RandomVariableLabs.jsx": "3a439003800b275917a1d8bd6972cb90288ad541f828f306f9c8cba1231252d5",
+          "src/learn/components/lesson-labs/random-variable-labs.css": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "sampling-measurement-experimental-design",
+        "previousVerificationRecord": "docs/teaching/SAMPLING-MEASUREMENT-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41",
+          "src/learn/components/lesson-labs/sampling-measurement-labs.css": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "complex-numbers-fourier-laplace-transforms",
+        "previousVerificationRecord": "docs/teaching/COMPLEX-FOURIER-LAPLACE-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": "5ce77a4d38523e25fa2b0cefc42f1e0d19c017ebdc0b2adc71b2512c29e267f7"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "conditioning-stability-numerical-analysis",
+        "previousVerificationRecord": "docs/teaching/CONDITIONING-STABILITY-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "45060210a4ab470b590cb54ffa56d64b2270c63976b76647ff38a3fbded878bd",
+          "src/learn/components/lesson-labs/conditioning-stability-labs.css": "6153a799c9e8380f740d19b80d4f608fbd5b71169c64d55d1ca9baf32d9ff6b4"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "real-analysis-sequences-modes-of-convergence",
+        "previousVerificationRecord": "docs/teaching/REAL-ANALYSIS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "e171a1dbb2cc4c4d61db9d9528efe72b6bb22119cb34b2027643f9f63ae19e17"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "partial-differential-equations-conservation-boundary-conditions",
+        "previousVerificationRecord": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/PdeLabs.jsx": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/dsa-math-foundations-progress.json",
+        "id": "backtracking-divide-and-conquer",
+        "previousVerificationRecord": "docs/teaching/BACKTRACKING-DIVIDE-VERIFICATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/backtracking-divide-labs.css": "6b98750449c50b142e4e89785b5b8fc088f04d7ea28bc033481ad168ba4c3195"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/classical-ml-supervised-progress.json",
+        "id": "k-nearest-neighbors-knn",
+        "previousVerificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/KnnLabs.jsx": "086c56e9878b1701a890846ce8152d41c57ff7b3b0ea4d99cf686548bbd2aded",
+          "src/learn/components/lesson-labs/knn-labs.css": "bd1ad00284fd2a068e128383d4b8f29bbad59f6b8f16b0c5c91ce550e8b620a4"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/classical-ml-supervised-progress.json",
+        "id": "naive-bayes-probabilistic-classifiers",
+        "previousVerificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "f0b7a7631dd85d12516b1df7a80930b793801e40e6ba573d01b5bcaf9bab2e0b",
+          "src/learn/components/lesson-labs/naive-bayes-labs.css": "a4d7f84adab9a7f179f35300fdc6c420497df87909dd99ccbfae64cf24e4dc76"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/classical-ml-supervised-progress.json",
+        "id": "ensemble-methods-stacking",
+        "previousVerificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "f9fca0ccadebccd067547d9e757686fbd032366faac88f23a9ad1a4c8d774a9d"
+        }
+      },
+      {
+        "ledgerPath": "docs/teaching/classical-ml-supervised-progress.json",
+        "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+        "previousVerificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+        "changedFiles": {
+          "src/learn/components/lesson-labs/RecommenderLabs.jsx": "0ebc44f76acc2221b5e883a37f50a536da6709591144562709ac5ef910be5598"
+        }
+      }
+    ]
+  },
+  "completedAt": "2026-09-14T09:26:51.994Z",
+  "finalVerification": {
+    "sourceBindingsChecked": 767,
+    "evidenceFiles": [
+      "docs/teaching/evidence/pca-browser.json",
+      "docs/teaching/evidence/dbscan-browser.json",
+      "docs/teaching/evidence/anomaly-detection-browser.json",
+      "docs/teaching/evidence/gmm-browser.json",
+      "docs/teaching/evidence/shared-plot-layout-browser.json",
+      "docs/teaching/evidence/foreground-label-layout-browser.json",
+      "docs/teaching/evidence/math-axis-layout-browser.json",
+      "docs/teaching/evidence/math-axis-layout-final-addendum.json",
+      "docs/teaching/evidence/diagram-label-layout-review.json",
+      "docs/teaching/evidence/visual-layout-root-captures.json",
+      "docs/teaching/evidence/lesson-visual-layout-targeted-closure.json",
+      "docs/teaching/evidence/lesson-visual-layout-gmm-closure.json"
+    ],
+    "sourceBindingPolicy": "Use sourceHashes with any explicitly recorded finalClosure.currentSourceHashes or finalAffectedStage.sourceHashes override; earlier per-pass evidence is preserved.",
+    "inventory": {
+      "modules": 28,
+      "uniqueTopics": 1218,
+      "published": 228,
+      "topicBriefs": 357,
+      "prerequisiteReviewsRecorded": 385,
+      "guidedPaths": 7,
+      "contentComplete": 176,
+      "implementationComplete": 111
+    },
+    "scopedWhitespace": "passed",
+    "documentationLinks": "8 current instruction/review documents checked; no missing relative targets",
+    "curriculumVerification": "passed",
+    "learningArtifactVerification": "passed",
+    "deliveryBehaviorGroups": 8,
+    "buildManifestHash": "d6c238146c6188f26fe9d9f471028dbe8e9c6faf556e2794a07a79eb4e47ea45"
+  },
+  "finalGmmClosure": {
+    "evidence": "docs/teaching/evidence/lesson-visual-layout-gmm-closure.json",
+    "browser": "docs/teaching/evidence/gmm-browser.json",
+    "sourceFile": "src/learn/components/lesson-labs/GmmLabs.jsx",
+    "previousReviewedHash": "a4b7a911882981c0414ea69fc2e6dfe8521ac44b38cf3c40d25045c0a099eb2b",
+    "finalReviewedHash": "61a98ee392851e34f27aa52e8014a126e07d35ff798518f5e016ef59e4ee2a56",
+    "reason": "Independent review found coincident EM lane names in the identical-components preset. External wrapping key; every preset checked initially/after a full cycle at desktop/320px.",
+    "sourceOverrideAppliesTo": [
+      "docs/teaching/evidence/lesson-visual-layout-targeted-closure.json"
+    ]
+  }
+}

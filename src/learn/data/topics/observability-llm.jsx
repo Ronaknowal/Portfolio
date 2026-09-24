@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -746,19 +747,17 @@ for label, lengths in scenarios:
       </Prose>
 
       <Heatmap
-        title="quality score × model × input category (composite 0–1)"
-        xlabel="model version"
-        ylabel="input category"
+        label="quality score × model × input category (composite 0–1)"
         rowLabels={["code gen", "summarisation", "Q&A factual", "creative writing", "tool use"]}
         colLabels={["sonnet-3", "sonnet-3-5", "haiku-3-5", "opus-3-5"]}
-        data={[
+        matrix={[
           [0.71, 0.82, 0.68, 0.91],
           [0.79, 0.85, 0.74, 0.88],
           [0.83, 0.87, 0.77, 0.93],
           [0.66, 0.74, 0.62, 0.83],
           [0.58, 0.76, 0.51, 0.85],
         ]}
-        colorScale={["#1f2937", "#7c3aed", "#a78bfa", "#e0d7ff"]}
+        colorScale="gold"
       />
 
       <Prose>
@@ -766,29 +765,24 @@ for label, lengths in scenarios:
       </Prose>
 
       <Plot
-        title="drift score (KL divergence) over 14 days — response length distribution"
-        xlabel="day"
-        ylabel="KL divergence vs. baseline"
+        label="drift score (KL divergence) over 14 days — response length distribution; model upgrade day 6, rollback day 11"
+        xLabel="day"
+        yLabel="KL divergence vs. baseline"
         series={[
           {
-            label: "KL (response lengths)",
-            color: colors.purple,
-            data: [
+            name: "KL (response lengths)",
+            color: "#a78bfa",
+            points: [
               [1, 0.003], [2, 0.005], [3, 0.004], [4, 0.006], [5, 0.005],
               [6, 0.031], [7, 0.148], [8, 0.219], [9, 0.204],
               [10, 0.187], [11, 0.072], [12, 0.041], [13, 0.018], [14, 0.009],
             ],
           },
           {
-            label: "alert threshold (0.10)",
+            name: "alert threshold (0.10)",
             color: "#f87171",
-            dashed: true,
-            data: Array.from({ length: 14 }, (_, i) => [i + 1, 0.10]),
+            points: Array.from({ length: 14 }, (_, i) => [i + 1, 0.10]),
           },
-        ]}
-        annotations={[
-          { x: 6, label: "model upgrade deployed", color: "#f59e0b" },
-          { x: 11, label: "prompt template rolled back", color: "#34d399" },
         ]}
       />
 

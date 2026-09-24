@@ -1,0 +1,112 @@
+{
+  "checkedAt": "2026-09-11T10:56:00.882453+00:00",
+  "passed": true,
+  "attribution": "Design-stage independent arithmetic; no production/native/browser completion claim.",
+  "records": {
+    "rankOneCompatibleCompletions": [
+      [
+        [
+          1,
+          0.5
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      [
+        [
+          1,
+          2
+        ],
+        [
+          0.5,
+          1
+        ]
+      ]
+    ],
+    "onePairUpdate": {
+      "before": [
+        0.4,
+        -0.2,
+        0.5,
+        0.3,
+        0.1,
+        -0.1
+      ],
+      "error": 1.8599999999999999,
+      "gradient": [
+        -0.8899999999999999,
+        -0.578,
+        -0.694,
+        0.402,
+        -1.8499999999999999,
+        -1.8699999999999999
+      ],
+      "after": [
+        0.4445,
+        -0.1711,
+        0.5347,
+        0.2799,
+        0.1925,
+        -0.006500000000000006
+      ],
+      "lossBefore": 1.7577999999999998,
+      "lossAfter": 1.3504501122481138
+    },
+    "implicitBlock": {
+      "normal": [
+        [
+          9.0,
+          3.0
+        ],
+        [
+          3.0,
+          5.0
+        ]
+      ],
+      "right": [
+        8.0,
+        3.0
+      ],
+      "solution": [
+        0.8611111111111112,
+        0.08333333333333337
+      ],
+      "scores": [
+        0.8611111111111112,
+        0.08333333333333337,
+        0.9444444444444445
+      ]
+    },
+    "rankingAtThree": {
+      "hits": [
+        0,
+        1,
+        0
+      ],
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "ndcg": 0.38685280723454163,
+      "reciprocalRank": 0.5,
+      "averagePrecisionAtThree": 0.25
+    },
+    "loggingPolicy": {
+      "logging": [
+        0.8,
+        0.2
+      ],
+      "target": [
+        0.5,
+        0.5
+      ],
+      "rewardProbabilities": [
+        0.4,
+        0.8
+      ],
+      "expectedLoggedReward": 0.48,
+      "expectedTargetReward": 0.6000000000000001,
+      "importanceVariance": 0.7650000000000001
+    }
+  }
+}

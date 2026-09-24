@@ -1,0 +1,508 @@
+{
+  "checkedAt": "2026-09-20T07:47:08.119Z",
+  "finishedAt": "2026-09-20T07:47:41.965Z",
+  "route": "http://127.0.0.1:4193/learn/path/full-curriculum/calibration-conformal-prediction?module=classical-ml",
+  "distDir": "dist-cal",
+  "buildManifestSha256": "6fb7ef1f53c7ff1e47c4391793b08a1bf82f0acbe18ad8db09862586c2864938",
+  "sourceHashes": {
+    "src/learn/data/topics/calibration-conformal-prediction.jsx": "960c03af5afed87ad4cc696830ffffb65fb0eac139404da1faf1f27f5a863b25",
+    "src/learn/data/calibration-models.js": "c777a6c0b9d70a73e9277e3c4058cffc2561b6f642dbbae8fbbd284c7df1c809",
+    "src/learn/data/calibration-data.js": "74b58179686799f4614602c4d19656f31cc792cd0df9f17f1b06a1c259f94a51",
+    "src/learn/data/calibration-examples.js": "3b7e37fce3f6637614b81c0a3720bd2dcb30e30a66f4280ba95641708b95b5a1",
+    "src/learn/components/lesson-labs/CalibrationShared.jsx": "89fded3b85aebf13ef5ee7ce8b33a0d9e2943d4a064c2f9b8a558edc6bae7f89",
+    "src/learn/components/lesson-labs/CalibrationLabs.jsx": "0e65b3c66f04a1d8f664429172cb8af7c4574a9d81fcdbadeca3e69297681f55",
+    "src/learn/components/lesson-labs/CalibrationFigures.jsx": "b366902589d2ea7f789059d40a2fae4d1f2574f58abf65b53866989cb706cfb7",
+    "src/learn/components/lesson-labs/calibration-labs.css": "1d83760fe3a634d51c94713badeeac346646acd401f4f816db4898e466947761",
+    "src/learn/data/curriculum/blueprints/calibration-conformal-prediction.js": "714480b7eaf9fafa6fb8bfccadfcbf66a8352d1b2ed5fa70f43bb57f292bcb29",
+    "public/learn-assets/calibration/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn-assets/calibration/airfoil-subset.csv": "5839135483aa9c45bac8416d9bbb0b1966858a21758beb4a8fb9b1fa1dd83bb5",
+    "public/learn-assets/calibration/ATTRIBUTION.txt": "064372ff6d38ef049e08d2617e36d9655df8999441ab504003e1dd7bf300e07c"
+  },
+  "verifierSha256": "387bd9211ecfb4b7b616568737618280996310acde9b53674a9a3b7398d77316",
+  "widths": [
+    1366,
+    390,
+    320
+  ],
+  "narrowFindings": {
+    "320": {
+      "formulas": 10,
+      "labels": 175
+    },
+    "390": {
+      "formulas": 10,
+      "labels": 175
+    }
+  },
+  "layoutStatesChecked": [
+    "default state at 1366 px",
+    "390 px",
+    "320 px",
+    "figure 8 showing the training-prior constant",
+    "figure 9 showing conformalized quantile regression",
+    "figure 9 showing Training-mean constant",
+    "figure 9 showing Raw fitted",
+    "figure 8 showing Naive sigmoid",
+    "figure 8 showing Held-out isotonic",
+    "figure 8 showing Held-out temperature"
+  ],
+  "censusByState": [
+    {
+      "where": "default state at 1366 px",
+      "svgs": 17,
+      "labels": 175,
+      "curves": 228,
+      "cells": 580,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "390 px",
+      "svgs": 17,
+      "labels": 175,
+      "curves": 228,
+      "cells": 450,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "320 px",
+      "svgs": 17,
+      "labels": 175,
+      "curves": 228,
+      "cells": 450,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "figure 8 showing the training-prior constant",
+      "svgs": 17,
+      "labels": 175,
+      "curves": 225,
+      "cells": 580,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "figure 9 showing conformalized quantile regression",
+      "svgs": 17,
+      "labels": 174,
+      "curves": 225,
+      "cells": 580,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "figure 9 showing Training-mean constant",
+      "svgs": 17,
+      "labels": 174,
+      "curves": 225,
+      "cells": 580,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "figure 9 showing Raw fitted",
+      "svgs": 17,
+      "labels": 174,
+      "curves": 225,
+      "cells": 580,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "figure 8 showing Naive sigmoid",
+      "svgs": 17,
+      "labels": 174,
+      "curves": 229,
+      "cells": 580,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "figure 8 showing Held-out isotonic",
+      "svgs": 17,
+      "labels": 174,
+      "curves": 227,
+      "cells": 580,
+      "scrollBoxes": 25,
+      "formulas": 10
+    },
+    {
+      "where": "figure 8 showing Held-out temperature",
+      "svgs": 17,
+      "labels": 174,
+      "curves": 226,
+      "cells": 580,
+      "scrollBoxes": 25,
+      "formulas": 10
+    }
+  ],
+  "contrastMeasurements": 1744,
+  "katexSvgsMeasured": 10,
+  "shapesInspected": 640,
+  "svgLabelsMeasured": 175,
+  "displayFormulas": 10,
+  "screenshots": [
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-1-initial-desktop.png",
+      "bytes": 302289,
+      "digest": "c83e09d2fce26669a00aae6e5624b51ac56a3c58c58317ee5fecda168a09744d",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-2-initial-desktop.png",
+      "bytes": 217680,
+      "digest": "3fadbca6b9534609863177d39618aea68abbf13abdd5201e11e2a06da5a48fb8",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-3-initial-desktop.png",
+      "bytes": 226357,
+      "digest": "a68aa9bb5bb1a4094885e64c64f51ee8d020d2e25b51117f218d6ec6390fd908",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-4-initial-desktop.png",
+      "bytes": 318602,
+      "digest": "7094be722c9ceee746bbbe109f397c8d661debf1517e08798099395ce6608304",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-1-checked-desktop.png",
+      "bytes": 377587,
+      "digest": "51781cf8467661b8b7e1be4ef3e78fc807d8704be6ac824ecbbfeb2260e12d49",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-1-auc-null-desktop.png",
+      "bytes": 391386,
+      "digest": "245130736cb355f4b0856012d178c02e7e1f90f8234fceba526ca90d346c02d8",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-2-checked-desktop.png",
+      "bytes": 246998,
+      "digest": "616def38c2042fb0336ef7e16c718e3fd594173e119dfdbcd10242b6aa2134ad",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-3-unbounded-desktop.png",
+      "bytes": 310929,
+      "digest": "7b9037ed42a9a11242bec13d69c75239d16d052002417eb5bfe67e30a83108b6",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-4-checked-desktop.png",
+      "bytes": 379221,
+      "digest": "50a24e3f3231b1c0d90c6715e82aab50286d6f8e802be2086aabacc9481fecaa",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-4-unit-null-desktop.png",
+      "bytes": 406796,
+      "digest": "87832853f3ae0fdbf9c6158fdc134a02eec21f5dd008050b64cba81b40314227",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-lesson-desktop-1366.png",
+      "bytes": 8007793,
+      "digest": "ba3799335174d892d0f5466f6e340cce7560b1507a170118dcbbc2c7c01ef1b1",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-lesson-narrow-390.png",
+      "bytes": 7731744,
+      "digest": "42bfc4917f1d5df16310ebdfcb535feb487a82f46a8f51facc40e15d938447d7",
+      "viewport": "390x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-1-narrow-390.png",
+      "bytes": 407559,
+      "digest": "fabcd5fc1cf8ef7435425688a71db2a8ce08f19f96006cc5bce40e0273043117",
+      "viewport": "390x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-2-narrow-390.png",
+      "bytes": 272917,
+      "digest": "b5dea4acbbabbd8cea0cbfae35e4b9ed443862ce0e7f56dbe5f6f6596923b5f4",
+      "viewport": "390x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-3-narrow-390.png",
+      "bytes": 327554,
+      "digest": "289868d9a0d2693da68334d3e5422de200825ce01bca68dfc72911c81db135a8",
+      "viewport": "390x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-4-narrow-390.png",
+      "bytes": 445029,
+      "digest": "94d40031c98eaaa49d4a6b7dc65c0553c05e10c52e29681806b32e0e27594d0c",
+      "viewport": "390x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-lesson-narrow-320.png",
+      "bytes": 8033134,
+      "digest": "10ca009a0ed5cbc080930a1e8a31b60d672d2fdb995ceb69035e55515996d7e4",
+      "viewport": "320x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-1-narrow-320.png",
+      "bytes": 410510,
+      "digest": "960bf189468deabd9f84914f9ea292781aacbda08d58bb026625bcef63d05ea3",
+      "viewport": "320x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-2-narrow-320.png",
+      "bytes": 277954,
+      "digest": "2e68fdda4679491268743bd0d177e636f9ed8027c83de2a8903cf71264bde2a3",
+      "viewport": "320x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-3-narrow-320.png",
+      "bytes": 335893,
+      "digest": "de187cb32df2b3255c42e50fb07549e931a69538989783d239e3e2113c85588b",
+      "viewport": "320x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-investigation-4-narrow-320.png",
+      "bytes": 459480,
+      "digest": "0a9b62a20ab336f78bcaace2fbc8944c25a42d7ae4caa7457bdf5b15247fb6a4",
+      "viewport": "320x900"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-1-desktop.png",
+      "bytes": 11987,
+      "digest": "e04cc79507a32893f3b289db83c18dc12022ce38b0eb4b90cea9c8a0ddf9e138",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-2-desktop.png",
+      "bytes": 11387,
+      "digest": "fbccab5e6719f3272c4dcf494f0a71c07bad78953037821b9a6a54afb4ac8507",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-3-desktop.png",
+      "bytes": 14324,
+      "digest": "641fc7d5fe2abdeeed4d5d2ea3945d76f7adb2197bcf33d2bac3f7ffe7112f75",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-4-desktop.png",
+      "bytes": 13971,
+      "digest": "3e37f2ee96c97121c0fa19ef78b266087c9d1706a2a977521de21b0bf6e58b02",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-5-desktop.png",
+      "bytes": 13213,
+      "digest": "403125a50826615779963faf5a4ca5da68a3aa17f52b7052d7bdc1acb801b911",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-6-desktop.png",
+      "bytes": 9044,
+      "digest": "6720765df6ea081293a80fd0935eb111e80daf879b559de4a4bebc74f0a34393",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-7-desktop.png",
+      "bytes": 15239,
+      "digest": "e012f1ffa9dfe03c227adeb3a14b1178913a809d3a98e101e13cb2cd455f888a",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-8-desktop.png",
+      "bytes": 9713,
+      "digest": "1d9bc6a0c79b3992c829d5e1f8953e19bf269ab40d4ec900f5243cfe4e558f3b",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-9-desktop.png",
+      "bytes": 7445,
+      "digest": "3fbdf85d8bd1ddbc9f1812121a003b3d1b3c805aad36a6e51f61658813483b55",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-10-desktop.png",
+      "bytes": 12522,
+      "digest": "505840efe2b7f63b616d3861e95c62854eae77d44b3b7b27acf036baf6379a9d",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-11-desktop.png",
+      "bytes": 11777,
+      "digest": "3f244d12779f7f8fc640e858642d973f1a81e7f5558853dd1bd8a091bfc5d914",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-12-desktop.png",
+      "bytes": 16442,
+      "digest": "0739792371d22b79c92587e1f17648745cc6a3fbb339255eaa5009b7d1d18cb5",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-13-desktop.png",
+      "bytes": 9046,
+      "digest": "6d771c8ff1210a8e398cd5a993ed27d1390473ca236686ed95356256a78eddae",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-14-desktop.png",
+      "bytes": 12268,
+      "digest": "530067bde7767b035a638276daa066708293abe6267837080c5066f3f6ed4200",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-15-desktop.png",
+      "bytes": 13764,
+      "digest": "3501f6d3a3011f287237583d49688abcffb2cb95cc84d970fb8369d4ea794ad4",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-16-desktop.png",
+      "bytes": 12258,
+      "digest": "24016bee7c5f5b621cfc6d8c8412055e86f66b39910c7d2bafa39769397d074d",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-1-desktop.png",
+      "bytes": 88605,
+      "digest": "c780cbad3fe76fe1654309e7a339651d12f440d7f7eb8d45cb24612c185c20a0",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-2-desktop.png",
+      "bytes": 87192,
+      "digest": "dba92abb1763c4168f28f3b48d9f96b31fa3981ffc1511af4dcfb944183feb14",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-3-desktop.png",
+      "bytes": 89240,
+      "digest": "5091f8e4e70aec5ed199ef6dc7d82e83f8a5c514fa6e50fcda313a74b902d0f2",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-4-desktop.png",
+      "bytes": 77225,
+      "digest": "e91ac2daac176e53a2b82b03b7646d906cf2acc75bb143510ec16c1b56f22fb2",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-5-desktop.png",
+      "bytes": 138367,
+      "digest": "f9a001ed5299011fbc2e74d1300e16c86f55d2638f3ef01111e8d551c06674f6",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-6-desktop.png",
+      "bytes": 93168,
+      "digest": "c68380cfbcba40ee4c9e86fe645dc201713b1d7571f4e01889c872a635028413",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-7-desktop.png",
+      "bytes": 73044,
+      "digest": "92503aded8dc6c97965f46c0a59b4521553619705d76a6fdccaa8325440e57a0",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-8-desktop.png",
+      "bytes": 178907,
+      "digest": "6d784d2259d1c27784cbe62d88c78ad4f7cdee868d3345e9367e22f282c19a67",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-9-desktop.png",
+      "bytes": 146755,
+      "digest": "7b5ecc85d60691a723a423e215164a6886cde77b1cd6ab670317babc89c6e1b8",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-10-desktop.png",
+      "bytes": 103885,
+      "digest": "1a81679604b915a137064ae17756b18f897c2f58fb41d82f02ade75150ccc6cc",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-11-desktop.png",
+      "bytes": 106287,
+      "digest": "4a6b6f6a7a2403169678c04ffe0be9ac451f91d2d281a35afcb6c979e036bc33",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-block-12-desktop.png",
+      "bytes": 75698,
+      "digest": "ef2c4c1944c1eac8b67699436b19f04630a3551e3ef80d9eb48773904f960325",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-8-prior-constant-desktop.png",
+      "bytes": 177383,
+      "digest": "5b342d1ff9ba86ebdcdaca63b7c8c449642b24c6b066de8baa2f75e8d3c39836",
+      "viewport": "1366x1000"
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\calibration-figure-9-cqr-desktop.png",
+      "bytes": 151971,
+      "digest": "f055797eca1906d2b2fd0a3fe8fd86007ac5640d0f7fb47f26a8ffe609cea3cf",
+      "viewport": "1366x1000"
+    }
+  ],
+  "staleCapturesRemoved": [],
+  "cases": [
+    {
+      "case": "The lesson renders with no thrown error, no error boundary and no KaTeX failure; four investigations, twelve figures, eight practice tasks, three displayed program outputs, every route anchor resolving, and both dataset hashes and licences visible"
+    },
+    {
+      "case": "All 8 served files reachable and byte-identical to their recorded digests, with no sibling lesson's copy fetched"
+    },
+    {
+      "case": "All four investigations open with no prediction selected, the check disabled, no verdict and no gated readout"
+    },
+    {
+      "case": "Investigation 1: an edited forecast keeps the graded ECE off screen until a prediction is committed, pinned by the exact printed value as well as by the gate marker; the verdict names the move; an edit retires both; the previous attempt stays hidden; and switching the graded quantity to AUC on a one-class sample is graded as having no value rather than as a number"
+    },
+    {
+      "case": "Investigation 2: the pooled probability of the next required merge stays off screen until committed, pinned by its printed value at two precisions, and the explanation contrasts it with the average of the two block means"
+    },
+    {
+      "case": "Investigation 3: at a 95% target the rank exceeds the calibration set, and neither the word infinity nor the rank table appears until a prediction is committed; the correct rank is accepted exactly, and no threshold line is drawn on the axis for an unbounded threshold"
+    },
+    {
+      "case": "Investigation 4: the graded physical width stays off screen until committed; a doubled residual pair widens the interval and is graded so; and doubling every calibration and query scale is reported as unchanged with the dimensionless-threshold explanation"
+    },
+    {
+      "case": "640 shapes compared against their attributes: 4 carrying a stroke-width attribute paint at exactly that width, 636 without one are visible, and 240 outline shapes paint no fill"
+    },
+    {
+      "case": "175 SVG labels render between 8 and 34 px after viewBox scaling with no shorthand reset, no curve passes through a label, no two labels overlap, no label is trimmed by its own viewBox, and every table fits its container at 1366 px"
+    },
+    {
+      "case": "Display formulas measured at 1366, 390 and 320 px: none overflows its column, the page never scrolls sideways, and no SVG label falls below 7 px effective"
+    },
+    {
+      "case": "51 captures, each with its own path and its own content digest; 0 stale capture(s) from an earlier figure count removed"
+    }
+  ],
+  "gradedValuePins": {
+    "reliabilityEce": "0.207700000000",
+    "reliabilityEceRounded": "0.2077",
+    "monotonePooled": "0.333333333333",
+    "monotonePooledShort": "0.333333",
+    "aucBaseline": "0.540000000000",
+    "eceOfSameState": "0.207700000000",
+    "rankUnbounded": "infinity",
+    "rankK": "10",
+    "intervalWidth": "8.000000000000"
+  },
+  "scope": "A production preview at 1366, 390 and 320 px. The lesson is checked to have rendered at all — no thrown error, no error boundary, no KaTeX failure — before anything else. Each of the four investigations is driven through a scripted interaction and checked twice over for the leak that matters: the gate marker must be absent AND the graded value's own printed text, computed here in Node from the same model the page uses, must not appear in that investigation's rendered text until a prediction is committed. Every shape's painted stroke width and fill is compared with its attribute, with attribute-free shapes examined rather than skipped. Curves are sampled along their own geometry for label crossings, SVG label sizes are measured after viewBox scaling, table cells are checked for clipping, and every display formula is measured against its column at all three widths.",
+  "limitations": [
+    "Screenshots are captured and hashed here; a human still has to look at them, and this file cannot assert that anyone did.",
+    "Keyboard traversal and screen-reader output are not exercised here.",
+    "Numerical correctness belongs to scripts/verify-calibration-models.mjs; this run assumes it passed."
+  ],
+  "passed": true
+}

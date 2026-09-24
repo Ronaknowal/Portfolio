@@ -1,0 +1,50 @@
+.spectral-investigation .spectral-graph-scroll { margin: 1.3rem 0; }
+.spectral-graph-scroll, .spectral-embedding-scroll { overflow-x: auto; max-width: 100%; }
+.spectral-graph-scroll:focus-visible, .spectral-embedding-scroll:focus-visible { outline: 2px solid var(--accent, #e2b55a); outline-offset: 3px; }
+.spectral-graph-scroll svg { display: block; width: 100%; max-height: none; }
+.spectral-graph-scroll svg.spectral-graph-compact { display: none; }
+.spectral-graph-scroll svg text { font-size: 20px !important; fill: #e1dfd8; }
+.spectral-graph-scroll svg .spectral-node-name { fill: #131513; font-weight: 750; font-size: 22px !important; }
+.spectral-investigation button { min-height: 44px; }
+.spectral-order, .spectral-mode-bank, .spectral-signal-comparison { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 1.3rem 0; }
+.spectral-order > div, .spectral-mode-bank > div, .spectral-signal-comparison > div { display: flex; flex-direction: column; align-items: center; gap: .45rem; padding: .65rem .3rem; border-bottom: 1px solid #53514b; min-width: 0; }
+.spectral-order > div.in-cut { border-bottom: 4px solid #e2b55a; background: #e2b55a0b; }
+.spectral-order span, .spectral-mode-bank span, .spectral-mode-bank strong, .spectral-signal-comparison span { font-size: .82rem; }
+.spectral-order small { font-size: .68rem; }
+.spectral-gain-track { height: 8px; width: 100%; background: #343737; }
+.spectral-gain-track span { display: block; height: 100%; background: #e2b55a; }
+.spectral-signed-bar { width: 100%; height: 14px; position: relative; background: linear-gradient(to right, transparent 49.3%, #9f9f93 49.3%, #9f9f93 50.7%, transparent 50.7%); }
+.spectral-signed-bar span { position: absolute; height: 7px; top: 3px; }
+.spectral-row-equation { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.2rem; padding: 1rem 0; border-block: 1px solid #474844; }
+.spectral-row-equation span { font-size: .87rem; overflow-wrap: anywhere; }
+.spectral-embedding-scroll svg { display: block; width: 100%; max-width: 470px; margin: auto; }
+.spectral-embedding-scroll svg text { font-size: 19px !important; fill: #e1dfd8; }
+.spectral-inline { margin: 1.5rem 0 2rem; padding: 1rem 0; border-block: 1px solid #44433c; }
+.spectral-inline figcaption { color: #b6b4aa; font-size: .85rem; line-height: 1.7; margin-top: 1rem; }
+.spectral-anchor svg { display: block; width: 100%; max-width: 280px; margin: auto; }
+.spectral-anchor svg text { font-size: 17px !important; fill: #e1dfd8; }
+.spectral-anchor svg .anchor-name { fill: #151711; font-size: 20px !important; font-weight: 700; }
+.spectral-anchor svg .anchor-value { fill: #151711; font-size: 16px !important; }
+.spectral-correspondence, .spectral-circuit { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; }
+.spectral-correspondence > div, .spectral-circuit > div { display: flex; flex-direction: column; gap: .55rem; }
+.spectral-correspondence strong, .spectral-circuit strong { color: #e2b55a; }
+.spectral-correspondence span, .spectral-circuit span { font-size: .87rem; }
+.spectral-walk { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.spectral-walk > div { display: flex; flex-direction: column; gap: .65rem; }
+.spectral-walk > span { color: #e2b55a; font-size: 1.5rem; }
+@media (max-width: 620px) {
+  .spectral-graph-scroll svg.spectral-graph-wide { display: none; }
+  .spectral-graph-scroll svg.spectral-graph-compact { display: block; max-width: 300px; margin: auto; }
+  .spectral-embedding-scroll svg text { font-size: 24px !important; }
+  .spectral-order, .spectral-mode-bank, .spectral-signal-comparison { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 1rem; }
+  .spectral-correspondence, .spectral-circuit { grid-template-columns: 1fr; gap: 1.1rem; }
+  .spectral-correspondence > div, .spectral-circuit > div { padding-left: .75rem; border-left: 2px solid #67644f; }
+  .spectral-walk { flex-direction: column; align-items: flex-start; }
+  .spectral-walk > span { transform: rotate(90deg); align-self: center; }
+  .spectral-investigation .lesson-controls { grid-template-columns: 1fr; }
+}
+
+.spectral-embedding-scroll .spectral-group-label { paint-order: stroke; stroke: #0d0f0e; stroke-width: 5px; stroke-linejoin: round; }
+.spectral-centroid-key { display: flex; flex-wrap: wrap; gap: .7rem 1rem; font-size: .85rem; line-height: 1.5; margin-top: .75rem; }
+.spectral-centroid-key span { display: inline-flex; align-items: center; gap: .4rem; }
+.spectral-centroid-key i { display: inline-block; width: .75rem; height: .75rem; border: 2px solid; flex: none; }

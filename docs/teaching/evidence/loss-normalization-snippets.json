@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "topic": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "index": 1,
+      "code_sha256": "f081dd2259d79f7e3b7e822b4f2d01dc818f902da484e12e21562dceb075f796",
+      "output": "tensor(1000.6566, dtype=torch.float64)\ntensor(0.3599)\n"
+    },
+    {
+      "topic": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "index": 2,
+      "code_sha256": "66eaeb3f9bdd7a16c18db6275a21b55e4099d9e855564225f0a022385476e715",
+      "output": "tensor([0.5600]) tensor([0.8000])\n"
+    },
+    {
+      "topic": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "index": 3,
+      "code_sha256": "1b40c15289faaf3bba5320828107811da7497d413668c72c026c5ead24123d2c",
+      "output": "1.22517\n[0. 0.]\n"
+    },
+    {
+      "topic": "batch-layer-group-rms-normalization",
+      "index": 1,
+      "code_sha256": "efecd6852c2cb91cab4d96cd99995130c4108da24dfb1da118c5ad266bc23ce7",
+      "output": "tensor([[0.8486, 1.1318]], dtype=torch.float16)\n"
+    },
+    {
+      "topic": "batch-layer-group-rms-normalization",
+      "index": 2,
+      "code_sha256": "b884f0dc5166c203c48f4ef33012759953a15c5b7b41a07791835b51221a540e",
+      "output": "[[ 0.162221  1.135549 -1.29777 ]]\n[0.]\n"
+    }
+  ]
+}

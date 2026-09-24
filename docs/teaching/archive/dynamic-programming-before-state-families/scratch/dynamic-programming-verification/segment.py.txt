@@ -1,0 +1,24 @@
+def command_plan(text, words):
+    vocabulary = set(words)
+    if "" in vocabulary:
+        raise ValueError("Commands must be nonempty")
+    previous = [None] * (len(text) + 1)
+    previous[0] = 0
+    for end in range(1, len(text) + 1):
+        for start in range(end):
+            if previous[start] is not None and text[start:end] in vocabulary:
+                previous[end] = start
+                break
+    if previous[-1] is None:
+        return None
+    result = []
+    end = len(text)
+    while end:
+        start = previous[end]
+        result.append(text[start:end])
+        end = start
+    return result[::-1]
+
+print(command_plan("scanreset", ["scan", "reset", "sc", "an"]))
+print(command_plan("scanrest", ["scan", "reset"]))
+print(command_plan("", ["scan"]))

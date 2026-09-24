@@ -1,0 +1,37 @@
+{
+  "executedAt": "2026-09-11T13:59:30.903674+00:00",
+  "counts": {
+    "geometry": 45,
+    "support": 7,
+    "soft": 40,
+    "kernels": 144,
+    "pairs": 113,
+    "tubes": 48,
+    "sequences": 18,
+    "changedNativeSolvers": 36,
+    "refitAndCap": 2,
+    "savedFittedModels": 9,
+    "invalidBrowserInputs": 12
+  },
+  "maximumScaledDifference": 1.3167100752875408e-8,
+  "scope": "Finite independently optimized teaching states and changed actual native helpers; no general solver runtime or statistical accuracy guarantee.",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/support-vector-machines-models.js",
+      "sha256": "873741e3c48087dd6980bfde9fef523b939bd7521fe6930ffe8aaef5995e2daa"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-examples.js",
+      "sha256": "61a0c2b9fb0c1b93ec6d37811a2b9cb10eafc6743e116301fcb683fb7a7c99b1"
+    },
+    {
+      "path": "src/learn/data/svm-validation-fixtures.js",
+      "sha256": "1652a24b8af8293e58c0466928be3f833b80dba563863513d8fa2d91cd51e0c0"
+    }
+  ],
+  "executedPrograms": {
+    "count": 14,
+    "executedAt": "2026-09-11T13:15:09.145572+00:00",
+    "unchangedSourcesAndDisplayedOutputs": true
+  }
+}

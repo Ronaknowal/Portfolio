@@ -1,0 +1,75 @@
+{
+  "verifiedAt": "2026-09-16T14:55:52.713919+00:00",
+  "stage": "native execution of the lesson's programs; browser, independent and integration review are separate",
+  "extraction": "verbatim from frozen sources: one manuscript python fence and two packet program files, each pinned by SHA-256 of the exact bytes read",
+  "manuscript": "docs/teaching/drafts/bayesian-networks-causal-graphical-models/lesson.md",
+  "manuscriptSha256": "6a475928fa46848bc0c427344440995165d0bb764943218fd90a8d166b8922c4",
+  "packetCalculatedInputsSha256": "774d8b14ae9de8bdea51f18a8456c408dc98c768320d45307dd71e0f932f07b6",
+  "source": "src/learn/data/bayesnet-examples.js",
+  "sourceHash": "0742ff92b949cb6b6a35cb9ef43cd1ae2eb7026a4d04f591d977372ffad114fe",
+  "verifier": "scripts/verify-bayesnet-examples.py",
+  "verifierHash": "56861f281d96e32d243b421cd7f8230246c5746d3aafc5f4e2e7bf5a7ab9c461",
+  "sharedRuntime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pandas": "3.0.1"
+  },
+  "isolatedRuntime": {
+    "path": "scratch/bayesnet-optional",
+    "pgmpy": "1.1.2",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "networkx": "3.6.1",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "enumerate": {
+      "file": "alarm_enumeration.py",
+      "origin": "manuscript fence",
+      "sourceSha256": "5b5f7a8350594dc0f168cc2f93c17113e6891307685441caf7e833645477c21e",
+      "runtime": "shared",
+      "executed": true,
+      "codeHash": "8e60d694583550f3a5ae5ceb0010b2020bfcb61dd1c9a24861aaeaa19654a32d",
+      "stdoutHash": "1a38a52031e28cab898c767bba33ba78e112f3184e9ec18c0d3733f79f98dc7a",
+      "stdout": "0.28417183536439294",
+      "displayedOnPage": true
+    },
+    "pgmpy": {
+      "file": "pgmpy-example.py",
+      "origin": "packet file",
+      "sourceSha256": "65af22d06e68385fe4c12176d85e5434c626719a4c53dd30a7334fe76f4af6f1",
+      "runtime": "isolated",
+      "executed": true,
+      "codeHash": "f516d7386b4d5b1ed7777e15f9280ff78a4aa3541a16aa9d702f129605b5bf1f",
+      "stdoutHash": "8e8c82e4bad637710d766b497fb9b864004ed7ab025ab778bf11e41240e41f83",
+      "stdout": "[0.71582816 0.28417184]",
+      "displayedOnPage": true
+    },
+    "experiment": {
+      "file": "network-experiments.py",
+      "origin": "packet file",
+      "sourceSha256": "657cb8ce00e4369afe15164f5192f0c809d70a1da93c1726eb5a7f1f794cae94",
+      "runtime": "shared",
+      "executed": true,
+      "codeHash": "b31323f4af863c7e8bf5099dbf8e64a74aeb17e9e3d82226e4762650dbd075da",
+      "stdoutHash": "8496e8ff7eeb2670d4d8fe3cc64591c1645051246c274d0c9ff3a3687fadde6e",
+      "stdout": "{\n  \"alarmQueries\": [\n    {\n      \"evidence\": {},\n      \"evidenceProbability\": 0.9999999999999997,\n      \"burglary\": 0.0010000000000000005\n    },\n    {\n      \"evidence\": {\n        \"J\": 1\n      },\n      \"evidenceProbability\": 0.0521389757,\n      \"burglary\": 0.016283729946769937\n    },\n    {\n      \"evidence\": {\n        \"J\": 1,\n        \"M\": 1\n      },\n      \"evidenceProbability\": 0.0020841002389999997,\n      \"burglary\": 0.28417183536439294\n    },\n    {\n      \"evidence\": {\n        \"J\": 1,\n        \"M\": 1,\n        \"E\": 0\n      },\n      \"evidenceProbability\": 0.001717159299,\n      \"burglary\": 0.3441995977567134\n    },\n    {\n      \"evidence\": {\n        \"A\": 1\n      },\n      \"evidenceProbability\": 0.002516442,\n      \"burglary\": 0.37355122828183607\n    },\n    {\n      \"evidence\": {\n        \"A\": 1,\n        \"E\": 1\n      },\n      \"evidenceProbability\": 0.00058132,\n      \"burglary\": 0.0032684235876969656\n    },\n    {\n      \"evidence\": {\n        \"A\": 1,\n        \"J\": 1\n      },\n      \"evidenceProbability\": 0.0022647978,\n      \"burglary\": 0.373551228281836\n    }\n  ],\n  \"elimination\": [\n    {\n      \"b\": 0,\n      \"a\": 0,\n      \"afterSumE\": 0.9984219999999999,\n      \"afterPrior\": 0.9974235779999999,\n      \"jointWithCalls\": 0.000498711789\n    },\n    {\n      \"b\": 0,\n      \"a\": 1,\n      \"afterSumE\": 0.001578,\n      \"afterPrior\": 0.001576422,\n      \"jointWithCalls\": 0.00099314586\n    },\n    {\n      \"b\": 1,\n      \"a\": 0,\n      \"afterSumE\": 0.059980000000000054,\n      \"afterPrior\": 5.998000000000005e-05,\n      \"jointWithCalls\": 2.9990000000000026e-08\n    },\n    {\n      \"b\": 1,\n      \"a\": 1,\n      \"afterSumE\": 0.94002,\n      \"afterPrior\": 0.00094002,\n      \"jointWithCalls\": 0.0005922125999999999\n    }\n  ],\n  \"paths\": {\n    \"[]\": [],\n    \"['A']\": [\n      [\n        \"B\",\n        \"A\",\n        \"E\"\n      ]\n    ],\n    \"['J']\": [\n      [\n        \"B\",\n        \"A\",\n        \"E\"\n      ]\n    ],\n    \"['A', 'J']\": [\n      [\n        \"B\",\n        \"A\",\n        \"E\"\n      ]\n    ]\n  },\n  \"educationBackdoor\": {\n    \"[]\": [\n      [\n        \"T\",\n        \"E\",\n        \"S\",\n        \"Y\"\n      ]\n    ],\n    \"['S']\": [],\n    \"['E']\": [],\n    \"['E', 'S']\": []\n  },\n  \"service\": {\n    \"observational\": [\n      0.04,\n      0.1625\n    ],\n    \"interventional\": [\n      0.055,\n      0.125\n    ],\n    \"associationDifference\": 0.1225,\n    \"causalDifference\": 0.07,\n    \"positiveSupport\": true\n  },\n  \"randomService\": {\n    \"observational\": [\n      0.05500000000000001,\n      0.12500000000000003\n    ],\n    \"interventional\": [\n      0.055,\n      0.125\n    ],\n    \"associationDifference\": 0.07000000000000002,\n    \"causalDifference\": 0.07,\n    \"positiveSupport\": true\n  },\n  \"noSupport\": {\n    \"observational\": [\n      0.01,\n      0.2\n    ],\n    \"interventional\": [\n      0.055,\n      0.125\n    ],\n    \"associationDifference\": 0.19,\n    \"causalDifference\": 0.07,\n    \"positiveSupport\": false\n  },\n  \"frontdoor\": {\n    \"observedJoint\": [\n      [\n        [\n          0.396,\n          0.054\n        ],\n        [\n          0.021000000000000005,\n          0.029000000000000005\n        ]\n      ],\n      [\n        [\n          0.033499999999999995,\n          0.016499999999999997\n        ],\n        [\n          0.081,\n          0.36900000000000005\n        ]\n      ]\n    ],\n    \"queries\": [\n      {\n        \"x\": 0,\n        \"frontdoor\": 0.2725,\n        \"direct\": 0.2725,\n        \"observational\": 0.166\n      },\n      {\n        \"x\": 1,\n        \"frontdoor\": 0.6525,\n        \"direct\": 0.6525000000000001,\n        \"observational\": 0.7710000000000001\n      }\n    ]\n  },\n  \"changedAndNullChecks\": {\n    \"falseJohn\": {\n      \"evidenceProbability\": 0.0035803255760000004,\n      \"burglary\": 0.1654409766448569\n    },\n    \"unusedRow\": {\n      \"evidenceProbability\": 0.0022647978,\n      \"burglary\": 0.373551228281836\n    },\n    \"uninformativeJohn\": {\n      \"evidenceProbability\": 0.4,\n      \"burglary\": 0.001\n    },\n    \"impossibleJohn\": {\n      \"evidenceProbability\": 0.0,\n      \"burglary\": null\n    },\n    \"practiceMary\": {\n      \"evidenceProbability\": 0.020855590280000003,\n      \"burglary\": 0.016283729946769934\n    },\n    \"changedService\": {\n      \"observational\": [\n        0.04,\n        0.1525\n      ],\n      \"interventional\": [\n        0.055,\n        0.10500000000000001\n      ],\n      \"associationDifference\": 0.11249999999999999,\n      \"causalDifference\": 0.05000000000000001,\n      \"positiveSupport\": true\n    },\n    \"alcohol13.17\": [\n      [\n        0.04989812706359773,\n        0.1292788859165087,\n        0.8208229870198935\n      ]\n    ],\n    \"alcohol12.9\": [\n      [\n        0.022920986443651887,\n        0.6472041787363083,\n        0.3298748348200399\n      ]\n    ],\n    \"alcohol12.8\": [\n      [\n        0.022920986443651887,\n        0.6472041787363083,\n        0.3298748348200399\n      ]\n    ],\n    \"hiddenEdit\": [\n      [\n        0.03231797885652566,\n        0.4667943971501658,\n        0.5008876239933086\n      ]\n    ],\n    \"twoPathsKJ\": [\n      [\n        \"B\",\n        \"A\",\n        \"E\"\n      ]\n    ],\n    \"twoPathsK\": [],\n    \"changedAdjustmentS\": [\n      [\n        \"T\",\n        \"E\",\n        \"Y\"\n      ]\n    ],\n    \"changedAdjustmentE\": []\n  }\n}\n{\n  \"validation\": {\n    \"NB\": {\n      \"correct\": 34,\n      \"rows\": 36,\n      \"logLoss\": 0.16292244894704044\n    },\n    \"TAN\": {\n      \"correct\": 34,\n      \"rows\": 36,\n      \"logLoss\": 0.18523288599124255\n    }\n  },\n  \"validationPrior\": {\n    \"correct\": 14,\n    \"rows\": 36,\n    \"logLoss\": 1.0898523145570962\n  },\n  \"selected\": \"NB\",\n  \"finalTest\": {\n    \"correct\": 33,\n    \"rows\": 36,\n    \"logLoss\": 0.2709439464482761\n  },\n  \"finalPrior\": {\n    \"correct\": 14,\n    \"rows\": 36,\n    \"logLoss\": 1.0896162218694347\n  }\n}",
+      "displayedOnPage": false
+    }
+  },
+  "oracles": 17,
+  "notes": [
+    "The optional pgmpy program was left written but unexecuted by the content phase. This phase created scratch/bayesnet-optional, installed pgmpy there, and ran it, so the page shows a real printed distribution rather than a predicted one. Nothing was installed into the shared runtime.",
+    "network-experiments.py is offered as a download rather than displayed in full, following the manuscript. It was copied into a scratch directory beside the served dataset and run there; the check is that its fresh output equals the frozen calculated-inputs.json byte for byte.",
+    "No network access was used by any program."
+  ],
+  "limits": [
+    "Library floating-point results can differ on other versions; the resolved versions are recorded above.",
+    "The Wine numbers are one small single split, not a benchmark.",
+    "Byte-identical regeneration of the trust root depends on the shared runtime's exact library versions."
+  ],
+  "passed": true
+}

@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-09-11T15:40:25.614Z",
+  "entries": [
+    {
+      "path": "scratch/survival-independent/complementary-checks.json",
+      "sha256": "62ab400a90866f4f5e7c83e76a88030afdfe73bc43de979c6c3b8a620d2a660d",
+      "bytes": 3812,
+      "retainedAt": "docs/teaching/evidence/survival-independent-review.json#complementaryChecks",
+      "reason": "Complete JSON content is embedded in the final independent record; temporary duplicate is no longer an input."
+    },
+    {
+      "path": "scratch/survival-independent/source-reading.json",
+      "sha256": "0c998a8a360676acb9cf3ea5c587df51234799d37d361b02f08f28bf47cea1ee",
+      "bytes": 2880,
+      "retainedAt": "docs/teaching/evidence/survival-independent-review.json#sourceReading",
+      "reason": "Complete JSON content is embedded in the final independent record; temporary duplicate is no longer an input."
+    },
+    {
+      "path": "scratch/survival-independent/initial-findings.json",
+      "sha256": "1a82a048afd72a380c72e6bbe0c592eef56107afd1e8fa45afb59e7345db9a58",
+      "bytes": 2142,
+      "retainedAt": "docs/teaching/evidence/survival-independent-review.json#initialFindings",
+      "reason": "Complete JSON content is embedded in the final independent record; temporary duplicate is no longer an input."
+    }
+  ]
+}

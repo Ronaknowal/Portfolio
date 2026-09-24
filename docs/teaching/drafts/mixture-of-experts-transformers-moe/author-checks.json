@@ -1,0 +1,225 @@
+{
+  "status": "author checks passed; implementation and independent review deferred",
+  "displayed_source_sha256": "6e21e451d19aef035340ab652f70c46620a06f17daa48afc15509255be0fb6d3",
+  "displayed_source_matches": true,
+  "figures": 11,
+  "investigations": 5,
+  "practice_questions": 12,
+  "closed_disclosures": 14,
+  "declared_fits": 12,
+  "saved_model_checks": {
+    "saved_metric_max_error": 0.0,
+    "dense_dispatch_max_output_error": 8.881784197001252e-16,
+    "all_parameter_gradient_max_error": 1.7763568394002505e-15,
+    "data_sha256": "9ad440c38a738b66ba8ca85ed9097ccafe9e99846517f02cdd6512a79dde9c24"
+  },
+  "additional_calculations": {
+    "fresh_balance": [
+      {
+        "q": [
+          0.5,
+          0.25,
+          0.25
+        ],
+        "P": [
+          0.35000000000000003,
+          0.39999999999999997,
+          0.25
+        ],
+        "loss": 1.0125000000000002
+      },
+      {
+        "q": [
+          0.25,
+          0.5,
+          0.25
+        ],
+        "P": [
+          0.24999999999999997,
+          0.5,
+          0.25
+        ],
+        "loss": 1.125
+      }
+    ],
+    "fresh_cost": [
+      {
+        "total_expert_parameters": 115200,
+        "active_expert_macs": 23040,
+        "router_parameters": 480,
+        "payload_bytes": 18432
+      },
+      {
+        "total_expert_parameters": 115200,
+        "active_expert_macs": 23040,
+        "router_parameters": 960,
+        "payload_bytes": 36864
+      }
+    ],
+    "practice_routes": {
+      "masses": [
+        2,
+        5,
+        3
+      ],
+      "experts": [
+        [
+          1
+        ],
+        [
+          5
+        ],
+        [
+          -2
+        ]
+      ],
+      "k": 2,
+      "renormalize": true,
+      "selected": [
+        1,
+        2
+      ],
+      "weights": [
+        0.625,
+        0.37500000000000006
+      ],
+      "output": [
+        2.375
+      ],
+      "sum_output_gradient": [
+        0.0,
+        1.640625,
+        -1.6406250000000002
+      ]
+    },
+    "practice_capacity": {
+      "selected": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "capacity": 4,
+      "retained": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          0,
+          0
+        ],
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          3,
+          0,
+          0
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ],
+      "dropped": [
+        [
+          4,
+          0,
+          0
+        ],
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          5,
+          0,
+          0
+        ],
+        [
+          5,
+          1,
+          1
+        ]
+      ],
+      "fully_dropped": [
+        4,
+        5
+      ],
+      "output": [
+        1.5,
+        1.5,
+        1.5,
+        1.5,
+        0.0,
+        0.0
+      ],
+      "used": [
+        4,
+        4,
+        0,
+        0
+      ]
+    },
+    "scatter": [
+      -0.25,
+      2.5
+    ],
+    "practice_bias": 0.33333333333333326,
+    "expert_choice_figure": {
+      "row_choices": [
+        0,
+        0,
+        2,
+        1
+      ],
+      "column_choices": [
+        0,
+        3,
+        2
+      ]
+    }
+  }
+}

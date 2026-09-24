@@ -1,0 +1,1070 @@
+{
+  "frozenAt": "2026-09-10T17:40:30.503Z",
+  "status": "author-verified; independent closure and production integration separate",
+  "files": {
+    "src/learn/data/topics/rate-distortion-theory.jsx": "718d928d3fe4f7463b3c9bb8d7fc7ff867944a1220d529be578d7deef2e1629e",
+    "src/learn/data/rate-distortion-models.js": "c783813d848028f3d218848bbcd7411a54b33ee73c968e53a7d7885835bbe886",
+    "src/learn/data/rate-distortion-examples.js": "faae6b625572f9609f61fd27b0f5959f8cd47c20a18b8360ea225047fb010a71",
+    "src/learn/components/lesson-labs/RateDistortionLabs.jsx": "82ead791f6b60be82b47c28c6864c2530f5b814d18e1c7689bc20ef8e4f55f23",
+    "src/learn/components/lesson-labs/rate-distortion-labs.css": "743b09f7846409e53af844070e45b16bb8833efae9186b9f8bb34688c11742b8",
+    "src/learn/data/curriculum/blueprints/rate-distortion-theory.js": "c00da4b64d6baa889002a6f0f48e998b66e25a96624da12a105393900fbb1949"
+  },
+  "originalBody": {
+    "path": "scratch/rate-distortion-review/original-lesson.jsx",
+    "sha256": "a4276ba8dd57bd20477e25c7dd39d817d67ae9a21218f9b97f7409eecf324514",
+    "content": "import { Callout, Code, CodeBlock, H2, Prose } from \"../../components/content\";\nimport { MathBlock } from \"../../components/content/Math.jsx\";\n\nconst content = {\n  title: \"Rate-Distortion Theory\",\n  readTime: \"~36 min\",\n  content: () => <div>\n    <H2>1. The question: how much information can we discard on purpose?</H2>\n    <Prose>\n      A photograph can be compressed until it looks blocky. Audio can be streamed at a lower bitrate until artifacts become audible. An embedding can be made smaller until a downstream task fails. Rate-distortion theory studies this trade-off precisely: what is the smallest average number of bits needed to represent a source while keeping average error below a chosen tolerance?\n    </Prose>\n    <Prose>\n      It does not tell you what error is acceptable—that is a product, safety, or scientific decision. It tells you the theoretical frontier once you define a source distribution and a meaningful notion of distortion.\n    </Prose>\n\n    <H2>2. Rate and distortion are two separate design choices</H2>\n    <Prose>\n      Rate is the average number of bits per source symbol needed by an encoding. Distortion is a cost <Code>d(x, x_hat)</Code> for reconstructing x as x_hat. Mean squared error is common for numerical values; Hamming distortion counts wrong binary symbols; perceptual image metrics and task loss can be better when human judgment or downstream performance matters.\n    </Prose>\n    <MathBlock>{`R(D)=\\\\min_{p(\\\\hat{x}|x):\\\\;\\\\mathbb{E}[d(X,\\\\hat{X})]\\\\leq D}I(X;\\\\hat{X})`}</MathBlock>\n    <Prose>\n      The rate-distortion function <Code>R(D)</Code> is the minimum information rate needed to achieve expected distortion at most D. Lower allowed distortion means higher required rate. At the other extreme, if you allow a reconstruction that ignores the input entirely, the rate can drop to zero—but the result may be useless.\n    </Prose>\n\n    <H2>3. A binary example makes the curve tangible</H2>\n    <Prose>\n      Consider equally likely binary symbols and Hamming distortion: a reconstruction either matches or is wrong. For an allowed error fraction D from 0 to 0.5, the rate-distortion curve is <Code>R(D) = 1 - H_b(D)</Code> bits per symbol, where H_b is binary entropy. Perfect reconstruction needs one bit per source symbol; allowing 10% expected error lowers the theoretical minimum to about 0.531 bits.\n    </Prose>\n    <MathBlock>{`R(D)=1-H_b(D), \\\\qquad H_b(D)=-D\\\\log_2D-(1-D)\\\\log_2(1-D)`}</MathBlock>\n    <CodeBlock language=\"python\">{`import math\n\ndef binary_entropy(d):\n    if d in (0, 1):\n        return 0.0\n    return -(d * math.log2(d) + (1 - d) * math.log2(1 - d))\n\nfor distortion in (0.0, 0.10, 0.25, 0.50):\n    rate = max(0.0, 1 - binary_entropy(distortion))\n    print(distortion, round(rate, 3))`}</CodeBlock>\n    <CodeBlock language=\"output\">{`0.0 1.0\n0.1 0.531\n0.25 0.189\n0.5 0.0`}</CodeBlock>\n    <Prose>\n      This is an asymptotic limit for long sequences and an ideal code, not a promise that a tiny real file will hit exactly those numbers. Real codecs incur finite-block, model, metadata, and computation overhead.\n    </Prose>\n\n    <H2>4. The Lagrangian view powers learned compression</H2>\n    <Prose>\n      Rather than choose a hard distortion budget first, engineers often optimise a weighted sum of rate and distortion. Varying lambda traces different points on the rate-distortion curve: a high weight on distortion preserves quality; a high weight on rate produces smaller encodings. Learned image and audio codecs use versions of this objective while also learning an entropy model for the latent code.\n    </Prose>\n    <MathBlock>{`\\\\mathcal{L}=\\\\mathbb{E}[\\\\text{rate}]+\\\\lambda\\\\,\\\\mathbb{E}[d(X,\\\\hat{X})]`}</MathBlock>\n    <Callout accent=\"green\" label=\"A rate estimate has a concrete meaning\">\n      If a learned entropy model assigns high probability to a latent symbol, it costs few bits to encode; surprising symbols cost more. Training with negative log-probability is therefore a differentiable proxy for expected code length.\n    </Callout>\n\n    <H2>5. Choosing distortion is the hard, human part</H2>\n    <Prose>\n      Pixel MSE may be easy to optimise yet produce blurry images because it averages plausible details. A perceptual metric can look better while hiding a clinically important feature. A speech codec should respect audibility; a satellite pipeline may care about scientific measurement; a recommendation embedding may care about ranking quality. The distortion function is an encoded value judgment about what information must survive.\n    </Prose>\n    <Prose>\n      Always test a proposed distortion metric on representative users, conditions, and rare high-stakes cases. A good average score can conceal unacceptable errors in low-light images, minority dialects, or safety-critical regions.\n    </Prose>\n\n    <H2>6. Connections to representation learning</H2>\n    <Prose>\n      Autoencoders learn a bottleneck that trades reconstruction quality against latent size, so they are closely related to rate-distortion thinking. The information bottleneck instead trades information about inputs against information useful for a target Y; reconstruction may preserve details irrelevant to Y. VAEs and beta-VAEs combine probabilistic latent regularisation with reconstruction objectives, but interpreting every latent dimension as literal bits requires care about the chosen prior and bound.\n    </Prose>\n    <Callout label=\"Do not confuse compression with usefulness\">\n      A representation can be highly compressible because it has thrown away variation. That is excellent when the variation is noise and disastrous when it contains rare cases, fairness-relevant signals, or future-task information. Evaluate the intended task, not just bitrate or reconstruction loss.\n    </Callout>\n\n    <H2>7. A practical workflow</H2>\n    <Prose>\n      Define the source, the deployment constraint (storage, bandwidth, latency, privacy, or model size), and the failure modes that matter. Choose or design a distortion metric, construct a rate-quality curve on held-out data, and select an operating point with stakeholders rather than a default lambda. Measure actual encoded size and runtime, inspect qualitative failures, and monitor shift after deployment—source statistics can change the effective rate dramatically.\n    </Prose>\n    <Callout label=\"Practice\">\n      You must compress 30-second audio clips for a call centre. Name two candidate distortion measures, one that is cheap but imperfect and one that better reflects user experience. Sketch how you would choose an operating bitrate for routine calls versus emergency calls.\n    </Callout>\n  </div>,\n};\n\nexport default content;\n"
+  },
+  "models": {
+    "at": "2026-09-10T17:37:54.476Z",
+    "node": "v22.18.0",
+    "binaryCases": 861,
+    "codebookCases": 1275,
+    "optimizerCases": 31,
+    "allocationCases": 147,
+    "invalidCases": 18,
+    "localNodeMilliseconds": [
+      3.043900000000008,
+      5.953900000000033,
+      3.0825999999999567,
+      3.9424000000000206,
+      4.9109000000000265,
+      3.216899999999953,
+      2.7697000000000003,
+      3.204499999999996,
+      3.5953999999999837,
+      3.0597000000000207
+    ],
+    "native": {
+      "at": "2026-09-10T17:37:54.373280+00:00",
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "numericComparisons": 17023,
+      "independentOptimizerCases": 31,
+      "optimizerChecks": [
+        {
+          "case": "Fair bits / Hamming error",
+          "lambda": 0,
+          "scipyObjective": 0,
+          "reportedGap": 0,
+          "converged": true
+        },
+        {
+          "case": "Fair bits / Hamming error",
+          "lambda": 0.1,
+          "scipyObjective": 0.049133739419103074,
+          "reportedGap": 0,
+          "converged": true
+        },
+        {
+          "case": "Fair bits / Hamming error",
+          "lambda": 0.5,
+          "scipyObjective": 0.2284466968363877,
+          "reportedGap": 0,
+          "converged": true
+        },
+        {
+          "case": "Fair bits / Hamming error",
+          "lambda": 1,
+          "scipyObjective": 0.41503749927884337,
+          "reportedGap": 0,
+          "converged": true
+        },
+        {
+          "case": "Fair bits / Hamming error",
+          "lambda": 2,
+          "scipyObjective": 0.6780719051126377,
+          "reportedGap": 2.220446049250313e-16,
+          "converged": true
+        },
+        {
+          "case": "Fair bits / Hamming error",
+          "lambda": 5,
+          "scipyObjective": 0.9556058806415466,
+          "reportedGap": 0,
+          "converged": true
+        },
+        {
+          "case": "Fair bits / Hamming error",
+          "lambda": 10,
+          "scipyObjective": 0.9985918056071916,
+          "reportedGap": 0,
+          "converged": true
+        },
+        {
+          "case": "Three levels / squared error",
+          "lambda": 0,
+          "scipyObjective": 0,
+          "reportedGap": 1.6017132519074593e-16,
+          "converged": true
+        },
+        {
+          "case": "Three levels / squared error",
+          "lambda": 0.1,
+          "scipyObjective": 0.10706020254725668,
+          "reportedGap": 9.980539311671421e-10,
+          "converged": true
+        },
+        {
+          "case": "Three levels / squared error",
+          "lambda": 0.5,
+          "scipyObjective": 0.4798602408218348,
+          "reportedGap": 9.191503114180932e-10,
+          "converged": true
+        },
+        {
+          "case": "Three levels / squared error",
+          "lambda": 1,
+          "scipyObjective": 0.6622711920776516,
+          "reportedGap": 9.385833221742246e-10,
+          "converged": true
+        },
+        {
+          "case": "Three levels / squared error",
+          "lambda": 2,
+          "scipyObjective": 0.8663979558660335,
+          "reportedGap": 9.370932918528752e-10,
+          "converged": true
+        },
+        {
+          "case": "Three levels / squared error",
+          "lambda": 5,
+          "scipyObjective": 1.1168245556267857,
+          "reportedGap": 9.420588753528136e-10,
+          "converged": true
+        },
+        {
+          "case": "Three levels / squared error",
+          "lambda": 10,
+          "scipyObjective": 1.155512274493119,
+          "reportedGap": 3.5738056958223297e-10,
+          "converged": true
+        },
+        {
+          "case": "Same source / costly missed high level",
+          "lambda": 0,
+          "scipyObjective": 0,
+          "reportedGap": 1.6017132519074593e-16,
+          "converged": true
+        },
+        {
+          "case": "Same source / costly missed high level",
+          "lambda": 0.1,
+          "scipyObjective": 0.3575376501349887,
+          "reportedGap": 9.949353563243335e-10,
+          "converged": true
+        },
+        {
+          "case": "Same source / costly missed high level",
+          "lambda": 0.5,
+          "scipyObjective": 0.5518715555547105,
+          "reportedGap": 9.148191093544256e-10,
+          "converged": true
+        },
+        {
+          "case": "Same source / costly missed high level",
+          "lambda": 1,
+          "scipyObjective": 0.6647279345695386,
+          "reportedGap": 8.682635721513066e-10,
+          "converged": true
+        },
+        {
+          "case": "Same source / costly missed high level",
+          "lambda": 2,
+          "scipyObjective": 0.8665923742797277,
+          "reportedGap": 9.518549282105937e-10,
+          "converged": true
+        },
+        {
+          "case": "Same source / costly missed high level",
+          "lambda": 5,
+          "scipyObjective": 1.1168248086075212,
+          "reportedGap": 9.420357827139014e-10,
+          "converged": true
+        },
+        {
+          "case": "Same source / costly missed high level",
+          "lambda": 10,
+          "scipyObjective": 1.1555122744933808,
+          "reportedGap": 3.5738034753762804e-10,
+          "converged": true
+        },
+        {
+          "case": "binary initialization",
+          "lambda": 2,
+          "scipyObjective": 0.6780719051126376,
+          "reportedGap": 1.0874628412503393,
+          "converged": false
+        },
+        {
+          "case": "binary initialization",
+          "lambda": 2,
+          "scipyObjective": 0.6780719051126377,
+          "reportedGap": 1.0874628412503393,
+          "converged": false
+        },
+        {
+          "case": "binary initialization",
+          "lambda": 2,
+          "scipyObjective": 0.6780719051126375,
+          "reportedGap": 9.354271801598202e-10,
+          "converged": true
+        },
+        {
+          "case": "binary initialization",
+          "lambda": 2,
+          "scipyObjective": 0.6780719051126376,
+          "reportedGap": 7.394600487486969e-10,
+          "converged": true
+        },
+        {
+          "case": "boundary or changed alphabet",
+          "lambda": 3,
+          "scipyObjective": 0,
+          "reportedGap": 8.731149136893091e-11,
+          "converged": true
+        },
+        {
+          "case": "boundary or changed alphabet",
+          "lambda": 2,
+          "scipyObjective": 8.2,
+          "reportedGap": 5.329070518200751e-15,
+          "converged": true
+        },
+        {
+          "case": "boundary or changed alphabet",
+          "lambda": 3,
+          "scipyObjective": 3.3000000000000003,
+          "reportedGap": 4.440892098500626e-16,
+          "converged": true
+        },
+        {
+          "case": "boundary or changed alphabet",
+          "lambda": 0.7,
+          "scipyObjective": 0.411452898536907,
+          "reportedGap": 9.569732783987206e-10,
+          "converged": true
+        },
+        {
+          "case": "boundary or changed alphabet",
+          "lambda": 2,
+          "scipyObjective": 2000.6780719051126,
+          "reportedGap": 0,
+          "converged": true
+        },
+        {
+          "case": "boundary or changed alphabet",
+          "lambda": 1000,
+          "scipyObjective": 0.8812908992306927,
+          "reportedGap": 0,
+          "converged": true
+        }
+      ],
+      "independentAllocationCases": 90,
+      "actualCodecCases": 2047,
+      "actualGaussianEndpointCases": 11,
+      "gaussianQuantizerQuadrature": 3.2704220486917683,
+      "completePrograms": 7
+    }
+  },
+  "native": {
+    "at": "2026-09-10T17:37:54.373280+00:00",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "numericComparisons": 17023,
+    "independentOptimizerCases": 31,
+    "optimizerChecks": [
+      {
+        "case": "Fair bits / Hamming error",
+        "lambda": 0,
+        "scipyObjective": 0,
+        "reportedGap": 0,
+        "converged": true
+      },
+      {
+        "case": "Fair bits / Hamming error",
+        "lambda": 0.1,
+        "scipyObjective": 0.049133739419103074,
+        "reportedGap": 0,
+        "converged": true
+      },
+      {
+        "case": "Fair bits / Hamming error",
+        "lambda": 0.5,
+        "scipyObjective": 0.2284466968363877,
+        "reportedGap": 0,
+        "converged": true
+      },
+      {
+        "case": "Fair bits / Hamming error",
+        "lambda": 1,
+        "scipyObjective": 0.41503749927884337,
+        "reportedGap": 0,
+        "converged": true
+      },
+      {
+        "case": "Fair bits / Hamming error",
+        "lambda": 2,
+        "scipyObjective": 0.6780719051126377,
+        "reportedGap": 2.220446049250313e-16,
+        "converged": true
+      },
+      {
+        "case": "Fair bits / Hamming error",
+        "lambda": 5,
+        "scipyObjective": 0.9556058806415466,
+        "reportedGap": 0,
+        "converged": true
+      },
+      {
+        "case": "Fair bits / Hamming error",
+        "lambda": 10,
+        "scipyObjective": 0.9985918056071916,
+        "reportedGap": 0,
+        "converged": true
+      },
+      {
+        "case": "Three levels / squared error",
+        "lambda": 0,
+        "scipyObjective": 0,
+        "reportedGap": 1.6017132519074593e-16,
+        "converged": true
+      },
+      {
+        "case": "Three levels / squared error",
+        "lambda": 0.1,
+        "scipyObjective": 0.10706020254725668,
+        "reportedGap": 9.980539311671421e-10,
+        "converged": true
+      },
+      {
+        "case": "Three levels / squared error",
+        "lambda": 0.5,
+        "scipyObjective": 0.4798602408218348,
+        "reportedGap": 9.191503114180932e-10,
+        "converged": true
+      },
+      {
+        "case": "Three levels / squared error",
+        "lambda": 1,
+        "scipyObjective": 0.6622711920776516,
+        "reportedGap": 9.385833221742246e-10,
+        "converged": true
+      },
+      {
+        "case": "Three levels / squared error",
+        "lambda": 2,
+        "scipyObjective": 0.8663979558660335,
+        "reportedGap": 9.370932918528752e-10,
+        "converged": true
+      },
+      {
+        "case": "Three levels / squared error",
+        "lambda": 5,
+        "scipyObjective": 1.1168245556267857,
+        "reportedGap": 9.420588753528136e-10,
+        "converged": true
+      },
+      {
+        "case": "Three levels / squared error",
+        "lambda": 10,
+        "scipyObjective": 1.155512274493119,
+        "reportedGap": 3.5738056958223297e-10,
+        "converged": true
+      },
+      {
+        "case": "Same source / costly missed high level",
+        "lambda": 0,
+        "scipyObjective": 0,
+        "reportedGap": 1.6017132519074593e-16,
+        "converged": true
+      },
+      {
+        "case": "Same source / costly missed high level",
+        "lambda": 0.1,
+        "scipyObjective": 0.3575376501349887,
+        "reportedGap": 9.949353563243335e-10,
+        "converged": true
+      },
+      {
+        "case": "Same source / costly missed high level",
+        "lambda": 0.5,
+        "scipyObjective": 0.5518715555547105,
+        "reportedGap": 9.148191093544256e-10,
+        "converged": true
+      },
+      {
+        "case": "Same source / costly missed high level",
+        "lambda": 1,
+        "scipyObjective": 0.6647279345695386,
+        "reportedGap": 8.682635721513066e-10,
+        "converged": true
+      },
+      {
+        "case": "Same source / costly missed high level",
+        "lambda": 2,
+        "scipyObjective": 0.8665923742797277,
+        "reportedGap": 9.518549282105937e-10,
+        "converged": true
+      },
+      {
+        "case": "Same source / costly missed high level",
+        "lambda": 5,
+        "scipyObjective": 1.1168248086075212,
+        "reportedGap": 9.420357827139014e-10,
+        "converged": true
+      },
+      {
+        "case": "Same source / costly missed high level",
+        "lambda": 10,
+        "scipyObjective": 1.1555122744933808,
+        "reportedGap": 3.5738034753762804e-10,
+        "converged": true
+      },
+      {
+        "case": "binary initialization",
+        "lambda": 2,
+        "scipyObjective": 0.6780719051126376,
+        "reportedGap": 1.0874628412503393,
+        "converged": false
+      },
+      {
+        "case": "binary initialization",
+        "lambda": 2,
+        "scipyObjective": 0.6780719051126377,
+        "reportedGap": 1.0874628412503393,
+        "converged": false
+      },
+      {
+        "case": "binary initialization",
+        "lambda": 2,
+        "scipyObjective": 0.6780719051126375,
+        "reportedGap": 9.354271801598202e-10,
+        "converged": true
+      },
+      {
+        "case": "binary initialization",
+        "lambda": 2,
+        "scipyObjective": 0.6780719051126376,
+        "reportedGap": 7.394600487486969e-10,
+        "converged": true
+      },
+      {
+        "case": "boundary or changed alphabet",
+        "lambda": 3,
+        "scipyObjective": 0,
+        "reportedGap": 8.731149136893091e-11,
+        "converged": true
+      },
+      {
+        "case": "boundary or changed alphabet",
+        "lambda": 2,
+        "scipyObjective": 8.2,
+        "reportedGap": 5.329070518200751e-15,
+        "converged": true
+      },
+      {
+        "case": "boundary or changed alphabet",
+        "lambda": 3,
+        "scipyObjective": 3.3000000000000003,
+        "reportedGap": 4.440892098500626e-16,
+        "converged": true
+      },
+      {
+        "case": "boundary or changed alphabet",
+        "lambda": 0.7,
+        "scipyObjective": 0.411452898536907,
+        "reportedGap": 9.569732783987206e-10,
+        "converged": true
+      },
+      {
+        "case": "boundary or changed alphabet",
+        "lambda": 2,
+        "scipyObjective": 2000.6780719051126,
+        "reportedGap": 0,
+        "converged": true
+      },
+      {
+        "case": "boundary or changed alphabet",
+        "lambda": 1000,
+        "scipyObjective": 0.8812908992306927,
+        "reportedGap": 0,
+        "converged": true
+      }
+    ],
+    "independentAllocationCases": 90,
+    "actualCodecCases": 2047,
+    "actualGaussianEndpointCases": 11,
+    "gaussianQuantizerQuadrature": 3.2704220486917683,
+    "completePrograms": 7
+  },
+  "actualProgramPreparation": {
+    "at": "2026-09-10T17:36:12.318520+00:00",
+    "python": "3.12.14",
+    "black": "26.5.1",
+    "programs": [
+      {
+        "name": "originalBinary",
+        "astPreserved": true,
+        "stdout": "0.0 1.0\n0.1 0.531\n0.25 0.189\n0.5 0.0"
+      },
+      {
+        "name": "blockCode",
+        "astPreserved": true,
+        "stdout": "000 -> 0 -> 000 errors 0\n001 -> 0 -> 000 errors 1\n010 -> 0 -> 000 errors 1\n011 -> 1 -> 111 errors 1\n100 -> 0 -> 000 errors 1\n101 -> 1 -> 111 errors 1\n110 -> 1 -> 111 errors 1\n111 -> 1 -> 111 errors 0\nbits per source bit: 0.333333\nexpected error fraction: 0.25\nworst block error fraction: 0.333333"
+      },
+      {
+        "name": "biasedChannel",
+        "astPreserved": true,
+        "stdout": "joint: [[0.7875, 0.0125], [0.0875, 0.1125]]\nsource: [0.8, 0.2]\noutput: [0.875, 0.125]\nfalse positive: 0.015625\nfalse negative: 0.4375\ndistortion: 0.1\ninformation bits: 0.252933"
+      },
+      {
+        "name": "finiteOptimizer",
+        "astPreserved": true,
+        "stdout": "positive D, I, lower, upper, gap: (0.2, 0.278072, 0.678072, 0.678072, 0.0)\nmissing output D, I, lower, upper, gap: (0.5, 0.0, -0.087463, 1.0, 1.087463)"
+      },
+      {
+        "name": "gaussianAllocation",
+        "astPreserved": true,
+        "stdout": "budget 0.5 errors [0.25, 0.25] total bits 3.584963\nbudget 2.0 errors [1.0, 1.0] total bits 1.584963\nbudget 3.0 errors [2.0, 1.0] total bits 1.084963\nbudget 10.0 errors [9.0, 1.0] total bits 0.0"
+      },
+      {
+        "name": "fidelity",
+        "astPreserved": true,
+        "stdout": "constant zero MSE 1.0 same marginal False\nNo source-dependent message: I(X; reconstruction) = 0.\nindependent signs MSE 2.0 same marginal True\nNo source-dependent message: I(X; reconstruction) = 0.\nKnowing an input-dependent sign would be extra information."
+      },
+      {
+        "name": "bitstream",
+        "astPreserved": true,
+        "stdout": "source: 000001010011100101110111\ndecoded: 000000000111000111111111\nwire bytes, hex: 5 0000001817\nraw packed bytes: 3\npayload bits/source bit: 0.3333333333333333\nwire bits/source bit: 1.6666666666666667\nerror fraction: 0.25\nempty input and malformed lengths checked"
+      }
+    ]
+  },
+  "browser": {
+    "at": "2026-09-10T17:37:16.882Z",
+    "browser": "152.0.4191.66",
+    "results": [
+      {
+        "width": 1440,
+        "states": 21,
+        "keyboardControls": 34,
+        "keyboardTables": 0,
+        "changedControlMilliseconds": 77.52960000000076,
+        "equations": [
+          {
+            "index": 0,
+            "width": 760,
+            "scroll": 760,
+            "text": "Rcode=13 bits/source bit,Dcode=2(0)+6(1)8⋅3=14.\\begin{gathered}\nR_{\\rm code}=\\frac{1}{3}\\ \\text{bits/source bit},\\\\\nD_{\\rm code}=\\frac{2(0)+6(1)}{8\\cd"
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "scroll": 760,
+            "text": "P(x,x^)=p(x)q(x^∣x),r(x^)=∑xp(x)q(x^∣x),D(q)=∑x,x^p(x)q(x^∣x)d(x,x^).\\begin{gathered}\nP(x,\\hat x)=p(x)q(\\hat x\\mid x),\\\\\nr(\\hat x)=\\sum_xp(x)q(\\hat x\\"
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "scroll": 760,
+            "text": "I(q)=∑x,x^p(x)q(x^∣x)log⁡2q(x^∣x)r(x^),R(D)=min⁡q: D(q)≤DI(q).\\begin{gathered}\nI(q)=\\\\\n\\sum_{x,\\hat x}p(x)q(\\hat x\\mid x)\n\\log_2\\frac{q(\\hat x\\mid x)}"
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "scroll": 760,
+            "text": "Dzero=min⁡x^∑xp(x)d(x,x^).D_{\\rm zero}\n=\\min_{\\hat x}\\sum_xp(x)d(x,\\hat x).Dzero​=x^min​x∑​p(x)d(x,x^)."
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "scroll": 760,
+            "text": "H(X∣X^)=H(E∣X^)≤Hb(d),I(X;X^)≥Hb(p)−Hb(d).\\begin{gathered}\nH(X\\mid\\hat X)=H(E\\mid\\hat X)\\le H_b(d),\\\\\nI(X;\\hat X)\\ge H_b(p)-H_b(d).\n\\end{gathered}H(X∣"
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "scroll": 760,
+            "text": "p=r(1−D)+(1−r)D,r=p−D1−2D.\\begin{gathered}\np=r(1-D)+(1-r)D,\\\\\nr=\\frac{p-D}{1-2D}.\n\\end{gathered}p=r(1−D)+(1−r)D,r=1−2Dp−D​.​"
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "scroll": 760,
+            "text": "Dzero=min⁡(p,1−p),R(D)=Hb(p)−Hb(D)for 0≤D<Dzero,R(D)=0for D≥Dzero.\\begin{gathered}\nD_{\\rm zero}=\\min(p,1-p),\\\\\nR(D)=H_b(p)-H_b(D)\\\\\n\\text{for }0\\le D<"
+          },
+          {
+            "index": 7,
+            "width": 760,
+            "scroll": 760,
+            "text": "Dλ=min⁡{Dzero, 11+2λ}.D_\\lambda=\n\\min\\left\\{D_{\\rm zero},\\,\\frac{1}{1+2^\\lambda}\\right\\}.Dλ​=min{Dzero​,1+2λ1​}."
+          },
+          {
+            "index": 8,
+            "width": 760,
+            "scroll": 760,
+            "text": "Xn⟶W⟶X^n,log⁡2M≥H(W)≥I(Xn;W),I(Xn;W)≥I(Xn;X^n).\\begin{gathered}\nX^n\\longrightarrow W\\longrightarrow\\hat X^n,\\\\\n\\log_2M\\ge H(W)\\ge I(X^n;W),\\\\\nI(X^n;W)"
+          },
+          {
+            "index": 9,
+            "width": 760,
+            "scroll": 760,
+            "text": "I(Xn;X^n)≥∑i=1nI(Xi;X^i),∑iI(Xi;X^i)≥∑iR(Di),∑iR(Di)≥nR ⁣(1n∑iDi).\\begin{gathered}\nI(X^n;\\hat X^n)\\ge\\sum_{i=1}^n I(X_i;\\hat X_i),\\\\\n\\sum_i I(X_i;\\hat"
+          },
+          {
+            "index": 10,
+            "width": 760,
+            "scroll": 760,
+            "text": "J(q,r)=∑x,jpxqj∣x(ln⁡qj∣xrj+s dxj),J(q,r)=Inats(q)+sD(q)+DKL(rq∥r).\\begin{gathered}\nJ(q,r)=\\\\\n\\sum_{x,j}p_xq_{j|x}\n\\left(\\ln\\frac{q_{j|x}}{r_j}+s\\,d_{"
+          },
+          {
+            "index": 11,
+            "width": 760,
+            "scroll": 760,
+            "text": "Zx=∑jrje−sdxj,qj∣x=rje−sdxjZx,rjnext=∑xpxqj∣x.\\begin{gathered}\nZ_x=\\sum_jr_j e^{-s d_{xj}},\\\\\nq_{j|x}=\\frac{r_j e^{-s d_{xj}}}{Z_x},\\\\\nr^{\\rm next}_j="
+          },
+          {
+            "index": 12,
+            "width": 760,
+            "scroll": 760,
+            "text": "f(u)−f(r)=−∑xpxln⁡Zx(u)Zx(r),f(u)−f(r)≥−ln⁡ ⁣(∑jujgj),f(u)≥f(r)−ln⁡max⁡jgj.\\begin{gathered}\nf(u)-f(r)\n=-\\sum_xp_x\\ln\\frac{Z_x(u)}{Z_x(r)},\\\\\nf(u)-f(r)"
+          },
+          {
+            "index": 13,
+            "width": 760,
+            "scroll": 760,
+            "text": "R(D)=12log⁡2(σ2/D)for 0<D<σ2,R(D)=0for D≥σ2.\\begin{gathered}\nR(D)=\\tfrac12\\log_2(\\sigma^2/D)\\\\\n\\text{for }0<D<\\sigma^2,\\\\[4pt]\nR(D)=0\\quad\\text{for }D"
+          },
+          {
+            "index": 14,
+            "width": 760,
+            "scroll": 760,
+            "text": "h(X)=12log⁡2(2πeσ2),h(E)≤12log⁡2(2πeD),I(X;X^)≥12log⁡2(σ2/D).\\begin{gathered}\nh(X)=\\tfrac12\\log_2(2\\pi e\\sigma^2),\\\\\nh(E)\\le\\tfrac12\\log_2(2\\pi eD),\\\\"
+          },
+          {
+            "index": 15,
+            "width": 760,
+            "scroll": 760,
+            "text": "Di=min⁡(vi,θ),∑iDi=Dtotal,Rvector=12∑i: vi>θlog⁡2viθ.\\begin{gathered}\nD_i=\\min(v_i,\\theta),\\\\\n\\sum_iD_i=D_{\\rm total},\\\\\nR_{\\rm vector}=\\frac12\n\\sum_{"
+          },
+          {
+            "index": 16,
+            "width": 760,
+            "scroll": 760,
+            "text": "E[(X−a)2∣Z]=Var⁡(X∣Z)+(E[X∣Z]−a)2.\\begin{gathered}\n\\mathbb E[(X-a)^2\\mid Z]\\\\\n=\\operatorname{Var}(X\\mid Z)\n+\\bigl(\\mathbb E[X\\mid Z]-a\\bigr)^2.\n\\end{g"
+          }
+        ],
+        "overflowMath": [],
+        "figures": [
+          {
+            "index": 0,
+            "minimumTextPx": 19.5,
+            "clipped": []
+          },
+          {
+            "index": 1,
+            "minimumTextPx": 19.5,
+            "clipped": []
+          }
+        ],
+        "pageOverflow": false,
+        "errors": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "applicationErrors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 21,
+        "keyboardControls": 34,
+        "keyboardTables": 0,
+        "changedControlMilliseconds": 67.0731999999989,
+        "equations": [
+          {
+            "index": 0,
+            "width": 350,
+            "scroll": 350,
+            "text": "Rcode=13 bits/source bit,Dcode=2(0)+6(1)8⋅3=14.\\begin{gathered}\nR_{\\rm code}=\\frac{1}{3}\\ \\text{bits/source bit},\\\\\nD_{\\rm code}=\\frac{2(0)+6(1)}{8\\cd"
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "scroll": 350,
+            "text": "P(x,x^)=p(x)q(x^∣x),r(x^)=∑xp(x)q(x^∣x),D(q)=∑x,x^p(x)q(x^∣x)d(x,x^).\\begin{gathered}\nP(x,\\hat x)=p(x)q(\\hat x\\mid x),\\\\\nr(\\hat x)=\\sum_xp(x)q(\\hat x\\"
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "scroll": 350,
+            "text": "I(q)=∑x,x^p(x)q(x^∣x)log⁡2q(x^∣x)r(x^),R(D)=min⁡q: D(q)≤DI(q).\\begin{gathered}\nI(q)=\\\\\n\\sum_{x,\\hat x}p(x)q(\\hat x\\mid x)\n\\log_2\\frac{q(\\hat x\\mid x)}"
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "scroll": 350,
+            "text": "Dzero=min⁡x^∑xp(x)d(x,x^).D_{\\rm zero}\n=\\min_{\\hat x}\\sum_xp(x)d(x,\\hat x).Dzero​=x^min​x∑​p(x)d(x,x^)."
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "scroll": 350,
+            "text": "H(X∣X^)=H(E∣X^)≤Hb(d),I(X;X^)≥Hb(p)−Hb(d).\\begin{gathered}\nH(X\\mid\\hat X)=H(E\\mid\\hat X)\\le H_b(d),\\\\\nI(X;\\hat X)\\ge H_b(p)-H_b(d).\n\\end{gathered}H(X∣"
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "scroll": 350,
+            "text": "p=r(1−D)+(1−r)D,r=p−D1−2D.\\begin{gathered}\np=r(1-D)+(1-r)D,\\\\\nr=\\frac{p-D}{1-2D}.\n\\end{gathered}p=r(1−D)+(1−r)D,r=1−2Dp−D​.​"
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "scroll": 350,
+            "text": "Dzero=min⁡(p,1−p),R(D)=Hb(p)−Hb(D)for 0≤D<Dzero,R(D)=0for D≥Dzero.\\begin{gathered}\nD_{\\rm zero}=\\min(p,1-p),\\\\\nR(D)=H_b(p)-H_b(D)\\\\\n\\text{for }0\\le D<"
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "scroll": 350,
+            "text": "Dλ=min⁡{Dzero, 11+2λ}.D_\\lambda=\n\\min\\left\\{D_{\\rm zero},\\,\\frac{1}{1+2^\\lambda}\\right\\}.Dλ​=min{Dzero​,1+2λ1​}."
+          },
+          {
+            "index": 8,
+            "width": 350,
+            "scroll": 350,
+            "text": "Xn⟶W⟶X^n,log⁡2M≥H(W)≥I(Xn;W),I(Xn;W)≥I(Xn;X^n).\\begin{gathered}\nX^n\\longrightarrow W\\longrightarrow\\hat X^n,\\\\\n\\log_2M\\ge H(W)\\ge I(X^n;W),\\\\\nI(X^n;W)"
+          },
+          {
+            "index": 9,
+            "width": 350,
+            "scroll": 350,
+            "text": "I(Xn;X^n)≥∑i=1nI(Xi;X^i),∑iI(Xi;X^i)≥∑iR(Di),∑iR(Di)≥nR ⁣(1n∑iDi).\\begin{gathered}\nI(X^n;\\hat X^n)\\ge\\sum_{i=1}^n I(X_i;\\hat X_i),\\\\\n\\sum_i I(X_i;\\hat"
+          },
+          {
+            "index": 10,
+            "width": 350,
+            "scroll": 350,
+            "text": "J(q,r)=∑x,jpxqj∣x(ln⁡qj∣xrj+s dxj),J(q,r)=Inats(q)+sD(q)+DKL(rq∥r).\\begin{gathered}\nJ(q,r)=\\\\\n\\sum_{x,j}p_xq_{j|x}\n\\left(\\ln\\frac{q_{j|x}}{r_j}+s\\,d_{"
+          },
+          {
+            "index": 11,
+            "width": 350,
+            "scroll": 350,
+            "text": "Zx=∑jrje−sdxj,qj∣x=rje−sdxjZx,rjnext=∑xpxqj∣x.\\begin{gathered}\nZ_x=\\sum_jr_j e^{-s d_{xj}},\\\\\nq_{j|x}=\\frac{r_j e^{-s d_{xj}}}{Z_x},\\\\\nr^{\\rm next}_j="
+          },
+          {
+            "index": 12,
+            "width": 350,
+            "scroll": 350,
+            "text": "f(u)−f(r)=−∑xpxln⁡Zx(u)Zx(r),f(u)−f(r)≥−ln⁡ ⁣(∑jujgj),f(u)≥f(r)−ln⁡max⁡jgj.\\begin{gathered}\nf(u)-f(r)\n=-\\sum_xp_x\\ln\\frac{Z_x(u)}{Z_x(r)},\\\\\nf(u)-f(r)"
+          },
+          {
+            "index": 13,
+            "width": 350,
+            "scroll": 350,
+            "text": "R(D)=12log⁡2(σ2/D)for 0<D<σ2,R(D)=0for D≥σ2.\\begin{gathered}\nR(D)=\\tfrac12\\log_2(\\sigma^2/D)\\\\\n\\text{for }0<D<\\sigma^2,\\\\[4pt]\nR(D)=0\\quad\\text{for }D"
+          },
+          {
+            "index": 14,
+            "width": 350,
+            "scroll": 350,
+            "text": "h(X)=12log⁡2(2πeσ2),h(E)≤12log⁡2(2πeD),I(X;X^)≥12log⁡2(σ2/D).\\begin{gathered}\nh(X)=\\tfrac12\\log_2(2\\pi e\\sigma^2),\\\\\nh(E)\\le\\tfrac12\\log_2(2\\pi eD),\\\\"
+          },
+          {
+            "index": 15,
+            "width": 350,
+            "scroll": 350,
+            "text": "Di=min⁡(vi,θ),∑iDi=Dtotal,Rvector=12∑i: vi>θlog⁡2viθ.\\begin{gathered}\nD_i=\\min(v_i,\\theta),\\\\\n\\sum_iD_i=D_{\\rm total},\\\\\nR_{\\rm vector}=\\frac12\n\\sum_{"
+          },
+          {
+            "index": 16,
+            "width": 350,
+            "scroll": 350,
+            "text": "E[(X−a)2∣Z]=Var⁡(X∣Z)+(E[X∣Z]−a)2.\\begin{gathered}\n\\mathbb E[(X-a)^2\\mid Z]\\\\\n=\\operatorname{Var}(X\\mid Z)\n+\\bigl(\\mathbb E[X\\mid Z]-a\\bigr)^2.\n\\end{g"
+          }
+        ],
+        "overflowMath": [],
+        "figures": [
+          {
+            "index": 0,
+            "minimumTextPx": 18.31640625,
+            "clipped": []
+          },
+          {
+            "index": 1,
+            "minimumTextPx": 18.31640625,
+            "clipped": []
+          }
+        ],
+        "pageOverflow": false,
+        "errors": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "applicationErrors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 21,
+        "keyboardControls": 34,
+        "keyboardTables": 5,
+        "changedControlMilliseconds": 78.7976000000017,
+        "equations": [
+          {
+            "index": 0,
+            "width": 280,
+            "scroll": 280,
+            "text": "Rcode=13 bits/source bit,Dcode=2(0)+6(1)8⋅3=14.\\begin{gathered}\nR_{\\rm code}=\\frac{1}{3}\\ \\text{bits/source bit},\\\\\nD_{\\rm code}=\\frac{2(0)+6(1)}{8\\cd"
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "scroll": 280,
+            "text": "P(x,x^)=p(x)q(x^∣x),r(x^)=∑xp(x)q(x^∣x),D(q)=∑x,x^p(x)q(x^∣x)d(x,x^).\\begin{gathered}\nP(x,\\hat x)=p(x)q(\\hat x\\mid x),\\\\\nr(\\hat x)=\\sum_xp(x)q(\\hat x\\"
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "scroll": 280,
+            "text": "I(q)=∑x,x^p(x)q(x^∣x)log⁡2q(x^∣x)r(x^),R(D)=min⁡q: D(q)≤DI(q).\\begin{gathered}\nI(q)=\\\\\n\\sum_{x,\\hat x}p(x)q(\\hat x\\mid x)\n\\log_2\\frac{q(\\hat x\\mid x)}"
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "scroll": 280,
+            "text": "Dzero=min⁡x^∑xp(x)d(x,x^).D_{\\rm zero}\n=\\min_{\\hat x}\\sum_xp(x)d(x,\\hat x).Dzero​=x^min​x∑​p(x)d(x,x^)."
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "scroll": 280,
+            "text": "H(X∣X^)=H(E∣X^)≤Hb(d),I(X;X^)≥Hb(p)−Hb(d).\\begin{gathered}\nH(X\\mid\\hat X)=H(E\\mid\\hat X)\\le H_b(d),\\\\\nI(X;\\hat X)\\ge H_b(p)-H_b(d).\n\\end{gathered}H(X∣"
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "scroll": 280,
+            "text": "p=r(1−D)+(1−r)D,r=p−D1−2D.\\begin{gathered}\np=r(1-D)+(1-r)D,\\\\\nr=\\frac{p-D}{1-2D}.\n\\end{gathered}p=r(1−D)+(1−r)D,r=1−2Dp−D​.​"
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "scroll": 280,
+            "text": "Dzero=min⁡(p,1−p),R(D)=Hb(p)−Hb(D)for 0≤D<Dzero,R(D)=0for D≥Dzero.\\begin{gathered}\nD_{\\rm zero}=\\min(p,1-p),\\\\\nR(D)=H_b(p)-H_b(D)\\\\\n\\text{for }0\\le D<"
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "scroll": 280,
+            "text": "Dλ=min⁡{Dzero, 11+2λ}.D_\\lambda=\n\\min\\left\\{D_{\\rm zero},\\,\\frac{1}{1+2^\\lambda}\\right\\}.Dλ​=min{Dzero​,1+2λ1​}."
+          },
+          {
+            "index": 8,
+            "width": 280,
+            "scroll": 280,
+            "text": "Xn⟶W⟶X^n,log⁡2M≥H(W)≥I(Xn;W),I(Xn;W)≥I(Xn;X^n).\\begin{gathered}\nX^n\\longrightarrow W\\longrightarrow\\hat X^n,\\\\\n\\log_2M\\ge H(W)\\ge I(X^n;W),\\\\\nI(X^n;W)"
+          },
+          {
+            "index": 9,
+            "width": 280,
+            "scroll": 280,
+            "text": "I(Xn;X^n)≥∑i=1nI(Xi;X^i),∑iI(Xi;X^i)≥∑iR(Di),∑iR(Di)≥nR ⁣(1n∑iDi).\\begin{gathered}\nI(X^n;\\hat X^n)\\ge\\sum_{i=1}^n I(X_i;\\hat X_i),\\\\\n\\sum_i I(X_i;\\hat"
+          },
+          {
+            "index": 10,
+            "width": 280,
+            "scroll": 280,
+            "text": "J(q,r)=∑x,jpxqj∣x(ln⁡qj∣xrj+s dxj),J(q,r)=Inats(q)+sD(q)+DKL(rq∥r).\\begin{gathered}\nJ(q,r)=\\\\\n\\sum_{x,j}p_xq_{j|x}\n\\left(\\ln\\frac{q_{j|x}}{r_j}+s\\,d_{"
+          },
+          {
+            "index": 11,
+            "width": 280,
+            "scroll": 280,
+            "text": "Zx=∑jrje−sdxj,qj∣x=rje−sdxjZx,rjnext=∑xpxqj∣x.\\begin{gathered}\nZ_x=\\sum_jr_j e^{-s d_{xj}},\\\\\nq_{j|x}=\\frac{r_j e^{-s d_{xj}}}{Z_x},\\\\\nr^{\\rm next}_j="
+          },
+          {
+            "index": 12,
+            "width": 280,
+            "scroll": 280,
+            "text": "f(u)−f(r)=−∑xpxln⁡Zx(u)Zx(r),f(u)−f(r)≥−ln⁡ ⁣(∑jujgj),f(u)≥f(r)−ln⁡max⁡jgj.\\begin{gathered}\nf(u)-f(r)\n=-\\sum_xp_x\\ln\\frac{Z_x(u)}{Z_x(r)},\\\\\nf(u)-f(r)"
+          },
+          {
+            "index": 13,
+            "width": 280,
+            "scroll": 280,
+            "text": "R(D)=12log⁡2(σ2/D)for 0<D<σ2,R(D)=0for D≥σ2.\\begin{gathered}\nR(D)=\\tfrac12\\log_2(\\sigma^2/D)\\\\\n\\text{for }0<D<\\sigma^2,\\\\[4pt]\nR(D)=0\\quad\\text{for }D"
+          },
+          {
+            "index": 14,
+            "width": 280,
+            "scroll": 280,
+            "text": "h(X)=12log⁡2(2πeσ2),h(E)≤12log⁡2(2πeD),I(X;X^)≥12log⁡2(σ2/D).\\begin{gathered}\nh(X)=\\tfrac12\\log_2(2\\pi e\\sigma^2),\\\\\nh(E)\\le\\tfrac12\\log_2(2\\pi eD),\\\\"
+          },
+          {
+            "index": 15,
+            "width": 280,
+            "scroll": 280,
+            "text": "Di=min⁡(vi,θ),∑iDi=Dtotal,Rvector=12∑i: vi>θlog⁡2viθ.\\begin{gathered}\nD_i=\\min(v_i,\\theta),\\\\\n\\sum_iD_i=D_{\\rm total},\\\\\nR_{\\rm vector}=\\frac12\n\\sum_{"
+          },
+          {
+            "index": 16,
+            "width": 280,
+            "scroll": 280,
+            "text": "E[(X−a)2∣Z]=Var⁡(X∣Z)+(E[X∣Z]−a)2.\\begin{gathered}\n\\mathbb E[(X-a)^2\\mid Z]\\\\\n=\\operatorname{Var}(X\\mid Z)\n+\\bigl(\\mathbb E[X\\mid Z]-a\\bigr)^2.\n\\end{g"
+          }
+        ],
+        "overflowMath": [],
+        "figures": [
+          {
+            "index": 0,
+            "minimumTextPx": 14.37890625,
+            "clipped": []
+          },
+          {
+            "index": 1,
+            "minimumTextPx": 14.37890625,
+            "clipped": []
+          }
+        ],
+        "pageOverflow": false,
+        "errors": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "applicationErrors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "finalCopy": {
+    "at": "2026-09-10T17:38:10.558Z",
+    "results": [
+      {
+        "width": 1440,
+        "pageOverflow": false,
+        "mathOverflow": [],
+        "errors": [],
+        "failedRequests": [],
+        "fonts": {
+          "prose": true,
+          "mono": true
+        },
+        "completeProgramsAndVisibleQuestions": 7
+      },
+      {
+        "width": 390,
+        "pageOverflow": false,
+        "mathOverflow": [],
+        "errors": [],
+        "failedRequests": [],
+        "fonts": {
+          "prose": true,
+          "mono": true
+        },
+        "completeProgramsAndVisibleQuestions": 7
+      },
+      {
+        "width": 320,
+        "pageOverflow": false,
+        "mathOverflow": [],
+        "errors": [],
+        "failedRequests": [],
+        "fonts": {
+          "prose": true,
+          "mono": true
+        },
+        "completeProgramsAndVisibleQuestions": 7
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T17:36:15.211Z",
+    "files": [
+      "src/learn/data/topics/rate-distortion-theory.jsx",
+      "src/learn/data/rate-distortion-models.js",
+      "src/learn/data/rate-distortion-examples.js",
+      "src/learn/components/lesson-labs/RateDistortionLabs.jsx",
+      "src/learn/data/curriculum/blueprints/rate-distortion-theory.js",
+      "src/learn/components/lesson-labs/rate-distortion-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "independentReview": "docs/teaching/RATE-DISTORTION-INDEPENDENT-REVIEW.md",
+  "actuallyOpenedScreenshots": [
+    {
+      "path": "scratch/rate-distortion-review/browser/codebook-majority-390.png",
+      "sha256": "0327224441194e6d19a5ac5d422be6c84087e7567ebcfb2d9f6cb0f3927da4bf",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/frontier-biased-320.png",
+      "sha256": "1b9d217c0ab8ae47bb3954314f83ec9eaec3c1575e77514c7b3f729bc5e0bb52",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/optimizer-weighted-390.png",
+      "sha256": "f6394ce52d84d788dc03d33c830b209d13a4a432507188f2f33f9a5617d84f91",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/gaussian-unequal-390.png",
+      "sha256": "38601b1d9725308c76bb2b8bb211022846d2d51558e645492c898bb81337a541",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/reading-4-320.png",
+      "sha256": "e309b241b182e2db9a0c7535b6e004158c52a9cab60182206083c6d274c0c5bf",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/equation-10-320.png",
+      "sha256": "e5c0eaa315b25f0e96f545653a5ccf7195d2409b12b1c0073a82b3e50c37a6b4",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/inline-1-320.png",
+      "sha256": "1ea4e3ebf6863073622962846b17a46a47fbf5d828807664bcd66b2f774a1c93",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/gaussian-proof-final-320.png",
+      "sha256": "2057d640e1182a6e4a8e60cd02c866137a46a3d16e080191ebd632eb9ef23fe0",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/practice-audio-final-390.png",
+      "sha256": "e87831e1595c7a9a1bca6e69c77fe89d2b2762acd907ec5d90d49843b495350b",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/reading-2-390.png",
+      "sha256": "a659c1a8aaf3a4a7fb3df08d870ef2ad61b4f394a492411cc5610aef73f11251",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/reading-5-390.png",
+      "sha256": "516ff9539bd4e1fe2cbac3578fd5a948f5868becae0c6a6ff9db65853f479e7a",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/gaussian-program-final-390.png",
+      "sha256": "a7705399024fe42596e4c136416099bd3b7831e881c8ea1109dd7c9ca13274ef",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/inline-0-320.png",
+      "sha256": "9cf1f46c461636d8081eff66e2b19e8a2f2c70b0dad6818dd209e94078a8f776",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    },
+    {
+      "path": "scratch/rate-distortion-review/browser/inline-2-390.png",
+      "sha256": "6af7b78cc3b668fdb5cfd5c8a30b47b6b6318d44f75f7ccf75e0a12c5e642832",
+      "scope": "This representation was actually opened in visual review; some captures were regenerated by the final unchanged-representation sweep."
+    }
+  ]
+}

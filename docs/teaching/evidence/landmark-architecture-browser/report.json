@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T00:05:54.551Z",
+  "groups": [
+    "Exact dense/direct/GAP counts, one-position null, invalid dimension and reset",
+    "Real context cell edit, cross-channel gate change, mean-preserving rotation and reset",
+    "Equal-compute contrast and actual feasible/infeasible solve without clamping",
+    "Exact cost boundary, below-bound exclusion, seed tie and reversed comparison",
+    "Signed contribution edit, permutation changes map but preserves score, zero-weight null",
+    "Actual pointer drag and keyboard endpoints update the signed model",
+    "Selected intermediate position reveals its real input patch",
+    "Deferred actual observations and complete source load only when opened",
+    "Desktop390/320 page geometry, rendered math, neutral control surfaces and retained viewport captures"
+  ],
+  "captures": [
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-context-1366.png",
+      "bytes": 158333,
+      "sha256": "56091e2157ea518a200c5e4304878b7a5ca6f155db070b74c591516d6701c1c8"
+    },
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-score-1366.png",
+      "bytes": 135775,
+      "sha256": "5ad3e246593d2adcde915ebcd3f4db4639d459fc71a7f7fa2757a358c4d69523"
+    },
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-recorded-maps-1366.png",
+      "bytes": 170370,
+      "sha256": "63a24f6188765be7bd57271cb0b0c142e318062fbb3d8c783896955bd1128e5c"
+    },
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-context-390.png",
+      "bytes": 43604,
+      "sha256": "818ca07dd6fe7652bf4dd9930fd5792414d3a82a54204dc7369242e35714fba4"
+    },
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-score-390.png",
+      "bytes": 31997,
+      "sha256": "76464ce77fe7dcf7e78b5e269c045534d24aedcf2be4a58d97d0d5b65b449d2c"
+    },
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-recorded-maps-390.png",
+      "bytes": 62392,
+      "sha256": "116cc87b8014ac6433e2c9e38fd43a26359393c91e6efd403d0b52c2dda6f2bf"
+    },
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-context-320.png",
+      "bytes": 41949,
+      "sha256": "967e09380873198182f67a5b51f4eee5c2ef3fd5f485cc3d44d336915583f964"
+    },
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-score-320.png",
+      "bytes": 31360,
+      "sha256": "d24a381a2db585a38e9aa117466354de7869853b0c790638a616bba32465009f"
+    },
+    {
+      "file": "docs/teaching/evidence/landmark-architecture-browser/landmark-recorded-maps-320.png",
+      "bytes": 59791,
+      "sha256": "c6aec2d71bc776b8fc72a96b38b125a523b65c31569dfb27f76bf53247bb1e56"
+    }
+  ],
+  "limits": "Screenshots still need human/model visual inspection; independent native/model review is separate."
+}

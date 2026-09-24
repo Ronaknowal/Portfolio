@@ -1,0 +1,740 @@
+{
+  "startedAt": "2026-09-14T09:24:00.720Z",
+  "completedAt": "2026-09-14T09:24:04.626Z",
+  "topicCount": 1,
+  "widths": [
+    1366,
+    390,
+    320
+  ],
+  "stage": "Geometry triage; findings are candidates for source/rendered review, not confirmed defects or a whole-site visual approval.",
+  "buildManifestHash": "d6c238146c6188f26fe9d9f471028dbe8e9c6faf556e2794a07a79eb4e47ea45",
+  "verifierHash": "70d1a61bd8eecbbe2f63cd4e1ab17cd74139061c1bc03f8953daec4af25f85ae",
+  "inspectorHash": "95dd8f19257b2b19bf2398075a6182d79b643bc6c9669d180f1d8f0a05ffa0f6",
+  "sourceHashes": {
+    "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx": "67538ac7e7b8da6d1b50a0ea301c05d467a2e4a22158498c470ce6df140c567c",
+    "src/learn/components/AttentionVisualizer.jsx": "c69b039252e92f1227add1b5aee424c1be247203fec078541055eff3e03b1bd0",
+    "src/learn/components/BackpropVisualizer.jsx": "02879700449e77ba158134594ceeb10360796e89d41f93a71b571542a8d461b0",
+    "src/learn/components/BPETrainer.jsx": "647d369337dd4042b2fa3f7b02e2a2689bb82308dcf0a5a5ae2ddf81cb36c458",
+    "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+    "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+    "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+    "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+    "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+    "src/learn/components/content/Math.jsx": "c09a0bdcef88192335fb880ef74387b4eb63b4296e855e71e7995b27a2b7f258",
+    "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+    "src/learn/components/lesson-labs/abstract-algebra-labs.css": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43",
+    "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx": "9ea9a96115ee8d32e424eeb687764c5853dc02945cbb019a726b9429f42cf0a0",
+    "src/learn/components/lesson-labs/algebra-functions-labs.css": "a12d1e2402f9d4bf0717174faccddc23b9e04f89b09199309a08760e1d24d398",
+    "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx": "0baa16ee4ca18578087e7b2ceb907aa3855e60963acef23bbd189be0492322be",
+    "src/learn/components/lesson-labs/algorithm-correctness-labs.css": "72f336da3665c79411aeb87f4d5adc77bd589a0dab69d0fe9d4f896e141169cb",
+    "src/learn/components/lesson-labs/AlgorithmCorrectnessLabs.jsx": "c3d5882db39542b0754bda7916e1754a6dc0e2cc16acb672ba4716b50faf8498",
+    "src/learn/components/lesson-labs/anomaly-detection-labs.css": "4f066dc8dad28ce9921e36f1085555514f10066a35b156d739fe1f3d5f86b164",
+    "src/learn/components/lesson-labs/AnomalyDetectionFigures.jsx": "0a171ecf655d23c712af7e1a70a8310ae34e3ea655a3bae7052c5e88db6a7884",
+    "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": "05d159bd96239d7a193cf15de1e796db6a856107df42ca2cc352b481a82ef676",
+    "src/learn/components/lesson-labs/AnomalyDetectionShared.jsx": "d4ee3844348a6e29870e5360b1e49080af89d96dce8516f6e29fedf753cb97bd",
+    "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx": "8196d9141e801a2460f861f93b7749ab36c1fafefb9701a49fce493dbc439b82",
+    "src/learn/components/lesson-labs/ApiDesignFigures.jsx": "a62ecc04bdd23a38c8ca0e3ff024b828e8205ec79f9048a29c0d86a0e54c9baa",
+    "src/learn/components/lesson-labs/ApiDesignLabs.jsx": "f1d3ccd598f715320c06f712547be08a880dea48691e605129dfe0339eca4a8d",
+    "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx": "d77c59e0ae51146cdc026f374958c3f6a78cb614d8b8fce61055667b22f1c9cc",
+    "src/learn/components/lesson-labs/backtracking-divide-labs.css": "a42e00a0afa8900addc6f782e2932029d68c265d8277a75ddebb7928744bfde4",
+    "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx": "4b9cd8c6bc3a6c83466cf09ce451f654b9f634f5f45633101a9b70fea3da03b8",
+    "src/learn/components/lesson-labs/BashFigures.jsx": "25fdf5d0ae386d1f62efda7a19e1143aae884b3c72044682897411f289ad8529",
+    "src/learn/components/lesson-labs/BashWorkflowLabs.jsx": "405dee72dceb7da5c0201e44784fc26ae8bc0575527156a37eccdfbc884221b4",
+    "src/learn/components/lesson-labs/bayesian-inference-labs.css": "932602520f86292f3a6b5b3e7cd2eff8f85320d5a41f2ee1cdd79fcdfbb3aa7b",
+    "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "05f05daa033e241f322dd67dc2256aad7d3fcb61f49d37b202f3066498f7df63",
+    "src/learn/components/lesson-labs/BayesLab.jsx": "9f076487de6da30b9411186b3ff054033a3293adf73623f66da8f094cbe36e34",
+    "src/learn/components/lesson-labs/bitwise-foundations-labs.css": "6d9be37c1b48dedeb22a6b426e5acfa29f10c501f8637fd4ec5b6972a3e109d4",
+    "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx": "5b7ca2246f65af8fdabf7bdb2af1f448e0d78cc531ddb4c7964e180c56263c6e",
+    "src/learn/components/lesson-labs/BoundMethodFigure.jsx": "2bebab260c4a7d9944bc65af3445f0de555e11b961c07f80e4b52b4968bd16c7",
+    "src/learn/components/lesson-labs/BroadcastLab.jsx": "2482313c3291008d94173a1d685ecc728b4e415d3c4cbf0abff53f128c044481",
+    "src/learn/components/lesson-labs/category-theory-labs.css": "6da55514358eebcab7bc018e6bb19e79e7c842758ac4a21e4a71aeb43cef5083",
+    "src/learn/components/lesson-labs/CategoryTheoryLabs.jsx": "21ea46af7a2330b962d9f5cab0dad2d15811549ec54ca975121220fa33f46c69",
+    "src/learn/components/lesson-labs/causal-inference-labs.css": "3bdc5bc33a1a89bbd8b97396c0c6cefd903d3265e7eaa21e36816fac1189489a",
+    "src/learn/components/lesson-labs/CausalInferenceLabs.jsx": "15af27e45fc21fa27eae608a77c0be0c02248bca74ac535f7cf8b2c939fd5fd9",
+    "src/learn/components/lesson-labs/clustering-evaluation-labs.css": "b9f1a76d7109f1e8f4ada1bc09457651bb8e4d40cfb7904ae3038aeeb3aaac15",
+    "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c",
+    "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": "1ec16771da4357c07c81f42134d2e0f5925d820aeaa44ec42fd02b9d49e0be14",
+    "src/learn/components/lesson-labs/combinatorial-optimization-labs.css": "1826eb2c413bf2bad561cd71c27cf5c0c63b6853eb90033a2e37c7e8f349a953",
+    "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx": "ca48fe00bc131e76a34db7fe04c680f3a43c785be0fd64f7edb1664ac2b3ed85",
+    "src/learn/components/lesson-labs/complex-transforms-labs.css": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788",
+    "src/learn/components/lesson-labs/complexity-recursion-labs.css": "88fe71c88adffa90141c7c6453ab4ea22adaec7b9ccf195a563f277c1f4a6842",
+    "src/learn/components/lesson-labs/ComplexityRecursionLabs.jsx": "e91810416e8f49c622242c65b28c730daf41d12efe52141910070ed8033e93c8",
+    "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": "8180ed8cff3d56001f52ce7c6993ed4ecc468488e857f742efa651b0f1cacf83",
+    "src/learn/components/lesson-labs/computational-geometry-labs.css": "ead0b07c205c062192f73b2dec0a003fd7da47fea301648d4667b55a41f81a41",
+    "src/learn/components/lesson-labs/ComputationalGeometryLabs.jsx": "a85fbb1a956b332d0f53fd6e5cce2cf4650440a7d0d18787deec13a365a6d7a8",
+    "src/learn/components/lesson-labs/concentration-inequality-labs.css": "d16da8b042f4ea9c4aaf44acf418b50d89311f104f6e93a444378c1c0a46351a",
+    "src/learn/components/lesson-labs/ConcentrationInequalityLabs.jsx": "31c71e9f6ba8803031cb0c49a843da9bcb2740c8bc62739be57cb4e824f76912",
+    "src/learn/components/lesson-labs/conditioning-stability-labs.css": "41cf2b148fc60d9fd0406a58de13b91429eef4ac9bb8cbae2f313fbccebd2f00",
+    "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "d23a5ffbbc2f82984a7f409e5d6a2f8ecdbdb617561bd59116bed53cf4765dc8",
+    "src/learn/components/lesson-labs/ConfidenceLab.jsx": "26c80d564edae6a9dda6415700b7cf4188d6cb2fab0aea214ee4463e0a516019",
+    "src/learn/components/lesson-labs/constrained-multiobjective-labs.css": "7e45678cbe51cf0ba1b9ed8e7d1c4f69d5101598244ddbe9f31283c2b8702d6a",
+    "src/learn/components/lesson-labs/ConstrainedMultiobjectiveLabs.jsx": "976482ab61718952461ef2a33e33d836c3ac0c8997c4a40a68842beb441b491f",
+    "src/learn/components/lesson-labs/convex-optimization-labs.css": "6cb7cf78c13a8eb8f29598760748f2b24601030755f9328a8f8682677d9c7d13",
+    "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "48b9c41e81843f8f53db2d9b01466e078092dea55bf83d240384b9cab76c2bd8",
+    "src/learn/components/lesson-labs/counting-combinatorics-labs.css": "3e4fb3e7013bf4e526c08c111681fbb31ded6386a6d76a88a3b2914ed0ff33de",
+    "src/learn/components/lesson-labs/CountingCombinatoricsLabs.jsx": "1afc676f4db1ea859e98912e45c3dff0f0bc2ebec25555edf2a55ea481b4a585",
+    "src/learn/components/lesson-labs/CountingRecurrenceFigures.jsx": "6ab904204fa0b34e8e40891f02cbb22a392d6de3aa584356d773812789ed1e30",
+    "src/learn/components/lesson-labs/data-foundations.css": "44d4f78a90cb1e2211b2a0f535b7c6ef8efbb17320f3dba0f7f628eac8216085",
+    "src/learn/components/lesson-labs/DataLabControls.jsx": "8553774b5b483899e50c3b6bb0820fea2e932869e05bef26b0a6e3b0188246b6",
+    "src/learn/components/lesson-labs/dbscan-labs.css": "27dc2cb98a8f662353737c69f497c636c466e5ad5c8c78499cb224255ea3eb9f",
+    "src/learn/components/lesson-labs/DbscanFigures.jsx": "6315b5a17b53608d046873cb4953145f767dacc3e1d499a3ff07d2a3322d8184",
+    "src/learn/components/lesson-labs/DbscanLabs.jsx": "41a16614fcc1231fa9da1de8707d15fbbc93dcbf2a7bc4a98f0276e93d1550c6",
+    "src/learn/components/lesson-labs/decision-theory-labs.css": "db4201fc7920ad5c8473feaee5e44887a871a9220eb42f5fe8cddfe620bc6728",
+    "src/learn/components/lesson-labs/decision-tree-labs.css": "71d8f34b8df64d06c3869cfa9550dec3e3d00575c6ec712b62c907acac9925d3",
+    "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx": "93e7ab812622522f1b562ec7e9b1d20aac4a509293c7994fb1f8e6581d8577bf",
+    "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx": "af71ac05ca02f2685021705b0bfe7aab9a8d440bf0c32c987933109e810b260e",
+    "src/learn/components/lesson-labs/DecisionTreeLabs.jsx": "5afdc9586c078acb18488d43b78bb3bfdcf6e7d7b0d336362ac7f610ae10d989",
+    "src/learn/components/lesson-labs/DecoratorContextFigures.jsx": "ecc5a918301101ccbb3355b6778e72d8cef7cbcddd78cfd289c579f1455fa18b",
+    "src/learn/components/lesson-labs/DecoratorContextLabs.jsx": "f81cb102ef7c2ef56f9939b62b12f6081972b11aa33bab5ca6dee177b0fc2281",
+    "src/learn/components/lesson-labs/differential-geometry-labs.css": "fc11abfc545b289b3032445db4b331633c2d115b5751908e43f6474cb8433974",
+    "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx": "f18fd73b954059d41377c1daea5c421aaf7b9be02bc0ebdbb99651ff01417be6",
+    "src/learn/components/lesson-labs/divergence-ipm-labs.css": "616b50a7cfce7b315a4b410a3af652b2b34e0310b8aa492f2d7dd15efe64db96",
+    "src/learn/components/lesson-labs/DivergenceIpmLabs.jsx": "586ed0bdedec90f73d922c4da12ce4aabf54fd224d1950a17abdeaa14754349b",
+    "src/learn/components/lesson-labs/dp-state-families-labs.css": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2",
+    "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx": "f07349a9f07d5773bf727c94dc87a13019d1a54b73da33464d3aa62c8f63958d",
+    "src/learn/components/lesson-labs/dsa-practice.css": "23f4b14f6be2227e8beb85e7fb98dea5fae5cb44e4587bbd95fa15b93fbc4540",
+    "src/learn/components/lesson-labs/DsaPractice.jsx": "3bcdb1645ccd10446019f10fcb39f0796106a893e9f23731b0225ec58b6185f4",
+    "src/learn/components/lesson-labs/duality-kkt-labs.css": "71142447afd1e15b848c2ad0c5b1ff828318e6a9800973c80df8a654b06eb0a0",
+    "src/learn/components/lesson-labs/DualityKktLabs.jsx": "826f494eb9e7d8ecea921a183a5820514f09f96dc568b5e3cdd49fea3f4fdf59",
+    "src/learn/components/lesson-labs/dynamic-programming-labs.css": "a7452202039808866b83b4e978f9e773a66b6c8434dd75d363fa75b7b2f766ea",
+    "src/learn/components/lesson-labs/dynamical-systems-labs.css": "719e3bf2f52acfdffaee002f60d95e5991d20f045b1fe0c25005f728818b7d87",
+    "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": "ed0a9f5233528f6bd0631a43e3782f1129a5dcb2cef9ef2bebb6f03bc3a62480",
+    "src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx": "3afe2b2bbef2c15aed08fe69c725e376eda1bdd4fb9c5b4e5f8996d1b232820c",
+    "src/learn/components/lesson-labs/eigenvalue-labs.css": "a044d72b36b1950ba4cd7fbe25b0c5ff545cab65d2f0cc7839ad3439bfefe85d",
+    "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "9591e7a504932dd94ad126f5e6b8f67971b36b8f1550a019b2033451dea76a97",
+    "src/learn/components/lesson-labs/einsum-labs.css": "08378dacfd33842e945bedbbd0f894d6760112ad35637cfadf3b841905378264",
+    "src/learn/components/lesson-labs/EinsumLabs.jsx": "baa00e44604e5de55f7af7117b4844a80ac6f0c2f40fc31a730f29820088c9ef",
+    "src/learn/components/lesson-labs/ensemble-methods-labs.css": "6afecccd96546833c7896891bb52dc3d5731105134463ecd3cf41d1f225e395e",
+    "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "963c455d8c7d9d84417f68cbd4d8f55dd72f0c24c79f848d98528a7400f46f98",
+    "src/learn/components/lesson-labs/entropy-information-labs.css": "2b370e2ac65d7db1a3175bad05e1067716dbb870c0d34b8e9fff73d8c3d59f4d",
+    "src/learn/components/lesson-labs/EntropyInformationLabs.jsx": "8ec85643c632c838051cba9e8bf5299d5e2ccb6b74b7e90cd72e18f9c02358a3",
+    "src/learn/components/lesson-labs/exponential-family-labs.css": "f15c93899232877b131554bb297c483c94388dae33924d08a0d117c70e4459ae",
+    "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx": "da66242941db121ee9af2fa344a549e6af7087a7c0d9a3f5f7cf9f7bdbd8ee89",
+    "src/learn/components/lesson-labs/ExpressionTreeFigure.jsx": "2fb28ee61e527647b74ebb774c3860407d0369f6cac87d79321fbf46be99c525",
+    "src/learn/components/lesson-labs/external-memory-labs.css": "4051c60ceb370b9bb6f86ead6f5b72443d2c99d7e94372a90e946d925821c3a1",
+    "src/learn/components/lesson-labs/ExternalMemoryLabs.jsx": "92c40ce9c5176fa5fd5637747dc035efafc31f9b06bb1beb10f6a4fb0b883a9e",
+    "src/learn/components/lesson-labs/functional-analysis-labs.css": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938",
+    "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx": "a6841d7de1f3c506884ae993a63d42acdd4063a36ae594d8eab7675ffb5ae1cf",
+    "src/learn/components/lesson-labs/geometry-trigonometry-labs.css": "7e1913ddf83bd625ada20c22a04746d8c9492ba4db87f1fd5e11fe9d4925bf8a",
+    "src/learn/components/lesson-labs/GeometryTrigonometryLabs.jsx": "102525bf24cf2cd9c227965ec4c296b05d507d68ced8028c33e4ee9b872a937c",
+    "src/learn/components/lesson-labs/GitFigures.jsx": "5358472489cfe66173ccdfe9303f6786209ec1a87bd13e00532dae5f94fc5cd5",
+    "src/learn/components/lesson-labs/GitFoundationsLabs.jsx": "ad2b3293bd28d9cb14f5aa661599ac14efa7bf435d4c4f40c9f78fc2572f0611",
+    "src/learn/components/lesson-labs/GitIndexLab.jsx": "e2a6d11b86cd16ef32d5e03997dc246727f830f99e4083bc7c72b31b7f65c73d",
+    "src/learn/components/lesson-labs/gmm-labs.css": "e24fda13ed966f05c437759ff36396be36d4f3b667de1389d0787406fb84652b",
+    "src/learn/components/lesson-labs/GmmFigures.jsx": "99d8a4fc2cd90d4d9d2d8fbeb0dc1bd3e001db65f845a7d826033f780fd011b6",
+    "src/learn/components/lesson-labs/GmmLabs.jsx": "61a98ee392851e34f27aa52e8014a126e07d35ff798518f5e016ef59e4ee2a56",
+    "src/learn/components/lesson-labs/GmmShared.jsx": "57c29475518b3052a8bf4e50b9b23aaba413885569f2a8e59c8e36ee71bc15d0",
+    "src/learn/components/lesson-labs/gradient-boosted-trees-labs.css": "10826dff530ae39c56feedcc80a15f94b8f4975f3a63c265894d34a54f6b660f",
+    "src/learn/components/lesson-labs/gradient-variants-labs.css": "f4fb39b96a2d6ddf82d1e6ed41177ba686b860f48f1500e39a6894700959a38a",
+    "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx": "bdd3bb820ea8c32e25fc53b2d4808dc25a1f324891f9949d7fb97c939c71d446",
+    "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "8be3726498fcd8460871699eccb84a564127a2b5532bfca3d5a67217c3310ecc",
+    "src/learn/components/lesson-labs/graph-fundamentals-labs.css": "eb97008da68614aea30a1b8b6e71e1791175f1efcff588fa47fbd163e72a3171",
+    "src/learn/components/lesson-labs/graph-traversal-labs.css": "fe4209de92d125d4aaa451de7f11cac8dee37b69199d8766c94c373eac111703",
+    "src/learn/components/lesson-labs/GraphCloneFigure.jsx": "5775441fdc571281f15e76970b5be11a86af28418d911c1ec0c806b82230d31b",
+    "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx": "d9e2fd4eb289ffd356f6c844af4c56c80ed1a5b411bbc8ca51204e42e2ecb645",
+    "src/learn/components/lesson-labs/GraphTraversalLabs.jsx": "7c657487df7f620c2b8470fe05ad6105d90461d76504d4882f77da8cce1dafe6",
+    "src/learn/components/lesson-labs/greedy-exchange-labs.css": "5842f5a0bd990504f7285d3713faaf060099af3de7ab3b5a8c73cce9417330ef",
+    "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx": "57614d0a81adcc01a27420ed3100d47e134e93a5f257db8d5add16ceb156015e",
+    "src/learn/components/lesson-labs/hashing-amortized-labs.css": "c77fd154a35f38eb1bb22a19ebb1fabcba8818378388ec8f39d10f4dd7a6a545",
+    "src/learn/components/lesson-labs/HashingAmortizedLabs.jsx": "d5c29019244b2579a1f67fef942159d02b7015f5ac50defb27d8864e8925ba69",
+    "src/learn/components/lesson-labs/heap-trie-labs.css": "95b0207f6eb4eba3a7d6be12a6f9c8afc17b522d986510e758f9f287cb7c1522",
+    "src/learn/components/lesson-labs/HeapTrieLabs.jsx": "2e9998f188fac367c5548806482cce6841868bd3174b9f7bb475a4b50c3dbd4d",
+    "src/learn/components/lesson-labs/hypothesis-testing-labs.css": "eb41e0a8ab23b7fa47a0e800b574cc245dea2cb256defd604785d2225caa5f43",
+    "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": "4112d66720d3f6591d8506925770d74d99bda1779ab431b9d5f1ae1f1d45c207",
+    "src/learn/components/lesson-labs/InferenceMechanismFigures.jsx": "e7be2b80dfe5055af32b321900f9a72e9ea52eecef52cd652969829a9491e584",
+    "src/learn/components/lesson-labs/intractability-labs.css": "af67fc775a82b26b81dbc59c22f00f8c0b5c414bfae14d5e573c883735edab2a",
+    "src/learn/components/lesson-labs/IntractabilityLabs.jsx": "a510f867e876c1ff86aca5c2ea494f66444d7ff19e14e688e40d747472e8bba5",
+    "src/learn/components/lesson-labs/iteration-decorators.css": "b8d18d6ec88921c7af8a520d493170db88fc4ef4d0414e8d5cc4fc5a6faffea9",
+    "src/learn/components/lesson-labs/IteratorFigures.jsx": "7be6f116bf3dcad95694db2a6114f080598e0c403fce86e9ee0f241ed1923e13",
+    "src/learn/components/lesson-labs/IteratorLabs.jsx": "74b29aba67abbfd765ccb7c730dc77d007a8aa93e0dafdac18888688743d36d2",
+    "src/learn/components/lesson-labs/ito-sde-labs.css": "65cc1491cfe22001e557d82e35f2dd0d2cb185f6c56278536e46c8269dc5568c",
+    "src/learn/components/lesson-labs/ItoSdeLabs.jsx": "064ece5b69b0bc99e7200e867e0e928279952ee9aed40d66ca9ae53b4d421d68",
+    "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "263b4b3f68f5c89ab0bbbb257378d194f8c97d6c4067882c2d96225411f722c3",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "6c7fd2d1bee3045f83adb8d5247d090fa71e33592803938e378a2c9f060ef72b",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "8b45804a4ac9386b6c23c3a2612c84998ec105c53b2be8b2ad340323282925bc",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "0aa180e6cfb129650cec2ae10488629c91a5e1e74748ad15705e8ac38b634289",
+    "src/learn/components/lesson-labs/knn-labs.css": "664314ff9aca49f551ddfaedec63ba8d4716f71d82b0ace78ef9d7b755777d0a",
+    "src/learn/components/lesson-labs/KnnLabs.jsx": "24562c1dc5d2be0873651eb4fa0e330a9692f4148005062f5c0e7386f2ddb37c",
+    "src/learn/components/lesson-labs/LabControls.jsx": "f8b51453dca386a9540f09369a28459077c754d2877989a89db8ad2d63b9b63b",
+    "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "cc7aa40b7dc3a84d7301cbb34d0eea96fc49ca5e8a611b16d3f05f229c88cfe9",
+    "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "ab3e71d829765e6e23336a49db24036e0c5a595bcb240e2ab9308412f7156d3e",
+    "src/learn/components/lesson-labs/lesson-investigations.css": "ed3c90fb60f680d85bfe228d41c5703147e967032634b30236f8412ff2bde8c7",
+    "src/learn/components/lesson-labs/LessonElements.jsx": "232ff18e81cf9b79acd51a40e9e1683fad6f509083aeb0ab5f1ad8b7199f01e9",
+    "src/learn/components/lesson-labs/LessonInvestigation.jsx": "f513ea015a9ee05b0703850a9e94b60d8eb7542e543ed9704b439c2e9c0cf14a",
+    "src/learn/components/lesson-labs/lessons.css": "a7fbce9cc83e7088ae93545f758e818996bacffa1344d4b0d3b3a04318aa3508",
+    "src/learn/components/lesson-labs/linear-logistic-labs.css": "d3c111d30de29fec03a17990885647c019ded2c93e153637f59a91f9341a3c70",
+    "src/learn/components/lesson-labs/LinearLogisticLabs.jsx": "5b6ecca121344575923bd4c78566300b5cc4929de1eb2671f66062a19e8b6870",
+    "src/learn/components/lesson-labs/linked-traversal-labs.css": "ebccad163198dbb2c2e35e1cad72881c09bbbd4866ddb3c118c9b9c53e6b8d6c",
+    "src/learn/components/lesson-labs/LinkedFoundationsLabs.jsx": "d82e42e3b1e8ca898061e03e0a3bf972487ed2fc894deddace8f45bed9dbd430",
+    "src/learn/components/lesson-labs/LinkedTraversalLabs.jsx": "7197fb945d8ed38dcbddc55c2a555b3a737ca2e230f3a7111345d7695431c300",
+    "src/learn/components/lesson-labs/linux-lesson.css": "fc6038c3495829cc802c73262418c37c3a5a55e4854729db4abb4a40bd344474",
+    "src/learn/components/lesson-labs/linux-path-lab.css": "ee2c3f84719ec8e94e306c677843f4a6620604a41f34bd09f1ddd40f990852ba",
+    "src/learn/components/lesson-labs/linux-permission-lab.css": "9e9133b0fe26cead4fdd91e21ad948f68ac731a4fe1013aba90727e38e72fc40",
+    "src/learn/components/lesson-labs/linux-streams-lab.css": "a07a6952a91334d44a1bcf1ae96607a9a30873162763a7ee5ede4ac7ec057691",
+    "src/learn/components/lesson-labs/LinuxPathLab.jsx": "58efb857a56325050e445e3e82cb31294a54c3c74b35599a1a64a392427655e5",
+    "src/learn/components/lesson-labs/LinuxProcessLab.jsx": "753b3504ef1ab0bf5086c33b535b24e5b9382f2efa17498482173eacef64f457",
+    "src/learn/components/lesson-labs/LinuxStreamsLab.jsx": "c685159eb60c4a8c051a00d218ec1c4e792750e4c60fe10446f7f2b91a102888",
+    "src/learn/components/lesson-labs/math.js": "ef64f0cb68a4b5acaa1989c906b26dc6fa29739860500c90e1cdd449b2778f8e",
+    "src/learn/components/lesson-labs/matrix-calculus-labs.css": "1e1a54caa5feafa30061838b82aed07e4150339601052c1873fb142ba2e54ed9",
+    "src/learn/components/lesson-labs/matrix-decomposition-labs.css": "4d305c26ed34d7662e7213d9c9951d87d1fee905a6234cae2520ee75bcddc7cc",
+    "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "03483c45b32084af1904f4c7780bc09a5c1480da8bc54c82e1767c9a56cb333d",
+    "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": "8d5e41ab756a4a7b42a2f47ec4447f58a885663b78e004b00e618f0ee5497f95",
+    "src/learn/components/lesson-labs/maximum-likelihood-labs.css": "e4885658388a9ee35f6a7353f9e07aaadf13499e7b573827d8853c467298ba34",
+    "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "6cc855073983d13c5a653f2959b293e674c5416436d17fb7bbbe6bd40344cb92",
+    "src/learn/components/lesson-labs/measure-theory-labs.css": "70737673d01b0f4723aa2ce7f0ead640a0cce08f40c815f79ebbbc72e3c6cbdb",
+    "src/learn/components/lesson-labs/MeasureTheoryLabs.jsx": "b332496d1cb8f8714debbec7067c75b5f5980bb5df9072d51278f0309b1c277a",
+    "src/learn/components/lesson-labs/mechanism-figures.css": "d08c67822d24fa5e4b3b2df5e351656a81829f85d61787a61e6151f93af55266",
+    "src/learn/components/lesson-labs/MechanismLab.jsx": "30087adaf7e489079f2f0feaa6adbd7456b4f4756202ccca6ecc893cc3b04fb3",
+    "src/learn/components/lesson-labs/monotonic-stack-labs.css": "d3c917337d41be71abb004b94f4cd6d6391d0ecd2225cf4241194d3263866f5a",
+    "src/learn/components/lesson-labs/MonotonicStackLabs.jsx": "f8e7ceee668820ef850224613642a4ab5a34baf480d1ba690ca00c6bc9351179",
+    "src/learn/components/lesson-labs/monte-carlo-mcmc-labs.css": "fd391c99dbc11086f3d0433de01928a57af719fe1864c676ce09528238dbaad3",
+    "src/learn/components/lesson-labs/MonteCarloMcmcLabs.jsx": "724c3842313e202c2cc3b654cb9ea33e3dabb2ef898e3b2c81d42dbba88bb3d4",
+    "src/learn/components/lesson-labs/multioutput-labs.css": "43b68b086e332273a0500c5d1214259f58b897b90adc37bf80f0897f445a358b",
+    "src/learn/components/lesson-labs/MultioutputFigures.jsx": "bd949e0e5a4598f31c66fb8188da30b66b196da109aeee803d84014af70fb316",
+    "src/learn/components/lesson-labs/MultioutputLabs.jsx": "da2a0eb21c143c404358608047ecfb506d946542761c76a8a439a62c0008ade2",
+    "src/learn/components/lesson-labs/multivariate-calculus-labs.css": "07b75ee77ff610137b3a59f8a0bddbe6ea2865fc21c5deb5337934759b071281",
+    "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx": "b4efa3bfd754b12f07d947c694849a2b87be33ca5049d1143b0562c475dc5794",
+    "src/learn/components/lesson-labs/mutual-information-labs.css": "9c99aba160c47544cf017c572c9e950cbc2c9f261b342864569a20899555f3c9",
+    "src/learn/components/lesson-labs/MutualInformationLabs.jsx": "dba25a9eb1bd8f15e69299c179e03636fc5ae60242ed5d381eee4daf51b03d1a",
+    "src/learn/components/lesson-labs/naive-bayes-labs.css": "2bb500b3bb6acc27fafdaeacdc891499020674ba65660963b499f54167682228",
+    "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "edba8e94ac0bad70a2a93138fa117f0ef1f841ff4b10ea170ba9ab7b5bca7d23",
+    "src/learn/components/lesson-labs/network-flow-labs.css": "36f6a764ecdaa475b148428ac6c448e0cc73bd1a4ab9147ec8d62dbc325a88de",
+    "src/learn/components/lesson-labs/NetworkFlowLabs.jsx": "0ccdd6761b6d6c86883e6275b479ca24446f946bab3375c3e8d6524659d796cc",
+    "src/learn/components/lesson-labs/nonconvex-landscape-labs.css": "0bf9578876cadf3ebdf73e4aa4fce742611b2196c6c31fc844b3659a3d3da4c9",
+    "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "0e17c533ab3f9a001c71edbf5999c3a3d4d0d65fcffe2082c6f5428f8d50c0e1",
+    "src/learn/components/lesson-labs/NotebookFigures.jsx": "34537536a33929c65e45b0294ad6b03697a4f404c5237bc17c94b50bc7fd657c",
+    "src/learn/components/lesson-labs/NotebookLabs.jsx": "44ea082f87cd5883a38d921f092aef3d87d981a740a62a77648af3283c3ab839",
+    "src/learn/components/lesson-labs/NotebookStateLab.jsx": "0c5cdd498a1128701d9f4333713b5331dfc8a321cf4fe03f9ce688735c1f7140",
+    "src/learn/components/lesson-labs/numerical-methods-labs.css": "79f6ed9d0e81fc9b5350a1b77d54fa6358a223a67c0efc4fd1d81a5af83c3e0f",
+    "src/learn/components/lesson-labs/numerical-pde-labs.css": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+    "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx": "149b4c48ddadac9d04c2db6db2f4a57a19bc15ce44903a7ffcc4b8914fce44a9",
+    "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+    "src/learn/components/lesson-labs/numpy-foundations-deeper.jsx": "49b17971028cc8a6e558b2962c2bd6bc7d5ad806a4f365629bb4491b5e4eb654",
+    "src/learn/components/lesson-labs/numpy-foundations-labs.css": "3ba4d286a3f682acfa9643671a46d4f5acd67b83ed89a83f2ca92a2bb7160bc3",
+    "src/learn/components/lesson-labs/numpy-foundations-labs.jsx": "ef22ef72f7813ffe08737ce56377445a79ef59a1508ca6c5794b77e1e4d06e83",
+    "src/learn/components/lesson-labs/NumpyFigures.jsx": "727fd6971accfbb6daa8a2e2d17b86dfe1bb12609d36aa9933ebcf2ca912376b",
+    "src/learn/components/lesson-labs/oop-foundations-labs.jsx": "f56cc6e4744c68e86bbee806196c677cadedf1eaaef9199cbfb4d17694de337b",
+    "src/learn/components/lesson-labs/oop-foundations.css": "33a2d3fadf732504fa80afaee4704cbcf88cbb01e6f8ef4db1d7b290254027f2",
+    "src/learn/components/lesson-labs/optimal-transport-labs.css": "8a68bade1e9934c855e1bd588e6ac58691aa7d3094d806f8d23f77b11c17c960",
+    "src/learn/components/lesson-labs/OptimalTransportLabs.jsx": "d61276a4fb2ab8ac32c2fc44fd3658a8d0a92644920eed64538f9eb0c34aed1a",
+    "src/learn/components/lesson-labs/ordered-pattern-labs.css": "449492503f5d3fbc91d5497310a7c0b134d9a7a2d7cd03f9551be87bdcaf95b2",
+    "src/learn/components/lesson-labs/OrderedPatternLabs.jsx": "793d4c38fb05f8336a7c2183e3dc235a636b3f11d0c35a18f3d9f6778d12b884",
+    "src/learn/components/lesson-labs/ordinary-differential-equations-labs.css": "246bda575fd97c8dc9ed23337b98f11e0640fdc67b77a51cdd24f30446e17bc6",
+    "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsFigures.jsx": "d1db7f505d2ab48d73974699bea017c4cbb8b8a762763b512f35a3d66e47de49",
+    "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsLabs.jsx": "1412ff555bca10abf934ef021d0a17a361df7566f6669192e7c03b56e2222ace",
+    "src/learn/components/lesson-labs/OsFoundationsLabs.jsx": "9f6c73a476a9ada494e87530ba181a1cbea5fb258b1a2accaea6e4c470d03d0e",
+    "src/learn/components/lesson-labs/PandasFoundationsLabs.jsx": "16a1d5e4328d916da6b153acc38228eea9a6c2837d9b9cb36cd4a1c53d63d965",
+    "src/learn/components/lesson-labs/PandasJoinLab.jsx": "2c22b296c153e0f3499470be652323007fe25b631aecb08481dddaff1d2b762f",
+    "src/learn/components/lesson-labs/PandasPivotLab.jsx": "08510580debe99e382bbcbbf4e94afa1efcd16c77cc7ee01ca358db93ef67f30",
+    "src/learn/components/lesson-labs/pca-labs.css": "6b4044f60f0dab5aae4b4ec7c95b88e3d07724b31d209c8797a92e2e2c0caea1",
+    "src/learn/components/lesson-labs/PcaFigures.jsx": "2419498b8c7926cfb6d221cf5efbfee37cef4bd6a616c9ebf0fc11d3f4b72d5a",
+    "src/learn/components/lesson-labs/PcaLabs.jsx": "f7f6077243b3b20858c3e7e618bb07f4d2ab2174907cf2b491808f89f8710d2c",
+    "src/learn/components/lesson-labs/pde-labs.css": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170",
+    "src/learn/components/lesson-labs/PdeLabs.jsx": "718d151ce5349845ebe4046dd3b174598698becd853d412204d7a372b30bf9da",
+    "src/learn/components/lesson-labs/PermissionLab.jsx": "5a80453fd6ba9cdb76caef24d6ba61ec4a14fc7088f7ab972df5065e246ecdd7",
+    "src/learn/components/lesson-labs/persistent-structures-labs.css": "2f404d34e493e9a0103e55ccddc3a8a2bb2b895e311fe934df2e58ff36e6abf5",
+    "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx": "8e4571ee8ca9fee5c704608f47ff8900a2125f06b245c9c4f362ac75119390e1",
+    "src/learn/components/lesson-labs/plot-output.css": "6cb41c462e83d8ba00c1a10dc4ff3d9ac297ef7c645dca5b2cefa8469d205cd8",
+    "src/learn/components/lesson-labs/PlotOutput.jsx": "f6efa0244689eccc779415bd0f2b8b2b25d3f121845a5bf99f8e53dd4463352c",
+    "src/learn/components/lesson-labs/PlotOwnershipFigure.jsx": "810cfd7fdb653453cde49bafd07ba07263bcea0178be5e9b80d4933630b922dc",
+    "src/learn/components/lesson-labs/PlottingFoundationsLabs.jsx": "60be5fc1b49e61bbbc1f1522a05a26ea209ae3896fe481ce0fc35611d784dd4b",
+    "src/learn/components/lesson-labs/probability-distributions-labs.css": "8be2293f8dbdc0c19322ceacad35b8a4be3dd91f481eb181430c3c6d26bb2e55",
+    "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "daafe18c4fc857afc74dbea815cda34a140a3791d77a21ba4545ab03cde0a636",
+    "src/learn/components/lesson-labs/python-foundations-labs.jsx": "0df61d24b9b0a5ff0b11bca3a7405653bcf7f743c1731bc0edce0645b1f4e75b",
+    "src/learn/components/lesson-labs/python-foundations.css": "143ab6938ecf4b181bd3fa95f2b7d84d87a1eb202480481e4f376484b3052b9f",
+    "src/learn/components/lesson-labs/python-mechanism-figures.css": "86cdc9aa290bf50e8095d8c62949d5fed064cdda54284d7d345aad1614d97e13",
+    "src/learn/components/lesson-labs/python-trace.css": "821f6009cba3a2b9e9e897890f51895b00070132e650fe6f074e494164a28d33",
+    "src/learn/components/lesson-labs/PythonExample.jsx": "29082789abbebef68ef0a2c2a6657f535cc40c415dac949f8af4fc7602b8eef9",
+    "src/learn/components/lesson-labs/PythonReferenceFigure.jsx": "5c974f050cb8634202be24fcf95f2ff9daf9e57563520b4a51fd6bc3a27b55a8",
+    "src/learn/components/lesson-labs/PythonTrace.jsx": "580ea76a0550ea8e6284c3293c9ef97afa95494703148cbc6f8c020bb34262c1",
+    "src/learn/components/lesson-labs/QueueingLabs.css": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
+    "src/learn/components/lesson-labs/QueueingLabs.jsx": "23da26b1eca2fb14c47f2a1ab848e49963dcb37deb921b4f1a846dd7506df7ea",
+    "src/learn/components/lesson-labs/random-matrix-labs.css": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489",
+    "src/learn/components/lesson-labs/random-variable-labs.css": "a23e995cb0c6fc577207f9661ce6e06612b005cf6e673fcc8c4d795a8a7a0e14",
+    "src/learn/components/lesson-labs/randomized-algorithm-labs.css": "02d76f9ff6214b5984a26a7ae147e4205421035b2aeba558220c7ad158e94fa1",
+    "src/learn/components/lesson-labs/randomized-linear-algebra-labs.css": "689ce8b7c40d0fc27ffc0a92fbef9a7b17cbdf4ff48346027b3584bc9d250203",
+    "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx": "404688d9d04789fca9b8f8c2af7f3c336abaa8c00367c9c8bdca21ccf3cf71c6",
+    "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx": "4b8137bc32c2ab2d24fcfba39b6cbf1783f87e98c2cb663b3039253c33fedbbb",
+    "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "94c0356ce0ec15d78f6ee34e8ebf3a2c1085ecb3afe719ece4127faf72ef6193",
+    "src/learn/components/lesson-labs/RandomVariableLabs.jsx": "56bc639cfc9631fe8ee095906db4f9563b8a308f3f5896389cd9752c2be57de0",
+    "src/learn/components/lesson-labs/range-deque-labs.css": "a48a322dd0cfbc7ce4ffb82b19a4757d50ffecf831c6a1f223b934c4ba4a16a9",
+    "src/learn/components/lesson-labs/range-query-labs.css": "bc92ad1faed5a34378e50e17627575682dd33112da3ec21f86cbd303ce6da7bf",
+    "src/learn/components/lesson-labs/RangeDequeLabs.jsx": "1891c881275c48489299a837a8344becd06c6b7ba332e52dfe03d301368dd867",
+    "src/learn/components/lesson-labs/RangeQueryLabs.jsx": "c13b54e897175e99a58f654fcba61a882e165a2173f504faab7dd40e779fbada",
+    "src/learn/components/lesson-labs/rate-distortion-labs.css": "743b09f7846409e53af844070e45b16bb8833efae9186b9f8bb34688c11742b8",
+    "src/learn/components/lesson-labs/RateDistortionLabs.jsx": "82ead791f6b60be82b47c28c6864c2530f5b814d18e1c7689bc20ef8e4f55f23",
+    "src/learn/components/lesson-labs/real-analysis-labs.css": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094",
+    "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "e2366619a8a2c68bc99e407b5e169a24d72b81f415e5340e17f0d9b329842bc3",
+    "src/learn/components/lesson-labs/recommender-labs.css": "aa19be9eac4e20e9e82f1f8f1666a0def06fd15d1988f5979887c84aaac36d31",
+    "src/learn/components/lesson-labs/RecommenderFigures.jsx": "09b459561ae5451e063d818e68a7b0ac4f3df89aa0acd70c4808f69708aa42a3",
+    "src/learn/components/lesson-labs/RecommenderLabs.jsx": "b1805aa2b0372af388be96711f89c019bdabc62b3930fab89c8ccb5099659650",
+    "src/learn/components/lesson-labs/reliability.css": "f514d223780fdf05bda2546b86ab0c728e3f3b1b3a8ffa8b95fd9c6ac645e72d",
+    "src/learn/components/lesson-labs/RunnableExample.jsx": "f4e797db7871565d0e3cae1f9c960747b713b74fd3b9d4ea9047967d2e4e8463",
+    "src/learn/components/lesson-labs/sampling-measurement-labs.css": "8a8c8e03ebb4cd607cc08505436ea3de42465de8cccf47fa21dfefea93b31510",
+    "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "09958ab737f32b2d8871bcdd55985a3433bf7bcafc85bd4b1dd68c6ea372b8e7",
+    "src/learn/components/lesson-labs/scientific-concept-visuals.css": "6ee7e1cee6f26992fa7cc4457573d982661478a156a1d3fd1fd38299499f45ea",
+    "src/learn/components/lesson-labs/ScientificFileFigures.jsx": "ce285ef8bd9a6c0cd3398c7ff2767a5da5dc215ff91ab78cf64620868050906b",
+    "src/learn/components/lesson-labs/ScientificFileLabs.jsx": "bdc9178f1d2a73dcde7fd7589d72a99b00fde471ede58ecc86d6eefeb7983067",
+    "src/learn/components/lesson-labs/second-order-methods-labs.css": "34828d0c001197acce6d67152581e87b3c75f8acaf2de284980395bbce09fa5c",
+    "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx": "c3310642673fb30bae1a4202706be8c666ed55cb11a951bb8fc409c85b7c6b63",
+    "src/learn/components/lesson-labs/sets-logic-labs.css": "b4ba373295096954d74de7309c354336db6c26008458682c874df5538c07e6ef",
+    "src/learn/components/lesson-labs/SetsLogicLabs.jsx": "f9914cfefdfb8515610599ad02932905396e3fcea4bd5893ca4ca2967ed666b2",
+    "src/learn/components/lesson-labs/single-variable-calculus-labs.css": "f8e145eab54a14e3b4e69e6c25d62a76f718a6ad0099852b49e5279c98689033",
+    "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx": "35a10baf290aeddba3917050462cf7dec2ce9eb189f4a1566c96f07da01b4b0a",
+    "src/learn/components/lesson-labs/spectral-graph-labs.css": "4d2e3299b4569eb2eab993828c8db99effaff9cda7481180dcd7824b4e955887",
+    "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "06cb6cc3c73e6c86722c82333f99c9e1fc6af2912acd1f09e9efc0f09e844a30",
+    "src/learn/components/lesson-labs/SpectralLab.jsx": "9dbfd43637a70d8aeb627962c434b47223ec986bc152ec3a642b01d3e48e12a0",
+    "src/learn/components/lesson-labs/SqlFigures.jsx": "369aa91c13b0d0322d069c235248e87332268a026bd9885b05014f1c6fd3176f",
+    "src/learn/components/lesson-labs/SqlLabs.jsx": "4edb14ba9992da6a73bacd97b5d5fd923e0545683a69db65fa1a413efd47fa3b",
+    "src/learn/components/lesson-labs/stochastic-processes-labs.css": "05d2936b0cbf7ccfe2a15b897c5a8545062970e791265690e784235bc8c1a6fc",
+    "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": "9543688f8eee410b9c66a53f6c2f7bbff901e9f28c55199c3b01864b69e23547",
+    "src/learn/components/lesson-labs/string-matching-labs.css": "1d1348b27c32d29a6a72091f72bfa5f85849981992fc1b3b767ccd14c108469b",
+    "src/learn/components/lesson-labs/StringMatchingLabs.jsx": "cdd31069d4c146a8031554d612df61512daabdb55102fe9e45033c50d497b887",
+    "src/learn/components/lesson-labs/support-vector-machines-labs.css": "2269fea89d378c58848c7e85d78b7a6b14f9a24c36b12711dd9d64a4f9099e2a",
+    "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx": "579865b7fff0466d92e76468980680747ae6f16a091db34433df247999dae2ea",
+    "src/learn/components/lesson-labs/survival-figures.css": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498",
+    "src/learn/components/lesson-labs/survival-labs.css": "299508e13f2930460d4a0456fe2c4c66cc95760da6c887bc2b618df9ec9e2b45",
+    "src/learn/components/lesson-labs/SurvivalFigures.jsx": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43",
+    "src/learn/components/lesson-labs/SurvivalLabs.jsx": "f52c0d019bd55946b197d836d1517cfe40979f9030d36c3691618a4c2edd7165",
+    "src/learn/components/lesson-labs/systems-structures.css": "f527533566232abe4779693b0bd9d82bbe78c8cd7390fc7b0cfc260055130b97",
+    "src/learn/components/lesson-labs/SystemsMechanismFigures.jsx": "8bab3f7e3310876a59e6896f4572821e71f4be5feb1205642eb4a76faebb8e4f",
+    "src/learn/components/lesson-labs/TerminalExample.jsx": "4abb94a941aa8d1d4086aea4879b05d0d36117aec1035676126b4407917c2784",
+    "src/learn/components/lesson-labs/TestingBoundaryFigure.jsx": "b0246964344a7108ff70e077617b9932e261e53821e56adf45b5ec1ca5c56b7f",
+    "src/learn/components/lesson-labs/TestingLabs.jsx": "5b5c1ad58ba927a8eafa75a351fd922d7a961635bcfe7a6420ce1623f37b3560",
+    "src/learn/components/lesson-labs/ThreadCoordinationLabs.jsx": "c46ff37fc66d01d126b6fd1d2dbf97f77a66a9f5e26e3b0861ef0060b7510b22",
+    "src/learn/components/lesson-labs/ThreadFigures.jsx": "1af8cd975ecf0013d5f8958cbf90d263fe4f7c0d9da4d4d33699683afe2e1401",
+    "src/learn/components/lesson-labs/topology-tda-labs.css": "1827c77251efae7736b711845ea528272e5cdbb2bb07baa1540b294d6faa5c1a",
+    "src/learn/components/lesson-labs/TopologyTdaLabs.jsx": "2fc49e62e836f7c6bb6aa06c0e18ef31f39c048fbd47cc0b43b7323f9cbd9d25",
+    "src/learn/components/lesson-labs/tree-labs.css": "9c25f69eefd50bcba0ed9848bf9454e4c630850df67166a8f97aa7b0bdf5c8b1",
+    "src/learn/components/lesson-labs/TreeLabs.jsx": "e6814e833f4a4b7ed01c12baeeb1e150e4d2679c37bf377055af0cfe3aa79ce1",
+    "src/learn/components/lesson-labs/union-find-labs.css": "66bbb7e07a2ca1e8f577d9b60093cc4c9a41f145057a548a3ef9107c1068dac2",
+    "src/learn/components/lesson-labs/UnionFindLabs.jsx": "dbdf1d5057e91438984694370fdb1a6cec80503d6339de9f34ac91f2952c56e7",
+    "src/learn/components/lesson-labs/variational-inference-labs.css": "56c57cd8be74c8a3c73a407a6abb526889d8f474a96276534c239d94c24fadd1",
+    "src/learn/components/lesson-labs/VariationalInferenceLabs.jsx": "6551017dcdeef480a1441e918fe5648006f7f076f375c438a237675a22cebc9b",
+    "src/learn/components/lesson-labs/vector-tensor-labs.css": "f78e044cfc01cc5a0d10f5ccb8d74982b135bb3cb2ce929fa24adc6d1c192830",
+    "src/learn/components/lesson-labs/VectorTensorLabs.jsx": "d37366542123f0689429b31d4fcc85e5dd17dd0f600400ee3ef887b963c045f1",
+    "src/learn/components/lesson-labs/weighted-graph-labs.css": "0fd516660f8c0ea88725fbcb3ee06725adf22c63dd0f729891910766372515f4",
+    "src/learn/components/lesson-labs/WeightedGraphLabs.jsx": "ce6b52a9a1edaf9aabeccd47998256f3898a5b520714a9c9837b434dfbe0e340",
+    "src/learn/components/lesson-labs/workflow-figures.css": "5701223d90a1e4172d5e06edc5ae6c6cbbdbf9a0a20b79e4bd6dcbac7a5a3f34",
+    "src/learn/components/lesson-labs/workflow-labs.css": "b379f4f3ffca6f7443a0639970dcd52a55c8ce3e0a15145cc3b57216c170a3cb",
+    "src/learn/components/LessonBoundary.jsx": "2fceb882434d1d8c00c12e64b0c87b8653e9d98640a2e0022ccf0e3b97892df8",
+    "src/learn/components/LessonGuide.jsx": "c4552ee38178a87021e5f54ec36c77d566edbccae9e58435c55fc5186df209dc",
+    "src/learn/components/LevelBadge.jsx": "325fd3eb0b155780333620b584b7a62315fb9647625afb18313ac9c6e16a9647",
+    "src/learn/components/PlaceholderContent.jsx": "21c9bafcb7c30262b2d6936d9724505ca26d9e0a91b30d6dba80a82e0ad24c07",
+    "src/learn/components/ProgrammingReference.jsx": "9aa4524612c31aec390f1216718d5e403e18bcfb0b7f23860669011a8bcb5b15",
+    "src/learn/components/ProgressBar.jsx": "429fb89e78fd00d2330bdd23310b90a5a5f2cbc6765eb1a15619d4e5f9be050d",
+    "src/learn/components/ReaderSidebar.jsx": "f22a343fdfd063cc96af24cfb52539dce9cdf61920c93110a21b314824e60fec",
+    "src/learn/components/StructuredLesson.jsx": "4409209fb295c40c1ccbdf1342e03df5cfa13e319ad0dbd1c15015a6999729bf",
+    "src/learn/components/topic-content.css": "9ae949a675de806eb17fbace1c5cdd4e07d18d1fbf88862f22f48c5ad12fcd5a",
+    "src/learn/components/TopicContent.jsx": "7c05bc7a5f2852ed74448d6c45959ed1a9b05acde3700cc8b1a3143cb73cbc27",
+    "src/learn/components/TopicList.jsx": "8be98e15729cf7549cd1be24b9e6163ef4c678c14ea7a451f7684436806b1024",
+    "src/learn/components/TrackCard.jsx": "2e09567dfcd1da3f7f86a83c1210f6c6525ac6b26040ee54ffc67d3ea64fc168",
+    "src/learn/components/viz/ByteGrid.jsx": "f8292f64bee53a822afa32498abba0116c3c4938f2970131b15a65657fe1a19f",
+    "src/learn/components/viz/Heatmap.jsx": "e81e4bfbc76f736a9c01f6d9fb361ac48096d9423c78389eb8d4ec6951fbe7be",
+    "src/learn/components/viz/index.js": "d9fe756bc60a3f7c234d800e91094f963f03b7623749f29706f5987626c6bca9",
+    "src/learn/components/viz/PatchGrid.jsx": "b0636f046f1181f3f083c0a11cc37f4faa7fdf2021d63d56d00d63fca5a6cba3",
+    "src/learn/components/viz/plot.css": "32e51e475a71630d54315cb113e9e750f2db885796d3a9b89cc0e2e8e2687c03",
+    "src/learn/components/viz/Plot.jsx": "9d674846a2fcad8b5f0b8b902981053f81c88802ae7a9b76056aa57f196ee99c",
+    "src/learn/components/viz/StepTrace.jsx": "25873557f65319e03262e709b829e8f06ab7f3c88fa6b20b1a7ab258f9e733ed",
+    "src/learn/components/viz/TokenStream.jsx": "f853d1718cccab9fa2e76dafdc09ea546bbe8c2c19d8f0156bbe935e8f35a91a"
+  },
+  "records": [
+    {
+      "id": "gaussian-mixture-models-gmm-em-algorithm",
+      "width": 1366,
+      "figures": [
+        {
+          "svgIndex": 0,
+          "description": "A hidden selector chooses A or B with probability one half each. Given A the measurement is drawn from a normal distribution with mean minus 2 and variance 1; given B, mean 2 and v",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Component A is centred at -2 with variance 1 and weight 0.5; component B at 2 with variance 1 and weight 0.5. The solid curve is their sum. Record a prediction or calculate to reve",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "Four fixed measurements and their allocation shares: A at -2 gives 0.982014 to Left and 0.017986 to Right; B at -1 gives 0.880797 to Left and 0.119203 to Right; C at 1 gives 0.1192",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "Left, before: mean -1; standard deviation 1. Bar from -2 to 0, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Left, after: mean -1.344824658; standard deviation 0.831532705. Bar from -2.176357363 to -0.513291953, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "Right, before: mean 1; standard deviation 1. Bar from 0 to 2, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "Right, after: mean 1.344824658; standard deviation 0.831532705. Bar from 0.513291953 to 2.176357363, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 8,
+          "description": "Left has mean -1 and variance 1; Right has mean 1 and variance 1. The measurements are at -2, -1, 1, 2.",
+          "labelCount": 9,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "The narrow component at standard deviations 1, 0.1 and 0.01, all drawn on the same window from minus 3 to minus 1, with a square-root height axis. Their weighted peaks at minus 2 a",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "Total four-row log-likelihood against standard deviation on a logarithmic axis: at 1 it is -8.122121377; at 0.1 it is -6.945323529; at 0.01 it is -4.669586147; at 0.001 it is -2.36",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 18,
+          "description": "Correlation 0.75. The unit contour has semiaxes 1.3229 along (1, 1) and 0.5 along (1, −1). P is at 1, 1; Q is at 1, -1. Predict the density ordering before revealing the quadratic ",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 19,
+          "description": "Correlation 0. The unit contour has semiaxes 1 along (1, 1) and 1 along (1, −1). P is at 1, 1; Q is at 1, -1. Predict the density ordering before revealing the quadratic forms.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 20,
+          "description": "full: the left component at minus 2, 0 has covariance rows 2 and 0.75; 0.75 and 1, and the right component at 2, 0 has 0.5 and -0.25; -0.25 and 1.5. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 21,
+          "description": "tied: the left component at minus 2, 0 has covariance rows 1 and 0.5; 0.5 and 1, and the right component at 2, 0 has 1 and 0.5; 0.5 and 1. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 22,
+          "description": "diag: the left component at minus 2, 0 has covariance rows 2 and 0; 0 and 1, and the right component at 2, 0 has 0.5 and 0; 0 and 1.5. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 23,
+          "description": "spherical: the left component at minus 2, 0 has covariance rows 1.5 and 0; 0 and 1.5, and the right component at 2, 0 has 1 and 0; 0 and 1. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 24,
+          "description": "Validation mean log-density by number of components for each covariance family. full: K equals 1 gives -2.934881, K equals 2 gives -2.6688, K equals 3 gives -2.671122, K equals 4 g",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 25,
+          "description": "Training BIC by number of components. full: K equals 1 gives 533.238, K equals 2 gives 490.753, K equals 3 gives 496.832, K equals 4 gives 461.595. tied: K equals 1 gives 533.238, ",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 26,
+          "description": "Ninety training observations, sepal length against sepal width in centimetres. Length runs from 4.2 to 7.8 and width from 1.8 to 4.4. The narrow component of the full K equals 4 fi",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 27,
+          "description": "A magnified strip around sepal width 3 centimetres, spanning 0.12 centimetres in total. The component's fitted width standard deviation is 0.004209 centimetres, far narrower than t",
+          "labelCount": 3,
+          "issues": []
+        },
+        {
+          "svgIndex": 28,
+          "description": "At the old parameters the objective and the bound are both -7.158186977. Holding the same responsibilities, the bound at the new parameters is -6.799547014, and the new objective i",
+          "labelCount": 9,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "id": "gaussian-mixture-models-gmm-em-algorithm",
+      "width": 390,
+      "figures": [
+        {
+          "svgIndex": 0,
+          "description": "A hidden selector chooses A or B with probability one half each. Given A the measurement is drawn from a normal distribution with mean minus 2 and variance 1; given B, mean 2 and v",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Component A is centred at -2 with variance 1 and weight 0.5; component B at 2 with variance 1 and weight 0.5. The solid curve is their sum. Record a prediction or calculate to reve",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "Four fixed measurements and their allocation shares: A at -2 gives 0.982014 to Left and 0.017986 to Right; B at -1 gives 0.880797 to Left and 0.119203 to Right; C at 1 gives 0.1192",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "Left, before: mean -1; standard deviation 1. Bar from -2 to 0, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Left, after: mean -1.344824658; standard deviation 0.831532705. Bar from -2.176357363 to -0.513291953, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "Right, before: mean 1; standard deviation 1. Bar from 0 to 2, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "Right, after: mean 1.344824658; standard deviation 0.831532705. Bar from 0.513291953 to 2.176357363, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 8,
+          "description": "Left has mean -1 and variance 1; Right has mean 1 and variance 1. The measurements are at -2, -1, 1, 2.",
+          "labelCount": 9,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "The narrow component at standard deviations 1, 0.1 and 0.01, all drawn on the same window from minus 3 to minus 1, with a square-root height axis. Their weighted peaks at minus 2 a",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "Total four-row log-likelihood against standard deviation on a logarithmic axis: at 1 it is -8.122121377; at 0.1 it is -6.945323529; at 0.01 it is -4.669586147; at 0.001 it is -2.36",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 18,
+          "description": "Correlation 0.75. The unit contour has semiaxes 1.3229 along (1, 1) and 0.5 along (1, −1). P is at 1, 1; Q is at 1, -1. Predict the density ordering before revealing the quadratic ",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 19,
+          "description": "Correlation 0. The unit contour has semiaxes 1 along (1, 1) and 1 along (1, −1). P is at 1, 1; Q is at 1, -1. Predict the density ordering before revealing the quadratic forms.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 20,
+          "description": "full: the left component at minus 2, 0 has covariance rows 2 and 0.75; 0.75 and 1, and the right component at 2, 0 has 0.5 and -0.25; -0.25 and 1.5. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 21,
+          "description": "tied: the left component at minus 2, 0 has covariance rows 1 and 0.5; 0.5 and 1, and the right component at 2, 0 has 1 and 0.5; 0.5 and 1. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 22,
+          "description": "diag: the left component at minus 2, 0 has covariance rows 2 and 0; 0 and 1, and the right component at 2, 0 has 0.5 and 0; 0 and 1.5. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 23,
+          "description": "spherical: the left component at minus 2, 0 has covariance rows 1.5 and 0; 0 and 1.5, and the right component at 2, 0 has 1 and 0; 0 and 1. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 24,
+          "description": "Validation mean log-density by number of components for each covariance family. full: K equals 1 gives -2.934881, K equals 2 gives -2.6688, K equals 3 gives -2.671122, K equals 4 g",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 25,
+          "description": "Training BIC by number of components. full: K equals 1 gives 533.238, K equals 2 gives 490.753, K equals 3 gives 496.832, K equals 4 gives 461.595. tied: K equals 1 gives 533.238, ",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 26,
+          "description": "Ninety training observations, sepal length against sepal width in centimetres. Length runs from 4.2 to 7.8 and width from 1.8 to 4.4. The narrow component of the full K equals 4 fi",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 27,
+          "description": "A magnified strip around sepal width 3 centimetres, spanning 0.12 centimetres in total. The component's fitted width standard deviation is 0.004209 centimetres, far narrower than t",
+          "labelCount": 3,
+          "issues": []
+        },
+        {
+          "svgIndex": 28,
+          "description": "At the old parameters the objective and the bound are both -7.158186977. Holding the same responsibilities, the bound at the new parameters is -6.799547014, and the new objective i",
+          "labelCount": 9,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "id": "gaussian-mixture-models-gmm-em-algorithm",
+      "width": 320,
+      "figures": [
+        {
+          "svgIndex": 0,
+          "description": "A hidden selector chooses A or B with probability one half each. Given A the measurement is drawn from a normal distribution with mean minus 2 and variance 1; given B, mean 2 and v",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Component A is centred at -2 with variance 1 and weight 0.5; component B at 2 with variance 1 and weight 0.5. The solid curve is their sum. Record a prediction or calculate to reve",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "Four fixed measurements and their allocation shares: A at -2 gives 0.982014 to Left and 0.017986 to Right; B at -1 gives 0.880797 to Left and 0.119203 to Right; C at 1 gives 0.1192",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "Left, before: mean -1; standard deviation 1. Bar from -2 to 0, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Left, after: mean -1.344824658; standard deviation 0.831532705. Bar from -2.176357363 to -0.513291953, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "Right, before: mean 1; standard deviation 1. Bar from 0 to 2, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "Right, after: mean 1.344824658; standard deviation 0.831532705. Bar from 0.513291953 to 2.176357363, on the shared minus 3.4 to 3.4 scale.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 8,
+          "description": "Left has mean -1 and variance 1; Right has mean 1 and variance 1. The measurements are at -2, -1, 1, 2.",
+          "labelCount": 9,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "The narrow component at standard deviations 1, 0.1 and 0.01, all drawn on the same window from minus 3 to minus 1, with a square-root height axis. Their weighted peaks at minus 2 a",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "Total four-row log-likelihood against standard deviation on a logarithmic axis: at 1 it is -8.122121377; at 0.1 it is -6.945323529; at 0.01 it is -4.669586147; at 0.001 it is -2.36",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 18,
+          "description": "Correlation 0.75. The unit contour has semiaxes 1.3229 along (1, 1) and 0.5 along (1, −1). P is at 1, 1; Q is at 1, -1. Predict the density ordering before revealing the quadratic ",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 19,
+          "description": "Correlation 0. The unit contour has semiaxes 1 along (1, 1) and 1 along (1, −1). P is at 1, 1; Q is at 1, -1. Predict the density ordering before revealing the quadratic forms.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 20,
+          "description": "full: the left component at minus 2, 0 has covariance rows 2 and 0.75; 0.75 and 1, and the right component at 2, 0 has 0.5 and -0.25; -0.25 and 1.5. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 21,
+          "description": "tied: the left component at minus 2, 0 has covariance rows 1 and 0.5; 0.5 and 1, and the right component at 2, 0 has 1 and 0.5; 0.5 and 1. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 22,
+          "description": "diag: the left component at minus 2, 0 has covariance rows 2 and 0; 0 and 1, and the right component at 2, 0 has 0.5 and 0; 0 and 1.5. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 23,
+          "description": "spherical: the left component at minus 2, 0 has covariance rows 1.5 and 0; 0 and 1.5, and the right component at 2, 0 has 1 and 0; 0 and 1. Both axes use the same scale.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 24,
+          "description": "Validation mean log-density by number of components for each covariance family. full: K equals 1 gives -2.934881, K equals 2 gives -2.6688, K equals 3 gives -2.671122, K equals 4 g",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 25,
+          "description": "Training BIC by number of components. full: K equals 1 gives 533.238, K equals 2 gives 490.753, K equals 3 gives 496.832, K equals 4 gives 461.595. tied: K equals 1 gives 533.238, ",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 26,
+          "description": "Ninety training observations, sepal length against sepal width in centimetres. Length runs from 4.2 to 7.8 and width from 1.8 to 4.4. The narrow component of the full K equals 4 fi",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 27,
+          "description": "A magnified strip around sepal width 3 centimetres, spanning 0.12 centimetres in total. The component's fitted width standard deviation is 0.004209 centimetres, far narrower than t",
+          "labelCount": 3,
+          "issues": []
+        },
+        {
+          "svgIndex": 28,
+          "description": "At the old parameters the objective and the bound are both -7.158186977. Holding the same responsibilities, the bound at the new parameters is -6.799547014, and the new objective i",
+          "labelCount": 9,
+          "issues": []
+        }
+      ]
+    }
+  ]
+}

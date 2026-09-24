@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "reviewer": "root, independent of audit_classical_controls author",
+  "checks": [
+    "Rank-1/2 factor rescaling preserves the function/input gradient while transforming factor gradients; zero rate/scale give exact nulls",
+    "BatchNorm mode, gradient recording and optimizer ownership are independent; translated inputs and memory retain output",
+    "Candidate selection is unaffected by record order or other-seed metrics, and an impossible budget stays empty"
+  ],
+  "sourceHashes": {
+    "src/learn/data/transfer-learning-model.js": "c37ff85915e37d72314d44c8966aa1d76f53186af8530671781047c76f81082c",
+    "src/learn/components/lesson-labs/TransferLearningLabs.jsx": "32a5bc064acbc04208c15d5372d56453f2f0cb35aea64db25f57f92c735fcc9b",
+    "src/learn/components/lesson-labs/transfer-learning.css": "cdcf84f6327c60d618e44e999d424df358e3fe83a6068473e493b27cf62fa3b3",
+    "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "78643d8a432d83b2a95a71065134ced5676adb2bffef877f14b328931cdddb5c"
+  },
+  "checkedAt": "2026-09-21T17:52:02.511Z"
+}

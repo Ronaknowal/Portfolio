@@ -1,0 +1,807 @@
+{
+  "startedAt": "2026-09-14T08:47:29.525Z",
+  "scope": "Source/render triage of six foreground-line/label candidate families; only five label/reference-guide renderers changed. No statistical or geometric models changed.",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx": "b4efa3bfd754b12f07d947c694849a2b87be33ca5049d1143b0562c475dc5794",
+    "src/learn/components/lesson-labs/DualityKktLabs.jsx": "826f494eb9e7d8ecea921a183a5820514f09f96dc568b5e3cdd49fea3f4fdf59",
+    "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": "4112d66720d3f6591d8506925770d74d99bda1779ab431b9d5f1ae1f1d45c207",
+    "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx": "da66242941db121ee9af2fa344a549e6af7087a7c0d9a3f5f7cf9f7bdbd8ee89",
+    "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx": "f18fd73b954059d41377c1daea5c421aaf7b9be02bc0ebdbb99651ff01417be6"
+  },
+  "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+  "cases": [
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "default state",
+      "width": 1366,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "default state",
+      "width": 390,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "default state",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "convex-duality-lagrangian-methods-kkt-conditions",
+      "name": "default state",
+      "width": 1366,
+      "findings": [
+        {
+          "svgIndex": 12,
+          "description": "Amber: prices through the selected state. Green: one optimal price, 2.666667. At b=0 every price at least 16 is optimal; the reference uses 16. A large step can produce a repeating",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "convex-duality-lagrangian-methods-kkt-conditions",
+      "name": "default state",
+      "width": 390,
+      "findings": [
+        {
+          "svgIndex": 12,
+          "description": "Amber: prices through the selected state. Green: one optimal price, 2.666667. At b=0 every price at least 16 is optimal; the reference uses 16. A large step can produce a repeating",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "convex-duality-lagrangian-methods-kkt-conditions",
+      "name": "default state",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 12,
+          "description": "Amber: prices through the selected state. Green: one optimal price, 2.666667. At b=0 every price at least 16 is optimal; the reference uses 16. A large step can produce a repeating",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "default state",
+      "width": 1366,
+      "findings": [
+        {
+          "svgIndex": 21,
+          "description": "95% interval -0.323 to 4.323; 90% interval 0.216 to 3.784 milliseconds",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 24,
+          "description": "Null rejection chance 5.00%; detection chance 80.38% at true saving 2 ms",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 26,
+          "description": "Intervals for 0 successes in 10 trials; true probability 0.2 is specified only to assess coverage",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "default state",
+      "width": 390,
+      "findings": [
+        {
+          "svgIndex": 21,
+          "description": "95% interval -0.323 to 4.323; 90% interval 0.216 to 3.784 milliseconds",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 24,
+          "description": "Null rejection chance 5.00%; detection chance 80.38% at true saving 2 ms",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 26,
+          "description": "Intervals for 0 successes in 10 trials; true probability 0.2 is specified only to assess coverage",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "default state",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 21,
+          "description": "95% interval -0.323 to 4.323; 90% interval 0.216 to 3.784 milliseconds",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 24,
+          "description": "Null rejection chance 5.00%; detection chance 80.38% at true saving 2 ms",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 26,
+          "description": "Intervals for 0 successes in 10 trials; true probability 0.2 is specified only to assess coverage",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "exponential-families-sufficient-statistics",
+      "name": "default state",
+      "width": 1366,
+      "findings": [
+        {
+          "svgIndex": 1,
+          "description": "Same sample mean, different spread",
+          "labelCount": 15,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "exponential-families-sufficient-statistics",
+      "name": "default state",
+      "width": 390,
+      "findings": [
+        {
+          "svgIndex": 1,
+          "description": "Same sample mean, different spread",
+          "labelCount": 15,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "exponential-families-sufficient-statistics",
+      "name": "default state",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 1,
+          "description": "Same sample mean, different spread",
+          "labelCount": 15,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "f-divergences-integral-probability-metrics",
+      "name": "default state",
+      "width": 1366,
+      "findings": [
+        {
+          "svgIndex": 9,
+          "description": "The feature-mean difference is (0,1), whose Euclidean norm is 1. This finite feature map gives kernel k(x,y)=xy+x²y². It detects this pair; matching only these two moments would st",
+          "labelCount": 9,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "0",
+              "lineClass": "divergence-connector"
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "f-divergences-integral-probability-metrics",
+      "name": "default state",
+      "width": 390,
+      "findings": [
+        {
+          "svgIndex": 9,
+          "description": "The feature-mean difference is (0,1), whose Euclidean norm is 1. This finite feature map gives kernel k(x,y)=xy+x²y². It detects this pair; matching only these two moments would st",
+          "labelCount": 9,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "0",
+              "lineClass": "divergence-connector"
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "f-divergences-integral-probability-metrics",
+      "name": "default state",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 9,
+          "description": "The feature-mean difference is (0,1), whose Euclidean norm is 1. This finite feature map gives kernel k(x,y)=xy+x²y². It detects this pair; matching only these two moments would st",
+          "labelCount": 9,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "0",
+              "lineClass": "divergence-connector"
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "default state",
+      "width": 1366,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": ""
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "default state",
+      "width": 390,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": ""
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "default state",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": ""
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "direction 45 degrees",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "direction 90 degrees",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "direction 180 degrees",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "direction 225 degrees",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "direction 270 degrees",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "direction 360 degrees",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "endpoint separation 0",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": ""
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "endpoint separation 45",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "endpoint separation 85",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "endpoint separation 90",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": ""
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "endpoint separation 135",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "name": "endpoint separation 180",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 7,
+          "description": "Short arc, long arc and off-sphere chord between shared endpoints",
+          "labelCount": 6,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": ""
+            }
+          ]
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "practical effect shifted",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 21,
+          "description": "95% interval 0.677 to 5.323; 90% interval 1.216 to 4.784 milliseconds",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "two-sided power, effect 0",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 24,
+          "description": "Null rejection chance 5.00%; detection chance 5.00% at true saving 0 ms",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "two-sided power, effect 4",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 24,
+          "description": "Null rejection chance 5.00%; detection chance 99.88% at true saving 4 ms",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "reference truth 0",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 26,
+          "description": "Intervals for 0 successes in 10 trials; true probability 0 is specified only to assess coverage",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "reference truth 0.5",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 26,
+          "description": "Intervals for 0 successes in 10 trials; true probability 0.5 is specified only to assess coverage",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "hypothesis-testing-confidence-intervals",
+      "name": "reference truth 1",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 26,
+          "description": "Intervals for 0 successes in 10 trials; true probability 1 is specified only to assess coverage",
+          "labelCount": 6,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "convex-duality-lagrangian-methods-kkt-conditions",
+      "name": "zero budget, initial20, state20",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 12,
+          "description": "Amber: prices through the selected state. Green: one optimal price, 16. At b=0 every price at least 16 is optimal; the reference uses 16. A large step can produce a repeating cycle",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "name": "Opposed gradient and chosen arrows use a perpendicular label offset; native range input event at243.43494882292202degrees",
+      "width": 320,
+      "findings": [
+        {
+          "svgIndex": 8,
+          "description": "Bowl contours, base point, selected unit direction and gradient direction",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Two-coordinate gradient at point one one",
+          "labelCount": 5,
+          "issues": []
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/screenshots/foreground-label-multivariate-calculus-gradients-8-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-multivariate-calculus-gradients-10-1366-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-convex-duality-lagrangian-methods-kkt-conditions-12-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-21-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-21-1366-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-24-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-26-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-exponential-families-sufficient-statistics-1-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-differential-geometry-riemannian-manifolds-7-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-f-divergences-integral-probability-metrics-9-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-differential-geometry-riemannian-manifolds-7-angle-0-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-differential-geometry-riemannian-manifolds-7-angle-180-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-convex-duality-lagrangian-methods-kkt-conditions-12-state20-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-26-truth-1-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-multivariate-calculus-gradients-8-opposed-arrows-after.png"
+  ],
+  "inspectedScreenshots": [
+    "docs/teaching/evidence/screenshots/foreground-label-multivariate-calculus-gradients-8-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-multivariate-calculus-gradients-10-1366-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-convex-duality-lagrangian-methods-kkt-conditions-12-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-21-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-21-1366-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-24-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-26-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-exponential-families-sufficient-statistics-1-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-differential-geometry-riemannian-manifolds-7-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-f-divergences-integral-probability-metrics-9-320-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-differential-geometry-riemannian-manifolds-7-angle-0-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-differential-geometry-riemannian-manifolds-7-angle-180-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-convex-duality-lagrangian-methods-kkt-conditions-12-state20-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-hypothesis-testing-confidence-intervals-26-truth-1-after.png",
+    "docs/teaching/evidence/screenshots/foreground-label-multivariate-calculus-gradients-8-opposed-arrows-after.png"
+  ],
+  "failures": [],
+  "completedAt": "2026-09-14T08:52:50.732Z",
+  "consoleErrors": [],
+  "status": "passed",
+  "intentionalOcclusions": [
+    {
+      "id": "f-divergences-integral-probability-metrics",
+      "svgIndex": 9,
+      "reason": "At0 label, the endpoint of the vertical coordinate stem is covered by the later-painted Q data circle: centre175,radius8,stem endpoint183. The inspected zero is unobstructed. No source changed."
+    },
+    {
+      "id": "differential-geometry-riemannian-manifolds",
+      "svgIndex": 7,
+      "reason": "B now lies outside the circle and chord. At cardinal positions, a background-colored stroke halo protects it from the coordinate grid; these axis crossings are not foreground data-line strikes."
+    }
+  ],
+  "visualReview": "Inspected nine initial candidate images to classify the six families, then inspected these15 selected final captures. Interval/power/proportion reference marks retain identical horizontal numeric positions and leave row-label bands clear. The mean guide stops before ticks/captions. Gradient labels avoid outgoing arrows, including exactly opposed arrows. Price header remains clear through state20. B stays outside the arc/chord at0,90,180 degrees; its small background halo protects it at coordinate-axis crossings. The unchanged f-divergence zero is clear.",
+  "retention": "Kept15 inspected final figures and the source-bound38-case report. Duplicate viewport/state captures and temporary before-triage captures were removed after review.",
+  "independentRootFigureReview": {
+    "reviewedOn": "2026-09-14T09:23:49.884Z",
+    "scope": "Independent review of the root-authored GMM allocation reflow, GmmLabs annotations and backtracking annotation opacity; subsequent EM-key fix authored in response to the confirmed finding.",
+    "sourceHashes": {
+      "src/learn/components/lesson-labs/GmmFigures.jsx": "99d8a4fc2cd90d4d9d2d8fbeb0dc1bd3e001db65f845a7d826033f780fd011b6",
+      "src/learn/components/lesson-labs/GmmLabs.jsx": "61a98ee392851e34f27aa52e8014a126e07d35ff798518f5e016ef59e4ee2a56",
+      "src/learn/components/lesson-labs/gmm-labs.css": "e24fda13ed966f05c437759ff36396be36d4f3b667de1389d0787406fb84652b",
+      "src/learn/data/gmm-models.js": "a04b58a2b4e5e46ac6f4f1cc1069f71e49328c350d0f5909513a580abe00dcb2",
+      "src/learn/components/lesson-labs/backtracking-divide-labs.css": "a42e00a0afa8900addc6f782e2932029d68c265d8277a75ddebb7928744bfde4",
+      "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx": "4b9cd8c6bc3a6c83466cf09ce451f654b9f634f5f45633101a9b70fea3da03b8"
+    },
+    "inspectedScreenshots": [
+      "docs/teaching/evidence/screenshots/gmm-allocation-desktop.png",
+      "docs/teaching/evidence/screenshots/gmm-allocation-320.png",
+      "docs/teaching/evidence/screenshots/layout-backtracking-choice-initial-1366.png",
+      "docs/teaching/evidence/screenshots/layout-backtracking-choice-explored-1366.png",
+      "docs/teaching/evidence/screenshots/gmm-em-identical-key-1366.png",
+      "docs/teaching/evidence/screenshots/gmm-em-identical-key-320.png"
+    ],
+    "independentAllocationArithmetic": {
+      "formula": "r_Left(x)=1/(1+exp(2*x)); N=sum(r); mean=sum(r*x)/N; variance=sum(r*(x-mean)^2)/N; log likelihood from a direct two-normal density sum",
+      "observations": [
+        -2,
+        -1,
+        1,
+        2
+      ],
+      "leftShares": [
+        0.9820137900379085,
+        0.8807970779778823,
+        0.11920292202211755,
+        0.01798620996209156
+      ],
+      "effectiveCount": 2,
+      "weight": 0.5,
+      "mean": -1.3448246580536993,
+      "variance": 0.6914466390907508,
+      "standardDeviation": 0.8315327047631685,
+      "logLikelihoodBefore": -7.158186977136907,
+      "logLikelihoodAfter": -6.461856301295123,
+      "tolerance": 1e-12,
+      "status": "passed"
+    },
+    "allocationReview": "Each mass column is54*rLeft plus54*rRight. All four update strips share viewBox340x62 and the same affine map on[-3.4,3.4]. Standard deviations use sqrt(variance), not variance. CSS preserves viewBox proportions, matches component-panel widths and stacks them on phones. Both supplied captures have separated descriptions and clear marks.",
+    "backtrackingReview": "Source changes only annotation painting and unseen-state opacity. Running sums, take/skip names, edges, visited classes and pruning/solution states are unchanged. Opaque strokes protect names; unseen node circles/numbers remain dim while label fill remains readable. Initial and explored captures were inspected.",
+    "emAnnotationFinding": {
+      "reproduction": "Choose Identical components in the EM lab. Both means are0 and the two names were positioned at SVG(183,22.16).",
+      "status": "Closed: root production build and14-case GMM browser suite passed, including the new all-preset, before/after-cycle checks at1366/320px. Both final external-key screenshots were actually inspected; the names remain complete and separated while coincident curves and their original coordinates remain intact.",
+      "repair": "Only positional component-name texts are removed. Curves, vertical guides, measurement positions, shared observation labels, state transitions and computed statistics are unchanged.",
+      "verifier": "scripts/verify-gmm-browser.cjs now covers all four presets, initial and after one cycle, at1366/320px.",
+      "finalBrowserEvidence": {
+        "path": "docs/teaching/evidence/gmm-browser.json",
+        "completedAt": "2026-09-14T09:24:34.740Z",
+        "buildManifestHash": "d6c238146c6188f26fe9d9f471028dbe8e9c6faf556e2794a07a79eb4e47ea45",
+        "caseCount": 14
+      }
+    },
+    "closedAt": "2026-09-14T09:26:10.357Z"
+  }
+}

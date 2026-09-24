@@ -1,0 +1,79 @@
+.bd-lab, .bd-inline { margin: 2rem 0; padding: 1.2rem 0; border-block: 1px solid #30342d; color: #e7e5dd; }
+.bd-lab { container-type: inline-size; }
+.bd-lab h3, .bd-inline h3 { font-size: 1.2rem; margin: .5rem 0 1rem; }
+.bd-lab p, .bd-inline figcaption { line-height: 1.7; }
+.bd-eyebrow { color: #eac16a; font-size: .74rem; letter-spacing: .12em; }
+.bd-controls { display: flex; flex-wrap: wrap; gap: .6rem; align-items: end; margin: 1rem 0; }
+.bd-controls label { display: flex; flex-direction: column; gap: .35rem; max-width: 100%; font-size: .88rem; }
+.bd-controls input:not([type="checkbox"]), .bd-controls select, .bd-controls button, .bd-split-level button { box-sizing: border-box; border: 1px solid #565a51; border-radius: 3px; color: #e8e8de; background: #171b15; min-height: 44px; padding: .6rem .7rem; font: inherit; max-width: 100%; }
+.bd-controls input { width: 16rem; }
+.bd-controls button, .bd-split-level button { cursor: pointer; }
+.bd-controls button:hover:not(:disabled), .bd-split-level button:hover { border-color: #eac16a; }
+.bd-controls button:disabled { opacity: .4; cursor: default; }
+.bd-controls .bd-checkbox { flex-direction: row; align-items: center; min-height: 44px; }
+.bd-checkbox input { width: 20px; height: 20px; accent-color: #dfbd6f; }
+.bd-lab :focus-visible, .bd-inline :focus-visible { outline: 2px solid #f1c56e; outline-offset: 3px; }
+.bd-note, .bd-inline figcaption { font-size: .88rem; color: #bdc1b7; }
+.bd-error { color: #ffb3a4; }
+.bd-status { background: #1a1e16; padding: .9rem 1rem; border-left: 2px solid #d3b36b; min-height: 3.4em; }
+.bd-path { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; margin: 1rem 0; }
+.bd-path strong { width: 100%; font-size: .9rem; }
+.bd-path span:not(.bd-empty) { display: flex; align-items: center; gap: .5rem; border-bottom: 2px solid #d6b36a; padding: .45rem; background: #252b1f; }
+.bd-path small { color: #c6c7be; }
+.bd-path b { font-size: 1.2rem; }
+.bd-empty { color: #b2b8ac; }
+.bd-diagram-scroll, .bd-table-scroll { overflow-x: auto; overscroll-behavior-inline: contain; margin: 1rem 0; }
+.bd-diagram-scroll svg { display: block; max-width: none; height: auto; }
+.bd-choice-edge { stroke: #5c6556; stroke-width: 1.3; }
+.bd-choice-node circle { fill: #1c221b; stroke: #829476; stroke-width: 1.5; }
+.bd-choice-node text { fill: #e6e9dd; text-anchor: middle; font-size: 16px; }
+.bd-choice-node .bd-choice-label { fill: #b6bcae; font-size: 11px; paint-order: stroke fill; stroke: #111610; stroke-width: 4px; stroke-linejoin: round; }
+/* Keep annotation backplates opaque; group opacity would reveal edges again. */
+.bd-choice-node--unseen circle, .bd-choice-node--unseen text:not(.bd-choice-label) { opacity: .43; }
+.bd-choice-node--unseen .bd-choice-label { fill: #747e6d; }
+.bd-choice-node--solution circle { fill: #354c29; stroke: #abc48c; }
+.bd-choice-node--pruned circle { fill: #3b2722; stroke: #ecaa8c; stroke-dasharray: 4 3; }
+.bd-choice-node--miss circle { fill: #292d27; stroke: #7d8477; }
+.bd-choice-node--current circle { stroke: #f3c468; stroke-width: 3; }
+.bd-trace-controls { align-items: center; }
+.bd-trace-controls span { font-size: .85rem; color: #b8c0ae; }
+.bd-answer-strip { border-block: 1px solid #3d4535; padding: .9rem 0; font-size: .9rem; }
+.bd-answer-strip > div { display: grid; gap: .4rem; margin-top: .7rem; }
+.bd-lab details { margin: 1.1rem 0; font-size: .9rem; }
+.bd-lab summary { padding: .45rem 0; cursor: pointer; }
+.bd-table-scroll table { border-collapse: collapse; width: 100%; }
+.bd-table-scroll th, .bd-table-scroll td { padding: .6rem; border-bottom: 1px solid #3d4535; text-align: left; }
+.bd-queen-layout { display: grid; grid-template-columns: minmax(250px, 340px) 1fr; gap: 1.6rem; align-items: start; margin: 1.5rem 0; }
+.bd-chessboard { display: grid; position: relative; width: 100%; aspect-ratio: 1; border: 1px solid #899578; box-sizing: border-box; }
+.bd-square { position: relative; min-width: 0; background: #252e20; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #b0bbaa; }
+.bd-square--dark { background: #12190f; }
+.bd-square small { position: absolute; top: 4px; left: 5px; font-size: 10px; }
+.bd-square b { font-size: clamp(1.15rem, 4cqi, 1.7rem); }
+.bd-square--queen { color: #f0d290; }
+.bd-square--candidate { outline: 2px solid #efc169; outline-offset: -3px; color: #f4d09c; }
+.bd-square--attacker { box-shadow: inset 0 0 0 2px #e5a283; }
+.bd-chessboard svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.bd-chessboard svg line { stroke: #e29c81; stroke-width: .035; stroke-dasharray: .1 .08; opacity: .8; }
+.bd-queen-ledger { font-size: .92rem; }
+.bd-queen-ledger strong { color: #e2c387; }
+.bd-split-level, .bd-array { display: grid; gap: 4px; margin: .4rem 0; }
+.bd-split-level button { padding: .5rem .1rem; font-size: .85rem; }
+.bd-split-level button[aria-pressed="true"] { background: #3c3321; color: #f0d594; border-color: #e2be70; }
+.bd-array-cell { min-height: 62px; border: 1px solid #667259; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: .2rem; }
+.bd-array-cell small { color: #c1c5b6; font-size: .7rem; }
+.bd-array-cell b { font-size: 1.25rem; }
+.bd-array-cell--outside { opacity: .45; }
+.bd-array-cell--selected { background: #34462a; border-color: #adc194; }
+.bd-summary-children { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.bd-summary-table { width: 100%; border-collapse: collapse; text-align: left; font-size: .9rem; }
+.bd-summary-table caption { text-align: left; color: #e3c68b; padding: .75rem 0; }
+.bd-summary-table td, .bd-summary-table th { padding: .5rem .4rem; border-bottom: 1px solid #3d4535; }
+.bd-summary-table small { display: inline-block; color: #bac2b0; margin-left: .3rem; }
+.bd-cross-formula { border-block: 1px solid #59604d; padding: .85rem 0; }
+.bd-inversion-halves { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; }
+.bd-inversion-halves strong { font-size: .9rem; }
+.bd-inversion-halves > div > div { display: flex; gap: .5rem; margin-top: .7rem; }
+.bd-inversion-halves span { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid #708064; }
+.bd-inversion-halves .bd-inversion-picked { color: #f4d48b; background: #443920; border-color: #e5c173; }
+.bd-inversion-pairs { color: #dfc17e; font-size: 1.1rem; }
+@container (max-width: 560px) { .bd-queen-layout { grid-template-columns: 1fr; } .bd-chessboard { max-width: 340px; } .bd-summary-children { grid-template-columns: 1fr; } }

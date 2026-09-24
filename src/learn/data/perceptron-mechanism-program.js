@@ -1,0 +1,5 @@
+// Executed by scripts/verify-neuron-implementation-depth.py.
+export default {
+  "source": "/learn-assets/perceptrons/activation-mechanisms.py",
+  "output": "sigmoid value_max_error 5.551e-17 slope_max_error 1.175e-16\ntanh value_max_error 0.000e+00 slope_max_error 0.000e+00\nrelu value_max_error 0.000e+00 slope_max_error 0.000e+00\nleaky_relu value_max_error 0.000e+00 slope_max_error 0.000e+00\nelu value_max_error 0.000e+00 slope_max_error 0.000e+00\ngelu value_max_error 2.220e-16 slope_max_error 2.220e-16\ngelu_tanh value_max_error 0.000e+00 slope_max_error 2.776e-17\nsilu value_max_error 2.776e-17 slope_max_error 6.661e-16\nmish value_max_error 0.000e+00 slope_max_error 5.551e-17\naffine_scores [[4.0, -1.5], [-5.5, 3.0]]\naffine_max_error 0.0\nsigmoid_at_zero_input_sensitivity 0.0 0.0 0.0\nsigmoid_at_zero_input_sensitivity 0.5 0.125 0.125\nsigmoid_at_zero_input_sensitivity 4.0 1.0 1.0\nswiglu_output [[0.085815, 0.042907], [-2.289765, 0.553821]]\nswiglu_max_error 1.110e-16\nlibrary_perceptron AND weights [[3.0, 2.0]] bias [-4.0] predictions [-1, -1, -1, 1]\nlibrary_perceptron XOR weights [[0.0, 0.0]] bias [0.0] predictions [-1, -1, -1, -1]"
+};

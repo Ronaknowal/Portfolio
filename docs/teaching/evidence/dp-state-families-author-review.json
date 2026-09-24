@@ -1,0 +1,268 @@
+{
+  "topicId": "dynamic-programming-states-transitions-optimization",
+  "scope": "Bounded interval/tree/digit extension; original lesson preserved with one original prose spacing repair. Author verification only; parent owns independent review and integration.",
+  "frozenAt": "2026-09-11T10:04:23.333Z",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+      "sha256": "4b9ac1fa3c2e828a78544433c3774204791bf492aa2847fab1dd42cf8a016dd9"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "4334d6c5b31cc7263a60407076364423e635db35d47fb572de357c617d39cc93"
+    },
+    {
+      "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-models.js",
+      "sha256": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-examples.js",
+      "sha256": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+      "sha256": "f07349a9f07d5773bf727c94dc87a13019d1a54b73da33464d3aa62c8f63958d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+      "sha256": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2"
+    }
+  ],
+  "original": "docs/teaching/evidence/dp-state-families-original.json",
+  "preservation": "docs/teaching/evidence/dp-state-families-preservation.json",
+  "native": "docs/teaching/evidence/dp-state-families-native-verification.json",
+  "oldAlgorithmRegression": "docs/teaching/evidence/dp-state-families-original-regression.json",
+  "fullBrowser": "docs/teaching/evidence/dp-state-families-browser.json",
+  "expandedReading": "docs/teaching/evidence/dp-state-families-reading.json",
+  "finalLabelAmendment": "docs/teaching/evidence/dp-state-families-select-label-amendment.json",
+  "finalLabelBrowser": "docs/teaching/evidence/dp-state-families-select-label-browser.json",
+  "nativeChecks": {
+    "complete_new_program_stdout": 4,
+    "all_parenthesizations_and_actual_witness": 1089,
+    "all_live_removal_orders_and_actual_witness": 1093,
+    "actual_native_tree_roots_and_boundaries": 1300,
+    "exhaustive_subtree_boundary_witness": 5850,
+    "all_small_bounds_actual_native_and_model": 2501,
+    "exact_prefix_sets_and_each_digit_partition": 2273,
+    "large_all_nines_combinatorial_length_counts": 18,
+    "actual_changed_inclusive_ranges": 141,
+    "large_integer_matrix_arithmetic": 1,
+    "actual_10000_node_chain_no_recursion": 1,
+    "changed_adjacent_property_and_zero": 2,
+    "changed_cross_child_conflict": 1,
+    "native_rejected_inputs": 13,
+    "model_rejected_inputs": 30
+  },
+  "browserWidths": [
+    {
+      "width": 1440,
+      "originalStates": 332,
+      "interval": 70,
+      "tree": 147,
+      "digit": 90,
+      "rejectedDrafts": 18,
+      "programs": 20,
+      "practice": 15,
+      "anchors": 13,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "originalStates": 332,
+      "interval": 70,
+      "tree": 147,
+      "digit": 90,
+      "rejectedDrafts": 18,
+      "programs": 20,
+      "practice": 15,
+      "anchors": 13,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "originalStates": 332,
+      "interval": 70,
+      "tree": 147,
+      "digit": 90,
+      "rejectedDrafts": 18,
+      "programs": 20,
+      "practice": 15,
+      "anchors": 13,
+      "overflow": false
+    }
+  ],
+  "disclosures": [
+    {
+      "width": 1440,
+      "disclosures": 55
+    },
+    {
+      "width": 390,
+      "disclosures": 55
+    },
+    {
+      "width": 320,
+      "disclosures": 55
+    }
+  ],
+  "finalLabelStates": [
+    {
+      "width": 1440,
+      "states": 53
+    },
+    {
+      "width": 390,
+      "states": 53
+    },
+    {
+      "width": 320,
+      "states": 53
+    }
+  ],
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/dp-state-families-reading/inline-0-320.png",
+      "sha256": "0ebb9f4225ca63e4b5865626e12884d2a9d14eae992f1d52d76395dfa9cf3e16",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-reading/inline-1-320.png",
+      "sha256": "697c9f83f8847bfe7c3a8ecd624f6b0fddd6f1156357b564a3253c3270b4aa48",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-reading/inline-2-320.png",
+      "sha256": "841701d8e0541678b74aee9778f9c44a645f0311a1f5bc1db8ffbea16e3d07c9",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-reading/digit-changed-solution-320.png",
+      "sha256": "fa1d8660e6dd5e90d7393cbff7ae466c303eda31d12bd69603a20af4c9ec9485",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-reading/original-compression-formula-320.png",
+      "sha256": "0347283d50d0b9de94fc2108e226ad070ecfead9689327be6b6548fcea327635",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-reading/tree-nonempty-solution-390.png",
+      "sha256": "3d4d12b21da8a1b07618b8f13b8409b28e3e2c23fcfad3b79ced5f6c29045a85",
+      "openedByAuthor": true,
+      "superseded": true,
+      "sourceStage": "historical answer-only layout"
+    },
+    {
+      "path": "scratch/dp-state-families-reading/balloon-signed-solution-1440.png",
+      "sha256": "bdda54c2b28aa340a96e279756381b2f84a629779f3a4ed1d0fe7229a5a1929a",
+      "openedByAuthor": true,
+      "superseded": true,
+      "sourceStage": "historical answer-only layout"
+    },
+    {
+      "path": "scratch/dp-state-families-browser/tree-parent-selected-reading-390.png",
+      "sha256": "d73033ad1fbd45a58ed3c6df22fe0d5807f53ff2226f4e62c2569eb6372db76c",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-browser/digit-tight-reading-390.png",
+      "sha256": "c8ad4fe0b2468d83967b1d2efb9c13100e486a2301f8516425a0240e6b256219",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-browser/digit-loose-reading-320.png",
+      "sha256": "a742f14a38cfe81087f83658a6ead2d8d1d6afec692b3db59caa2beb1b8caebd",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-browser/family-practice-reading-320.png",
+      "sha256": "558cc7835da3e1a8010998f9931f635e76c0a9a05bc86de7db254cc3e1ab69b1",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-select-label/chosen-split-1440.png",
+      "sha256": "b77d23780728bee16a95883f7cc7026c042bc867c4a4851d4f6252b6879515c2",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-select-label/chosen-split-390.png",
+      "sha256": "cdd4cc7587a058393fa7c647b52ebf54c20f23a1f127f830bb332c67c0c582de",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-select-label/chosen-split-320.png",
+      "sha256": "f331ea4a69ae34dbbf7df21ae4a448084ca801f2f217aa4b2d8a172e36fdfdca",
+      "openedByAuthor": true,
+      "superseded": false,
+      "sourceStage": "unchanged representation captured before hint-only amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-hints/hint-0-1440.png",
+      "sha256": "eba4c29bfa439adadb468ed0f40e7d70df1c3e4888c4bd8ba0afb8015005fd59",
+      "openedByAuthor": true,
+      "sourceStage": "final hint amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-hints/hint-1-320.png",
+      "sha256": "b4301bbd11fe8b8cd1d7c9782e4d2dcccb7214eeae7c7ba1c2f797617927b2cb",
+      "openedByAuthor": true,
+      "sourceStage": "final hint amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-hints/hint-2-320.png",
+      "sha256": "c5bcffc25a21bac10a24a6fdc1365408e185e8e52e0042453d4d3dbb2d7476e4",
+      "openedByAuthor": true,
+      "sourceStage": "final hint amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-hints/hint-3-390.png",
+      "sha256": "f519029e259cd7d0b6eef729ed2636486cf075c6da1330b5fb23ce07494c7cca",
+      "openedByAuthor": true,
+      "sourceStage": "final hint amendment"
+    },
+    {
+      "path": "scratch/dp-state-families-hints/hint-4-320.png",
+      "sha256": "6ba99287c2bd46b36412d3eb21ef16581e7dab8f779e36a61f6692ff9ca221aa",
+      "openedByAuthor": true,
+      "sourceStage": "final hint amendment"
+    }
+  ],
+  "limitations": [
+    "Finite independent enumeration and changed-input checks complement the written proofs; they are not a universal formal proof.",
+    "Full 639-state browser run and 50-disclosure reading check precede only the explicitly archived option-label wording amendment; final targeted candidate checks bind the final source.",
+    "No LeetCode submissions/editorial access or complete audiovisual playback claimed.",
+    "No production build or shared metadata mutation by this author.",
+    "Old source/evidence is preserved with its original date; this packet is not a retroactive rewrite of the previous review.",
+    "Final body-only hint scaffold amendment adds five disclosures. It receives its own three-width keyboard/reading checks; the previous author packet and body bytes remain preserved. Two superseded answer-only images remain explicitly historical."
+  ],
+  "previousAuthorPacket": "docs/teaching/evidence/dp-state-families-author-review-before-hints.json",
+  "previousFrozenAt": "2026-09-11T09:57:34.260Z",
+  "finalHintAmendment": "docs/teaching/evidence/dp-state-families-hint-amendment.json",
+  "finalHintBrowser": "docs/teaching/evidence/dp-state-families-hint-browser.json"
+}

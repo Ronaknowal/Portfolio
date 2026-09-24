@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checks": [
+    "Corpus edit immediately resets segmentation; weighted pairs, merge history and cumulative vocabulary update together; restart uses edited corpus.",
+    "Empty/oversized/reserved-marker input is explained and suppressed; prototype-like words work; terminal state disables step; original example restores.",
+    "BPE 390px long-token layout, labelled corpus and keyboard merge.",
+    "BPE 320px long-token layout, labelled corpus and keyboard merge."
+  ],
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/bpe-trainer-control-review-320.png",
+      "hash": "a315a0d39de5d612a861b2de3abfb3110e4ec069b1d0fe8d442479ec46051f91"
+    }
+  ],
+  "errors": [],
+  "checkedAt": "2026-09-21T16:26:36.196Z",
+  "manifestHash": "5d2cedc67cd081e181fa01bf92fc2c078407e206d1e904afe0ebf8677b3fc460",
+  "sourceHashes": {
+    "src/learn/components/BPETrainer.jsx": "9c52c5f7c014f6d23b6153d6380c70674d13a0b19773069144867d70226ce076",
+    "src/learn/data/bpe-trainer-model.js": "29a55cb72e7e6a3696cba48e6204008b8ddf91068591c94f6ed6a4e17d24a39a",
+    "src/learn/components/viz/TokenStream.jsx": "4bc7bfd66ed89cbf49fa4b40a8e4cc8df077975513526072f5a1ce280765d228",
+    "src/learn/components/topic-content.css": "b88f3fc029d3302727d2847e22f6f3bfeed16ba4c5a0ccee4aa950f57c5d1e66",
+    "scripts/verify-published-lesson-ui-repairs.cjs": "9450c7bda291ca76a02666ea908a44116aa9c9ea082a7d781287be6821c8adf8"
+  }
+}

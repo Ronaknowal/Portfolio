@@ -1,0 +1,134 @@
+{
+  "checkedAt": "2026-09-20T07:14:45.784799+00:00",
+  "verifier": "scripts/verify-rademacher-data.py",
+  "verifierSha256": "6e3b25738afe4c7278c9c8aa8513d389dfa1dc3901d694a7103592d5da8ddc6c",
+  "mode": "read-only",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "datasetSha256": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+  "datasetBytes": 21237,
+  "servedCopy": "public/learn-assets/rademacher/banknote-subset.csv",
+  "servedMatchesPacket": true,
+  "packetHashes": {
+    "checked-results.json": "aa990e932d68b371ca1e680b9ee52e97fec81bfbf17cb5dcf52ded190f8fcc6b",
+    "experiment-results.json": "26caac6ec64c9223a1ee225c01d7fe8adaf74e6e023fb1e6440ed88be1648c20",
+    "author-checks.json": "99811c8ffa5a0171cd4faaa65e8e07cbb90c83de9836418a463582edc59de0b3",
+    "lesson.md": "a3a938040b9992076d0cd8bba500ec67149a0eda166bd7af7ae893496f77aef4"
+  },
+  "totalChecks": 5785,
+  "propertyChecks": 73,
+  "trustRootCoverage": {
+    "checked-results": {
+      "scalarLeaves": 804,
+      "reDerived": 803,
+      "declaredExclusions": {
+        "/convention": "a prose statement of the convention, not a number"
+      },
+      "coverage": 0.998756,
+      "uncovered": []
+    },
+    "experiment-results": {
+      "scalarLeaves": 4847,
+      "reDerived": 4838,
+      "declaredExclusions": {
+        "/versions/numpy": "the recorded library version string",
+        "/versions/scipy": "the recorded library version string",
+        "/versions/sklearn": "the recorded library version string",
+        "/selection/rule": "a prose statement of the selection rule, checked by applying it",
+        "/models/0/solver/iterations": "an SLSQP-internal iteration count, re-derived by executing the program",
+        "/models/1/solver/iterations": "an SLSQP-internal iteration count, re-derived by executing the program",
+        "/models/2/solver/iterations": "an SLSQP-internal iteration count, re-derived by executing the program",
+        "/models/3/solver/iterations": "an SLSQP-internal iteration count, re-derived by executing the program",
+        "/models/4/solver/iterations": "an SLSQP-internal iteration count, re-derived by executing the program"
+      },
+      "coverage": 0.998143,
+      "uncovered": []
+    },
+    "author-checks": {
+      "scalarLeaves": 50,
+      "reDerived": 48,
+      "declaredExclusions": {
+        "/type": "prose",
+        "/date": "prose"
+      },
+      "coverage": 0.96,
+      "uncovered": []
+    }
+  },
+  "trustRootScalarLeaves": 5701,
+  "trustRootLeavesReDerived": 5689,
+  "independentOptimiser": {
+    "method": "projected gradient descent, 60,000 steps at rate 4",
+    "largestObjectiveGapFromRecorded": 2.2104540420286867e-13
+  },
+  "recordedDisagreementsWithPacket": [
+    {
+      "file": "author-checks",
+      "path": "/manuscript_words",
+      "packetValue": 7678,
+      "independentValue": 7769,
+      "reason": "The packet records 7,678 words; a fresh whitespace-token count of the frozen lesson.md gives 7,769. The design record's own reconciliation section says the manuscript gained the duplicate-feature disclosure AFTER the author pass that produced this figure, so the recorded count is stale by that edit rather than wrong about a different file. It is a provenance note about the author's reading, not an input to anything the lesson calculates or displays. The packet value is left untouched and the fresh count is recorded beside it."
+    }
+  ],
+  "duplicateFeatureGroups": [
+    {
+      "sourceRows": [
+        346,
+        108
+      ],
+      "roles": [
+        "representation",
+        "fit"
+      ]
+    },
+    {
+      "sourceRows": [
+        658,
+        618
+      ],
+      "roles": [
+        "fit",
+        "fit"
+      ]
+    },
+    {
+      "sourceRows": [
+        405,
+        477
+      ],
+      "roles": [
+        "fit",
+        "validation"
+      ]
+    },
+    {
+      "sourceRows": [
+        428,
+        285
+      ],
+      "roles": [
+        "fit",
+        "validation"
+      ]
+    }
+  ],
+  "selectedRadius": 4,
+  "smallestExpressionRadius": {
+    "rho=1": 2,
+    "rho=0.5": 1
+  },
+  "moduleSha256": "001572787c88eb965e334e50ac45e23e8f883f978642894019846fcaa0701701",
+  "scope": "All three of the content packet's trust-root files re-derived from the definitions and the served dataset. The six finite classes, both conventions, every null (duplicate row, fixed translation, convex average, scaling, rotation, coordinate reversal) and the wrong-order diagnostic are enumerated in exact rational arithmetic. The Euclidean and kernel geometry is enumerated by explicit sign loops with the quadratic form written out. The five fitted coefficient vectors are checked to be feasible KKT points and independently re-solved by projected gradient descent, a different optimiser from the packet's SLSQP. Every margin, mistake count, log loss, ramp mean and bound component for all five budgets and both margin thresholds is recomputed from the served CSV and the stored weights, together with the declared selection rule, the majority baseline, the zero candidate under the score>=0 tie rule, the coordinate-permutation and row-reversal nulls, and the duplicate-feature disclosure. Regeneration of src/learn/data/rademacher-data.js must be byte-identical.",
+  "limitations": [
+    "The Monte-Carlo sign stream is NumPy's PCG64 at the recorded seeds; reproducing those particular estimates necessarily uses the same generator. Everything deterministic around them -- the per-draw ceiling, the Hoeffding correction and the endpoint -- is recomputed from the definitions.",
+    "The representation's fitted mean and scale are recomputed directly rather than through StandardScaler, which is the second route; a different library version could still move the packet's own numbers.",
+    "This is one small fixed subset of one historical collection, drawn without replacement from a finite corpus. It is not an iid sample from a deployment population, and nothing here establishes that it is.",
+    "Displayed program execution, browser models, rendering and independent review are separate scripts."
+  ],
+  "passed": true,
+  "failureNotes": []
+}

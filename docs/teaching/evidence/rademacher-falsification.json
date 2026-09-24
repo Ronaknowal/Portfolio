@@ -1,0 +1,314 @@
+{
+  "checkedAt": "2026-09-20T07:10:08.798Z",
+  "harness": "scripts/falsify-rademacher.mjs",
+  "harnessSha256": "4f04dfdc83a4ebb2f025c12260581b1f365ef4cf700eae7eca2fcfdafdf9310f",
+  "mode": "full",
+  "breakagesApplied": 25,
+  "caught": 25,
+  "skipped": 0,
+  "browserCaught": 4,
+  "totalApplied": 29,
+  "totalCaught": 29,
+  "failures": 0,
+  "results": [
+    {
+      "name": "threshold restrictions lose their two extreme cutoffs",
+      "defect": "restricting cutoffs to observed values, which silently drops the all-negative rule",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "three ordered inputs give exactly these four rows",
+      "detail": "three ordered inputs give exactly these four rows",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "sign patterns are enumerated with the first observation varying fastest",
+      "defect": "an enumeration order that still averages correctly but misaligns every packet comparison",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the same sign patterns, in the same order",
+      "detail": "the same sign patterns, in the same order",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the per-pattern maximum is floored at zero",
+      "defect": "initialising a supremum at 0, which is wrong for any class with no non-negative option",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "singleton: the stated exact value",
+      "detail": "singleton: the stated exact value",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the absolute-value convention drops its absolute value",
+      "defect": "the two conventions collapsing into one, so the lesson could not show what the other measures",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the absolute convention on the singleton matches the packet",
+      "detail": "the absolute convention on the singleton matches the packet",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the drawn ramp curve stops being the applied ramp function",
+      "defect": "a figure painting one shape while the lab grades against another",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the drawn curve equals the applied ramp",
+      "detail": "the drawn curve equals the applied ramp",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the movement verdict compares raw doubles instead of displayed values",
+      "defect": "a verdict reading \"changed\" beside two identical printed numbers",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the verdict says unchanged exactly when the displayed values are equal",
+      "detail": "the verdict says unchanged exactly when the displayed values are equal",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the kernel complexity divides by n squared",
+      "defect": "a normalisation slip that leaves the shape of the answer intact",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the kernel route agrees with the vector route",
+      "detail": "the kernel route agrees with the vector route",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "Massart's bound loses its factor of two",
+      "defect": "a constant that is plausible, monotone in M, and wrong",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the exponential-moment route agrees",
+      "detail": "the exponential-moment route agrees",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the tie rule sends a zero score to the negative class",
+      "defect": "a strict inequality where the lesson states a non-strict one",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the zero candidate's fit mistakes, under the score>=0 tie rule",
+      "detail": "the zero candidate's fit mistakes, under the score>=0 tie rule",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the norm ball is drawn with two different axis scales",
+      "defect": "a circle painted as an ellipse, so the supporting point stops being the farthest point along v",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the two axes use one scale",
+      "detail": "the two axes use one scale",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the trivial ceiling is drawn at the end of the bar instead of at 1",
+      "defect": "a reference line that makes every vacuous bound look as if it just reaches the ceiling",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "a vacuous bound is drawn LONGER than the ceiling",
+      "detail": "a vacuous bound is drawn LONGER than the ceiling",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a graded comparison is tightened below the precision the page prints",
+      "defect": "the lesson's own named defect class: a verdict that contradicts the numbers printed beside it",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "gapOutcome must say \"equal\" exactly when the operands print the same",
+      "detail": "gapOutcome must say \"equal\" exactly when the operands print the same",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a small-multiple figure lets its panels autoscale independently",
+      "defect": "the same unit vector drawn at half size in one panel of a figure captioned \"Same lengths\"",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "figure 8 panel 2 uses the shared scale",
+      "detail": "figure 8 panel 2 uses the shared scale",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the margin histogram stops snapping its bin edges to 0 and rho",
+      "defect": "a bin straddling the two values the ramp treats differently",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "there is a bin edge exactly at 0",
+      "detail": "there is a bin edge exactly at 0",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the selection rule accepts a candidate carrying its assessment score",
+      "defect": "a rule that can read the answer it is supposed to precede",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "a candidate carrying an assessment field",
+      "detail": "a candidate carrying an assessment field",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the frozen representation stops clipping",
+      "defect": "a feature map whose rows are no longer bounded, so the sqrt(5) the bound uses is false",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "clipped into [-1, 1]",
+      "detail": "clipped into [-1, 1]",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a fitted coefficient in the generated data module is altered",
+      "defect": "a hand edit to a generated file, which is exactly what \"do not edit by hand\" is there to prevent",
+      "file": "src/learn/data/rademacher-data.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the coefficients",
+      "detail": "the coefficients",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a recorded program output digit is altered",
+      "defect": "a displayed \"expected result\" that the program never printed",
+      "file": "src/learn/data/rademacher-examples.js",
+      "verifier": "scripts/verify-rademacher-models.mjs",
+      "outcome": "caught",
+      "guardNamed": "the program printed the threshold value this module computes",
+      "detail": "the program printed the threshold value this module computes",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a raw control byte is injected into a lesson source",
+      "defect": "a shell that ate an escape and left the byte it named",
+      "file": "src/learn/data/rademacher-models.js",
+      "verifier": "scripts/verify-rademacher-sources.py",
+      "outcome": "caught",
+      "guardNamed": "raw control byte 0x08",
+      "detail": "raw control byte 0x08",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a backslash-u escape is written in JSX text",
+      "defect": "six visible characters where a quotation mark was meant",
+      "file": "src/learn/components/lesson-labs/RademacherLabs.jsx",
+      "verifier": "scripts/verify-rademacher-sources.py",
+      "outcome": "caught",
+      "guardNamed": "in JSX text -- JSX text is not a string literal",
+      "detail": "in JSX text -- JSX text is not a string literal",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a conditional is given two identical branches",
+      "defect": "an intended phrase that got lost, leaving an expression that can never render anything",
+      "file": "src/learn/components/lesson-labs/RademacherFigures.jsx",
+      "verifier": "scripts/verify-rademacher-sources.py",
+      "outcome": "caught",
+      "guardNamed": "a conditional whose branches are identical",
+      "detail": "a conditional whose branches are identical",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the SVG text rule is scoped to a figure class instead of the lesson root",
+      "defect": "drawings inside investigation wrappers rendering at 16px in a 320-unit viewBox",
+      "file": "src/learn/components/lesson-labs/rademacher-labs.css",
+      "verifier": "scripts/verify-rademacher-sources.py",
+      "outcome": "caught",
+      "guardNamed": "scoped at the lesson root AND to this lesson's own drawings",
+      "detail": "scoped at the lesson root AND to this lesson's own drawings",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a bare descendant svg selector is reintroduced under the lesson root",
+      "defect": "the selector that collapses every KaTeX radical and accent on the page",
+      "file": "src/learn/components/lesson-labs/rademacher-labs.css",
+      "verifier": "scripts/verify-rademacher-sources.py",
+      "outcome": "caught",
+      "guardNamed": "a bare descendant `svg` selector under the lesson root",
+      "detail": "a bare descendant `svg` selector under the lesson root",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the generated data module is edited by hand",
+      "defect": "a generated file drifting from the script that generates it",
+      "file": "src/learn/data/rademacher-data.js",
+      "verifier": "scripts/verify-rademacher-data.py",
+      "outcome": "caught",
+      "guardNamed": "not byte-identical",
+      "detail": "not byte-identical",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the served program copy drifts from the packet program",
+      "defect": "a download that is not the program whose output the page displays",
+      "file": "public/learn-assets/rademacher/complexity_calculations.py",
+      "verifier": "scripts/verify-rademacher-examples.py",
+      "outcome": "caught",
+      "guardNamed": "byte-for-byte the packet program",
+      "detail": "byte-for-byte the packet program",
+      "restoredByteForByte": true
+    }
+  ],
+  "browserBreakagesApplied": 4,
+  "browserResults": [
+    {
+      "name": "an investigation prints its graded value before a prediction is recorded",
+      "defect": "the dominant defect class: showing the answer first",
+      "file": "src/learn/components/lesson-labs/RademacherLabs.jsx",
+      "verifier": "scripts/verify-rademacher-browser.cjs",
+      "outcome": "caught",
+      "detail": "margin bound shows a graded quantity before any prediction",
+      "guardNamed": "margin bound shows a graded quantity before any prediction",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a curve is painted through a value label",
+      "defect": "a polygon outline crossing text, which the shared straight-line inspector cannot see",
+      "file": "src/learn/components/lesson-labs/RademacherFigures.jsx",
+      "verifier": "scripts/verify-rademacher-browser.cjs",
+      "outcome": "caught",
+      "detail": "a curve runs through a label at 1366px",
+      "guardNamed": "a curve runs through a label at 1366px",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "the SVG rule is unscoped again, collapsing every KaTeX radical",
+      "defect": "a square root that is not drawn, so the formula states the radius squared rather than the radius",
+      "file": "src/learn/components/lesson-labs/rademacher-labs.css",
+      "verifier": "scripts/verify-rademacher-browser.cjs",
+      "outcome": "caught",
+      "detail": "KaTeX SVGs are under 1px tall",
+      "guardNamed": "KaTeX SVGs are under 1px tall",
+      "restoredByteForByte": true
+    },
+    {
+      "name": "a CSS fill overrides a fill=\"none\" attribute",
+      "defect": "an outline shape silently becoming a filled blob while every attribute stays correct",
+      "file": "src/learn/components/lesson-labs/rademacher-labs.css",
+      "verifier": "scripts/verify-rademacher-browser.cjs",
+      "outcome": "caught",
+      "detail": "a painted value disagrees with its attribute",
+      "guardNamed": "a painted value disagrees with its attribute",
+      "restoredByteForByte": true
+    }
+  ],
+  "method": "Each breakage is applied ALONE to a real source file, the verifier that should catch it is run, and the run must both fail and print the guard's own message. Every file is restored byte for byte and the restoration is confirmed by SHA-256. A baseline run of each verifier precedes the whole harness, so a breakage cannot be credited to an already-red suite.",
+  "limitations": [
+    "Three defect classes are only observable in a painted page. They are applied under --browser, which rebuilds the bundle for each one and runs the browser verifier against a live preview. Without that flag they are neither run nor counted, and the run says so.",
+    "A caught breakage shows the guard fires for that defect. It does not show the guard fires for every defect of that class."
+  ],
+  "passed": true
+}

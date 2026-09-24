@@ -1,0 +1,93 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "runs": [
+    {
+      "id": "neighbor-ledger",
+      "returncode": 0,
+      "codeSha256": "6f34ec2f2df7502bbef5e1818c212fae761e38200955ff30d5b850ecb74f4da4",
+      "outputSha256": "5bfd9db24a535e71f0c5acf5c63c33deb9a98587b6271a0b2dcdb433b0b7fea2",
+      "stderr": "",
+      "expected": "C1 0.141421\nC2 0.141421\nA2 1.941649\nA3 1.941649\nA1 2.284732\nB1 2.831960\nB3 2.860070\nB2 3.061046\nuniform [0.6 0.  0.4] A\ndistance [0.094026 0.       0.905974] C"
+    },
+    {
+      "id": "units-cosine",
+      "returncode": 0,
+      "codeSha256": "81a4d8df121f67507af6a8644e585be66cb016c77bf8f6dbdecfcdb10175de43",
+      "outputSha256": "4cbba3c8af917c6b1b2351788f19b002bb0bbda779518c74b2214eb2e8fc978f",
+      "stderr": "",
+      "expected": "Training scales: [  1.632993 449.691252]\nraw [500.00004 400.00405 500.01444] nearest S\nscaled [1.118599 1.416407 2.579004] nearest R\nEuclidean U,V: [2. 1.]\nCosine U,V: [0.       0.292893]"
+    },
+    {
+      "id": "scratch-estimator",
+      "returncode": 0,
+      "codeSha256": "b6c76f4f414ecd1ef6f9140f8bafda298926e08e34f796d8e2498bca5671afe4",
+      "outputSha256": "07303df13b06933b8b4dfeab51b244014aef6e10f7543224976d0e3ae96d7875",
+      "stderr": "",
+      "expected": "Class order: ['A' 'B']\nDuplicate-input probabilities: [[0.5 0.5]]\nPrediction: ['A']\nuniform [ 4.666667 16.666667]\ndistance [ 5.714286 18.042553]\nRefit replaces old classes: ['C' 'D'] ['D']"
+    },
+    {
+      "id": "held-out-workflow",
+      "returncode": 0,
+      "codeSha256": "d37018b72a47c068767ffe345f831e9d422027e8ac1e21ce93ba857fe7e4beaa",
+      "outputSha256": "03e28c3a2184dd376d12f6f7d3b1cc438a1a5ecc2254c2e901beeb20df0abb6c",
+      "stderr": "",
+      "expected": "validation 1 uniform 3.304002\nvalidation 1 distance 3.304002\nvalidation 5 uniform 0.752840\nvalidation 5 distance 0.760379\nvalidation 15 uniform 0.465193\nvalidation 15 distance 0.472982\nvalidation 41 uniform 0.208218\nvalidation 41 distance 0.206445\nRows train/validation/test: 360 120 120\nSelected: 41 distance\nTest accuracy: 0.916667\nTest log loss: 0.193920\nBaseline test log loss: 0.693147\nTest confusion matrix:\n[[54  6]\n [ 4 56]]"
+    },
+    {
+      "id": "kd-tree",
+      "returncode": 0,
+      "codeSha256": "87af98e6ac832ddc613ef4a7a87697f0f3812bbf71d4cffa3bdd0aed2470907c",
+      "outputSha256": "7eaa0f5ab09d21d8c5366f631f94339c7758d833b5133851357050dcba52babe",
+      "stderr": "",
+      "expected": "[1.3, 2.1] row 0 distance 0.316228 visited 4\n[5.1, 4.9] row 3 distance 0.141421 visited 4\n[3.1, 2.9] row 6 distance 0.141421 visited 5\nTie case: (1.0, 0)"
+    },
+    {
+      "id": "library-search",
+      "returncode": 0,
+      "codeSha256": "66993b0de10e789967ce5f02a855240df4c39135d3dac29e8faae5631ffd5152",
+      "outputSha256": "5ae8acee0be4d8ad00d3fdf4e0ffe97b8cdcb441664ef540e8a6d53d1a626078",
+      "stderr": "",
+      "expected": "Cosine IDs: [[0 1]]\nCosine distances: [[0.       0.292893]]\nBallTree supports cosine: False\nExplicit training queries include self: [0 1 2]\nNo-query form excludes self: [1 0 1]"
+    },
+    {
+      "id": "candidate-recall",
+      "returncode": 0,
+      "codeSha256": "66cc9ca42d9118e125635c1711776a5aa020ab31069ec40c970a541a42f72722",
+      "outputSha256": "a27e316228eb9d10c0b78666929dc75f6953ae31faf94d4a0dc914957d258efd",
+      "stderr": "",
+      "expected": "all [6, 7, 1] recall 1.000000 class C\ndrop close C [1, 2, 0] recall 0.333333 class A\ndrop far B [6, 7, 1] recall 1.000000 class C"
+    },
+    {
+      "id": "dimension",
+      "returncode": 0,
+      "codeSha256": "ccd1ef22c407ff1e08399fe1f7a396dded9dd5f7295a5a88cd78520d17f89f7b",
+      "outputSha256": "40dbf42946b2e96876269ade313c2d27d34bdc171d1c1b5f416b12614ffb18d5",
+      "stderr": "",
+      "expected": "dimension 1 1% side 0.010000 Gaussian radius CV 0.756561\ndimension 2 1% side 0.100000 Gaussian radius CV 0.521401\ndimension 10 1% side 0.630957 Gaussian radius CV 0.226468\ndimension 100 1% side 0.954993 Gaussian radius CV 0.071239\nKept variance fraction: 0.99999727\nFirst component: [[1. 0.]]\nOpposite-label rows at same z collapse: True"
+    },
+    {
+      "id": "posterior-risk",
+      "returncode": 0,
+      "codeSha256": "9ed9e651bf2859098e7c3cca3b2fe675db5fd9c67507d0e9a2d2ed41c9d2f4a1",
+      "outputSha256": "93f2790afc1b433ff37f94f1e4851ae66151b8d681edfce10517424963df2e25",
+      "stderr": "",
+      "expected": "Local Bayes errors: [0.1 0.2]\nLocal independent-neighbor errors: [0.18 0.32]\nIntegrated Bayes: 0.150000\nIntegrated neighbor: 0.250000\nBinary upper bound: 0.255000\nThree independent labels at eta=.8 majority error: 0.104000"
+    },
+    {
+      "id": "haversine-outputs",
+      "returncode": 0,
+      "codeSha256": "c1985971a1039158570de14660f58abf04546e4ef6266353716f212431c7b91c",
+      "outputSha256": "7f3105d9fa81926eb7c7840c3a034fd9810f3efb8a6c6484486f15f761b2dc1d",
+      "stderr": "",
+      "expected": "Nearest station IDs: [[0 1 2]]\nSpherical distances km: [[ 33.358  88.956 111.195]]\nJoint output shape: (1, 2)\nMean of the same two neighbors: [[120.   6.]]"
+    },
+    {
+      "id": "changed-capstone",
+      "returncode": 0,
+      "codeSha256": "ce6b2594095d830f2516337a21c81446bba20c98f2bab4424942d56e13f8b869",
+      "outputSha256": "3e77a201fe31d35d47d006328b8ad8853207d6d4c5b09353314027f8884083d5",
+      "stderr": "",
+      "expected": "validation 1 uniform 7.509094\nvalidation 1 distance 7.509094\nvalidation 5 uniform 2.308838\nvalidation 5 distance 2.323486\nvalidation 15 uniform 1.179127\nvalidation 15 distance 1.184613\nvalidation 41 uniform 0.338399\nvalidation 41 distance 0.348062\nRows train/validation/test: 360 120 120\nSelected: 41 uniform\nTest accuracy: 0.775000\nTest log loss: 0.428579\nBaseline test log loss: 0.693147\nTest confusion matrix:\n[[50 10]\n [17 43]]"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-21T23:33:39.337Z",
+  "groups": [
+    "Both JSX sources parse; blueprint/model parse",
+    "Complete native re-execution is identical to prepared evidence; program and CSV identity",
+    "Original correction, gradients and simultaneous update match float64 autograd",
+    "Weight and input derivatives pass centered differences away from fixture",
+    "Depth extremes, exact cancellations, alternating sign and every intermediate",
+    "Operator placement matches native Jacobians and changed-direction differences",
+    "Projection shape/nulls and changed input/backward fixtures",
+    "Scalar and per-feature gate mechanisms; actual frozen-branch step",
+    "Nonlinear counterexample, zero null and Euler native endpoints",
+    "All 39 fits, strict split, actual baselines, movements, shape counts and omission records",
+    "Browser measurements contain actual fits and attributed training pixels",
+    "Complete section/practice/visual ownership and no unsafe broad SVG geometry"
+  ],
+  "nativeReplay": "All 39 CPU fits were rerun separately; the full decoded record matches revision-3 evidence exactly.",
+  "versions": {
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5"
+  },
+  "sourceHashes": {
+    "src/learn/data/topics/residual-connections-skip-connections.jsx": "baf2f3044f7a66a4185f602f57b9d5c9d0b4265f1976a34842db3635da8c10f0",
+    "src/learn/components/lesson-labs/ResidualConnectionsLabs.jsx": "61de07849ac93d7db319c153d46407e5d57d615350a4d8c509ccf841a4d95d51",
+    "src/learn/components/lesson-labs/residual-connections.css": "1e5390d4b2c19a0d7a8faec9b3915390ddbef255ec0d1025ea50069bf92f2c63",
+    "src/learn/data/residual-connections-model.js": "0cb0b8d3fef9c3b141246bb7e3ab41470008001648dd04ec8a19dd984c469bf5",
+    "src/learn/data/curriculum/blueprints/residual-connections-skip-connections.js": "a6d8915614c80aa21791241556b86f9e3be42329913bdbfb7af94b600bbd0a95",
+    "public/learn-assets/residual-connections/residual-experiments.py": "9ece8d262eab9ad80814d185138faa2b60faa524e8446cdedd0bda979e24d93d",
+    "public/learn-assets/residual-connections/calculated-inputs.json": "b5dbee711bb8edef1a7763fe4b46217b9773afe8174803694cc580886ae0d31a",
+    "public/learn-assets/residual-connections/browser-measurements.json": "e68dccde9f8f1fcaca68abbf4173a8fc026d6a5ec2a6cfe4f61054dbbdff0466",
+    "scripts/build-residual-connections-lesson.mjs": "4600127632789eab22a50d29cb220a7b80d944b82bb2762214caa88ff69ddfb7",
+    "scripts/verify-residual-connections.mjs": "9fd590f36a975ddd0ab64e6e42ac0a9bc6b0669e47f62721d8112d28e64e8d61"
+  },
+  "browserStatus": "Pending coordinated production build and parent browser checks; these author checks do not certify rendering."
+}

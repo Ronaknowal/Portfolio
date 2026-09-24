@@ -1,0 +1,269 @@
+/* AutoML & neural architecture search: investigations, inline figures and their
+   tables. Calm dark ground with the site's gold accent; every encoding that
+   carries meaning also carries a shape, a pattern or a printed value. */
+
+.am-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.am-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.am-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+/* Figures carry toggles too, so the control styling is not scoped to the
+   investigations: a button inside a figure was rendering as a light-grey system
+   default on the dark page. */
+.am-investigation button, .am-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.am-investigation button.is-primary, .am-figure button.is-primary { background: #1d2119; border-color: #9a8347; }
+.am-investigation button.is-quiet, .am-figure button.is-quiet { border-color: #3f4a45; color: #b5bfbb; }
+.am-investigation button:disabled, .am-figure button:disabled { opacity: .4; cursor: default; }
+/* A pressed toggle is distinguishable by more than colour. */
+.am-investigation button[aria-pressed="true"], .am-figure button[aria-pressed="true"] {
+  border-color: #e7b94a; box-shadow: inset 0 -2px 0 #e7b94a;
+}
+.am-investigation :is(button, input, select, summary, [tabindex]):focus-visible,
+.am-figure :is(button, input, select, summary, [tabindex]):focus-visible { outline: 2px solid #a5c7b5; outline-offset: 3px; }
+.am-question, .am-caption, .am-note, .am-pending, .am-evidence { font-size: .92rem; line-height: 1.75; }
+.am-caption { color: #b5bfbb; }
+.am-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.am-evidence { color: #9fb0a8; border-left: 2px solid #4f6a5d; padding-left: .8rem; }
+.am-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+
+.am-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.am-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.am-controls.is-narrow { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.am-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.am-field > span { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .2rem .6rem; overflow-wrap: anywhere; }
+.am-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.am-field :is(select, input[type="number"], input[type="text"]) {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.am-field.is-invalid :is(input, select) { border-color: #da9c86; }
+/* A table cell whose column header already names it: the input alone, with the
+   heading kept as its accessible name. */
+.am-field.is-bare { display: block; min-width: 5.5rem; }
+.am-field.is-bare input { min-height: 38px; width: 100%; padding: .35rem .4rem; border: 1px solid #46504b; border-radius: 3px; color: #d8dcd9; background: #121816; font: inherit; }
+.am-field.is-bare.is-invalid input { border-color: #da9c86; }
+.am-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.am-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .9rem 0; }
+.am-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.am-readout { border-left: 2px solid #e7b94a; padding-left: .85rem; line-height: 1.75; font-size: .93rem; }
+.am-state-strip {
+  display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin: .8rem 0;
+  font: .82rem/1.7 var(--font-mono, monospace); color: #b5bfbb;
+}
+.am-state-strip b { color: #e7b94a; font-weight: 600; }
+.am-state-strip .is-draft { color: #8eb9a5; }
+
+/* Predict, then check */
+.am-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.am-prediction > p { margin: 0 0 .55rem; }
+.am-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.am-prediction legend { padding: 0; font-weight: 600; }
+.am-choices { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin: .5rem 0 .7rem; }
+.am-choice { display: flex; align-items: center; gap: .45rem; min-height: 34px; }
+.am-choice input { accent-color: #e7b94a; width: 18px; height: 18px; }
+.am-numeric-guess { max-width: 21rem; margin-bottom: .6rem; }
+.am-numeric-guess input {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.am-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 3px solid #8eb9a5; }
+.am-verdict.is-miss { border-left-color: #da9c86; }
+.am-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.am-reason textarea {
+  min-height: 52px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+.am-reason { margin-bottom: .7rem; }
+.am-history ol { font-size: .85rem; line-height: 1.75; padding-left: 1.2rem; }
+.am-history code { overflow-wrap: anywhere; }
+
+/* Tables: a scroll region on wide screens, stacked rows on a phone. The caption
+   sits outside the scroller so it wraps to the container's width instead of the
+   table's, and is never scrolled out of view. */
+.am-table { margin: 1.1rem 0; }
+.am-table-caption {
+  text-align: left; padding: 0 0 .5rem; color: #bac6bf;
+  font: .82rem/1.7 var(--font-mono, monospace); max-width: 100%;
+}
+.am-table-scroll { overflow-x: auto; scrollbar-gutter: stable; max-width: 100%; margin: 0; }
+.am-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+.am-table-scroll :is(th, td) { padding: .5rem .6rem; border-bottom: 1px solid #303a35; text-align: left; white-space: nowrap; }
+.am-table-scroll th { color: #d0ddd5; font-weight: 600; }
+.am-table-scroll :is(th, td):last-child { white-space: normal; min-width: 6rem; }
+.am-table-scroll tr.is-selected :is(th, td) { color: #f0e6c8; background: #1a2320; }
+.am-table-scroll tr.is-out :is(th, td) { color: #c0a99b; }
+.am-table-scroll tr.is-muted :is(th, td) { color: #93a29b; }
+.am-rows { max-height: 19rem; overflow-y: auto; }
+
+.am-investigation details, .am-figure details { margin: 1rem 0; }
+.am-investigation summary, .am-figure summary { cursor: pointer; color: #e7b94a; line-height: 1.7; min-height: 32px; }
+
+/* Plots and inline figures.
+   The font rule is scoped at the lesson root on purpose: a rule written per
+   figure class misses any diagram that sits inside an investigation's stage
+   wrapper, and such a diagram then renders at the browser default size inside a
+   340-unit viewBox. Longhands only — a `font` shorthand would silently override
+   every fontSize set on an individual element in the subtree. */
+.am-lesson svg text {
+  fill: #cfd7d2; font-size: 12px; font-family: var(--font-mono, monospace);
+  font-weight: 400; font-style: normal;
+}
+.am-lesson svg text.is-small { font-size: 11px; }
+.am-lesson svg text.is-title { font-size: 12.5px; fill: #e2e8e4; }
+.am-plot { margin: 1.3rem 0; }
+.am-plot figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; }
+.am-plot svg, .am-figure svg, .am-panel svg, .am-stage svg { display: block; width: 100%; height: auto; }
+.am-plot svg { max-width: 560px; margin-inline: auto; }
+.am-axis { stroke: #4a5650; }
+.am-grid { stroke: #262d2a; }
+.am-curve { fill: none; stroke-width: 1.8; }
+.am-curve.is-purchased { stroke: #e7b94a; stroke-width: 2.2; }
+.am-curve.is-unpurchased { stroke: #7f8c86; stroke-width: 1.4; stroke-dasharray: 5 4; }
+.am-curve.is-density { stroke: #8eb9a5; stroke-width: 1.8; }
+.am-curve.is-weighted { stroke: #e7b94a; stroke-width: 2; stroke-dasharray: 5 3; }
+.am-curve.is-step { stroke: #e7b94a; stroke-width: 2.2; }
+.am-curve.is-selected { stroke: #f0e6c8; stroke-width: 2.4; }
+.am-curve.is-faint { stroke: #46504b; stroke-width: 1.1; }
+.am-curve.is-mixture { stroke: #8eb9a5; stroke-width: 2.2; }
+.am-curve.is-committed { stroke: #e7b94a; stroke-width: 2; stroke-dasharray: 6 3; }
+.am-area { fill: #e7b94a; fill-opacity: .22; stroke: none; }
+.am-mark { fill: #e7b94a; }
+.am-mark.is-fold { fill: #9fb0a8; }
+.am-mark.is-mean { fill: none; stroke: #e7b94a; stroke-width: 1.8; }
+.am-mark.is-frontier { fill: #e7b94a; }
+.am-mark.is-dominated { fill: none; stroke: #9fb0a8; stroke-width: 1.6; }
+.am-mark.is-infeasible { fill: none; stroke: #da9c86; stroke-width: 1.6; }
+.am-rule { stroke: #da9c86; stroke-width: 1.6; stroke-dasharray: 4 3; }
+.am-rule.is-incumbent { stroke: #d8dcd9; stroke-dasharray: 3 3; }
+.am-flow { fill: none; stroke: #8eb9a5; stroke-width: 1.5; }
+.am-flow.is-feedback { stroke: #e7b94a; stroke-width: 1.8; stroke-dasharray: 6 3; }
+.am-flow.is-commit { stroke: #b6c3bc; stroke-width: 1.5; }
+.am-flow.is-rows { stroke: #6f7d77; stroke-width: 1.2; stroke-dasharray: 2 3; }
+.am-node { fill: #121816; stroke: #46504b; }
+.am-node.is-selection { fill: #16201c; stroke: #6f8d7e; }
+.am-node.is-commitment { fill: #1a1c14; stroke: #9a8347; }
+.am-node.is-assessment { fill: #19181f; stroke: #8b86a8; }
+.am-node.is-untouched { fill: #16110f; stroke: #7a5a4a; }
+.am-node.is-nested { fill: #0e1412; stroke: #3c4843; }
+.am-block { fill: #1a2320; stroke: #9a8347; }
+.am-block.is-bias { fill: #20211a; stroke: #746138; }
+.am-block.is-output { fill: #191f23; stroke: #6d8496; }
+.am-lane { fill: #101514; stroke: #3b4642; }
+.am-lane.is-independent { stroke: #6f8d7e; }
+.am-lane.is-shared { stroke: #9a8347; }
+.am-lane.is-proxy { stroke: #8b86a8; }
+/* A value printed on top of a gridline needs an opaque backplate, or the line
+   runs through its glyphs. The stroke matches the ground each context sits on,
+   and it is opaque in every state because nothing here dims a whole group. */
+.am-halo { paint-order: stroke; stroke: #050505; stroke-width: 3.5px; stroke-linejoin: round; }
+.am-investigation .am-halo { stroke: #0b0f10; }
+.am-panel .am-halo { stroke: #050505; }
+.am-investigation .am-panel .am-halo { stroke: #0b0f10; }
+
+.am-figure { margin: 1.75rem 0; padding: 1.2rem 0; border-block: 1px solid #333; color: #d8d8d8; }
+.am-figure figcaption { font-size: .94rem; line-height: 1.7; margin-bottom: 1rem; }
+.am-figure p { font-size: .92rem; line-height: 1.7; }
+.am-figure > svg { max-width: 560px; margin-inline: auto; }
+/* Eleven labelled rows: narrower than a full column so its labels are not
+   magnified on desktop, and wide enough that they stay legible at 320 px. */
+.am-figure > svg.am-results-plot { max-width: 460px; }
+.am-panels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+.am-panels.is-stacked { grid-template-columns: minmax(0, 1fr); }
+.am-panels.is-pair { grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); }
+.am-panel { border: 1px solid #2b332f; border-radius: 4px; padding: .6rem; min-width: 0; }
+.am-panel h4 { margin: 0 0 .4rem; font-size: .9rem; line-height: 1.5; color: #d0ddd5; }
+.am-panel p { margin: .4rem 0 0; font-size: .84rem; line-height: 1.65; color: #b5bfbb; }
+.am-panel svg { max-width: 100%; }
+
+.am-legend { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; margin: .6rem 0; padding: 0; list-style: none; font: .82rem/1.7 var(--font-mono, monospace); color: #b5bfbb; }
+.am-legend > li { display: flex; align-items: center; gap: .4rem; }
+.am-legend svg { width: 34px; height: 10px; flex: none; }
+
+/* Stage flow inside an investigation */
+.am-stage + .am-stage { margin-top: 1.4rem; }
+.am-stage > h4 { margin: 0 0 .4rem; font-size: 1rem; line-height: 1.6; color: #d8dcd9; }
+.am-chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0; padding: 0; list-style: none; font: 12px/1.5 var(--font-mono, monospace); }
+.am-chip { border: 1px solid #3b4642; border-radius: 3px; padding: .3rem .55rem; color: #b5bfbb; }
+.am-chip.is-active { border-color: #9a8347; color: #f0e6c8; background: #1d2119; }
+.am-chip.is-inactive { border-style: dashed; color: #8c9792; }
+.am-chip.is-out { border-color: #7a5a4a; color: #c0a99b; }
+
+/* The grammar tree of the search space */
+.am-tree { margin: .9rem 0; padding: 0; list-style: none; font: .86rem/1.8 var(--font-mono, monospace); }
+.am-tree ul { list-style: none; margin: 0; padding-left: 1.1rem; border-left: 1px solid #333c38; }
+.am-tree > li { margin-bottom: .5rem; }
+.am-tree .am-branch-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .7rem; }
+.am-tree .am-branch-head b { color: #e7b94a; font-weight: 600; }
+.am-tree .is-current > .am-branch-head b { color: #f0e6c8; }
+.am-tree .am-branch-count { color: #93a29b; }
+.am-option-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .35rem .6rem; }
+.am-option-row button { min-height: 32px; padding: .2rem .5rem; font-size: .78rem; }
+/* The add-a-value field only ever takes a short token, so it does not need the
+   whole row; keeping it narrow stops each branch becoming three tall rows. */
+.am-option-row .am-field { max-width: 11rem; flex: 0 1 11rem; }
+.am-option-row .am-field > span { font-size: .78rem; color: #93a29b; }
+.am-option-row > span:first-child { color: #d0ddd5; }
+
+/* Rungs of a resource ladder: a row per rung on wide screens, a panel per rung
+   on a phone, so nothing has to shrink to fit one fixed-height drawing. */
+.am-rungs { display: grid; gap: .8rem; margin: 1rem 0; }
+.am-rung { border: 1px solid #2b332f; border-radius: 4px; padding: .6rem .7rem; }
+.am-rung > h5 { margin: 0 0 .45rem; font-size: .88rem; color: #d0ddd5; }
+.am-cards { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; margin: 0; list-style: none; font: 12px/1.5 var(--font-mono, monospace); }
+.am-card { border: 1px solid #3b4642; border-radius: 3px; padding: .3rem .5rem; color: #b5bfbb; }
+.am-card.is-survivor { border-color: #9a8347; color: #f0e6c8; background: #1d2119; }
+.am-card.is-eliminated { border-color: #7a5a4a; color: #c0a99b; }
+
+.am-practice { margin-block: 1.5rem; }
+.am-practice details { border-left: 2px solid #77623b; padding: .7rem 1rem; }
+.am-practice summary { color: #e2b55a; cursor: pointer; line-height: 1.6; }
+.am-practice details + details { margin-top: .65rem; }
+.am-route { border-left: 2px solid #8eb9a5; padding-left: .85rem; }
+.am-lesson a { overflow-wrap: anywhere; }
+.am-lesson code { overflow-wrap: anywhere; }
+.am-lesson .am-scope { border-left: 2px solid #746138; padding-left: .85rem; }
+
+/* A full-width diagram is capped so its type is not magnified by the column:
+   the viewBox is ~340 units, so a wider box would scale 12px type to 22px. */
+.am-figure > .am-panel > svg, .am-investigation .am-stage > svg, .am-figure > figure > svg {
+  max-width: 440px; margin-inline: auto; display: block;
+}
+
+@media (max-width: 620px) {
+  .am-investigation header { gap: .65rem; }
+  .am-panels { grid-template-columns: minmax(0, 1fr); }
+  .am-figure { padding-block: 1rem; }
+  .am-tree ul { padding-left: .7rem; }
+}
+
+/* Below this width a wide numeric table stops being a grid and becomes one
+   labelled block per row, so nothing is clipped and the page never scrolls
+   sideways. The explicit ARIA roles in the component keep the semantics. */
+@media (max-width: 560px) {
+  .am-table-scroll { overflow-x: visible; }
+  .am-table-scroll table { display: block; }
+  .am-table-scroll thead {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+  .am-table-scroll :is(tbody, tr, th, td) { display: block; width: auto; }
+  .am-table-scroll tr {
+    border: 1px solid #2b332f; border-radius: 4px; margin: 0 0 .65rem; padding: .35rem .55rem;
+  }
+  .am-table-scroll :is(th, td) {
+    border: 0; border-bottom: 1px solid #222a26; padding: .3rem 0; white-space: normal;
+    display: grid; grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); gap: .3rem .7rem;
+    overflow-wrap: anywhere; min-width: 0;
+  }
+  .am-table-scroll :is(th, td):last-child { border-bottom: 0; min-width: 0; }
+  .am-table-scroll :is(th, td)::before { content: attr(data-label); color: #93a29b; }
+  .am-rows { max-height: none; overflow-y: visible; }
+}

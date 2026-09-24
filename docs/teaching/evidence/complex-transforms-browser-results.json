@@ -1,0 +1,587 @@
+{
+  "checkedAt": "2026-09-11T07:01:26.593Z",
+  "passed": true,
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+      "sha256": "bc1396659fa174a99fd048ddf50a678eeda2445cb228007830fb94bfab747886"
+    },
+    {
+      "path": "src/learn/data/complex-transforms-models.js",
+      "sha256": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445"
+    },
+    {
+      "path": "src/learn/data/complex-transforms-examples.js",
+      "sha256": "982c4848b6c37dc482bc98bfbab9e610c439eb05220bc73c6e626294e0ea4dee"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "sha256": "5ce77a4d38523e25fa2b0cefc42f1e0d19c017ebdc0b2adc71b2512c29e267f7"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/complex-transforms-labs.css",
+      "sha256": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js",
+      "sha256": "08dcc9fb9cbd75e804532f42f7e2c2772eb52c30812c92661e197464a272d54a"
+    }
+  ],
+  "results": [
+    {
+      "width": 1440,
+      "states": 128,
+      "disclosures": 36,
+      "controls": 87,
+      "programs": 17,
+      "anchors": [
+        {
+          "href": "#1-make-rotation-an-arithmetic-operation",
+          "exists": true
+        },
+        {
+          "href": "#2-describe-an-oscillation-with-a-rotating-arrow",
+          "exists": true
+        },
+        {
+          "href": "#3-recover-the-ingredients-by-projection",
+          "exists": true
+        },
+        {
+          "href": "#4-ask-what-a-fourier-series-converges-to",
+          "exists": true
+        },
+        {
+          "href": "#5-give-a-nonperiodic-signal-a-spectrum",
+          "exists": true
+        },
+        {
+          "href": "#6-transform-a-finite-list-exactly",
+          "exists": true
+        },
+        {
+          "href": "#7-distinguish-a-signal-from-its-samples",
+          "exists": true
+        },
+        {
+          "href": "#8-understand-the-window-before-reading-a-spectrum",
+          "exists": true
+        },
+        {
+          "href": "#9-predict-the-output-of-a-filter",
+          "exists": true
+        },
+        {
+          "href": "#10-add-exponential-weighting-and-a-region",
+          "exists": true
+        },
+        {
+          "href": "#11-preserve-initial-conditions-and-input-timing",
+          "exists": true
+        },
+        {
+          "href": "#12-transfer-the-method-and-check-its-limits",
+          "exists": true
+        }
+      ],
+      "equations": 13,
+      "overflowEquations": [],
+      "geometry": [
+        {
+          "index": 0,
+          "width": 360,
+          "minimumText": 16.8,
+          "outOfBounds": []
+        },
+        {
+          "index": 1,
+          "width": 360,
+          "minimumText": 16.8,
+          "outOfBounds": []
+        },
+        {
+          "index": 2,
+          "width": 360,
+          "minimumText": 16.8,
+          "outOfBounds": []
+        },
+        {
+          "index": 3,
+          "width": 369.609375,
+          "minimumText": 17.2484375,
+          "outOfBounds": []
+        },
+        {
+          "index": 4,
+          "width": 369.59375,
+          "minimumText": 17.247708333333332,
+          "outOfBounds": []
+        },
+        {
+          "index": 5,
+          "width": 360,
+          "minimumText": 16.8,
+          "outOfBounds": []
+        },
+        {
+          "index": 6,
+          "width": 520,
+          "minimumText": 24.266666666666666,
+          "outOfBounds": []
+        },
+        {
+          "index": 7,
+          "width": 520,
+          "minimumText": 24.266666666666666,
+          "outOfBounds": []
+        },
+        {
+          "index": 8,
+          "width": 520,
+          "minimumText": 24.266666666666666,
+          "outOfBounds": []
+        },
+        {
+          "index": 9,
+          "width": 369.59375,
+          "minimumText": 17.247708333333332,
+          "outOfBounds": []
+        },
+        {
+          "index": 10,
+          "width": 369.609375,
+          "minimumText": 17.2484375,
+          "outOfBounds": []
+        },
+        {
+          "index": 11,
+          "width": 360,
+          "minimumText": 16.8,
+          "outOfBounds": []
+        },
+        {
+          "index": 12,
+          "width": 369.609375,
+          "minimumText": 17.2484375,
+          "outOfBounds": []
+        },
+        {
+          "index": 13,
+          "width": 369.59375,
+          "minimumText": 17.247708333333332,
+          "outOfBounds": []
+        },
+        {
+          "index": 14,
+          "width": 520,
+          "minimumText": 24.266666666666666,
+          "outOfBounds": []
+        },
+        {
+          "index": 15,
+          "width": 369.59375,
+          "minimumText": 17.247708333333332,
+          "outOfBounds": []
+        },
+        {
+          "index": 16,
+          "width": 369.609375,
+          "minimumText": 17.2484375,
+          "outOfBounds": []
+        },
+        {
+          "index": 17,
+          "width": 369.59375,
+          "minimumText": 17.247708333333332,
+          "outOfBounds": []
+        },
+        {
+          "index": 18,
+          "width": 369.59375,
+          "minimumText": 17.247708333333332,
+          "outOfBounds": []
+        },
+        {
+          "index": 19,
+          "width": 369.609375,
+          "minimumText": 17.2484375,
+          "outOfBounds": []
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "failedRequests": [],
+      "documentOverflow": false
+    },
+    {
+      "width": 390,
+      "states": 128,
+      "disclosures": 36,
+      "controls": 87,
+      "programs": 17,
+      "anchors": [
+        {
+          "href": "#1-make-rotation-an-arithmetic-operation",
+          "exists": true
+        },
+        {
+          "href": "#2-describe-an-oscillation-with-a-rotating-arrow",
+          "exists": true
+        },
+        {
+          "href": "#3-recover-the-ingredients-by-projection",
+          "exists": true
+        },
+        {
+          "href": "#4-ask-what-a-fourier-series-converges-to",
+          "exists": true
+        },
+        {
+          "href": "#5-give-a-nonperiodic-signal-a-spectrum",
+          "exists": true
+        },
+        {
+          "href": "#6-transform-a-finite-list-exactly",
+          "exists": true
+        },
+        {
+          "href": "#7-distinguish-a-signal-from-its-samples",
+          "exists": true
+        },
+        {
+          "href": "#8-understand-the-window-before-reading-a-spectrum",
+          "exists": true
+        },
+        {
+          "href": "#9-predict-the-output-of-a-filter",
+          "exists": true
+        },
+        {
+          "href": "#10-add-exponential-weighting-and-a-region",
+          "exists": true
+        },
+        {
+          "href": "#11-preserve-initial-conditions-and-input-timing",
+          "exists": true
+        },
+        {
+          "href": "#12-transfer-the-method-and-check-its-limits",
+          "exists": true
+        }
+      ],
+      "equations": 13,
+      "overflowEquations": [],
+      "geometry": [
+        {
+          "index": 0,
+          "width": 310,
+          "minimumText": 15.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 1,
+          "width": 310,
+          "minimumText": 15.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 2,
+          "width": 310,
+          "minimumText": 15.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 3,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 4,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 5,
+          "width": 310,
+          "minimumText": 15.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 6,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 7,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 8,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 9,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 10,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 11,
+          "width": 310,
+          "minimumText": 15.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 12,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 13,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 14,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 15,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 16,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 17,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 18,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        },
+        {
+          "index": 19,
+          "width": 350,
+          "minimumText": 17.5,
+          "outOfBounds": []
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "failedRequests": [],
+      "documentOverflow": false
+    },
+    {
+      "width": 320,
+      "states": 128,
+      "disclosures": 36,
+      "controls": 87,
+      "programs": 17,
+      "anchors": [
+        {
+          "href": "#1-make-rotation-an-arithmetic-operation",
+          "exists": true
+        },
+        {
+          "href": "#2-describe-an-oscillation-with-a-rotating-arrow",
+          "exists": true
+        },
+        {
+          "href": "#3-recover-the-ingredients-by-projection",
+          "exists": true
+        },
+        {
+          "href": "#4-ask-what-a-fourier-series-converges-to",
+          "exists": true
+        },
+        {
+          "href": "#5-give-a-nonperiodic-signal-a-spectrum",
+          "exists": true
+        },
+        {
+          "href": "#6-transform-a-finite-list-exactly",
+          "exists": true
+        },
+        {
+          "href": "#7-distinguish-a-signal-from-its-samples",
+          "exists": true
+        },
+        {
+          "href": "#8-understand-the-window-before-reading-a-spectrum",
+          "exists": true
+        },
+        {
+          "href": "#9-predict-the-output-of-a-filter",
+          "exists": true
+        },
+        {
+          "href": "#10-add-exponential-weighting-and-a-region",
+          "exists": true
+        },
+        {
+          "href": "#11-preserve-initial-conditions-and-input-timing",
+          "exists": true
+        },
+        {
+          "href": "#12-transfer-the-method-and-check-its-limits",
+          "exists": true
+        }
+      ],
+      "equations": 13,
+      "overflowEquations": [],
+      "geometry": [
+        {
+          "index": 0,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 1,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 2,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 3,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 4,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 5,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 6,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 7,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 8,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 9,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 10,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 11,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 12,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 13,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 14,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 15,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 16,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 17,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 18,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        },
+        {
+          "index": 19,
+          "width": 280,
+          "minimumText": 14,
+          "outOfBounds": []
+        }
+      ],
+      "errors": [],
+      "warnings": [],
+      "failedRequests": [],
+      "documentOverflow": false
+    }
+  ]
+}

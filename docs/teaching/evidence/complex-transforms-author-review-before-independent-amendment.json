@@ -1,0 +1,778 @@
+{
+  "topicId": "complex-numbers-fourier-laplace-transforms",
+  "title": "Complex Numbers, Fourier & Laplace Transforms",
+  "modulePosition": 51,
+  "status": "author-verified; independent review and parent production integration remain separate",
+  "frozenAt": "2026-09-11T06:30:31.509261+00:00",
+  "productionSources": [
+    {
+      "path": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+      "sha256": "57575917e4158cdc96cb01fa2385993f206746b18d65042c1ed14feaa6b6a5ff"
+    },
+    {
+      "path": "src/learn/data/complex-transforms-models.js",
+      "sha256": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445"
+    },
+    {
+      "path": "src/learn/data/complex-transforms-examples.js",
+      "sha256": "f57e27d5d0ba8e8b204399198e1adf25ed68b7936711eac840b3da4d559bacb4"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "sha256": "2a3a3422c32dea4857ca8861c523c0c047f82c65a1a912207b0e53d2231bc49b"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/complex-transforms-labs.css",
+      "sha256": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js",
+      "sha256": "08dcc9fb9cbd75e804532f42f7e2c2772eb52c30812c92661e197464a272d54a"
+    }
+  ],
+  "preservation": {
+    "previousPublication": false,
+    "archive": "docs/teaching/evidence/complex-transforms-original-plan.json",
+    "identityAndOrderUnchanged": true,
+    "existingPrerequisitesRetained": true
+  },
+  "native": {
+    "checkedAt": "2026-09-11T06:20:09.448490+00:00",
+    "numericSourceHashes": {
+      "src/learn/data/complex-transforms-models.js": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445",
+      "src/learn/data/complex-transforms-examples.js": "f57e27d5d0ba8e8b204399198e1adf25ed68b7936711eac840b3da4d559bacb4"
+    },
+    "checks": {
+      "actual_complete_programs": 17,
+      "actual_native_dft_changed": 40,
+      "actual_native_inverse_changed": 40,
+      "actual_native_fft_changed": 25,
+      "native_fft_invalid": 4,
+      "actual_native_pulse_changed": 15,
+      "actual_native_filter_changed": 12,
+      "actual_native_delayed_changed": 18,
+      "changed_practice_conjugate": 1,
+      "changed_practice_convolution": 1,
+      "changed_practice_symbolic_ramp": 2,
+      "complex_arithmetic": 44,
+      "phasor_rotation_matrix": 40,
+      "phasor_real_projection": 20,
+      "changed_practice_cube_roots": 3,
+      "roots_power": 24,
+      "projection_independent_quadrature": 144,
+      "square_high_precision_peak": 5,
+      "square_integrated_error": 5,
+      "square_peak_stationarity": 5,
+      "square_scaled_neighborhood": 45,
+      "square_zoom_coordinate": 45,
+      "dft_numpy": 72,
+      "inverse_changed_spectrum": 72,
+      "parseval": 72,
+      "phase_aware_alias": 72,
+      "periodogram_frequencies": 54,
+      "periodogram_density": 54,
+      "finite_density_identity": 54,
+      "continuous_window_curve": 486,
+      "convolution_direct_fold": 78,
+      "selected_convolution_terms": 78,
+      "filter_integrating_factor": 243,
+      "laplace_high_precision_cancellation": 175,
+      "sided_finite_integrals": 12,
+      "region_condition": 12,
+      "rejected_invalid_inputs": 19
+    },
+    "maxScaledError": 2.8900493109773606e-14,
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "sympy": "1.14.0",
+    "limits": "Finite arithmetic checks and complete program execution; browser and general analytic proofs are separate."
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T06:29:38.559Z",
+    "passed": true,
+    "sourceHashes": [
+      {
+        "path": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+        "sha256": "57575917e4158cdc96cb01fa2385993f206746b18d65042c1ed14feaa6b6a5ff"
+      },
+      {
+        "path": "src/learn/data/complex-transforms-models.js",
+        "sha256": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445"
+      },
+      {
+        "path": "src/learn/data/complex-transforms-examples.js",
+        "sha256": "f57e27d5d0ba8e8b204399198e1adf25ed68b7936711eac840b3da4d559bacb4"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+        "sha256": "2a3a3422c32dea4857ca8861c523c0c047f82c65a1a912207b0e53d2231bc49b"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/complex-transforms-labs.css",
+        "sha256": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js",
+        "sha256": "08dcc9fb9cbd75e804532f42f7e2c2772eb52c30812c92661e197464a272d54a"
+      }
+    ],
+    "results": [
+      {
+        "width": 1440,
+        "states": 126,
+        "disclosures": 36,
+        "controls": 87,
+        "programs": 17,
+        "anchors": [
+          {
+            "href": "#1-make-rotation-an-arithmetic-operation",
+            "exists": true
+          },
+          {
+            "href": "#2-describe-an-oscillation-with-a-rotating-arrow",
+            "exists": true
+          },
+          {
+            "href": "#3-recover-the-ingredients-by-projection",
+            "exists": true
+          },
+          {
+            "href": "#4-ask-what-a-fourier-series-converges-to",
+            "exists": true
+          },
+          {
+            "href": "#5-give-a-nonperiodic-signal-a-spectrum",
+            "exists": true
+          },
+          {
+            "href": "#6-transform-a-finite-list-exactly",
+            "exists": true
+          },
+          {
+            "href": "#7-distinguish-a-signal-from-its-samples",
+            "exists": true
+          },
+          {
+            "href": "#8-understand-the-window-before-reading-a-spectrum",
+            "exists": true
+          },
+          {
+            "href": "#9-predict-the-output-of-a-filter",
+            "exists": true
+          },
+          {
+            "href": "#10-add-exponential-weighting-and-a-region",
+            "exists": true
+          },
+          {
+            "href": "#11-preserve-initial-conditions-and-input-timing",
+            "exists": true
+          },
+          {
+            "href": "#12-transfer-the-method-and-check-its-limits",
+            "exists": true
+          }
+        ],
+        "equations": 13,
+        "overflowEquations": [],
+        "geometry": [
+          {
+            "index": 0,
+            "width": 360,
+            "minimumText": 16.8,
+            "outOfBounds": []
+          },
+          {
+            "index": 1,
+            "width": 360,
+            "minimumText": 16.8,
+            "outOfBounds": []
+          },
+          {
+            "index": 2,
+            "width": 360,
+            "minimumText": 16.8,
+            "outOfBounds": []
+          },
+          {
+            "index": 3,
+            "width": 369.609375,
+            "minimumText": 17.2484375,
+            "outOfBounds": []
+          },
+          {
+            "index": 4,
+            "width": 369.59375,
+            "minimumText": 17.247708333333332,
+            "outOfBounds": []
+          },
+          {
+            "index": 5,
+            "width": 360,
+            "minimumText": 16.8,
+            "outOfBounds": []
+          },
+          {
+            "index": 6,
+            "width": 520,
+            "minimumText": 24.266666666666666,
+            "outOfBounds": []
+          },
+          {
+            "index": 7,
+            "width": 520,
+            "minimumText": 24.266666666666666,
+            "outOfBounds": []
+          },
+          {
+            "index": 8,
+            "width": 520,
+            "minimumText": 24.266666666666666,
+            "outOfBounds": []
+          },
+          {
+            "index": 9,
+            "width": 369.59375,
+            "minimumText": 17.247708333333332,
+            "outOfBounds": []
+          },
+          {
+            "index": 10,
+            "width": 369.609375,
+            "minimumText": 17.2484375,
+            "outOfBounds": []
+          },
+          {
+            "index": 11,
+            "width": 360,
+            "minimumText": 16.8,
+            "outOfBounds": []
+          },
+          {
+            "index": 12,
+            "width": 369.609375,
+            "minimumText": 17.2484375,
+            "outOfBounds": []
+          },
+          {
+            "index": 13,
+            "width": 369.59375,
+            "minimumText": 17.247708333333332,
+            "outOfBounds": []
+          },
+          {
+            "index": 14,
+            "width": 520,
+            "minimumText": 24.266666666666666,
+            "outOfBounds": []
+          },
+          {
+            "index": 15,
+            "width": 369.59375,
+            "minimumText": 17.247708333333332,
+            "outOfBounds": []
+          },
+          {
+            "index": 16,
+            "width": 369.609375,
+            "minimumText": 17.2484375,
+            "outOfBounds": []
+          },
+          {
+            "index": 17,
+            "width": 369.59375,
+            "minimumText": 17.247708333333332,
+            "outOfBounds": []
+          },
+          {
+            "index": 18,
+            "width": 369.59375,
+            "minimumText": 17.247708333333332,
+            "outOfBounds": []
+          },
+          {
+            "index": 19,
+            "width": 369.609375,
+            "minimumText": 17.2484375,
+            "outOfBounds": []
+          }
+        ],
+        "errors": [],
+        "warnings": [],
+        "failedRequests": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 390,
+        "states": 126,
+        "disclosures": 36,
+        "controls": 87,
+        "programs": 17,
+        "anchors": [
+          {
+            "href": "#1-make-rotation-an-arithmetic-operation",
+            "exists": true
+          },
+          {
+            "href": "#2-describe-an-oscillation-with-a-rotating-arrow",
+            "exists": true
+          },
+          {
+            "href": "#3-recover-the-ingredients-by-projection",
+            "exists": true
+          },
+          {
+            "href": "#4-ask-what-a-fourier-series-converges-to",
+            "exists": true
+          },
+          {
+            "href": "#5-give-a-nonperiodic-signal-a-spectrum",
+            "exists": true
+          },
+          {
+            "href": "#6-transform-a-finite-list-exactly",
+            "exists": true
+          },
+          {
+            "href": "#7-distinguish-a-signal-from-its-samples",
+            "exists": true
+          },
+          {
+            "href": "#8-understand-the-window-before-reading-a-spectrum",
+            "exists": true
+          },
+          {
+            "href": "#9-predict-the-output-of-a-filter",
+            "exists": true
+          },
+          {
+            "href": "#10-add-exponential-weighting-and-a-region",
+            "exists": true
+          },
+          {
+            "href": "#11-preserve-initial-conditions-and-input-timing",
+            "exists": true
+          },
+          {
+            "href": "#12-transfer-the-method-and-check-its-limits",
+            "exists": true
+          }
+        ],
+        "equations": 13,
+        "overflowEquations": [],
+        "geometry": [
+          {
+            "index": 0,
+            "width": 310,
+            "minimumText": 15.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 1,
+            "width": 310,
+            "minimumText": 15.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 2,
+            "width": 310,
+            "minimumText": 15.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 5,
+            "width": 310,
+            "minimumText": 15.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 8,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 9,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 10,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 11,
+            "width": 310,
+            "minimumText": 15.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 12,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 13,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 14,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 15,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 16,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 17,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 18,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          },
+          {
+            "index": 19,
+            "width": 350,
+            "minimumText": 17.5,
+            "outOfBounds": []
+          }
+        ],
+        "errors": [],
+        "warnings": [],
+        "failedRequests": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 320,
+        "states": 126,
+        "disclosures": 36,
+        "controls": 87,
+        "programs": 17,
+        "anchors": [
+          {
+            "href": "#1-make-rotation-an-arithmetic-operation",
+            "exists": true
+          },
+          {
+            "href": "#2-describe-an-oscillation-with-a-rotating-arrow",
+            "exists": true
+          },
+          {
+            "href": "#3-recover-the-ingredients-by-projection",
+            "exists": true
+          },
+          {
+            "href": "#4-ask-what-a-fourier-series-converges-to",
+            "exists": true
+          },
+          {
+            "href": "#5-give-a-nonperiodic-signal-a-spectrum",
+            "exists": true
+          },
+          {
+            "href": "#6-transform-a-finite-list-exactly",
+            "exists": true
+          },
+          {
+            "href": "#7-distinguish-a-signal-from-its-samples",
+            "exists": true
+          },
+          {
+            "href": "#8-understand-the-window-before-reading-a-spectrum",
+            "exists": true
+          },
+          {
+            "href": "#9-predict-the-output-of-a-filter",
+            "exists": true
+          },
+          {
+            "href": "#10-add-exponential-weighting-and-a-region",
+            "exists": true
+          },
+          {
+            "href": "#11-preserve-initial-conditions-and-input-timing",
+            "exists": true
+          },
+          {
+            "href": "#12-transfer-the-method-and-check-its-limits",
+            "exists": true
+          }
+        ],
+        "equations": 13,
+        "overflowEquations": [],
+        "geometry": [
+          {
+            "index": 0,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 8,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 9,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 10,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 11,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 12,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 13,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 14,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 15,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 16,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 17,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 18,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          },
+          {
+            "index": 19,
+            "width": 280,
+            "minimumText": 14,
+            "outOfBounds": []
+          }
+        ],
+        "errors": [],
+        "warnings": [],
+        "failedRequests": [],
+        "documentOverflow": false
+      }
+    ]
+  },
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/complex-transforms-browser/default-1-1440.png",
+      "sha256": "18c9bc97e1292026154456c3bf4da355a13cf3e8ad0f5a436ae9f259809da34e",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/default-2-1440.png",
+      "sha256": "2f7b92c13d46ac286c94bfc9bbba055e6696bd664b43295c54231298388290e2",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/default-3-1440.png",
+      "sha256": "677596e97817c2d41d153ad9f508206a5afd4eca82e42797db8e33b3cf2287dc",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/default-5-390.png",
+      "sha256": "91e164611e691433865167eccf2105ed361a395eeb7967327d92f726772a89d4",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/padded-hann-390.png",
+      "sha256": "8b1df3b0ea35b655ae5f8292fa8f26b8824559ce66afb235f2f76cf5d2397769",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/default-10-320.png",
+      "sha256": "74ddde96943e9927a6cdaedfd5d0bcd14cf7c13baa2e0fcb34c21af09e506b54",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/reading-1-320.png",
+      "sha256": "13636d2f7ce339579db991b82a3144fc17b05b6de06fa9412c95bd2fe76dd4b9",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/reading-4-390.png",
+      "sha256": "ad6b9d49868c55a23ec3c86cb053fb1faee2349150a23cc3d1a8f4e4a6dd11d6",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/reading-11-320.png",
+      "sha256": "58cf0366fa30f244b5c4a697132916b4c3d7c30c306b9fac065940361c0c70de",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/inline-1-320.png",
+      "sha256": "a7987bf2fb7b28f93b8073769f7ef16933a3a8cb41eb86151967ae32bbf98d3a",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/inline-2-320.png",
+      "sha256": "dc2b7e57d688c050c54be806efeca2b9540511e100ce3423560899843714721d",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/inline-3-320.png",
+      "sha256": "efe6e4374d471acbd62988a677fc5f746113d0d6634cd7aa07ba704dda92fdbb",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/moving-peak-320.png",
+      "sha256": "1fe2c509b7b6b54b1f5b705304434b9af24dadc7a912873edb0608f31da65d0b",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/wrapped-tail-390.png",
+      "sha256": "22362b0b21c14de105f7996b65cd818e0ebf395efe8174dd8cc4b5ab7769c27a",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/changed-filter-1440.png",
+      "sha256": "e358740c9896bf5ae27b03611529125be8118e53e399597e569cb9921f2da9e8",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/tiny-valid-dft-320.png",
+      "sha256": "212533caf972d6c8e5e4b2ee2e7b2907cbf0359d92d03aec88a037fc2a1689ae",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/final-practice-390.png",
+      "sha256": "f51784bc23cb890213782b1ae05e0f052eb040c1fc129db74ab51810fc6cdb40",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    },
+    {
+      "path": "scratch/complex-transforms-browser/outside-roc-large-320.png",
+      "sha256": "64d457e44f3276fb444b6e3dd2b6f9d784c76ea5c24d403d825654588e85c9f1",
+      "review": "Actually opened; author visual inspection, separate from automated geometry bounds."
+    }
+  ],
+  "design": "docs/teaching/COMPLEX-FOURIER-LAPLACE-LESSON-DESIGN.md",
+  "verification": "docs/teaching/COMPLEX-FOURIER-LAPLACE-VERIFICATION.md",
+  "limits": [
+    "No observed beginner user study or user acceptance is claimed.",
+    "No full-video viewing is claimed; companion text/transcript and video identity review are distinguished.",
+    "Finite numerical oracles do not establish general sampling, inversion or convergence theorems.",
+    "Production bundle/build/loading and shared curriculum integration belong to the parent."
+  ]
+}

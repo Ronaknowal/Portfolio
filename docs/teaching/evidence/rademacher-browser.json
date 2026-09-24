@@ -1,0 +1,257 @@
+{
+  "startedAt": "2026-09-20T07:09:49.799Z",
+  "finishedAt": "2026-09-20T07:10:08.361Z",
+  "status": "passed",
+  "route": "http://127.0.0.1:4194/learn/path/full-curriculum/rademacher-complexity-generalization-bounds?module=classical-ml",
+  "distDir": "dist-rad",
+  "buildManifestSha256": "e1956054027edd60672cf8eaf77bc85a11b25b304b84ca4a404f02ac056b15c4",
+  "sourceHashes": {
+    "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "d7dad6233f2ac6cdae18358774e9dd9941363db43f3a679cae52edadae8af5dc",
+    "src/learn/data/rademacher-models.js": "3789780ae3be239001e8f2579c06a055e81a0c4e736f2566fa560ec8a9d5708f",
+    "src/learn/data/rademacher-data.js": "001572787c88eb965e334e50ac45e23e8f883f978642894019846fcaa0701701",
+    "src/learn/data/rademacher-examples.js": "f664f16c0bdb73aeddb2163d6f42505eaa18935f84a90de7a6716124f5c9398f",
+    "src/learn/components/lesson-labs/RademacherShared.jsx": "31bdd8f6edfd47c1cbcb2d7e6f0ce81676825e4f47bd3e3e7bb01fcfe1cf10a9",
+    "src/learn/components/lesson-labs/RademacherLabs.jsx": "a0d66be9c5cafd7799cff9ad4323666dd2249528a8fa118ef30a179239577ac4",
+    "src/learn/components/lesson-labs/RademacherFigures.jsx": "73d03f8c84281480d5ac84c327fde20d92d0a26c16c59d23cc42486fc499e281",
+    "src/learn/components/lesson-labs/rademacher-labs.css": "0d58d413f557a97d0815df8d46d8430b7dc44136d16ca2625f70bce5fb017488",
+    "src/learn/data/curriculum/blueprints/rademacher-complexity-generalization-bounds.js": "c2e20f91ccd60feed956382789f6b797bc314969a18a006f37ea461e2eaafc3a",
+    "public/learn-assets/rademacher/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn-assets/rademacher/ATTRIBUTION.txt": "b86580a701352718985734c405b57a1249982e0b308a05ae11b42e01111f63d5",
+    "public/learn-assets/rademacher/complexity_calculations.py": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+    "public/learn-assets/rademacher/bounded_norm_experiment.py": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836"
+  },
+  "dataset": {
+    "file": "/learn-assets/rademacher/banknote-subset.csv",
+    "sha256": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "bytes": 21237
+  },
+  "modelExports": 54,
+  "records": [
+    {
+      "case": "Header, route, sequence position, eleven sections with working anchors, four investigations, seventeen figures, two executed programs with their real output, three verbatim excerpts, and its own served dataset and programs"
+    },
+    {
+      "case": "Every KaTeX radical and stretchy accent is actually drawn, at 1366, 390 and 320 px",
+      "katexSvgsMeasured": 53,
+      "radicalsMeasured": 24,
+      "shortestHeightPx": 3.77,
+      "note": "A lesson-root bare descendant `svg` rule collapsed all 24 radicals to 0.05-0.72px. The existing accent-WIDTH guard could not see it, because a collapsed SVG is also narrow."
+    },
+    {
+      "case": "The three quantities stay distinct and no bound is phrased as a promise",
+      "statementsRequired": 11,
+      "phrasingsForbidden": 3,
+      "note": "Previously a manual pass with no regression guard, which is what the independent review flagged."
+    },
+    {
+      "case": "No investigation shows a graded quantity before a prediction is recorded",
+      "checkedStrings": 11,
+      "note": "Asks whether the answer string is on screen, and separately whether any six-decimal number is, rather than enumerating the containers an answer might sit in."
+    },
+    {
+      "case": "Investigation 1 commits a winning row and a numeric correlation together, grades against the committed draft, and retires both when a prediction row is edited",
+      "tieAndPrecision": "The SECOND of two tied winners is graded correct and the other is named; the value the page itself prints (0.333333 for an exact 1/3) is accepted. Both were live defects before this run."
+    },
+    {
+      "case": "A gap smaller than the printed precision grades as equal, at the reviewer's reachable input",
+      "input": "preset \"Perpendicular (1, 0) and (0, 1)\" with x2 coordinate 1 set to 0.001; exact gap 8.8e-8",
+      "note": "Blocking finding B1. The categorical comparison now grades at the precision it prints, like the numeric field beside it."
+    },
+    {
+      "case": "Investigation 4 keeps assessment closed until a selection is committed, reveals the real counts afterwards, and keeps an accurate assessment-seen indicator across Reset"
+    },
+    {
+      "case": "Figure 8's small multiples share one scale, measured from the painted DOM",
+      "ballWidthsPx": [
+        53,
+        53,
+        53
+      ],
+      "note": "Blocking finding B2. Each panel used to autoscale to a signed sum it never draws."
+    },
+    {
+      "case": "No label leaves its SVG, overlaps another label, is crossed by a straight line or run through by a curve; every painted stroke and fill agrees with its attribute",
+      "curveSamplingNote": "Curves are sampled along their own geometry and tested against every label box, because the shared inspector reads straight lines only."
+    },
+    {
+      "case": "No document or formula overflow, no oversized KaTeX accent, no clipped table column and no curve through a label at 1366, 390 and 320 px"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure, and renders without fetching any data file",
+      "requestedScripts": [
+        "assets/index-adC-FCJ2.js",
+        "assets/Reader-DVbeCCeu.js",
+        "assets/LevelBadge-B5liCsal.js",
+        "assets/rademacher-complexity-generalization-bounds-DRrZDj7D.js",
+        "assets/Code-BmFJX6l1.js",
+        "assets/Callout-CGEcvGA9.js",
+        "assets/Math-sKHpIrus.js",
+        "assets/LessonElements-DftrWQ4j.js",
+        "assets/RunnableExample-Cr9eSYzs.js"
+      ],
+      "rawScriptBytes": 1800078,
+      "gzipEstimateBytes": 402246,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "No page error, no failed asset, keyboard focus reaches the lesson"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-best-response-before-prediction-desktop.png",
+      "digest": "9493e4506a122f6be0cb2661b5de0b5e4688a500a843373b041c37f5843f1287",
+      "bytes": 134991
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-bounded-norm-before-prediction-desktop.png",
+      "digest": "2476794f23450bafa25761e83b735fdfb00e175a11dee541b6a8fcf06cdf57f0",
+      "bytes": 181018
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-best-response-committed-desktop.png",
+      "digest": "ce13bae0fd2397e30d10050477a342b9bc642919b6bb6410fc7d06690e7c1129",
+      "bytes": 233695
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-signed-geometry-near-tie-desktop.png",
+      "digest": "1c9d189c848c4818fc9da6ff3ae674f9f8e2410fba7cbcbd5d222cd863853ed0",
+      "bytes": 365811
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-bounded-norm-assessment-open-desktop.png",
+      "digest": "c7f5b7b9351c425ad2a82b607de71d629d3ebc0713c0f034c42fb619dc649d33",
+      "bytes": 299896
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-1-desktop.png",
+      "digest": "93fbdfe3ec1d9b43227f6ec2bba98c9b644509c623687f4e06c6d4fbc09f5745",
+      "bytes": 52433
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-2-desktop.png",
+      "digest": "a6c272f9871b4434b400f4b7d75573fbcd0836df62f7b7198a803dcc142ecb4e",
+      "bytes": 69286
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-3-desktop.png",
+      "digest": "358abdfa13d1abeeabc07a904f08abf29d47ac606ac748b2015c1799b0e2bfc7",
+      "bytes": 73932
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-4-desktop.png",
+      "digest": "a96d5da741aca6493e8d6cba299df281ac9f9d1e3bcecfc1ab230dbc3b088bb5",
+      "bytes": 72597
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-5-desktop.png",
+      "digest": "99dbfb41b41ae4244050c5c8482d7059ab60410addad35f32ca9e975ec51da12",
+      "bytes": 67859
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-6-desktop.png",
+      "digest": "1cc3cfa48feff9309c310315bd84c2a216785fc92419922e7a004d98b3b75104",
+      "bytes": 64155
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-7-desktop.png",
+      "digest": "0d7e5fcac16755b4f95684f678ed85c48b175d534d3c6cb3f6b1e4afc210dcf8",
+      "bytes": 55400
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-8-desktop.png",
+      "digest": "c7e7e59967efc03fd2d9a2d444a56862f7e9a2b199aef7b74e64aa040057ea9a",
+      "bytes": 68558
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-9-desktop.png",
+      "digest": "a721923195faaa223e0d8ebae3f01de36d1cd83942298b79b95e9b6d59940b0c",
+      "bytes": 78425
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-10-desktop.png",
+      "digest": "acf278b85930702cce053df5b0d9821a11b9a59450fa87ef4c16915de9ac5962",
+      "bytes": 53847
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-11-desktop.png",
+      "digest": "64ccc6fb6471ceb15fcf2c28b11dc3324668de307b5f15652ea5f0135ef0c11d",
+      "bytes": 58420
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-12-desktop.png",
+      "digest": "4d84cc6f032070da1bb20c45b247a00de887cf2136b96db0e1f9b7404d11267d",
+      "bytes": 60757
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-13-desktop.png",
+      "digest": "bd79fad691a08c584e05252a53f8f386885df175126b87ff80a303162f59b08c",
+      "bytes": 106395
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-14-desktop.png",
+      "digest": "aa8374868040e8a30647a3cc4f0f9513ed946d0ae6a2f86717ea15e079a34bc1",
+      "bytes": 69081
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-15-desktop.png",
+      "digest": "7c4a1bd030592b01c9e464943de57f60eb5260d6d1f7bd68946710aa4a17d1d4",
+      "bytes": 85558
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-16-desktop.png",
+      "digest": "13705d28df2e9addad9fd643c170204a193c22fc511cb0143d93d746c212d414",
+      "bytes": 52163
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-17-desktop.png",
+      "digest": "b4927f8224c7979b4e7cb2075aef8498959ecccb4f0aae7e9a879990e9ee0b84",
+      "bytes": 69566
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-2-390.png",
+      "digest": "91a8964d29ec2e3f2c28033474584128181ada3ac4b3f4a24a4389174e0a9930",
+      "bytes": 92153
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-9-390.png",
+      "digest": "ce1cc8190be8cb35a0124edf44d5eca2a16561562f48782792b37ab16bc80281",
+      "bytes": 80562
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-13-390.png",
+      "digest": "bc0b47cd5f01e50e68eb2db645c4b5acb98d0471c6f7e67181cce9cfb6d02216",
+      "bytes": 115993
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-16-390.png",
+      "digest": "e9553ad2ce9a4dcf4af67540dfb02565e987f017e0b600d9359b2c2eaac45742",
+      "bytes": 52435
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-bounded-norm-390.png",
+      "digest": "191f9dad1e99acb7226c08f7560abf7943f1d187c2ad8077d7b23555fb3e14e7",
+      "bytes": 224144
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-best-response-320.png",
+      "digest": "c0df7ae39ace9f283befe87cfb8ac35569ec37b0a33fd5c507dc6834703de4c5",
+      "bytes": 174039
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-7-320.png",
+      "digest": "9d848a38d6e00408108cf955671effab948e4dc54938becb8c193ec49e35b813",
+      "bytes": 56834
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\rademacher-figure-15-320.png",
+      "digest": "4b55e4d09c4385727a3340f765ad801b803a86d8cd01ce44089cb9a88a1ce364",
+      "bytes": 104916
+    }
+  ],
+  "limitations": [
+    "One browser (Edge/Chromium) at three widths. Other engines and assistive technologies are not covered.",
+    "Numerical correctness is established by scripts/verify-rademacher-models.mjs and the data and examples verifiers; this run checks what the page renders and how it behaves.",
+    "Screenshots are recorded with their content digests so a stale capture cannot be reported as fresh. They still have to be LOOKED AT; a passing geometry check is not a visual review."
+  ]
+}

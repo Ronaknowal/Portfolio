@@ -1,0 +1,2367 @@
+{
+  "authorFrozenAt": "2026-09-11T05:23:15.161196+00:00",
+  "topicId": "ordinary-differential-equations-linear-systems",
+  "status": "author-verified; independent review, production integration and user acceptance separate",
+  "productionSourceCount": 7,
+  "sources": [
+    {
+      "path": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+      "sha256": "5e1875ec91f4da24c29c313bf5720d4ab775ec7cefbea680bb774d2557f266be",
+      "bytes": 62845
+    },
+    {
+      "path": "src/learn/data/ordinary-differential-equations-models.js",
+      "sha256": "d732bc008440749b3a9907aa92cf2e0273ebcd9637752f3cb6ac77aa9086ff5c",
+      "bytes": 11390
+    },
+    {
+      "path": "src/learn/data/ordinary-differential-equations-examples.js",
+      "sha256": "bbaa1fbbd84b68251e1e8bb726fcc3bdfb1c02d1ba4dc21486f6b56748c5f32e",
+      "bytes": 21231
+    },
+    {
+      "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsLabs.jsx",
+      "sha256": "614ffa813e3b4b3fc5c256d1234190b951e751dfc36b7c748fc9ee4b33b29190",
+      "bytes": 23314
+    },
+    {
+      "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsFigures.jsx",
+      "sha256": "d1db7f505d2ab48d73974699bea017c4cbb8b8a762763b512f35a3d66e47de49",
+      "bytes": 4461
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ordinary-differential-equations-labs.css",
+      "sha256": "246bda575fd97c8dc9ed23337b98f11e0640fdc67b77a51cdd24f30446e17bc6",
+      "bytes": 4895
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/ordinary-differential-equations-linear-systems.js",
+      "sha256": "7dfd227add1cba5ee06c56cc7c9873f81c6525ce50cab176634ff61d274cedc9",
+      "bytes": 6809
+    }
+  ],
+  "records": {
+    "models": {
+      "file": {
+        "path": "scratch/ordinary-differential-equations-verification/model-results.json",
+        "sha256": "ac6afaa1a0a45e5235ae2525a8a2a5dab7551c2b2d561e3ee9f32a82c5e1af35",
+        "bytes": 330
+      },
+      "result": {
+        "checkedAt": "2026-09-11T05:10:34.528Z",
+        "equations": 23,
+        "rejected": 12,
+        "cases": {
+          "cooling": 64,
+          "logistic": 216,
+          "waiting": 16,
+          "matrices": 210,
+          "oscillators": 105,
+          "forcing": 96,
+          "steps": 27,
+          "integrations": 12,
+          "amplification": 18,
+          "schedules": 6
+        },
+        "status": "passed"
+      }
+    },
+    "native": {
+      "file": {
+        "path": "scratch/ordinary-differential-equations-verification/native-results.json",
+        "sha256": "205ab9e2a1693fb30d5488f75fa29af4c5ba104e9a7a59180b3b8ebebd69b791",
+        "bytes": 985
+      },
+      "result": {
+        "checkedAt": "2026-09-11T05:10:36.406734+00:00",
+        "status": "passed",
+        "counts": {
+          "complete_programs_exact_stdout": 13,
+          "cooling_high_precision": 64,
+          "logistic_high_precision_including_subnormal": 216,
+          "waiting_family_equation_and_join_checks": 16,
+          "ordered_stage_matrix_checks": 6,
+          "independent_scipy_exponentials": 210,
+          "oscillator_near_critical_energy": 105,
+          "independent_forcing_quadratures": 96,
+          "exact_linear_stability_polynomials": 27,
+          "same_horizon_partial_step_products": 12,
+          "actual_nonautonomous_refinement_pairs": 9,
+          "actual_euler_error_bound_cases": 18,
+          "actual_held_input_changed_quadratures": 32,
+          "actual_exact_fraction_coefficient_identities": 51,
+          "actual_near_critical_independent_integrations": 9
+        },
+        "maximumMatrixAbsoluteError": 2.3305801732931286e-11,
+        "versions": {
+          "python": "3.12.14",
+          "numpy": "2.3.5",
+          "scipy": "1.18.1",
+          "mpmath": "1.3.0"
+        }
+      }
+    },
+    "browser": {
+      "file": {
+        "path": "scratch/ordinary-differential-equations-browser/results.json",
+        "sha256": "6038729ca87df277041d983fa47373ba54bcea22cff15e9882d53d72e9a4f9b3",
+        "bytes": 52334
+      },
+      "result": {
+        "checkedAt": "2026-09-11T05:11:52.350Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "anchors": [
+              "#1-turn-a-balance-into-a-rate-law",
+              "#2-read-a-solution-before-solving-it",
+              "#3-ask-whether-the-answer-exists-and-is-unique",
+              "#4-solve-scalar-equations-with-structure",
+              "#5-turn-motion-into-a-complete-state",
+              "#6-evolve-a-basis-to-solve-a-linear-system",
+              "#7-read-growth-without-losing-the-missing-modes",
+              "#8-add-forcing-with-its-timing-intact",
+              "#9-keep-time-order-when-the-system-changes",
+              "#10-build-a-numerical-step-and-track-its-error",
+              "#11-interpret-stiffness-events-and-solver-status",
+              "#12-change-the-data-location-and-the-question",
+              "#13-practise-with-changed-systems",
+              "#14-choose-a-method-and-a-next-step"
+            ],
+            "states": [
+              [
+                "field",
+                "cooling",
+                0
+              ],
+              [
+                "field",
+                "logistic",
+                10
+              ],
+              [
+                "field",
+                "logistic",
+                2
+              ],
+              [
+                "field",
+                "logistic",
+                20
+              ],
+              [
+                "waiting",
+                0
+              ],
+              [
+                "waiting",
+                1.5
+              ],
+              [
+                "waiting",
+                3
+              ],
+              [
+                "oscillator",
+                0
+              ],
+              [
+                "oscillator",
+                2
+              ],
+              [
+                "oscillator",
+                4
+              ],
+              [
+                "oscillator",
+                6
+              ],
+              [
+                "matrix",
+                "node"
+              ],
+              [
+                "matrix",
+                "saddle"
+              ],
+              [
+                "matrix",
+                "rotation"
+              ],
+              [
+                "matrix",
+                "spiral"
+              ],
+              [
+                "matrix",
+                "jordan"
+              ],
+              [
+                "matrix",
+                "nilpotent"
+              ],
+              [
+                "forcing",
+                "zero first interval"
+              ],
+              [
+                "forcing",
+                "initial"
+              ],
+              [
+                "order",
+                "both changed-initial"
+              ],
+              [
+                "stages",
+                "euler",
+                1
+              ],
+              [
+                "stages",
+                "midpoint",
+                2
+              ],
+              [
+                "stages",
+                "rk4",
+                4
+              ],
+              [
+                "unstable",
+                0.5
+              ],
+              [
+                "unstable",
+                0.6
+              ],
+              [
+                "boundary",
+                "many/none/one"
+              ]
+            ],
+            "keyboard": [
+              "Rate law: ArrowDown/Enter",
+              "Damping c: ArrowDown/Enter",
+              "Initial velocity: ArrowDown/Enter",
+              "Linear system: ArrowDown/Enter",
+              "Initial vector: ArrowDown/Enter",
+              "Stage order: ArrowDown/Enter",
+              "Stage initial state: ArrowDown/Enter",
+              "Step method: ArrowDown/Enter",
+              "Requested step h: ArrowDown/Enter",
+              "Decay rate k: ArrowDown/Enter",
+              "Right endpoint: ArrowDown/Enter",
+              "Requested endpoint value: ArrowDown/Enter",
+              "Initial state: arrow change",
+              "Inspection time: arrow change",
+              "Departure time: arrow change",
+              "Motion inspection time: arrow change",
+              "Matrix inspection time: arrow change",
+              "First interval power: arrow change",
+              "Second interval power: arrow change",
+              "Input switch time: arrow change",
+              "Response inspection time: arrow change",
+              "Candidate initial slope: arrow change",
+              "Reset rate field",
+              "Initial state ArrowRight",
+              "Reset rate field",
+              "Reset waiting family",
+              "Reset oscillator",
+              "Reset matrix columns",
+              "Reset input response",
+              "Reset stage order",
+              "Reset numerical steps",
+              "Reset boundary conditions",
+              "Deeper construction: approximate the whole function with Picard iteration",
+              "Optional substitution: a Bernoulli equation becomes linear on the right domain",
+              "Optional geometry: an exact equation follows a level curve",
+              "Optional construction: ordinary-point power series"
+            ],
+            "captures": [
+              "ordinary-intro-1440.png",
+              "reading-section-1-1440.png",
+              "reading-section-2-1440.png",
+              "reading-section-3-1440.png",
+              "reading-section-4-1440.png",
+              "reading-section-5-1440.png",
+              "reading-section-6-1440.png",
+              "reading-section-7-1440.png",
+              "reading-section-8-1440.png",
+              "reading-section-9-1440.png",
+              "reading-section-10-1440.png",
+              "reading-section-11-1440.png",
+              "reading-section-12-1440.png",
+              "reading-section-13-1440.png",
+              "reading-section-14-1440.png",
+              "reading-figure-0-1440.png",
+              "reading-figure-1-1440.png",
+              "reading-figure-2-1440.png",
+              "reading-figure-3-1440.png",
+              "reading-figure-4-1440.png",
+              "reading-figure-5-1440.png",
+              "reading-figure-6-1440.png",
+              "reading-figure-7-1440.png",
+              "reading-figure-8-1440.png",
+              "reading-figure-9-1440.png",
+              "reading-figure-10-1440.png",
+              "reading-figure-11-1440.png",
+              "logistic-above-capacity-1440.png",
+              "waiting-zero-until-horizon-1440.png",
+              "overdamped-moving-state-1440.png",
+              "nilpotent-drift-1440.png",
+              "growing-mode-1440.png",
+              "late-heating-contributions-1440.png",
+              "swapped-stages-1440.png",
+              "rk4-actual-stages-1440.png",
+              "unstable-euler-1440.png",
+              "unstable-final-error-1440.png",
+              "inconsistent-boundary-1440.png",
+              "changed-practice-2-1440.png",
+              "changed-practice-6-1440.png",
+              "changed-practice-9-1440.png",
+              "changed-practice-13-1440.png",
+              "events-complete-program-1440.png",
+              "changed-output-1440.png",
+              "equation-0-1440.png",
+              "equation-1-1440.png",
+              "equation-2-1440.png",
+              "equation-3-1440.png",
+              "equation-4-1440.png",
+              "equation-5-1440.png",
+              "equation-6-1440.png",
+              "equation-7-1440.png",
+              "equation-8-1440.png",
+              "equation-9-1440.png",
+              "equation-10-1440.png",
+              "equation-11-1440.png",
+              "equation-12-1440.png",
+              "equation-13-1440.png",
+              "equation-14-1440.png",
+              "equation-15-1440.png",
+              "equation-16-1440.png",
+              "equation-17-1440.png",
+              "equation-18-1440.png",
+              "equation-19-1440.png",
+              "equation-20-1440.png",
+              "equation-21-1440.png",
+              "equation-22-1440.png",
+              "learning-resources-1440.png"
+            ],
+            "programs": [
+              "Convert the energy balance before solving",
+              "One equation can have several solutions—or a finite lifetime",
+              "Verify a variable-coefficient integrating factor",
+              "Recover motion from position and velocity",
+              "The exponential carries every initial column",
+              "Add initial response and input response once",
+              "Use a held input even when A has no inverse",
+              "Later evolution multiplies on the left",
+              "Inspect actual stages and the same final time",
+              "Read an adaptive solver's contract and diagnostics",
+              "A successful terminal event is different from reaching the horizon",
+              "Generate two independent ordinary-point series",
+              "Check changed parameters independently"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3"
+            ],
+            "math": [
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "x′(t)=60600 [P(t)−2x(t)]=0.1P(t)−0.2x(t).\\begin{aligned}x'(t)&=\\frac{60}{600}\\,[P(t)-2x(t)]\\\\&=0.1P(t)-0.2x(t).\\end{aligned}x′(t)​=60060​[P(t)−2x(t)]=0.1P(t)−0.2x(t).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "x(t)=x0+∫t0tf(s,x(s)) ds.x(t)=x_0+\\int_{t_0}^{t}f(s,x(s))\\,ds.x(t)=x0​+∫t0​t​f(s,x(s))ds."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "x(t)=Kx0x0+(K−x0)e−rt,t≥0,x0≥0.\\begin{gathered}x(t)=\\frac{Kx_0}{x_0+(K-x_0)e^{-rt}},\\\\t\\ge0,\\quad x_0\\ge0.\\end{gathered}x(t)=x0​+(K−x0​)e−rtKx0​​,t≥0,x0​≥0.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "xn+1(t)=x0+∫t0tf(s,xn(s)) ds.x_{n+1}(t)=x_0+\\int_{t_0}^{t}f(s,x_n(s))\\,ds.xn+1​(t)=x0​+∫t0​t​f(s,xn​(s))ds."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "(μy)′=μy′+pμy=μq,y(t)=y0+∫t0tμ(s)q(s) dsμ(t).\\begin{aligned}(\\mu y)'&=\\mu y'+p\\mu y=\\mu q,\\\\y(t)&=\\frac{y_0+\\int_{t_0}^{t}\\mu(s)q(s)\\,ds}{\\mu(t)}.\\end{aligned}(μy)′y(t)​=μy′+pμy=μq,=μ(t)y0​+∫t0​t​μ(s)q(s)ds​.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "y(t)=(1+t)24+34(1+t)2,t>−1.\\begin{gathered}y(t)=\\frac{(1+t)^2}{4}+\\frac{3}{4(1+t)^2},\\\\t>-1.\\end{gathered}y(t)=4(1+t)2​+4(1+t)23​,t>−1.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "mq′′+cq′+kq=F(t),q′=v,v′=F(t)−cv−kqm.\\begin{gathered}m q''+c q'+kq=F(t),\\\\q'=v,\\qquad v'=\\frac{F(t)-cv-kq}{m}.\\end{gathered}mq′′+cq′+kq=F(t),q′=v,v′=mF(t)−cv−kq​.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "x′=Ax+b(t),A=(01−k/m−c/m),b(t)=(0F(t)/m).\\begin{gathered}x'=Ax+b(t),\\\\A=\\begin{pmatrix}0&1\\\\-k/m&-c/m\\end{pmatrix},\\\\b(t)=\\begin{pmatrix}0\\\\F(t)/m\\end{pmatrix}.\\end{gathered}x′=Ax+b(t),A=(0−k/m​1−c/m​),b(t)=(0F(t)/m​).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "q(t)=e−αt[acos⁡(ωt)+bsin⁡(ωt)].q(t)=e^{-\\alpha t}[a\\cos(\\omega t)+b\\sin(\\omega t)].q(t)=e−αt[acos(ωt)+bsin(ωt)]."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "(x1(t)x2(t))=(63)+3e−3t(1−1).\\begin{pmatrix}x_1(t)\\\\x_2(t)\\end{pmatrix}=\\begin{pmatrix}6\\\\3\\end{pmatrix}+3e^{-3t}\\begin{pmatrix}1\\\\-1\\end{pmatrix}.(x1​(t)x2​(t)​)=(63​)+3e−3t(1−1​)."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "E(t)=etA=I+tA+t2A22!+t3A33!+⋯ .\\begin{aligned}E(t)=e^{tA}&=I+tA+\\frac{t^2A^2}{2!}\\\\&\\quad+\\frac{t^3A^3}{3!}+\\cdots.\\end{aligned}E(t)=etA​=I+tA+2!t2A2​+3!t3A3​+⋯.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "x(t)=e(t−t0)Ax0.x(t)=e^{(t-t_0)A}x_0.x(t)=e(t−t0​)Ax0​."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "etA=e−t(13t01).e^{tA}=e^{-t}\\begin{pmatrix}1&3t\\\\0&1\\end{pmatrix}.etA=e−t(10​3t1​)."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "x(t)=E(t−t0)x0+∫t0tE(t−s)b(s) ds.\\begin{aligned}x(t)&=E(t-t_0)x_0\\\\&\\quad+\\int_{t_0}^{t}E(t-s)b(s)\\,ds.\\end{aligned}x(t)​=E(t−t0​)x0​+∫t0​t​E(t−s)b(s)ds.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "xn+1=Adxn+Bdu,Ad=ehA,Bd=∫0heτAB dτ.\\begin{gathered}x_{n+1}=A_d x_n+B_d u,\\\\A_d=e^{hA},\\qquad B_d=\\int_0^h e^{\\tau A}B\\,d\\tau.\\end{gathered}xn+1​=Ad​xn​+Bd​u,Ad​=ehA,Bd​=∫0h​eτABdτ.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "exp⁡ ⁣[h(AB00)]=(AdBd0I).\\exp\\!\\left[h\\begin{pmatrix}A&B\\\\0&0\\end{pmatrix}\\right]=\\begin{pmatrix}A_d&B_d\\\\0&I\\end{pmatrix}.exp[h(A0​B0​)]=(Ad​0​Bd​I​)."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "R(ω)=∣F0∣(k−mω2)2+(cω)2.R(\\omega)=\\frac{|F_0|}{\\sqrt{(k-m\\omega^2)^2+(c\\omega)^2}}.R(ω)=(k−mω2)2+(cω)2​∣F0​∣​."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "c(t)=X(t0)−1x0+∫t0tX(s)−1b(s) ds,x(t)=X(t)c(t).\\begin{aligned}c(t)&=X(t_0)^{-1}x_0\\\\&\\quad+\\int_{t_0}^{t}X(s)^{-1}b(s)\\,ds,\\\\x(t)&=X(t)c(t).\\end{aligned}c(t)x(t)​=X(t0​)−1x0​+∫t0​t​X(s)−1b(s)ds,=X(t)c(t).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "an+2=an−1(n+2)(n+1),n≥1.\\begin{gathered}a_{n+2}=\\frac{a_{n-1}}{(n+2)(n+1)},\\\\n\\ge1.\\end{gathered}an+2​=(n+2)(n+1)an−1​​,n≥1.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "yn+1=yn+h f(tn,yn).y_{n+1}=y_n+h\\,f(t_n,y_n).yn+1​=yn​+hf(tn​,yn​)."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "en+1≤(1+hL)en+Mh22,en≤Mh2L(eLT−1)(L>0, e0=0, T=nh).\\begin{aligned}e_{n+1}&\\le(1+hL)e_n+\\frac{Mh^2}{2},\\\\e_n&\\le\\frac{Mh}{2L}(e^{LT}-1)\\\\&\\quad(L>0,\\ e_0=0,\\ T=nh).\\end{aligned}en+1​en​​≤(1+hL)en​+2Mh2​,≤2LMh​(eLT−1)(L>0, e0​=0, T=nh).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),yn+1=yn+hk2.\\begin{aligned}k_1&=f(t_n,y_n),\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\y_{n+1}&=y_n+hk_2.\\end{aligned}k1​k2​yn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=yn​+hk2​.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),k3=f(tn+h/2,yn+hk2/2),k4=f(tn+h,yn+hk3),kˉ=k1+2k2+2k3+k46,yn+1=yn+hkˉ.\\begin{aligned}k_1&=f(t_n,y_n),\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\k_3&=f(t_n+h/2,y_n+hk_2/2),\\\\k_4&=f(t_n+h,y_n+hk_3),\\\\\\bar k&=\\frac{k_1+2k_2+2k_3+k_4}{6},\\\\y_{n+1}&=y_n+h\\bar k.\\end{aligned}k1​k2​k3​k4​kˉyn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=f(tn​+h/2,yn​+hk2​/2),=f(tn​+h,yn​+hk3​),=6k1​+2k2​+2k3​+k4​​,=yn​+hkˉ.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/resources/solutions-of-first-order-linear-equations/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/solution-by-integrating-factors/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/resources/the-matrix-exponential-i/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-iv-first-order-systems/matrix-exponentials/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/slopefields_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/seriessols_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.math.lsu.edu/~wolenski/Speer/515nts2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/intfactor_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/exact_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/mit18_03scf11_s35_2text.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/0ce856b9367d1de2fcd774815cc7b137_MIT18_03SCF11_s35_7text.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/sec_multeigen.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/nonhomogsys_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/forcedo_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/numer_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.expm.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 390,
+            "anchors": [
+              "#1-turn-a-balance-into-a-rate-law",
+              "#2-read-a-solution-before-solving-it",
+              "#3-ask-whether-the-answer-exists-and-is-unique",
+              "#4-solve-scalar-equations-with-structure",
+              "#5-turn-motion-into-a-complete-state",
+              "#6-evolve-a-basis-to-solve-a-linear-system",
+              "#7-read-growth-without-losing-the-missing-modes",
+              "#8-add-forcing-with-its-timing-intact",
+              "#9-keep-time-order-when-the-system-changes",
+              "#10-build-a-numerical-step-and-track-its-error",
+              "#11-interpret-stiffness-events-and-solver-status",
+              "#12-change-the-data-location-and-the-question",
+              "#13-practise-with-changed-systems",
+              "#14-choose-a-method-and-a-next-step"
+            ],
+            "states": [
+              [
+                "field",
+                "cooling",
+                0
+              ],
+              [
+                "field",
+                "logistic",
+                10
+              ],
+              [
+                "field",
+                "logistic",
+                2
+              ],
+              [
+                "field",
+                "logistic",
+                20
+              ],
+              [
+                "waiting",
+                0
+              ],
+              [
+                "waiting",
+                1.5
+              ],
+              [
+                "waiting",
+                3
+              ],
+              [
+                "oscillator",
+                0
+              ],
+              [
+                "oscillator",
+                2
+              ],
+              [
+                "oscillator",
+                4
+              ],
+              [
+                "oscillator",
+                6
+              ],
+              [
+                "matrix",
+                "node"
+              ],
+              [
+                "matrix",
+                "saddle"
+              ],
+              [
+                "matrix",
+                "rotation"
+              ],
+              [
+                "matrix",
+                "spiral"
+              ],
+              [
+                "matrix",
+                "jordan"
+              ],
+              [
+                "matrix",
+                "nilpotent"
+              ],
+              [
+                "forcing",
+                "zero first interval"
+              ],
+              [
+                "forcing",
+                "initial"
+              ],
+              [
+                "order",
+                "both changed-initial"
+              ],
+              [
+                "stages",
+                "euler",
+                1
+              ],
+              [
+                "stages",
+                "midpoint",
+                2
+              ],
+              [
+                "stages",
+                "rk4",
+                4
+              ],
+              [
+                "unstable",
+                0.5
+              ],
+              [
+                "unstable",
+                0.6
+              ],
+              [
+                "boundary",
+                "many/none/one"
+              ]
+            ],
+            "keyboard": [
+              "Rate law: ArrowDown/Enter",
+              "Damping c: ArrowDown/Enter",
+              "Initial velocity: ArrowDown/Enter",
+              "Linear system: ArrowDown/Enter",
+              "Initial vector: ArrowDown/Enter",
+              "Stage order: ArrowDown/Enter",
+              "Stage initial state: ArrowDown/Enter",
+              "Step method: ArrowDown/Enter",
+              "Requested step h: ArrowDown/Enter",
+              "Decay rate k: ArrowDown/Enter",
+              "Right endpoint: ArrowDown/Enter",
+              "Requested endpoint value: ArrowDown/Enter",
+              "Initial state: arrow change",
+              "Inspection time: arrow change",
+              "Departure time: arrow change",
+              "Motion inspection time: arrow change",
+              "Matrix inspection time: arrow change",
+              "First interval power: arrow change",
+              "Second interval power: arrow change",
+              "Input switch time: arrow change",
+              "Response inspection time: arrow change",
+              "Candidate initial slope: arrow change",
+              "Reset rate field",
+              "Initial state ArrowRight",
+              "Reset rate field",
+              "Reset waiting family",
+              "Reset oscillator",
+              "Reset matrix columns",
+              "Reset input response",
+              "Reset stage order",
+              "Reset numerical steps",
+              "Reset boundary conditions",
+              "Deeper construction: approximate the whole function with Picard iteration",
+              "Optional substitution: a Bernoulli equation becomes linear on the right domain",
+              "Optional geometry: an exact equation follows a level curve",
+              "Optional construction: ordinary-point power series"
+            ],
+            "captures": [
+              "ordinary-intro-390.png",
+              "reading-section-1-390.png",
+              "reading-section-2-390.png",
+              "reading-section-3-390.png",
+              "reading-section-4-390.png",
+              "reading-section-5-390.png",
+              "reading-section-6-390.png",
+              "reading-section-7-390.png",
+              "reading-section-8-390.png",
+              "reading-section-9-390.png",
+              "reading-section-10-390.png",
+              "reading-section-11-390.png",
+              "reading-section-12-390.png",
+              "reading-section-13-390.png",
+              "reading-section-14-390.png",
+              "reading-figure-0-390.png",
+              "reading-figure-1-390.png",
+              "reading-figure-2-390.png",
+              "reading-figure-3-390.png",
+              "reading-figure-4-390.png",
+              "reading-figure-5-390.png",
+              "reading-figure-6-390.png",
+              "reading-figure-7-390.png",
+              "reading-figure-8-390.png",
+              "reading-figure-9-390.png",
+              "reading-figure-10-390.png",
+              "reading-figure-11-390.png",
+              "logistic-above-capacity-390.png",
+              "waiting-zero-until-horizon-390.png",
+              "overdamped-moving-state-390.png",
+              "nilpotent-drift-390.png",
+              "growing-mode-390.png",
+              "late-heating-contributions-390.png",
+              "swapped-stages-390.png",
+              "rk4-actual-stages-390.png",
+              "unstable-euler-390.png",
+              "unstable-final-error-390.png",
+              "inconsistent-boundary-390.png",
+              "changed-practice-2-390.png",
+              "changed-practice-6-390.png",
+              "changed-practice-9-390.png",
+              "changed-practice-13-390.png",
+              "events-complete-program-390.png",
+              "changed-output-390.png",
+              "equation-0-390.png",
+              "equation-1-390.png",
+              "equation-2-390.png",
+              "equation-3-390.png",
+              "equation-4-390.png",
+              "equation-5-390.png",
+              "equation-6-390.png",
+              "equation-7-390.png",
+              "equation-8-390.png",
+              "equation-9-390.png",
+              "equation-10-390.png",
+              "equation-11-390.png",
+              "equation-12-390.png",
+              "equation-13-390.png",
+              "equation-14-390.png",
+              "equation-15-390.png",
+              "equation-16-390.png",
+              "equation-17-390.png",
+              "equation-18-390.png",
+              "equation-19-390.png",
+              "equation-20-390.png",
+              "equation-21-390.png",
+              "equation-22-390.png",
+              "learning-resources-390.png"
+            ],
+            "programs": [
+              "Convert the energy balance before solving",
+              "One equation can have several solutions—or a finite lifetime",
+              "Verify a variable-coefficient integrating factor",
+              "Recover motion from position and velocity",
+              "The exponential carries every initial column",
+              "Add initial response and input response once",
+              "Use a held input even when A has no inverse",
+              "Later evolution multiplies on the left",
+              "Inspect actual stages and the same final time",
+              "Read an adaptive solver's contract and diagnostics",
+              "A successful terminal event is different from reaching the horizon",
+              "Generate two independent ordinary-point series",
+              "Check changed parameters independently"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3"
+            ],
+            "math": [
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "x′(t)=60600 [P(t)−2x(t)]=0.1P(t)−0.2x(t).\\begin{aligned}x'(t)&=\\frac{60}{600}\\,[P(t)-2x(t)]\\\\&=0.1P(t)-0.2x(t).\\end{aligned}x′(t)​=60060​[P(t)−2x(t)]=0.1P(t)−0.2x(t).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "x(t)=x0+∫t0tf(s,x(s)) ds.x(t)=x_0+\\int_{t_0}^{t}f(s,x(s))\\,ds.x(t)=x0​+∫t0​t​f(s,x(s))ds."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "x(t)=Kx0x0+(K−x0)e−rt,t≥0,x0≥0.\\begin{gathered}x(t)=\\frac{Kx_0}{x_0+(K-x_0)e^{-rt}},\\\\t\\ge0,\\quad x_0\\ge0.\\end{gathered}x(t)=x0​+(K−x0​)e−rtKx0​​,t≥0,x0​≥0.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "xn+1(t)=x0+∫t0tf(s,xn(s)) ds.x_{n+1}(t)=x_0+\\int_{t_0}^{t}f(s,x_n(s))\\,ds.xn+1​(t)=x0​+∫t0​t​f(s,xn​(s))ds."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "(μy)′=μy′+pμy=μq,y(t)=y0+∫t0tμ(s)q(s) dsμ(t).\\begin{aligned}(\\mu y)'&=\\mu y'+p\\mu y=\\mu q,\\\\y(t)&=\\frac{y_0+\\int_{t_0}^{t}\\mu(s)q(s)\\,ds}{\\mu(t)}.\\end{aligned}(μy)′y(t)​=μy′+pμy=μq,=μ(t)y0​+∫t0​t​μ(s)q(s)ds​.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "y(t)=(1+t)24+34(1+t)2,t>−1.\\begin{gathered}y(t)=\\frac{(1+t)^2}{4}+\\frac{3}{4(1+t)^2},\\\\t>-1.\\end{gathered}y(t)=4(1+t)2​+4(1+t)23​,t>−1.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "mq′′+cq′+kq=F(t),q′=v,v′=F(t)−cv−kqm.\\begin{gathered}m q''+c q'+kq=F(t),\\\\q'=v,\\qquad v'=\\frac{F(t)-cv-kq}{m}.\\end{gathered}mq′′+cq′+kq=F(t),q′=v,v′=mF(t)−cv−kq​.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "x′=Ax+b(t),A=(01−k/m−c/m),b(t)=(0F(t)/m).\\begin{gathered}x'=Ax+b(t),\\\\A=\\begin{pmatrix}0&1\\\\-k/m&-c/m\\end{pmatrix},\\\\b(t)=\\begin{pmatrix}0\\\\F(t)/m\\end{pmatrix}.\\end{gathered}x′=Ax+b(t),A=(0−k/m​1−c/m​),b(t)=(0F(t)/m​).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "q(t)=e−αt[acos⁡(ωt)+bsin⁡(ωt)].q(t)=e^{-\\alpha t}[a\\cos(\\omega t)+b\\sin(\\omega t)].q(t)=e−αt[acos(ωt)+bsin(ωt)]."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "(x1(t)x2(t))=(63)+3e−3t(1−1).\\begin{pmatrix}x_1(t)\\\\x_2(t)\\end{pmatrix}=\\begin{pmatrix}6\\\\3\\end{pmatrix}+3e^{-3t}\\begin{pmatrix}1\\\\-1\\end{pmatrix}.(x1​(t)x2​(t)​)=(63​)+3e−3t(1−1​)."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "E(t)=etA=I+tA+t2A22!+t3A33!+⋯ .\\begin{aligned}E(t)=e^{tA}&=I+tA+\\frac{t^2A^2}{2!}\\\\&\\quad+\\frac{t^3A^3}{3!}+\\cdots.\\end{aligned}E(t)=etA​=I+tA+2!t2A2​+3!t3A3​+⋯.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "x(t)=e(t−t0)Ax0.x(t)=e^{(t-t_0)A}x_0.x(t)=e(t−t0​)Ax0​."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "etA=e−t(13t01).e^{tA}=e^{-t}\\begin{pmatrix}1&3t\\\\0&1\\end{pmatrix}.etA=e−t(10​3t1​)."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "x(t)=E(t−t0)x0+∫t0tE(t−s)b(s) ds.\\begin{aligned}x(t)&=E(t-t_0)x_0\\\\&\\quad+\\int_{t_0}^{t}E(t-s)b(s)\\,ds.\\end{aligned}x(t)​=E(t−t0​)x0​+∫t0​t​E(t−s)b(s)ds.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "xn+1=Adxn+Bdu,Ad=ehA,Bd=∫0heτAB dτ.\\begin{gathered}x_{n+1}=A_d x_n+B_d u,\\\\A_d=e^{hA},\\qquad B_d=\\int_0^h e^{\\tau A}B\\,d\\tau.\\end{gathered}xn+1​=Ad​xn​+Bd​u,Ad​=ehA,Bd​=∫0h​eτABdτ.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "exp⁡ ⁣[h(AB00)]=(AdBd0I).\\exp\\!\\left[h\\begin{pmatrix}A&B\\\\0&0\\end{pmatrix}\\right]=\\begin{pmatrix}A_d&B_d\\\\0&I\\end{pmatrix}.exp[h(A0​B0​)]=(Ad​0​Bd​I​)."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "R(ω)=∣F0∣(k−mω2)2+(cω)2.R(\\omega)=\\frac{|F_0|}{\\sqrt{(k-m\\omega^2)^2+(c\\omega)^2}}.R(ω)=(k−mω2)2+(cω)2​∣F0​∣​."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "c(t)=X(t0)−1x0+∫t0tX(s)−1b(s) ds,x(t)=X(t)c(t).\\begin{aligned}c(t)&=X(t_0)^{-1}x_0\\\\&\\quad+\\int_{t_0}^{t}X(s)^{-1}b(s)\\,ds,\\\\x(t)&=X(t)c(t).\\end{aligned}c(t)x(t)​=X(t0​)−1x0​+∫t0​t​X(s)−1b(s)ds,=X(t)c(t).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "an+2=an−1(n+2)(n+1),n≥1.\\begin{gathered}a_{n+2}=\\frac{a_{n-1}}{(n+2)(n+1)},\\\\n\\ge1.\\end{gathered}an+2​=(n+2)(n+1)an−1​​,n≥1.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "yn+1=yn+h f(tn,yn).y_{n+1}=y_n+h\\,f(t_n,y_n).yn+1​=yn​+hf(tn​,yn​)."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "en+1≤(1+hL)en+Mh22,en≤Mh2L(eLT−1)(L>0, e0=0, T=nh).\\begin{aligned}e_{n+1}&\\le(1+hL)e_n+\\frac{Mh^2}{2},\\\\e_n&\\le\\frac{Mh}{2L}(e^{LT}-1)\\\\&\\quad(L>0,\\ e_0=0,\\ T=nh).\\end{aligned}en+1​en​​≤(1+hL)en​+2Mh2​,≤2LMh​(eLT−1)(L>0, e0​=0, T=nh).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),yn+1=yn+hk2.\\begin{aligned}k_1&=f(t_n,y_n),\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\y_{n+1}&=y_n+hk_2.\\end{aligned}k1​k2​yn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=yn​+hk2​.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),k3=f(tn+h/2,yn+hk2/2),k4=f(tn+h,yn+hk3),kˉ=k1+2k2+2k3+k46,yn+1=yn+hkˉ.\\begin{aligned}k_1&=f(t_n,y_n),\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\k_3&=f(t_n+h/2,y_n+hk_2/2),\\\\k_4&=f(t_n+h,y_n+hk_3),\\\\\\bar k&=\\frac{k_1+2k_2+2k_3+k_4}{6},\\\\y_{n+1}&=y_n+h\\bar k.\\end{aligned}k1​k2​k3​k4​kˉyn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=f(tn​+h/2,yn​+hk2​/2),=f(tn​+h,yn​+hk3​),=6k1​+2k2​+2k3​+k4​​,=yn​+hkˉ.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/resources/solutions-of-first-order-linear-equations/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/solution-by-integrating-factors/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/resources/the-matrix-exponential-i/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-iv-first-order-systems/matrix-exponentials/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/slopefields_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/seriessols_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.math.lsu.edu/~wolenski/Speer/515nts2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/intfactor_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/exact_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/mit18_03scf11_s35_2text.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/0ce856b9367d1de2fcd774815cc7b137_MIT18_03SCF11_s35_7text.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/sec_multeigen.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/nonhomogsys_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/forcedo_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/numer_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.expm.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 320,
+            "anchors": [
+              "#1-turn-a-balance-into-a-rate-law",
+              "#2-read-a-solution-before-solving-it",
+              "#3-ask-whether-the-answer-exists-and-is-unique",
+              "#4-solve-scalar-equations-with-structure",
+              "#5-turn-motion-into-a-complete-state",
+              "#6-evolve-a-basis-to-solve-a-linear-system",
+              "#7-read-growth-without-losing-the-missing-modes",
+              "#8-add-forcing-with-its-timing-intact",
+              "#9-keep-time-order-when-the-system-changes",
+              "#10-build-a-numerical-step-and-track-its-error",
+              "#11-interpret-stiffness-events-and-solver-status",
+              "#12-change-the-data-location-and-the-question",
+              "#13-practise-with-changed-systems",
+              "#14-choose-a-method-and-a-next-step"
+            ],
+            "states": [
+              [
+                "field",
+                "cooling",
+                0
+              ],
+              [
+                "field",
+                "logistic",
+                10
+              ],
+              [
+                "field",
+                "logistic",
+                2
+              ],
+              [
+                "field",
+                "logistic",
+                20
+              ],
+              [
+                "waiting",
+                0
+              ],
+              [
+                "waiting",
+                1.5
+              ],
+              [
+                "waiting",
+                3
+              ],
+              [
+                "oscillator",
+                0
+              ],
+              [
+                "oscillator",
+                2
+              ],
+              [
+                "oscillator",
+                4
+              ],
+              [
+                "oscillator",
+                6
+              ],
+              [
+                "matrix",
+                "node"
+              ],
+              [
+                "matrix",
+                "saddle"
+              ],
+              [
+                "matrix",
+                "rotation"
+              ],
+              [
+                "matrix",
+                "spiral"
+              ],
+              [
+                "matrix",
+                "jordan"
+              ],
+              [
+                "matrix",
+                "nilpotent"
+              ],
+              [
+                "forcing",
+                "zero first interval"
+              ],
+              [
+                "forcing",
+                "initial"
+              ],
+              [
+                "order",
+                "both changed-initial"
+              ],
+              [
+                "stages",
+                "euler",
+                1
+              ],
+              [
+                "stages",
+                "midpoint",
+                2
+              ],
+              [
+                "stages",
+                "rk4",
+                4
+              ],
+              [
+                "unstable",
+                0.5
+              ],
+              [
+                "unstable",
+                0.6
+              ],
+              [
+                "boundary",
+                "many/none/one"
+              ]
+            ],
+            "keyboard": [
+              "Rate law: ArrowDown/Enter",
+              "Damping c: ArrowDown/Enter",
+              "Initial velocity: ArrowDown/Enter",
+              "Linear system: ArrowDown/Enter",
+              "Initial vector: ArrowDown/Enter",
+              "Stage order: ArrowDown/Enter",
+              "Stage initial state: ArrowDown/Enter",
+              "Step method: ArrowDown/Enter",
+              "Requested step h: ArrowDown/Enter",
+              "Decay rate k: ArrowDown/Enter",
+              "Right endpoint: ArrowDown/Enter",
+              "Requested endpoint value: ArrowDown/Enter",
+              "Initial state: arrow change",
+              "Inspection time: arrow change",
+              "Departure time: arrow change",
+              "Motion inspection time: arrow change",
+              "Matrix inspection time: arrow change",
+              "First interval power: arrow change",
+              "Second interval power: arrow change",
+              "Input switch time: arrow change",
+              "Response inspection time: arrow change",
+              "Candidate initial slope: arrow change",
+              "Reset rate field",
+              "Initial state ArrowRight",
+              "Reset rate field",
+              "Reset waiting family",
+              "Reset oscillator",
+              "Reset matrix columns",
+              "Reset input response",
+              "Reset stage order",
+              "Reset numerical steps",
+              "Reset boundary conditions",
+              "Deeper construction: approximate the whole function with Picard iteration",
+              "Optional substitution: a Bernoulli equation becomes linear on the right domain",
+              "Optional geometry: an exact equation follows a level curve",
+              "Optional construction: ordinary-point power series"
+            ],
+            "captures": [
+              "ordinary-intro-320.png",
+              "reading-section-1-320.png",
+              "reading-section-2-320.png",
+              "reading-section-3-320.png",
+              "reading-section-4-320.png",
+              "reading-section-5-320.png",
+              "reading-section-6-320.png",
+              "reading-section-7-320.png",
+              "reading-section-8-320.png",
+              "reading-section-9-320.png",
+              "reading-section-10-320.png",
+              "reading-section-11-320.png",
+              "reading-section-12-320.png",
+              "reading-section-13-320.png",
+              "reading-section-14-320.png",
+              "reading-figure-0-320.png",
+              "reading-figure-1-320.png",
+              "reading-figure-2-320.png",
+              "reading-figure-3-320.png",
+              "reading-figure-4-320.png",
+              "reading-figure-5-320.png",
+              "reading-figure-6-320.png",
+              "reading-figure-7-320.png",
+              "reading-figure-8-320.png",
+              "reading-figure-9-320.png",
+              "reading-figure-10-320.png",
+              "reading-figure-11-320.png",
+              "logistic-above-capacity-320.png",
+              "waiting-zero-until-horizon-320.png",
+              "overdamped-moving-state-320.png",
+              "nilpotent-drift-320.png",
+              "growing-mode-320.png",
+              "late-heating-contributions-320.png",
+              "swapped-stages-320.png",
+              "rk4-actual-stages-320.png",
+              "unstable-euler-320.png",
+              "unstable-final-error-320.png",
+              "inconsistent-boundary-320.png",
+              "changed-practice-2-320.png",
+              "changed-practice-6-320.png",
+              "changed-practice-9-320.png",
+              "changed-practice-13-320.png",
+              "events-complete-program-320.png",
+              "changed-output-320.png",
+              "equation-0-320.png",
+              "equation-1-320.png",
+              "equation-2-320.png",
+              "equation-3-320.png",
+              "equation-4-320.png",
+              "equation-5-320.png",
+              "equation-6-320.png",
+              "equation-7-320.png",
+              "equation-8-320.png",
+              "equation-9-320.png",
+              "equation-10-320.png",
+              "equation-11-320.png",
+              "equation-12-320.png",
+              "equation-13-320.png",
+              "equation-14-320.png",
+              "equation-15-320.png",
+              "equation-16-320.png",
+              "equation-17-320.png",
+              "equation-18-320.png",
+              "equation-19-320.png",
+              "equation-20-320.png",
+              "equation-21-320.png",
+              "equation-22-320.png",
+              "learning-resources-320.png"
+            ],
+            "programs": [
+              "Convert the energy balance before solving",
+              "One equation can have several solutions—or a finite lifetime",
+              "Verify a variable-coefficient integrating factor",
+              "Recover motion from position and velocity",
+              "The exponential carries every initial column",
+              "Add initial response and input response once",
+              "Use a held input even when A has no inverse",
+              "Later evolution multiplies on the left",
+              "Inspect actual stages and the same final time",
+              "Read an adaptive solver's contract and diagnostics",
+              "A successful terminal event is different from reaching the horizon",
+              "Generate two independent ordinary-point series",
+              "Check changed parameters independently"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3"
+            ],
+            "math": [
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "x′(t)=60600 [P(t)−2x(t)]=0.1P(t)−0.2x(t).\\begin{aligned}x'(t)&=\\frac{60}{600}\\,[P(t)-2x(t)]\\\\&=0.1P(t)-0.2x(t).\\end{aligned}x′(t)​=60060​[P(t)−2x(t)]=0.1P(t)−0.2x(t).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "x(t)=x0+∫t0tf(s,x(s)) ds.x(t)=x_0+\\int_{t_0}^{t}f(s,x(s))\\,ds.x(t)=x0​+∫t0​t​f(s,x(s))ds."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "x(t)=Kx0x0+(K−x0)e−rt,t≥0,x0≥0.\\begin{gathered}x(t)=\\frac{Kx_0}{x_0+(K-x_0)e^{-rt}},\\\\t\\ge0,\\quad x_0\\ge0.\\end{gathered}x(t)=x0​+(K−x0​)e−rtKx0​​,t≥0,x0​≥0.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "xn+1(t)=x0+∫t0tf(s,xn(s)) ds.x_{n+1}(t)=x_0+\\int_{t_0}^{t}f(s,x_n(s))\\,ds.xn+1​(t)=x0​+∫t0​t​f(s,xn​(s))ds."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "(μy)′=μy′+pμy=μq,y(t)=y0+∫t0tμ(s)q(s) dsμ(t).\\begin{aligned}(\\mu y)'&=\\mu y'+p\\mu y=\\mu q,\\\\y(t)&=\\frac{y_0+\\int_{t_0}^{t}\\mu(s)q(s)\\,ds}{\\mu(t)}.\\end{aligned}(μy)′y(t)​=μy′+pμy=μq,=μ(t)y0​+∫t0​t​μ(s)q(s)ds​.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "y(t)=(1+t)24+34(1+t)2,t>−1.\\begin{gathered}y(t)=\\frac{(1+t)^2}{4}+\\frac{3}{4(1+t)^2},\\\\t>-1.\\end{gathered}y(t)=4(1+t)2​+4(1+t)23​,t>−1.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "mq′′+cq′+kq=F(t),q′=v,v′=F(t)−cv−kqm.\\begin{gathered}m q''+c q'+kq=F(t),\\\\q'=v,\\qquad v'=\\frac{F(t)-cv-kq}{m}.\\end{gathered}mq′′+cq′+kq=F(t),q′=v,v′=mF(t)−cv−kq​.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "x′=Ax+b(t),A=(01−k/m−c/m),b(t)=(0F(t)/m).\\begin{gathered}x'=Ax+b(t),\\\\A=\\begin{pmatrix}0&1\\\\-k/m&-c/m\\end{pmatrix},\\\\b(t)=\\begin{pmatrix}0\\\\F(t)/m\\end{pmatrix}.\\end{gathered}x′=Ax+b(t),A=(0−k/m​1−c/m​),b(t)=(0F(t)/m​).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "q(t)=e−αt[acos⁡(ωt)+bsin⁡(ωt)].q(t)=e^{-\\alpha t}[a\\cos(\\omega t)+b\\sin(\\omega t)].q(t)=e−αt[acos(ωt)+bsin(ωt)]."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "(x1(t)x2(t))=(63)+3e−3t(1−1).\\begin{pmatrix}x_1(t)\\\\x_2(t)\\end{pmatrix}=\\begin{pmatrix}6\\\\3\\end{pmatrix}+3e^{-3t}\\begin{pmatrix}1\\\\-1\\end{pmatrix}.(x1​(t)x2​(t)​)=(63​)+3e−3t(1−1​)."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "E(t)=etA=I+tA+t2A22!+t3A33!+⋯ .\\begin{aligned}E(t)=e^{tA}&=I+tA+\\frac{t^2A^2}{2!}\\\\&\\quad+\\frac{t^3A^3}{3!}+\\cdots.\\end{aligned}E(t)=etA​=I+tA+2!t2A2​+3!t3A3​+⋯.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "x(t)=e(t−t0)Ax0.x(t)=e^{(t-t_0)A}x_0.x(t)=e(t−t0​)Ax0​."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "etA=e−t(13t01).e^{tA}=e^{-t}\\begin{pmatrix}1&3t\\\\0&1\\end{pmatrix}.etA=e−t(10​3t1​)."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "x(t)=E(t−t0)x0+∫t0tE(t−s)b(s) ds.\\begin{aligned}x(t)&=E(t-t_0)x_0\\\\&\\quad+\\int_{t_0}^{t}E(t-s)b(s)\\,ds.\\end{aligned}x(t)​=E(t−t0​)x0​+∫t0​t​E(t−s)b(s)ds.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "xn+1=Adxn+Bdu,Ad=ehA,Bd=∫0heτAB dτ.\\begin{gathered}x_{n+1}=A_d x_n+B_d u,\\\\A_d=e^{hA},\\qquad B_d=\\int_0^h e^{\\tau A}B\\,d\\tau.\\end{gathered}xn+1​=Ad​xn​+Bd​u,Ad​=ehA,Bd​=∫0h​eτABdτ.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "exp⁡ ⁣[h(AB00)]=(AdBd0I).\\exp\\!\\left[h\\begin{pmatrix}A&B\\\\0&0\\end{pmatrix}\\right]=\\begin{pmatrix}A_d&B_d\\\\0&I\\end{pmatrix}.exp[h(A0​B0​)]=(Ad​0​Bd​I​)."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "R(ω)=∣F0∣(k−mω2)2+(cω)2.R(\\omega)=\\frac{|F_0|}{\\sqrt{(k-m\\omega^2)^2+(c\\omega)^2}}.R(ω)=(k−mω2)2+(cω)2​∣F0​∣​."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "c(t)=X(t0)−1x0+∫t0tX(s)−1b(s) ds,x(t)=X(t)c(t).\\begin{aligned}c(t)&=X(t_0)^{-1}x_0\\\\&\\quad+\\int_{t_0}^{t}X(s)^{-1}b(s)\\,ds,\\\\x(t)&=X(t)c(t).\\end{aligned}c(t)x(t)​=X(t0​)−1x0​+∫t0​t​X(s)−1b(s)ds,=X(t)c(t).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "an+2=an−1(n+2)(n+1),n≥1.\\begin{gathered}a_{n+2}=\\frac{a_{n-1}}{(n+2)(n+1)},\\\\n\\ge1.\\end{gathered}an+2​=(n+2)(n+1)an−1​​,n≥1.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "yn+1=yn+h f(tn,yn).y_{n+1}=y_n+h\\,f(t_n,y_n).yn+1​=yn​+hf(tn​,yn​)."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "en+1≤(1+hL)en+Mh22,en≤Mh2L(eLT−1)(L>0, e0=0, T=nh).\\begin{aligned}e_{n+1}&\\le(1+hL)e_n+\\frac{Mh^2}{2},\\\\e_n&\\le\\frac{Mh}{2L}(e^{LT}-1)\\\\&\\quad(L>0,\\ e_0=0,\\ T=nh).\\end{aligned}en+1​en​​≤(1+hL)en​+2Mh2​,≤2LMh​(eLT−1)(L>0, e0​=0, T=nh).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),yn+1=yn+hk2.\\begin{aligned}k_1&=f(t_n,y_n),\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\y_{n+1}&=y_n+hk_2.\\end{aligned}k1​k2​yn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=yn​+hk2​.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),k3=f(tn+h/2,yn+hk2/2),k4=f(tn+h,yn+hk3),kˉ=k1+2k2+2k3+k46,yn+1=yn+hkˉ.\\begin{aligned}k_1&=f(t_n,y_n),\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\k_3&=f(t_n+h/2,y_n+hk_2/2),\\\\k_4&=f(t_n+h,y_n+hk_3),\\\\\\bar k&=\\frac{k_1+2k_2+2k_3+k_4}{6},\\\\y_{n+1}&=y_n+h\\bar k.\\end{aligned}k1​k2​k3​k4​kˉyn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=f(tn​+h/2,yn​+hk2​/2),=f(tn​+h,yn​+hk3​),=6k1​+2k2​+2k3​+k4​​,=yn​+hkˉ.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/resources/solutions-of-first-order-linear-equations/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/solution-by-integrating-factors/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/resources/the-matrix-exponential-i/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-iv-first-order-systems/matrix-exponentials/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/slopefields_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/seriessols_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.math.lsu.edu/~wolenski/Speer/515nts2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/intfactor_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/exact_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/mit18_03scf11_s35_2text.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/0ce856b9367d1de2fcd774815cc7b137_MIT18_03SCF11_s35_7text.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/sec_multeigen.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/nonhomogsys_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/forcedo_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/diffyqs/html/numer_section.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.expm.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          }
+        ],
+        "errors": []
+      }
+    },
+    "formatting": {
+      "file": {
+        "path": "scratch/ordinary-differential-equations-verification/format-conservation.json",
+        "sha256": "68e2e8a106dc0165ee47bfc5e2e6e21643542e368e72525bc9e6e41c4a1e2c05",
+        "bytes": 902
+      },
+      "result": {
+        "checkedAt": "2026-09-11T05:10:34.075Z",
+        "records": [
+          {
+            "file": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsLabs.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsFigures.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/data/ordinary-differential-equations-models.js",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/data/curriculum/blueprints/ordinary-differential-equations-linear-systems.js",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/ordinary-differential-equations-labs.css",
+            "normalizedASTConserved": true
+          }
+        ]
+      }
+    }
+  },
+  "verificationScripts": [
+    {
+      "path": "scripts/generate-ordinary-differential-equations-examples.py",
+      "sha256": "b49366d85b34f31eca0f1c02ac4d404cc686c7b371faa99144035897c1cf79f6",
+      "bytes": 17864
+    },
+    {
+      "path": "scripts/verify-ordinary-differential-equations-models.mjs",
+      "sha256": "45553f8e8d68d7ed134afe58aa72e3d9194d5fa57203a7af7b5bd879cef534f1",
+      "bytes": 6487
+    },
+    {
+      "path": "scripts/verify-ordinary-differential-equations-native.py",
+      "sha256": "9b630425f567ddfedf1e70ca7d64b1ae821cea56756a472af26441cf55021f37",
+      "bytes": 8541
+    },
+    {
+      "path": "scripts/review-ordinary-differential-equations-lesson.cjs",
+      "sha256": "38dcbc1673159cd8ded426aa7b00e3f478a2d0fcf3857653195fa3980d8f0e5c",
+      "bytes": 15141
+    },
+    {
+      "path": "scripts/format-ordinary-differential-equations-source.cjs",
+      "sha256": "a5530bb08ceabb7e77b523ef614634e5371320145ae45a794ea3232090d41226",
+      "bytes": 2642
+    },
+    {
+      "path": "scripts/finalize-ordinary-differential-equations-review.py",
+      "sha256": "ec7eba317f8bbe341a4ef1d29661306d255fd7ba9a145a997536f8dc1b469938",
+      "bytes": 6051
+    }
+  ],
+  "openedFinalImageCount": 36,
+  "openedFinalImages": [
+    {
+      "path": "scratch/ordinary-differential-equations-browser/inconsistent-boundary-320.png",
+      "sha256": "04cd136addf5b1bdd3f207d7dc5bc040a23238791724db5a0e6b9c5843129087",
+      "bytes": 59669
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/reading-figure-8-390.png",
+      "sha256": "cc0854c72b5124e3ff2b457b7a8e5c4e73376e7c97caf5a5baf2c1334dafaa7b",
+      "bytes": 63944
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/reading-figure-9-320.png",
+      "sha256": "7f9670fdb88ed3603bffe9dbc236e56f62646cb6cea0a43fe6ef534a03390522",
+      "bytes": 56179
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-0-320.png",
+      "sha256": "5f2273b49b19cfe7f873291614af741e8633f3f4be812a8ed48b50a1f1fd24e5",
+      "bytes": 63216
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-1-320.png",
+      "sha256": "9de302a4f71ad66ce29eacd69c7e81a1b6e5f62bb380d45e821622d502639dac",
+      "bytes": 77390
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-2-320.png",
+      "sha256": "e076c7cdca87d9d351630451b434fba6e8f2d4f8e085f75e9aa4912612450297",
+      "bytes": 67040
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-3-320.png",
+      "sha256": "aa6c4bcb09dada5d35af317e127ba95ca9d0d4afcee7ba3774df3688b08b96b3",
+      "bytes": 70725
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-4-320.png",
+      "sha256": "226712638583f6061ece97559e81c49ad1c1758d5061d104cc4e62ead46ace03",
+      "bytes": 57870
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-5-320.png",
+      "sha256": "c86949dadc1f0d90b4a576854631454940d78a2db64dd46818c726daea6c30d3",
+      "bytes": 57032
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-6-320.png",
+      "sha256": "0bf5bb31610ff0bdc1ec355ab993d7bfcd9ab6c7bd4353b24ddc23a541f6ff6a",
+      "bytes": 60217
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-7-320.png",
+      "sha256": "e1fe4e285f29ffa0fd9f57405f7f43df4ee2d9c847292655a939d8b669bebb3a",
+      "bytes": 59375
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-8-320.png",
+      "sha256": "4b62d18b4b9580fbb4e08a80efe3c3889ad50f4272aaed6ebb8a710c9958252d",
+      "bytes": 58816
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-9-320.png",
+      "sha256": "df02f85b5129fcf277e0ab4be5f2291306c9d91f043e68ac0d7422c5a2445c80",
+      "bytes": 73410
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-10-320.png",
+      "sha256": "0f82efd38100cc58499f3a1e485ec20fd7d33b2e671f5bcc911d2c16c73b3d55",
+      "bytes": 69519
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-11-320.png",
+      "sha256": "1d1560cbbb346c145b73ac7669a91fd6b78e1e024f8bbf11ef9850a47e774988",
+      "bytes": 62808
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-12-320.png",
+      "sha256": "ef75f37ce2c171d1f9fa3cbdc11cf6e43cb2b4ae8275e8d35c4b5f14fbd2163b",
+      "bytes": 68969
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-13-320.png",
+      "sha256": "7d612b0c8e35c302bfedf548016934e840f6991877729307f592946f57d7994e",
+      "bytes": 57589
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-14-320.png",
+      "sha256": "c0a0f3b815ec4b7fa7fbfe8ef83ce3fa9e03684ba19f09376b503db8a9c1a7f6",
+      "bytes": 69806
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-15-320.png",
+      "sha256": "728c0dbe04b57012664f48dd47536d69e16694a15e207f5a441347afbe18de1b",
+      "bytes": 66434
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-16-320.png",
+      "sha256": "24dd19fe2a3ccfe0c5439a45c9a86fdd3a523f7bb258b816aacacc3b1da75640",
+      "bytes": 71681
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-17-320.png",
+      "sha256": "929db4b947ffa5ea44c5898c14b20e4ca51a3e70e71527c6d0cd23cfa93ae783",
+      "bytes": 63806
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-18-320.png",
+      "sha256": "c0314aebd52069f4e9069583bf3d15c735505732955345b052546977b7422cc7",
+      "bytes": 69060
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-19-320.png",
+      "sha256": "29c03eb63e57bce57c5170d40d1fd0413875446dc78e8bde5bea290d9b5312c4",
+      "bytes": 66415
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-20-320.png",
+      "sha256": "b3021dd28f1de8ad589d347bb7dca547b48bc8be3674c0e68501ae4fd92ed781",
+      "bytes": 71097
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-21-320.png",
+      "sha256": "99ca845097fc134e2d4c791797671993e3fdc0b420a453b8e10b72b568b97c94",
+      "bytes": 66209
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/equation-22-320.png",
+      "sha256": "db041c8c81a429d0cb2c0ff1f7c4e638d31c8ef41df81a17c0b45ce6513da5bf",
+      "bytes": 62777
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/changed-output-390.png",
+      "sha256": "2ba4a26a0d2a4db8240a58328b569a09a5582d81043ec134ed7092e12b4a1e45",
+      "bytes": 73093
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/events-complete-program-1440.png",
+      "sha256": "d12ba8b885a66962530e25a939287aaa97f0a756618a8e8adf5fd13df1018ee1",
+      "bytes": 141426
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/learning-resources-320.png",
+      "sha256": "0ef4d5cc099cee37e7d523fc27ecd572db50dd23d626dfa07288953276134689",
+      "bytes": 79380
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/swapped-stages-320.png",
+      "sha256": "ddfc01607f69bdc2504b426fbe87a18c7c0bc6ccbc0bfc989f95f85f2f6f7c0d",
+      "bytes": 45625
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/reading-figure-0-320.png",
+      "sha256": "57fdee224b58d9ead44dee2b2f5e563fafa12013b0a898a3fc53fd4eea3bcde0",
+      "bytes": 59951
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/reading-figure-4-320.png",
+      "sha256": "9a19215e9c2b488432d784194f8c56eee40d37039b9c164ffa2d4cac9351883c",
+      "bytes": 56510
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/reading-figure-6-1440.png",
+      "sha256": "26816ba0bdab2a5b353b381b0eacee23a5e6f7e2ef00f2c7e4fbe3692bd647df",
+      "bytes": 158440
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/rk4-actual-stages-320.png",
+      "sha256": "4165701cdc1465bb53ecd9526c0758be9557741d1241abbcde15589d154d9154",
+      "bytes": 70336
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/unstable-euler-320.png",
+      "sha256": "ddc82cff6eab8e48eb7cb40acc19c45dbbe3f285618a90825b08c1fc1bf5dc3f",
+      "bytes": 62051
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-browser/changed-practice-6-390.png",
+      "sha256": "29163b3f0d376f5ba6a1f04931687070133500ef9b6aed2dc42d19d89b907ba3",
+      "bytes": 77560
+    }
+  ],
+  "preservation": {
+    "original": {
+      "file": {
+        "path": "docs/teaching/evidence/ordinary-differential-equations-original-plan.json",
+        "sha256": "2f95477743f1da83760dc4c3aa01d8cc61a01c17a70317c89a943ba82ee15c24",
+        "bytes": 10925
+      },
+      "result": {
+        "topic": {
+          "title": "Ordinary Differential Equations & Linear Systems",
+          "level": "intermediate",
+          "blueprint": {
+            "summary": "Model how a state changes over time and connect differential equations to simulation and stability.",
+            "outcomes": [
+              "Translate a rate law into a state equation",
+              "Compare equilibrium, stability and numerical trajectories"
+            ],
+            "prerequisites": [
+              "Single-Variable Calculus: Limits, Derivatives & Integrals",
+              "Eigenvalues & Eigenvectors"
+            ],
+            "sequence": [
+              "Model cooling with a rate equation",
+              "Solve a scalar initial-value problem",
+              "Write coupled first-order state equations",
+              "Relate eigenvalues to local linear behaviour",
+              "Compare Euler steps against a known solution"
+            ],
+            "visual": {
+              "type": "phase portrait and time trace",
+              "question": "Is instability caused by the system or the simulation step?",
+              "interaction": "Change decay rate and integration step independently"
+            },
+            "practice": {
+              "task": "Simulate a damped two-state system",
+              "success": "Initial conditions, units and step-size error are documented"
+            },
+            "misconceptions": [
+              "An equilibrium need not be stable",
+              "A numerically exploding trajectory need not imply unstable physics"
+            ],
+            "sources": [
+              "https://ocw.mit.edu/courses/18-03-differential-equations-spring-2010/"
+            ],
+            "depth": "core",
+            "reviewFocus": "Teach linear stability with explicit assumptions before nonlinear generalization."
+          },
+          "id": "ordinary-differential-equations-linear-systems",
+          "trackId": "math-foundations",
+          "section": "Bridges: Mathematical Language, Proof & Measurement",
+          "trackIds": [
+            "math-foundations"
+          ],
+          "prerequisiteStatus": "recorded",
+          "prerequisiteIds": [
+            "single-variable-calculus-limits-derivatives-integrals",
+            "eigenvalues-eigenvectors"
+          ],
+          "designStatus": "topic-brief-ready",
+          "publicationStatus": "planned",
+          "teachingReview": "individual-review-required",
+          "domainStrategy": "mathematics"
+        },
+        "domainGuidance": {
+          "strategy": "mathematics",
+          "flow": [
+            "Pose a concrete question and identify known/unknown quantities",
+            "Link a small numerical case, a representation and defined notation",
+            "Derive the mechanism with justified intermediate steps",
+            "Interpret a complete worked result",
+            "Test a changed case, assumption and counterexample",
+            "Connect to a formal or applied deeper branch"
+          ],
+          "visuals": [
+            "Linked geometric and symbolic views",
+            "Labeled distributions and repeated samples",
+            "Stepwise derivation with exact-value inspection"
+          ],
+          "practice": "Hand calculation, explanation of a representation, flawed reasoning to repair, and independent transfer with an explained solution.",
+          "verification": "Check assumptions, conventions, proof steps, units, numerical approximations and independent reference values.",
+          "exampleAnchor": "Small vectors, measurements and uncertainty; connect exact operations to an interpreted decision.",
+          "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+          "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+        },
+        "authoringNotes": {
+          "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+          "workflow": "docs/teaching/topic-notes/README.md",
+          "destination": {
+            "path": "docs/teaching/topic-notes/ordinary-differential-equations-linear-systems.md",
+            "exists": true,
+            "markdown": "# Authoring notes: Ordinary Differential Equations & Linear Systems\n\nCanonical topic ID: ordinary-differential-equations-linear-systems\n\n## 2026-09-11 — Coordinate the local dynamics bridge with the later ODE methods lesson\n\n- Status: open\n- Origin: Dynamical Systems Theory & Chaos, [individual design](../DYNAMICAL-SYSTEMS-LESSON-DESIGN.md).\n- Destination and rationale: this planned topic owns systematic initial-value methods, coupled linear systems, forcing and numerical solution. The earlier dynamics lesson needs a self-contained rate/state refresher because module order places this page later.\n- Existing coverage: its live stored blueprint teaches cooling, a scalar IVP, coupled first-order systems, eigenvalue behavior and Euler comparison. No published body was found in the manifest at this scoped check. A stored plan is not a finished prerequisite.\n- Proposed treatment: assess the final dynamics lesson when writing this one, retain a quick review of rate versus update, then go further into solution construction, existence/uniqueness assumptions, matrix exponentials, forcing and interpretable units. Explain a second-order position equation through position and velocity. Do not assume a learner already knows how to solve an ODE because an earlier page used one.\n- Example: cooling x'=−kx gives x(t)=x0 exp(−kt); Euler changes the exact sampled multiplier exp(−kh) to1−kh. Contrast finite-time numerical stability with approximation error, and include x'=x² as a finite-time blow-up counterexample to a blanket global-solvability claim.\n- Evidence: [Menon AM219](https://www.dam.brown.edu/people/menon/publications/ds-2020-1.pdf), existence/flow chapters as a research starting point; exact local examples will receive numerical evidence in the dynamics record. No completed destination implementation is implied.\n- Resolution: not yet reviewed by the ODE author.\n- Implementation/verification links: none for this destination yet.\n"
+          },
+          "unassigned": {
+            "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+            "exists": true,
+            "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: open\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: unresolved in this narrow title/brief search. The first five DSA practice sets do not establish coverage of this family, and the current three-lesson request is not a full-catalogue audit.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: unassigned; no topic added and no existing lesson rewritten by this discovery.\n- Implementation/verification links: none yet.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+          }
+        },
+        "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction.",
+        "preservation": {
+          "capturedAt": "2026-09-11T01:09:25.278689+00:00",
+          "sourcePath": "src/learn/data/curriculum/cross-domain-expansion.js",
+          "sourceSha256": "7df04e0322ee80f99d9b6e2f4ecbff01e0a635f384041bc3bce9bf09f4930a9f",
+          "bodyExists": false,
+          "individualBriefExists": false,
+          "programsToPreserve": [],
+          "status": "Original planned topic; no authored body or standalone programs found. No program execution claimed.",
+          "sourcePlanExcerpt": "    plan(\"Ordinary Differential Equations & Linear Systems\", \"intermediate\",\n      \"Model how a state changes over time and connect differential equations to simulation and stability.\", [\"Single-Variable Calculus: Limits, Derivatives & Integrals\", \"Eigenvalues & Eigenvectors\"],\n      [\"Translate a rate law into a state equation\", \"Compare equilibrium, stability and numerical trajectories\"],\n      [\"Model cooling with a rate equation\", \"Solve a scalar initial-value problem\", \"Write coupled first-order state equations\", \"Relate eigenvalues to local linear behaviour\", \"Compare Euler steps against a known solution\"],\n      [\"phase portrait and time trace\", \"Is instability caused by the system or the simulation step?\", \"Change decay rate and integration step independently\"],\n      [\"Simulate a damped two-state system\", \"Initial conditions, units and step-size error are documented\"],\n      [\"An equilibrium need not be stable\", \"A numerically exploding trajectory need not imply unstable physics\"], [S.differential], \"core\", \"Teach linear stability with explicit assumptions before nonlinear generalization.\"),"
+        }
+      }
+    },
+    "designArithmeticOnly": {
+      "file": {
+        "path": "docs/teaching/evidence/ordinary-differential-equations-design-checks.json",
+        "sha256": "05c76c59cd50bb0ff0ed9bc8702b53d4465776efd312879571118c75d04a6c79",
+        "bytes": 1438
+      },
+      "result": {
+        "checkedAt": "2026-09-11T01:20:30.902877+00:00",
+        "scope": "Provisional design arithmetic only. No production ODE model, displayed program or browser implementation exists yet. General proofs require their independent source/derivation review.",
+        "checks": {
+          "thermal": {
+            "coolingOneMinute": 32.749230123119276,
+            "coolingHalfTime": 3.465735902799726,
+            "heatedFiveMinutes": 21.03638323514327,
+            "changedQuarterTime": 4.620981203732969
+          },
+          "integratingFactorPoints": 4,
+          "changedSpringMatrixChecks": 4,
+          "changedCompartmentChecks": 4,
+          "singularHeldInput": [
+            7.0,
+            5.0,
+            2.0
+          ],
+          "stageOrders": {
+            "[1, 0]": {
+              "UthenV": [
+                1.0,
+                1.0
+              ],
+              "VthenU": [
+                2.0,
+                1.0
+              ]
+            },
+            "[0, 1]": {
+              "UthenV": [
+                1.0,
+                2.0
+              ],
+              "VthenU": [
+                1.0,
+                1.0
+              ]
+            }
+          },
+          "couplingExcursion": 1.5168057934430552,
+          "series(1, 0)": [
+            "1",
+            "0",
+            "0",
+            "1/6",
+            "0",
+            "0",
+            "1/180",
+            "0",
+            "0",
+            "1/12960",
+            "0"
+          ],
+          "series(0, 1)": [
+            "0",
+            "1",
+            "0",
+            "0",
+            "1/12",
+            "0",
+            "0",
+            "1/504",
+            "0",
+            "0",
+            "1/45360"
+          ],
+          "resonantIndependentIvps": 4
+        }
+      }
+    },
+    "priorBody": "No prior published body or native program existed at the exact scoped inventory check."
+  },
+  "preFinalRepairs": {
+    "retainedLastBrowserFailure": {
+      "file": {
+        "path": "scratch/ordinary-differential-equations-browser/failure.json",
+        "sha256": "7ad8d1615e75d2888deb14220576974226cfde99d534b2d86f945882f851737e",
+        "bytes": 12996
+      },
+      "result": {
+        "checkedAt": "2026-09-11T05:03:51.614Z",
+        "record": {
+          "width": 320,
+          "anchors": [
+            "#1-turn-a-balance-into-a-rate-law",
+            "#2-read-a-solution-before-solving-it",
+            "#3-ask-whether-the-answer-exists-and-is-unique",
+            "#4-solve-scalar-equations-with-structure",
+            "#5-turn-motion-into-a-complete-state",
+            "#6-evolve-a-basis-to-solve-a-linear-system",
+            "#7-read-growth-without-losing-the-missing-modes",
+            "#8-add-forcing-with-its-timing-intact",
+            "#9-keep-time-order-when-the-system-changes",
+            "#10-build-a-numerical-step-and-track-its-error",
+            "#11-interpret-stiffness-events-and-solver-status",
+            "#12-change-the-data-location-and-the-question",
+            "#13-practise-with-changed-systems",
+            "#14-choose-a-method-and-a-next-step"
+          ],
+          "states": [
+            [
+              "field",
+              "cooling",
+              0
+            ],
+            [
+              "field",
+              "logistic",
+              10
+            ],
+            [
+              "field",
+              "logistic",
+              2
+            ],
+            [
+              "field",
+              "logistic",
+              20
+            ],
+            [
+              "waiting",
+              0
+            ],
+            [
+              "waiting",
+              1.5
+            ],
+            [
+              "waiting",
+              3
+            ],
+            [
+              "oscillator",
+              0
+            ],
+            [
+              "oscillator",
+              2
+            ],
+            [
+              "oscillator",
+              4
+            ],
+            [
+              "oscillator",
+              6
+            ],
+            [
+              "matrix",
+              "node"
+            ],
+            [
+              "matrix",
+              "saddle"
+            ],
+            [
+              "matrix",
+              "rotation"
+            ],
+            [
+              "matrix",
+              "spiral"
+            ],
+            [
+              "matrix",
+              "jordan"
+            ],
+            [
+              "matrix",
+              "nilpotent"
+            ],
+            [
+              "forcing",
+              "zero first interval"
+            ],
+            [
+              "forcing",
+              "initial"
+            ],
+            [
+              "order",
+              "both changed-initial"
+            ],
+            [
+              "stages",
+              "euler",
+              1
+            ],
+            [
+              "stages",
+              "midpoint",
+              2
+            ],
+            [
+              "stages",
+              "rk4",
+              4
+            ],
+            [
+              "unstable",
+              0.5
+            ],
+            [
+              "unstable",
+              0.6
+            ],
+            [
+              "boundary",
+              "many/none/one"
+            ]
+          ],
+          "keyboard": [
+            "Reset rate field",
+            "Initial state ArrowRight",
+            "Reset rate field",
+            "Reset waiting family",
+            "Reset oscillator",
+            "Reset matrix columns",
+            "Reset input response",
+            "Reset stage order",
+            "Reset numerical steps",
+            "Reset boundary conditions",
+            "Deeper construction: approximate the whole function with Picard iteration",
+            "Optional substitution: a Bernoulli equation becomes linear on the right domain",
+            "Optional geometry: an exact equation follows a level curve",
+            "Optional construction: ordinary-point power series"
+          ],
+          "captures": [
+            "ordinary-intro-320.png",
+            "reading-section-1-320.png",
+            "reading-section-2-320.png",
+            "reading-section-3-320.png",
+            "reading-section-4-320.png",
+            "reading-section-5-320.png",
+            "reading-section-6-320.png",
+            "reading-section-7-320.png",
+            "reading-section-8-320.png",
+            "reading-section-9-320.png",
+            "reading-section-10-320.png",
+            "reading-section-11-320.png",
+            "reading-section-12-320.png",
+            "reading-section-13-320.png",
+            "reading-section-14-320.png",
+            "reading-figure-0-320.png",
+            "reading-figure-1-320.png",
+            "reading-figure-2-320.png",
+            "reading-figure-3-320.png",
+            "reading-figure-4-320.png",
+            "reading-figure-5-320.png",
+            "reading-figure-6-320.png",
+            "reading-figure-7-320.png",
+            "reading-figure-8-320.png",
+            "reading-figure-9-320.png",
+            "reading-figure-10-320.png",
+            "reading-figure-11-320.png",
+            "logistic-above-capacity-320.png",
+            "waiting-zero-until-horizon-320.png",
+            "overdamped-moving-state-320.png",
+            "nilpotent-drift-320.png",
+            "growing-mode-320.png",
+            "late-heating-contributions-320.png",
+            "swapped-stages-320.png",
+            "rk4-actual-stages-320.png",
+            "unstable-euler-320.png",
+            "unstable-final-error-320.png",
+            "inconsistent-boundary-320.png",
+            "changed-practice-2-320.png",
+            "changed-practice-6-320.png",
+            "changed-practice-9-320.png",
+            "changed-practice-13-320.png",
+            "events-complete-program-320.png",
+            "changed-output-320.png"
+          ],
+          "programs": [
+            "Convert the energy balance before solving",
+            "One equation can have several solutions—or a finite lifetime",
+            "Verify a variable-coefficient integrating factor",
+            "Recover motion from position and velocity",
+            "The exponential carries every initial column",
+            "Add initial response and input response once",
+            "Use a held input even when A has no inverse",
+            "Later evolution multiplies on the left",
+            "Inspect actual stages and the same final time",
+            "Read an adaptive solver's contract and diagnostics",
+            "A successful terminal event is different from reaching the horizon",
+            "Generate two independent ordinary-point series",
+            "Check changed parameters independently"
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3",
+            "KaTeX_Size4"
+          ],
+          "math": [
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "x′(t)=60600 [P(t)−2x(t)]=0.1P(t)−0.2x(t).\\begin{aligned}x'(t)&=\\frac{60}{600}\\,[P(t)-2x(t)]\\\\&=0.1P(t)-0.2x(t).\\end{aligned}x′(t)​=60060​[P(t)−2x(t)]=0.1P(t)−0.2x(t).​"
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "x(t)=x0+∫t0tf(s,x(s)) ds.x(t)=x_0+\\int_{t_0}^{t}f(s,x(s))\\,ds.x(t)=x0​+∫t0​t​f(s,x(s))ds."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "x(t)=Kx0x0+(K−x0)e−rt,t≥0,x0≥0.\\begin{gathered}x(t)=\\frac{Kx_0}{x_0+(K-x_0)e^{-rt}},\\\\t\\ge0,\\quad x_0\\ge0.\\end{gathered}x(t)=x0​+(K−x0​)e−rtKx0​​,t≥0,x0​≥0.​"
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "xn+1(t)=x0+∫t0tf(s,xn(s)) ds.x_{n+1}(t)=x_0+\\int_{t_0}^{t}f(s,x_n(s))\\,ds.xn+1​(t)=x0​+∫t0​t​f(s,xn​(s))ds."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "(μy)′=μy′+pμy=μq,y(t)=y0+∫t0tμ(s)q(s) dsμ(t).\\begin{aligned}(\\mu y)'&=\\mu y'+p\\mu y=\\mu q,\\\\y(t)&=\\frac{y_0+\\int_{t_0}^{t}\\mu(s)q(s)\\,ds}{\\mu(t)}.\\end{aligned}(μy)′y(t)​=μy′+pμy=μq,=μ(t)y0​+∫t0​t​μ(s)q(s)ds​.​"
+            },
+            {
+              "width": 280,
+              "scroll": 337,
+              "text": "y(t)=(1+t)24+34(1+t)2,t>−1.y(t)=\\frac{(1+t)^2}{4}+\\frac{3}{4(1+t)^2},\\qquad t>-1.y(t)=4(1+t)2​+4(1+t)23​,t>−1."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "mq′′+cq′+kq=F(t),q′=v,v′=F(t)−cv−kqm.\\begin{gathered}m q''+c q'+kq=F(t),\\\\q'=v,\\qquad v'=\\frac{F(t)-cv-kq}{m}.\\end{gathered}mq′′+cq′+kq=F(t),q′=v,v′=mF(t)−cv−kq​.​"
+            },
+            {
+              "width": 280,
+              "scroll": 331,
+              "text": "x′=(01−k/m−c/m)x+(0F(t)/m).x'=\\begin{pmatrix}0&1\\\\-k/m&-c/m\\end{pmatrix}x+\\begin{pmatrix}0\\\\F(t)/m\\end{pmatrix}.x′=(0−k/m​1−c/m​)x+(0F(t)/m​)."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "q(t)=e−αt[acos⁡(ωt)+bsin⁡(ωt)].q(t)=e^{-\\alpha t}[a\\cos(\\omega t)+b\\sin(\\omega t)].q(t)=e−αt[acos(ωt)+bsin(ωt)]."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "(x1(t)x2(t))=(63)+3e−3t(1−1).\\begin{pmatrix}x_1(t)\\\\x_2(t)\\end{pmatrix}=\\begin{pmatrix}6\\\\3\\end{pmatrix}+3e^{-3t}\\begin{pmatrix}1\\\\-1\\end{pmatrix}.(x1​(t)x2​(t)​)=(63​)+3e−3t(1−1​)."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "E(t)=etA=I+tA+t2A22!+t3A33!+⋯ .\\begin{aligned}E(t)=e^{tA}&=I+tA+\\frac{t^2A^2}{2!}\\\\&\\quad+\\frac{t^3A^3}{3!}+\\cdots.\\end{aligned}E(t)=etA​=I+tA+2!t2A2​+3!t3A3​+⋯.​"
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "x(t)=e(t−t0)Ax0.x(t)=e^{(t-t_0)A}x_0.x(t)=e(t−t0​)Ax0​."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "etA=e−t(13t01).e^{tA}=e^{-t}\\begin{pmatrix}1&3t\\\\0&1\\end{pmatrix}.etA=e−t(10​3t1​)."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "x(t)=E(t−t0)x0+∫t0tE(t−s)b(s) ds.\\begin{aligned}x(t)&=E(t-t_0)x_0\\\\&\\quad+\\int_{t_0}^{t}E(t-s)b(s)\\,ds.\\end{aligned}x(t)​=E(t−t0​)x0​+∫t0​t​E(t−s)b(s)ds.​"
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "xn+1=Adxn+Bdu,Ad=ehA,Bd=∫0heτAB dτ.\\begin{gathered}x_{n+1}=A_d x_n+B_d u,\\\\A_d=e^{hA},\\qquad B_d=\\int_0^h e^{\\tau A}B\\,d\\tau.\\end{gathered}xn+1​=Ad​xn​+Bd​u,Ad​=ehA,Bd​=∫0h​eτABdτ.​"
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "exp⁡ ⁣[h(AB00)]=(AdBd0I).\\exp\\!\\left[h\\begin{pmatrix}A&B\\\\0&0\\end{pmatrix}\\right]=\\begin{pmatrix}A_d&B_d\\\\0&I\\end{pmatrix}.exp[h(A0​B0​)]=(Ad​0​Bd​I​)."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "R(ω)=∣F0∣(k−mω2)2+(cω)2.R(\\omega)=\\frac{|F_0|}{\\sqrt{(k-m\\omega^2)^2+(c\\omega)^2}}.R(ω)=(k−mω2)2+(cω)2​∣F0​∣​."
+            },
+            {
+              "width": 280,
+              "scroll": 295,
+              "text": "x(t)=X(t)[X(t0)−1x0+∫t0tX(s)−1b(s) ds].\\begin{aligned}x(t)=X(t)\\Bigg[&X(t_0)^{-1}x_0\\\\&+\\int_{t_0}^{t}X(s)^{-1}b(s)\\,ds\\Bigg].\\end{aligned}x(t)=X(t)[​X(t0​)−1x0​+∫t0​t​X(s)−1b(s)ds].​"
+            },
+            {
+              "width": 280,
+              "scroll": 287,
+              "text": "an+2=an−1(n+2)(n+1),n≥1.a_{n+2}=\\frac{a_{n-1}}{(n+2)(n+1)},\\qquad n\\ge1.an+2​=(n+2)(n+1)an−1​​,n≥1."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "yn+1=yn+h f(tn,yn).y_{n+1}=y_n+h\\,f(t_n,y_n).yn+1​=yn​+hf(tn​,yn​)."
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "en+1≤(1+hL)en+Mh22,en≤Mh2L(eLT−1)(L>0, e0=0, T=nh).\\begin{aligned}e_{n+1}&\\le(1+hL)e_n+\\frac{Mh^2}{2},\\\\e_n&\\le\\frac{Mh}{2L}(e^{LT}-1)\\\\&\\quad(L>0,\\ e_0=0,\\ T=nh).\\end{aligned}en+1​en​​≤(1+hL)en​+2Mh2​,≤2LMh​(eLT−1)(L>0, e0​=0, T=nh).​"
+            },
+            {
+              "width": 280,
+              "scroll": 280,
+              "text": "k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),yn+1=yn+hk2.\\begin{aligned}k_1&=f(t_n,y_n),\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\y_{n+1}&=y_n+hk_2.\\end{aligned}k1​k2​yn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=yn​+hk2​.​"
+            },
+            {
+              "width": 280,
+              "scroll": 304,
+              "text": "k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),k3=f(tn+h/2,yn+hk2/2),k4=f(tn+h,yn+hk3),yn+1=yn+h6(k1+2k2+2k3+k4).\\begin{aligned}k_1&=f(t_n,y_n),\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\k_3&=f(t_n+h/2,y_n+hk_2/2),\\\\k_4&=f(t_n+h,y_n+hk_3),\\\\y_{n+1}&=y_n+\\frac h6(k_1+2k_2+2k_3+k_4).\\end{aligned}k1​k2​k3​k4​yn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=f(tn​+h/2,yn​+hk2​/2),=f(tn​+h,yn​+hk3​),=yn​+6h​(k1​+2k2​+2k3​+k4​).​"
+            }
+          ]
+        },
+        "errors": [],
+        "error": "AssertionError [ERR_ASSERTION]: Math overflow 320: [{\"width\":280,\"scroll\":337,\"text\":\"y(t)=(1+t)24+34(1+t)2,t>−1.y(t)=\\\\frac{(1+t)^2}{4}+\\\\frac{3}{4(1+t)^2},\\\\qquad t>-1.y(t)=4(1+t)2​+4(1+t)23​,t>−1.\"},{\"width\":280,\"scroll\":331,\"text\":\"x′=(01−k/m−c/m)x+(0F(t)/m).x'=\\\\begin{pmatrix}0&1\\\\\\\\-k/m&-c/m\\\\end{pmatrix}x+\\\\begin{pmatrix}0\\\\\\\\F(t)/m\\\\end{pmatrix}.x′=(0−k/m​1−c/m​)x+(0F(t)/m​).\"},{\"width\":280,\"scroll\":295,\"text\":\"x(t)=X(t)[X(t0)−1x0+∫t0tX(s)−1b(s) ds].\\\\begin{aligned}x(t)=X(t)\\\\Bigg[&X(t_0)^{-1}x_0\\\\\\\\&+\\\\int_{t_0}^{t}X(s)^{-1}b(s)\\\\,ds\\\\Bigg].\\\\end{aligned}x(t)=X(t)[​X(t0​)−1x0​+∫t0​t​X(s)−1b(s)ds].​\"},{\"width\":280,\"scroll\":287,\"text\":\"an+2=an−1(n+2)(n+1),n≥1.a_{n+2}=\\\\frac{a_{n-1}}{(n+2)(n+1)},\\\\qquad n\\\\ge1.an+2​=(n+2)(n+1)an−1​​,n≥1.\"},{\"width\":280,\"scroll\":304,\"text\":\"k1=f(tn,yn),k2=f(tn+h/2,yn+hk1/2),k3=f(tn+h/2,yn+hk2/2),k4=f(tn+h,yn+hk3),yn+1=yn+h6(k1+2k2+2k3+k4).\\\\begin{aligned}k_1&=f(t_n,y_n),\\\\\\\\k_2&=f(t_n+h/2,y_n+hk_1/2),\\\\\\\\k_3&=f(t_n+h/2,y_n+hk_2/2),\\\\\\\\k_4&=f(t_n+h,y_n+hk_3),\\\\\\\\y_{n+1}&=y_n+\\\\frac h6(k_1+2k_2+2k_3+k_4).\\\\end{aligned}k1​k2​k3​k4​yn+1​​=f(tn​,yn​),=f(tn​+h/2,yn​+hk1​/2),=f(tn​+h/2,yn​+hk2​/2),=f(tn​+h,yn​+hk3​),=yn​+6h​(k1​+2k2​+2k3​+k4​).​\"}]"
+      }
+    },
+    "disposition": [
+      "390px and 320px displayed equations were reflowed with semantic line breaks and an explicitly defined RK4 weighted average; all 23 final equations fit at all widths.",
+      "Endpoint inspection markers were moved outside path clip groups after actual screenshot inspection; final boundary, fundamental-column and forcing captures were reopened.",
+      "The logistic implementation handles subnormal initial populations through log-odds and expm1 branches, checked against independent high precision.",
+      "The lesson-scoped monospace font uses the existing JetBrains Mono site family; final actual-font browser evidence is recorded."
+    ]
+  },
+  "scope": {
+    "mainSections": 14,
+    "optionalDepthDisclosures": 4,
+    "browserInvestigations": 8,
+    "inlineStaticFigures": 4,
+    "completePrograms": 13,
+    "independentPracticeGroups": 14,
+    "externalReferences": 18
+  },
+  "limits": [
+    "The browser uses bounded, deterministic teaching models and sampled analytical or computed curves, not a general ODE solver or physical benchmark.",
+    "Numerical tolerances and sign-change event detection are explained with their limitations; the checks do not certify arbitrary inputs or undetected interior events.",
+    "Code and dense tables retain local horizontal scrolling when needed; the actual page and display equations do not overflow at the tested widths.",
+    "Video resource metadata and paired written scope were inspected, not full playback. Specialist Frobenius, DAE and nonsmooth courses remain explicitly scoped follow-up.",
+    "Root-owned independent review, integrated production checks and user acceptance are not claimed by this author packet."
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "checkedAt": "2026-09-11T16:51:55.264Z",
+  "sourceHashes": {
+    "src/learn/data/k-means-hierarchical-models.js": "50c1deafd66c785b3cf10419e9bc10bf5059deeee364fa79fff62a92d6543c20",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "73aac20e9777f0cd1934787e28401df38582f7f8c553b2174e85347277fe6fbb",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "e789c5d4dd5d57ce149119e56f4d2924a0504faff8e11c446e14868d712d9ad3"
+  },
+  "verifierHash": "d15e99f8ab28cebc3245bb563d79d476f4921fc5004962e90a55d7e55ce0484b",
+  "counts": {
+    "enumerated rectangle fixed points": 2,
+    "phasewise residual and mean identities": 45,
+    "explicit tie and empty-center policy": 1,
+    "independent D squared cumulative draws": 15,
+    "zero-distance and multi-center support": 1,
+    "independent all-candidate linkage minima and Ward identities": 36,
+    "height and squared-error unit scaling": 8,
+    "equal-height cut cannot realize four clusters": 4,
+    "unit and feature-weight states": 8,
+    "expanded pixel versus weighted palette objectives": 6
+  },
+  "totalGroupedChecks": 126,
+  "rejectedInputs": 13,
+  "rectangleObjectives": [
+    6.666666666666667,
+    6.666666666666667,
+    10.000000000000002,
+    6.666666666666667,
+    9,
+    1,
+    6.666666666666667
+  ],
+  "fixtureHeights": {
+    "single": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      2.1213203435596424,
+      4.6097722286464435
+    ],
+    "complete": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      3.2015621187164243,
+      8.514693182963201
+    ],
+    "average": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      2.6628273967555645,
+      6.483406249632739
+    ],
+    "ward": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      3.758324094593227,
+      10.584973626167741
+    ]
+  },
+  "scope": "Bounded independent pairwise-SSE, exhaustive four-point partitions, all-candidate linkage, expanded-pixel and unit/probability oracles. Component hashes identify the proposed UI, not a completed browser review.",
+  "limitations": [
+    "No universal k-means global optimum or initialization guarantee is inferred.",
+    "Hierarchy input is bounded to 16 points; exact floating-point ties use deterministic IDs.",
+    "Numeric squared sRGB error is not perceptual image quality or encoded file size.",
+    "Root owns actual browser and lesson integration checks."
+  ],
+  "passed": true
+}

@@ -1,0 +1,220 @@
+{
+  "reviewedAt": "2026-09-11T09:37:08.152Z",
+  "status": "independent review closed; production integration pending",
+  "topicId": "linked-lists-stacks-queues",
+  "reviewer": "/root",
+  "authorPacket": {
+    "path": "docs/teaching/evidence/linked-traversal-extension-author-review.json",
+    "sha256": "eda6e8678fd1590ffc06b521ab64c209a5186cc90bc43cff3f31aca0917d1b0a"
+  },
+  "sources": [
+    {
+      "path": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+      "sha256": "a5880f21bc5a8990b37238691f16779f4c504894714e2c992c380b243741293a",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/topics/linked-lists-stacks-queues.jsx"
+    },
+    {
+      "path": "src/learn/data/practice/linked-lists-stacks-queues.js",
+      "sha256": "5ca9a072692d218d53e052a4532feb3312f65e4cca3a353bc2bcc75704aa5a4e",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/practice/linked-lists-stacks-queues.js"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js",
+      "sha256": "06ef8962f95d3e10fa3a7d4c6e12b8c8041316cc8942050acbe28f661a3db2ab",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js"
+    },
+    {
+      "path": "src/learn/data/linked-traversal-models.js",
+      "sha256": "78652b86d885d748f2829828c3a75d1f730b6c74109a59cfaeb9754dc8ecc9dd",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/linked-traversal-models.js"
+    },
+    {
+      "path": "src/learn/data/monotonic-stack-models.js",
+      "sha256": "e80be3ab7c989c28c07d15ea3a4f569181c6bd93b80fe0a493cde4ea7e3f64ca",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/monotonic-stack-models.js"
+    },
+    {
+      "path": "src/learn/data/linked-traversal-examples.js",
+      "sha256": "0c85f8d1bc0cb17366f53085399544ef7cbb146c5cb8454d12703f1f5362d5f6",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/linked-traversal-examples.js"
+    },
+    {
+      "path": "src/learn/data/monotonic-stack-examples.js",
+      "sha256": "45b502ef53773dc7628c549e18145f16de0c6427d753b2f80dcab3d3d5352f26",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/monotonic-stack-examples.js"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/LinkedTraversalLabs.jsx",
+      "sha256": "7197fb945d8ed38dcbddc55c2a555b3a737ca2e230f3a7111345d7695431c300",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/LinkedTraversalLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/MonotonicStackLabs.jsx",
+      "sha256": "f8e7ceee668820ef850224613642a4ab5a34baf480d1ba690ca00c6bc9351179",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/MonotonicStackLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/linked-traversal-labs.css",
+      "sha256": "ebccad163198dbb2c2e35e1cad72881c09bbbd4866ddb3c118c9b9c53e6b8d6c",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/linked-traversal-labs.css"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/monotonic-stack-labs.css",
+      "sha256": "d3c917337d41be71abb004b94f4cd6d6391d0ecd2225cf4241194d3263866f5a",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/monotonic-stack-labs.css"
+    }
+  ],
+  "productionAmendments": [],
+  "narrative": {
+    "path": "docs/teaching/LINKED-TRAVERSAL-MONOTONIC-INDEPENDENT-REVIEW.md",
+    "sha256": "5bb3a6e5af7efff582d52ba29e296ebd0a1ccc7a39d8e00ac254a98839c6d989"
+  },
+  "native": {
+    "record": {
+      "path": "scratch/linked-extension-independent/native-results.json",
+      "sha256": "d5826790adcb4068e6be25e154a6412ca2eb3d2221d5105bbc0ac8042226e82f"
+    },
+    "checkedAt": "2026-09-11T09:19:59.452305+00:00",
+    "checks": {
+      "allSuccessorGraphsAndHeadsThroughFiveNodes": 50069,
+      "middleModelStates": 52,
+      "nativeLongLengths": [
+        0,
+        1,
+        2,
+        3,
+        6,
+        7,
+        41,
+        42,
+        1001,
+        1002,
+        10000
+      ],
+      "lengthSevenTernaryHistogramsAndSignedFutureArrays": 2187,
+      "frameMeaningAndStackPrefixInvariants": true,
+      "nodeIdentityAndNonmutation": true
+    }
+  },
+  "browser": {
+    "record": {
+      "path": "scratch/linked-extension-independent/browser/results.json",
+      "sha256": "fabd89daaa8b12b45207559ca7d4ea4691e69b1c11d75071a75a57a012aa15eb"
+    },
+    "checkedAt": "2026-09-11T09:27:48.232Z",
+    "results": [
+      {
+        "width": 1440,
+        "states": 23,
+        "actualFonts": true,
+        "changedCycle": "9 nodes, prefix7/cycle2, meetingn8/entryn7",
+        "changedCut": "8→4+4 and7→4+3",
+        "signedFuture": true,
+        "rectangleHeightAndWidth": true,
+        "codeOutputs": 4,
+        "practicePlacements": 14,
+        "keyboardSolutions": 8,
+        "errors": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 390,
+        "states": 23,
+        "actualFonts": true,
+        "changedCycle": "9 nodes, prefix7/cycle2, meetingn8/entryn7",
+        "changedCut": "8→4+4 and7→4+3",
+        "signedFuture": true,
+        "rectangleHeightAndWidth": true,
+        "codeOutputs": 4,
+        "practicePlacements": 14,
+        "keyboardSolutions": 8,
+        "errors": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 320,
+        "states": 23,
+        "actualFonts": true,
+        "changedCycle": "9 nodes, prefix7/cycle2, meetingn8/entryn7",
+        "changedCut": "8→4+4 and7→4+3",
+        "signedFuture": true,
+        "rectangleHeightAndWidth": true,
+        "codeOutputs": 4,
+        "practicePlacements": 14,
+        "keyboardSolutions": 8,
+        "errors": [],
+        "documentOverflow": false
+      }
+    ]
+  },
+  "scripts": [
+    {
+      "path": "scripts/verify-linked-extension-independent.mjs",
+      "sha256": "d03b7c53c8eeab1c2d3766ca94ee883c64f07eae66178bd03a6b3539d8d63221"
+    },
+    {
+      "path": "scripts/verify-linked-extension-independent.py",
+      "sha256": "851189eefa59cb1bd0946fd95173e7f911d2e060afdca4e39df2d8e359ad6266"
+    },
+    {
+      "path": "scripts/review-linked-extension-independent.cjs",
+      "sha256": "5cb8aa0aa569a3357efda3f16430639a94a8cd3fac511daabe4b80b0b1594a72"
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/linked-extension-independent/browser/changed-cycle-meeting-1440.png",
+      "sha256": "553534f4ca9aa0957e975c870320eae769c999fd85376ec9a394830742c908b4"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/changed-cycle-entry-320.png",
+      "sha256": "0457d76c68378234efed3a4b96058ab37f54e3b4c276499585f8b52cc6d1235e"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/changed-even-cut-320.png",
+      "sha256": "f17f274b6c3c7dcb20ab1c44de00159ad588737216d540672829d33f765a760f"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/signed-resolution-320.png",
+      "sha256": "ba8a042e33ec6bb746b65d758cf832e821a0d304b4b1a7f00ea51cd8228931a8"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/changed-histogram-geometry-1440.png",
+      "sha256": "f80a00b0e2e26b96a1d978a209d9135941914d5b1dcee47a1fdfd5b28bfb9ba7"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/changed-histogram-geometry-320.png",
+      "sha256": "29805f4cc4fa18ddb07a5d96942778eaa8cb4661707973997fb9fb383fed9be1"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/changed-inclusive-result-320.png",
+      "sha256": "24773c1a3a5065e56da0581c1a51683577395964abad3da8ed3e4f79e8d8b7fe"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/alias-practice-320.png",
+      "sha256": "5b955d2265fe1f8b1ac2b7c915bd6a768309af42089efb4c10ca56ebdf679804"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/tied-rectangle-practice-320.png",
+      "sha256": "2a144d1ad030e4c8970071e7bbe87ddbde1b7b4e86dc08670831aaf6237aa4b5"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/reading-9-1440.png",
+      "sha256": "7fd3adcd0094eecaa6a6b66415a0f97ed91bd7210a46209e179cb061cec9f8be"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/reading-11-320.png",
+      "sha256": "03ca850f642d8bd17a4db3632750f28a005edeffc7abd494d3e0a8cb199762d0"
+    },
+    {
+      "path": "scratch/linked-extension-independent/browser/reading-12-320.png",
+      "sha256": "206a5894aacab9d230e9e950ed509682c8dd24b1a9205a0e5e1311d83bf4edc2"
+    }
+  ],
+  "conservation": "Original author archive and conservation attribution retained; original ten practice placements include the documented intentional LC141 transfer-note update.",
+  "limits": [
+    "Scoped independent read and complementary verification, not a repeated full audit of every earlier implementation.",
+    "No judge submissions, observed learner study, physical-device or full screen-reader study.",
+    "Production integration and user acceptance remain separate."
+  ]
+}

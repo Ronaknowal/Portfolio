@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-09-16T14:55:53.048583+00:00",
+  "verifier": "scripts/verify-bayesnet-escapes.py",
+  "verifierSha256": "dc9bcd8516c421b814835cd355fd8ecf81b9fff815c0e8f9d0692c99cc63460f",
+  "filesAudited": 15,
+  "filesDeclared": 15,
+  "checks": 62,
+  "displayBlocksChecked": 13,
+  "requiredKatexSequences": 14,
+  "scope": "Raw control bytes and undefined backslash escapes in every file this lesson owns, including its own verifiers; the KaTeX sequences the body depends on; that every display block is wrapped rather than left as one long line; and that no JSX conditional has identical branches. The CRLF guard an earlier version carried was dropped: this repository sets core.autocrlf=true and the convention is about stored bytes, so it tested nothing.",
+  "limitations": [
+    "Text-level hygiene only. It does not parse JSX or KaTeX, and a wrapped block can still overflow: the rendered width is measured by scripts/verify-bayesnet-browser.cjs.",
+    "The escape allow-list is deliberately broad; it catches a byte a shell replaced, not every questionable escape."
+  ],
+  "passed": true
+}

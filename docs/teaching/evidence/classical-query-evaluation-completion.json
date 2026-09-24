@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "completedAt": "2026-09-19T10:18:41.484Z",
+  "completed": [
+    {
+      "id": "conditional-random-fields-crf",
+      "record": "docs/teaching/drafts/conditional-random-fields-crf/implementation.md",
+      "review": "docs/teaching/CRF-INDEPENDENT-REVIEW.md",
+      "boundImplementationFiles": 12,
+      "contentFiles": 8
+    },
+    {
+      "id": "gaussian-processes-gp",
+      "record": "docs/teaching/drafts/gaussian-processes-gp/implementation.md",
+      "review": "docs/teaching/GAUSSIAN-PROCESSES-INDEPENDENT-REVIEW.md",
+      "boundImplementationFiles": 12,
+      "contentFiles": 8
+    },
+    {
+      "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+      "record": "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/implementation.md",
+      "review": "docs/teaching/SEMI-SUPERVISED-INDEPENDENT-REVIEW.md",
+      "boundImplementationFiles": 12,
+      "contentFiles": 11
+    },
+    {
+      "id": "active-learning",
+      "record": "docs/teaching/drafts/active-learning/implementation.md",
+      "review": "docs/teaching/ACTIVE-LEARNING-INDEPENDENT-REVIEW.md",
+      "boundImplementationFiles": 11,
+      "contentFiles": 9
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "record": "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/implementation.md",
+      "review": "docs/teaching/EVALUATION-METRICS-INDEPENDENT-REVIEW.md",
+      "boundImplementationFiles": 15,
+      "contentFiles": 10
+    }
+  ],
+  "unchangedOtherLedgerRows": 172,
+  "unchangedPublicationMappings": 228,
+  "unchangedPreparedCheckpoints": 5,
+  "remainingPreparedImplementations": 48,
+  "nextInModuleOrder": "pac-learning-vc-dimension",
+  "integration": "docs/teaching/evidence/classical-query-evaluation-integration.json",
+  "ledgerSha256": "64f7bf2fe86c92bdf111c5c0b34157cc215f28658eb229cf4a61a8f12d6cd170"
+}

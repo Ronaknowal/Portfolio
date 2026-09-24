@@ -1,0 +1,199 @@
+.tree-figure,.tree-lifecycle,.tree-vote-figure {
+  margin: 1.5rem 0;
+}
+.tree-plot-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  background: #0b1014;
+  border: 1px solid #38424b;
+}
+.tree-plot-scroll svg {
+  display: block;
+  width: 100%;
+  min-width: 400px;
+  height: auto;
+}
+.lesson-lab .tree-plot-scroll svg text {
+  fill: #d4dbe0;
+  font: 13px 'JetBrains Mono',monospace;
+}
+.tree-figure figcaption,.tree-lifecycle figcaption {
+  font-size: .9rem;
+  line-height: 1.65;
+  color: #bdc7ce;
+  margin-top: .6rem;
+}
+.tree-positive {
+  fill: #eec26c;
+  stroke: #0b1014;
+  stroke-width: 1.5;
+}
+.tree-negative {
+  fill: #89c9e5;
+  stroke: #0b1014;
+  stroke-width: 1.5;
+}
+.tree-grid {
+  stroke: #34414a;
+  stroke-width: 1;
+}
+.tree-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.tree-controls label {
+  display: grid;
+  gap: .5rem;
+  flex: 1 1 160px;
+  min-width: 0;
+}
+.tree-controls :is(input,select,button),.tree-lesson select,.tree-lesson summary {
+  min-height: 44px;
+  max-width: 100%;
+}
+.tree-controls button {
+  flex: 0 0 auto;
+}
+.tree-readout {
+  padding: 1rem 0;
+  border-block: 1px solid #41464c;
+  overflow-wrap: anywhere;
+}
+.tree-lifecycle,.tree-buckets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.tree-lifecycle>div,.tree-buckets>div {
+  border-left: 2px solid #bf9652;
+  padding: .6rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.tree-lifecycle figcaption {
+  grid-column: 1/-1;
+}
+.tree-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin: .5rem 0;
+}
+.tree-tokens span {
+  border: 1px solid #64727a;
+  padding: .2rem .4rem;
+  font: 12px 'JetBrains Mono',monospace;
+  color: #e1e7eb;
+}
+.tree-tokens .tree-token-positive {
+  border-color: #eec26c;
+  background: #5b441b;
+}
+.tree-tokens .tree-token-negative {
+  border-color: #89c9e5;
+  background: #173747;
+}
+.tree-tokens .tree-token-selected {
+  background: #6a4e19;
+  border-color: #eec26c;
+}
+.tree-rules {
+  list-style: none !important;
+  margin: .5rem 0 !important;
+  padding-left: .75rem !important;
+  border-left: 1px solid #637580;
+}
+.tree-rule {
+  padding: .6rem;
+  border: 1px solid #394751;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  font-size: .85rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.tree-rule-selected {
+  border-color: #eec26c;
+  background: #231d10;
+}
+.tree-branch-label {
+  font: 12px 'JetBrains Mono',monospace;
+  color: #a9c7d5;
+  margin: .65rem 0 .3rem;
+}
+.tree-bootstrap-member {
+  padding: .65rem 0;
+  border-bottom: 1px solid #34414a;
+  font-size: .9rem;
+  line-height: 1.6;
+}
+.tree-probability-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: .8rem;
+  align-items: center;
+  margin: 1rem 0;
+  font-size: .85rem;
+}
+.tree-probability-track {
+  height: 15px;
+  background: #173747;
+  display: block;
+}
+.tree-probability-track>span {
+  display: block;
+  height: 100%;
+  background: #eec26c;
+}
+.tree-permutation-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem;
+  padding: .8rem 0;
+  border-bottom: 1px solid #43525b;
+  font-size: .9rem;
+}
+.tree-permutation-row>span:last-child {
+  flex-basis: 100%;
+  color: #bfc9d0;
+}
+.tree-off-support {
+  border-left: 3px dashed #d7a6a6;
+  padding-left: .7rem;
+}
+.tree-lesson :is(button,input,select,summary,[tabindex]):focus-visible {
+  outline: 2px solid #eec26c;
+  outline-offset: 4px;
+}
+.tree-scroll-hint {
+  display: none;
+}
+.tree-lesson .lesson-check {
+  margin: 2rem 0;
+}
+@media (max-width:540px) {
+  .tree-lifecycle,.tree-buckets {
+    grid-template-columns: 1fr;
+  }
+  .tree-controls label {
+    flex-basis: 100%;
+  }
+  .tree-probability-row {
+    grid-template-columns: 1fr;
+  }
+  .tree-scroll-hint {
+    display: block;
+    font-size: .8rem;
+    color: #bdc7ce;
+    line-height: 1.6;
+  }
+  .tree-rules {
+    padding-left: .4rem !important;
+  }
+}

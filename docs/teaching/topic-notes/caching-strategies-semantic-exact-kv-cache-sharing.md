@@ -1,0 +1,17 @@
+# Authoring notes: Caching Strategies (Semantic, Exact, KV-Cache Sharing)
+
+Canonical topic ID: caching-strategies-semantic-exact-kv-cache-sharing
+
+## 2026-09-10 — Connect the small LRU trace to validity and workload assumptions
+
+- Status: open
+- Origin: `linked-lists-stacks-queues`, section 6; [systems/structures design](../systems-and-structures-design.md).
+- Destination and ownership rationale: the origin teaches lookup plus recency with a fixed two-entry source. This existing serving topic owns deployed cache identity, validity and eviction policy. Preserve a short origin bridge; do not expand a first linked-list lesson into a deployment guide.
+- Idea and learning benefit: distinguish “which entry stays?” from “is its value still valid for this request?” Compare exact recency with implementation approximations, and choose a policy using the actual access sequence and costs rather than a blanket ranking.
+- Existing coverage: `src/learn/data/topics/caching-strategies.jsx` discusses TTL/model updates near its opening exact-cache explanation, LRU/LFU under “Cache memory and eviction cost,” and a Zipfian comparison in section 4d. It has no bespoke brief. A scoped connection check found unqualified claims about negligible implementation cost, absence of correctness risk, a universal public-API hit-rate ceiling and LFU superiority under Zipfian traffic. These require evidence, qualification or removal during its rewrite; this note is not a full audit of that lesson.
+- Proposed treatment: connect the original a, b, a, c trace to a changed backing value or model version while a remains cached. Before discussing hit rate, define all relevant request identity/version/tenant boundaries and freshness requirements. Compare working-set changes, scans and repeated popularity with recorded traces. Preserve useful existing examples but rerun measurements and label synthetic workloads. No rename is currently proposed.
+- Explanation/example: an invented fixed-source cache returns a = 10; the authoritative source changes to 11 before another a request. LRU may correctly retain a while returning an obsolete value. Add invalidation or a versioned identity according to the chosen contract; explain why eviction order alone cannot fix this. A TTL limits a stale interval under a policy; it is not automatic invalidation at every source update.
+- Prerequisites and boundaries: map equality/identity, linked recency and cache hit/miss vocabulary. Do not imply a two-item Python model reproduces Redis's internal data structures or all concurrent serving behavior.
+- Evidence: [Redis key eviction](https://redis.io/docs/latest/develop/reference/eviction/), especially policy selection and approximated LRU, read 10 September 2026. It emphasizes application access patterns and measurements and describes sampled approximate LRU. [Python functools cache documentation](https://docs.python.org/3/library/functools.html#functools.lru_cache) supplies a small API comparison. Existing benchmark numbers were not rerun and are not endorsed by this note.
+- Resolution: open for the destination's scoped rewrite. Assess coverage and current primary sources; record a reasoned disposition. The destination was not changed by this increment.
+- Implementation/verification links: the originating fixed-source LRU example is executed in [the increment record](../../../SYSTEMS-STRUCTURES-IMPLEMENTATION.md). Production validity and policy comparisons remain future work.

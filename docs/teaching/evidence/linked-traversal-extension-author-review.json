@@ -1,0 +1,977 @@
+{
+  "frozenAt": "2026-09-11T08:53:13.229547+00:00",
+  "status": "author-verified scoped extension; independent review and production integration remain parent-owned",
+  "topicId": "linked-lists-stacks-queues",
+  "productionSources": [
+    {
+      "path": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+      "sha256": "a5880f21bc5a8990b37238691f16779f4c504894714e2c992c380b243741293a",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/topics/linked-lists-stacks-queues.jsx"
+    },
+    {
+      "path": "src/learn/data/practice/linked-lists-stacks-queues.js",
+      "sha256": "5ca9a072692d218d53e052a4532feb3312f65e4cca3a353bc2bcc75704aa5a4e",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/practice/linked-lists-stacks-queues.js"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js",
+      "sha256": "06ef8962f95d3e10fa3a7d4c6e12b8c8041316cc8942050acbe28f661a3db2ab",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js"
+    },
+    {
+      "path": "src/learn/data/linked-traversal-models.js",
+      "sha256": "78652b86d885d748f2829828c3a75d1f730b6c74109a59cfaeb9754dc8ecc9dd",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/linked-traversal-models.js"
+    },
+    {
+      "path": "src/learn/data/monotonic-stack-models.js",
+      "sha256": "e80be3ab7c989c28c07d15ea3a4f569181c6bd93b80fe0a493cde4ea7e3f64ca",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/monotonic-stack-models.js"
+    },
+    {
+      "path": "src/learn/data/linked-traversal-examples.js",
+      "sha256": "0c85f8d1bc0cb17366f53085399544ef7cbb146c5cb8454d12703f1f5362d5f6",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/linked-traversal-examples.js"
+    },
+    {
+      "path": "src/learn/data/monotonic-stack-examples.js",
+      "sha256": "45b502ef53773dc7628c549e18145f16de0c6427d753b2f80dcab3d3d5352f26",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/monotonic-stack-examples.js"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/LinkedTraversalLabs.jsx",
+      "sha256": "7197fb945d8ed38dcbddc55c2a555b3a737ca2e230f3a7111345d7695431c300",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/LinkedTraversalLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/MonotonicStackLabs.jsx",
+      "sha256": "f8e7ceee668820ef850224613642a4ab5a34baf480d1ba690ca00c6bc9351179",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/MonotonicStackLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/linked-traversal-labs.css",
+      "sha256": "ebccad163198dbb2c2e35e1cad72881c09bbbd4866ddb3c118c9b9c53e6b8d6c",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/linked-traversal-labs.css"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/monotonic-stack-labs.css",
+      "sha256": "d3c917337d41be71abb004b94f4cd6d6391d0ecd2225cf4241194d3263866f5a",
+      "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/monotonic-stack-labs.css"
+    }
+  ],
+  "originalSnapshot": "docs/teaching/evidence/linked-traversal-extension-original.json",
+  "originalSnapshotSha256": "a5ee0fced6816ecfd07d7532eae86ac96e6395e89ed294d10e8bf6d90dbca039",
+  "native": {
+    "checkedAt": "2026-09-11T08:49:18.399081+00:00",
+    "status": "passed",
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+        "sha256": "a5880f21bc5a8990b37238691f16779f4c504894714e2c992c380b243741293a",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/topics/linked-lists-stacks-queues.jsx"
+      },
+      {
+        "path": "src/learn/data/practice/linked-lists-stacks-queues.js",
+        "sha256": "5ca9a072692d218d53e052a4532feb3312f65e4cca3a353bc2bcc75704aa5a4e",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/practice/linked-lists-stacks-queues.js"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js",
+        "sha256": "06ef8962f95d3e10fa3a7d4c6e12b8c8041316cc8942050acbe28f661a3db2ab",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js"
+      },
+      {
+        "path": "src/learn/data/linked-traversal-models.js",
+        "sha256": "78652b86d885d748f2829828c3a75d1f730b6c74109a59cfaeb9754dc8ecc9dd",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/linked-traversal-models.js"
+      },
+      {
+        "path": "src/learn/data/monotonic-stack-models.js",
+        "sha256": "e80be3ab7c989c28c07d15ea3a4f569181c6bd93b80fe0a493cde4ea7e3f64ca",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/monotonic-stack-models.js"
+      },
+      {
+        "path": "src/learn/data/linked-traversal-examples.js",
+        "sha256": "0c85f8d1bc0cb17366f53085399544ef7cbb146c5cb8454d12703f1f5362d5f6",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/linked-traversal-examples.js"
+      },
+      {
+        "path": "src/learn/data/monotonic-stack-examples.js",
+        "sha256": "45b502ef53773dc7628c549e18145f16de0c6427d753b2f80dcab3d3d5352f26",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/data/monotonic-stack-examples.js"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/LinkedTraversalLabs.jsx",
+        "sha256": "7197fb945d8ed38dcbddc55c2a555b3a737ca2e230f3a7111345d7695431c300",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/LinkedTraversalLabs.jsx"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/MonotonicStackLabs.jsx",
+        "sha256": "f8e7ceee668820ef850224613642a4ab5a34baf480d1ba690ca00c6bc9351179",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/MonotonicStackLabs.jsx"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/linked-traversal-labs.css",
+        "sha256": "ebccad163198dbb2c2e35e1cad72881c09bbbd4866ddb3c118c9b9c53e6b8d6c",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/linked-traversal-labs.css"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/monotonic-stack-labs.css",
+        "sha256": "d3c917337d41be71abb004b94f4cd6d6391d0ecd2225cf4241194d3263866f5a",
+        "archive": "scratch/linked-traversal-extension-author-freeze/src/learn/components/lesson-labs/monotonic-stack-labs.css"
+      }
+    ],
+    "actualPrograms": 10,
+    "originalProgramsConserved": 6,
+    "originalTeachingElementsConserved": 61,
+    "existingPracticePlacementsConserved": 10,
+    "newPracticePlacements": [
+      142,
+      876,
+      739,
+      84
+    ],
+    "successorCases": 3525,
+    "exhaustiveNonnegativeArrays": 3280,
+    "signedArrays": 243,
+    "middleModelStates": 52,
+    "nativeMiddleLengths": 41,
+    "cyclicSplitRejections": 190,
+    "invalidModels": 17,
+    "oracleMethods": [
+      "independent first-visit orbit and direct repeated successor evaluation",
+      "forward nearest qualifying scans",
+      "all histogram intervals with direct minimum",
+      "actual Node identity partition and mutation rejection"
+    ],
+    "limits": "Bounded exhaustive and changed actual-source checks, not a proof of arbitrary runtime inputs; production integration and browser review separate."
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T08:50:03.301Z",
+    "status": "passed",
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+        "sha256": "a5880f21bc5a8990b37238691f16779f4c504894714e2c992c380b243741293a"
+      },
+      {
+        "path": "src/learn/data/practice/linked-lists-stacks-queues.js",
+        "sha256": "5ca9a072692d218d53e052a4532feb3312f65e4cca3a353bc2bcc75704aa5a4e"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js",
+        "sha256": "06ef8962f95d3e10fa3a7d4c6e12b8c8041316cc8942050acbe28f661a3db2ab"
+      },
+      {
+        "path": "src/learn/data/linked-traversal-models.js",
+        "sha256": "78652b86d885d748f2829828c3a75d1f730b6c74109a59cfaeb9754dc8ecc9dd"
+      },
+      {
+        "path": "src/learn/data/monotonic-stack-models.js",
+        "sha256": "e80be3ab7c989c28c07d15ea3a4f569181c6bd93b80fe0a493cde4ea7e3f64ca"
+      },
+      {
+        "path": "src/learn/data/linked-traversal-examples.js",
+        "sha256": "0c85f8d1bc0cb17366f53085399544ef7cbb146c5cb8454d12703f1f5362d5f6"
+      },
+      {
+        "path": "src/learn/data/monotonic-stack-examples.js",
+        "sha256": "45b502ef53773dc7628c549e18145f16de0c6427d753b2f80dcab3d3d5352f26"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/LinkedTraversalLabs.jsx",
+        "sha256": "7197fb945d8ed38dcbddc55c2a555b3a737ca2e230f3a7111345d7695431c300"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/MonotonicStackLabs.jsx",
+        "sha256": "f8e7ceee668820ef850224613642a4ab5a34baf480d1ba690ca00c6bc9351179"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/linked-traversal-labs.css",
+        "sha256": "ebccad163198dbb2c2e35e1cad72881c09bbbd4866ddb3c118c9b9c53e6b8d6c"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/monotonic-stack-labs.css",
+        "sha256": "d3c917337d41be71abb004b94f4cd6d6391d0ecd2225cf4241194d3263866f5a"
+      }
+    ],
+    "results": [
+      {
+        "width": 1440,
+        "actualFont": true,
+        "operatedStates": 86,
+        "allPrograms": 10,
+        "originalLabs": 3,
+        "newLabs": 4,
+        "practicePlacements": 14,
+        "originalTeachingPreservation": "61 original AST subtrees separately verified",
+        "anchors": 14,
+        "optionWidths": [
+          {
+            "label": "Cycle tail target",
+            "available": 200,
+            "maximum": 114.07992553710938
+          },
+          {
+            "label": "Middle policy",
+            "available": 329,
+            "maximum": 186.67543029785156
+          },
+          {
+            "label": "Future comparison",
+            "available": 712.2,
+            "maximum": 123.87611389160156
+          },
+          {
+            "label": "Smaller boundary direction",
+            "available": 712.2,
+            "maximum": 184.0571746826172
+          },
+          {
+            "label": "Limiting histogram bar",
+            "available": 712.2,
+            "maximum": 129.2525634765625
+          }
+        ],
+        "errors": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 390,
+        "actualFont": true,
+        "operatedStates": 86,
+        "allPrograms": 10,
+        "originalLabs": 3,
+        "newLabs": 4,
+        "practicePlacements": 14,
+        "originalTeachingPreservation": "61 original AST subtrees separately verified",
+        "anchors": 14,
+        "optionWidths": [
+          {
+            "label": "Cycle tail target",
+            "available": 307,
+            "maximum": 114.07992553710938
+          },
+          {
+            "label": "Middle policy",
+            "available": 307,
+            "maximum": 186.67543029785156
+          },
+          {
+            "label": "Future comparison",
+            "available": 302.20000000000005,
+            "maximum": 123.87611389160156
+          },
+          {
+            "label": "Smaller boundary direction",
+            "available": 302.20000000000005,
+            "maximum": 184.0571746826172
+          },
+          {
+            "label": "Limiting histogram bar",
+            "available": 302.20000000000005,
+            "maximum": 129.2525634765625
+          }
+        ],
+        "errors": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 320,
+        "actualFont": true,
+        "operatedStates": 86,
+        "allPrograms": 10,
+        "originalLabs": 3,
+        "newLabs": 4,
+        "practicePlacements": 14,
+        "originalTeachingPreservation": "61 original AST subtrees separately verified",
+        "anchors": 14,
+        "optionWidths": [
+          {
+            "label": "Cycle tail target",
+            "available": 237,
+            "maximum": 114.07992553710938
+          },
+          {
+            "label": "Middle policy",
+            "available": 237,
+            "maximum": 186.67543029785156
+          },
+          {
+            "label": "Future comparison",
+            "available": 232.20000000000005,
+            "maximum": 123.87611389160156
+          },
+          {
+            "label": "Smaller boundary direction",
+            "available": 232.20000000000005,
+            "maximum": 184.0571746826172
+          },
+          {
+            "label": "Limiting histogram bar",
+            "available": 232.20000000000005,
+            "maximum": 129.2525634765625
+          }
+        ],
+        "errors": [],
+        "documentOverflow": false
+      }
+    ],
+    "images": [
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-1-1440.png",
+        "sha256": "057146fbf21e84602e8523ad8d58d768ecc736543dd889dc01c90cf19290ca1f",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-2-1440.png",
+        "sha256": "6d7fd7d378a206757bc153bbed195918398c5a258824f8d47ca46cbf46b9ad51",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-3-1440.png",
+        "sha256": "d8c610ad33a7513caeed38a083537a681d5bf6604e9ce7e78166468cf9aa45b3",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-4-1440.png",
+        "sha256": "866a0308e83adde4f4794a519f5139c869436ea4b64a31024e9042bcee209c98",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-5-1440.png",
+        "sha256": "917c98a6dc677a253652fadf914e1bd737a29e4c44e6a7f22690858d43ee7332",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-6-1440.png",
+        "sha256": "bb3b302ddf75c4060c1548c527e57c267334ad9322c2ddd449c36c82f0e829fe",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-7-1440.png",
+        "sha256": "adab2a3353e41d3f45f2fa8ed15d230e7ffde46caaf6eb103ad148c490310ecf",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-8-1440.png",
+        "sha256": "176370de7de31228443ad2d47430ebb9b9eb04e2639fc41a990499ce80cd9a8f",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-9-1440.png",
+        "sha256": "7fd3adcd0094eecaa6a6b66415a0f97ed91bd7210a46209e179cb061cec9f8be",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-10-1440.png",
+        "sha256": "c563f60f67e6661267717d2dde803d92658c9d6c2fc472cb2983e36c749fe718",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-11-1440.png",
+        "sha256": "2e72cd19f258f00e19b5801148c93abea59e3dc8ab7be8dd6b0b31e8d69826f1",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-12-1440.png",
+        "sha256": "3b7a55646ca89f63f5c2547df8a075c5b2fde47d9d2bfc51ac22e90c75c0a84f",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-13-1440.png",
+        "sha256": "8ba3be3b4b3bca3f579b09db1b1bfc32801052cd1647a75c7c89ec9772f8d32c",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-initial-1440.png",
+        "sha256": "3217aa58fa7753a75fe370b22c8a0dde92b7ce38d4a72847cd5939d782f58d48",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-meeting-1440.png",
+        "sha256": "6208e24c82b5f7f0bc5cf5c86371ad8c623ecff868b7ebe8531ca7b2fee853c0",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-entry-1440.png",
+        "sha256": "c42e65ed965f08c0820b5c4f6284bc7c08572f87139ac6df1824bfc10e5af2c2",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-self-loop-1440.png",
+        "sha256": "e9a49097f5938b75756d79825741af08e00a5d2eb0a5dde5130582011a4fad94",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/middle-first-1440.png",
+        "sha256": "bd6499119403f731e0e1893480ef0ec81af17e4328872243717f34fdb0a55573",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/middle-cut-1440.png",
+        "sha256": "0eae5c04b166b6ae6d804fcab8c5204275d5f7bbfccb36aab7a665d4e629ec69",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/next-greater-multipop-1440.png",
+        "sha256": "2636991916f50e3e339b21392f43d77e54273457401d76723fafac08e14f4b00",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/next-greater-result-1440.png",
+        "sha256": "6b133589819e926cf3657f48836bf1768d101bd7a2ed03a39a402b41ddf9306e",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/invalid-readings-1440.png",
+        "sha256": "6540b24d27fee9de3e985ad2c59f3f24ac925c66d529f534a8aceec4445dd8cc",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/signed-readings-1440.png",
+        "sha256": "caa55268bb5ddc694062b327eb018bb22cbbe0e9cfd9370127aa603093e55fc8",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-candidate-1440.png",
+        "sha256": "8a5f43b0842e738785e187e7f423e76e68391e7e10124a36b086327b5e5cc6f4",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-rectangle-1440.png",
+        "sha256": "06be1dbd636d45b5afbb42425143c34a6d2d14d76708b4a1dda2e3853c01ceff",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/boundary-equal-pop-1440.png",
+        "sha256": "bf987e2cc42cfb3376aa2b0de654d23c6b6ac0bd95871ff248519deccb0538e0",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-tied-1440.png",
+        "sha256": "0dfb868f615f91be71e0ff8acbf74a4628c0c9bb43fbda1547a8c53dea417b70",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/zero-heights-1440.png",
+        "sha256": "ba1672a75c5dab047fe35fa54251b9ad779f57711aeb9792f411697d1b12b73f",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/changed-stack-practice-1440.png",
+        "sha256": "3c0b6290b91fe4e18d2b9c771cb70baf33539a4ca86dab360ac534832d1fc90c",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/changed-histogram-practice-1440.png",
+        "sha256": "334b01ac7f751d0c62b4603b29341d690771c785440f7d03c92ae34c898e527e",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/new-code-output-1440.png",
+        "sha256": "127b48f1491e48e76f752f9312a996e31602ab5871c2dfd532cb8aa3968a503a",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/references-1440.png",
+        "sha256": "81851e65085eb1b7d5ae057bb2e269dfc87ccb144b315f03d3299ddcd6110bce",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reset-proof-1440.png",
+        "sha256": "b84180d96025c0f936235942ee6a7fa0ccd50bd11efb7c6c0a0b72ee1a48ef9d",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-1-390.png",
+        "sha256": "4839f7db448fca8bff710f28db6ebc48ebd7cd85297f076df18139e54d74d8ce",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-2-390.png",
+        "sha256": "44458ec1e9a984a538841b7e4ea55737c5c1073d01b8ec6a3205c28d9be75cca",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-3-390.png",
+        "sha256": "807cf561fb66857aff7a9f97be5e197b5862f3061fabce666202b663349ed89a",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-4-390.png",
+        "sha256": "325f205b0c3e8cf546f5a40022f2a0e47385d8ef0e02b4a9e936d10ade270a0a",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-5-390.png",
+        "sha256": "bf2518dc2789ffc99ef3cc47ca5150fd599c0a1ec6df5e7ac1ce73675c57674b",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-6-390.png",
+        "sha256": "8f7ef3caf6d07b2ef7017eed9245179abfeead732f38e1405e905448910c4026",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-7-390.png",
+        "sha256": "7950ee2f056306886dc858426bc8cd0b0a5d3f2ef42ab67824a517df00c37c3b",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-8-390.png",
+        "sha256": "22907ade711c30fc0ddb0b5368ffa803e8985bea510bd98591f77df513aef18d",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-9-390.png",
+        "sha256": "7b361f1a738af8175ddc22630a29e2e7b4d25a72cc7123d590392f2d3417ccd7",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-10-390.png",
+        "sha256": "e5cd6bddfb3b3bb1632374d354c0e137918a4ab945537d46ca1e0b327461de6c",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-11-390.png",
+        "sha256": "cab448a266499d545894b6ecd2ce60ce875d558d78fde1e2c5e842b14375105b",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-12-390.png",
+        "sha256": "102fe66632da32edad125186f78919c54383e07f855372dc8473c4413828a4e9",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-13-390.png",
+        "sha256": "9dcaa0e0d058bdbd0fb48d11b782a7c23e3fc1938221e52afa40c5080e0cb601",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-initial-390.png",
+        "sha256": "7a70797dc144e3ef13a17c77a6a1ca2beea9aec0dfd108827036ab453c67cc57",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-meeting-390.png",
+        "sha256": "5a68a2d8219ec5ea66873c741b7a3d6ea5cd3db30c355b6011427c75f1650959",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-entry-390.png",
+        "sha256": "1112edc5ec97c04c9cf115426cf95ff2b40080718801bb62d7a097042da2cdb9",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-self-loop-390.png",
+        "sha256": "e561c49a5023cf0aef38ae8a82f00a0dfef611cad14e241486ac25bf540fef99",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/middle-first-390.png",
+        "sha256": "12ffa0c866b78dbb7d037b0790fc4f82961c396a31e859280344f209164cde84",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/middle-cut-390.png",
+        "sha256": "aeef11f960965db2d2d76c6d7caf0a82da614377ee22ada062146f7e26853e0b",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/middle-cut-scrolled-390.png",
+        "sha256": "2e1fa381a79f450f7c51cdc237420ae99733b0c8892f2deb0164ffaec34b4148",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/next-greater-multipop-390.png",
+        "sha256": "980121e3f83eaa5d9290d1f2750f5233078799c8ef3dab1829919d2f3d71a8d4",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/next-greater-result-390.png",
+        "sha256": "579aeebef2304002fe4640516aaea1198be2c20c24a99d3f10583b4c6dc5dc89",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/invalid-readings-390.png",
+        "sha256": "f6fc2d0eeeaa120d2093aa176e8b76bff887ffd516b9597452b625b757779563",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/signed-readings-390.png",
+        "sha256": "11f559679a4493f6e878efda99be842052a437021a9a65069e49b2578311437f",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-candidate-390.png",
+        "sha256": "58d80e1e10f80453ae3e09794c78ef769271b979d86ddb6c4b4ed2c16d13a281",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-rectangle-390.png",
+        "sha256": "cd02602b1b02e9060d6017f1a1ea8f749d7627c99be9fc0e56dc35b857ba763a",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-scrolled-390.png",
+        "sha256": "66e0383dc6d5fc350cb33e3756b65ac658af319f93ee23d7e00c8675d150f249",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/boundary-equal-pop-390.png",
+        "sha256": "0936b259775c621ddd8a1df6f08453e2f67c397525a78bdd0bd352d5f478596c",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-tied-390.png",
+        "sha256": "2e19627ea7d337ba1f05c34b4f28d9959c6ea80a64466feb3b7750c3f3550736",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/zero-heights-390.png",
+        "sha256": "7088d15d959870642ae49dc444c801d12736d6dfd4cf294376d687ec6483a6ad",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/changed-stack-practice-390.png",
+        "sha256": "96ea1cd744ec22b636b4a7a77e28df5b6b28b2ecccef47f4a90714e5f92184ba",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/changed-histogram-practice-390.png",
+        "sha256": "63501011a62592488803bb77cfab42f054e63c195c764c064959ea606a7fb7c2",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/new-code-output-390.png",
+        "sha256": "74624b7b2e7d5dd92d9aceeeaa3c00d55b175c4e2eec7753ab9b9930a7da2563",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/references-390.png",
+        "sha256": "10b60669146cd7495c12c19991d7192bd2ecb31a1e805faf5bf66cb911cce524",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reset-proof-390.png",
+        "sha256": "c1f84062623a96e747f66c99bcd873431a904d78f5c9ba61240d58d3c5f08dab",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-1-320.png",
+        "sha256": "a5c93ea86eb78c92f3f22354daff8b25797d9aa316516fdca4b68b1e0613706a",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-2-320.png",
+        "sha256": "d0135d362652bc9692f69c455c128e74b3d95bf4452eb5125386256e597258f7",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-3-320.png",
+        "sha256": "bd031a6c3058dd8f31ff6006fac1e247f2f6bc7f5186add55dcee35d82257db1",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-4-320.png",
+        "sha256": "c2500d0b1796478b3f98ca70465d3abf28090ee490ac7b0b936fcfce22ec6c18",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-5-320.png",
+        "sha256": "d3f4a14dca87901c11264145cc910ff151b24217579160a725a61c7d14b445ff",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-6-320.png",
+        "sha256": "f64fea1bcb8974a07785e063f5f2c1805a2b3d0e016ebcdd63e7ba8eb10d8b21",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-7-320.png",
+        "sha256": "b585f94de41cb752de0c3d07ac550db0185284cd71578d893d31931f6fa7be82",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-8-320.png",
+        "sha256": "469da267e2443f623c375aac2a008f4f0907992264d31032283a8e81a640322c",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-9-320.png",
+        "sha256": "774634603fc342371b1c0b234f1d12d2360eb8f6a6680fe48ab578a0f6dabe13",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-10-320.png",
+        "sha256": "5cf7e939dec1239d5c35ca80e19f3cb6d0b1534166d1202ec3204ec1321cdd41",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-11-320.png",
+        "sha256": "03ca850f642d8bd17a4db3632750f28a005edeffc7abd494d3e0a8cb199762d0",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-12-320.png",
+        "sha256": "206a5894aacab9d230e9e950ed509682c8dd24b1a9205a0e5e1311d83bf4edc2",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reading-13-320.png",
+        "sha256": "be3db27ebe397d3edf81a2811faeeceac75d7bef9476643ebd72e887ab33651d",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-initial-320.png",
+        "sha256": "2fc357d7e159b5014f310dddeaa65503ef3fc1799e90554c2ffaf0677d442570",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-meeting-320.png",
+        "sha256": "33ea7a96dd48c332ed39fd970d4b1bc7d44071062883c756058fb8f28fa20c05",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-entry-320.png",
+        "sha256": "b095088d98eaed4ebaf805f0a64b6efa618168f71e50b3a328d0ece3b9341e22",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/cycle-self-loop-320.png",
+        "sha256": "3e86b3e00debcead9b89f042b201077e940a8035bb21b64d847a9fb5edfb1314",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/middle-first-320.png",
+        "sha256": "3034637e69a667dc3f27b25cf931680b09ee503143036cabb634b23bcbe2f0a4",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/middle-cut-320.png",
+        "sha256": "b5b3de7906462d78b60e77a9285c96df24fce14850f4725bce4c89003519f3fe",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/middle-cut-scrolled-320.png",
+        "sha256": "df86903f6f9aa518a77a24e52d67d88e8b2a6881e21cbf8bdaf0e13e435c538e",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/next-greater-multipop-320.png",
+        "sha256": "6246954a2b26e4988ed524fd479ad4f69484977c87039be3c85090d106ebdd13",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/next-greater-result-320.png",
+        "sha256": "664e62206d7e75e04845ad899144483bce8331d57762ec2fead54ed6e5bfa31d",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/invalid-readings-320.png",
+        "sha256": "112e90206c739db101acd9492ce49bcb5fbcae0e1b9a713b365f7e944e508033",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/signed-readings-320.png",
+        "sha256": "07fd084ace73e2c6579f4656fe941bfcb6180d38d86792cb7a9dc8ad569f7230",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-candidate-320.png",
+        "sha256": "25180f087da6716750d358895a96cad101619ac2d2f735565160cea7cd8a01e8",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-rectangle-320.png",
+        "sha256": "c9edf53e5563e5705907d7ac873725ab2f5122419009c9f22f011694e9b2da66",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-scrolled-320.png",
+        "sha256": "fc9c0ee72a1b8943842bc9b9678f7ccb8da35661856375b55ee88d3a78062537",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/boundary-equal-pop-320.png",
+        "sha256": "8b200df59662cd57830449d6d992ddc5162ba110bb44f3a3026762fb99956694",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/histogram-tied-320.png",
+        "sha256": "939e94b081b975b0ad1d4509f2c5da15c94d9afdde0d9afe44a7a930a9764439",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/zero-heights-320.png",
+        "sha256": "9020f3f12a93db42897c295e0d1a6d13ac59d9027ed63af9c686aacce72e4e3d",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/changed-stack-practice-320.png",
+        "sha256": "f70b760abaf391b7b4858e6ea686981947458e9a806e89d46a0f4441cf12c05d",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/changed-histogram-practice-320.png",
+        "sha256": "a989b4170ab60586472cca42be20bfb552a43e8fa6d766bebc07f7459d15de03",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/new-code-output-320.png",
+        "sha256": "d23b77ef61dc8d88a7871f617127b4293f853a3ac0e8d240199edd0827dfb0d9",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/references-320.png",
+        "sha256": "0ac399a9aec7abd23e53c1921f47816566e6be30489fcb291761ca3edea7628a",
+        "opened": false
+      },
+      {
+        "path": "scratch/linked-traversal-extension-browser/reset-proof-320.png",
+        "sha256": "c00c9a9e42f3036c31233a21abdb9cdc3e62858773542615542ccd6fe6e25639",
+        "opened": false
+      }
+    ],
+    "limits": "Actual Edge browser at three widths with fonts/keyboard/reading and targeted original-lab preservation; no broader production integration or screen-reader session claimed."
+  },
+  "openedImages": [
+    {
+      "path": "scratch/linked-traversal-extension-browser/reading-9-1440.png",
+      "sha256": "7fd3adcd0094eecaa6a6b66415a0f97ed91bd7210a46209e179cb061cec9f8be",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/cycle-entry-1440.png",
+      "sha256": "c42e65ed965f08c0820b5c4f6284bc7c08572f87139ac6df1824bfc10e5af2c2",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/cycle-self-loop-320.png",
+      "sha256": "3e86b3e00debcead9b89f042b201077e940a8035bb21b64d847a9fb5edfb1314",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/middle-cut-1440.png",
+      "sha256": "0eae5c04b166b6ae6d804fcab8c5204275d5f7bbfccb36aab7a665d4e629ec69",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/middle-cut-390.png",
+      "sha256": "aeef11f960965db2d2d76c6d7caf0a82da614377ee22ada062146f7e26853e0b",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/next-greater-multipop-1440.png",
+      "sha256": "2636991916f50e3e339b21392f43d77e54273457401d76723fafac08e14f4b00",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/next-greater-result-320.png",
+      "sha256": "664e62206d7e75e04845ad899144483bce8331d57762ec2fead54ed6e5bfa31d",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/histogram-rectangle-1440.png",
+      "sha256": "06be1dbd636d45b5afbb42425143c34a6d2d14d76708b4a1dda2e3853c01ceff",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/histogram-tied-320.png",
+      "sha256": "939e94b081b975b0ad1d4509f2c5da15c94d9afdde0d9afe44a7a930a9764439",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/reading-11-390.png",
+      "sha256": "cab448a266499d545894b6ecd2ce60ce875d558d78fde1e2c5e842b14375105b",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/reading-12-320.png",
+      "sha256": "206a5894aacab9d230e9e950ed509682c8dd24b1a9205a0e5e1311d83bf4edc2",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/changed-stack-practice-390.png",
+      "sha256": "96ea1cd744ec22b636b4a7a77e28df5b6b28b2ecccef47f4a90714e5f92184ba",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/histogram-scrolled-320.png",
+      "sha256": "fc9c0ee72a1b8943842bc9b9678f7ccb8da35661856375b55ee88d3a78062537",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/middle-cut-scrolled-390.png",
+      "sha256": "2e1fa381a79f450f7c51cdc237420ae99733b0c8892f2deb0164ffaec34b4148",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/reset-proof-320.png",
+      "sha256": "c00c9a9e42f3036c31233a21abdb9cdc3e62858773542615542ccd6fe6e25639",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/zero-heights-320.png",
+      "sha256": "9020f3f12a93db42897c295e0d1a6d13ac59d9027ed63af9c686aacce72e4e3d",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/references-390.png",
+      "sha256": "10b60669146cd7495c12c19991d7192bd2ecb31a1e805faf5bf66cb911cce524",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    },
+    {
+      "path": "scratch/linked-traversal-extension-browser/signed-readings-390.png",
+      "sha256": "11f559679a4493f6e878efda99be842052a437021a9a65069e49b2578311437f",
+      "openedBy": "author using view_image; ordinary reading, operated geometry, keyboard-scroll or explanation reviewed"
+    }
+  ],
+  "reviewLimits": [
+    "No shared registry, generated catalogue, coverage map, ledger, historical record or unrelated lesson changed.",
+    "No broader build/integration or screen-reader session is claimed.",
+    "Exhaustive small successor graphs/arrays and changed native inputs complement local proofs; they do not exhaust arbitrary inputs.",
+    "Official new LeetCode public statements inspected; no editorial/submission execution or new video playback claimed. Existing annotated CS50 video and written alternatives are retained."
+  ],
+  "reviewNotes": [
+    "Original six programs/outputs, old model/labs and historical records are preserved; all 61 original meaningful teaching AST subtrees and ten placements are conserved. Only 141 transfer now mentions the proved constant-space follow-up.",
+    "Full final browser passed 86 operated states per width at 1440/390/320, all ten actual code/output blocks, fourteen placements, anchors and no document overflow or console/page errors.",
+    "Final image review prompted an explicit long-chain keyboard-scroll hint, an exact zero-height SVG representation, and a precise reset proof describing the meeting via slow's t-hop route. Those final sources passed the native and full browser rerun.",
+    "Two initial browser harness stops involved an old lab locator: Investigation uses data-investigation, and its implicit select labels are reliably found by accessible combobox role. Production old labs were not changed."
+  ],
+  "commands": [
+    "node scripts/verify-linked-traversal-extension.mjs",
+    "node scripts/review-linked-traversal-extension.cjs"
+  ],
+  "supportingFiles": [
+    {
+      "path": "scripts/snapshot-linked-traversal-extension.py",
+      "sha256": "6201165cf43dc2e5ac051eff4144830ef97072d7f526e0b2930b727c67c436d6"
+    },
+    {
+      "path": "scripts/generate-linked-traversal-extension.py",
+      "sha256": "c4469ac3f503fb8818ded8d4a0f883046e79642a1f8a3a7b8f2c4b3220040f81"
+    },
+    {
+      "path": "scripts/verify-linked-traversal-extension.mjs",
+      "sha256": "e52e8c98fad7e68b4f8195845c1cd7289e88c5f0d0882c2dffa4abc084c9e74c"
+    },
+    {
+      "path": "scripts/verify-linked-traversal-extension.py",
+      "sha256": "aedf875be32b306b39cc75986a091875410388dea0b741bc15e1bd1c74408fc7"
+    },
+    {
+      "path": "scripts/review-linked-traversal-extension.cjs",
+      "sha256": "4cb5aaf14e95458a73d205ad691510c9aa1ba67084a894fe3cec6ef4b5213609"
+    },
+    {
+      "path": "scripts/format-linked-traversal-extension.cjs",
+      "sha256": "c3c0260f88385de1754e5793e8b4497ecc38e5be63a6b22a97e54334b1c25630"
+    },
+    {
+      "path": "docs/teaching/LINKED-TRAVERSAL-MONOTONIC-EXTENSION-DESIGN.md",
+      "sha256": "5f30d9bcc613a41d3bf66cefcc86ca13c8950efebb020e1e5b033af7af8dd14a"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "checks": [
+    "geometry fixtures, scale invariance, ties and zero norm",
+    "clipped boundary coordinates lie on the equation",
+    "XOR repairs and inactive null match all four saved corners",
+    "incoming weights and slopes reproduce independent PyTorch fixture",
+    "nine dense value/slope curves agree with independent PyTorch float64 oracle",
+    "CDF endpoints, symmetry, numerical stability and corners",
+    "numeric text admits rational entries and rejects invalid ranges without clamping",
+    "triangular pulse has exact corners and no spurious outer slope",
+    "all measured rows join validation IDs to the original labels, with no split leakage",
+    "executed printed digit counts and losses match all 18 plotted rows"
+  ],
+  "denseValuesAndSlopes": 8658,
+  "maxAbsoluteError": 3.1225022567582528e-15,
+  "oracleTorch": "2.14.0+cpu",
+  "sourceHashes": {
+    "src/learn/data/perceptron-models.js": "629fca099a9b936f8a74251e834b93732c8dfcc900ec42e770e73b49cab5f0fd",
+    "src/learn/data/perceptron-data.js": "ef7354f1e75e1da77ae0333b9e44fa60b3987aa8fbf0c3b7066e3a54a680023a",
+    "src/learn/data/perceptron-examples.js": "bc8d5c61058d5a2492de0dcf4158d6db56cda12b23fc57a9b7ac5c83370807ef"
+  }
+}

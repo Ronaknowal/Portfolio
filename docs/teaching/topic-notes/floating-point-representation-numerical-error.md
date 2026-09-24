@@ -1,0 +1,17 @@
+# Authoring notes: Floating-Point Representation & Numerical Error
+
+Canonical topic ID: `floating-point-representation-numerical-error`
+
+## 2026-09-11 — Continue mathematical rounding foundations into actual hardware contracts
+
+- Status: open
+- Origin: `conditioning-stability-numerical-analysis`, [design](../CONDITIONING-STABILITY-LESSON-DESIGN.md), now authored with final native/browser evidence in [the verification record](../CONDITIONING-STABILITY-VERIFICATION.md); independent review/integration are separate.
+- Destination and ownership rationale: this existing GPU Engineering Readiness topic requires C/C++ and owns representation/dtypes, instruction/compiler behavior and parallel reductions. Conditioning52 needs a local arithmetic foundation without imposing that unpublished specialist prerequisite on a mathematics learner.
+- Idea and learning benefit: distinguish a mathematical basic-operation rounding model and a deterministic CPU reduction from the actual instructions, dtype conversions, FMA, compiler transformations and parallel execution of a GPU program. A reader should be able to identify precisely which earlier arithmetic assumption changed.
+- Existing coverage: destination's live planned compact brief was read; its CPU/GPU reductions, compiler reassociation and dtype scope already fit this idea. No actual destination body exists. Origin now teaches binary64 nearest-even, exact stored-input references, naive/balanced/Kahan/Neumaier accumulation and a float32-factor/float64-residual example. Those origin forms are authored and verified within the final scoped evidence; no destination implementation is claimed.
+- Proposed treatment: assess origin's final section/evidence before writing. Reuse a brief local recap and then run actual hardware-specific programs with explicit dtype, evaluation order, compiler flags and device/library versions. Preserve core bit-format teaching here for readers arriving directly through C/C++; do not assume the mathematics lesson is a universal prerequisite.
+- Explanation/example: `[1e16,1,-1e16]` returns zero under the explicit tested binary64 naive loop and classic Kahan, and one under the tested Neumaier/fsum implementation. An alternative order can reverse a naive-versus-balanced ranking. This is a useful point of departure for a parallel reduction whose order is actually measured, not evidence about every GPU. Mixed precision can repair a solve while failing if the low-precision matrix becomes singular; do not imply every lower precision is a free performance gain.
+- Prerequisites and boundaries: the origin must teach its own necessary rounding assumptions; this specialist retains C/C++ and actual systems prerequisites. No origin timing or performance claim is proposed. Changing the prerequisite is a parent-reviewed registration decision, not a removal of this topic.
+- Evidence: [Python3.12 fsum](https://docs.python.org/3.12/library/math.html#math.fsum), [sum version change](https://docs.python.org/3.12/library/functions.html#sum), [Goldberg](https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html), and origin's [executed design fixtures](../../../scratch/conditioning-design/fixtures.json), reviewed 11 September 2026. No current hardware/compiler experiment has been run for this destination.
+- Resolution: not yet reviewed by destination author. Assess the final origin implementation before adapting the continuation.
+- Implementation/verification links: none for destination; origin links now include actual production verification.

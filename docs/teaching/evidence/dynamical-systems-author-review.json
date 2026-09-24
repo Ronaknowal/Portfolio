@@ -1,0 +1,476 @@
+{
+  "topicId": "dynamical-systems-theory-chaos",
+  "authorFrozenAt": "2026-09-10T20:56:31.905Z",
+  "status": "author-verified; independent review and production integration pending",
+  "production": [
+    {
+      "path": "src/learn/data/topics/dynamical-systems-theory-chaos.jsx",
+      "sha256": "26b3c22fb1570d389fd82c6fb8c69882b0840b7ef148c89f4d9155c9c2ea49a4",
+      "bytes": 59149
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx",
+      "sha256": "a88b98502518d0cb874ed38e1323443db56165bd2be06002c92e099cf7e47839",
+      "bytes": 35122
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dynamical-systems-labs.css",
+      "sha256": "6ca3931852f9399ece613197548c307a77ad34fb656a454a69b69ea7d9cfdf62",
+      "bytes": 4417
+    },
+    {
+      "path": "src/learn/data/dynamical-systems-models.js",
+      "sha256": "b5bf068e357558100f73f5336b53a43382d0a1decc73a3aaa1467f494732909f",
+      "bytes": 16665
+    },
+    {
+      "path": "src/learn/data/dynamical-systems-examples.js",
+      "sha256": "3af5b2d3e6303ea9193712b9a6786be7361ffa9373b997efc67b28bae39bbbf1",
+      "bytes": 22966
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/dynamical-systems-theory-chaos.js",
+      "sha256": "f742827de99291801cd843f5fc9faf2a0dd9e140b056bbad4b3aa1a4afc7b283",
+      "bytes": 4288
+    }
+  ],
+  "preservation": {
+    "capturedAt": "2026-09-10T19:08:21.803Z",
+    "file": "src/learn/data/topics/dynamical-systems-theory-chaos.jsx",
+    "sha256": "92036f14ef736271c5218e3e6fa6bee15a09d4fb083742fda18f6ea7960c1b6a",
+    "source": "import { Callout, Code, CodeBlock, H2, Prose } from \"../../components/content\";\nimport { MathBlock } from \"../../components/content/Math.jsx\";\n\nconst content = {\n  title: \"Dynamical Systems Theory & Chaos\",\n  readTime: \"~43 min\",\n  content: () => <div>\n    <H2>1. The question: how does a state evolve under a rule?</H2>\n    <Prose>\n      A dynamical system specifies how a state changes over time. The state may be a pendulum's position and velocity, a population, a chemical concentration, a hidden state in a recurrent model, or a control system. The rule may be continuous in time, expressed as a differential equation, or discrete, expressed as an update map. Dynamics helps us reason about trajectories, long-run behaviour, stability, and the limits of prediction.\n    </Prose>\n    <MathBlock>{`\\\\frac{dx}{dt}=f(x,t)\\\\quad\\\\text{(continuous time)}, \\\\qquad x_{t+1}=F(x_t)\\\\quad\\\\text{(discrete time)}`}</MathBlock>\n    <Prose>\n      The key distinction from a static model is feedback: tomorrow's state depends on today's state. A small modelling error can therefore compound through repeated updates, even if every individual update looks reasonable.\n    </Prose>\n\n    <H2>2. Fixed points and stability are the first things to inspect</H2>\n    <Prose>\n      A fixed point (or equilibrium) is a state that does not change under the dynamics. For a discrete map it satisfies <Code>x* = F(x*)</Code>; for an autonomous differential equation it satisfies <Code>f(x*) = 0</Code>. The important follow-up is stability: does a small perturbation return toward the equilibrium or move away from it?\n    </Prose>\n    <MathBlock>{`|F'(x^*)|&lt;1\\\\Rightarrow\\\\text{locally stable discrete fixed point}, \\\\qquad \\\\operatorname{Re}(\\\\lambda(J_f(x^*)))&lt;0\\\\Rightarrow\\\\text{locally stable continuous equilibrium}`}</MathBlock>\n    <Prose>\n      The Jacobian <Code>J_f</Code> is the multidimensional derivative. Its eigenvalues describe local expansion, contraction, rotation, and oscillation. Linearisation is a local approximation, so it can be misleading far from the equilibrium or near strongly non-linear transitions.\n    </Prose>\n\n    <H2>3. The logistic map shows feedback becoming complicated</H2>\n    <Prose>\n      The logistic map is a tiny deterministic population model: x is a scaled population between zero and one, r controls growth, and the factor <Code>(1 - x)</Code> represents limited resources. Its simplicity makes it ideal for seeing bifurcations and chaos without hiding behind a complex simulator.\n    </Prose>\n    <MathBlock>{`x_{t+1}=r x_t(1-x_t)`}</MathBlock>\n    <Prose>\n      It has fixed points 0 and <Code>(r - 1) / r</Code>. The nonzero fixed point has derivative <Code>2 - r</Code>, so it is stable for 1 &lt; r &lt; 3. As r rises, the system moves through period doubling—one stable value becomes a two-cycle, then four, then more complex behaviour. For many r values beyond about 3.57 it is chaotic, though periodic windows still occur.\n    </Prose>\n\n    <H2>4. Chaos is deterministic but rapidly unpredictable</H2>\n    <Prose>\n      Chaotic systems have sensitive dependence on initial conditions: two states that begin almost identically can separate exponentially fast. There is no random number generator in the rule. The unpredictability comes from limited measurement precision and repeated nonlinear feedback, which create a finite horizon for accurate individual forecasts.\n    </Prose>\n    <CodeBlock language=\"python\">{`def logistic(x, r):\n    return r * x * (1 - x)\n\nr = 3.9\nx, y = 0.5, 0.500001  # initial states differ by one millionth\nfor _ in range(50):\n    x = logistic(x, r)\n    y = logistic(y, r)\n\nprint(round(x, 6), round(y, 6), round(abs(x - y), 6))`}</CodeBlock>\n    <CodeBlock language=\"output\">{`0.241355 0.800844 0.559489`}</CodeBlock>\n    <Prose>\n      A Lyapunov exponent quantifies average local separation; a positive largest exponent is a hallmark of chaos. One dramatic trajectory is not proof of chaos. Estimate sensitivity across states and time, rule out numerical artifacts, and distinguish deterministic nonlinearity from stochastic noise.\n    </Prose>\n\n    <H2>5. Attractors, cycles, and basins of attraction</H2>\n    <Prose>\n      Long-run trajectories can approach a fixed point, a periodic orbit (limit cycle), a more complicated attractor, or escape the model's meaningful region. A basin of attraction is the set of initial states that lead to the same attractor. Multiple basins matter in optimisation and control: two nearly identical starting conditions can settle into qualitatively different outcomes if they sit on opposite sides of a boundary.\n    </Prose>\n    <Prose>\n      Phase portraits visualise trajectories against one another—such as position versus velocity—rather than against time. They often expose cycles, equilibria, and unstable regions that a single time-series plot obscures. In high dimensions, projections can be useful but must not be mistaken for the full state-space geometry.\n    </Prose>\n\n    <H2>6. Connections to ML, control, and simulation</H2>\n    <Prose>\n      Recurrent networks and iterative optimisation are discrete dynamical systems; exploding or vanishing gradients correspond to repeated expansion or contraction. Neural ODEs define continuous-time dynamics learned from data. Model-predictive control plans actions using a dynamics model, while reinforcement learning must account for state transitions. In all these cases, stability and error propagation are engineering concerns, not just theoretical decoration.\n    </Prose>\n    <Callout accent=\"green\" label=\"A learned one-step model can still fail long term\">\n      Low one-step prediction error does not guarantee accurate rollouts. Reusing a model's own output as its next input exposes it to states absent from training and compounds small bias. Evaluate multi-step trajectories, conservation laws, stability regions, and uncertainty—not only single-step loss.\n    </Callout>\n\n    <H2>7. Numerical and modelling pitfalls</H2>\n    <Prose>\n      Numerical integrators introduce their own dynamics: a large step size can manufacture instability or damp a real oscillation. Compare step sizes and, when relevant, use integrators that preserve important structure. Estimate parameters on held-out trajectories, respect measurement noise and unobserved inputs, and avoid interpreting correlation in a time series as evidence of a complete state model. External forcing can make an apparently autonomous system time-varying.\n    </Prose>\n    <Callout label=\"Practice\">\n      Simulate the logistic map for r values 2.5, 3.2, 3.5, and 3.9 from several nearby initial states. For each, decide whether trajectories approach a fixed point, a cycle, or show sensitive behaviour. What finite-time evidence would you collect before claiming the last case is chaotic?\n    </Callout>\n  </div>,\n};\n\nexport default content;\n",
+    "blocks": [
+      {
+        "language": "python",
+        "code": "def logistic(x, r):\n    return r * x * (1 - x)\n\nr = 3.9\nx, y = 0.5, 0.500001  # initial states differ by one millionth\nfor _ in range(50):\n    x = logistic(x, r)\n    y = logistic(y, r)\n\nprint(round(x, 6), round(y, 6), round(abs(x - y), 6))"
+      },
+      {
+        "language": "output",
+        "code": "0.241355 0.800844 0.559489"
+      }
+    ]
+  },
+  "modelEvidence": {
+    "verifiedAt": "2026-09-10T20:44:45.742446+00:00",
+    "sourceSha256": "b5bf068e357558100f73f5336b53a43382d0a1decc73a3aaa1467f494732909f",
+    "environment": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1"
+    },
+    "comparisons": 56021,
+    "cases": {
+      "cooling": 20,
+      "scalar": 60,
+      "planar": 56,
+      "logistic": 66,
+      "sensitivity": 40,
+      "estimates": 7,
+      "cylinders": 1022,
+      "conjugacy": 301,
+      "quantized": 16,
+      "oscillator": 28,
+      "lorenz": 20
+    },
+    "maxScalarAbsoluteErrorAgainstDop853": 9.817362034425514e-9,
+    "maxLorenzShortTimeAbsoluteErrorAgainstDop853": 0.0000029126508884758096,
+    "invalidCases": 23,
+    "limits": "Selected bounded mathematical fixtures; short-time ODE comparison does not certify long chaotic trajectories or arbitrary observed systems. Native displayed programs and browser review remain separate."
+  },
+  "nativeEvidence": {
+    "verifiedAt": "2026-09-10T20:45:31.352943+00:00",
+    "environment": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1"
+    },
+    "displayedPrograms": 11,
+    "originalCodeAndOutputPreserved": true,
+    "comparisons": 3840,
+    "cases": {
+      "cooling": 36,
+      "cubic": 12,
+      "linear": 9,
+      "hopf": 72,
+      "logistic": 28,
+      "tent_words": 126,
+      "lorenz": 9,
+      "oscillator": 48
+    },
+    "invalidCases": 15,
+    "atlasColumns": 31,
+    "examplesSha256": "3af5b2d3e6303ea9193712b9a6786be7361ffa9373b997efc67b28bae39bbbf1",
+    "limits": "Fresh bounded native inputs and short-horizon solvers; finite atlas reproduction, not an asymptotic chaos theorem or arbitrary-input certification."
+  },
+  "browserEvidence": {
+    "verifiedAt": "2026-09-10T20:50:30.443Z",
+    "passed": true,
+    "browser": "152.0.4191.66",
+    "sources": [
+      {
+        "file": "src/learn/data/topics/dynamical-systems-theory-chaos.jsx",
+        "sha256": "26b3c22fb1570d389fd82c6fb8c69882b0840b7ef148c89f4d9155c9c2ea49a4"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx",
+        "sha256": "a88b98502518d0cb874ed38e1323443db56165bd2be06002c92e099cf7e47839"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/dynamical-systems-labs.css",
+        "sha256": "6ca3931852f9399ece613197548c307a77ad34fb656a454a69b69ea7d9cfdf62"
+      },
+      {
+        "file": "src/learn/data/dynamical-systems-models.js",
+        "sha256": "b5bf068e357558100f73f5336b53a43382d0a1decc73a3aaa1467f494732909f"
+      },
+      {
+        "file": "src/learn/data/dynamical-systems-examples.js",
+        "sha256": "3af5b2d3e6303ea9193712b9a6786be7361ffa9373b997efc67b28bae39bbbf1"
+      }
+    ],
+    "records": [
+      {
+        "width": 1440,
+        "states": 143,
+        "anchors": 11,
+        "programs": 11,
+        "checks": 16,
+        "keyboardControls": 29,
+        "keyboardScrolls": 0,
+        "geometry": {
+          "documentWidth": 1440,
+          "width": 1440,
+          "mathErrors": 0,
+          "equations": [
+            {
+              "index": 0,
+              "scroll": 760,
+              "client": 760,
+              "text": "xn+1=F(xn)discrete update,x˙(t)=f(x(t))continuous rate.\\begin{aligned}\n    x_{n+1}&=F(x_n) &&\\text{d"
+            },
+            {
+              "index": 1,
+              "scroll": 760,
+              "client": 760,
+              "text": "Δx=x(t+h)−x(t),Δx=∫tt+hf(x(s)) ds,Δx≈hf(x(t)).\\begin{aligned}\n    \\Delta x&=x(t+h)-x(t),\\\\\n    \\Delt"
+            },
+            {
+              "index": 2,
+              "scroll": 760,
+              "client": 760,
+              "text": "δ′=λδ⇒δ(t)=eλtδ(0),δn+1=mδn⇒δn=mnδ0.\\begin{aligned}\n    \\delta'&=\\lambda\\delta\n      &&\\Rightarrow \\"
+            },
+            {
+              "index": 3,
+              "scroll": 760,
+              "client": 760,
+              "text": "x˙=−V′(x),dVdt=V′(x)x˙=−[V′(x)]2≤0.\\begin{aligned}\n    \\dot x&=-V'(x),\\\\\n    \\frac{dV}{dt}&=V'(x)\\do"
+            },
+            {
+              "index": 4,
+              "scroll": 760,
+              "client": 760,
+              "text": "q˙=aq−p−(q2+p2)q,p˙=q+ap−(q2+p2)p.\\begin{aligned}\n    \\dot q&=a q-p-(q^2+p^2)q,\\\\\n    \\dot p&=q+a p-"
+            },
+            {
+              "index": 5,
+              "scroll": 760,
+              "client": 760,
+              "text": "x±=r+1±(r−3)(r+1)2r.x_\\pm=\\frac{r+1\\pm\\sqrt{(r-3)(r+1)}}{2r}.x±​=2rr+1±(r−3)(r+1)​​."
+            },
+            {
+              "index": 6,
+              "scroll": 760,
+              "client": 760,
+              "text": "δn+1≈F′(xn)δn,log⁡∣δnδ0∣≈∑j=0n−1log⁡∣F′(xj)∣.\\begin{aligned}\n    \\delta_{n+1}&\\approx F'(x_n)\\delta_"
+            },
+            {
+              "index": 7,
+              "scroll": 760,
+              "client": 760,
+              "text": "λ(x0)=lim⁡n→∞1n∑j=0n−1log⁡∣F′(xj)∣.\\lambda(x_0)=\n    \\lim_{n\\to\\infty}\\frac1n\n      \\sum_{j=0}^{n-1}"
+            },
+            {
+              "index": 8,
+              "scroll": 760,
+              "client": 760,
+              "text": "nhorizon≈log⁡(ε/∣δ0∣)λ,λ>0.n_{\\mathrm{horizon}}\\approx\n    \\frac{\\log(\\varepsilon/|\\delta_0|)}{\\lamb"
+            },
+            {
+              "index": 9,
+              "scroll": 760,
+              "client": 760,
+              "text": "H(x)=2πarcsin⁡x,p(x)=1πx(1−x).\\begin{aligned}\n    H(x)&=\\frac2\\pi\\arcsin\\sqrt{x},\\\\\n    p(x)&=\\frac{"
+            },
+            {
+              "index": 10,
+              "scroll": 760,
+              "client": 760,
+              "text": "x˙=σ(y−x),y˙=x(ρ−z)−y,z˙=xy−βz.\\begin{aligned}\n    \\dot x&=\\sigma(y-x),\\\\\n    \\dot y&=x(\\rho-z)-y,\\\\"
+            },
+            {
+              "index": 11,
+              "scroll": 760,
+              "client": 760,
+              "text": "pn+1=pn−hqn,qn+1=qn+hpn+1,E~(q,p)=12(q2+p2−hqp).\\begin{aligned}\n    p_{n+1}&=p_n-hq_n,\\\\\n    q_{n+1}"
+            }
+          ],
+          "font": "\"Space Grotesk\", sans-serif",
+          "minimumPlotFont": 23.866193181818183,
+          "nonfinitePaths": 0
+        },
+        "errors": [],
+        "hmrDiagnostics": []
+      },
+      {
+        "width": 390,
+        "states": 143,
+        "anchors": 11,
+        "programs": 11,
+        "checks": 16,
+        "keyboardControls": 29,
+        "keyboardScrolls": 17,
+        "geometry": {
+          "documentWidth": 390,
+          "width": 390,
+          "mathErrors": 0,
+          "equations": [
+            {
+              "index": 0,
+              "scroll": 350,
+              "client": 350,
+              "text": "xn+1=F(xn)discrete update,x˙(t)=f(x(t))continuous rate.\\begin{aligned}\n    x_{n+1}&=F(x_n) &&\\text{d"
+            },
+            {
+              "index": 1,
+              "scroll": 350,
+              "client": 350,
+              "text": "Δx=x(t+h)−x(t),Δx=∫tt+hf(x(s)) ds,Δx≈hf(x(t)).\\begin{aligned}\n    \\Delta x&=x(t+h)-x(t),\\\\\n    \\Delt"
+            },
+            {
+              "index": 2,
+              "scroll": 350,
+              "client": 350,
+              "text": "δ′=λδ⇒δ(t)=eλtδ(0),δn+1=mδn⇒δn=mnδ0.\\begin{aligned}\n    \\delta'&=\\lambda\\delta\n      &&\\Rightarrow \\"
+            },
+            {
+              "index": 3,
+              "scroll": 350,
+              "client": 350,
+              "text": "x˙=−V′(x),dVdt=V′(x)x˙=−[V′(x)]2≤0.\\begin{aligned}\n    \\dot x&=-V'(x),\\\\\n    \\frac{dV}{dt}&=V'(x)\\do"
+            },
+            {
+              "index": 4,
+              "scroll": 350,
+              "client": 350,
+              "text": "q˙=aq−p−(q2+p2)q,p˙=q+ap−(q2+p2)p.\\begin{aligned}\n    \\dot q&=a q-p-(q^2+p^2)q,\\\\\n    \\dot p&=q+a p-"
+            },
+            {
+              "index": 5,
+              "scroll": 350,
+              "client": 350,
+              "text": "x±=r+1±(r−3)(r+1)2r.x_\\pm=\\frac{r+1\\pm\\sqrt{(r-3)(r+1)}}{2r}.x±​=2rr+1±(r−3)(r+1)​​."
+            },
+            {
+              "index": 6,
+              "scroll": 350,
+              "client": 350,
+              "text": "δn+1≈F′(xn)δn,log⁡∣δnδ0∣≈∑j=0n−1log⁡∣F′(xj)∣.\\begin{aligned}\n    \\delta_{n+1}&\\approx F'(x_n)\\delta_"
+            },
+            {
+              "index": 7,
+              "scroll": 350,
+              "client": 350,
+              "text": "λ(x0)=lim⁡n→∞1n∑j=0n−1log⁡∣F′(xj)∣.\\lambda(x_0)=\n    \\lim_{n\\to\\infty}\\frac1n\n      \\sum_{j=0}^{n-1}"
+            },
+            {
+              "index": 8,
+              "scroll": 350,
+              "client": 350,
+              "text": "nhorizon≈log⁡(ε/∣δ0∣)λ,λ>0.n_{\\mathrm{horizon}}\\approx\n    \\frac{\\log(\\varepsilon/|\\delta_0|)}{\\lamb"
+            },
+            {
+              "index": 9,
+              "scroll": 350,
+              "client": 350,
+              "text": "H(x)=2πarcsin⁡x,p(x)=1πx(1−x).\\begin{aligned}\n    H(x)&=\\frac2\\pi\\arcsin\\sqrt{x},\\\\\n    p(x)&=\\frac{"
+            },
+            {
+              "index": 10,
+              "scroll": 350,
+              "client": 350,
+              "text": "x˙=σ(y−x),y˙=x(ρ−z)−y,z˙=xy−βz.\\begin{aligned}\n    \\dot x&=\\sigma(y-x),\\\\\n    \\dot y&=x(\\rho-z)-y,\\\\"
+            },
+            {
+              "index": 11,
+              "scroll": 350,
+              "client": 350,
+              "text": "pn+1=pn−hqn,qn+1=qn+hpn+1,E~(q,p)=12(q2+p2−hqp).\\begin{aligned}\n    p_{n+1}&=p_n-hq_n,\\\\\n    q_{n+1}"
+            }
+          ],
+          "font": "\"Space Grotesk\", sans-serif",
+          "minimumPlotFont": 14.332670454545454,
+          "nonfinitePaths": 0
+        },
+        "errors": [],
+        "hmrDiagnostics": []
+      },
+      {
+        "width": 320,
+        "states": 143,
+        "anchors": 11,
+        "programs": 11,
+        "checks": 16,
+        "keyboardControls": 29,
+        "keyboardScrolls": 17,
+        "geometry": {
+          "documentWidth": 320,
+          "width": 320,
+          "mathErrors": 0,
+          "equations": [
+            {
+              "index": 0,
+              "scroll": 281,
+              "client": 280,
+              "text": "xn+1=F(xn)discrete update,x˙(t)=f(x(t))continuous rate.\\begin{aligned}\n    x_{n+1}&=F(x_n) &&\\text{d"
+            },
+            {
+              "index": 1,
+              "scroll": 280,
+              "client": 280,
+              "text": "Δx=x(t+h)−x(t),Δx=∫tt+hf(x(s)) ds,Δx≈hf(x(t)).\\begin{aligned}\n    \\Delta x&=x(t+h)-x(t),\\\\\n    \\Delt"
+            },
+            {
+              "index": 2,
+              "scroll": 280,
+              "client": 280,
+              "text": "δ′=λδ⇒δ(t)=eλtδ(0),δn+1=mδn⇒δn=mnδ0.\\begin{aligned}\n    \\delta'&=\\lambda\\delta\n      &&\\Rightarrow \\"
+            },
+            {
+              "index": 3,
+              "scroll": 280,
+              "client": 280,
+              "text": "x˙=−V′(x),dVdt=V′(x)x˙=−[V′(x)]2≤0.\\begin{aligned}\n    \\dot x&=-V'(x),\\\\\n    \\frac{dV}{dt}&=V'(x)\\do"
+            },
+            {
+              "index": 4,
+              "scroll": 280,
+              "client": 280,
+              "text": "q˙=aq−p−(q2+p2)q,p˙=q+ap−(q2+p2)p.\\begin{aligned}\n    \\dot q&=a q-p-(q^2+p^2)q,\\\\\n    \\dot p&=q+a p-"
+            },
+            {
+              "index": 5,
+              "scroll": 280,
+              "client": 280,
+              "text": "x±=r+1±(r−3)(r+1)2r.x_\\pm=\\frac{r+1\\pm\\sqrt{(r-3)(r+1)}}{2r}.x±​=2rr+1±(r−3)(r+1)​​."
+            },
+            {
+              "index": 6,
+              "scroll": 280,
+              "client": 280,
+              "text": "δn+1≈F′(xn)δn,log⁡∣δnδ0∣≈∑j=0n−1log⁡∣F′(xj)∣.\\begin{aligned}\n    \\delta_{n+1}&\\approx F'(x_n)\\delta_"
+            },
+            {
+              "index": 7,
+              "scroll": 280,
+              "client": 280,
+              "text": "λ(x0)=lim⁡n→∞1n∑j=0n−1log⁡∣F′(xj)∣.\\lambda(x_0)=\n    \\lim_{n\\to\\infty}\\frac1n\n      \\sum_{j=0}^{n-1}"
+            },
+            {
+              "index": 8,
+              "scroll": 280,
+              "client": 280,
+              "text": "nhorizon≈log⁡(ε/∣δ0∣)λ,λ>0.n_{\\mathrm{horizon}}\\approx\n    \\frac{\\log(\\varepsilon/|\\delta_0|)}{\\lamb"
+            },
+            {
+              "index": 9,
+              "scroll": 280,
+              "client": 280,
+              "text": "H(x)=2πarcsin⁡x,p(x)=1πx(1−x).\\begin{aligned}\n    H(x)&=\\frac2\\pi\\arcsin\\sqrt{x},\\\\\n    p(x)&=\\frac{"
+            },
+            {
+              "index": 10,
+              "scroll": 280,
+              "client": 280,
+              "text": "x˙=σ(y−x),y˙=x(ρ−z)−y,z˙=xy−βz.\\begin{aligned}\n    \\dot x&=\\sigma(y-x),\\\\\n    \\dot y&=x(\\rho-z)-y,\\\\"
+            },
+            {
+              "index": 11,
+              "scroll": 280,
+              "client": 280,
+              "text": "pn+1=pn−hqn,qn+1=qn+hpn+1,E~(q,p)=12(q2+p2−hqp).\\begin{aligned}\n    p_{n+1}&=p_n-hq_n,\\\\\n    q_{n+1}"
+            }
+          ],
+          "font": "\"Space Grotesk\", sans-serif",
+          "minimumPlotFont": 14.332670454545454,
+          "nonfinitePaths": 0
+        },
+        "errors": [],
+        "hmrDiagnostics": []
+      }
+    ]
+  },
+  "screenshotsActuallyOpened": [
+    {
+      "file": "scratch/dynamical-systems-browser/state-figure-320.png",
+      "sha256": "d9a9a0826f2e09ad0071d5afdaa816be4f77e366c0b2bd1911d1c2efe288d180",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/equilibrium-branches-390.png",
+      "sha256": "5634e80e0dc365269999d791e79ea67ab6d657e351c6f940bcd2bd84836f6748",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/bifurcation-1440.png",
+      "sha256": "32aa8eeeb3a4af528b50c8a9712c2c8db541cd46e990544100637e20641a4a13",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/reading-8-320.png",
+      "sha256": "14fac1a555e4122c72c61cc339d12541981331ee020bb2c3d7fc9ab691379e10",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/phase-line-1440.png",
+      "sha256": "3ccaa8c8c9d4d12278eb76f03f891418d6e17b9e11c52dc3aeacd020a80a7e09",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/hopf-1440.png",
+      "sha256": "406306c8da0a92cd6f92737ac8c19b1d6310b3b4d25b9869601cafc80b6366ef",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/folding-320.png",
+      "sha256": "762eb217706d83e59d15ce68aa9a13d4e72511837ece10a1c0a982e91beb94cd",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/lorenz-1440.png",
+      "sha256": "be48f483dee00c66662e61cb786e8d8a562c6946d794ba4f1fd758e2742357f2",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/numerical-energy-1440.png",
+      "sha256": "edded391263230ef3a7a7bc94b2717a6bc343ca0e30e3acf5cb9ea1621e62ce5",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/critical-sensitivity-320.png",
+      "sha256": "d55333b4dbfea5f290da70049194cbee22514a79c434dc24dd5ac37175b92678",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    },
+    {
+      "file": "scratch/dynamical-systems-browser/reading-1-390.png",
+      "sha256": "c63c3ac5d25dc03325cdf465fa6e08b8d022478c0e977af6b83fc9bdcc21046a",
+      "scope": "Actual image opened by root; finite chosen state, not a user learning study"
+    }
+  ],
+  "limitations": [
+    "Bounded authored model and native inputs",
+    "Short-time ODE comparison does not certify long-time chaotic trajectories",
+    "Large labelled plots scroll horizontally on mobile",
+    "No full-video viewing, deployment or user-acceptance claim"
+  ]
+}

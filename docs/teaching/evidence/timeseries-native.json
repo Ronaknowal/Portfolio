@@ -1,0 +1,96 @@
+{
+  "verifiedAt": "2026-09-21T00:34:45.512416+00:00",
+  "completedAt": "2026-09-21T00:35:09.500933+00:00",
+  "stage": "native execution of the lesson's programs; browser, independent and integration review are separate",
+  "verifier": "scripts/verify-timeseries-examples.py",
+  "verifierSha256": "892f7737914170cad234e7db4614ac2396d793402f9fafa605d2d2060ea7dc04",
+  "extraction": "Two displayed algorithms are byte-exact slices of forecast-experiments.py, located by their def lines; one displayed program and one illustration are lifted whole out of lesson.md's own fenced blocks. Each is pinned by the SHA-256 of the extracted bytes. Import lines and driver prints are composed by this verifier and counted separately.",
+  "additionsToTheManuscript": [
+    "baseline-rules (section 2) and eligible-rows (section 4) are displayed programs the manuscript does not contain. The manuscript displays one runnable program, in section 5, leaving this topic's two central mechanisms -- the four baseline rules and the eligibility boundary -- with no executable form. Both additions are byte-exact slices of the frozen author program and change no manuscript text. The reason is recorded in the packet's design.md."
+  ],
+  "frozenSources": {
+    "forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+    "lesson.md": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+    "calculated-inputs.json": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844"
+  },
+  "servedDataset": {
+    "path": "/learn-assets/time-series-validation/bike-sharing-daily.csv",
+    "sha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be"
+  },
+  "module": {
+    "path": "src/learn/data/timeseries-examples.js",
+    "sha256": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+    "regeneration": "byte-identical"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "displayedPrograms": {
+    "baseline-rules": {
+      "file": "baseline_rules.py",
+      "origin": "forecast-experiments.py",
+      "functions": [
+        "baseline_forecasts"
+      ],
+      "wholeFencedBlock": false,
+      "extractedSha256": "e71a3de3dacc8ecf23a74440f2b0fc2ae065db8929e6f793a8c7d5cf57af81ed",
+      "extractedLines": 11,
+      "composedLines": 11,
+      "executed": true,
+      "stdoutSha256": "646d3bd58c79774f7b005697740a9818cdbd6c182dc12781617e0e6576c8a1a1",
+      "stdout": "mean [15.6667, 15.6667, 15.6667, 15.6667] MAE 5.0\nnaive [22.0, 22.0, 22.0, 22.0] MAE 5.0\nseasonal [12.0, 22.0, 12.0, 22.0] MAE 0.0\ndrift [24.4, 26.8, 29.2, 31.6] MAE 11.0\nperiod 3, eight horizons: [20.0, 12.0, 22.0, 20.0, 12.0, 22.0, 20.0, 12.0]\nfifth value 12 -> 18: [18.0, 22.0, 18.0, 22.0] [22.0, 22.0, 22.0, 22.0] [24.4, 26.8, 29.2, 31.6]"
+    },
+    "eligible-rows": {
+      "file": "eligible_rows.py",
+      "origin": "forecast-experiments.py",
+      "functions": [
+        "origin_features",
+        "direct_ridge_forecast"
+      ],
+      "wholeFencedBlock": false,
+      "extractedSha256": "6ef17e0b9b628ebda439dccadde10b4166060439266a698a54e6ad29818250c5",
+      "extractedLines": 29,
+      "composedLines": 19,
+      "executed": true,
+      "stdoutSha256": "0d14ef7cb767ce40a9773faf479ab1b508bd60f9bb42679637ef7e8a50d52292",
+      "stdout": "origin 364 2011-12-31 Saturday\n1 train 6 to 363 rows 358 target 365 latest day read 364\n2 train 6 to 362 rows 357 target 366 latest day read 364\n3 train 6 to 361 rows 356 target 367 latest day read 364\n4 train 6 to 360 rows 355 target 368 latest day read 364\n5 train 6 to 359 rows 354 target 369 latest day read 364\n6 train 6 to 358 rows 353 target 370 latest day read 364\n7 train 6 to 357 rows 352 target 371 latest day read 364\nforecasts [2773.66, 2810.68, 2699.68, 2328.18, 2426.86, 2406.48, 2484.03]"
+    },
+    "baseline-loop": {
+      "file": "baseline_loop.py",
+      "origin": "lesson.md",
+      "functions": [],
+      "wholeFencedBlock": true,
+      "extractedSha256": "6f0435ae6bbcbc1e528d9a9159b9f59aa44990c7d34bb7146256523adea17008",
+      "extractedLines": 21,
+      "composedLines": 0,
+      "executed": true,
+      "stdoutSha256": "45c1add08409ef7ba4140105a7e9d2ff5642ade865cd6ab1ba743944c67c423e",
+      "stdout": "development naive MAE 1198.3\nby horizon [1026.   1274.11 1151.92 1334.53 1091.33 1045.61 1464.58]\ndevelopment seasonal MAE 987.32\nby horizon [1201.78  862.31  707.39  997.17  693.83  984.19 1464.58]\nfinal naive MAE 1310.34\nby horizon [1313.69 1549.19 1750.12  931.88 1092.44 1172.62 1362.44]\nfinal seasonal MAE 1390.91\nby horizon [1686.56 1698.62 2377.69  703.69  890.56 1016.81 1362.44]"
+    }
+  },
+  "downloadedProgram": {
+    "file": "forecast-experiments.py",
+    "sourceSha256": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+    "executed": true,
+    "produces": "calculated-inputs.json",
+    "producedSha256": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+    "reproducedFrozenFileExactly": true
+  },
+  "packetDirectoryUnchanged": true,
+  "oracles": 71,
+  "notes": [
+    "No isolated virtual environment was needed: every program resolves against the shared scratch/lesson-tools runtime, whose versions are recorded above. Nothing was installed anywhere.",
+    "No network access was used by any program; the author program downloads nothing.",
+    "The eligibility loop asserts its own information boundary as it runs, so a reader who edits the origin sees the assertion rather than a silently wrong training range."
+  ],
+  "limits": [
+    "Floating-point results can differ on other library versions; the resolved versions are recorded.",
+    "Byte-identical regeneration of calculated-inputs.json depends on those exact versions. The ridge fits are deterministic, so no seed is involved.",
+    "The printed development and final values are one two-year system under one update policy."
+  ],
+  "passed": true
+}

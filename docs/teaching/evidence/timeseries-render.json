@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-09-21T00:35:10.239Z",
+  "completedAt": "2026-09-21T00:35:10.731Z",
+  "verifier": "scripts/verify-timeseries-render.cjs",
+  "verifierSha256": "6e3c17606b5ab858550e6b92ab347813aa7fe292f7d88d7dceec7f90f16ed223",
+  "stage": "server-side render of the lesson body; browser, independent and integration review are separate",
+  "sources": {
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "882b361f075140d99d787e6911e53fa98297d05fc8125fc2764bddadd7e0fc37",
+    "src/learn/data/timeseries-models.js": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+    "src/learn/data/timeseries-data.js": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+    "src/learn/data/timeseries-examples.js": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+    "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+    "src/learn/components/lesson-labs/TimeSeriesFigures.jsx": "d210325b42524007a19c8524318512f4e33b6f7bfbb2ae8ee2317f9374279c4f",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "30afccba71a94bb0e51603dd1547d6d9781476fc68b94c9b41e6a206600c0271"
+  },
+  "question": "Does the page exist at all, and does its first paint keep the investigation contract?",
+  "whyItExists": "A sibling lesson in this effort did not render at all -- its body threw and the error boundary replaced the whole page -- while three offline verifiers stayed green, because the model layer, the recorded data and the source text were each perfectly correct. Nothing but executing the React tree can see that failure.",
+  "checks": 35,
+  "renderedBytes": 245204,
+  "counts": {
+    "figures": 5,
+    "investigations": 3,
+    "practices": 8,
+    "programs": 3,
+    "diagrams": 7,
+    "tables": 10
+  },
+  "svg": {
+    "total": 9,
+    "lessonDiagrams": 7,
+    "katexOwn": 2,
+    "untagged": 0,
+    "note": "KaTeX’s own radical SVGs must NOT carry this lesson’s layout class; that separation is what keeps the stylesheet away from them. Both halves are asserted."
+  },
+  "firstPaintContract": {
+    "verdicts": 0,
+    "numericFeedback": 0,
+    "revealPanels": 0,
+    "preselectedControls": 0,
+    "statement": "Nothing computed from a graded answer is on screen before a prediction is recorded."
+  },
+  "markupWrittenTo": "scratch/timeseries/render.html",
+  "limitations": [
+    "The OPENING state only. Committed states, reveals, control interaction, narrow layouts and paint are the browser verifier’s job.",
+    "Static markup, not a layout. It cannot see a collapsed SVG, an illegible label, a colour or an overflow; it can only see that the elements exist and carry the right classes.",
+    "Styles are stubbed during bundling, so a stylesheet defect is invisible here by construction."
+  ],
+  "passed": true
+}

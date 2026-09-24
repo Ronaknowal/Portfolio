@@ -1,0 +1,84 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T17:57:56.641Z",
+  "base": "http://127.0.0.1:4194",
+  "manifestHash": "93b1794149431bcade4d2d5b2dabb497e6eff00e74f5b0d33b9ef733af326bf7",
+  "checks": [
+    "Five fresh-context routes request only their own published body",
+    "All lesson section anchors exist",
+    "Rendered radical/accent geometry remains nonzero",
+    "Every next action follows the exact module sequence",
+    "Themed lesson links",
+    "Loss/Normalization programs fetch and mount only on demand, preserve complete source and unmount on close",
+    "Exact HTTP program/data/provenance downloads",
+    "No runtime page errors"
+  ],
+  "routes": [
+    {
+      "id": "perceptrons-neurons-activation-functions",
+      "loadedLessonBodies": [
+        "perceptrons-neurons-activation-functions"
+      ],
+      "sectionLinks": 7,
+      "mathSvgCount": 5,
+      "next": "backpropagation-automatic-differentiation",
+      "initialJavascriptBytes": 1764046,
+      "linkColors": [
+        "rgb(226, 181, 90)"
+      ]
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "loadedLessonBodies": [
+        "backpropagation-automatic-differentiation"
+      ],
+      "sectionLinks": 8,
+      "mathSvgCount": 2,
+      "next": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "initialJavascriptBytes": 1676080,
+      "linkColors": [
+        "rgb(226, 181, 90)"
+      ]
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "loadedLessonBodies": [
+        "loss-functions-ce-mse-focal-contrastive-triplet"
+      ],
+      "sectionLinks": 10,
+      "mathSvgCount": 0,
+      "next": "batch-layer-group-rms-normalization",
+      "initialJavascriptBytes": 1778063,
+      "linkColors": [
+        "rgb(226, 181, 90)"
+      ]
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "loadedLessonBodies": [
+        "batch-layer-group-rms-normalization"
+      ],
+      "sectionLinks": 9,
+      "mathSvgCount": 7,
+      "next": "transfer-learning-fine-tuning-strategies",
+      "initialJavascriptBytes": 1663058,
+      "linkColors": [
+        "rgb(226, 181, 90)"
+      ]
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "loadedLessonBodies": [
+        "transfer-learning-fine-tuning-strategies"
+      ],
+      "sectionLinks": 12,
+      "mathSvgCount": 0,
+      "next": "weight-initialization-xavier-kaiming-p",
+      "initialJavascriptBytes": 1733491,
+      "linkColors": [
+        "rgb(226, 181, 90)"
+      ]
+    }
+  ],
+  "verifierHash": "d4d67593c08c4f9717f29f41830cdec55f5d48315693c65d01165c288676cc3a"
+}

@@ -1,0 +1,51 @@
+{
+  "archivedAt": "2026-09-11T10:17:11.800Z",
+  "originalAuthorFrozenAt": "2026-09-11T09:36:25.855111+00:00",
+  "files": [
+    {
+      "source": "docs/teaching/evidence/numerical-pdes-author-review.json",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\docs\\teaching\\evidence\\numerical-pdes-author-review.json.txt",
+      "sha256": "0f42391ed4ef17e28115040966d75bfc0af372922823e950a55c7fe0ae131ded"
+    },
+    {
+      "source": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\src\\learn\\data\\topics\\numerical-pdes-grids-finite-elements-stability.jsx.txt",
+      "sha256": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e"
+    },
+    {
+      "source": "src/learn/data/numerical-pde-models.js",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\src\\learn\\data\\numerical-pde-models.js.txt",
+      "sha256": "ebbb437c85f2800119f4d73bb8545a359ea82dfaa7abfbf9621668203e7309c1"
+    },
+    {
+      "source": "src/learn/data/numerical-pde-examples.js",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\src\\learn\\data\\numerical-pde-examples.js.txt",
+      "sha256": "5fe77ae7e4378df69a1c2763579be68dd6eaac70e85132ea6623bed1f00051c3"
+    },
+    {
+      "source": "src/learn/components/lesson-labs/NumericalPdeLabs.jsx",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\src\\learn\\components\\lesson-labs\\NumericalPdeLabs.jsx.txt",
+      "sha256": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25"
+    },
+    {
+      "source": "src/learn/components/lesson-labs/numerical-pde-labs.css",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\src\\learn\\components\\lesson-labs\\numerical-pde-labs.css.txt",
+      "sha256": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd"
+    },
+    {
+      "source": "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\src\\learn\\data\\curriculum\\blueprints\\numerical-pdes-grids-finite-elements-stability.js.txt",
+      "sha256": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+    },
+    {
+      "source": "scripts/generate-numerical-pde-examples.py",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\scripts\\generate-numerical-pde-examples.py.txt",
+      "sha256": "6b4188ebe28f24e3a8c855c3271fbef339ff243661937d6b7f8ff56acf6c0999"
+    },
+    {
+      "source": "scratch/numerical-pde-native/example-runs.json",
+      "archive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\scratch\\numerical-pde-native\\example-runs.json.txt",
+      "sha256": "1417b77ce0ad31e52ef7c0c598a6eef717d93a8432ae5a6b885603978f83285c"
+    }
+  ]
+}

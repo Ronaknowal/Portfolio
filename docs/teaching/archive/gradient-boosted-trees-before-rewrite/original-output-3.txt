@@ -1,0 +1,6 @@
+XGBoost (DMatrix)  best_iter=99  test_RMSE=36.0815
+  train RMSE: 14.0989
+  test  RMSE: 36.0815
+
+XGBRegressor (sklearn)  best_iter=99  test_RMSE=36.0815
+XGBRegressor (monotone)  best_iter=99  test_RMSE=39.9394

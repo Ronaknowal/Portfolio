@@ -1,0 +1,704 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:4194",
+  "checkedAt": "2026-09-22T05:49:51.531Z",
+  "groups": [
+    "Complete lesson, valid equations and no eager saved weights or canonical programs",
+    "Target-shift causal boundary, valid-mask denominator, explicit leakage contrast and unsupported-input retention",
+    "Signed scalar live outputs, detach forward null, invalid numeric retention, true keyboard/pointer slider and zero update",
+    "Changing normalized tree, deterministic tie, bounded frontier and explicit length-ranking direction",
+    "Actual saved-model source/prefix/context interventions, cap/EOS, native beam3 and quick-edit freshness",
+    "Complete canonical source fetched on demand with exact displayed bytes and keyboard scrolling",
+    "Desktop/390/320 geometry, equations, neutral/amber theme and no runtime errors; images captured for inspection",
+    "Actual deferred model network failure, visible recovery and successful retry"
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/seq2seq-browser/bridge-1366.png",
+    "docs/teaching/evidence/seq2seq-browser/tree-1366.png",
+    "docs/teaching/evidence/seq2seq-browser/fitted-1366.png",
+    "docs/teaching/evidence/seq2seq-browser/evidence-1366.png",
+    "docs/teaching/evidence/seq2seq-browser/timelines-1366.png",
+    "docs/teaching/evidence/seq2seq-browser/bridge-390.png",
+    "docs/teaching/evidence/seq2seq-browser/tree-390.png",
+    "docs/teaching/evidence/seq2seq-browser/fitted-390.png",
+    "docs/teaching/evidence/seq2seq-browser/alignment-320.png",
+    "docs/teaching/evidence/seq2seq-browser/fitted-320.png",
+    "docs/teaching/evidence/seq2seq-browser/evidence-320.png",
+    "docs/teaching/evidence/seq2seq-browser/timelines-320.png"
+  ],
+  "geometry": [
+    {
+      "width": 1366,
+      "pageWidth": 1366,
+      "pageScrollWidth": 1366,
+      "plots": [
+        {
+          "width": 371,
+          "height": 261.875
+        },
+        {
+          "width": 371,
+          "height": 261.875
+        }
+      ],
+      "radicals": [],
+      "controls": [
+        {
+          "label": "Reference target",
+          "height": 44
+        },
+        {
+          "label": "Extra ignored PAD cells slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect prediction position (zero-based) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Change cared → carts",
+          "height": 44
+        },
+        {
+          "label": "Inspect incorrect unshifted inputs",
+          "height": 44
+        },
+        {
+          "label": "Reset alignment",
+          "height": 44
+        },
+        {
+          "label": "Constructed correct-token probability at each valid position slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Source scalar 1 slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Source scalar 2 slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Encoder input weight slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Encoder update rate slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Detach context gradient",
+          "height": 44
+        },
+        {
+          "label": "Worked manuscript fixture",
+          "height": 44
+        },
+        {
+          "label": "Reset bridge",
+          "height": 44
+        },
+        {
+          "label": "P(A) at root slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "P(EOS | A) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "P(EOS | B) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Tiny-tree beam width slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect search step slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Length score alpha slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Make A end with probability .9",
+          "height": 44
+        },
+        {
+          "label": "Reset probability tree",
+          "height": 44
+        },
+        {
+          "label": "Source lemma",
+          "height": 44
+        },
+        {
+          "label": "pastparticiplethird_person",
+          "height": 44
+        },
+        {
+          "label": "Forced prefix (empty uses greedy choices)",
+          "height": 44
+        },
+        {
+          "label": "Current source contextZero interventionContext from lactate + past",
+          "height": 44
+        },
+        {
+          "label": "Generated-token cap (includes EOS) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect decoder step (zero-based) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Hidden coordinate slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Change source to emmode",
+          "height": 44
+        },
+        {
+          "label": "Force first character a",
+          "height": 44
+        },
+        {
+          "label": "Replay first two current characters",
+          "height": 44
+        },
+        {
+          "label": "Reset fitted investigation",
+          "height": 44
+        },
+        {
+          "label": "Fitted-model beam width slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "pageWidth": 390,
+      "pageScrollWidth": 390,
+      "plots": [
+        {
+          "width": 350,
+          "height": 247.046875
+        },
+        {
+          "width": 350,
+          "height": 247.046875
+        }
+      ],
+      "radicals": [],
+      "controls": [
+        {
+          "label": "Reference target",
+          "height": 44
+        },
+        {
+          "label": "Extra ignored PAD cells slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect prediction position (zero-based) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Change cared → carts",
+          "height": 44
+        },
+        {
+          "label": "Inspect incorrect unshifted inputs",
+          "height": 44
+        },
+        {
+          "label": "Reset alignment",
+          "height": 44
+        },
+        {
+          "label": "Constructed correct-token probability at each valid position slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Source scalar 1 slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Source scalar 2 slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Encoder input weight slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Encoder update rate slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Detach context gradient",
+          "height": 44
+        },
+        {
+          "label": "Worked manuscript fixture",
+          "height": 44
+        },
+        {
+          "label": "Reset bridge",
+          "height": 44
+        },
+        {
+          "label": "P(A) at root slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "P(EOS | A) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "P(EOS | B) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Tiny-tree beam width slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect search step slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Length score alpha slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Make A end with probability .9",
+          "height": 44
+        },
+        {
+          "label": "Reset probability tree",
+          "height": 44
+        },
+        {
+          "label": "Source lemma",
+          "height": 44
+        },
+        {
+          "label": "pastparticiplethird_person",
+          "height": 44
+        },
+        {
+          "label": "Forced prefix (empty uses greedy choices)",
+          "height": 44
+        },
+        {
+          "label": "Current source contextZero interventionContext from lactate + past",
+          "height": 44
+        },
+        {
+          "label": "Generated-token cap (includes EOS) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect decoder step (zero-based) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Hidden coordinate slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Change source to emmode",
+          "height": 44
+        },
+        {
+          "label": "Force first character a",
+          "height": 44
+        },
+        {
+          "label": "Replay first two current characters",
+          "height": 44
+        },
+        {
+          "label": "Reset fitted investigation",
+          "height": 44
+        },
+        {
+          "label": "Fitted-model beam width slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "pageWidth": 320,
+      "pageScrollWidth": 320,
+      "plots": [
+        {
+          "width": 280,
+          "height": 197.640625
+        },
+        {
+          "width": 280,
+          "height": 197.640625
+        }
+      ],
+      "radicals": [],
+      "controls": [
+        {
+          "label": "Reference target",
+          "height": 44
+        },
+        {
+          "label": "Extra ignored PAD cells slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect prediction position (zero-based) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Change cared → carts",
+          "height": 44
+        },
+        {
+          "label": "Inspect incorrect unshifted inputs",
+          "height": 62
+        },
+        {
+          "label": "Reset alignment",
+          "height": 44
+        },
+        {
+          "label": "Constructed correct-token probability at each valid position slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Source scalar 1 slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Source scalar 2 slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Encoder input weight slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Encoder update rate slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Detach context gradient",
+          "height": 44
+        },
+        {
+          "label": "Worked manuscript fixture",
+          "height": 44
+        },
+        {
+          "label": "Reset bridge",
+          "height": 44
+        },
+        {
+          "label": "P(A) at root slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "P(EOS | A) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "P(EOS | B) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Tiny-tree beam width slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect search step slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Length score alpha slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Make A end with probability .9",
+          "height": 62
+        },
+        {
+          "label": "Reset probability tree",
+          "height": 44
+        },
+        {
+          "label": "Source lemma",
+          "height": 44
+        },
+        {
+          "label": "pastparticiplethird_person",
+          "height": 44
+        },
+        {
+          "label": "Forced prefix (empty uses greedy choices)",
+          "height": 44
+        },
+        {
+          "label": "Current source contextZero interventionContext from lactate + past",
+          "height": 44
+        },
+        {
+          "label": "Generated-token cap (includes EOS) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Inspect decoder step (zero-based) slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Hidden coordinate slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        },
+        {
+          "label": "Change source to emmode",
+          "height": 44
+        },
+        {
+          "label": "Force first character a",
+          "height": 44
+        },
+        {
+          "label": "Replay first two current characters",
+          "height": 62
+        },
+        {
+          "label": "Reset fitted investigation",
+          "height": 44
+        },
+        {
+          "label": "Fitted-model beam width slider",
+          "height": 44
+        },
+        {
+          "label": "number",
+          "height": 44
+        }
+      ]
+    }
+  ],
+  "captureNote": "Element screenshots hide only unrelated fixed global navigation and skip-link chrome during capture; lesson styles and content are unchanged.",
+  "sourceHashes": {
+    "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx": "89233695226e731c169a13c12a6f066103e0d5260f1495e317466c2220b3c004",
+    "src/learn/components/lesson-labs/Seq2SeqLabs.jsx": "5bc5cfdf7fb81ee7a145bdbeae3c8ac21fefcd2e99cee88dadc94a2cf4333f02",
+    "src/learn/components/lesson-labs/seq2seq-labs.css": "3c88e1f45b5d218c736caaaa9701cf660cc5a8e3a3241eabb88c2ea84e37dc78",
+    "src/learn/data/seq2seq-models.js": "65ba6497a54757796d1f81c47efb3d1a4edf06fd1d9130f394c879f20bf8ab14"
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "capturedAt": "2026-09-14T08:49:55.126Z",
+  "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+  "stage": "Actual retained screenshots inspected by integration owner; desktop/narrow labels clear in these states. Wide DBSCAN/tree regions intentionally scroll horizontally.",
+  "rows": [
+    {
+      "topic": "pca-dimensionality-reduction",
+      "key": "pca-shadow",
+      "width": 1366,
+      "selector": "figure.pca-figure:has-text(\"A point, its shadow and its saved coordinate\")",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-pca-shadow-1366.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "9a9b95adc889ac53cd61b661621262c1f5cfd6dd0c831b484e1a140b1987f639",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "pca-dimensionality-reduction",
+      "key": "pca-shadow",
+      "width": 320,
+      "selector": "figure.pca-figure:has-text(\"A point, its shadow and its saved coordinate\")",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-pca-shadow-320.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "8f968e49a86d40e6c86759070ae07b48be9207b98ff2af4fb8c1423d4f70ad3b",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "pca-dimensionality-reduction",
+      "key": "pca-conservation",
+      "width": 1366,
+      "selector": "figure.pca-figure:has-text(\"The conserved quantity behind the two objectives\")",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-pca-conservation-1366.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "b61cc123b50e15b9581f451ec9211a98b9c229f2555418cf668c7653cd8fe14b",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "pca-dimensionality-reduction",
+      "key": "pca-conservation",
+      "selector": "figure.pca-figure:has-text(\"The conserved quantity behind the two objectives\")",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/layout-pca-conservation-320.png",
+      "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+      "imageHash": "0369b2bc9fc075da3a85aa2e49399a2b0a856fe2a2c6ae04eb602d7f099458e8",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "pca-dimensionality-reduction",
+      "key": "pca-alarm",
+      "width": 1366,
+      "selector": "svg[aria-label^=\"A diagonal band of normal readings\"]",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-pca-alarm-1366.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "2433c53ac357068cf96671c0b6d7b50a4523be2265fcdd9274996cbf208adcc5",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "pca-dimensionality-reduction",
+      "key": "pca-alarm",
+      "width": 320,
+      "selector": "svg[aria-label^=\"A diagonal band of normal readings\"]",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-pca-alarm-320.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "52afed0545ac4ae677240c768bbd862d8d9cf2a0200d6a35d43418c65bbc4693",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "dbscan-density-based-clustering",
+      "key": "dbscan-core",
+      "width": 1366,
+      "selector": "svg[aria-label^=\"Sorted fourth-neighbour distances\"]",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-dbscan-core-1366.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "114cad9d0674eda69fa8acf965ea9821b81249aa1a93ed2ee4c912e4e716d9c4",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "dbscan-density-based-clustering",
+      "key": "dbscan-core",
+      "width": 320,
+      "selector": "svg[aria-label^=\"Sorted fourth-neighbour distances\"]",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-dbscan-core-320.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "8f0845f6b618e76b78ae5a5121e93b2e9aae5c39fdd57ea30995b3930cde984b",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "dbscan-density-based-clustering",
+      "key": "dbscan-trail",
+      "width": 1366,
+      "selector": "svg[aria-label^=\"Trail strip with D selected\"]",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-dbscan-trail-1366.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "3efcf2f88fa7d40a8aceb0c61e5faf542b43cc18234fcefd192c83017b9f2cc8",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "dbscan-density-based-clustering",
+      "key": "dbscan-trail",
+      "width": 320,
+      "selector": "svg[aria-label^=\"Trail strip with D selected\"]",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-dbscan-trail-320.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "1cd5549a1a3aef1727382b4cea9a7a25e67e90e13edf0b4e016aca97cab97d39",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+      "key": "anomaly-reach",
+      "width": 1366,
+      "selector": "figure:has-text(\"References, the query, and the reach used for each chosen neighbour\")",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-anomaly-reach-1366.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "7b977416fa0bd52e64a54e649cf98de5abaa0602de25f2ec924610547d5383b6",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+      "key": "anomaly-reach",
+      "width": 320,
+      "selector": "figure:has-text(\"References, the query, and the reach used for each chosen neighbour\")",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-anomaly-reach-320.png",
+      "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+      "imageHash": "37ce50ddf79f7bc300ce2be673f3c0ff61a61a0b962eb02b32b73e500d31615c",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "dbscan-density-based-clustering",
+      "key": "dbscan-core-right",
+      "selector": ".db-scroll:has(svg[aria-label^=\"Sorted fourth-neighbour distances\"])",
+      "width": 320,
+      "scroll": true,
+      "screenshot": "docs/teaching/evidence/screenshots/layout-dbscan-core-right-320.png",
+      "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+      "imageHash": "0f0aa33599d5da4023493cbe39973bcd25b8a7034a47979077dae30cd1af35d6",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "dbscan-density-based-clustering",
+      "key": "dbscan-trail-right",
+      "selector": ".db-scroll:has(svg[aria-label^=\"Trail strip with D selected\"])",
+      "width": 320,
+      "scroll": true,
+      "screenshot": "docs/teaching/evidence/screenshots/layout-dbscan-trail-right-320.png",
+      "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+      "imageHash": "c575fd7cc679b583d79cb600890865419594cfe28a9ad9de40a4d621f4018264",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "backtracking-divide-and-conquer",
+      "key": "backtracking-choice-initial",
+      "selector": "svg:has(.bd-choice-node)",
+      "width": 1366,
+      "state": "initial",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-backtracking-choice-initial-1366.png",
+      "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+      "imageHash": "137fe7db558177ef949fb0fb34b9a4cb1cd2bf8debf3c8bf900bd72ade7754f3",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "backtracking-divide-and-conquer",
+      "key": "backtracking-choice-initial",
+      "selector": ".bd-diagram-scroll",
+      "width": 320,
+      "state": "initial",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-backtracking-choice-initial-320.png",
+      "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+      "imageHash": "937b24ca6ed97bea22350c5874716a5395cd1b71d1774bbb7ea61a5c9d788f35",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "backtracking-divide-and-conquer",
+      "key": "backtracking-choice-explored",
+      "selector": "svg:has(.bd-choice-node)",
+      "width": 1366,
+      "state": "explored",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-backtracking-choice-explored-1366.png",
+      "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+      "imageHash": "228651c000385d1466c4c38bc31071b46f5d55e80399caf92497bbfa8869d2c3",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "backtracking-divide-and-conquer",
+      "key": "backtracking-choice-explored",
+      "selector": "svg:has(.bd-choice-node)",
+      "width": 320,
+      "state": "explored",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-backtracking-choice-explored-320.png",
+      "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+      "imageHash": "81e24f8ca7560f08d2e3f2f031b6ad0948c26bb43e01098f8b857a2b18400bf4",
+      "actualImageInspected": true
+    },
+    {
+      "topic": "backtracking-divide-and-conquer",
+      "key": "backtracking-choice-initial-right",
+      "width": 320,
+      "selector": ".bd-diagram-scroll",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-backtracking-choice-initial-right-320.png",
+      "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+      "imageHash": "cff350ff57a8b1dcc5460059547d31c550146cf71f8e083486ccbb313854e169",
+      "actualImageInspected": true
+    }
+  ],
+  "followupCapturedAt": "2026-09-14T09:06:04.160Z",
+  "inspectedAt": "2026-09-14T09:13:58.645Z",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/AnomalyDetectionShared.jsx": "d4ee3844348a6e29870e5360b1e49080af89d96dce8516f6e29fedf753cb97bd",
+    "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": "05d159bd96239d7a193cf15de1e796db6a856107df42ca2cc352b481a82ef676",
+    "src/learn/components/lesson-labs/backtracking-divide-labs.css": "a42e00a0afa8900addc6f782e2932029d68c265d8277a75ddebb7928744bfde4",
+    "src/learn/components/lesson-labs/DbscanLabs.jsx": "41a16614fcc1231fa9da1de8707d15fbbc93dcbf2a7bc4a98f0276e93d1550c6",
+    "src/learn/components/lesson-labs/DbscanFigures.jsx": "6315b5a17b53608d046873cb4953145f767dacc3e1d499a3ff07d2a3322d8184",
+    "src/learn/components/lesson-labs/PcaFigures.jsx": "2419498b8c7926cfb6d221cf5efbfee37cef4bd6a616c9ebf0fc11d3f4b72d5a"
+  },
+  "captureNotes": "Fixed page chrome and smooth scrolling were suppressed in the diagnostic page for unobstructed captures; no production chrome behavior changed. Initial mis-scrolled clips were replaced with inspected container captures.",
+  "sourceBindingScope": "Only sources for the PCA, DBSCAN, anomaly and backtracking images in this record. GMM images and current source are bound separately by gmm-browser.json."
+}

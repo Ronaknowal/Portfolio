@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-21T17:44:44.710Z",
+  "assertions": 114,
+  "replay": [
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "original": "4491b7c26e1bf726179d846d0f29864af56a1f992bcacf452a028fcc97b5c35a",
+      "replay": "4491b7c26e1bf726179d846d0f29864af56a1f992bcacf452a028fcc97b5c35a",
+      "parsedResultsIdentical": true
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "original": "ca572c48c29bfcffbd1307e2b9913e839fcd397b94d0314a9b6397b76741bacc",
+      "replay": "ca572c48c29bfcffbd1307e2b9913e839fcd397b94d0314a9b6397b76741bacc",
+      "parsedResultsIdentical": true
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/loss-functions-models.js": "083702170012fdb0a929621ec5071d38e22e4c0c3203ed9ba3006c26dc1478fa",
+    "src/learn/data/normalization-models.js": "a356b309d6d80b79bdbec528f42104cdfaf42d0a86304f841a2fb56919df813f",
+    "src/learn/data/loss-functions-measurements.js": "ab2a6bcb8158d9b6dace853e2d32f1bcd76073fa0ae60c60ec0031fa7e7ac777",
+    "src/learn/data/normalization-measurements.js": "54c6c01b8c49135dab2e3caf56666af63e3856b17ed4eff474686d8c8cf3c5ba",
+    "scripts/verify-loss-normalization-models.mjs": "0855d856683631230258d4971b6251a8ff2741b4b61f1179584021e8c569c86a"
+  },
+  "limits": "Bounded topic formulas and full prepared CPU programs; not arbitrary production tensors or unseen data."
+}

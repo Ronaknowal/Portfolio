@@ -1,0 +1,4 @@
+{
+  "range_library_reference.py": "sum before / after: 15 18\nordered fold: BCD\nlazy total / [2,4): 10 1\nempty fold: 0",
+  "range_library.cpp": "sum before / after: 15 18\nordered fold: BCD\nlazy total / [2,4): 10 1\nempty fold: 0"
+}

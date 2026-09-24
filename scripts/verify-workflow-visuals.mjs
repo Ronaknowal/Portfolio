@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+import { argumentTrace } from "../src/learn/data/bash-workflow-models.js";
+import { pipelineStatus } from "../src/learn/data/bash-workflow-models.js";
+import {remoteTrace} from '../src/learn/data/git-foundations-model.js';
+import { apiExamples } from "../src/learn/data/api-design-examples.js";
+const root=path.resolve('scratch/workflow-visual-review');fs.mkdirSync(root,{recursive:true});
+const fixture={arguments:[],pipelines:[],remote:[remoteTrace(false),remoteTrace(true)],hints:apiExamples.hints};
+for(const kind of ['spaces','wildcard','empty'])for(const quoted of [false,true])fixture.arguments.push({kind,quoted,...argumentTrace(kind,quoted)});
+for(const a of [0,4])for(const b of [0,2])for(const strict of [false,true])fixture.pipelines.push({a,b,strict,expected:pipelineStatus([a,b],strict)});
+fs.writeFileSync(path.join(root,'native-fixtures.json'),JSON.stringify(fixture,null,2));
+const result=spawnSync('scratch/lesson-tools/Scripts/python.exe',['scripts/verify-workflow-visuals.py',path.join(root,'native-fixtures.json')],{encoding:'utf8',timeout:90000,env:{...process.env,PYTHONIOENCODING:'utf-8'}});
+process.stdout.write(result.stdout||'');process.stderr.write(result.stderr||'');assert.equal(result.status,0,result.error?.message||'Native visual checks failed');

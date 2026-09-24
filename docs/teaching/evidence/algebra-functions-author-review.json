@@ -1,0 +1,669 @@
+{
+  "topicId": "algebra-functions-exponentials-logarithms",
+  "frozenAt": "2026-09-10T23:48:28.099970+00:00",
+  "authorStatus": "source-frozen-author-verified",
+  "integrationStatus": "parent-owned; not self-certified",
+  "production": [
+    {
+      "path": "src/learn/data/topics/algebra-functions-exponentials-logarithms.jsx",
+      "sha256": "8a4b770a1ccadae81cc40071715ad4c2ed62fdd380499bd8ce25764161ed9c6c",
+      "bytes": 43442
+    },
+    {
+      "path": "src/learn/data/algebra-functions-models.js",
+      "sha256": "a44e199e45ed8d796ade78cf013499461890f436010be53fb23a44f20b563419",
+      "bytes": 5038
+    },
+    {
+      "path": "src/learn/data/algebra-functions-examples.js",
+      "sha256": "1c6b87162632377bcf714de2a7e39bd57bb9ad43656d9057913ccbae825ad743",
+      "bytes": 7545
+    },
+    {
+      "path": "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx",
+      "sha256": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99",
+      "bytes": 18270
+    },
+    {
+      "path": "src/learn/components/lesson-labs/algebra-functions-labs.css",
+      "sha256": "a12d1e2402f9d4bf0717174faccddc23b9e04f89b09199309a08760e1d24d398",
+      "bytes": 4193
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/algebra-functions-exponentials-logarithms.js",
+      "sha256": "dd13960fd65a2582d7330c42d63fee9dbf014be599bafec4cae73d60999b0fa9",
+      "bytes": 4174
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/teaching/ALGEBRA-FUNCTIONS-LESSON-DESIGN.md",
+      "sha256": "059ef5efcfa66a7f58ebd42b225f9de286c97505e5507ea64d9bacdac8c75ff7",
+      "bytes": 16201
+    },
+    {
+      "path": "scripts/verify-algebra-functions.mjs",
+      "sha256": "546a14dd481d8bbe29ae98a0ea647f03b4abd4dfe0bc0e9f624a2467391fa603",
+      "bytes": 3117
+    },
+    {
+      "path": "scripts/verify-algebra-functions.py",
+      "sha256": "6c28da085a71204c4120a40ae781dcfff54a6d8731350729b48ae4aea7175c5f",
+      "bytes": 7238
+    },
+    {
+      "path": "scripts/review-algebra-functions-lesson.cjs",
+      "sha256": "8f53bde7d150f3c6490297b8c644221dff07b4d9c6c570873af108825ca3ce8d",
+      "bytes": 11606
+    },
+    {
+      "path": "scripts/review-algebra-functions-boundaries.cjs",
+      "sha256": "ec5225d6fb288fe029882a7a99f933d7bb36ed5cc663760ef52705ec3c65c2fe",
+      "bytes": 4845
+    },
+    {
+      "path": "scratch/generate-algebra-functions-examples.py",
+      "sha256": "197ffbd51db33baa1252b9a4c2b90bab5b9e24fa01a07ae068615ccdeb219a0d",
+      "bytes": 6259
+    },
+    {
+      "path": "scratch/format-algebra-functions.mjs",
+      "sha256": "6502ebb25b15ce5507b8c779ea01a39f1c9ee6c9fc1583e116078c89f7dd32d4",
+      "bytes": 2177
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-10T23:13:25.500186+00:00",
+    "status": "passed",
+    "counts": {
+      "exactEquationCases": 1818,
+      "functionDomainCases": 198,
+      "expandedCompositionCases": 33,
+      "quadraticDiscriminantCases": 351,
+      "growthDecimalCases": 378,
+      "logDecimalCases": 75,
+      "actualNativePrograms": 9,
+      "actualChangedFractionSolves": 19,
+      "actualChangedRootCases": 16,
+      "actualIntegerThresholdCases": 606,
+      "modelRejectionCases": 20,
+      "independentPracticeChecks": 12
+    },
+    "practiceCalculations": {
+      "mixture": "3/2",
+      "rate": "1/2",
+      "grouping": -10,
+      "wholePurchases": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "percentageUndo": "1",
+      "undoFortyPercent": "2/7",
+      "logCandidate": 3.605551275463989,
+      "decayCrossing": 4.818841679306418,
+      "decayNeighbors": [
+        "405/16",
+        "1215/64"
+      ],
+      "logAxisMidpoint": 100.0,
+      "changedCapacity": [
+        6,
+        192
+      ],
+      "sixDelays": 126,
+      "forecastDayThree": [
+        95,
+        "2197/20"
+      ],
+      "growthThresholdNeighbors": [
+        "371293/2000",
+        "4826809/20000"
+      ]
+    },
+    "limits": "Finite independent arithmetic/domain checks do not prove continuum function or exponential-limit theorems. No learner study or integration claim."
+  },
+  "browserFull": {
+    "at": "2026-09-10T23:06:29.092Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "fonts": true,
+        "labs": 6,
+        "figures": 2,
+        "sections": 11,
+        "examples": 9,
+        "practice": 12,
+        "checkpoints": 2,
+        "growthStates": 21,
+        "keyboard": true,
+        "invalidRetained": true,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "content": 760
+          }
+        ],
+        "errors": []
+      },
+      {
+        "width": 390,
+        "fonts": true,
+        "labs": 6,
+        "figures": 2,
+        "sections": 11,
+        "examples": 9,
+        "practice": 12,
+        "checkpoints": 2,
+        "growthStates": 21,
+        "keyboard": true,
+        "invalidRetained": true,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "content": 350
+          }
+        ],
+        "errors": []
+      },
+      {
+        "width": 320,
+        "fonts": true,
+        "labs": 6,
+        "figures": 2,
+        "sections": 11,
+        "examples": 9,
+        "practice": 12,
+        "checkpoints": 2,
+        "growthStates": 21,
+        "keyboard": true,
+        "invalidRetained": true,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "content": 280
+          }
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "browserFinalFocused": {
+    "at": "2026-09-10T23:14:16.120Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "boundary": {
+          "rejected": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "solution": 5,
+          "square": 4,
+          "roots": [
+            1,
+            5
+          ],
+          "growth": 207.35999999999999,
+          "log": 2.8284271247461903
+        },
+        "actualKeyboardGrid": true,
+        "codeGeometry": {
+          "width": 758,
+          "content": 758,
+          "left": 0,
+          "focused": false
+        },
+        "fonts": true,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "content": 760
+          }
+        ],
+        "errors": []
+      },
+      {
+        "width": 390,
+        "boundary": {
+          "rejected": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "solution": 5,
+          "square": 4,
+          "roots": [
+            1,
+            5
+          ],
+          "growth": 207.35999999999999,
+          "log": 2.8284271247461903
+        },
+        "actualKeyboardGrid": true,
+        "codeGeometry": {
+          "width": 348,
+          "content": 441,
+          "left": 40,
+          "focused": true
+        },
+        "fonts": true,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "content": 350
+          }
+        ],
+        "errors": []
+      },
+      {
+        "width": 320,
+        "boundary": {
+          "rejected": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "solution": 5,
+          "square": 4,
+          "roots": [
+            1,
+            5
+          ],
+          "growth": 207.35999999999999,
+          "log": 2.8284271247461903
+        },
+        "actualKeyboardGrid": true,
+        "codeGeometry": {
+          "width": 278,
+          "content": 441,
+          "left": 40,
+          "focused": true
+        },
+        "fonts": true,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "content": 280
+          }
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "openedScreenshots": [
+    {
+      "path": "scratch/algebra-functions-browser/reading-1-1440.png",
+      "sha256": "cf6f0cc3bdd8e59cba40964be68132c59cdd2a2181002b9d56c098ba8f033277",
+      "bytes": 238081
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-2-320.png",
+      "sha256": "1ff1ac29f636bd6f70582379338088c2a54e245a8e46163282040049d6e13218",
+      "bytes": 82720
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-3-390.png",
+      "sha256": "da619e0701cd87c6510f828bf09559b5c5eda08cfef1c15a3e2a955f302add5f",
+      "bytes": 74967
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-4-1440.png",
+      "sha256": "88c0db9e14921da5b763aeac9d558d88e550b95f5d2b38fbc5495a2da80c66a9",
+      "bytes": 190664
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-6-1440.png",
+      "sha256": "bae81a2f528d2bda0bf681e70dccfdfca26307d2743fc5c8a24c28947f3e6b1e",
+      "bytes": 186778
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-8-390.png",
+      "sha256": "da4d0411c04045bf3b718ebcd55b16ac7ed311c89327dd9fd1c4527f4dab13b2",
+      "bytes": 79697
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-10-320.png",
+      "sha256": "0ef86c498d5e554c15d60d3bb8a1fa467311dbd3eaf741e5ebb43f002b2ccff8",
+      "bytes": 75427
+    },
+    {
+      "path": "scratch/algebra-functions-browser/equation-negative-390.png",
+      "sha256": "ba28da919659a14a5b9012427c70f1f2181c2dcb20e606f9be8ff7f406542d97",
+      "bytes": 62164
+    },
+    {
+      "path": "scratch/algebra-functions-browser/composition-order-1440.png",
+      "sha256": "a676c089ef95073e936b184d216397df20535d356b37943fe43e5c47c00bef54",
+      "bytes": 195973
+    },
+    {
+      "path": "scratch/algebra-functions-browser/inline-2-320.png",
+      "sha256": "cfc8cfc12120235725fced2227c11ba67c7babe3257f3cad5b75ed843264c7a7",
+      "bytes": 63802
+    },
+    {
+      "path": "scratch/algebra-functions-browser/practice-inverse-390.png",
+      "sha256": "4d3db7a744d59a0ffa6abed5aa614cea695c8727b38c63a3254d5082d818dce5",
+      "bytes": 77424
+    },
+    {
+      "path": "scratch/algebra-functions-browser/practice-capstone-320.png",
+      "sha256": "ad77a31387e0c93c439d0b7d4038e6b7c0e868e62ceb5b455aed5a74026cea34",
+      "bytes": 70638
+    },
+    {
+      "path": "scratch/algebra-functions-browser/sources-390.png",
+      "sha256": "62b390437dce275b268bfe084f45fb1bcb032bdcb1615c8191975c8f728aecde",
+      "bytes": 99289
+    },
+    {
+      "path": "scratch/algebra-functions-browser/precision-program-320.png",
+      "sha256": "4d57f7810344c782ed4e32a62f5be77e24735ee3657c6e5c7fed52f2bbc0e54c",
+      "bytes": 62610
+    },
+    {
+      "path": "scratch/algebra-functions-browser/log-base-below-one-320.png",
+      "sha256": "5965c6ad9b7392e9f8f3b7361a33d0c4d67fb3dace835d0a871010342835dc8e",
+      "bytes": 59764
+    },
+    {
+      "path": "scratch/algebra-functions-browser/final-fractional-powers-320.png",
+      "sha256": "4ae7b1119e1bdd5579951622a0607edc7369329ea840f5320eeeae072e5e0e43",
+      "bytes": 77323
+    },
+    {
+      "path": "scratch/algebra-functions-browser/final-equation-5-320.png",
+      "sha256": "5982807399c0ff24bececd8e9a6ea12884950040b9a4b76e747d3c75f1ab8b8f",
+      "bytes": 78921
+    },
+    {
+      "path": "scratch/algebra-functions-browser/final-grid-390.png",
+      "sha256": "d29e2715899376bc5379a15c6cd1af8a1739433441eb62879622c1cd0c43e8c1",
+      "bytes": 57909
+    },
+    {
+      "path": "scratch/algebra-functions-browser/growth-log-plot-390.png",
+      "sha256": "8300c77dc06ded5b35168fa082d2ac788e22712914afd031e268f01939de4fdf",
+      "bytes": 64070
+    },
+    {
+      "path": "scratch/algebra-functions-browser/function-branch-320.png",
+      "sha256": "d6e6ea7b51c787fd537c13b9a9bbb2a40403cb3408e4b1f449e19196fc4a1c1f",
+      "bytes": 55395
+    },
+    {
+      "path": "scratch/algebra-functions-browser/final-code-keyboard-320.png",
+      "sha256": "22de7c2a9875641e00a4eb71d6ad54cece208aad4b845cbdeebdf26b32112ee2",
+      "bytes": 59892
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-5-320.png",
+      "sha256": "1e26ad1f8d61cbdb75c08e2a97ec754edfcf280eece2c262a54881691142675c",
+      "bytes": 64173
+    },
+    {
+      "path": "scratch/algebra-functions-browser/reading-9-390.png",
+      "sha256": "3a04ca125afaec837a48f12bb996e1aadd709e4052957e161f600f5ad7965a28",
+      "bytes": 95914
+    }
+  ],
+  "bounds": "Six source hashes; actual fonts1440/390/320. Full behavioral pass precedes final grid guards and fractional-power notation; focused final pass closes those changes. Primary written sources reviewed; video metadata only. No independent review, integration or learner-study claim.",
+  "postFreezeAmendments": [
+    {
+      "at": "2026-09-10T23:48:28.099970+00:00",
+      "finding": "Independent reviewer identified two-endpoint additive polyline becoming incorrectly straight on a logarithmic y axis. Arithmetic tables were correct.",
+      "repair": "Sample the additive rule at the same 81 time points as the exponential before log transformation. No other production source changed.",
+      "previousFreeze": "2026-09-10T23:17:48.767354+00:00",
+      "before": {
+        "path": "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx",
+        "sha256": "fbbe251af2c1d82e7dd82d07c6320ed56830b98c128b07253c1ecd54ee4214e4",
+        "bytes": 18219
+      },
+      "after": {
+        "path": "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx",
+        "sha256": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99",
+        "bytes": 18270
+      },
+      "verification": {
+        "at": "2026-09-10T23:47:37.853Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "additiveSamples": 81,
+            "logMidpointFraction": 0.6151539763976774,
+            "independentExpectedFraction": 0.6151539763976782,
+            "actualQuantity": 180,
+            "linearMidpointCorrect": true,
+            "errors": []
+          },
+          {
+            "width": 390,
+            "additiveSamples": 81,
+            "logMidpointFraction": 0.6151539763976774,
+            "independentExpectedFraction": 0.6151539763976782,
+            "actualQuantity": 180,
+            "linearMidpointCorrect": true,
+            "errors": []
+          },
+          {
+            "width": 320,
+            "additiveSamples": 81,
+            "logMidpointFraction": 0.6151539763976774,
+            "independentExpectedFraction": 0.6151539763976782,
+            "actualQuantity": 180,
+            "linearMidpointCorrect": true,
+            "errors": []
+          }
+        ]
+      },
+      "script": {
+        "path": "scripts/review-algebra-growth-sampling.cjs",
+        "sha256": "d368648d9bee18a92359006fa991f1a76f7a78f4a4d8bd6d8c8f0e65938c952a",
+        "bytes": 3025
+      },
+      "openedScreenshots": [
+        {
+          "path": "scratch/algebra-functions-browser/additive-log-repair-1440.png",
+          "sha256": "da1fb95ebae2f02bf494a3e99889c41161fac3bc3d2e06fbf362759701030f01",
+          "bytes": 163355
+        },
+        {
+          "path": "scratch/algebra-functions-browser/additive-log-repair-390.png",
+          "sha256": "50a385f9c7f96bf3b755bbaae431fe85654a26ea9d5a1dca6f30f3ac6d87e22a",
+          "bytes": 61342
+        },
+        {
+          "path": "scratch/algebra-functions-browser/additive-log-repair-320.png",
+          "sha256": "5d98cc2e8f276bf3984cc30e5fcb2a9a66b94ab643bb310d52b334c4ca52dbb8",
+          "bytes": 57746
+        }
+      ],
+      "limits": "Actual-font three-width targeted source/geometry/state check. t=4 transforms log10(180), independently verified from SVG. Linear-axis midpoint preserved. All three images opened. Earlier broad native/browser evidence unchanged; not rerun or attributed to this amendment."
+    }
+  ]
+}

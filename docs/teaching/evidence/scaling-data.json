@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-09-14T17:11:26.115570+00:00",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "sklearn": "1.9.1"
+  },
+  "csvSha256": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+  "csvBytes": 15241,
+  "rows": 344,
+  "missing": {
+    "species": 0,
+    "island": 0,
+    "bill_length_mm": 2,
+    "bill_depth_mm": 2,
+    "flipper_length_mm": 2,
+    "body_mass_g": 2,
+    "sex": 11,
+    "year": 0
+  },
+  "split": {
+    "training": 258,
+    "heldOut": 86
+  },
+  "correctCounts": {
+    "majority": 38,
+    "raw": 67,
+    "standard": 84,
+    "minmax": 85,
+    "robust": 85
+  },
+  "fittedMedians": [
+    45.0,
+    17.3,
+    197.0,
+    4000.0
+  ],
+  "standardCenter": [
+    43.93062015503876,
+    17.09922480620155,
+    200.65891472868216,
+    4190.988372093023
+  ],
+  "standardScale": [
+    5.400031618043809,
+    1.9387119564900213,
+    14.230655916521705,
+    806.6875829303058
+  ],
+  "scope": "Refitted the four preparation pipelines, the majority baseline, every fitted statistic, all 86 transformed held-out rows, the practice missing-mass coordinate, the unknown/missing category policies, the five-value scaler fixture, the six-row cross-fitting table and the three-donor KNN imputation from the packet's CSV, and matched each against calculated-inputs.json before generating src/learn/data/scaling-data.js.",
+  "limitations": [
+    "One fixed stratified split of one curated collection; not a sampling study.",
+    "Numerical results can differ on other library versions.",
+    "Two rows lack every measurement and eleven lack recorded sex; both are carried through, not dropped."
+  ],
+  "passed": true
+}

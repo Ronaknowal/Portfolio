@@ -1,0 +1,13 @@
+{
+  "observed_at": "2026-09-10T12:37:00+00:00",
+  "status": "display defect reproduced before repair",
+  "source": "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx, format and NaturalGradientLab",
+  "method": "Executed the current model and the read source formatter in Node; not a browser screenshot",
+  "inputs": {"probability": 0.05, "target": 0.8, "fraction": 1},
+  "logitNext": 0.9999973608069337,
+  "displayed_success": "1",
+  "displayed_failure": "2.639e-6",
+  "finite_kl": 12.004270365631227,
+  "impact": "An interior distribution is labeled as a boundary point, contradicting its visible nonzero failure mass and finite KL. The numerical model itself is correct.",
+  "requested_resolution": "Use a probability-specific formatter that preserves interior probabilities near 0 and 1; explain rounding and verify the actual UI fixture."
+}

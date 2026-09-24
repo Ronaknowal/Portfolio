@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -635,9 +636,30 @@ for i in range(5):
       </Prose>
 
       <Plot
-        title="Token bucket level over time"
-        description="40k-token bucket at 667 tokens/sec refill. Dashed line = capacity. Bursts drain the bucket; quiet periods refill it."
-        fn={(width) => {
+        label="Token bucket level over time — 40k capacity, 667 tokens/sec refill; bursts drain, quiet periods refill"
+        xLabel="seconds"
+        yLabel="tokens remaining"
+        series={[
+          {
+            name: "bucket level",
+            color: "#e2b55a",
+            points: [
+              [0, 40000], [5, 25000], [10, 17000], [15, 20335], [18, 335],
+              [25, 5005], [30, 2670], [35, 6005], [40, 9340], [50, 16010],
+              [60, 22680], [60, -2320], [60.1, 0], [70, 6670], [75, -3330],
+              [75.1, 0], [80, 3335], [90, 10005], [90, -27995], [90.1, 0],
+              [100, 6670], [100, -5330], [100.1, 0], [110, 6670], [120, 13340],
+            ].filter(p => p[1] >= 0),
+          },
+          {
+            name: "capacity (40k)",
+            color: "#666",
+            points: [[0, 40000], [120, 40000]],
+          },
+        ]}
+      />
+      {/* legacy fn-based viz removed (Plot does not accept fn prop) */}
+      {false && <div fn={(width) => {
           const capacity = 40000;
           const refillRate = 667;
           const duration = 120; // seconds
@@ -721,8 +743,7 @@ for i in range(5):
               <text x={width - 28} y={198} fill="#f87171" fontSize={9}>● rejected</text>
             </svg>
           );
-        }}
-      />
+        }} />}
 
       <StepTrace
         label="deficit round-robin — scheduling 3 tenant classes"
@@ -771,18 +792,17 @@ for i in range(5):
       />
 
       <Heatmap
-        title="Quota consumption per tenant — 24h window"
-        description="Rows = tenants. Columns = hours 0–23. Color intensity = fraction of daily budget consumed in that hour. Red = over 80% of hourly expected share."
-        rows={["tenant-A", "tenant-B", "tenant-C", "tenant-D", "tenant-E"]}
-        cols={Array.from({ length: 24 }, (_, i) => `${i}h`)}
-        data={[
+        label="Quota consumption per tenant — 24h window (rows = tenants; columns = hours 0–23; color intensity = fraction of hourly budget consumed)"
+        rowLabels={["tenant-A", "tenant-B", "tenant-C", "tenant-D", "tenant-E"]}
+        colLabels={Array.from({ length: 24 }, (_, i) => `${i}h`)}
+        matrix={[
           [0.1,0.1,0.05,0.05,0.2,0.6,0.9,0.8,0.7,0.6,0.5,0.4,0.5,0.6,0.7,0.8,0.9,0.85,0.7,0.5,0.3,0.2,0.1,0.1],
           [0.0,0.0,0.0,0.0,0.1,0.3,0.5,0.4,0.3,0.2,0.1,0.1,0.1,0.2,0.3,0.4,0.5,0.4,0.3,0.2,0.1,0.0,0.0,0.0],
           [0.8,0.9,1.0,0.95,0.3,0.1,0.05,0.05,0.1,0.2,0.3,0.4,0.3,0.2,0.1,0.05,0.05,0.1,0.2,0.3,0.5,0.7,0.8,0.9],
           [0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2],
           [0.0,0.0,0.0,0.0,0.0,0.1,0.2,0.3,0.9,0.95,1.0,0.9,0.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
         ]}
-        colorScale={["#1a1a2e", "#16213e", "#0f3460", "#533483", "#e94560"]}
+        colorScale="warm"
       />
 
       {/* ======================================================================

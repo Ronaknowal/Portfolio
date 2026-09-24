@@ -1,0 +1,49 @@
+.multivariate-lab, .multivariate-inline { margin: 2rem 0; color: #d8d5ce; }
+.multivariate-lab { padding: clamp(14px, 3vw, 25px); border: 1px solid #3b372c; background: #171713; border-radius: 8px; }
+.multivariate-lab h3 { font-size: 1.25rem; color: #f0ece1; line-height: 1.35; margin: 0 0 1rem; }
+.multivariate-lab h4, .multivariate-inline h4 { color: #e8e0cc; font-size: 1rem; line-height: 1.5; margin: 1rem 0 0.5rem; }
+.multivariate-lab p, .multivariate-inline p, .multivariate-inline figcaption { line-height: 1.7; margin: 0.8rem 0; }
+.multivariate-eyebrow { font-size: 0.7rem; letter-spacing: 0.14em; color: #d7b665; }
+.multivariate-linked { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.multivariate-linked > * { min-width: 0; }
+.multivariate-plot { display: block; width: 100%; max-width: 390px; margin: 0 auto; overflow: visible; }
+.multivariate-plot text { fill: #d4cdbb; font-size: 16px; font-family: inherit; }
+.multivariate-plot .mv-axis, .multivariate-plot .mv-frame { fill: none; stroke: #706e60; stroke-width: 1; }
+.multivariate-plot .mv-frame { stroke: #44443d; }
+.multivariate-plot .mv-contour { fill: none; stroke: #77755f; stroke-width: 1.2; }
+.multivariate-plot .mv-actual { fill: none; stroke: #e9ba61; stroke-width: 2.8; }
+.multivariate-plot .mv-linear, .multivariate-plot .mv-direction { fill: none; stroke: #99bfd4; stroke-width: 2.5; }
+.multivariate-plot .mv-linear { stroke-dasharray: 6 5; }
+.multivariate-plot .mv-point { fill: #edc16e; stroke: #171713; stroke-width: 1; }
+.multivariate-plot .mv-next { fill: #171713; stroke: #99bfd4; stroke-width: 2.5; }
+.multivariate-caption, .multivariate-inline figcaption { font-size: 0.9rem; color: #bcb8a9; }
+.multivariate-controls { display: flex; align-items: end; gap: 0.8rem; flex-wrap: wrap; margin: 1rem 0; }
+.multivariate-controls label { display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.9rem; flex: 1 1 130px; min-width: 0; }
+.multivariate-controls input:not([type=range]), .multivariate-controls select { width: 100%; min-width: 0; box-sizing: border-box; min-height: 44px; padding: 0.5rem 0.65rem; border: 1px solid #65614f; border-radius: 4px; background: #202019; color: #ece5d6; font: inherit; }
+.multivariate-controls input[type=range] { width: 100%; min-height: 40px; accent-color: #d6ae5a; }
+.multivariate-controls button { min-height: 44px; padding: 0.5rem 0.75rem; border: 1px solid #6b624b; border-radius: 4px; background: #2c281e; color: #f2dfb2; font: inherit; font-size: 0.9rem; cursor: pointer; }
+.multivariate-controls button:hover { background: #3a3222; }
+.multivariate-controls button:disabled { opacity: 0.5; cursor: default; }
+.multivariate-controls :focus-visible, .multivariate-table:focus-visible, .multivariate-practice summary:focus-visible { outline: 2px solid #efc674; outline-offset: 3px; }
+.multivariate-readout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 0.5rem 1rem; margin: 1.1rem 0; font-size: 0.93rem; }
+.multivariate-readout dt { color: #aaa897; }
+.multivariate-readout dd { margin: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; color: #efe1bf; }
+.multivariate-feedback { border-top: 1px solid #514a34; padding-top: 0.9rem; }
+.multivariate-lab [role=alert] { color: #ffc9ad; }
+.multivariate-table { overflow-x: auto; margin: 1rem 0; max-width: 100%; }
+.multivariate-table table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.multivariate-table caption { text-align: left; margin-bottom: 0.7rem; color: #c4bfae; }
+.multivariate-table th, .multivariate-table td { padding: 0.55rem 0.45rem; text-align: right; border-bottom: 1px solid #414135; white-space: nowrap; }
+.multivariate-table th { color: #c8bea5; font-weight: 500; }
+.multivariate-meaning { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 1rem; border-top: 1px solid #4a4538; border-bottom: 1px solid #4a4538; padding: 1rem 0; align-items: center; }
+.multivariate-meaning > span { color: #dabb75; font-size: 1.7rem; }
+.multivariate-practice { margin: 2rem 0; }
+.multivariate-practice details { margin: 0.9rem 0; }
+.multivariate-practice summary { cursor: pointer; line-height: 1.6; color: #e3c782; }
+@media (max-width: 690px) {
+  .multivariate-linked { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
+  .multivariate-meaning { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .multivariate-meaning > span { transform: rotate(90deg); justify-self: center; }
+  .multivariate-readout { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; }
+  .multivariate-readout dd { margin-bottom: 0.65rem; }
+}

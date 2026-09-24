@@ -1,0 +1,114 @@
+{
+  "startedAt": "2026-09-14T09:24:00.098Z",
+  "completedAt": "2026-09-14T09:24:34.740Z",
+  "topicId": "gaussian-mixture-models-gmm-em-algorithm",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "d6c238146c6188f26fe9d9f471028dbe8e9c6faf556e2794a07a79eb4e47ea45",
+  "sourceHashes": {
+    "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx": "67538ac7e7b8da6d1b50a0ea301c05d467a2e4a22158498c470ce6df140c567c",
+    "src/learn/data/gmm-models.js": "a04b58a2b4e5e46ac6f4f1cc1069f71e49328c350d0f5909513a580abe00dcb2",
+    "src/learn/data/gmm-iris-data.js": "2dfe2a5c028a0271f172b2ea38a2efbceae8eeeb0e35c95ca56d2f590b615611",
+    "src/learn/data/gmm-examples.js": "811b9139f69595c30fc0dd42c7366bc6f1c6fbbe6e8aa5a39f2c7c3c1ea7105a",
+    "src/learn/components/lesson-labs/GmmShared.jsx": "57c29475518b3052a8bf4e50b9b23aaba413885569f2a8e59c8e36ee71bc15d0",
+    "src/learn/components/lesson-labs/GmmLabs.jsx": "61a98ee392851e34f27aa52e8014a126e07d35ff798518f5e016ef59e4ee2a56",
+    "src/learn/components/lesson-labs/GmmFigures.jsx": "99d8a4fc2cd90d4d9d2d8fbeb0dc1bd3e001db65f845a7d826033f780fd011b6",
+    "src/learn/components/lesson-labs/gmm-labs.css": "e24fda13ed966f05c437759ff36396be36d4f3b667de1389d0787406fb84652b",
+    "src/learn/data/curriculum/blueprints/gaussian-mixture-models-gmm-em-algorithm.js": "374e2c6817992c0e9aadbe496e03ab25c83d41181b214c8702788b6a4ebfb60d",
+    "public/learn-assets/gmm/iris.csv": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7"
+  },
+  "moduleTopicCount": 39,
+  "selection": {
+    "rule": "highest validation mean log-density",
+    "selected": [
+      "full",
+      2
+    ],
+    "testMeanLogDensity": -3.011223469
+  },
+  "records": [
+    {
+      "case": "Complete visible code and output for three programs, twelve route anchors, six figures, eight practice tasks, all sixteen candidate scores, the downloadable CSV, current metadata and module sequence"
+    },
+    {
+      "case": "Responsibility crossing regression: exact practice tie is selectable and graded, two roots are both offered, a no-root unequal model is not called identical, committed choices cannot be edited, and accessible answers wait for reveal"
+    },
+    {
+      "case": "Responsibility lab: no preselected prediction, a retired choice on an edited measurement, the 19.612086 contrast at 8, the saved two-point comparison differing by 18.000336, and the identical-component null returning the mixing weights"
+    },
+    {
+      "case": "EM lab: a recorded prediction graded only after the M-step, the exact first cycle including −1.344824658 and 0.691446639, a working back half-step, the identical-start null, the active variance floor, and the edited D = 3 setup giving 1.844792261"
+    },
+    {
+      "case": "EM annotation regression: wrapping color/dash key remains separate from plotted means in all four presets, before and after a full cycle, at desktop and 320px; coincident component names never overlap"
+    },
+    {
+      "case": "Covariance lab: the 8/7 against 8 ordering with its densities, the reversed order at negative correlation, the equal-density null at zero correlation, and the 39.3469% unit contour stated instead of 68%"
+    },
+    {
+      "case": "Figures carry their required content: the gallery prints every covariance, the collapse figure adds a shared window and a logarithmic objective strip, and the candidate table keeps six decimal places so the selected score matches the prose"
+    },
+    {
+      "case": "Allocation layout regression: distinct stages, four exact before/after strips, equal component scales, unit-mass columns, glyph/line separation at five widths and enlarged root text"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-DAgeQsnL.js",
+        "assets/Reader-DgnIMaZ1.js",
+        "assets/LevelBadge-CUi1uex_.js",
+        "assets/gaussian-mixture-models-gmm-em-algorithm-CVtHqYib.js",
+        "assets/Code-DD_Qv1gy.js",
+        "assets/Callout-Dziz-sdk.js",
+        "assets/Math-C7w-yGKU.js",
+        "assets/LessonElements-BLwDTj7W.js",
+        "assets/RunnableExample-Cc69RhGg.js"
+      ],
+      "rawScriptBytes": 1462165,
+      "gzipEstimateBytes": 327204,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout, readable formula grouping and every deeper branch rendered"
+    },
+    {
+      "case": "Narrow 320px layout, readable formula grouping and every deeper branch rendered"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\gmm-responsibility-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-responsibility-boundary-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-step-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-floor-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-plateau-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-history-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-history-320.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-identical-key-1366.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-identical-key-320.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-covariance-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-selector-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-allocation-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-collapse-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-covariance-gallery-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-candidates-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-bound-chain-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-allocation-320.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-allocation-enlarged-text.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-allocation-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-candidates-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-covariance-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\gmm-em-step-mobile.png"
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states: a matched and a missed prediction, the saved two-point contrast, the symmetric null, the active variance floor, and every inline figure. They require separate visual inspection."
+}

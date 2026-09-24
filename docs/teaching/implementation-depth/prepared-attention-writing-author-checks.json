@@ -1,0 +1,64 @@
+{
+  "self-attention-multi-head-attention": {
+    "status": "passed",
+    "kind": "bounded same-state operator/gradient/update author probe",
+    "source": "docs/teaching/drafts/self-attention-multi-head-attention/lesson.md",
+    "selection": "first complete Python fence",
+    "sourceSha256": "19e4a558b2c02badaef6e0dbd341ef042a85e965b8ebae946ba3ff691eb84675",
+    "stdout": "torch.Size([2, 4, 8]) torch.Size([2, 2, 4, 4])\nmaximum output difference: 5.551115123125783e-17\nTrue\nTrue\ninput/parameter gradients and one equal update: True\n",
+    "stderr": ""
+  },
+  "transformer-block-architecture": {
+    "status": "passed",
+    "kind": "bounded same-state operator/gradient/update author probe",
+    "source": "docs/teaching/drafts/transformer-block-architecture/lesson.md",
+    "selection": "first complete Python fence",
+    "sourceSha256": "d99fc4cf1a349431fc6a446446da5f1ac70d02f4ac8b6bdfbc0d8d0ae9077dc5",
+    "stdout": "True (2, 4, 8) True\n{'pre_norm': True, 'gradient_and_update_checks': 'passed'}\nFalse (2, 4, 8) True\n{'pre_norm': False, 'gradient_and_update_checks': 'passed'}\n",
+    "stderr": ""
+  },
+  "positional-encodings-sinusoidal-learned-rope-alibi": {
+    "status": "passed",
+    "stdout": "rope output and gradient agreement: True\nalibi output and gradient agreement: True\nrepeated position ID accumulates two gradients: True\n",
+    "sourceSha256": "4be6b63570bac532ed111ab82c105374696b7b6795b7c65de7507fe59bdc51b7",
+    "source": "docs/teaching/drafts/positional-encodings-sinusoidal-learned-rope-alibi/position_library_bridge.py"
+  },
+  "message-passing-graph-convolutions-gcn-gat-graphsage": {
+    "status": "passed",
+    "kind": "bounded operator/gradient author probe; no model fit",
+    "source": "docs/teaching/drafts/message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py",
+    "sourceSha256": "d800a949661537c7c9d15c5f6e5f5d6061fb0857d58b74cdb055a7691889af95",
+    "arguments": [
+      "--scratch-only"
+    ],
+    "stdout": "{\n  \"route\": \"dense scratch oracle\",\n  \"torch\": \"2.14.0+cpu\",\n  \"checks\": {\n    \"path_and_isolate/gcn\": {\n      \"output_error\": 0.0,\n      \"parameter_gradient_error\": 0.0,\n      \"matched_sgd_step\": true\n    },\n    \"path_and_isolate/sage\": {\n      \"output_error\": 0.0,\n      \"parameter_gradient_error\": 0.0,\n      \"matched_sgd_step\": true\n    },\n    \"path_and_isolate/gat\": {\n      \"output_error\": 5.551115123125783e-17,\n      \"parameter_gradient_error\": 2.7755575615628914e-16,\n      \"matched_sgd_step\": true\n    },\n    \"edited_directed/gcn\": {\n      \"output_error\": 2.7755575615628914e-17,\n      \"parameter_gradient_error\": 5.551115123125783e-17,\n      \"matched_sgd_step\": true\n    },\n    \"edited_directed/sage\": {\n      \"output_error\": 0.0,\n      \"parameter_gradient_error\": 0.0,\n      \"matched_sgd_step\": true\n    },\n    \"edited_directed/gat\": {\n      \"output_error\": 5.551115123125783e-17,\n      \"parameter_gradient_error\": 2.220446049250313e-16,\n      \"matched_sgd_step\": true\n    },\n    \"no_edges/gcn\": {\n      \"output_error\": 0.0,\n      \"parameter_gradient_error\": 0.0,\n      \"matched_sgd_step\": true\n    },\n    \"no_edges/sage\": {\n      \"output_error\": 0.0,\n      \"parameter_gradient_error\": 0.0,\n      \"matched_sgd_step\": true\n    },\n    \"no_edges/gat\": {\n      \"output_error\": 0.0,\n      \"parameter_gradient_error\": 0.0,\n      \"matched_sgd_step\": true\n    }\n  }\n}\n",
+    "stderr": ""
+  },
+  "multi-head-latent-attention-mla": {
+    "status": "passed",
+    "kind": "bounded operator/gradient author probe; no model fit",
+    "source": "docs/teaching/drafts/multi-head-latent-attention-mla/mla_sdpa_bridge.py",
+    "sourceSha256": "c4027ddee3f364c79aab6e249fb7bf6df4fc2ad28b24cdd48c6120df011d0272",
+    "arguments": [],
+    "stdout": "output error: 4.440892098500626e-16\ngradient error: 3.3306690738754696e-16\nmatching one-step change: True\n",
+    "stderr": ""
+  },
+  "sparse-linear-attention-variants": {
+    "status": "passed",
+    "kind": "bounded operator/gradient author probe; no model fit",
+    "source": "docs/teaching/drafts/sparse-linear-attention-variants/attention_compression_bridges.py",
+    "sourceSha256": "f4cf62cd536818727acf9255f97a8a5453620fc168d83581143a8b031dd3b699",
+    "arguments": [],
+    "stdout": "Linformer API error: 1.1102230246251565e-16\ngathered-window API error: 1.1102230246251565e-16\nall-landmark reconstruction error: 1.4432899320127035e-15\nthree-landmark output error: 0.25090964320623854\n",
+    "stderr": ""
+  },
+  "interleaved-cross-attention-architectures": {
+    "status": "passed",
+    "kind": "bounded operator/gradient author probe; no model fit",
+    "source": "docs/teaching/drafts/interleaved-cross-attention-architectures/cross_attention_cache.py",
+    "sourceSha256": "64fcdfa37688722c8c88d122311ee6065814eb3d7a89f7c58f565ac8728e7010",
+    "arguments": [],
+    "stdout": "full/streamed/library error: 5.551115123125783e-17\nforbidden-memory null and stale-identity rejection: passed\n",
+    "stderr": ""
+  }
+}

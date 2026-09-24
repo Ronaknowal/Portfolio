@@ -1,0 +1,382 @@
+{
+  "startedAt": "2026-09-11T14:10:52.461Z",
+  "completedAt": "2026-09-11T14:11:01.525Z",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/support-vector-machines-svm.jsx",
+      "sha256": "6be84f25e70585a9337e5ad9f583c5bce6d2101d139b2e39370f459d2d6ca3e9"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-models.js",
+      "sha256": "25c2e4161425e654eaef9f04a4f1486d60d5b5554170b81249407353d5d87d79"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-examples.js",
+      "sha256": "296eceb16d17bb45d113b8db9239bf277e90ba47454834c3d741ff5262bbb084"
+    },
+    {
+      "path": "src/learn/data/svm-validation-fixtures.js",
+      "sha256": "1652a24b8af8293e58c0466928be3f833b80dba563863513d8fa2d91cd51e0c0"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx",
+      "sha256": "579865b7fff0466d92e76468980680747ae6f16a091db34433df247999dae2ea"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/support-vector-machines-labs.css",
+      "sha256": "2269fea89d378c58848c7e85d78b7a6b14f9a24c36b12711dd9d64a4f9099e2a"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/support-vector-machines-svm.js",
+      "sha256": "b708e36317e8fd4a152230cf4ab6694ea400dec3a144a71b0a3f31760561540c"
+    }
+  ],
+  "records": [
+    {
+      "width": 1440,
+      "states": [
+        {
+          "name": "final duplicate linear direction",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "final duplicate committed",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        }
+      ],
+      "screenshots": [],
+      "errors": [],
+      "failedRequests": [],
+      "keyboard": [],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size2"
+      ],
+      "flatTieLoadedModule": {
+        "delta": 0,
+        "alpha": [
+          0.4,
+          0.1,
+          0.3
+        ]
+      },
+      "programs": 14,
+      "anchors": 11,
+      "equations": [
+        {
+          "width": 760,
+          "content": 760,
+          "text": "xprojected=x−f(x)∥w∥2w,dsigned(x)=f(x)∥w∥,dlabel(x,y)=yf(x)∥w∥.\\begin{aligned}x_{\\rm proje"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "min⁡w,b12∥w∥2subject toyi(w⋅xi+b)≥1.\\begin{gathered}\\min_{w,b}\\frac12\\|w\\|^2\\\\\\text{subjec"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "P(w,b)=12∥w∥2+C∑iℓi,ℓi=max⁡(0,1−yif(xi)).\\begin{aligned}P(w,b)&=\\frac12\\|w\\|^2+C\\sum_i\\ell"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "L=12∥w∥2+C∑iξi+∑iαi(1−ξi−yifi)−∑iβiξi.\\begin{aligned}L={}&\\frac12\\|w\\|^2+C\\sum_i\\xi_i\\\\&+\\"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "MaximizeD(α)=∑iαi−12α⊤Qα,Qij=yiyjKij,Kij=xi⋅xj,0≤αi≤C,∑iαiyi=0.\\begin{gathered}\\text{Maxim"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "k(x,z)=(x⋅z)2,ϕ(x)=(x12,2x1x2,x22),ϕ(x)⋅ϕ(z)=k(x,z).\\begin{aligned}k(x,z)&=(x\\cdot z)^2,\\\\"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "k(x,z)=exp⁡(−γ∥x−z∥2),γ>0.\\begin{gathered}k(x,z)=\\exp(-\\gamma\\|x-z\\|^2),\\\\\\gamma>0.\\end{ga"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "αj′=αj+δ,αi′=αi−sδ,s=yiyj,0≤αi′,αj′≤C.\\begin{aligned}\\alpha'_j&=\\alpha_j+\\delta,\\\\\\alpha'_"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "ℓϵ(y,f)=max⁡(0,∣y−f∣−ϵ),P(w,b)=12∥w∥2+C∑iℓϵ(yi,fi).\\begin{aligned}\\ell_\\epsilon(y,f)&=\\max"
+        },
+        {
+          "width": 760,
+          "content": 760,
+          "text": "di=αi−αi∗,D=∑iyidi−ϵ∑i(αi+αi∗)−12∑i,jdidjKij,0≤αi,αi∗≤C,∑idi=0,f(x)=∑idik(xi,x)+b.\\begin{a"
+        }
+      ],
+      "overflow": {
+        "page": 1440,
+        "viewport": 1440
+      }
+    },
+    {
+      "width": 390,
+      "states": [
+        {
+          "name": "final duplicate linear direction",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "final duplicate committed",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        {
+          "path": "scratch/support-vector-machines-verification/browser/regression-reading-390.png",
+          "sha256": "b76fed9d1a295f7c99ca63cbb95c79188f5bc25c773a6d201d3876ece22daea4"
+        }
+      ],
+      "errors": [],
+      "failedRequests": [],
+      "keyboard": [],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size2"
+      ],
+      "flatTieLoadedModule": {
+        "delta": 0,
+        "alpha": [
+          0.4,
+          0.1,
+          0.3
+        ]
+      },
+      "programs": 14,
+      "anchors": 11,
+      "equations": [
+        {
+          "width": 350,
+          "content": 350,
+          "text": "xprojected=x−f(x)∥w∥2w,dsigned(x)=f(x)∥w∥,dlabel(x,y)=yf(x)∥w∥.\\begin{aligned}x_{\\rm proje"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "min⁡w,b12∥w∥2subject toyi(w⋅xi+b)≥1.\\begin{gathered}\\min_{w,b}\\frac12\\|w\\|^2\\\\\\text{subjec"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "P(w,b)=12∥w∥2+C∑iℓi,ℓi=max⁡(0,1−yif(xi)).\\begin{aligned}P(w,b)&=\\frac12\\|w\\|^2+C\\sum_i\\ell"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "L=12∥w∥2+C∑iξi+∑iαi(1−ξi−yifi)−∑iβiξi.\\begin{aligned}L={}&\\frac12\\|w\\|^2+C\\sum_i\\xi_i\\\\&+\\"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "MaximizeD(α)=∑iαi−12α⊤Qα,Qij=yiyjKij,Kij=xi⋅xj,0≤αi≤C,∑iαiyi=0.\\begin{gathered}\\text{Maxim"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "k(x,z)=(x⋅z)2,ϕ(x)=(x12,2x1x2,x22),ϕ(x)⋅ϕ(z)=k(x,z).\\begin{aligned}k(x,z)&=(x\\cdot z)^2,\\\\"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "k(x,z)=exp⁡(−γ∥x−z∥2),γ>0.\\begin{gathered}k(x,z)=\\exp(-\\gamma\\|x-z\\|^2),\\\\\\gamma>0.\\end{ga"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "αj′=αj+δ,αi′=αi−sδ,s=yiyj,0≤αi′,αj′≤C.\\begin{aligned}\\alpha'_j&=\\alpha_j+\\delta,\\\\\\alpha'_"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "ℓϵ(y,f)=max⁡(0,∣y−f∣−ϵ),P(w,b)=12∥w∥2+C∑iℓϵ(yi,fi).\\begin{aligned}\\ell_\\epsilon(y,f)&=\\max"
+        },
+        {
+          "width": 350,
+          "content": 350,
+          "text": "di=αi−αi∗,D=∑iyidi−ϵ∑i(αi+αi∗)−12∑i,jdidjKij,0≤αi,αi∗≤C,∑idi=0,f(x)=∑idik(xi,x)+b.\\begin{a"
+        }
+      ],
+      "overflow": {
+        "page": 390,
+        "viewport": 390
+      }
+    },
+    {
+      "width": 320,
+      "states": [
+        {
+          "name": "final duplicate linear direction",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "final duplicate committed",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        {
+          "path": "scratch/support-vector-machines-verification/browser/dual-reading-320.png",
+          "sha256": "cae325b51056abfe10e617b9ace358d93a271b81f3b2b8fbe3019a3bc3153f23"
+        }
+      ],
+      "errors": [],
+      "failedRequests": [],
+      "keyboard": [],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size2"
+      ],
+      "flatTieLoadedModule": {
+        "delta": 0,
+        "alpha": [
+          0.4,
+          0.1,
+          0.3
+        ]
+      },
+      "programs": 14,
+      "anchors": 11,
+      "equations": [
+        {
+          "width": 280,
+          "content": 280,
+          "text": "xprojected=x−f(x)∥w∥2w,dsigned(x)=f(x)∥w∥,dlabel(x,y)=yf(x)∥w∥.\\begin{aligned}x_{\\rm proje"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "min⁡w,b12∥w∥2subject toyi(w⋅xi+b)≥1.\\begin{gathered}\\min_{w,b}\\frac12\\|w\\|^2\\\\\\text{subjec"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "P(w,b)=12∥w∥2+C∑iℓi,ℓi=max⁡(0,1−yif(xi)).\\begin{aligned}P(w,b)&=\\frac12\\|w\\|^2+C\\sum_i\\ell"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "L=12∥w∥2+C∑iξi+∑iαi(1−ξi−yifi)−∑iβiξi.\\begin{aligned}L={}&\\frac12\\|w\\|^2+C\\sum_i\\xi_i\\\\&+\\"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "MaximizeD(α)=∑iαi−12α⊤Qα,Qij=yiyjKij,Kij=xi⋅xj,0≤αi≤C,∑iαiyi=0.\\begin{gathered}\\text{Maxim"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "k(x,z)=(x⋅z)2,ϕ(x)=(x12,2x1x2,x22),ϕ(x)⋅ϕ(z)=k(x,z).\\begin{aligned}k(x,z)&=(x\\cdot z)^2,\\\\"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "k(x,z)=exp⁡(−γ∥x−z∥2),γ>0.\\begin{gathered}k(x,z)=\\exp(-\\gamma\\|x-z\\|^2),\\\\\\gamma>0.\\end{ga"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "αj′=αj+δ,αi′=αi−sδ,s=yiyj,0≤αi′,αj′≤C.\\begin{aligned}\\alpha'_j&=\\alpha_j+\\delta,\\\\\\alpha'_"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "ℓϵ(y,f)=max⁡(0,∣y−f∣−ϵ),P(w,b)=12∥w∥2+C∑iℓϵ(yi,fi).\\begin{aligned}\\ell_\\epsilon(y,f)&=\\max"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "di=αi−αi∗,D=∑iyidi−ϵ∑i(αi+αi∗)−12∑i,jdidjKij,0≤αi,αi∗≤C,∑idi=0,f(x)=∑idik(xi,x)+b.\\begin{a"
+        }
+      ],
+      "overflow": {
+        "page": 320,
+        "viewport": 320
+      }
+    }
+  ]
+}

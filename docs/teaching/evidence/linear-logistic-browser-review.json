@@ -1,0 +1,595 @@
+{
+  "checkedAt": "2026-09-11T11:39:30.922Z",
+  "browser": "Edge, actual loaded fonts",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/linear-logistic-regression.jsx",
+      "sha256": "01fc9b7a36cd61fa58db89e34a6d465abf91b68b3b1b7cd9a0208328119c2791"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/LinearLogisticLabs.jsx",
+      "sha256": "3ac1d7ed5b842315882ce9f62c53be54347c444aa6b7926f777eb876015a3e6e"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/linear-logistic-labs.css",
+      "sha256": "d3c111d30de29fec03a17990885647c019ded2c93e153637f59a91f9341a3c70"
+    },
+    {
+      "path": "src/learn/data/linear-logistic-models.js",
+      "sha256": "1cc8b6ba6d7df1b1b882476a90da59c67163658127ed328b2a21409c047f2795"
+    },
+    {
+      "path": "src/learn/data/linear-logistic-examples.js",
+      "sha256": "f1e553c31e937f12cbc6e9ef62cfee6e322c8275b4288343cc8724cc2c8872e3"
+    }
+  ],
+  "records": [
+    {
+      "width": 1440,
+      "errors": [],
+      "screenshots": [
+        {
+          "path": "scratch/linear-logistic-browser/information-reading-1440.png",
+          "sha256": "6d176eed4b72013ddeda14fe2e7c5cfcf90c3f7a50b9be033b1981759b6982f2"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-residuals-changed-1440.png",
+          "sha256": "f90b659fbffdae3f0273f44a41e8de764caf1b54b48fe8d582091f1898d35c85"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-gradient-changed-1440.png",
+          "sha256": "fc3f5da660429e7c6e65b28ca8fe3c06d8cba8c78704bdc4710649ccb224b9b4"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-logistic-score-changed-1440.png",
+          "sha256": "88f27689e38915ab2e17e2738ae01204c774938030b0792f08680e91a02144f1"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-threshold-changed-1440.png",
+          "sha256": "3eb557da7ad98854a43f353b2b7ae8343f0fd9073d3551b542b4e0a5cc6cb2fb"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-separation-changed-1440.png",
+          "sha256": "bb10b886747b2255daff6106ae52646ba39a0fbb68f536ea7b5e4a9d69be6a18"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/uncertainty-reading-1440.png",
+          "sha256": "e21a02cd28e57f95398931bcdd13104172c029f3e0ad1c50ea8da4b3021c259c"
+        }
+      ],
+      "controls": [
+        {
+          "name": "regression-residuals",
+          "type": "range",
+          "min": "-1",
+          "max": "4"
+        },
+        {
+          "name": "regression-residuals",
+          "type": "range",
+          "min": "-1",
+          "max": "3"
+        },
+        {
+          "name": "regression-residuals",
+          "type": "select"
+        },
+        {
+          "name": "regression-gradient",
+          "type": "select"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-3",
+          "max": "3"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-2",
+          "max": "2"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-2",
+          "max": "2"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "select"
+        },
+        {
+          "name": "regression-threshold",
+          "type": "range",
+          "min": "0",
+          "max": "1"
+        },
+        {
+          "name": "regression-threshold",
+          "type": "select"
+        },
+        {
+          "name": "regression-separation",
+          "type": "range",
+          "min": "0",
+          "max": "12"
+        },
+        {
+          "name": "regression-separation",
+          "type": "select"
+        }
+      ],
+      "keyboard": [
+        "regression-residuals: range arrow",
+        "regression-residuals: range arrow",
+        "regression-residuals: reset Enter",
+        "regression-gradient: reset Enter",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: reset Enter",
+        "regression-threshold: range arrow",
+        "regression-threshold: reset Enter",
+        "regression-separation: range arrow",
+        "regression-separation: reset Enter"
+      ],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "headings": [
+        "1. Frame the prediction",
+        "2. Make every residual visible",
+        "3. Derive a fit and understand its geometry",
+        "4. Watch learning change the parameters",
+        "5. Model a binary outcome",
+        "6. Derive and compute log loss",
+        "7. Choose a decision without refitting the score",
+        "8. Check whether a finite solution exists",
+        "9. Let features express the right shape",
+        "10. Run an experiment that can survive a new row",
+        "11. Diagnose assumptions and uncertainty",
+        "12. Match the solver to the work",
+        "13. Practise with changed questions",
+        "14. Connect the two models and continue"
+      ],
+      "programs": 10,
+      "anchors": [
+        "#1-frame-the-prediction",
+        "#2-make-every-residual-visible",
+        "#3-derive-a-fit-and-understand-its-geometry",
+        "#4-watch-learning-change-the-parameters",
+        "#5-model-a-binary-outcome",
+        "#6-derive-and-compute-log-loss",
+        "#7-choose-a-decision-without-refitting-the-score",
+        "#8-check-whether-a-finite-solution-exists",
+        "#9-let-features-express-the-right-shape",
+        "#10-run-an-experiment-that-can-survive-a-new-row",
+        "#11-diagnose-assumptions-and-uncertainty",
+        "#12-match-the-solver-to-the-work",
+        "#13-practise-with-changed-questions",
+        "#14-connect-the-two-models-and-continue"
+      ],
+      "geometry": [
+        {
+          "title": "Shipment predictions and vertical residuals",
+          "outsideLabels": []
+        },
+        {
+          "title": "Actual full-batch gradient path",
+          "outsideLabels": []
+        },
+        {
+          "title": "The sigmoid and this observation's score",
+          "outsideLabels": []
+        },
+        {
+          "title": "Six validation observations against a threshold",
+          "outsideLabels": []
+        },
+        {
+          "title": "Separated data: loss plus a stated weight penalty",
+          "outsideLabels": []
+        },
+        {
+          "title": "Uncertainty about a mean and about one future outcome",
+          "outsideLabels": []
+        }
+      ],
+      "documentWidth": {
+        "scroll": 1440,
+        "client": 1440
+      }
+    },
+    {
+      "width": 390,
+      "errors": [],
+      "screenshots": [
+        {
+          "path": "scratch/linear-logistic-browser/information-reading-390.png",
+          "sha256": "81b78aef6fe37dbb52780f55b710303f297a236c9afaea4d719250981efcf6d7"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-residuals-changed-390.png",
+          "sha256": "32f35c29520e5b0dfd79007afa76a4a49638f77fb42cddd57f35f1c0932556b8"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-gradient-changed-390.png",
+          "sha256": "50309c833c448cfe3eabfb02cff38525829f5314c48367c80c05bcb0b527b66c"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-logistic-score-changed-390.png",
+          "sha256": "748eddf352e22f38d235fec774d97e383e1ee87de100ee3fb1bb837cc521beaf"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-threshold-changed-390.png",
+          "sha256": "c89b708f387e582b85b62350be56e2f80b48abdb36bbc428928c91d504cc19e8"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-separation-changed-390.png",
+          "sha256": "8259e6701fc08e1bcfa8789f70d2cd16616f48e9f847cc41ef2226b0eda2b2e5"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/uncertainty-reading-390.png",
+          "sha256": "b676577865976d93437a153d0a6cd4eb88369bea3eef2800ce85d242989e9ec6"
+        }
+      ],
+      "controls": [
+        {
+          "name": "regression-residuals",
+          "type": "range",
+          "min": "-1",
+          "max": "4"
+        },
+        {
+          "name": "regression-residuals",
+          "type": "range",
+          "min": "-1",
+          "max": "3"
+        },
+        {
+          "name": "regression-residuals",
+          "type": "select"
+        },
+        {
+          "name": "regression-gradient",
+          "type": "select"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-3",
+          "max": "3"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-2",
+          "max": "2"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-2",
+          "max": "2"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "select"
+        },
+        {
+          "name": "regression-threshold",
+          "type": "range",
+          "min": "0",
+          "max": "1"
+        },
+        {
+          "name": "regression-threshold",
+          "type": "select"
+        },
+        {
+          "name": "regression-separation",
+          "type": "range",
+          "min": "0",
+          "max": "12"
+        },
+        {
+          "name": "regression-separation",
+          "type": "select"
+        }
+      ],
+      "keyboard": [
+        "regression-residuals: range arrow",
+        "regression-residuals: range arrow",
+        "regression-residuals: reset Enter",
+        "regression-gradient: reset Enter",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: reset Enter",
+        "regression-threshold: range arrow",
+        "regression-threshold: reset Enter",
+        "regression-separation: range arrow",
+        "regression-separation: reset Enter"
+      ],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "headings": [
+        "1. Frame the prediction",
+        "2. Make every residual visible",
+        "3. Derive a fit and understand its geometry",
+        "4. Watch learning change the parameters",
+        "5. Model a binary outcome",
+        "6. Derive and compute log loss",
+        "7. Choose a decision without refitting the score",
+        "8. Check whether a finite solution exists",
+        "9. Let features express the right shape",
+        "10. Run an experiment that can survive a new row",
+        "11. Diagnose assumptions and uncertainty",
+        "12. Match the solver to the work",
+        "13. Practise with changed questions",
+        "14. Connect the two models and continue"
+      ],
+      "programs": 10,
+      "anchors": [
+        "#1-frame-the-prediction",
+        "#2-make-every-residual-visible",
+        "#3-derive-a-fit-and-understand-its-geometry",
+        "#4-watch-learning-change-the-parameters",
+        "#5-model-a-binary-outcome",
+        "#6-derive-and-compute-log-loss",
+        "#7-choose-a-decision-without-refitting-the-score",
+        "#8-check-whether-a-finite-solution-exists",
+        "#9-let-features-express-the-right-shape",
+        "#10-run-an-experiment-that-can-survive-a-new-row",
+        "#11-diagnose-assumptions-and-uncertainty",
+        "#12-match-the-solver-to-the-work",
+        "#13-practise-with-changed-questions",
+        "#14-connect-the-two-models-and-continue"
+      ],
+      "geometry": [
+        {
+          "title": "Shipment predictions and vertical residuals",
+          "outsideLabels": []
+        },
+        {
+          "title": "Actual full-batch gradient path",
+          "outsideLabels": []
+        },
+        {
+          "title": "The sigmoid and this observation's score",
+          "outsideLabels": []
+        },
+        {
+          "title": "Six validation observations against a threshold",
+          "outsideLabels": []
+        },
+        {
+          "title": "Separated data: loss plus a stated weight penalty",
+          "outsideLabels": []
+        },
+        {
+          "title": "Uncertainty about a mean and about one future outcome",
+          "outsideLabels": []
+        }
+      ],
+      "documentWidth": {
+        "scroll": 390,
+        "client": 390
+      }
+    },
+    {
+      "width": 320,
+      "errors": [],
+      "screenshots": [
+        {
+          "path": "scratch/linear-logistic-browser/information-reading-320.png",
+          "sha256": "2e9a0ad780ee43b07e98e7d4d02b47cc89f19069fde5d27314755d4e9ab93485"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-residuals-changed-320.png",
+          "sha256": "ee095ec3cb6a17dee97eee94919812359f7b445144b8982a98a8d10a168fcff5"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-gradient-changed-320.png",
+          "sha256": "1fee1676a3f2a846f66944a7daf4439a29531c73522a42c0fb48f25bb25b5550"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-logistic-score-changed-320.png",
+          "sha256": "2e903c6a28046f6c00542267c55ac9d038fc11b0a97905e5b0bca6f1e3619055"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-threshold-changed-320.png",
+          "sha256": "ca3e47f441ee22528ec7f740bd6fcc0c3196b39f9791d411ea26aada1fd56695"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/regression-separation-changed-320.png",
+          "sha256": "6c5af8abf3bf55c68c9a7ec2f37209eb55454d7a73628ec3c555753a14ed4c05"
+        },
+        {
+          "path": "scratch/linear-logistic-browser/uncertainty-reading-320.png",
+          "sha256": "d4a3a361007bf16a56fd1a3b10a3bb5795aa86e1890801412218a9bd18b583a7"
+        }
+      ],
+      "controls": [
+        {
+          "name": "regression-residuals",
+          "type": "range",
+          "min": "-1",
+          "max": "4"
+        },
+        {
+          "name": "regression-residuals",
+          "type": "range",
+          "min": "-1",
+          "max": "3"
+        },
+        {
+          "name": "regression-residuals",
+          "type": "select"
+        },
+        {
+          "name": "regression-gradient",
+          "type": "select"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-3",
+          "max": "3"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-2",
+          "max": "2"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "range",
+          "min": "-2",
+          "max": "2"
+        },
+        {
+          "name": "regression-logistic-score",
+          "type": "select"
+        },
+        {
+          "name": "regression-threshold",
+          "type": "range",
+          "min": "0",
+          "max": "1"
+        },
+        {
+          "name": "regression-threshold",
+          "type": "select"
+        },
+        {
+          "name": "regression-separation",
+          "type": "range",
+          "min": "0",
+          "max": "12"
+        },
+        {
+          "name": "regression-separation",
+          "type": "select"
+        }
+      ],
+      "keyboard": [
+        "regression-residuals: range arrow",
+        "regression-residuals: range arrow",
+        "regression-residuals: reset Enter",
+        "regression-gradient: reset Enter",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: range arrow",
+        "regression-logistic-score: reset Enter",
+        "regression-threshold: range arrow",
+        "regression-threshold: reset Enter",
+        "regression-separation: range arrow",
+        "regression-separation: reset Enter"
+      ],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "headings": [
+        "1. Frame the prediction",
+        "2. Make every residual visible",
+        "3. Derive a fit and understand its geometry",
+        "4. Watch learning change the parameters",
+        "5. Model a binary outcome",
+        "6. Derive and compute log loss",
+        "7. Choose a decision without refitting the score",
+        "8. Check whether a finite solution exists",
+        "9. Let features express the right shape",
+        "10. Run an experiment that can survive a new row",
+        "11. Diagnose assumptions and uncertainty",
+        "12. Match the solver to the work",
+        "13. Practise with changed questions",
+        "14. Connect the two models and continue"
+      ],
+      "programs": 10,
+      "anchors": [
+        "#1-frame-the-prediction",
+        "#2-make-every-residual-visible",
+        "#3-derive-a-fit-and-understand-its-geometry",
+        "#4-watch-learning-change-the-parameters",
+        "#5-model-a-binary-outcome",
+        "#6-derive-and-compute-log-loss",
+        "#7-choose-a-decision-without-refitting-the-score",
+        "#8-check-whether-a-finite-solution-exists",
+        "#9-let-features-express-the-right-shape",
+        "#10-run-an-experiment-that-can-survive-a-new-row",
+        "#11-diagnose-assumptions-and-uncertainty",
+        "#12-match-the-solver-to-the-work",
+        "#13-practise-with-changed-questions",
+        "#14-connect-the-two-models-and-continue"
+      ],
+      "geometry": [
+        {
+          "title": "Shipment predictions and vertical residuals",
+          "outsideLabels": []
+        },
+        {
+          "title": "Actual full-batch gradient path",
+          "outsideLabels": []
+        },
+        {
+          "title": "The sigmoid and this observation's score",
+          "outsideLabels": []
+        },
+        {
+          "title": "Six validation observations against a threshold",
+          "outsideLabels": []
+        },
+        {
+          "title": "Separated data: loss plus a stated weight penalty",
+          "outsideLabels": []
+        },
+        {
+          "title": "Uncertainty about a mean and about one future outcome",
+          "outsideLabels": []
+        }
+      ],
+      "documentWidth": {
+        "scroll": 320,
+        "client": 320
+      }
+    }
+  ]
+}

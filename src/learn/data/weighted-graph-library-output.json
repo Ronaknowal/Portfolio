@@ -1,0 +1,3 @@
+{
+  "weighted_graph_library.py": "Dijkstra: [0, 2, 1, 4, 7, inf]\nBellman-Ford: [0, 1, 5, 3, inf]\nreachable negative cycle: NetworkXUnbounded\nminimum forest total / edges: 6 4\ntopological orders valid: True\nchanged dependency: CycleError"
+}

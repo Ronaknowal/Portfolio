@@ -1,0 +1,43 @@
+{
+  "verifiedAt": "2026-09-14T17:02:53.752188+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/validation-examples.js",
+  "sourceHash": "d5c8677e86c0b7513ef6748624b26a910062b94925b53a29b41ba93ce556394b",
+  "verifier": "scripts/verify-validation-examples.py",
+  "verifierHash": "4978c6284032f58f848e36125462713add830b46224a48f1a88041cd392d12be",
+  "python": "3.12.14",
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.9.1",
+    "optuna": "5.0.0"
+  },
+  "programs": {
+    "tinySplitter": {
+      "file": "cv_tiny.py",
+      "codeHash": "e067a71d2ab22c35327183c4e135970b69a60fc8cc52b875412321b997e905b7",
+      "stdoutHash": "565643189473ea32fe3e59404f440360221adf2fafe2f260911a896dbd8afb94",
+      "stdout": "[0, 1, 2] [1, 1, 1] 0 / 3\n[3, 4] [0, 1] 1 / 2\n[5, 6] [1, 1] 2 / 2\nfold mean 0.5\npooled 0.42857142857142855"
+    },
+    "nestedPenguins": {
+      "file": "cv_penguins.py",
+      "codeHash": "7308b4e7fc544209504371af354d481cf61e757cae3b72b324fb3d30d4b2a9b6",
+      "stdoutHash": "8f1ec377554adbf25a7dc5ef3fe604189c3684f36ca5fe41e120e48939236145",
+      "stdout": "1 11 StandardScaler 114 / 115 baseline 51\n2 3 StandardScaler 114 / 115 baseline 51\n3 3 RobustScaler 112 / 114 baseline 50\nouter fold mean 0.9883549\nouter pooled 0.9883721\nfinal settings {'classify__n_neighbors': 3, 'prepare__numeric__scale': StandardScaler()}\nfinal selection score 0.9913043"
+    },
+    "optunaStudy": {
+      "file": "cv_optuna.py",
+      "codeHash": "8d314771249f94c3900fb43f0a1a5c6906c2c35fede8ab3b644df15250747a08",
+      "stdoutHash": "c6ca28777c32fd132b48db85a2a9d5462e3ee78d265d3a851d52aaee8d365637",
+      "stdout": "selection score 0.9884057971014494\nselected settings {'neighbors': 1, 'distance_power': 1, 'weights': 'uniform'}"
+    }
+  },
+  "oracles": 53,
+  "limits": [
+    "The penguin programs ran beside the served copy of the supplied CSV; no network request was made.",
+    "One dataset, one stratified seed pair and one candidate grid: a demonstration of a protocol, not new evidence about penguins or about any scaler.",
+    "The Optuna study is a development search only. Its printed score selected its own settings and is not an assessment of them.",
+    "The Optuna program was explicitly unexecuted in the content phase; this run used Optuna 5.0.0 in an isolated environment built for phase two. A different Optuna or scikit-learn version can move its trial sequence.",
+    "Fit counts are exact; no timing or speed claim is recorded."
+  ]
+}

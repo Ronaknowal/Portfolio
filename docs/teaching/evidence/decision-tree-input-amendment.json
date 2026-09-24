@@ -1,0 +1,41 @@
+{
+  "amendedAt": "2026-09-11T14:30:38.785Z",
+  "topicId": "decision-trees-random-forests",
+  "status": "author amendment verified; independent review pending",
+  "description": "Reject sparse/inherited labels, rows, feature lists and query coordinates before computation.",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/decision-trees-random-forests.jsx",
+      "sha256": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad"
+    },
+    {
+      "path": "src/learn/data/decision-tree-models.js",
+      "sha256": "620aa4a621a7c3a0a381f1e4f61ddf79cc3a94ac118b65c44021c8e147aaded6"
+    },
+    {
+      "path": "src/learn/data/decision-tree-examples.js",
+      "sha256": "949260f2041b803bd7cd7508113f29c8718a7a79c818a08e2fe0166c7589206e"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "sha256": "5afdc9586c078acb18488d43b78bb3bfdcf6e7d7b0d336362ac7f610ae10d989"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/decision-tree-labs.css",
+      "sha256": "71d8f34b8df64d06c3869cfa9550dec3e3d00575c6ec712b62c907acac9925d3"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/decision-trees-random-forests.js",
+      "sha256": "574b3155f5a414e97188510ddfd431343924270e4df75f771a1c517580444864"
+    }
+  ],
+  "previousAuthor": "docs/teaching/evidence/decision-tree-author-review.json",
+  "originalSourceArchive": "docs/teaching/archive/tree-knn-input-amendment/manifest.json",
+  "checks": [
+    {
+      "path": "scratch/tree-knn-input-contracts/checks.json",
+      "sha256": "dbcfeb6c2d1e2937ffe28506ac5d81b68ee304676265e34b1821562b003616bb"
+    }
+  ],
+  "reuse": "Full valid tree structures and predictions conserved on selected unchanged fixtures. Original full native/browser coverage and the separate figure amendment remain applicable; no displayed program or rendering changed."
+}

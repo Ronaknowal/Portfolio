@@ -1,0 +1,50 @@
+{
+  "reviewer": "implement_dl_perceptrons, separate from root author",
+  "status": "complete, no remaining material finding; final production integration pending",
+  "closedFindings": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7"
+  ],
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "117f860029951ad4277eec573693d986c4f69500f5191a97c5135edd55a5321a",
+    "src/learn/components/lesson-labs/LossFunctionsLabs.jsx": "4d783fde77c141197a9e9bc76deacebd475d3428774f89242215b1e9a86ffc68",
+    "src/learn/components/lesson-labs/NormalizationLabs.jsx": "f99d918b1d1ba055886b8ca1a4dcea44644734eb42281dbb21d689d4e31000c3",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "ee551c68df80ac26e0dede49b3906e14755b143ece87c251ca09ae48f684a40e",
+    "src/learn/components/lesson-labs/loss-functions-labs.css": "95d2709d5bd9c0b35055aad1109e3581dfd547361727e0177c218f5f39a91d3b",
+    "src/learn/components/lesson-labs/normalization-labs.css": "c0aa0e6e85c961c918b30ea60423eac99954652257d1017ea9a68da7614166f9",
+    "src/learn/data/loss-functions-models.js": "083702170012fdb0a929621ec5071d38e22e4c0c3203ed9ba3006c26dc1478fa",
+    "src/learn/data/normalization-models.js": "a356b309d6d80b79bdbec528f42104cdfaf42d0a86304f841a2fb56919df813f",
+    "src/learn/data/loss-functions-measurements.js": "ab2a6bcb8158d9b6dace853e2d32f1bcd76073fa0ae60c60ec0031fa7e7ac777",
+    "src/learn/data/normalization-measurements.js": "54c6c01b8c49135dab2e3caf56666af63e3856b17ed4eff474686d8c8cf3c5ba",
+    "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx": "ce5e5e7fdbb0c9a04607910d63bf35a931ad86a56ebbbf1072c95a8509f5e9cf",
+    "src/learn/data/topics/batch-layer-group-rms-normalization.jsx": "dbb60a1eaaf5e769a4c4669679a6cfca37a716ca3f54e278b39233620381d071",
+    "scripts/generate-loss-functions-lesson.mjs": "2dcb1209793fc02789545979441bcad42c2d9e6a5a9de9fe43a0f0e6efe2736e",
+    "scripts/generate-normalization-lesson.mjs": "a60186e866527fbddac1d9abcc91fe9281e42dc39a303a909cd91d94625857e2",
+    "scripts/lib/prepared-lesson-renderer.mjs": "36f0866b73c87cda5c50bff412bb7f26055191dcc847f5644f7f7e7fb4321721",
+    "src/learn/components/lesson-labs/NeuralProgram.jsx": "3ae87a755ff3e31a0a8d3ce506d40adc5637936d8c0ae2ff5f443fc11bd17290",
+    "src/learn/data/loss-functions-program.js": "f5e0a6437de187885733dfce8e0afed1c888f7a5b844e0e08c35485657b8a9e2",
+    "src/learn/data/normalization-program.js": "b091ce1a53911457e8f9808acd95362a3c0ef80bc97fa7ac2b2a17274a78386e"
+  },
+  "evidenceHashes": {
+    "docs/teaching/evidence/loss-normalization-models.json": "ba9116cc6a68454f1d91a6945933ca1f199a6a988f72389c3c53c2bcfb662fcc",
+    "docs/teaching/evidence/loss-normalization-independent-probes.json": "f05187a937d135ecc5b1e08f2ef9bd33cd19d7fc2c054ea15019b2670805d1f7",
+    "docs/teaching/evidence/loss-independent-browser-closure.json": "fd73864da535e5b40f81044374f5487eb7e5be3c7e11e34a9610cf6a97a6d1b2",
+    "docs/teaching/evidence/normalization-independent-visual-closure.json": "1ecfaa42026c6518633b3750a695a75de5cf0174f0109d1c42c6e491da96f599"
+  },
+  "deferredProgramReview": {
+    "component": "NeuralProgram.jsx",
+    "checks": [
+      "Dynamic imports are called only while the native details disclosure is open; CodeBlock mounts only while open",
+      "Pending import callbacks are cancelled on close/unmount, with local error/retry presentation",
+      "The keyed topic content boundary remounts the program view across lesson navigation",
+      "Both deferred complete program strings exactly equal their downloadable Python file after CRLF normalization",
+      "Full generated JSX and all 258 KaTeX strings rechecked after generator change"
+    ],
+    "productionFollowup": "Root verifies deferred fetch/open/close and downloads in the final built preview"
+  }
+}

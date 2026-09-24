@@ -1,0 +1,14 @@
+def capacity_value(items, capacity, reusable=False):
+    if capacity < 0 or any(weight <= 0 for weight, value in items):
+        raise ValueError("Use nonnegative capacity and positive integer weights")
+    best = [0] * (capacity + 1)
+    for weight, value in items:
+        budgets = range(weight, capacity + 1) if reusable else range(capacity, weight - 1, -1)
+        for budget in budgets:
+            best[budget] = max(best[budget], value + best[budget - weight])
+    return best[capacity]
+
+items = [(2, 3), (3, 4)]
+print("once:", capacity_value(items, 6))
+print("reusable:", capacity_value(items, 6, True))
+print("one item, once/reusable:", capacity_value([(2, 3)], 4), capacity_value([(2, 3)], 4, True))

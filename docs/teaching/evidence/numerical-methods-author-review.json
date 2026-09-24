@@ -1,0 +1,6004 @@
+{
+  "topicId": "numerical-methods-finite-differences-quadrature-root-finding",
+  "modulePosition": 38,
+  "authorFreezeAt": "2026-09-10T22:03:51.669228+00:00",
+  "status": "author-frozen; independent review and parent integration are separate",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/numerical-methods-finite-differences-quadrature-root-finding.jsx",
+      "sha256": "c0d48598bbe6ff2b0f5485ff0f62223008523aaebacca29822ef905c84b6827f",
+      "bytes": 41853,
+      "modifiedAt": "2026-09-10T21:54:03.255144+00:00"
+    },
+    {
+      "path": "src/learn/data/numerical-methods-models.js",
+      "sha256": "dca00e3fa7ef697977bc019123ff2d901f3a7a765bc6ef52b0bbb3a5014dad99",
+      "bytes": 13071,
+      "modifiedAt": "2026-09-10T21:54:03.370328+00:00"
+    },
+    {
+      "path": "src/learn/data/numerical-methods-examples.js",
+      "sha256": "55e0867bf1992e91025d31fdac5af09fdbc5b59ed7fc58aefd3aaf353fdf7d17",
+      "bytes": 24210,
+      "modifiedAt": "2026-09-10T21:54:02.907343+00:00"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx",
+      "sha256": "149b4c48ddadac9d04c2db6db2f4a57a19bc15ce44903a7ffcc4b8914fce44a9",
+      "bytes": 23724,
+      "modifiedAt": "2026-09-10T21:54:03.318280+00:00"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/numerical-methods-labs.css",
+      "sha256": "79f6ed9d0e81fc9b5350a1b77d54fa6358a223a67c0efc4fd1d81a5af83c3e0f",
+      "bytes": 3785,
+      "modifiedAt": "2026-09-10T21:54:03.395505+00:00"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/numerical-methods-finite-differences-quadrature-root-finding.js",
+      "sha256": "797ddfbe1cf8b0c857a59043b4de480e688551531ef8ac7cfa8c459063942ae9",
+      "bytes": 4597,
+      "modifiedAt": "2026-09-10T21:54:03.383461+00:00"
+    }
+  ],
+  "verificationScripts": [
+    {
+      "path": "scripts/generate-numerical-methods-examples.py",
+      "sha256": "98a19ef1d7ef2b1f59b1c786bde12c93d1178b493787d19afdb5e9c823410c13",
+      "bytes": 19557,
+      "modifiedAt": "2026-09-10T21:53:49.879296+00:00"
+    },
+    {
+      "path": "scripts/format-numerical-methods-source.cjs",
+      "sha256": "add792d05a3ddb2cfdc10e92fdfb09b2aa093d781f776877e7fa1af70b0dd06f",
+      "bytes": 2487,
+      "modifiedAt": "2026-09-10T21:40:40.513389+00:00"
+    },
+    {
+      "path": "scripts/verify-numerical-methods-models.mjs",
+      "sha256": "18a018592c182379fef46b706c71c8ac4a09363f7514c69c97ff898ee885e920",
+      "bytes": 5126,
+      "modifiedAt": "2026-09-10T21:37:34.634989+00:00"
+    },
+    {
+      "path": "scripts/verify-numerical-methods-native.py",
+      "sha256": "6f408d08b9a46682e72a1260045eca1e066ee6194d18e5e3d3a308ea1f2bcf1b",
+      "bytes": 8371,
+      "modifiedAt": "2026-09-10T21:53:58.616454+00:00"
+    },
+    {
+      "path": "scripts/review-numerical-methods.cjs",
+      "sha256": "84b54671f769b94f93e020e363c7f063c40e8b48b4674ce8e287fb0a22e62f75",
+      "bytes": 13216,
+      "modifiedAt": "2026-09-10T21:40:44.084066+00:00"
+    },
+    {
+      "path": "scripts/review-numerical-methods-reading.cjs",
+      "sha256": "874e06187b71df699e2057616bcf5562093b5298a8a5c03c6af6ba3e5284d435",
+      "bytes": 6351,
+      "modifiedAt": "2026-09-10T21:47:08.589970+00:00"
+    },
+    {
+      "path": "scripts/review-numerical-methods-programs.cjs",
+      "sha256": "487c3cf2aa1e1b527b1ff78626517f75b953053746e4a617719823201049e673",
+      "bytes": 3922,
+      "modifiedAt": "2026-09-10T21:55:15.961812+00:00"
+    }
+  ],
+  "design": {
+    "path": "docs/teaching/NUMERICAL-METHODS-LESSON-DESIGN.md",
+    "sha256": "0aa4989a81e19938e3d1a4474ae47f7424c4231a5488884d69726127c97d6c9a",
+    "bytes": 32678,
+    "modifiedAt": "2026-09-10T21:58:36.440432+00:00"
+  },
+  "narrativeRecord": "docs/teaching/NUMERICAL-METHODS-VERIFICATION.md",
+  "preservation": {
+    "archive": {
+      "path": "docs/teaching/evidence/numerical-methods-original-content.json",
+      "sha256": "66e0d257391885d20a84e63671a9458e712620264df65060c3d88a3e1d5ddcf1",
+      "bytes": 8946,
+      "modifiedAt": "2026-09-10T20:56:59.334374+00:00"
+    },
+    "originalSourceSha256": "01546bccc0729783f7184fb1fa3a9d9ba8e49c701b62e9a01a427e1a3a9604f3",
+    "originalCodeSha256": "9795978d35c5e5b89e8d4ffa5f2f4020f45fd576631dfbce77576a29d0e47a8b",
+    "originalExecutedAt": "2026-09-10T20:56:59Z",
+    "originalStdout": "1.414214\n0.539402 0.540302\n1.896119 2.0\n",
+    "finalConservationPassed": true
+  },
+  "native": {
+    "checkedAt": "2026-09-10T21:54:05.160082+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "actualPrograms": 13,
+    "originalCodeAndOutputConserved": true,
+    "nestedSearchCases": 48,
+    "cases": {
+      "brackets": 18,
+      "newton": 30,
+      "quadrature": 180,
+      "adaptive": 48,
+      "derivatives": 64,
+      "samples": 9,
+      "calibration": 96
+    },
+    "maximumExactQuadratureArithmeticError": 2.842170943040401e-14,
+    "maximumAcceptedAdaptiveFixtureError": 9.469618884175302e-05,
+    "handPracticeAndOscillatorIdentities": "passed",
+    "limits": "Finite tests; estimator acceptance is not a theorem for arbitrary functions. Float bounds do not enclose all arithmetic."
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T21:54:03.397Z",
+    "records": [
+      {
+        "file": "src/learn/data/topics/numerical-methods-finite-differences-quadrature-root-finding.jsx",
+        "normalizedASTConserved": true
+      },
+      {
+        "file": "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx",
+        "normalizedASTConserved": true
+      },
+      {
+        "file": "src/learn/data/numerical-methods-models.js",
+        "normalizedASTConserved": true
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/numerical-methods-finite-differences-quadrature-root-finding.js",
+        "normalizedASTConserved": true
+      },
+      {
+        "file": "src/learn/components/lesson-labs/numerical-methods-labs.css",
+        "normalizedASTConserved": true
+      }
+    ]
+  },
+  "browser": {
+    "fullInteraction": {
+      "checkedAt": "2026-09-10T21:51:52.433Z",
+      "passed": true,
+      "records": [
+        {
+          "width": 1440,
+          "anchors": [
+            "#1-an-answer-and-a-reason-to-trust-it",
+            "#2-keep-a-root-inside-an-interval",
+            "#3-follow-a-tangent-with-a-safeguard",
+            "#4-estimate-a-derivative-without-losing-the-signal",
+            "#5-turn-local-shapes-into-total-area",
+            "#6-refine-where-the-function-needs-attention",
+            "#7-choose-nodes-and-compose-error-budgets",
+            "#8-transfer-the-error-discipline",
+            "#9-practise-with-changed-problems",
+            "#10-next-connections-and-learning-resources"
+          ],
+          "states": [
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 0
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 1
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 2
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 3
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 4
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 5
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 6
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 7
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 8
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 0
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 1
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 2
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 3
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 4
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 5
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 6
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 7
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 8
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "16"
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 8
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "128",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "128",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "128",
+              "candidate": 4
+            }
+          ],
+          "captures": [
+            "ordinary-intro-1440.png",
+            "ordinary-section-1-1440.png",
+            "ordinary-section-2-1440.png",
+            "ordinary-section-3-1440.png",
+            "ordinary-section-4-1440.png",
+            "ordinary-section-5-1440.png",
+            "ordinary-section-6-1440.png",
+            "ordinary-section-7-1440.png",
+            "ordinary-section-8-1440.png",
+            "ordinary-section-9-1440.png",
+            "ordinary-section-10-1440.png",
+            "inline-pump-1440.png",
+            "numerical-bracket-initial-1440.png",
+            "numerical-newton-initial-1440.png",
+            "numerical-difference-initial-1440.png",
+            "numerical-quadrature-initial-1440.png",
+            "numerical-adaptive-initial-1440.png",
+            "numerical-calibration-initial-1440.png",
+            "newton-cycle-1440.png",
+            "difference-small-spacing-1440.png",
+            "adaptive-blind-1440.png",
+            "calibration-unresolved-1440.png",
+            "first-program-1440.png",
+            "first-output-1440.png",
+            "changed-practice-1440.png",
+            "sources-1440.png"
+          ],
+          "programs": [
+            "Three approximations, three references",
+            "A bracket with explicit stopping states",
+            "A cycle and a safeguarded escape",
+            "Watch actual arithmetic, not an ideal error curve",
+            "Derive a boundary stencil and check a direction",
+            "Weights are areas of local interpolants",
+            "An adaptive estimator with a finite budget",
+            "A smooth function that initial samples cannot see",
+            "Choose two nodes by matching moments",
+            "Translate volume error into time error",
+            "Residuals and time steps need a scale",
+            "Accepted changed calibration check"
+          ],
+          "geometry": [
+            {
+              "type": "equation",
+              "scroll": 760,
+              "width": 760
+            },
+            {
+              "type": "equation",
+              "scroll": 760,
+              "width": 760
+            },
+            {
+              "type": "equation",
+              "scroll": 760,
+              "width": 760
+            },
+            {
+              "type": "equation",
+              "scroll": 760,
+              "width": 760
+            },
+            {
+              "type": "equation",
+              "scroll": 760,
+              "width": 760
+            },
+            {
+              "type": "equation",
+              "scroll": 760,
+              "width": 760
+            },
+            {
+              "type": "equation",
+              "scroll": 760,
+              "width": 760
+            },
+            {
+              "type": "equation",
+              "scroll": 760,
+              "width": 760
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            }
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        {
+          "width": 390,
+          "anchors": [
+            "#1-an-answer-and-a-reason-to-trust-it",
+            "#2-keep-a-root-inside-an-interval",
+            "#3-follow-a-tangent-with-a-safeguard",
+            "#4-estimate-a-derivative-without-losing-the-signal",
+            "#5-turn-local-shapes-into-total-area",
+            "#6-refine-where-the-function-needs-attention",
+            "#7-choose-nodes-and-compose-error-budgets",
+            "#8-transfer-the-error-discipline",
+            "#9-practise-with-changed-problems",
+            "#10-next-connections-and-learning-resources"
+          ],
+          "states": [
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 0
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 1
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 2
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 3
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 4
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 5
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 6
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 7
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 8
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 0
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 1
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 2
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 3
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 4
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 5
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 6
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 7
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 8
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "16"
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 8
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "128",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "128",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "128",
+              "candidate": 4
+            }
+          ],
+          "captures": [
+            "ordinary-intro-390.png",
+            "ordinary-section-1-390.png",
+            "ordinary-section-2-390.png",
+            "ordinary-section-3-390.png",
+            "ordinary-section-4-390.png",
+            "ordinary-section-5-390.png",
+            "ordinary-section-6-390.png",
+            "ordinary-section-7-390.png",
+            "ordinary-section-8-390.png",
+            "ordinary-section-9-390.png",
+            "ordinary-section-10-390.png",
+            "inline-pump-390.png",
+            "numerical-bracket-initial-390.png",
+            "numerical-newton-initial-390.png",
+            "numerical-difference-initial-390.png",
+            "numerical-quadrature-initial-390.png",
+            "numerical-adaptive-initial-390.png",
+            "numerical-calibration-initial-390.png",
+            "newton-cycle-390.png",
+            "difference-small-spacing-390.png",
+            "adaptive-blind-390.png",
+            "calibration-unresolved-390.png",
+            "first-program-390.png",
+            "first-output-390.png",
+            "changed-practice-390.png",
+            "sources-390.png"
+          ],
+          "programs": [
+            "Three approximations, three references",
+            "A bracket with explicit stopping states",
+            "A cycle and a safeguarded escape",
+            "Watch actual arithmetic, not an ideal error curve",
+            "Derive a boundary stencil and check a direction",
+            "Weights are areas of local interpolants",
+            "An adaptive estimator with a finite budget",
+            "A smooth function that initial samples cannot see",
+            "Choose two nodes by matching moments",
+            "Translate volume error into time error",
+            "Residuals and time steps need a scale",
+            "Accepted changed calibration check"
+          ],
+          "geometry": [
+            {
+              "type": "equation",
+              "scroll": 350,
+              "width": 350
+            },
+            {
+              "type": "equation",
+              "scroll": 350,
+              "width": 350
+            },
+            {
+              "type": "equation",
+              "scroll": 350,
+              "width": 350
+            },
+            {
+              "type": "equation",
+              "scroll": 350,
+              "width": 350
+            },
+            {
+              "type": "equation",
+              "scroll": 350,
+              "width": 350
+            },
+            {
+              "type": "equation",
+              "scroll": 350,
+              "width": 350
+            },
+            {
+              "type": "equation",
+              "scroll": 350,
+              "width": 350
+            },
+            {
+              "type": "equation",
+              "scroll": 350,
+              "width": 350
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            }
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        {
+          "width": 320,
+          "anchors": [
+            "#1-an-answer-and-a-reason-to-trust-it",
+            "#2-keep-a-root-inside-an-interval",
+            "#3-follow-a-tangent-with-a-safeguard",
+            "#4-estimate-a-derivative-without-losing-the-signal",
+            "#5-turn-local-shapes-into-total-area",
+            "#6-refine-where-the-function-needs-attention",
+            "#7-choose-nodes-and-compose-error-budgets",
+            "#8-transfer-the-error-discipline",
+            "#9-practise-with-changed-problems",
+            "#10-next-connections-and-learning-resources"
+          ],
+          "states": [
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 0
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 1
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 2
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 3
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 4
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 5
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 6
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 7
+            },
+            {
+              "lab": "bracket",
+              "key": "square",
+              "index": 8
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 0
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 1
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 2
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 3
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 4
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 5
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 6
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 7
+            },
+            {
+              "lab": "bracket",
+              "key": "cycle",
+              "index": 8
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "plain",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "cycle",
+              "method": "safe",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "square",
+              "method": "safe",
+              "index": 7
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 0
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 1
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 2
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 3
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 4
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 5
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 6
+            },
+            {
+              "lab": "newton",
+              "key": "repeated",
+              "method": "plain",
+              "index": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "central",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "forward",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "boundary",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "0",
+              "exponent": 16
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 1
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 2
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 3
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 4
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 5
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 6
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 7
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 8
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 9
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 10
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 11
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 12
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 13
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 14
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 15
+            },
+            {
+              "lab": "difference",
+              "stencil": "second",
+              "offset": "100000000",
+              "exponent": 16
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "trapezoid",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "polynomial",
+              "method": "simpson",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "trapezoid",
+              "panels": "16"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "2"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "4"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "8"
+            },
+            {
+              "lab": "quadrature",
+              "key": "sine",
+              "method": "simpson",
+              "panels": "16"
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.0001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "peak",
+              "tolerance": "0.00000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.0001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.000001",
+              "depth": 8
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 1
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 2
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 3
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 4
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 5
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 6
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 7
+            },
+            {
+              "lab": "adaptive",
+              "key": "blind",
+              "tolerance": "0.00000001",
+              "depth": 8
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".7",
+              "panels": "128",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".8",
+              "panels": "128",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "8",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "8",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "32",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "32",
+              "candidate": 4
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "128",
+              "candidate": 2
+            },
+            {
+              "lab": "calibration",
+              "target": ".85",
+              "panels": "128",
+              "candidate": 4
+            }
+          ],
+          "captures": [
+            "ordinary-intro-320.png",
+            "ordinary-section-1-320.png",
+            "ordinary-section-2-320.png",
+            "ordinary-section-3-320.png",
+            "ordinary-section-4-320.png",
+            "ordinary-section-5-320.png",
+            "ordinary-section-6-320.png",
+            "ordinary-section-7-320.png",
+            "ordinary-section-8-320.png",
+            "ordinary-section-9-320.png",
+            "ordinary-section-10-320.png",
+            "inline-pump-320.png",
+            "numerical-bracket-initial-320.png",
+            "numerical-newton-initial-320.png",
+            "numerical-difference-initial-320.png",
+            "numerical-quadrature-initial-320.png",
+            "numerical-adaptive-initial-320.png",
+            "numerical-calibration-initial-320.png",
+            "newton-cycle-320.png",
+            "difference-small-spacing-320.png",
+            "adaptive-blind-320.png",
+            "calibration-unresolved-320.png",
+            "first-program-320.png",
+            "first-output-320.png",
+            "changed-practice-320.png",
+            "sources-320.png"
+          ],
+          "programs": [
+            "Three approximations, three references",
+            "A bracket with explicit stopping states",
+            "A cycle and a safeguarded escape",
+            "Watch actual arithmetic, not an ideal error curve",
+            "Derive a boundary stencil and check a direction",
+            "Weights are areas of local interpolants",
+            "An adaptive estimator with a finite budget",
+            "A smooth function that initial samples cannot see",
+            "Choose two nodes by matching moments",
+            "Translate volume error into time error",
+            "Residuals and time steps need a scale",
+            "Accepted changed calibration check"
+          ],
+          "geometry": [
+            {
+              "type": "equation",
+              "scroll": 280,
+              "width": 280
+            },
+            {
+              "type": "equation",
+              "scroll": 280,
+              "width": 280
+            },
+            {
+              "type": "equation",
+              "scroll": 281,
+              "width": 280
+            },
+            {
+              "type": "equation",
+              "scroll": 280,
+              "width": 280
+            },
+            {
+              "type": "equation",
+              "scroll": 280,
+              "width": 280
+            },
+            {
+              "type": "equation",
+              "scroll": 280,
+              "width": 280
+            },
+            {
+              "type": "equation",
+              "scroll": 280,
+              "width": 280
+            },
+            {
+              "type": "equation",
+              "scroll": 280,
+              "width": 280
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            },
+            {
+              "type": "plot-labels",
+              "clipped": []
+            }
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    "ordinaryReading": {
+      "checkedAt": "2026-09-10T21:52:22.231Z",
+      "passed": true,
+      "records": [
+        {
+          "width": 1440,
+          "captures": [
+            "final-equation-0-1440.png",
+            "final-equation-1-1440.png",
+            "final-equation-2-1440.png",
+            "final-equation-3-1440.png",
+            "final-equation-4-1440.png",
+            "final-equation-5-1440.png",
+            "final-equation-6-1440.png",
+            "final-equation-7-1440.png",
+            "final-plot-0-1440.png",
+            "final-plot-1-1440.png",
+            "final-plot-2-1440.png",
+            "final-plot-3-1440.png",
+            "final-plot-4-1440.png",
+            "final-plot-5-1440.png",
+            "final-plot-6-1440.png",
+            "final-plot-7-1440.png",
+            "final-plot-8-1440.png",
+            "final-lost-derivative-geometry-1440.png",
+            "final-actual-error-plot-1440.png",
+            "final-difference-readout-1440.png",
+            "final-blind-scale-1440.png",
+            "final-blind-readout-1440.png",
+            "final-original-program-1440.png",
+            "final-original-output-1440.png",
+            "final-practice-0-1440.png",
+            "final-practice-5-1440.png",
+            "final-practice-8-1440.png",
+            "final-sources-1440.png"
+          ],
+          "geometry": [
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            }
+          ],
+          "straightTangentClip": true,
+          "blindSamplesScaledCorrectly": true,
+          "external": [
+            {
+              "href": "https://fncbook.com/python/newton/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://fncbook.com/python/fd-converge/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://fncbook.com/python/adaptive/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-12-square-roots-newtons-method/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/d16678659cb7c98d611f12e7c1f7298d_MIT6_006F11_lec12.pdf",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://dlmf.nist.gov/3.4",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://dlmf.nist.gov/3.5",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.newton.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            }
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        {
+          "width": 390,
+          "captures": [
+            "final-equation-0-390.png",
+            "final-equation-1-390.png",
+            "final-equation-2-390.png",
+            "final-equation-3-390.png",
+            "final-equation-4-390.png",
+            "final-equation-5-390.png",
+            "final-equation-6-390.png",
+            "final-equation-7-390.png",
+            "final-plot-0-390.png",
+            "final-plot-1-390.png",
+            "final-plot-2-390.png",
+            "final-plot-3-390.png",
+            "final-plot-4-390.png",
+            "final-plot-5-390.png",
+            "final-plot-6-390.png",
+            "final-plot-7-390.png",
+            "final-plot-8-390.png",
+            "final-lost-derivative-geometry-390.png",
+            "final-actual-error-plot-390.png",
+            "final-difference-readout-390.png",
+            "final-blind-scale-390.png",
+            "final-blind-readout-390.png",
+            "final-original-program-390.png",
+            "final-original-output-390.png",
+            "final-practice-0-390.png",
+            "final-practice-5-390.png",
+            "final-practice-8-390.png",
+            "final-sources-390.png"
+          ],
+          "geometry": [
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            }
+          ],
+          "straightTangentClip": true,
+          "blindSamplesScaledCorrectly": true,
+          "external": [
+            {
+              "href": "https://fncbook.com/python/newton/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://fncbook.com/python/fd-converge/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://fncbook.com/python/adaptive/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-12-square-roots-newtons-method/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/d16678659cb7c98d611f12e7c1f7298d_MIT6_006F11_lec12.pdf",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://dlmf.nist.gov/3.4",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://dlmf.nist.gov/3.5",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.newton.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            }
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        {
+          "width": 320,
+          "captures": [
+            "final-equation-0-320.png",
+            "final-equation-1-320.png",
+            "final-equation-2-320.png",
+            "final-equation-3-320.png",
+            "final-equation-4-320.png",
+            "final-equation-5-320.png",
+            "final-equation-6-320.png",
+            "final-equation-7-320.png",
+            "final-plot-0-320.png",
+            "final-plot-1-320.png",
+            "final-plot-2-320.png",
+            "final-plot-3-320.png",
+            "final-plot-4-320.png",
+            "final-plot-5-320.png",
+            "final-plot-6-320.png",
+            "final-plot-7-320.png",
+            "final-plot-8-320.png",
+            "final-lost-derivative-geometry-320.png",
+            "final-actual-error-plot-320.png",
+            "final-difference-readout-320.png",
+            "final-blind-scale-320.png",
+            "final-blind-readout-320.png",
+            "final-original-program-320.png",
+            "final-original-output-320.png",
+            "final-practice-0-320.png",
+            "final-practice-5-320.png",
+            "final-practice-8-320.png",
+            "final-sources-320.png"
+          ],
+          "geometry": [
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 281
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            }
+          ],
+          "straightTangentClip": true,
+          "blindSamplesScaledCorrectly": true,
+          "external": [
+            {
+              "href": "https://fncbook.com/python/newton/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://fncbook.com/python/fd-converge/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://fncbook.com/python/adaptive/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-12-square-roots-newtons-method/",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/d16678659cb7c98d611f12e7c1f7298d_MIT6_006F11_lec12.pdf",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://dlmf.nist.gov/3.4",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://dlmf.nist.gov/3.5",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.newton.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.simpson.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            },
+            {
+              "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+              "target": "_blank",
+              "rel": "noreferrer"
+            }
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    "finalThirteenPrograms": {
+      "checkedAt": "2026-09-10T21:55:30.691Z",
+      "passed": true,
+      "records": [
+        {
+          "width": 1440,
+          "programs": [
+            "original",
+            "bracket",
+            "newton",
+            "differences",
+            "stencil",
+            "quadrature",
+            "adaptive",
+            "blind",
+            "gaussian",
+            "calibration",
+            "nestedCalibration",
+            "transfer",
+            "changedCalibration"
+          ],
+          "captures": [
+            "final-nested-program-1440.png",
+            "final-nested-output-1440.png",
+            "final-formatted-practice-1440.png"
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        {
+          "width": 390,
+          "programs": [
+            "original",
+            "bracket",
+            "newton",
+            "differences",
+            "stencil",
+            "quadrature",
+            "adaptive",
+            "blind",
+            "gaussian",
+            "calibration",
+            "nestedCalibration",
+            "transfer",
+            "changedCalibration"
+          ],
+          "captures": [
+            "final-nested-program-390.png",
+            "final-nested-output-390.png",
+            "final-formatted-practice-390.png"
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        },
+        {
+          "width": 320,
+          "programs": [
+            "original",
+            "bracket",
+            "newton",
+            "differences",
+            "stencil",
+            "quadrature",
+            "adaptive",
+            "blind",
+            "gaussian",
+            "calibration",
+            "nestedCalibration",
+            "transfer",
+            "changedCalibration"
+          ],
+          "captures": [
+            "final-nested-program-320.png",
+            "final-nested-output-320.png",
+            "final-formatted-practice-320.png"
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size2"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    "sequenceQualification": "The full 264-state-per-viewport interaction and reading checks preceded the addition of nestedCalibration and two explanatory paragraphs. Models, labs and CSS were unchanged by that final addition. The final targeted run verifies all thirteen exact program questions/code/stdout plus the eight equations and page geometry at all three widths.",
+    "runtime": "Local Vite route in headless Microsoft Edge, actual public Google Fonts and KaTeX; 1440, 390, 320 CSS pixel widths.",
+    "openedImages": [
+      {
+        "path": "scratch/numerical-methods-browser/final-plot-0-320.png",
+        "sha256": "82574120ad21f70c81ef4c2ef7c50a640be9a76e25ef343f841e0e17e63a069c",
+        "bytes": 48010,
+        "modifiedAt": "2026-09-10T21:52:16.897662+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-plot-3-320.png",
+        "sha256": "da3228c67632dd81d0d77c03747a73c8bcba00878ebd3e12fc8097854232538f",
+        "bytes": 45119,
+        "modifiedAt": "2026-09-10T21:52:17.665514+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-plot-4-390.png",
+        "sha256": "a4fe219301d8e7b16aab23c88a0fe5fceb402c940125348cdd23a809be97e152",
+        "bytes": 50737,
+        "modifiedAt": "2026-09-10T21:52:08.578856+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-plot-5-320.png",
+        "sha256": "bd8d49601d809245a72d0f6cbaeb10d0994fc5b1149a1bd363da8fa256720c89",
+        "bytes": 52005,
+        "modifiedAt": "2026-09-10T21:52:18.128362+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-plot-6-1440.png",
+        "sha256": "0db569214aef6b4711761d7bd94310f91c71ea71dede349fb91ed4abdd24504f",
+        "bytes": 129127,
+        "modifiedAt": "2026-09-10T21:51:59.614923+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-blind-scale-320.png",
+        "sha256": "1d00954dd268008b44851c4f90089e80efd96306fbfd97dc7bef3570527d2f5e",
+        "bytes": 51928,
+        "modifiedAt": "2026-09-10T21:52:19.960494+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-plot-8-390.png",
+        "sha256": "621c20cb443cdd227f057f01804bedff2af8fa63d240a713923950317094bf4a",
+        "bytes": 66206,
+        "modifiedAt": "2026-09-10T21:52:09.526428+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-nested-output-320.png",
+        "sha256": "ec5ecf4b9b3a01cf169a506e77f0e702fff26e1009c15b686f0585e1f2fedae0",
+        "bytes": 67895,
+        "modifiedAt": "2026-09-10T21:55:30.359816+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-equation-0-320.png",
+        "sha256": "31aa286573291de35a84eb84a056c0e7d87cfbfbf5b515d064227ea449efbc97",
+        "bytes": 64024,
+        "modifiedAt": "2026-09-10T21:52:14.780603+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-equation-2-320.png",
+        "sha256": "fbaedcd6bf109c299be38f07aa2174ab5023b6eb6594397277238dfef4eae40b",
+        "bytes": 65341,
+        "modifiedAt": "2026-09-10T21:52:15.313282+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-equation-4-320.png",
+        "sha256": "5933bf3436275f258abea4f6415951cf9ea2696c3c67c9b79484f24cb2333320",
+        "bytes": 71762,
+        "modifiedAt": "2026-09-10T21:52:15.862745+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-equation-6-320.png",
+        "sha256": "216cad3a3dc43e13674aca316da98330ab6f2b30d8bfae5330ae4fa9075b0082",
+        "bytes": 63095,
+        "modifiedAt": "2026-09-10T21:52:16.361708+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-formatted-practice-390.png",
+        "sha256": "d8b6679deb74d1ff930172ad79785d6c56034bbfaa928230f1d8e07a6701d5ae",
+        "bytes": 75868,
+        "modifiedAt": "2026-09-10T21:55:28.362291+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-nested-program-390.png",
+        "sha256": "0ab62833d7387f0ab8834c5eb088e83eeae550139f5c57e2fd6e867b8c9611a4",
+        "bytes": 65237,
+        "modifiedAt": "2026-09-10T21:55:27.841497+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-original-output-320.png",
+        "sha256": "849be1e18f0e5f668937a55d6778b8160929890fa8069d4294afbd0d15bf8bbe",
+        "bytes": 62579,
+        "modifiedAt": "2026-09-10T21:52:20.695426+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      },
+      {
+        "path": "scratch/numerical-methods-browser/final-sources-320.png",
+        "sha256": "07266dcc7d9011ac1e9ce8f4ee3affd4305df583eb3462c5b64eba78b179b52d",
+        "bytes": 83142,
+        "modifiedAt": "2026-09-10T21:52:22.147941+00:00",
+        "review": "Actually opened with view_image and visually inspected after the final file generation, not inferred from geometry tests."
+      }
+    ]
+  },
+  "visualContracts": [
+    "calculated rate and integral panels with litres/minutes",
+    "root brackets and midpoint radius",
+    "straight clipped Newton tangents and actual cycle",
+    "stencil sample values, local line/parabola and actual logarithmic error sweep",
+    "shaded interpolation areas and quadrature weights",
+    "actual adaptive interval/budget partitions plus explicitly scaled blind spot",
+    "conditional integral discrepancy to time uncertainty"
+  ],
+  "practice": "Ten changed-input tasks with optional hints and explained solutions, including one actual accepted changed Python output; no universal mastery guarantee.",
+  "sourceReviewScope": "Primary written sections and API pages plus the official MIT Newton video page and its first three note pages were inspected. No full-video or timestamp-specific viewing is claimed. Exact URLs and scope are in the design and annotated lesson references.",
+  "developmentFindings": [
+    {
+      "finding": "Independent one-sided stencil oracle initially used a wrong trigonometric rearrangement.",
+      "resolution": "Re-derived the equivalent expression with both contributions; retained the original implementation and corrected oracle. Final native suite passes."
+    },
+    {
+      "finding": "Five display equations initially exceeded 320-pixel content width.",
+      "resolution": "Equivalent shorter lines and locally defined quantities; final eight equations fit all tested widths."
+    },
+    {
+      "finding": "Read-only browser assertion attempted HTMLElement innerText on an SVG.",
+      "resolution": "Harness now reads textContent; no production change for this test API error."
+    },
+    {
+      "finding": "Reading review identified truncated Newton geometry, insufficient tiny blind-spot height and error-axis clipping.",
+      "resolution": "Straight tangent is SVG-clipped, blind vertical scale explicitly marked, actual derivative sweep sets its complete scale, and all final figures were opened."
+    }
+  ],
+  "destinationNotes": [
+    "docs/teaching/topic-notes/numerical-methods-finite-differences-quadrature-root-finding.md",
+    "docs/teaching/topic-notes/backpropagation-automatic-differentiation.md"
+  ],
+  "limitations": [
+    "Author-performed independent mathematical/runtime oracles are distinct from a separate reviewer.",
+    "Mathematical discretization bounds rely on stated smoothness and evaluation assumptions, not outward-rounded interval arithmetic.",
+    "Finite accepted adaptive tests do not make its estimator a universal bound.",
+    "Long source and precise tables intentionally retain horizontal scrolling.",
+    "No integrated production build, performance audit, external source availability guarantee or user acceptance is claimed by this author record."
+  ]
+}

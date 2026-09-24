@@ -1,0 +1,45 @@
+.convex-lab, .convex-inline { --convex-gold: #f1c466; --convex-blue: #83bbef; --convex-green: #83d2ad; --convex-red: #f19c99; }
+.convex-lab h3 { margin: 0 0 12px; }
+.convex-lab p, .convex-inline p { line-height: 1.65; }
+.convex-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 16px; margin: 20px 0; }
+.convex-field { display: flex; flex: 1 1 210px; min-width: 0; flex-direction: column; gap: 8px; }
+.convex-field label { font-size: 13px; color: #d6d8de; line-height: 1.5; }
+.convex-field select { width: 100%; min-width: 0; max-width: 100%; padding: 9px; background: #10151c; border: 1px solid #596171; border-radius: 4px; color: #edeef2; font: inherit; font-size: 13px; }
+.convex-field input[type="range"] { width: 100%; min-width: 0; min-height: 28px; accent-color: var(--convex-gold); }
+.convex-lab button { min-height: 40px; padding: 8px 13px; color: #f1d59d; background: #141a22; border: 1px solid #70634c; border-radius: 4px; cursor: pointer; white-space: normal; }
+.convex-lab button:disabled { opacity: 0.45; cursor: default; }
+.convex-lab :is(button, select, input, summary):focus-visible { outline: 2px solid var(--convex-gold); outline-offset: 4px; }
+.convex-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+.convex-graph { display: block; width: 100%; max-width: 520px; height: auto; margin: 12px auto; overflow: visible; }
+.convex-lab .convex-graph text, .convex-inline .convex-graph text { fill: #cbd2de; font: 16px system-ui, sans-serif; }
+.convex-graph :is(polyline, path, line, polygon, ellipse, circle) { vector-effect: non-scaling-stroke; }
+.convex-grid { stroke: #303946; stroke-width: 0.7; }
+.convex-axis { stroke: #8d97a6; stroke-width: 1; }
+.convex-curve { fill: none; stroke: var(--convex-gold); stroke-width: 2.3; }
+.convex-chord { fill: none; stroke: var(--convex-blue); stroke-width: 1.8; }
+.convex-support { fill: none; stroke: var(--convex-green); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.convex-contour { fill: none; stroke: #719dca; stroke-width: 1; opacity: 0.8; }
+.convex-region { fill: #47799d30; stroke: #8abcea; stroke-width: 1.2; }
+.convex-hole { fill: #0c1016; stroke: var(--convex-red); stroke-width: 1.2; }
+.convex-endpoint { fill: var(--convex-blue); stroke: #0a1018; stroke-width: 1; }
+.convex-current { fill: var(--convex-gold); stroke: #15191f; stroke-width: 1.5; }
+.convex-target { fill: none; stroke: var(--convex-blue); stroke-width: 2; }
+.convex-optimum, .convex-gap { fill: none; stroke: var(--convex-green); stroke-width: 2; }
+.convex-invalid { fill: none; stroke: var(--convex-red); stroke-width: 2; }
+.convex-bad-point { fill: var(--convex-red); stroke: #15191f; stroke-width: 1.5; }
+.convex-readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(185px, 100%), 1fr)); gap: 14px 20px; margin: 20px 0; }
+.convex-readout > div { min-width: 0; border-top: 1px solid #39404c; padding-top: 8px; }
+.convex-readout dt { color: #bcc4cf; font-size: 12px; line-height: 1.5; }
+.convex-readout dd { margin: 6px 0 0; font-size: 15px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; color: #f3ddb2; }
+.convex-legend { font-size: 13px; color: #d3d6de; }
+.convex-inline { margin: 28px 0; padding: 18px 0; border-top: 1px solid #343a44; border-bottom: 1px solid #343a44; }
+.convex-inline figcaption { line-height: 1.5; font-weight: 600; color: #e5e8ee; }
+.convex-inline p { font-size: 14px; }
+.convex-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.convex-table-wrap { width: 100%; overflow-x: auto; margin: 15px 0; }
+.convex-table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.convex-table-wrap :is(td, th) { text-align: left; padding: 10px 8px; border-bottom: 1px solid #3c4350; }
+.convex-table-wrap caption { text-align: left; line-height: 1.5; margin-bottom: 10px; }
+.convex-lab details { border-top: 1px solid #3c4350; padding-top: 12px; }
+.convex-lab summary { cursor: pointer; line-height: 1.6; }
+@media (max-width: 640px) { .convex-pair { grid-template-columns: 1fr; } .convex-controls { gap: 13px; } .convex-field { flex-basis: 100%; } }

@@ -1,0 +1,76 @@
+{
+  "checkedAt": "2026-09-14T22:59:58.743037+00:00",
+  "mode": "read-only",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "sklearn": "1.9.1"
+  },
+  "datasetSha256": "74c75fd71783f1e6b71f8a622b993dc592897a97cd689c5090a07147a1b097b3",
+  "packetCalculatedInputsSha256": "eac92529128d58691b4c771d47fdb8ac0be2097ca817359092f23e5718f3888e",
+  "trustRootChecks": 21993,
+  "datasetBytes": 59984,
+  "servedCopy": "public/learn-assets/bias-variance/airfoil-self-noise.dat",
+  "servedMatchesPacket": true,
+  "rows": 1503,
+  "split": {
+    "development": 1200,
+    "reserved": 303
+  },
+  "fits": {
+    "learningCurve": 100,
+    "learningCurveLibraryRepeat": 100,
+    "validationCurve": 30,
+    "validationCurveLibraryRepeat": 30,
+    "boosting": 1
+  },
+  "warnings": [],
+  "statedValidationTable": {
+    "60": [
+      45.4545,
+      24.9831,
+      41.8405,
+      39.9286
+    ],
+    "120": [
+      45.081,
+      23.8044,
+      24.4041,
+      32.3389
+    ],
+    "240": [
+      45.2469,
+      23.6478,
+      20.1754,
+      28.1945
+    ],
+    "480": [
+      45.2065,
+      23.4994,
+      13.7464,
+      21.6109
+    ],
+    "900": [
+      45.222,
+      23.372,
+      8.1412,
+      16.6298
+    ]
+  },
+  "crossoverSize": 240,
+  "restrictionHelpsAt": [
+    60
+  ],
+  "bestInspectedBoostingRound": 120,
+  "leafOneTrainingExactlyZero": true,
+  "reservedPredictionsComputed": false,
+  "moduleSha256": "f6e4a912ab961c03c633aaef9a5ba645774c8cabf5fe22169e5be109ef9a3a82",
+  "verifierSha256": "b1b478dd8a27a988f0430eff1dfa5e6cf7b73b92cb9f5b6ac1c03d9dd5c09fb0",
+  "scope": "Recomputed the 100-fit learning curve, the 30-fit validation curve and the 120-round boosting trajectory from the served tab-separated .dat using an independent implementation of the protocol, repeated them through scikit-learn's learning_curve and validation_curve, matched both against the content packet's calculated-inputs.json and against every value the manuscript prints, then checked that a fresh regeneration of src/learn/data/bias-variance-data.js is byte-identical. Also re-derived the packet's own trust root \u2014 every value of its finiteExperiments and doubleDescentApproximation blocks, which verify-bias-variance-models.mjs consumes as ground truth \u2014 from the recorded settings alone, through normal equations rather than the author script's lstsq, and recorded that file's hash.",
+  "limitations": [
+    "One row-level split of one collection; related experimental settings are not independent runs.",
+    "Development results only; no reserved row was predicted or scored.",
+    "Numerical fitting can differ on other library versions."
+  ],
+  "passed": true
+}

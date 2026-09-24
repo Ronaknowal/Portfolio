@@ -1,0 +1,2043 @@
+{
+  "topicId": "differential-geometry-riemannian-manifolds",
+  "modulePosition": 42,
+  "status": "author-verified; independent and production integration remain parent-owned",
+  "frozenAt": "2026-09-11T00:01:01.517702+00:00",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx",
+      "sha256": "0ff1f1983ec08941fea6d890c07ad8915a1b16aba81a99570a25d108f1ccd586"
+    },
+    {
+      "path": "src/learn/data/differential-geometry-models.js",
+      "sha256": "7d3118253a653ba4fc5d48fe1daae10a673e77ca346516414c918dd534eebd8f"
+    },
+    {
+      "path": "src/learn/data/differential-geometry-examples.js",
+      "sha256": "a4f5b8082c8f5cb60b8c59bc2a9b41b4a44e58119334640153f01c6bb2d3f866"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx",
+      "sha256": "08406fb8fe003d769c523c18cc079ee289121ac8b27dec32fec30ff309044c0a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/differential-geometry-labs.css",
+      "sha256": "fc11abfc545b289b3032445db4b331633c2d115b5751908e43f6474cb8433974"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/differential-geometry-riemannian-manifolds.js",
+      "sha256": "70d6ec5e1c39f00e2e5c2ac43b27264724cf67b7946dc12d7fdafef8fed35b71"
+    }
+  ],
+  "original": {
+    "at": "2026-09-10T22:47:11.039992+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "actualStdout": "(0.0, 2.0)\n(0.981, -0.196)\n1.571\n",
+    "matchesDisplayedOutput": true,
+    "codeSha256": "b53c4fdffc926de58a435f7484c6be688fb14d2fe3bc5391a8b6b1f7ce9ff7c4"
+  },
+  "originalSourceSha256": "4f9a22535e04bf93314583373a2dcde737579ea8a54e5af2426b4bc3ed07989c",
+  "design": "docs/teaching/DIFFERENTIAL-GEOMETRY-LESSON-DESIGN.md",
+  "verification": "docs/teaching/DIFFERENTIAL-GEOMETRY-VERIFICATION.md",
+  "resolvedNote": "docs/teaching/topic-notes/differential-geometry-riemannian-manifolds.md",
+  "model": {
+    "checkedAt": "2026-09-10T23:43:05.052689+00:00",
+    "passed": true,
+    "comparisons": 44059,
+    "maximumAbsoluteDiscrepancy": 7.11958183184748e-11,
+    "fixtureCounts": {
+      "charts": 73,
+      "metrics": 100,
+      "patches": 108,
+      "maps": 40,
+      "steps": 35,
+      "polar": 28,
+      "transport": 144,
+      "curvature": 20,
+      "covariance": 15
+    },
+    "transportODECases": 144,
+    "symbolicCurvature": [
+      {
+        "kind": "plane",
+        "curvature": "0"
+      },
+      {
+        "kind": "cylinder",
+        "curvature": "0"
+      },
+      {
+        "kind": "sphere",
+        "curvature": "R**(-2)"
+      },
+      {
+        "kind": "hyperbolic",
+        "curvature": "-1/R**2"
+      }
+    ],
+    "invalidInputs": 21,
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "sympy": "1.14.0",
+      "mpmath": "1.3.0"
+    },
+    "modelSha256": "7d3118253a653ba4fc5d48fe1daae10a673e77ca346516414c918dd534eebd8f"
+  },
+  "native": {
+    "checkedAt": "2026-09-10T23:52:31.817815+00:00",
+    "passed": true,
+    "programs": 14,
+    "preservedOriginal": true,
+    "comparisons": 3461,
+    "maximumAbsoluteDiscrepancy": 7.932568824031705e-08,
+    "sphereMapCases": 96,
+    "transportODECases": 20,
+    "noncommutingSPDPaths": 72,
+    "optimizationCases": 30,
+    "optimizationStatuses": {
+      "stationary": 30
+    },
+    "gradientStepChecks": 90,
+    "symbolicCurvatureVariants": 4,
+    "changedLaplacianEigenfunctions": 2,
+    "changedPractice": 11,
+    "practiceAnswers": [
+      "315-degree chart and tangent",
+      "radius-three tangent projection",
+      "changed shear and metric",
+      "latitude and band area",
+      "long Exp versus shortest Log",
+      "changed polar cancellation",
+      "radius-two 60-degree loop and reverse",
+      "new warped curvature",
+      "different covariance midpoint",
+      "finite Fisher boundary",
+      "changed maximum and mixed optimizer starts checked above"
+    ],
+    "rejected": 12,
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "examplesSha256": "a4f5b8082c8f5cb60b8c59bc2a9b41b4a44e58119334640153f01c6bb2d3f866"
+  },
+  "browserBehavior": {
+    "checkedAt": "2026-09-10T23:45:15.909Z",
+    "results": [
+      {
+        "width": 1440,
+        "states": 343,
+        "anchors": [
+          {
+            "href": "#1-a-point-is-not-its-coordinates",
+            "exists": true
+          },
+          {
+            "href": "#2-allowed-velocities-and-local-measurement",
+            "exists": true
+          },
+          {
+            "href": "#3-steepest-depends-on-the-metric",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-paths-and-surface-area",
+            "exists": true
+          },
+          {
+            "href": "#5-follow-a-geodesic-or-take-a-valid-step",
+            "exists": true
+          },
+          {
+            "href": "#6-differentiate-a-moving-basis",
+            "exists": true
+          },
+          {
+            "href": "#7-carry-an-arrow-and-detect-curvature",
+            "exists": true
+          },
+          {
+            "href": "#8-choose-geometry-for-an-application",
+            "exists": true
+          },
+          {
+            "href": "#9-complete-a-constrained-optimization",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-the-connections",
+            "exists": true
+          },
+          {
+            "href": "#11-continue-and-choose-another-learning-route",
+            "exists": true
+          }
+        ],
+        "programCount": 14,
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 1440,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}S^2=\\{x\\in\\mathbb R^3:x^\\top x=1\\},\\\\T_xS^2=\\{v:x^\\top v=0\\}.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\frac{d}{dt}f(c(t))\\big|_{t=0}&=df_x(v),\\\\df_x(v)&=\\sum_i(\\partial_i f)v^i.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\\langle v,w\\rangle_q=v^\\top G(q)w,\\\\\\|v\\|_q=\\sqrt{v^\\top G(q)v},\\\\\\cos\\angle(v,w)=\\frac{v^\\top G(q)w}{\\|v\\|_q\\|w\\|_q}.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\text{polar plane:}\\quad ds^2&=dr^2+r^2d\\theta^2,\\\\\\text{round sphere:}\\quad ds^2&=R^2d\\theta^2\\\\&\\quad+R^2\\sin^2\\theta\\,d\\phi^2.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\\langle\\operatorname{grad}f,v\\rangle=df(v),\\\\\\operatorname{grad}f=G^{-1}a.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\operatorname{grad}_{S^2}f(x)=a-(x^\\top a)x."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}L(q)&=\\int_0^T\\sqrt{\\dot q^\\top G(q)\\dot q}\\,dt,\\\\E(q)&=\\frac12\\int_0^T\\dot q^\\top G(q)\\dot q\\,dt.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\\operatorname{Exp}_x(v)=\\cos\\ell\\,x+\\operatorname{sinc}(\\ell)v,\\\\\\operatorname{sinc}(\\ell)=\\sin\\ell/\\ell,\\qquad \\operatorname{sinc}(0)=1.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}(\\nabla_XY)^k&=\\sum_iX^i\\partial_iY^k\\\\&\\quad+\\sum_{i,j}\\Gamma^k_{ij}X^iY^j.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\\frac{dV^k}{dt}+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^iV^j=0,\\\\\\ddot q^k+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^i\\dot q^j=0.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\Gamma^k_{ij}&=\\frac12\\sum_\\ell G^{k\\ell}\\bigl(\\partial_iG_{\\ell j}\\\\&\\qquad+\\partial_jG_{\\ell i}-\\partial_\\ell G_{ij}\\bigr).\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}r'=\\frac t r,\\quad \\theta'=-\\frac b{r^2},\\\\r''=\\frac{b^2}{r^3},\\quad \\theta''=\\frac{2bt}{r^4},\\\\r''-r(\\theta')^2=0,\\\\\\theta''+\\frac{2r'\\theta'}r=0.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}R(X,Y)Z&=\\nabla_X\\nabla_YZ-\\nabla_Y\\nabla_XZ\\\\&\\quad-\\nabla_{[X,Y]}Z.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "K=-\\frac{a''(u)}{a(u)}."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}C=A^{-1/2}BA^{-1/2},\\\\\\gamma(t)=A^{1/2}C^tA^{1/2},\\\\d_{\\rm aff}(A,B)=\\|\\log C\\|_F.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "d_F(p,q)=2\\left|\\arcsin\\sqrt p-\\arcsin\\sqrt q\\right|."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\Delta f&=\\operatorname{div}(\\operatorname{grad}f)\\\\&=\\frac1{\\sqrt g}\\sum_{i,j}\\partial_i\\!\\left(\\sqrt g\\,G^{ij}\\partial_jf\\right).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "Circle position",
+              "height": 44
+            },
+            {
+              "name": "Inspect α seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Inspect β seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset atlas",
+              "height": 46.796875
+            },
+            {
+              "name": "Coordinate shear",
+              "height": 44
+            },
+            {
+              "name": "Physical y-motion cost",
+              "height": 44
+            },
+            {
+              "name": "Chosen direction angle",
+              "height": 44
+            },
+            {
+              "name": "Reset metric",
+              "height": 46.796875
+            },
+            {
+              "name": "Endpoint separation",
+              "height": 44
+            },
+            {
+              "name": "Route fraction",
+              "height": 44
+            },
+            {
+              "name": "Sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Reset paths",
+              "height": 46.796875
+            },
+            {
+              "name": "Starting direction",
+              "height": 44
+            },
+            {
+              "name": "Update step size",
+              "height": 44
+            },
+            {
+              "name": "Reset original update",
+              "height": 46.796875
+            },
+            {
+              "name": "Position along straight path",
+              "height": 44
+            },
+            {
+              "name": "Line height b",
+              "height": 44
+            },
+            {
+              "name": "Reset moving basis",
+              "height": 46.796875
+            },
+            {
+              "name": "Longitude wedge",
+              "height": 44
+            },
+            {
+              "name": "Initial tangent angle",
+              "height": 44
+            },
+            {
+              "name": "Transport progress",
+              "height": 44
+            },
+            {
+              "name": "Transport sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Route: N → A → B → N",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset transport",
+              "height": 46.796875
+            },
+            {
+              "name": "Curvature length scale R",
+              "height": 44
+            },
+            {
+              "name": "Geodesic radius s over R",
+              "height": 44
+            },
+            {
+              "name": "Reset curvature",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 343,
+        "anchors": [
+          {
+            "href": "#1-a-point-is-not-its-coordinates",
+            "exists": true
+          },
+          {
+            "href": "#2-allowed-velocities-and-local-measurement",
+            "exists": true
+          },
+          {
+            "href": "#3-steepest-depends-on-the-metric",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-paths-and-surface-area",
+            "exists": true
+          },
+          {
+            "href": "#5-follow-a-geodesic-or-take-a-valid-step",
+            "exists": true
+          },
+          {
+            "href": "#6-differentiate-a-moving-basis",
+            "exists": true
+          },
+          {
+            "href": "#7-carry-an-arrow-and-detect-curvature",
+            "exists": true
+          },
+          {
+            "href": "#8-choose-geometry-for-an-application",
+            "exists": true
+          },
+          {
+            "href": "#9-complete-a-constrained-optimization",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-the-connections",
+            "exists": true
+          },
+          {
+            "href": "#11-continue-and-choose-another-learning-route",
+            "exists": true
+          }
+        ],
+        "programCount": 14,
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 390,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}S^2=\\{x\\in\\mathbb R^3:x^\\top x=1\\},\\\\T_xS^2=\\{v:x^\\top v=0\\}.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\frac{d}{dt}f(c(t))\\big|_{t=0}&=df_x(v),\\\\df_x(v)&=\\sum_i(\\partial_i f)v^i.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\\langle v,w\\rangle_q=v^\\top G(q)w,\\\\\\|v\\|_q=\\sqrt{v^\\top G(q)v},\\\\\\cos\\angle(v,w)=\\frac{v^\\top G(q)w}{\\|v\\|_q\\|w\\|_q}.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\text{polar plane:}\\quad ds^2&=dr^2+r^2d\\theta^2,\\\\\\text{round sphere:}\\quad ds^2&=R^2d\\theta^2\\\\&\\quad+R^2\\sin^2\\theta\\,d\\phi^2.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\\langle\\operatorname{grad}f,v\\rangle=df(v),\\\\\\operatorname{grad}f=G^{-1}a.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\operatorname{grad}_{S^2}f(x)=a-(x^\\top a)x."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}L(q)&=\\int_0^T\\sqrt{\\dot q^\\top G(q)\\dot q}\\,dt,\\\\E(q)&=\\frac12\\int_0^T\\dot q^\\top G(q)\\dot q\\,dt.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\\operatorname{Exp}_x(v)=\\cos\\ell\\,x+\\operatorname{sinc}(\\ell)v,\\\\\\operatorname{sinc}(\\ell)=\\sin\\ell/\\ell,\\qquad \\operatorname{sinc}(0)=1.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}(\\nabla_XY)^k&=\\sum_iX^i\\partial_iY^k\\\\&\\quad+\\sum_{i,j}\\Gamma^k_{ij}X^iY^j.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\\frac{dV^k}{dt}+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^iV^j=0,\\\\\\ddot q^k+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^i\\dot q^j=0.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\Gamma^k_{ij}&=\\frac12\\sum_\\ell G^{k\\ell}\\bigl(\\partial_iG_{\\ell j}\\\\&\\qquad+\\partial_jG_{\\ell i}-\\partial_\\ell G_{ij}\\bigr).\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}r'=\\frac t r,\\quad \\theta'=-\\frac b{r^2},\\\\r''=\\frac{b^2}{r^3},\\quad \\theta''=\\frac{2bt}{r^4},\\\\r''-r(\\theta')^2=0,\\\\\\theta''+\\frac{2r'\\theta'}r=0.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}R(X,Y)Z&=\\nabla_X\\nabla_YZ-\\nabla_Y\\nabla_XZ\\\\&\\quad-\\nabla_{[X,Y]}Z.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "K=-\\frac{a''(u)}{a(u)}."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}C=A^{-1/2}BA^{-1/2},\\\\\\gamma(t)=A^{1/2}C^tA^{1/2},\\\\d_{\\rm aff}(A,B)=\\|\\log C\\|_F.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "d_F(p,q)=2\\left|\\arcsin\\sqrt p-\\arcsin\\sqrt q\\right|."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\Delta f&=\\operatorname{div}(\\operatorname{grad}f)\\\\&=\\frac1{\\sqrt g}\\sum_{i,j}\\partial_i\\!\\left(\\sqrt g\\,G^{ij}\\partial_jf\\right).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "Circle position",
+              "height": 44
+            },
+            {
+              "name": "Inspect α seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Inspect β seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset atlas",
+              "height": 46.796875
+            },
+            {
+              "name": "Coordinate shear",
+              "height": 44
+            },
+            {
+              "name": "Physical y-motion cost",
+              "height": 44
+            },
+            {
+              "name": "Chosen direction angle",
+              "height": 44
+            },
+            {
+              "name": "Reset metric",
+              "height": 46.796875
+            },
+            {
+              "name": "Endpoint separation",
+              "height": 44
+            },
+            {
+              "name": "Route fraction",
+              "height": 44
+            },
+            {
+              "name": "Sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Reset paths",
+              "height": 46.796875
+            },
+            {
+              "name": "Starting direction",
+              "height": 44
+            },
+            {
+              "name": "Update step size",
+              "height": 44
+            },
+            {
+              "name": "Reset original update",
+              "height": 46.796875
+            },
+            {
+              "name": "Position along straight path",
+              "height": 44
+            },
+            {
+              "name": "Line height b",
+              "height": 44
+            },
+            {
+              "name": "Reset moving basis",
+              "height": 46.796875
+            },
+            {
+              "name": "Longitude wedge",
+              "height": 44
+            },
+            {
+              "name": "Initial tangent angle",
+              "height": 44
+            },
+            {
+              "name": "Transport progress",
+              "height": 44
+            },
+            {
+              "name": "Transport sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Route: N → A → B → N",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset transport",
+              "height": 46.796875
+            },
+            {
+              "name": "Curvature length scale R",
+              "height": 44
+            },
+            {
+              "name": "Geodesic radius s over R",
+              "height": 44
+            },
+            {
+              "name": "Reset curvature",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 343,
+        "anchors": [
+          {
+            "href": "#1-a-point-is-not-its-coordinates",
+            "exists": true
+          },
+          {
+            "href": "#2-allowed-velocities-and-local-measurement",
+            "exists": true
+          },
+          {
+            "href": "#3-steepest-depends-on-the-metric",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-paths-and-surface-area",
+            "exists": true
+          },
+          {
+            "href": "#5-follow-a-geodesic-or-take-a-valid-step",
+            "exists": true
+          },
+          {
+            "href": "#6-differentiate-a-moving-basis",
+            "exists": true
+          },
+          {
+            "href": "#7-carry-an-arrow-and-detect-curvature",
+            "exists": true
+          },
+          {
+            "href": "#8-choose-geometry-for-an-application",
+            "exists": true
+          },
+          {
+            "href": "#9-complete-a-constrained-optimization",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-the-connections",
+            "exists": true
+          },
+          {
+            "href": "#11-continue-and-choose-another-learning-route",
+            "exists": true
+          }
+        ],
+        "programCount": 14,
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 320,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}S^2=\\{x\\in\\mathbb R^3:x^\\top x=1\\},\\\\T_xS^2=\\{v:x^\\top v=0\\}.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\frac{d}{dt}f(c(t))\\big|_{t=0}&=df_x(v),\\\\df_x(v)&=\\sum_i(\\partial_i f)v^i.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\\langle v,w\\rangle_q=v^\\top G(q)w,\\\\\\|v\\|_q=\\sqrt{v^\\top G(q)v},\\\\\\cos\\angle(v,w)=\\frac{v^\\top G(q)w}{\\|v\\|_q\\|w\\|_q}.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 313,
+              "tex": "\\begin{aligned}\\text{polar plane:}\\quad ds^2&=dr^2+r^2d\\theta^2,\\\\\\text{round sphere:}\\quad ds^2&=R^2d\\theta^2\\\\&\\quad+R^2\\sin^2\\theta\\,d\\phi^2.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\\langle\\operatorname{grad}f,v\\rangle=df(v),\\\\\\operatorname{grad}f=G^{-1}a.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\operatorname{grad}_{S^2}f(x)=a-(x^\\top a)x."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}L(q)&=\\int_0^T\\sqrt{\\dot q^\\top G(q)\\dot q}\\,dt,\\\\E(q)&=\\frac12\\int_0^T\\dot q^\\top G(q)\\dot q\\,dt.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 282,
+              "tex": "\\begin{gathered}\\operatorname{Exp}_x(v)=\\cos\\ell\\,x+\\operatorname{sinc}(\\ell)v,\\\\\\operatorname{sinc}(\\ell)=\\sin\\ell/\\ell,\\qquad \\operatorname{sinc}(0)=1.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}(\\nabla_XY)^k&=\\sum_iX^i\\partial_iY^k\\\\&\\quad+\\sum_{i,j}\\Gamma^k_{ij}X^iY^j.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\\frac{dV^k}{dt}+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^iV^j=0,\\\\\\ddot q^k+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^i\\dot q^j=0.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\Gamma^k_{ij}&=\\frac12\\sum_\\ell G^{k\\ell}\\bigl(\\partial_iG_{\\ell j}\\\\&\\qquad+\\partial_jG_{\\ell i}-\\partial_\\ell G_{ij}\\bigr).\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}r'=\\frac t r,\\quad \\theta'=-\\frac b{r^2},\\\\r''=\\frac{b^2}{r^3},\\quad \\theta''=\\frac{2bt}{r^4},\\\\r''-r(\\theta')^2=0,\\\\\\theta''+\\frac{2r'\\theta'}r=0.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 282,
+              "tex": "\\begin{aligned}R(X,Y)Z&=\\nabla_X\\nabla_YZ-\\nabla_Y\\nabla_XZ\\\\&\\quad-\\nabla_{[X,Y]}Z.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "K=-\\frac{a''(u)}{a(u)}."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}C=A^{-1/2}BA^{-1/2},\\\\\\gamma(t)=A^{1/2}C^tA^{1/2},\\\\d_{\\rm aff}(A,B)=\\|\\log C\\|_F.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 303,
+              "tex": "d_F(p,q)=2\\left|\\arcsin\\sqrt p-\\arcsin\\sqrt q\\right|."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\Delta f&=\\operatorname{div}(\\operatorname{grad}f)\\\\&=\\frac1{\\sqrt g}\\sum_{i,j}\\partial_i\\!\\left(\\sqrt g\\,G^{ij}\\partial_jf\\right).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "Circle position",
+              "height": 44
+            },
+            {
+              "name": "Inspect α seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Inspect β seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset atlas",
+              "height": 46.796875
+            },
+            {
+              "name": "Coordinate shear",
+              "height": 44
+            },
+            {
+              "name": "Physical y-motion cost",
+              "height": 44
+            },
+            {
+              "name": "Chosen direction angle",
+              "height": 44
+            },
+            {
+              "name": "Reset metric",
+              "height": 46.796875
+            },
+            {
+              "name": "Endpoint separation",
+              "height": 44
+            },
+            {
+              "name": "Route fraction",
+              "height": 44
+            },
+            {
+              "name": "Sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Reset paths",
+              "height": 46.796875
+            },
+            {
+              "name": "Starting direction",
+              "height": 44
+            },
+            {
+              "name": "Update step size",
+              "height": 44
+            },
+            {
+              "name": "Reset original update",
+              "height": 46.796875
+            },
+            {
+              "name": "Position along straight path",
+              "height": 44
+            },
+            {
+              "name": "Line height b",
+              "height": 44
+            },
+            {
+              "name": "Reset moving basis",
+              "height": 46.796875
+            },
+            {
+              "name": "Longitude wedge",
+              "height": 44
+            },
+            {
+              "name": "Initial tangent angle",
+              "height": 44
+            },
+            {
+              "name": "Transport progress",
+              "height": 44
+            },
+            {
+              "name": "Transport sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Route: N → A → B → N",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset transport",
+              "height": 46.796875
+            },
+            {
+              "name": "Curvature length scale R",
+              "height": 44
+            },
+            {
+              "name": "Geodesic radius s over R",
+              "height": 44
+            },
+            {
+              "name": "Reset curvature",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "browserFinalReading": {
+    "checkedAt": "2026-09-10T23:49:18.948Z",
+    "readingOnly": true,
+    "results": [
+      {
+        "width": 1440,
+        "states": 2,
+        "anchors": [
+          {
+            "href": "#1-a-point-is-not-its-coordinates",
+            "exists": true
+          },
+          {
+            "href": "#2-allowed-velocities-and-local-measurement",
+            "exists": true
+          },
+          {
+            "href": "#3-steepest-depends-on-the-metric",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-paths-and-surface-area",
+            "exists": true
+          },
+          {
+            "href": "#5-follow-a-geodesic-or-take-a-valid-step",
+            "exists": true
+          },
+          {
+            "href": "#6-differentiate-a-moving-basis",
+            "exists": true
+          },
+          {
+            "href": "#7-carry-an-arrow-and-detect-curvature",
+            "exists": true
+          },
+          {
+            "href": "#8-choose-geometry-for-an-application",
+            "exists": true
+          },
+          {
+            "href": "#9-complete-a-constrained-optimization",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-the-connections",
+            "exists": true
+          },
+          {
+            "href": "#11-continue-and-choose-another-learning-route",
+            "exists": true
+          }
+        ],
+        "programCount": 14,
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 1440,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}S^2=\\{x\\in\\mathbb R^3:x^\\top x=1\\},\\\\T_xS^2=\\{v:x^\\top v=0\\}.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\frac{d}{dt}f(c(t))\\big|_{t=0}&=df_x(v),\\\\df_x(v)&=\\sum_i(\\partial_i f)v^i.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\\langle v,w\\rangle_q=v^\\top G(q)w,\\\\\\|v\\|_q=\\sqrt{v^\\top G(q)v},\\\\\\cos\\angle(v,w)=\\frac{v^\\top G(q)w}{\\|v\\|_q\\|w\\|_q}.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}ds_{\\rm plane}^2&=dr^2+r^2d\\theta^2,\\\\ds_{\\rm sphere}^2&=R^2d\\theta^2\\\\&\\quad+R^2\\sin^2\\theta\\,d\\phi^2.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\\langle\\operatorname{grad}f,v\\rangle=df(v),\\\\\\operatorname{grad}f=G^{-1}a.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\operatorname{grad}_{S^2}f(x)=a-(x^\\top a)x."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}L(q)&=\\int_0^T\\sqrt{\\dot q^\\top G(q)\\dot q}\\,dt,\\\\E(q)&=\\frac12\\int_0^T\\dot q^\\top G(q)\\dot q\\,dt.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\operatorname{Exp}_x(v)&=\\cos\\ell\\,x\\\\&\\quad+\\operatorname{sinc}(\\ell)v,\\\\\\operatorname{sinc}(\\ell)&=\\sin\\ell/\\ell,\\\\\\operatorname{sinc}(0)&=1.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}(\\nabla_XY)^k&=\\sum_iX^i\\partial_iY^k\\\\&\\quad+\\sum_{i,j}\\Gamma^k_{ij}X^iY^j.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\\frac{dV^k}{dt}+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^iV^j=0,\\\\\\ddot q^k+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^i\\dot q^j=0.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\Gamma^k_{ij}&=\\frac12\\sum_\\ell G^{k\\ell}\\bigl(\\partial_iG_{\\ell j}\\\\&\\qquad+\\partial_jG_{\\ell i}-\\partial_\\ell G_{ij}\\bigr).\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}r'=\\frac t r,\\quad \\theta'=-\\frac b{r^2},\\\\r''=\\frac{b^2}{r^3},\\quad \\theta''=\\frac{2bt}{r^4},\\\\r''-r(\\theta')^2=0,\\\\\\theta''+\\frac{2r'\\theta'}r=0.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}R(X,Y)Z&=\\nabla_X\\nabla_YZ\\\\&\\quad-\\nabla_Y\\nabla_XZ\\\\&\\quad-\\nabla_{[X,Y]}Z.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "K=-\\frac{a''(u)}{a(u)}."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}C=A^{-1/2}BA^{-1/2},\\\\\\gamma(t)=A^{1/2}C^tA^{1/2},\\\\d_{\\rm aff}(A,B)=\\|\\log C\\|_F.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}u(p)=2\\arcsin\\sqrt p,\\\\d_F(p,q)=|u(p)-u(q)|.\\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\Delta f&=\\operatorname{div}(\\operatorname{grad}f)\\\\&=\\frac1{\\sqrt g}\\sum_{i,j}\\partial_i\\!\\left(\\sqrt g\\,G^{ij}\\partial_jf\\right).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "Circle position",
+              "height": 44
+            },
+            {
+              "name": "Inspect α seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Inspect β seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset atlas",
+              "height": 46.796875
+            },
+            {
+              "name": "Coordinate shear",
+              "height": 44
+            },
+            {
+              "name": "Physical y-motion cost",
+              "height": 44
+            },
+            {
+              "name": "Chosen direction angle",
+              "height": 44
+            },
+            {
+              "name": "Reset metric",
+              "height": 46.796875
+            },
+            {
+              "name": "Endpoint separation",
+              "height": 44
+            },
+            {
+              "name": "Route fraction",
+              "height": 44
+            },
+            {
+              "name": "Sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Reset paths",
+              "height": 46.796875
+            },
+            {
+              "name": "Starting direction",
+              "height": 44
+            },
+            {
+              "name": "Update step size",
+              "height": 44
+            },
+            {
+              "name": "Reset original update",
+              "height": 46.796875
+            },
+            {
+              "name": "Position along straight path",
+              "height": 44
+            },
+            {
+              "name": "Line height b",
+              "height": 44
+            },
+            {
+              "name": "Reset moving basis",
+              "height": 46.796875
+            },
+            {
+              "name": "Longitude wedge",
+              "height": 44
+            },
+            {
+              "name": "Initial tangent angle",
+              "height": 44
+            },
+            {
+              "name": "Transport progress",
+              "height": 44
+            },
+            {
+              "name": "Transport sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Route: N → A → B → N",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset transport",
+              "height": 46.796875
+            },
+            {
+              "name": "Curvature length scale R",
+              "height": 44
+            },
+            {
+              "name": "Geodesic radius s over R",
+              "height": 44
+            },
+            {
+              "name": "Reset curvature",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 2,
+        "anchors": [
+          {
+            "href": "#1-a-point-is-not-its-coordinates",
+            "exists": true
+          },
+          {
+            "href": "#2-allowed-velocities-and-local-measurement",
+            "exists": true
+          },
+          {
+            "href": "#3-steepest-depends-on-the-metric",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-paths-and-surface-area",
+            "exists": true
+          },
+          {
+            "href": "#5-follow-a-geodesic-or-take-a-valid-step",
+            "exists": true
+          },
+          {
+            "href": "#6-differentiate-a-moving-basis",
+            "exists": true
+          },
+          {
+            "href": "#7-carry-an-arrow-and-detect-curvature",
+            "exists": true
+          },
+          {
+            "href": "#8-choose-geometry-for-an-application",
+            "exists": true
+          },
+          {
+            "href": "#9-complete-a-constrained-optimization",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-the-connections",
+            "exists": true
+          },
+          {
+            "href": "#11-continue-and-choose-another-learning-route",
+            "exists": true
+          }
+        ],
+        "programCount": 14,
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 390,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}S^2=\\{x\\in\\mathbb R^3:x^\\top x=1\\},\\\\T_xS^2=\\{v:x^\\top v=0\\}.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\frac{d}{dt}f(c(t))\\big|_{t=0}&=df_x(v),\\\\df_x(v)&=\\sum_i(\\partial_i f)v^i.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\\langle v,w\\rangle_q=v^\\top G(q)w,\\\\\\|v\\|_q=\\sqrt{v^\\top G(q)v},\\\\\\cos\\angle(v,w)=\\frac{v^\\top G(q)w}{\\|v\\|_q\\|w\\|_q}.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}ds_{\\rm plane}^2&=dr^2+r^2d\\theta^2,\\\\ds_{\\rm sphere}^2&=R^2d\\theta^2\\\\&\\quad+R^2\\sin^2\\theta\\,d\\phi^2.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\\langle\\operatorname{grad}f,v\\rangle=df(v),\\\\\\operatorname{grad}f=G^{-1}a.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\operatorname{grad}_{S^2}f(x)=a-(x^\\top a)x."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}L(q)&=\\int_0^T\\sqrt{\\dot q^\\top G(q)\\dot q}\\,dt,\\\\E(q)&=\\frac12\\int_0^T\\dot q^\\top G(q)\\dot q\\,dt.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\operatorname{Exp}_x(v)&=\\cos\\ell\\,x\\\\&\\quad+\\operatorname{sinc}(\\ell)v,\\\\\\operatorname{sinc}(\\ell)&=\\sin\\ell/\\ell,\\\\\\operatorname{sinc}(0)&=1.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}(\\nabla_XY)^k&=\\sum_iX^i\\partial_iY^k\\\\&\\quad+\\sum_{i,j}\\Gamma^k_{ij}X^iY^j.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\\frac{dV^k}{dt}+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^iV^j=0,\\\\\\ddot q^k+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^i\\dot q^j=0.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\Gamma^k_{ij}&=\\frac12\\sum_\\ell G^{k\\ell}\\bigl(\\partial_iG_{\\ell j}\\\\&\\qquad+\\partial_jG_{\\ell i}-\\partial_\\ell G_{ij}\\bigr).\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}r'=\\frac t r,\\quad \\theta'=-\\frac b{r^2},\\\\r''=\\frac{b^2}{r^3},\\quad \\theta''=\\frac{2bt}{r^4},\\\\r''-r(\\theta')^2=0,\\\\\\theta''+\\frac{2r'\\theta'}r=0.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}R(X,Y)Z&=\\nabla_X\\nabla_YZ\\\\&\\quad-\\nabla_Y\\nabla_XZ\\\\&\\quad-\\nabla_{[X,Y]}Z.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "K=-\\frac{a''(u)}{a(u)}."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}C=A^{-1/2}BA^{-1/2},\\\\\\gamma(t)=A^{1/2}C^tA^{1/2},\\\\d_{\\rm aff}(A,B)=\\|\\log C\\|_F.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}u(p)=2\\arcsin\\sqrt p,\\\\d_F(p,q)=|u(p)-u(q)|.\\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\Delta f&=\\operatorname{div}(\\operatorname{grad}f)\\\\&=\\frac1{\\sqrt g}\\sum_{i,j}\\partial_i\\!\\left(\\sqrt g\\,G^{ij}\\partial_jf\\right).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "Circle position",
+              "height": 44
+            },
+            {
+              "name": "Inspect α seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Inspect β seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset atlas",
+              "height": 46.796875
+            },
+            {
+              "name": "Coordinate shear",
+              "height": 44
+            },
+            {
+              "name": "Physical y-motion cost",
+              "height": 44
+            },
+            {
+              "name": "Chosen direction angle",
+              "height": 44
+            },
+            {
+              "name": "Reset metric",
+              "height": 46.796875
+            },
+            {
+              "name": "Endpoint separation",
+              "height": 44
+            },
+            {
+              "name": "Route fraction",
+              "height": 44
+            },
+            {
+              "name": "Sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Reset paths",
+              "height": 46.796875
+            },
+            {
+              "name": "Starting direction",
+              "height": 44
+            },
+            {
+              "name": "Update step size",
+              "height": 44
+            },
+            {
+              "name": "Reset original update",
+              "height": 46.796875
+            },
+            {
+              "name": "Position along straight path",
+              "height": 44
+            },
+            {
+              "name": "Line height b",
+              "height": 44
+            },
+            {
+              "name": "Reset moving basis",
+              "height": 46.796875
+            },
+            {
+              "name": "Longitude wedge",
+              "height": 44
+            },
+            {
+              "name": "Initial tangent angle",
+              "height": 44
+            },
+            {
+              "name": "Transport progress",
+              "height": 44
+            },
+            {
+              "name": "Transport sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Route: N → A → B → N",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset transport",
+              "height": 46.796875
+            },
+            {
+              "name": "Curvature length scale R",
+              "height": 44
+            },
+            {
+              "name": "Geodesic radius s over R",
+              "height": 44
+            },
+            {
+              "name": "Reset curvature",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 2,
+        "anchors": [
+          {
+            "href": "#1-a-point-is-not-its-coordinates",
+            "exists": true
+          },
+          {
+            "href": "#2-allowed-velocities-and-local-measurement",
+            "exists": true
+          },
+          {
+            "href": "#3-steepest-depends-on-the-metric",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-paths-and-surface-area",
+            "exists": true
+          },
+          {
+            "href": "#5-follow-a-geodesic-or-take-a-valid-step",
+            "exists": true
+          },
+          {
+            "href": "#6-differentiate-a-moving-basis",
+            "exists": true
+          },
+          {
+            "href": "#7-carry-an-arrow-and-detect-curvature",
+            "exists": true
+          },
+          {
+            "href": "#8-choose-geometry-for-an-application",
+            "exists": true
+          },
+          {
+            "href": "#9-complete-a-constrained-optimization",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-the-connections",
+            "exists": true
+          },
+          {
+            "href": "#11-continue-and-choose-another-learning-route",
+            "exists": true
+          }
+        ],
+        "programCount": 14,
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 320,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}S^2=\\{x\\in\\mathbb R^3:x^\\top x=1\\},\\\\T_xS^2=\\{v:x^\\top v=0\\}.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\frac{d}{dt}f(c(t))\\big|_{t=0}&=df_x(v),\\\\df_x(v)&=\\sum_i(\\partial_i f)v^i.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\\langle v,w\\rangle_q=v^\\top G(q)w,\\\\\\|v\\|_q=\\sqrt{v^\\top G(q)v},\\\\\\cos\\angle(v,w)=\\frac{v^\\top G(q)w}{\\|v\\|_q\\|w\\|_q}.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}ds_{\\rm plane}^2&=dr^2+r^2d\\theta^2,\\\\ds_{\\rm sphere}^2&=R^2d\\theta^2\\\\&\\quad+R^2\\sin^2\\theta\\,d\\phi^2.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\\langle\\operatorname{grad}f,v\\rangle=df(v),\\\\\\operatorname{grad}f=G^{-1}a.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\operatorname{grad}_{S^2}f(x)=a-(x^\\top a)x."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}L(q)&=\\int_0^T\\sqrt{\\dot q^\\top G(q)\\dot q}\\,dt,\\\\E(q)&=\\frac12\\int_0^T\\dot q^\\top G(q)\\dot q\\,dt.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\operatorname{Exp}_x(v)&=\\cos\\ell\\,x\\\\&\\quad+\\operatorname{sinc}(\\ell)v,\\\\\\operatorname{sinc}(\\ell)&=\\sin\\ell/\\ell,\\\\\\operatorname{sinc}(0)&=1.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}(\\nabla_XY)^k&=\\sum_iX^i\\partial_iY^k\\\\&\\quad+\\sum_{i,j}\\Gamma^k_{ij}X^iY^j.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\\frac{dV^k}{dt}+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^iV^j=0,\\\\\\ddot q^k+\\sum_{i,j}\\Gamma^k_{ij}\\dot q^i\\dot q^j=0.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\Gamma^k_{ij}&=\\frac12\\sum_\\ell G^{k\\ell}\\bigl(\\partial_iG_{\\ell j}\\\\&\\qquad+\\partial_jG_{\\ell i}-\\partial_\\ell G_{ij}\\bigr).\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}r'=\\frac t r,\\quad \\theta'=-\\frac b{r^2},\\\\r''=\\frac{b^2}{r^3},\\quad \\theta''=\\frac{2bt}{r^4},\\\\r''-r(\\theta')^2=0,\\\\\\theta''+\\frac{2r'\\theta'}r=0.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}R(X,Y)Z&=\\nabla_X\\nabla_YZ\\\\&\\quad-\\nabla_Y\\nabla_XZ\\\\&\\quad-\\nabla_{[X,Y]}Z.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "K=-\\frac{a''(u)}{a(u)}."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}C=A^{-1/2}BA^{-1/2},\\\\\\gamma(t)=A^{1/2}C^tA^{1/2},\\\\d_{\\rm aff}(A,B)=\\|\\log C\\|_F.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}u(p)=2\\arcsin\\sqrt p,\\\\d_F(p,q)=|u(p)-u(q)|.\\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\Delta f&=\\operatorname{div}(\\operatorname{grad}f)\\\\&=\\frac1{\\sqrt g}\\sum_{i,j}\\partial_i\\!\\left(\\sqrt g\\,G^{ij}\\partial_jf\\right).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "Circle position",
+              "height": 44
+            },
+            {
+              "name": "Inspect α seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Inspect β seam",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset atlas",
+              "height": 46.796875
+            },
+            {
+              "name": "Coordinate shear",
+              "height": 44
+            },
+            {
+              "name": "Physical y-motion cost",
+              "height": 44
+            },
+            {
+              "name": "Chosen direction angle",
+              "height": 44
+            },
+            {
+              "name": "Reset metric",
+              "height": 46.796875
+            },
+            {
+              "name": "Endpoint separation",
+              "height": 44
+            },
+            {
+              "name": "Route fraction",
+              "height": 44
+            },
+            {
+              "name": "Sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Reset paths",
+              "height": 46.796875
+            },
+            {
+              "name": "Starting direction",
+              "height": 44
+            },
+            {
+              "name": "Update step size",
+              "height": 44
+            },
+            {
+              "name": "Reset original update",
+              "height": 46.796875
+            },
+            {
+              "name": "Position along straight path",
+              "height": 44
+            },
+            {
+              "name": "Line height b",
+              "height": 44
+            },
+            {
+              "name": "Reset moving basis",
+              "height": 46.796875
+            },
+            {
+              "name": "Longitude wedge",
+              "height": 44
+            },
+            {
+              "name": "Initial tangent angle",
+              "height": 44
+            },
+            {
+              "name": "Transport progress",
+              "height": 44
+            },
+            {
+              "name": "Transport sphere radius",
+              "height": 44
+            },
+            {
+              "name": "Route: N → A → B → N",
+              "height": 46.796875
+            },
+            {
+              "name": "Reset transport",
+              "height": 46.796875
+            },
+            {
+              "name": "Curvature length scale R",
+              "height": 44
+            },
+            {
+              "name": "Geodesic radius s over R",
+              "height": 44
+            },
+            {
+              "name": "Reset curvature",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "browserFinalPrograms": {
+    "checkedAt": "2026-09-10T23:57:10.304Z",
+    "results": [
+      {
+        "width": 1440,
+        "programs": 14,
+        "visibleResiduals": true,
+        "keyboardStates": 2,
+        "measurements": {
+          "fontReady": true,
+          "documentWidth": 1440,
+          "equations": [
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            },
+            {
+              "width": 760,
+              "content": 760
+            }
+          ],
+          "codeCopyButtons": 0
+        },
+        "reviewLinks": [
+          "/learn/path/full-curriculum/tensor-algebra-einsum-notation?module=math-foundations",
+          "/learn/path/full-curriculum/multivariate-calculus-gradients?module=math-foundations",
+          "/learn/path/full-curriculum/topology-topological-data-analysis-tda?module=math-foundations"
+        ],
+        "errors": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "programs": 14,
+        "visibleResiduals": true,
+        "keyboardStates": 2,
+        "measurements": {
+          "fontReady": true,
+          "documentWidth": 390,
+          "equations": [
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            },
+            {
+              "width": 350,
+              "content": 350
+            }
+          ],
+          "codeCopyButtons": 0
+        },
+        "reviewLinks": [
+          "/learn/path/full-curriculum/tensor-algebra-einsum-notation?module=math-foundations",
+          "/learn/path/full-curriculum/multivariate-calculus-gradients?module=math-foundations",
+          "/learn/path/full-curriculum/topology-topological-data-analysis-tda?module=math-foundations"
+        ],
+        "errors": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "programs": 14,
+        "visibleResiduals": true,
+        "keyboardStates": 2,
+        "measurements": {
+          "fontReady": true,
+          "documentWidth": 320,
+          "equations": [
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            },
+            {
+              "width": 280,
+              "content": 280
+            }
+          ],
+          "codeCopyButtons": 0
+        },
+        "reviewLinks": [
+          "/learn/path/full-curriculum/tensor-algebra-einsum-notation?module=math-foundations",
+          "/learn/path/full-curriculum/multivariate-calculus-gradients?module=math-foundations",
+          "/learn/path/full-curriculum/topology-topological-data-analysis-tda?module=math-foundations"
+        ],
+        "errors": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "openedScreenshots": [
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-1-390.png",
+      "sha256": "58016558dd3c949094079c45845f6a0a4f547086007473482267f141afb8e5b0",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-2-390.png",
+      "sha256": "bb6be57c37892a96cd955e26be0e918acdd1062ba3dcc06f8aec2021c52e6654",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-3-390.png",
+      "sha256": "5c110fbd9120d79a833891e4b0660bd63209ae33ca98df9b422abf8889c79979",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-4-390.png",
+      "sha256": "ad34c52bc9957d98dd2bbd337147f513ae828e1bb171bea4b92f4f5779e519bb",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-5-390.png",
+      "sha256": "014d8a2ed93464d9310650e9656492448275a8d1dd18e547a473fd6c1bcbc957",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-6-320.png",
+      "sha256": "4c3fb07f2d06e8ee79745c0e4be13caad58c9e10aff8105d4fd96a25c4c6cccb",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-7-320.png",
+      "sha256": "50906a0875327491f2912542abf9c39ff3b0299f483b2079ee7e2e6b0e4d82ae",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-8-320.png",
+      "sha256": "01f610c17a1636d406a8f307d5a6511f4c11c3459f8d22806ca95ac9748bcc5c",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-9-320.png",
+      "sha256": "c796ce3179c817db8f3c599fcd99f47d742bdfafa16abf09a09f405df0b43b51",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-10-320.png",
+      "sha256": "ba93a4c4776625f49762f6286bb0bb9366d90ac72f4ae24ae286c39c93a00874",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-equation-3-320.png",
+      "sha256": "b8ee2a078aea9e68ff86e6e52e16b5e5a34b4591e862a76a326a34f94ac2cbbf",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-equation-7-320.png",
+      "sha256": "022346079ee4700bf5b0fd0873e27f37a9d252da868a612913bd450b16cc1584",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-equation-12-320.png",
+      "sha256": "0d83a886a146d6156b55da9338963e3e9c333c2d69124d8263e256454367d5bf",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-equation-15-320.png",
+      "sha256": "0f769be209df51dfe91b535d16f8327482cccef00aed9060030e7f03498bd09a",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-capstone-reading-320.png",
+      "sha256": "e8a42af969652c3a92596b5e1a32d8db73427577d32333d2beae1f548c0c80af",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-capstone-reading-1440.png",
+      "sha256": "a4f902b02703ee1263b7d6ece946838278997b805b84ed0d2f74de71c564344b",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-cross-product-reading-390.png",
+      "sha256": "a610d19d8bc393340908979a8f2f9d7ae4c8219642106b7e6298cf3994a7dc24",
+      "actuallyOpened": true
+    }
+  ],
+  "resolvedFindings": [
+    "Moved atlas seam labels away from axis-scale labels and shortened the candidate annotation to x+v.",
+    "Four 320px equations were split without changing mathematical meaning; all17 now fit.",
+    "Final capstone prints gradient and feasibility residuals; the actual line-search-limit result remains explicit.",
+    "Defined the cross-product area meaning before the first native program relying on it."
+  ],
+  "evidenceLimits": [
+    "Behavior343states/width precedes narrow equation and prose/output amendments; final targeted checks cover those amendments.",
+    "Model/native checks are finite, not a proof of arbitrary floating-point input behavior.",
+    "Video resource descriptions/pages were inspected, not full videos watched.",
+    "No user acceptance or empirical beginner study; parent owns independent/integrated checks."
+  ]
+}

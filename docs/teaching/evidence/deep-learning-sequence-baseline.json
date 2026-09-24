@@ -1,0 +1,647 @@
+{
+  "scope": [
+    "depthwise-separable-dilated-convolutions",
+    "convnext-modern-cnn-designs",
+    "capsule-networks",
+    "rnns-lstms-grus",
+    "sequence-to-sequence-encoder-decoder"
+  ],
+  "recordedOn": "2026-09-22",
+  "rows": {
+    "abstract-algebra-groups-symmetry-actions": "5113403ba65ec5488ea0e0850f03ed74076e949604721dcc04988d114b6fe918",
+    "algebra-functions-exponentials-logarithms": "9305587ee0b8971bc3e8730dc55a4b17b172adddcfc7f6b0aeec70eb54c9736a",
+    "algorithm-correctness-loop-invariants-termination": "a53a2bd749efc761253958178bc106235375b56c1aa7bef7d840e741207ae8dc",
+    "arrays-strings-hash-maps": "c12d350a282c0a9f3826c0f264f08c6114be3797aa1bf7252ecd8288e40cc0c9",
+    "backtracking-divide-and-conquer": "38a59386dd6d9a315a2ddca8e75dfeca6db2983441b74a3b019c573617007872",
+    "bash-scripting-command-line-automation": "7bd513a403caf344dac1f71dc14afd7f1b54510ce1ecc838bf5a5ff6c58d210a",
+    "bayesian-inference-conjugate-priors": "658f37c4d8f9f82b8b4288c72f527a40dae5b341053fb2a09e2ad59abac1b04b",
+    "binary-search-sorting-two-pointer-patterns": "e987c39f8e0bcb645c78d1ad16184fa5935451441b6efdd52e56c75599dd5416",
+    "category-theory-emerging-use-in-ml": "558c928d8547e9e6ee12642ea7d50c04d079d7f2f626eeef217cbc3998f523ee",
+    "causal-inference-do-calculus": "04c27b0f8e4f0b06c071345db6aa0abefca53ca0127243b530d7e32a3251492f",
+    "code-documentation-type-hints-api-design": "b8772e4915f6a74cceb018290d09d1abdbe9072eac7374083e4fc94f6b8545a1",
+    "combinatorial-optimization-approximation-algorithms": "5c5b9eb7377b45f4bf7537ad0503c618910cad9668ab44fb1029390d554857d4",
+    "complex-numbers-fourier-laplace-transforms": "2cdf391b3d0fe48fb05a6783a9bc336f92151df86466b4e10f33c36da9c51eed",
+    "complexity-analysis-recursion": "cde3ee6091ed207a46856447e8c20d7d159083768eabafc7649ddb0f5a7cd569",
+    "computational-geometry-robust-predicates-convex-hulls": "16c34396cad36d93301c5817679ab850659f2ed916e8c2b60468c1807a58c0c2",
+    "concentration-inequalities-hoeffding-bernstein-chernoff": "6d629ef33fd5c5d49481be11f92d1f1600916898b6d6a46de8709c2e2d7eec69",
+    "conditioning-stability-numerical-analysis": "7f2ad4da5e85f05d8e8a090d28c7660cc5f92e30a887d6887c635258bfb6af17",
+    "constrained-multi-objective-optimization": "450d16c5dbc976bc61194f345e5191a906f0730a02b029af9978c03b582d3223",
+    "convex-duality-lagrangian-methods-kkt-conditions": "e0a9c6bbd53df45c4cfc6c627985dbee38ae8a56ce9fe7456f7644b1b3d0a1fe",
+    "convex-optimization": "4f6427f6a3c40edde80726947f0fdd2a25b8f5f039ad1aff5d685c497bbc3b67",
+    "counting-combinatorics-mathematical-induction": "44e531fa7189c3ff0858fcf0fd401c37fd910b6b39c8d35cbf417b55e4281524",
+    "decision-theory-risk-cost-sensitive-decisions": "ab0659af0d9bd7941923517944824fde822d1b1a97f2d2ffe54227d64f5c9e1e",
+    "decision-trees-random-forests": "13bc04cc220029bab60952ced56543e00c90ab48648696b96e4330145f865c74",
+    "decorators-context-managers": "c9ddbc96e865df10a41be455518416a5dc145f7cc55ae14230ca72c8b736bd9e",
+    "differential-geometry-riemannian-manifolds": "d47a688cc52a171b9c85d8944c1b059e28a8ab65d843e06e7aa74e808060fcdd",
+    "disjoint-sets-union-find": "88ec2f9b7d03d49af50f7162584efcb92a28353cc576cbccb7374b7fa7713948",
+    "dynamic-programming-states-transitions-optimization": "d5b0a1f219eabd0ffabe0862c8eeba537167841fcfac3c7b88bbd57b5ea32dcb",
+    "dynamical-systems-theory-chaos": "f2698892cd3fa8484cd47dad2074a4cbc031420a4aa6e0d048854fa7ed232abe",
+    "eigenvalues-eigenvectors": "26388d182d9daaa4000ca83a197ed993a4343b773a67ad9c76cb185fab170e3a",
+    "ensemble-methods-stacking": "ee75761da21e9ee994ded13992b6a6d4fea17d1e5e3c18efeac84d867af91468",
+    "entropy-cross-entropy-kl-divergence": "b5588c68bebb75d5e153870c660a84fffa8839cf82231a479069158ccf259186",
+    "exponential-families-sufficient-statistics": "347d02693eebb213d5504a2271098466d4a9271871c3a27968917278501260aa",
+    "external-memory-algorithms-b-trees-i-o-complexity": "fb89b6225319ad13d92170e6ae03aeb59ae94b29ceea24273af883e86356f256",
+    "f-divergences-integral-probability-metrics": "7924e834bbbcf1ca28d0972b428239fafc483da12dd2e3d04549b395fdc5f938",
+    "functional-analysis-rkhs": "775a67ccd367d4c207d9ca47ddb29f9d1ded3637e63f288bb410ae36d672cd2c",
+    "geometry-trigonometry-coordinate-reasoning": "03250796ac96b779ef011eee65458d61b6787d571254e8d135a2e4bc680eef63",
+    "git-github-collaborative-version-control": "730aabc3fc687dfc8e6b3e9d27a07298f67b9580545f0851b2e3f3846836f806",
+    "gradient-boosted-trees-xgboost-lightgbm-catboost": "c583579f7e1594e23bf0da9e5ee02c12accec758127be1aa1f180d00d0da4d40",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars": "2edc01ad60871ff4635b134240ae5c56eab036fa267b6efb42de888538022b23",
+    "graph-fundamentals-adjacency-laplacian-connectivity": "3d64782d3099d9eede3d37c3a7d381d8024df89e073ef7372164c2dd00715f89",
+    "graphs-representations-bfs-dfs": "3178d172b039c08473417c90ec34e9d035e0c88688f3c615e2c4671e5e0ade7e",
+    "greedy-algorithms-exchange-arguments": "7fcecbf18d60d78c00cf996aa053ec1f694a9a17f0057a81c344aeb8abc73eab",
+    "hashing-collision-resolution-amortized-analysis": "b89556a92ff3c3141de5b4ad7ad3ffd0bfc5e74f39dc5c08d563570a30288b6b",
+    "heaps-priority-queues-tries": "c003ee40563e22c5a4e54a36c86f1c0919299265e70c583714aee1a3ecc97dfc",
+    "hypothesis-testing-confidence-intervals": "bde5835f9ef16851d909e53cc185179d54c4603b78e219dfccc7e90d008cb934",
+    "it-calculus-stochastic-differential-equations": "b9209b3474792c8fe6907dcf9883923379c9fcf34c0086fd8de737e44f67ff86",
+    "iterators-iterables-generators": "7f69a45b5adb375d6c1b0c96ce4dcec08404d4f7c0a5ea70c35e1f1fa01e6f31",
+    "k-means-hierarchical-clustering": "5df69595b80bd108310edebc7356e1636e31a7300d838fc9b3e1fb8fcc4d1f15",
+    "k-nearest-neighbors-knn": "2548cbba55894f7180cbfbe0c4d940ed6c96e80299af0d2b6dd91857d5af8036",
+    "learning-rate-schedules-cosine-warmup-onecyclelr": "9d191b876d027ae0cada5a7191c7106fb4fafa3b996e7d62a3060feae884973b",
+    "linear-logistic-regression": "0de0e6126164eefc2e560bf5a00c6e5ce61272d8bd5af76bcc978a05ae2ff1d8",
+    "linked-lists-stacks-queues": "e970abb421be7c8344188a647b5e7958f3f120dbb9a4c33df8084a7a45a5fab3",
+    "linux-basics-filesystems-processes": "b62b82aba85135feaa39a48690c0960e60eb4135ffbbb1158010cbcd068e258d",
+    "matplotlib-scientific-plotting": "e9b63a0b18eb9507219c24a36b1d223de1f90b0c65d0d901e2c188b4511138ba",
+    "matrix-calculus-jacobians": "9c7aa659d21dc79824cff01eff9fabe2dc0f0536aa237b6a9371c773c38fde70",
+    "matrix-decompositions-svd-qr-cholesky-lu": "136a69718c5e742ef4d9b5ba5511511b8061b44ae77b7ec24194a9c1311e81d3",
+    "maximum-likelihood-map-estimation": "a3f9c194487b283f40460cdd8c46d9f16d465aa805af46cab010a7e58a177866",
+    "measure-theory-probability-spaces": "409ad32a9c97996356e7bd66fc05e2cdffd735efc93a2a01ad73c402534511a7",
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts": "fec5dae2a0e8878eed59d11049f17665fbc44b90b57099aa6cce90d46fe3ab1b",
+    "multi-label-multi-output-learning": "b14c45ecbb6c5364b7ebb3ffd16f49d71868cdf828466f440ee2ea253e0b33c8",
+    "multivariate-calculus-gradients": "6b5364544de85d2e50b5d55e688f74b34870c13c49eecdc5b47e45f8a734b169",
+    "mutual-information-information-bottleneck": "8bbffbe9c24dcccc866e84e71e569e84c28087e1952c6531b9c293f6cd2b189d",
+    "naive-bayes-probabilistic-classifiers": "2871d30c7589cecdbabaf3a8f5c39c48fdf7471a6ac3dd1a7eeb88ba7e23e2d0",
+    "network-flow-minimum-cuts-bipartite-matching": "8d520d5500eab34ea5d81ae1765d3cfaa29a34d83c7de5a65a0f75d73dac4287",
+    "non-convex-optimization-landscape": "bf82bd7ae27b454262493daf01d0b4c7fbd382724b36c016f551b01ac2aa5095",
+    "numerical-methods-finite-differences-quadrature-root-finding": "1baa1842bcfef6f475c91d1be71e798575c61a80ccb7ae08838b08a8864f3901",
+    "numerical-pdes-grids-finite-elements-stability": "51d1ca952d5715e21900bf749c293d9fff8677f82b728327bac07e9cd1d94028",
+    "numpy-arrays-broadcasting-vectorization": "fbc474ca5213529fddfbfa98c16928be3d1989be6b20216a5afe4b7dd9ac8552",
+    "object-oriented-programming-in-python": "ca8f6775b81a27f58dbf985e791e45b6941b007df8f042da155a210a5f676493",
+    "optimal-transport-wasserstein-distance-sinkhorn": "cb6f898a01fad0957bc2785297d31da75e62842befe320ada52595d86063fcf0",
+    "ordinary-differential-equations-linear-systems": "45e0477c7de9cf8e7b12da564e3cb6b836a7156afccd11aefb105a9895dbf5f3",
+    "os-processes-virtual-memory-isolation": "ec2751237e6c5071bade70d61fdd64481c147e342c37bb829b5afaf24d4a51ab",
+    "pandas-data-wrangling-joins-grouping": "0199613a21cba5e35c4bcd0a71afdd40ec2f655bba8590bac51b7c002393cd6a",
+    "partial-differential-equations-conservation-boundary-conditions": "26df4d5e9b9196eaf6325daee4342a9182709a91f490663c4760bac6bd779c46",
+    "persistent-data-structures-structural-sharing-versioned-queries": "98d4db5a13c14bdb4fea26968d086cf8c1e48d88a6185d99fe6919d0edd3e23f",
+    "probability-distributions-bayes-theorem": "b82f2416d2bcb0abe83fc0a22f66bea9ba1b744f0b5488193340f0f0d143eb47",
+    "python-basics-types-control-flow-functions-modules": "cfd1a70dc09cefd1719294fe918b5e5887f361b4f51af2b7a7e13370a23632ae",
+    "queueing-theory-m-m-1-m-g-1-little-s-law": "98a812bf984f500ed873c9cd324ccf42d19815093685c59aff770e07828b9120",
+    "random-matrix-theory": "be8f657092d18c1973b3814e619ed7b1b54199d0d2fe55e1d13b2c705ae85e56",
+    "random-variables-expectation-covariance": "180e9e93b78cfa399d7ac2673bc45c0ce07a0408a7109d54832f35468a49f89b",
+    "randomized-algorithms-sampling-error-guarantees": "7b8088b74f4bd65bf1620ee428fd776f8634dd80f24f028df368c8e48a0e7cf1",
+    "randomized-linear-algebra": "5c7efa4be8eb90e3327a612831d05902241918d42b9aa4d2df32cbab4816ce84",
+    "rate-distortion-theory": "625e78353af55c8aacef243454a7a7e5e9f5b36ca921ee89bbde6822047b1040",
+    "real-analysis-sequences-modes-of-convergence": "52d6d2d36b5ed48421c7d28ec911ba61381cae26426d2d0cb12b197d10b68ba5",
+    "recommender-systems-collaborative-filtering-matrix-factorization": "7fd8f2402998c1b422778e6963e74f519d2fec2cbae323cc1c1a9de8cbe806ac",
+    "reductions-p-np-computational-intractability": "c84055d3fa15e9384765a3fdd312fc38f0d2808395b1959fa38b76e6b92ca6e5",
+    "reproducible-notebooks-experiment-structure": "ad93c405688d9ad25e84a7c7de5d489cf84061c1e9a24848f81d105edb5de176",
+    "sampling-measurement-experimental-design": "6838013d9f7c28fe1ee4b25efe37b89363085d5392c68a446588c8be00f7df0f",
+    "scientific-file-formats-schemas-reliable-data-i-o": "cc6c41a8ee0d78334d8c8dc89829dc9bd66ee590c7af3602d79458047b0c8906",
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient": "fd6b901c9f71ce4b5e97872a2ed801c67530f96704dd0e1f529cd1eef3a13cb9",
+    "segment-trees-fenwick-trees-range-queries": "c450a090b0f3b0523440896719b094f489815fd3b4ac007dac909c1df2616cef",
+    "sets-logic-relations-proof-techniques": "4726e022c657593113f35bd1f471a43c9becf62b43143a21e5af426afe50adea",
+    "shortest-paths-spanning-trees-topological-ordering": "d7a68a6a64129f7c3f645f0c62d55841c8783c3c52ceeec106d22f3ff8da7579",
+    "single-variable-calculus-limits-derivatives-integrals": "b82324f6b6d962a38e99d8ceb9d05d6632fc704ac546630552a9967d9301f1c7",
+    "spectral-graph-theory": "f1ec45abecf1c76df6954f963b71b030e7adb6357b77e8b271bfc9b5f0b6e07a",
+    "sql-relational-data-transactions-for-ml": "34f8fdc75a74fc08613013b39cb127800174c88185a01446e2f12ff07b52c217",
+    "stochastic-processes-markov-chains-brownian-motion-poisson": "c6d6187be8bbc8bbc028cf60cca44a201faeaacf69b0e7f6b0b0f1f8abf4f512",
+    "string-matching-prefix-functions-rolling-hashes": "73f2603311b510f94f9a974cffebf95e034284d850444224fd3557361056c897",
+    "support-vector-machines-svm": "924f44d40496897207a292b079872e5ac82c08e2d711ee6cbf494c28d66def1c",
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models": "e58bdcb7e30ff0b09c8944bb1280e867d791f0e405d6dbd5d61a8c853f76e862",
+    "tensor-algebra-einsum-notation": "198623d56c0f62131e31a4b9e0aa5a07b435ed0b657ee07d4d1fc750217c82ce",
+    "testing-debugging-dependency-management": "e898623e37ace9e14317b05aed85a0be9d819d989d3dc8f112f0598a38786922",
+    "threads-concurrency-locks-deadlocks": "011edb1ffb9626723b1511a46797d04ba1cd1c70bf7107e5b0e633ca225912b4",
+    "topology-topological-data-analysis-tda": "a1c6e5fac9326b936e2ef24223eba87d6b589ef370aa0ad52697421f0facf614",
+    "trees-binary-search-trees": "44e802d027099b956c06d5c6d1a7def3c247cead52827cff40e542f0fcf425e7",
+    "variational-inference": "9012e9c36843f5f1d1ac3391e20c5cb2e66951e53af599629fe8d7e5663ba605",
+    "vectors-matrices-tensor-operations": "3dcae8ccddd908205eacc5ae1d2a5544f3bd37acaa6996a3607973b38054fae0",
+    "pca-dimensionality-reduction": "d0254e652e0d07b106e832c3e2eb8d30ad6af4b01c563c3186af67edffc7b383",
+    "clustering-evaluation-validation-silhouette-ari-nmi": "11c72af03e16cb3ae2dc9db00781a0007f07b9ecd4767c4c4c8ce215027bdb80",
+    "dbscan-density-based-clustering": "46dc783fce940a287ef45c26f04f03ec6f1db02ed415a74794a0de4b6733a539",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof": "99d8c24407ee803b536c628f28819fecb29897aeebd710c6ea9dac9724a984ac",
+    "gaussian-mixture-models-gmm-em-algorithm": "96a7998952728ee5a9cbc8bd66931db86b63ff72c448dc79c7f42e3d8796ebf4",
+    "t-sne-umap-manifold-learning": "05c3b718ded87f97ee9bcb73501a207ad29e0585c85c486db7e4a09117486cf7",
+    "independent-component-analysis-ica": "5ba108850f8b67c9180abe10eda32fe8d53129ae4b3851512744aafd2a595903",
+    "non-negative-matrix-factorization-nmf": "0beeb25b9e93756db3f1f34bee3d63229daf2a0e208ed4384d55e69de991f810",
+    "feature-scaling-encoding-imputation": "b20e71f08abcad159ce2e74b32b841917fd69b1df887d45f9962b3a386a07c7d",
+    "cross-validation-hyperparameter-tuning": "6a8bbd566b8b3529a8f9cc1f31f440e34271c3853052d7847572f631ac51f6a8",
+    "regularization-l1-l2-elastic-net-dropout": "d58b97f0c9080bcf3c72fd821b4bc5374faa363571f1a2242b7f679580c6660d",
+    "feature-selection-importance-shap-permutation-mutual-info": "9b16acf138ac16b43ba9d85402c48769f54ca329597ed9fdf97c5f0266da164e",
+    "bias-variance-tradeoff-learning-curves": "2149937a9f57270c9b56d5ff96cd8f66f9c807b4c4fb6c0fe2958776675f081a",
+    "imbalanced-learning-smote-cost-sensitive-learning": "a655b06aab994c8a21b25d282306b30ef622aa0d9ad099e4158554c2c3f848c2",
+    "automl-neural-architecture-search-nas": "02e3bc02a75a1045e394a0bb520dbf71dd5edcf4613483551f836abb9f288967",
+    "hidden-markov-models-hmm": "b45806dd1d9c4025502ba79d2cd0c2b0772c9b369ea0ce47330ab9305e34314b",
+    "bayesian-networks-causal-graphical-models": "c8398dc0c9bccf1c86513ebb7d6108f541147d329c3dafd63d5562b0ed8be28a",
+    "conditional-random-fields-crf": "ef51a97f9ea7e24e055b477a37e5a356b0318f5f39e0db492f9a8734df7190f6",
+    "gaussian-processes-gp": "3601898f06bf10edde77a9fec594f30d242da5fd12116d1d050e9e72bf69dbd9",
+    "semi-supervised-learning-label-propagation-self-training-co-training": "8529984fb21d4618b553eba6dab7cf989679a1c4c9b232685b9ebbb17873aaaa",
+    "active-learning": "a523a905bb42b71375e8a6236302b23a225dfd4b514a255c517df1884b750de7",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae": "7ce3a3abf636ed13d6152e5d5688bc832550b5227966c1092c1ec10e8e258dee",
+    "pac-learning-vc-dimension": "4949a7e13c4ae7dc290276fdec3a95b7a6c2b4234dd17521ca015f30319e079a",
+    "calibration-conformal-prediction": "2638107d0dc7a0c4b990db211c997bc1c78818d38137706f0d7be107fd0cbc06",
+    "rademacher-complexity-generalization-bounds": "148efff3b325424d07bc8e590c7345305a7f6fa7d7ef698d5f6e4165de79fed9",
+    "ml-problem-formulation-baselines-data-leakage": "c6b395fef68e45eab08105ab374eac0756f78cd23f27a27b8beea57974e97861",
+    "time-series-validation-forecasting-baselines": "82c6402903adb09632ec218c0c9cd4e974468cdb2a6ef0168eec685944f651f6",
+    "end-to-end-supervised-learning-error-analysis": "7ea260546a318a89f7659bd377ac899b1f832740adb85669b54391ec08bd10a9",
+    "perceptrons-neurons-activation-functions": "f29afe5d23e6d03638ca3ad9b6a2de8dc1723bc2f0d9b1f3f01ea8cf54ec6966",
+    "backpropagation-automatic-differentiation": "a0c10eaf54cb6b07e1fecab0e161621d1df22583a271537eec90e97092d5eb1f",
+    "loss-functions-ce-mse-focal-contrastive-triplet": "04d0e29c4ea8e9e56b4f24b679f3c5c085da84b1a63e313e39946d51b7e14cca",
+    "batch-layer-group-rms-normalization": "a0bd082f08333707f1cd2a6da66a0b1e198a646f568d792dad75c8b00419c38f",
+    "transfer-learning-fine-tuning-strategies": "c0bc0910f30431adf23b2a6a14506dd9c64fdfc32783bf8ebfe56a4f9a1dd7c0",
+    "weight-initialization-xavier-kaiming-p": "27af897c26360bcc56583fc73d448e1b8c08f98f442401fc5aff885cb0c9bd4a",
+    "residual-connections-skip-connections": "0a0e3374fdcc54584a6f3c0baa47b81590b349322cfab79f3269fde5e840136a",
+    "dropout-droppath-stochastic-depth": "b152910277718cc831c1315e59a61adc3209f8876f6f4077539068baf4a3d83a",
+    "convolution-pooling-receptive-fields": "c9dd4cd5b0e142f560267cac0f478f39b35e84d3cfb9516cb58d7c7b78790320",
+    "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet": "97c8384314f374224a21a5a5c389444b22ed832b9478518cd70b583a0d21004d",
+    "depthwise-separable-dilated-convolutions": "3f7e16b4366ac2fbbecbe2479282ea8156c9746130e692bd747a17ab984db71e",
+    "convnext-modern-cnn-designs": "96656ef50555200d04318f8321ca259f74f62994fee53ec09d729251a9da2491",
+    "capsule-networks": "d46dc407d68ae5553c650e4d8b01c28a23f3b9bea381bbae8ff4d3fb63ab0855",
+    "rnns-lstms-grus": "206d89ffd38c0357cf054ee6abdcded27cea93881aebf42e2563059badddd899",
+    "sequence-to-sequence-encoder-decoder": "8a244dd6a57a6b8e695a39f9641e532ee1870ac4d6ea98a8d900bad89bb1de9e",
+    "attention-mechanism-bahdanau-luong": "3a351837fc09c72aa1132e29303bd38be4dbae63ec6397282c54bdaf062efd27",
+    "long-context-sequence-models-transformer-xl-griffin-perceiver": "f61955046e1e292fa54957ac554930b5fcbd0ca8bceb0c285d179091d9bd0861",
+    "state-space-models-s4-mamba-mamba-2": "45f67aef312477c6e5052437659160987982b6a51ad2f4c740d80bb1aa2d6ad2",
+    "rwkv-linear-attention-models": "0239e34198e9bb865067cf0b46f852c149e85170ee40ee17d7cc1b206ed3dbbf",
+    "self-attention-multi-head-attention": "ea785b360f30a2dc158492144a965167fca8b420de1a80f0b29a574e97b68649",
+    "transformer-block-architecture": "7885e865f5d08f27be0fc407f12b4a3de9205ea22157bfca94867454b7eafde3",
+    "positional-encodings-sinusoidal-learned-rope-alibi": "dd536de0673b24a6b409d624aa78af412a9cc8e712b2ed87fb87d46ded0cf411",
+    "grouped-query-attention-gqa-multi-query-attention-mqa": "34ccfe1f1469ede12fa3b60b976f6883130a6a609218e07dd513e01f66f3409f",
+    "multi-head-latent-attention-mla": "0fa041e7fd542f8aa25b038036253ec1d6ad87fddd2d32c5e749948ea366d7a6",
+    "sparse-linear-attention-variants": "ac21088a311c91af0e58739ecc36c3373dccb440dc91db7bf25909e69acbfcc8",
+    "vision-transformers-vit-deit-swin-dinov2": "66aaef5f1de8383e8ad0e30283cebbc42a6003e68f0e5b4447deed4dae73316f",
+    "mixture-of-experts-transformers-moe": "a434e14e4efa506c8dc65d70c666c4debb260e7d6139a48f3352e7744f8590d7",
+    "interleaved-cross-attention-architectures": "a62be857a7fe47096b31cb95f53163cf783772f38f0e263075ffc6ffaca80493",
+    "message-passing-graph-convolutions-gcn-gat-graphsage": "39a336ddf89ab72913280d40bb97016575956aa278275eea6cc504fede5fb376",
+    "graph-transformers-geometric-deep-learning": "13fad51dbf7b255349bc62e7116bcb5e79b62d93bdc63d6b540440dd6816e526",
+    "boltzmann-machines-restricted-boltzmann-machines-rbm": "7bf8d505a99623801ffb340631d43a9b6c39477fdd40df129ccde4687df4aa10",
+    "spectral-normalization-gradient-penalty": "ea7d930972026c0cb5ad2263164a78e4468416c3e9b7e3d7dfa72468e029f5a0",
+    "modern-hopfield-networks": "adf89a5cc357e793d02d550a14a64be025d39a5c91be24d16f20f5a51320c0d2",
+    "xlstm-extended-lstm": "65cf8c64d009f17d3784da99aecb24031bdd383f020f47f7368c7ba024b518c3",
+    "hyena-long-convolution-models": "eff1c7fe1727c84f924dd2a51aedf508ce0c0d3c69d225644316c20b998a4fe9",
+    "ring-attention-sequence-parallelism": "13e8758b8e096bdab84d2e68a5632093ac92fef29da4a06e1ac2f081f5373d4a",
+    "advanced-optimizers-lion-sophia-prodigy-schedule-free": "95898063a649eedb7b124a4ba9295194092c5722b3227ab0e1bdeebe91d83175",
+    "neural-ode-continuous-depth-models": "01121ba91ab8b3826511f3f1b9a7c6a6eca3e5abd63666758a690e89e1b0b4d2",
+    "hybrid-ssm-transformer-architectures-jamba": "e8a64cea508d4c61821ce18fa011d0473948e0f0834cc0168dadfc88ca0572b0",
+    "titans-multi-memory-architecture": "04c0814da95b28cee260a8bb4cb1d975a79c8d0791ef9b94d68b72f1c39916f2",
+    "mini-batches-training-loops-gradient-accumulation": "5f8ba34127ab7a2ceddd8fb6e2c64ae820ac8ac04f242436cf5928f2cafdf761",
+    "neural-training-diagnostics-reproducible-experiments": "8ac770b265344b9e36fb861813dc8eb2a2415981bab00086e2473b7bf49cde24"
+  },
+  "prepared": {
+    "depthwise-separable-dilated-convolutions": {
+      "revision": 3,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-check-results.json": "fd3d7950e934000f8ebed3a4a89cd5315d93050f721c0be53c8ca7f18b55cdfa",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-checks.py": "3109cf739adaeebadcfaec2b851ef75497c23281ab8c0f1a0bf46e6b5dd246ec",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/block-check-results.json": "aec99dbeedbc39eb2755815b38305300f6a5a737b746e464a99ab1d00882f130",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/calculated-inputs.json": "6eb77106cd6a4dfb8a378e04d5b930c4ce422be561536bfe44522e7cb56eb449",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/context-blocks.py": "6fd160b263d7dc581e753e4986d8345d08fa7d4200731946ce0884f1e7562721",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/convolution-factorization.py": "5b89c0f3b7cf4d1e662afa93695dbc971d8f5290e33a9be89bf3e97d8105e2d1",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/data-provenance.md": "15e079280e021c1f517cd91d3c0a29968577be795674df6ea6278f03db577396",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md": "e6b98c9958579a2dcfc995ddf4fef43650c8e32522572d7341628e8095ba44dd",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md": "e01002d2c11eff861cadd491a5642592db77432a749c407280d5eda0dbbf6a11",
+          "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md": "9be67113598d7fb4f3f2bf2c6350ddfc30067807186616db0ebe94e5c6d94065"
+        },
+        "completedAt": "2026-09-21T21:02:01.458Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-check-results.json": "fd3d7950e934000f8ebed3a4a89cd5315d93050f721c0be53c8ca7f18b55cdfa",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-checks.py": "3109cf739adaeebadcfaec2b851ef75497c23281ab8c0f1a0bf46e6b5dd246ec",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/block-check-results.json": "aec99dbeedbc39eb2755815b38305300f6a5a737b746e464a99ab1d00882f130",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/calculated-inputs.json": "6eb77106cd6a4dfb8a378e04d5b930c4ce422be561536bfe44522e7cb56eb449",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/context-blocks.py": "6fd160b263d7dc581e753e4986d8345d08fa7d4200731946ce0884f1e7562721",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/convolution-factorization.py": "5b89c0f3b7cf4d1e662afa93695dbc971d8f5290e33a9be89bf3e97d8105e2d1",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/data-provenance.md": "15e079280e021c1f517cd91d3c0a29968577be795674df6ea6278f03db577396",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md": "5db985d23eca0981d3323b5ae14cceb6787b3455aa0835a9fc586f3a4c14b49f",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md": "2a618faf890a6c334d8c1356e50b1366cd77db5e4bf0803696c1512cd5448b8f",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md": "f80635fb8047767842ec8f490e9cd551e68d9ebfb3a042fc401b7e2eaf4deba2"
+            },
+            "completedAt": "2026-09-13T00:55:37.318Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        },
+        {
+          "revision": 2,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-check-results.json": "fd3d7950e934000f8ebed3a4a89cd5315d93050f721c0be53c8ca7f18b55cdfa",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/author-checks.py": "3109cf739adaeebadcfaec2b851ef75497c23281ab8c0f1a0bf46e6b5dd246ec",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/block-check-results.json": "aec99dbeedbc39eb2755815b38305300f6a5a737b746e464a99ab1d00882f130",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/calculated-inputs.json": "6eb77106cd6a4dfb8a378e04d5b930c4ce422be561536bfe44522e7cb56eb449",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/context-blocks.py": "6fd160b263d7dc581e753e4986d8345d08fa7d4200731946ce0884f1e7562721",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/convolution-factorization.py": "5b89c0f3b7cf4d1e662afa93695dbc971d8f5290e33a9be89bf3e97d8105e2d1",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/data-provenance.md": "15e079280e021c1f517cd91d3c0a29968577be795674df6ea6278f03db577396",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/design.md": "14603c05e1ce405c7e6f1d54acfce5d96dbb8bcc295d32199952d65aa251d946",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/lesson.md": "46079f650af0ae95b79378ebf62d62dda38f3c350d533ac2d37277722b09f589",
+              "docs/teaching/drafts/depthwise-separable-dilated-convolutions/visual-specifications.md": "fd52478714c2fffe3e4f12f741b48f53bb3a4f85fa835db7bebd32c68f0207a2"
+            },
+            "completedAt": "2026-09-21T15:07:05.762Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md."
+        }
+      ],
+      "nextAction": "Content revision 3 includes explained scratch mechanisms, ordinary-library/tool routes, exact reuse and modification practice. Under an authorized finish request, consume the complete current packet, execute the declared remaining checks, implement its topic-specific visuals/labs and complete independent implementation review and integration. No known core writing is left for finishing. See docs/teaching/implementation-depth/PREPARED-WRITING-REVISION.md."
+    },
+    "convnext-modern-cnn-designs": {
+      "revision": 3,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/convnext-modern-cnn-designs/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/convnext-modern-cnn-designs/author-check-results.json": "a2435ab6c8db3414dbdd696b8ad86ff473424c140ea5f624a4b40d31441e7263",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/author-checks.py": "533827c9a1e5e7ae031e5250ad31e5a6e3c94d0f4d634f965d410f1acbc05497",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/block-check-results.json": "8f6d60c1448874a52f870ffd2c9ef4be90d6bb9892b4cb94d845855141efd206",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/calculated-inputs.json": "ead661c7bb067947f7bd81a2e699cb446d7e7e8ddc9954b115aeef4dd7061243",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/convnext-blocks.py": "b60eda661e5572b5f2731c4628fdb0dbf6b472acbd208196ffe2ee30c892df4e",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/data-provenance.md": "3833e0e663de6b6d90bd6d671c0e15edde5d8bc740005854ce4aee16cdb13aa3",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/design.md": "6d7cda973959fa89ed1ea7c1de814bd264f6ba927d2b14a5472c3c494a49e223",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md": "909676524ee278714653cfa918e585e4f68212969e8834243f5b1b4f1ecef08c",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/masked-reconstruction.py": "3ffa2afa8d9b71b82adde610192955ba3ef4f4e9609401f0fb6223aabd153417",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md": "5ffeb45b0264401c3eb770ef4372c6daa2563d99ea118e492391fb6987d7b22e",
+          "docs/teaching/drafts/convnext-modern-cnn-designs/convnext_library_bridge.py": "a66031470ef8b9b223d6e7eca2f6ad7f20cbbc1efd3a974f8c0bffd08d08ad54"
+        },
+        "completedAt": "2026-09-21T21:02:01.458Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/convnext-modern-cnn-designs/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/convnext-modern-cnn-designs/author-check-results.json": "a2435ab6c8db3414dbdd696b8ad86ff473424c140ea5f624a4b40d31441e7263",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/author-checks.py": "533827c9a1e5e7ae031e5250ad31e5a6e3c94d0f4d634f965d410f1acbc05497",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/block-check-results.json": "8f6d60c1448874a52f870ffd2c9ef4be90d6bb9892b4cb94d845855141efd206",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/calculated-inputs.json": "ead661c7bb067947f7bd81a2e699cb446d7e7e8ddc9954b115aeef4dd7061243",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/convnext-blocks.py": "b60eda661e5572b5f2731c4628fdb0dbf6b472acbd208196ffe2ee30c892df4e",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/data-provenance.md": "3833e0e663de6b6d90bd6d671c0e15edde5d8bc740005854ce4aee16cdb13aa3",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/design.md": "b99241910320b76da2f0ae7450483cd3e647c01b6d19a74f5c7af3ecb891ca39",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md": "68c8e64e536269a97f8f188bea3e9c0332911cf31f4be6cfbbb630d81487a3b3",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/masked-reconstruction.py": "3ffa2afa8d9b71b82adde610192955ba3ef4f4e9609401f0fb6223aabd153417",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md": "81f8dc527fe35fb9b8ec337efe757aeef8c0c04d92233909e3178608aed9d958"
+            },
+            "completedAt": "2026-09-13T01:32:30.970Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        },
+        {
+          "revision": 2,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/convnext-modern-cnn-designs/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/convnext-modern-cnn-designs/author-check-results.json": "a2435ab6c8db3414dbdd696b8ad86ff473424c140ea5f624a4b40d31441e7263",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/author-checks.py": "533827c9a1e5e7ae031e5250ad31e5a6e3c94d0f4d634f965d410f1acbc05497",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/block-check-results.json": "8f6d60c1448874a52f870ffd2c9ef4be90d6bb9892b4cb94d845855141efd206",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/calculated-inputs.json": "ead661c7bb067947f7bd81a2e699cb446d7e7e8ddc9954b115aeef4dd7061243",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/convnext-blocks.py": "b60eda661e5572b5f2731c4628fdb0dbf6b472acbd208196ffe2ee30c892df4e",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/data-provenance.md": "3833e0e663de6b6d90bd6d671c0e15edde5d8bc740005854ce4aee16cdb13aa3",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/design.md": "d27f6feb4f118807b07f02c25cd46e7860416c50cd0f020175120983498b3e55",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/lesson.md": "b12a3312ab87fcd44ba9ac863c7b973de52882ec8f98eba313e3403838113420",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/masked-reconstruction.py": "3ffa2afa8d9b71b82adde610192955ba3ef4f4e9609401f0fb6223aabd153417",
+              "docs/teaching/drafts/convnext-modern-cnn-designs/visual-specifications.md": "503f546280f5b9a60a60b4b5cd09fb1ea823d9430acbd8ebaa45d83cd534f540"
+            },
+            "completedAt": "2026-09-21T15:07:05.772Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md."
+        }
+      ],
+      "nextAction": "Content revision 3 includes explained scratch mechanisms, ordinary-library/tool routes, exact reuse and modification practice. Under an authorized finish request, consume the complete current packet, execute the declared remaining checks, implement its topic-specific visuals/labs and complete independent implementation review and integration. No known core writing is left for finishing. See docs/teaching/implementation-depth/PREPARED-WRITING-REVISION.md."
+    },
+    "capsule-networks": {
+      "revision": 3,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/capsule-networks/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/capsule-networks/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/capsule-networks/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/capsule-networks/author-check-results.json": "535c6b6ce1cbcf1750e05e8366be1c193b93e5207c20eeefe7ccb031084e3123",
+          "docs/teaching/drafts/capsule-networks/author-checks.py": "6113f71a7674dae76bf6328671fe8a47e65acb2fc06931650cd6552979189de9",
+          "docs/teaching/drafts/capsule-networks/calculated-inputs.json": "c855aa2320a113349cddc33af15cd6b890d863edbc8bc8b894777768facc469a",
+          "docs/teaching/drafts/capsule-networks/capsule-learning.py": "f559318f668fac3621ffeeb8755d423ae836d379a4db8a7f0c097dcecbe9783f",
+          "docs/teaching/drafts/capsule-networks/capsule-mechanics.py": "6715a1a3b96696e0ab6c5665a4ccf7969a7ece7772b104c34bfc68505dba40d7",
+          "docs/teaching/drafts/capsule-networks/capsule_learning_import.py": "5793ecce8e5eb9938acc3bb3c362a43e0b9deeb0bf66ed7912e753ae6b2469a2",
+          "docs/teaching/drafts/capsule-networks/data-provenance.md": "2755430cfb39119ff35cc614a463fd32399bb104db9997df53440b5e6713d205",
+          "docs/teaching/drafts/capsule-networks/design.md": "7454688ec5a48435ecb6469ad7c7b5a566d731ec0b5324277651d6147adb2898",
+          "docs/teaching/drafts/capsule-networks/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/capsule-networks/lesson.md": "642590bb5d986141dd410ddd9c0b773f05e597d08f8a2adcbcfebff8baac2485",
+          "docs/teaching/drafts/capsule-networks/mechanics-results.json": "866ebe2dd806900da674fb0475ce708a680d2a2aaf4709218c134fdb3a10872f",
+          "docs/teaching/drafts/capsule-networks/visual-specifications.md": "ddffb20f93614f1a08454e4af0bbd7dde33d7818a70e07fe67a6185dfc9b3de1"
+        },
+        "completedAt": "2026-09-21T21:02:01.458Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/capsule-networks/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/capsule-networks/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/capsule-networks/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/capsule-networks/author-check-results.json": "535c6b6ce1cbcf1750e05e8366be1c193b93e5207c20eeefe7ccb031084e3123",
+              "docs/teaching/drafts/capsule-networks/author-checks.py": "6113f71a7674dae76bf6328671fe8a47e65acb2fc06931650cd6552979189de9",
+              "docs/teaching/drafts/capsule-networks/calculated-inputs.json": "c855aa2320a113349cddc33af15cd6b890d863edbc8bc8b894777768facc469a",
+              "docs/teaching/drafts/capsule-networks/capsule-learning.py": "f559318f668fac3621ffeeb8755d423ae836d379a4db8a7f0c097dcecbe9783f",
+              "docs/teaching/drafts/capsule-networks/capsule-mechanics.py": "6715a1a3b96696e0ab6c5665a4ccf7969a7ece7772b104c34bfc68505dba40d7",
+              "docs/teaching/drafts/capsule-networks/capsule_learning_import.py": "5793ecce8e5eb9938acc3bb3c362a43e0b9deeb0bf66ed7912e753ae6b2469a2",
+              "docs/teaching/drafts/capsule-networks/data-provenance.md": "2755430cfb39119ff35cc614a463fd32399bb104db9997df53440b5e6713d205",
+              "docs/teaching/drafts/capsule-networks/design.md": "f96189521ee025917499b9779784ecc5bcf1777a07c36fea2c6b8af1414639d6",
+              "docs/teaching/drafts/capsule-networks/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/capsule-networks/lesson.md": "11759d8a284bd15d20f340ffd5b9a6b06b7857016350738d11ef69cad939b234",
+              "docs/teaching/drafts/capsule-networks/mechanics-results.json": "866ebe2dd806900da674fb0475ce708a680d2a2aaf4709218c134fdb3a10872f",
+              "docs/teaching/drafts/capsule-networks/visual-specifications.md": "20ec28db2391e2bffe3f484211405f3d49422853d0b9e493693ca4e22d2b5c85"
+            },
+            "completedAt": "2026-09-13T02:08:57.434Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        },
+        {
+          "revision": 2,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/capsule-networks/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/capsule-networks/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/capsule-networks/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/capsule-networks/author-check-results.json": "535c6b6ce1cbcf1750e05e8366be1c193b93e5207c20eeefe7ccb031084e3123",
+              "docs/teaching/drafts/capsule-networks/author-checks.py": "6113f71a7674dae76bf6328671fe8a47e65acb2fc06931650cd6552979189de9",
+              "docs/teaching/drafts/capsule-networks/calculated-inputs.json": "c855aa2320a113349cddc33af15cd6b890d863edbc8bc8b894777768facc469a",
+              "docs/teaching/drafts/capsule-networks/capsule-learning.py": "f559318f668fac3621ffeeb8755d423ae836d379a4db8a7f0c097dcecbe9783f",
+              "docs/teaching/drafts/capsule-networks/capsule-mechanics.py": "6715a1a3b96696e0ab6c5665a4ccf7969a7ece7772b104c34bfc68505dba40d7",
+              "docs/teaching/drafts/capsule-networks/capsule_learning_import.py": "5793ecce8e5eb9938acc3bb3c362a43e0b9deeb0bf66ed7912e753ae6b2469a2",
+              "docs/teaching/drafts/capsule-networks/data-provenance.md": "2755430cfb39119ff35cc614a463fd32399bb104db9997df53440b5e6713d205",
+              "docs/teaching/drafts/capsule-networks/design.md": "85a5c4ea8334c309c15d172d18250ebd9a2076b8e1719cfcfed106cf0a89caef",
+              "docs/teaching/drafts/capsule-networks/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/capsule-networks/lesson.md": "77f2e5312717ab17d1b02b4c9537d2f94e7cae70b668096a1a6d1c6c128c3188",
+              "docs/teaching/drafts/capsule-networks/mechanics-results.json": "866ebe2dd806900da674fb0475ce708a680d2a2aaf4709218c134fdb3a10872f",
+              "docs/teaching/drafts/capsule-networks/visual-specifications.md": "126ac71c5d399f83bbd893ae5878a218ccdc58d4803c924f75a8941e9b3192e5"
+            },
+            "completedAt": "2026-09-21T15:07:05.786Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md."
+        }
+      ],
+      "nextAction": "Content revision 3 includes explained scratch mechanisms, ordinary-library/tool routes, exact reuse and modification practice. Under an authorized finish request, consume the complete current packet, execute the declared remaining checks, implement its topic-specific visuals/labs and complete independent implementation review and integration. No known core writing is left for finishing. See docs/teaching/implementation-depth/PREPARED-WRITING-REVISION.md."
+    },
+    "rnns-lstms-grus": {
+      "revision": 3,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/rnns-lstms-grus/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/rnns-lstms-grus/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/rnns-lstms-grus/author-check-results.json": "6dc846e17533ea60c904d62c6ae2f67bfe9191f0f7a8e13d9ed133e9f173390b",
+          "docs/teaching/drafts/rnns-lstms-grus/author-checks.py": "dd9fc424efccf0ed1c2226bf54d188270add5bee1f8e1145c5b4ba14cdfae1e3",
+          "docs/teaching/drafts/rnns-lstms-grus/calculated-inputs.json": "b1bd25234d563a878af2023b2c86a1e9569e63e878d5a3be41233f17d14d48ef",
+          "docs/teaching/drafts/rnns-lstms-grus/data-extraction.json": "c4b80343999af7390175c5b0758cd783449fe93f3be03e7a669ab772f2d70b48",
+          "docs/teaching/drafts/rnns-lstms-grus/data-provenance.md": "7af62ab35a3d459ce56ee03774120a4ae14a0d71b8661d42169dbe9b818d169a",
+          "docs/teaching/drafts/rnns-lstms-grus/design.md": "5064983ff486f68ad242bb4227f58da36c952d7dd9c5e45ab87ce1f42d0b3de8",
+          "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.json": "5ccba13f29ec4e186ba751f8255280a30a3dbf2df77ab6f30f3342a492064111",
+          "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.py": "e785bbbd686d20406f1c8df9c239520c048b484ae36a52369bec1c0eb4ebbf93",
+          "docs/teaching/drafts/rnns-lstms-grus/lesson.md": "2626761c8592629be8a0c191234778f0b2b652032a3fcbacf3ec692152681bf2",
+          "docs/teaching/drafts/rnns-lstms-grus/mechanics-results.json": "e8ca63f2993b7adacd8476ee00d3e6524365eec8962035f548f44a846d95988b",
+          "docs/teaching/drafts/rnns-lstms-grus/pen-sequence-learning.py": "8c7e93494612478e11136da96599084c12219da9d7bff0fcaf6e077aee4ce053",
+          "docs/teaching/drafts/rnns-lstms-grus/pen-trajectories.csv": "e9f7d82554a7704edd3d63b07f62b575572675bfa6927e8fea3c52ec879be82f",
+          "docs/teaching/drafts/rnns-lstms-grus/prepare-pen-data.py": "baddaf3aef0a377055c864c0cf9ccca6a4f3d7583f4d0a08bd3481cad5c3e782",
+          "docs/teaching/drafts/rnns-lstms-grus/recurrent-mechanics.py": "b75b269b9e0daf8c0811a5373c2442d80ced0c584ffd980ef305aa1c7a107c80",
+          "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md": "ce2a55f4dbc71f6333523bcd12cfc1440e620410a0a0d132165eaf05ef242b7d"
+        },
+        "completedAt": "2026-09-21T21:02:01.458Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/rnns-lstms-grus/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/rnns-lstms-grus/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/rnns-lstms-grus/author-check-results.json": "6dc846e17533ea60c904d62c6ae2f67bfe9191f0f7a8e13d9ed133e9f173390b",
+              "docs/teaching/drafts/rnns-lstms-grus/author-checks.py": "dd9fc424efccf0ed1c2226bf54d188270add5bee1f8e1145c5b4ba14cdfae1e3",
+              "docs/teaching/drafts/rnns-lstms-grus/calculated-inputs.json": "b1bd25234d563a878af2023b2c86a1e9569e63e878d5a3be41233f17d14d48ef",
+              "docs/teaching/drafts/rnns-lstms-grus/data-extraction.json": "c4b80343999af7390175c5b0758cd783449fe93f3be03e7a669ab772f2d70b48",
+              "docs/teaching/drafts/rnns-lstms-grus/data-provenance.md": "7af62ab35a3d459ce56ee03774120a4ae14a0d71b8661d42169dbe9b818d169a",
+              "docs/teaching/drafts/rnns-lstms-grus/design.md": "a903cf3bcc05c81364a787d5ca5d22a6febea38ed5bf730fa911af0121f00c4a",
+              "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.json": "5ccba13f29ec4e186ba751f8255280a30a3dbf2df77ab6f30f3342a492064111",
+              "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.py": "e785bbbd686d20406f1c8df9c239520c048b484ae36a52369bec1c0eb4ebbf93",
+              "docs/teaching/drafts/rnns-lstms-grus/lesson.md": "536c64e5ea51bdffcc5083811eca16309d8d10cafa534deb2b375e8da07875ce",
+              "docs/teaching/drafts/rnns-lstms-grus/mechanics-results.json": "e8ca63f2993b7adacd8476ee00d3e6524365eec8962035f548f44a846d95988b",
+              "docs/teaching/drafts/rnns-lstms-grus/pen-sequence-learning.py": "8c7e93494612478e11136da96599084c12219da9d7bff0fcaf6e077aee4ce053",
+              "docs/teaching/drafts/rnns-lstms-grus/pen-trajectories.csv": "e9f7d82554a7704edd3d63b07f62b575572675bfa6927e8fea3c52ec879be82f",
+              "docs/teaching/drafts/rnns-lstms-grus/prepare-pen-data.py": "baddaf3aef0a377055c864c0cf9ccca6a4f3d7583f4d0a08bd3481cad5c3e782",
+              "docs/teaching/drafts/rnns-lstms-grus/recurrent-mechanics.py": "b75b269b9e0daf8c0811a5373c2442d80ced0c584ffd980ef305aa1c7a107c80",
+              "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md": "48b38e4b1fec6a470a77942895d51bfa038ccea9a18f823dc5d48270525de051"
+            },
+            "completedAt": "2026-09-13T03:14:39.208Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        },
+        {
+          "revision": 2,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/rnns-lstms-grus/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/rnns-lstms-grus/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/rnns-lstms-grus/author-check-results.json": "6dc846e17533ea60c904d62c6ae2f67bfe9191f0f7a8e13d9ed133e9f173390b",
+              "docs/teaching/drafts/rnns-lstms-grus/author-checks.py": "dd9fc424efccf0ed1c2226bf54d188270add5bee1f8e1145c5b4ba14cdfae1e3",
+              "docs/teaching/drafts/rnns-lstms-grus/calculated-inputs.json": "b1bd25234d563a878af2023b2c86a1e9569e63e878d5a3be41233f17d14d48ef",
+              "docs/teaching/drafts/rnns-lstms-grus/data-extraction.json": "c4b80343999af7390175c5b0758cd783449fe93f3be03e7a669ab772f2d70b48",
+              "docs/teaching/drafts/rnns-lstms-grus/data-provenance.md": "7af62ab35a3d459ce56ee03774120a4ae14a0d71b8661d42169dbe9b818d169a",
+              "docs/teaching/drafts/rnns-lstms-grus/design.md": "18378e6c1fe1611f686428fbacf0936b66acc03d31111c306e504cc0cd6d8852",
+              "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.json": "5ccba13f29ec4e186ba751f8255280a30a3dbf2df77ab6f30f3342a492064111",
+              "docs/teaching/drafts/rnns-lstms-grus/fresh-investigation-fixtures.py": "e785bbbd686d20406f1c8df9c239520c048b484ae36a52369bec1c0eb4ebbf93",
+              "docs/teaching/drafts/rnns-lstms-grus/lesson.md": "65bc87f79f91bcfefd56f3c8ef4677a471d3af5f2a3858d6f28d7a347f2e7df3",
+              "docs/teaching/drafts/rnns-lstms-grus/mechanics-results.json": "e8ca63f2993b7adacd8476ee00d3e6524365eec8962035f548f44a846d95988b",
+              "docs/teaching/drafts/rnns-lstms-grus/pen-sequence-learning.py": "8c7e93494612478e11136da96599084c12219da9d7bff0fcaf6e077aee4ce053",
+              "docs/teaching/drafts/rnns-lstms-grus/pen-trajectories.csv": "e9f7d82554a7704edd3d63b07f62b575572675bfa6927e8fea3c52ec879be82f",
+              "docs/teaching/drafts/rnns-lstms-grus/prepare-pen-data.py": "baddaf3aef0a377055c864c0cf9ccca6a4f3d7583f4d0a08bd3481cad5c3e782",
+              "docs/teaching/drafts/rnns-lstms-grus/recurrent-mechanics.py": "b75b269b9e0daf8c0811a5373c2442d80ced0c584ffd980ef305aa1c7a107c80",
+              "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md": "e5a82e1a9d86f992fcb4d7f21193062be7bd9da6cdc1afa8003522d967233883"
+            },
+            "completedAt": "2026-09-21T15:07:05.810Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md."
+        }
+      ],
+      "nextAction": "Content revision 3 includes explained scratch mechanisms, ordinary-library/tool routes, exact reuse and modification practice. Under an authorized finish request, consume the complete current packet, execute the declared remaining checks, implement its topic-specific visuals/labs and complete independent implementation review and integration. No known core writing is left for finishing. See docs/teaching/implementation-depth/PREPARED-WRITING-REVISION.md."
+    },
+    "sequence-to-sequence-encoder-decoder": {
+      "revision": 3,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-check-results.json": "1ca5764c0ff3873122fb4cd9cd0efa676e6f0ac455067c630eb9d056493791c9",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-checks.py": "b40e238eaee438b6d82c4c9aae97fcafbd3a9380c72d87feaa4ea01c3d8febdd",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/calculated-inputs.json": "654ac6e954d8695279bdbcda457ed459722ce4c36eeefa05783666aa3237ef35",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-extraction.json": "01f15c41dbacbad3b68e82729fc8afa2a7d1e6c4d139c8f7156bedee949e2445",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-provenance.md": "4bd475ce15ed4fad13c07431b411408dc8274a6d7cfa7e38caa5024dcd938fed",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md": "572cab2efeb2002b5bd83d64d36da3edf0a226f4dd6d4c15fab5b22b2fb91292",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/english-inflections.csv": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/inflection-seq2seq.py": "848270224c4e1b1f275bf8ae6ee5676b43166adc8273a17190bd841386bd9fdb",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md": "e77e2a61f8ae145f247fc5e0b2e44d333490b776e267e9224fc5ccb3fac1bcea",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/mechanics-results.json": "f07d28f8946d422cd13abdf21959a895d93367f4183df2708395f8dc6010c59c",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/prepare-inflection-data.py": "0e7dc569d119d6b3b354ca36b3192114fa3a60f73f8014a3a0869063601cadbb",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/sequence-mechanics.py": "f27648f6e52eea55f4836fa8b24b5f8ea490440c62063fb15b4757500ba07749",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/split-integrity-repair.json": "14e67b88114d03d37a4caaa4e469bbd50149ad2ed3d6430254f44df2a5e21767",
+          "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md": "25c25ac558f54ccda34213aa6b4e93e49bf4050eec900bcdcb3f09d45a65ff2f"
+        },
+        "completedAt": "2026-09-21T21:02:01.458Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-check-results.json": "1ca5764c0ff3873122fb4cd9cd0efa676e6f0ac455067c630eb9d056493791c9",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-checks.py": "b40e238eaee438b6d82c4c9aae97fcafbd3a9380c72d87feaa4ea01c3d8febdd",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/calculated-inputs.json": "654ac6e954d8695279bdbcda457ed459722ce4c36eeefa05783666aa3237ef35",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-extraction.json": "01f15c41dbacbad3b68e82729fc8afa2a7d1e6c4d139c8f7156bedee949e2445",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-provenance.md": "4bd475ce15ed4fad13c07431b411408dc8274a6d7cfa7e38caa5024dcd938fed",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md": "7562ecd9f144c980e6b83131f85e462600aa0cec82259dbfb10be10ed7b61114",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/english-inflections.csv": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/inflection-seq2seq.py": "848270224c4e1b1f275bf8ae6ee5676b43166adc8273a17190bd841386bd9fdb",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md": "19c738712f6101650f2632b264cc54e851f3993c7324b5405d26faf25ed6e1f9",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/mechanics-results.json": "f07d28f8946d422cd13abdf21959a895d93367f4183df2708395f8dc6010c59c",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/prepare-inflection-data.py": "0e7dc569d119d6b3b354ca36b3192114fa3a60f73f8014a3a0869063601cadbb",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/sequence-mechanics.py": "f27648f6e52eea55f4836fa8b24b5f8ea490440c62063fb15b4757500ba07749",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/split-integrity-repair.json": "14e67b88114d03d37a4caaa4e469bbd50149ad2ed3d6430254f44df2a5e21767",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md": "8eb6300cab016822bd6cec2e90d2116cfcf4fb031b5280451bba19302d6d675a"
+            },
+            "completedAt": "2026-09-13T03:50:53.655Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        },
+        {
+          "revision": 2,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-check-results.json": "1ca5764c0ff3873122fb4cd9cd0efa676e6f0ac455067c630eb9d056493791c9",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/author-checks.py": "b40e238eaee438b6d82c4c9aae97fcafbd3a9380c72d87feaa4ea01c3d8febdd",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/calculated-inputs.json": "654ac6e954d8695279bdbcda457ed459722ce4c36eeefa05783666aa3237ef35",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-extraction.json": "01f15c41dbacbad3b68e82729fc8afa2a7d1e6c4d139c8f7156bedee949e2445",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/data-provenance.md": "4bd475ce15ed4fad13c07431b411408dc8274a6d7cfa7e38caa5024dcd938fed",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/design.md": "c7cdf2552351242bf083ca4999d21e8d7adafddfc58bd92a500401578bac6096",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/english-inflections.csv": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/inflection-seq2seq.py": "848270224c4e1b1f275bf8ae6ee5676b43166adc8273a17190bd841386bd9fdb",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/lesson.md": "50488619fcfc72a0bfbe1fd52885232e4190cc0911222dfaeaafd59982c5ae04",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/mechanics-results.json": "f07d28f8946d422cd13abdf21959a895d93367f4183df2708395f8dc6010c59c",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/prepare-inflection-data.py": "0e7dc569d119d6b3b354ca36b3192114fa3a60f73f8014a3a0869063601cadbb",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/sequence-mechanics.py": "f27648f6e52eea55f4836fa8b24b5f8ea490440c62063fb15b4757500ba07749",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/split-integrity-repair.json": "14e67b88114d03d37a4caaa4e469bbd50149ad2ed3d6430254f44df2a5e21767",
+              "docs/teaching/drafts/sequence-to-sequence-encoder-decoder/visual-specifications.md": "be1872fa5ac07988cce24b41b35fd5a2bdcac0c1fb8dfc6a99f3e5b981b6c6db"
+            },
+            "completedAt": "2026-09-21T15:07:05.840Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md."
+        }
+      ],
+      "nextAction": "Content revision 3 includes explained scratch mechanisms, ordinary-library/tool routes, exact reuse and modification practice. Under an authorized finish request, consume the complete current packet, execute the declared remaining checks, implement its topic-specific visuals/labs and complete independent implementation review and integration. No known core writing is left for finishing. See docs/teaching/implementation-depth/PREPARED-WRITING-REVISION.md."
+    }
+  },
+  "publication": "82d36413aeb679ba6587f97795573f4edeea26aec90c68a7d3875c2d9be4c407"
+}

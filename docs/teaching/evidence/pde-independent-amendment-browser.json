@@ -1,0 +1,98 @@
+{
+  "checkedAt": "2026-09-11T09:07:32.083Z",
+  "passed": true,
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+      "sha256": "0ee1d67f1aecbc402f5e5cfbd8f6ad428bb743d8256ba0d14e4e6fb5b7249c99"
+    },
+    {
+      "path": "src/learn/data/pde-models.js",
+      "sha256": "c9b4a1b5e03ec86be48da1f54017918232b260f0e6f3d01b1308f1207df1efc2"
+    },
+    {
+      "path": "src/learn/data/pde-examples.js",
+      "sha256": "dc902521d76b895f6ff1841747b0b969678d1198cccbea837430a24d84ac39b1"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "sha256": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/pde-labs.css",
+      "sha256": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js",
+      "sha256": "f8c704b70c057eb8113ced0346f1ca5eb9902d357f91cc62194c81c276836fcb"
+    }
+  ],
+  "results": [
+    {
+      "width": 1440,
+      "states": 24,
+      "programs": 15,
+      "equations": 22,
+      "errors": [],
+      "failedRequests": [],
+      "intentionalHmrDiagnostics": [
+        "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      ],
+      "overflow": 0,
+      "loadedModuleBoundary": {
+        "x": 1,
+        "time": 0.000001,
+        "leftFoot": 0.999999,
+        "rightFoot": 1.000001,
+        "rightMoving": 3.999994000003001e-18,
+        "leftMoving": 0,
+        "velocityContribution": 4.999994000002499e-25,
+        "total": 3.9999945000024e-18
+      }
+    },
+    {
+      "width": 390,
+      "states": 24,
+      "programs": 15,
+      "equations": 22,
+      "errors": [],
+      "failedRequests": [],
+      "intentionalHmrDiagnostics": [
+        "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      ],
+      "overflow": 0,
+      "loadedModuleBoundary": {
+        "x": 1,
+        "time": 0.000001,
+        "leftFoot": 0.999999,
+        "rightFoot": 1.000001,
+        "rightMoving": 3.999994000003001e-18,
+        "leftMoving": 0,
+        "velocityContribution": 4.999994000002499e-25,
+        "total": 3.9999945000024e-18
+      }
+    },
+    {
+      "width": 320,
+      "states": 24,
+      "programs": 15,
+      "equations": 22,
+      "errors": [],
+      "failedRequests": [],
+      "intentionalHmrDiagnostics": [
+        "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      ],
+      "overflow": 0,
+      "loadedModuleBoundary": {
+        "x": 1,
+        "time": 0.000001,
+        "leftFoot": 0.999999,
+        "rightFoot": 1.000001,
+        "rightMoving": 3.999994000003001e-18,
+        "leftMoving": 0,
+        "velocityContribution": 4.999994000002499e-25,
+        "total": 3.9999945000024e-18
+      }
+    }
+  ]
+}

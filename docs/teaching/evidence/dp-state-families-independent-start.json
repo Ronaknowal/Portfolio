@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-09-11T09:55:46.699Z",
+  "status": "preliminary read; compare final author packet before closure",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+      "sha256": "4775925f5bd7e5c953d32777cb5500e6c4e4a081f74d4c1f342c9ec99d67fbd9"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "4334d6c5b31cc7263a60407076364423e635db35d47fb572de357c617d39cc93"
+    },
+    {
+      "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-models.js",
+      "sha256": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-examples.js",
+      "sha256": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+      "sha256": "f07349a9f07d5773bf727c94dc87a13019d1a54b73da33464d3aa62c8f63958d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+      "sha256": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2"
+    }
+  ]
+}

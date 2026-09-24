@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "command": "node scripts/verify-curriculum.mjs",
+      "exitCode": 0,
+      "output": "PASS: 29 modules, 1460 stable topics, 625 individual briefs, 10 paths. Prerequisite graphs are acyclic and included as supporting topics; reading order follows module contents. Shared memberships and all 1002 pre-expansion topic IDs preserved. Unknown older dependencies remain unreviewed."
+    },
+    {
+      "command": "node scripts/verify-learning-artifacts.mjs",
+      "exitCode": 0,
+      "output": "Verified navigation for 1460 topics, 231 published lessons and 485 separate outlines; 0 stale files.\nPASS: 1460 topic records, 29 modules, 231 publication mappings and every guided/module route match authoring sources; body and outline loading remain separate."
+    },
+    {
+      "command": "node scripts/verify-content-import-boundary.mjs",
+      "exitCode": 0,
+      "output": "{\"passed\":true,\"sourceFilesScanned\":1126,\"directMathImports\":235,\"lightweightDependencyModules\":7,\"genericContentExports\":[\"Prose\",\"H2\",\"H3\",\"Code\",\"CodeBlock\",\"Callout\",\"Figure\"],\"checks\":\"No direct/transitive static math or KaTeX barrel dependency; all named consumers use the direct math module, including unpublished drafts.\"}"
+    },
+    {
+      "command": "node scripts/verify-runtime-source-organization.mjs",
+      "exitCode": 0,
+      "output": "PASS runtime source organization: {\n  conservedDataExports: 66,\n  parsedRuntimeModules: 62,\n  retiredRuntimeFiles: 29\n}"
+    },
+    {
+      "command": "node scripts/verify-lesson-delivery.mjs",
+      "exitCode": 0,
+      "output": "{\n  \"status\": \"passed\",\n  \"trackedTopics\": 177,\n  \"cases\": [\n    \"Missing content prevents finish; full/content requests can begin\",\n    \"Incomplete content and premature implementation are rejected\",\n    \"A complete matching manuscript/specification checkpoint permits finish only\",\n    \"Changed or missing specification invalidates a previously complete handoff\",\n    \"Implementation completion needs its own exact source checkpoint\",\n    \"Historical completion is preserved without blessing a changed revision\",\n    \"Malformed status, topic, hash and path cannot bypass the checkpoint\",\n    \"An active full rewrite cannot inherit an old allowlisted/user-approved status\"\n  ]\n}"
+    },
+    {
+      "command": "node scripts/verify-math-library-structure.mjs",
+      "exitCode": 0,
+      "output": "randomized-linear-algebra: JSX, canonical program, recorded output and source hashes passed\ngradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars: JSX, canonical program, recorded output and source hashes passed\nmonte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts: JSX, canonical program, recorded output and source hashes passed\nvariational-inference: JSX, canonical program, recorded output and source hashes passed\nspectral-graph-theory: JSX, canonical program, recorded output and source hashes passed\nfunctional-analysis-rkhs: JSX, canonical program, recorded output and source hashes passed\ntopology-topological-data-analysis-tda: JSX, canonical program, recorded output and source hashes passed"
+    }
+  ]
+}

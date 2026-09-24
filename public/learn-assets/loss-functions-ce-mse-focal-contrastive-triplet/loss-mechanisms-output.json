@@ -1,0 +1,51 @@
+{
+  "mse": {
+    "loss": 4.8374999999999995,
+    "max_gradient_error": 0
+  },
+  "mae": {
+    "loss": 1.6749999999999998,
+    "max_gradient_error": 0
+  },
+  "huber": {
+    "loss": 1.2062499999999998,
+    "max_gradient_error": 0
+  },
+  "quantile": {
+    "loss": 0.5725,
+    "max_gradient_error": 1.3877787807814457e-17
+  },
+  "cross_entropy": {
+    "loss": 1.225170469096215,
+    "max_gradient_error": 5.551115123125783e-17
+  },
+  "extreme_cross_entropy": {
+    "loss": 2000,
+    "max_gradient_error": 0
+  },
+  "focal_gamma_0.0": {
+    "loss": 286.10955303921224,
+    "max_gradient_error": 2.7755575615628914e-17
+  },
+  "focal_gamma_0.5": {
+    "loss": 286.0521361101946,
+    "max_gradient_error": 2.7755575615628914e-17
+  },
+  "focal_gamma_2.0": {
+    "loss": 285.9620719523538,
+    "max_gradient_error": 2.7755575615628914e-17
+  },
+  "squared_triplet": {
+    "loss": 1.12,
+    "max_gradient_error": 1.1102230246251565e-16
+  },
+  "paired_info_nce": {
+    "loss": 2.814218847550201,
+    "max_gradient_error": 4.440892098500626e-16
+  },
+  "one_classifier_update": {
+    "before": 1.4427207023185467,
+    "after": 1.3133061262137424,
+    "parameters_match": true
+  }
+}

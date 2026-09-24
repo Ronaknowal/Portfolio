@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-09-10T08:44:45.592Z",
+  "base": "http://127.0.0.1:5173",
+  "results": [
+    {
+      "width": 1440,
+      "rewardStates": 83,
+      "gridStates": 48,
+      "sequenceStates": 111,
+      "capacityStates": 66,
+      "subsetStates": 24,
+      "examples": 16,
+      "practice": 12,
+      "anchors": 10,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "rewardStates": 83,
+      "gridStates": 48,
+      "sequenceStates": 111,
+      "capacityStates": 66,
+      "subsetStates": 24,
+      "examples": 16,
+      "practice": 12,
+      "anchors": 10,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

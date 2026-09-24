@@ -1,0 +1,34 @@
+.knn-figure { margin: 1.5rem 0; }
+.knn-plot { max-width: 100%; overflow-x: auto; border: 1px solid #3a4851; background: #0b1116; }
+.knn-plot svg { display: block; width: 100%; min-width: 400px; height: auto; }
+.knn-lesson .knn-plot svg text { font: 13px 'JetBrains Mono', monospace; fill: #d0dbe2; }
+.knn-grid { stroke: #34434e; stroke-width: 1; }
+.knn-link { stroke: #87939d; stroke-width: 1; stroke-dasharray: 3 4; }
+.knn-contour { stroke: #edc269; stroke-width: 2; fill: #edc269; fill-opacity: 0.05; }
+.knn-split { stroke: #8dcae4; stroke-width: 2.5; stroke-dasharray: 6 4; }
+.knn-figure figcaption, .knn-flow figcaption { margin-top: .7rem; font-size: .9rem; line-height: 1.65; color: #becad3; }
+.knn-scroll-note { display: none; }
+.knn-controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; margin-block: 1rem; }
+.knn-controls label { display: grid; gap: .5rem; flex: 1 1 160px; min-width: 0; }
+.knn-lesson :is(select, input, button, summary) { min-height: 44px; max-width: 100%; }
+.knn-lesson :is(select, input, button, summary, [tabindex]):focus-visible { outline: 2px solid #edc269; outline-offset: 4px; }
+.knn-result { padding-block: 1rem; border-block: 1px solid #414c53; }
+.knn-votes > div { display: grid; grid-template-columns: 150px 1fr; gap: 1rem; margin-block: .6rem; font-size: .9rem; align-items: center; }
+.knn-bar { display: block; background: #25303a; height: 14px; }
+.knn-bar > span { display: block; height: 100%; }
+.knn-flow, .knn-candidate-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+.knn-flow > div, .knn-candidate-columns > div { display: flex; flex-direction: column; gap: .7rem; border-left: 2px solid #ad8644; padding: .8rem 1rem; font-size: .95rem; line-height: 1.6; }
+.knn-flow figcaption { grid-column: 1 / -1; }
+.knn-contributions > div { display: flex; flex-direction: column; gap: .7rem; padding: 1rem 0; border-bottom: 1px solid #34434e; font-size: .9rem; line-height: 1.7; }
+.knn-stacked { display: flex; height: 18px; background: #26323a; }
+.knn-stacked > span:first-child { background: #edc269; }
+.knn-stacked > span:last-child { background: #8dcae4; }
+.knn-lesson .lesson-check { margin: 2rem 0; }
+@media (max-width: 540px) {
+  .knn-controls label { flex-basis: 100%; }
+  .knn-flow, .knn-candidate-columns { grid-template-columns: 1fr; }
+  .knn-votes > div { grid-template-columns: 1fr; gap: .35rem; }
+  .knn-scroll-note { display: block; font-size: .8rem; line-height: 1.6; color: #becad3; }
+}
+
+.knn-lesson .knn-plot .knn-row-label { paint-order: stroke; stroke: #0d1418; stroke-width: 4px; stroke-linejoin: round; }

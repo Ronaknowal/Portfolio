@@ -1,0 +1,1560 @@
+{
+  "reviewedAt": "2026-09-11T10:30:11.593Z",
+  "topicId": "numerical-pdes-grids-finite-elements-stability",
+  "status": "bounded independent review passed; production integration and user acceptance remain separate",
+  "reviewer": "/root/scientific_visual_improvements",
+  "authorFreeze": "2026-09-11T10:29:32.726795+00:00",
+  "authorPacket": {
+    "path": "docs/teaching/evidence/numerical-pdes-author-review.json",
+    "sha256": "e6b562e2e959a14b6103dc70f4110f0396e11ceb0ef4c1a7c682bb6db9d463fd"
+  },
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+      "sha256": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e"
+    },
+    {
+      "path": "src/learn/data/numerical-pde-models.js",
+      "sha256": "d5a078c6db80284805f9c9c3e467ce38f29bba54b0fa284816ef6ef10aa015d7"
+    },
+    {
+      "path": "src/learn/data/numerical-pde-examples.js",
+      "sha256": "c2a25964f5d2f3b18c9b242cf4897a21fe030630aaa963c84ec489d3e2e80821"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/NumericalPdeLabs.jsx",
+      "sha256": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/numerical-pde-labs.css",
+      "sha256": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js",
+      "sha256": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+    }
+  ],
+  "preservedOriginalAuthorPacket": {
+    "path": "docs/teaching/archive/numerical-pdes-independent-start/author-review.json",
+    "sha256": "0f42391ed4ef17e28115040966d75bfc0af372922823e950a55c7fe0ae131ded"
+  },
+  "authorAmendmentArchive": {
+    "path": "docs/teaching/evidence/numerical-pdes-endpoint-before.json",
+    "sha256": "d94bf605c9d25655bf97f73e0975cfa95d354d8e0c271afb093c26133545089a"
+  },
+  "sourceConservation": {
+    "modelReversedToExactOriginal": true,
+    "unchangedExampleRecords": 15,
+    "endpointOnlyNativeProgramChange": "poisson",
+    "conservedStdoutPrograms": 16,
+    "unchangedOtherProductionFiles": 4
+  },
+  "originalReviewStart": {
+    "path": "scratch/numerical-pdes-independent-review/start.json",
+    "sha256": "55c7cf9c49e6305a9399728b795efc108648658f521bcadc774e5b58c7063d13",
+    "result": {
+      "startedAt": "2026-09-11T10:06:06.852Z",
+      "authorPath": "docs/teaching/evidence/numerical-pdes-author-review.json",
+      "authorSha256": "0f42391ed4ef17e28115040966d75bfc0af372922823e950a55c7fe0ae131ded",
+      "sourceHashes": [
+        {
+          "path": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+          "sha256": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e",
+          "archive": "docs/teaching/archive/numerical-pdes-independent-start/src__learn__data__topics__numerical-pdes-grids-finite-elements-stability.jsx.txt"
+        },
+        {
+          "path": "src/learn/data/numerical-pde-models.js",
+          "sha256": "ebbb437c85f2800119f4d73bb8545a359ea82dfaa7abfbf9621668203e7309c1",
+          "archive": "docs/teaching/archive/numerical-pdes-independent-start/src__learn__data__numerical-pde-models.js.txt"
+        },
+        {
+          "path": "src/learn/data/numerical-pde-examples.js",
+          "sha256": "5fe77ae7e4378df69a1c2763579be68dd6eaac70e85132ea6623bed1f00051c3",
+          "archive": "docs/teaching/archive/numerical-pdes-independent-start/src__learn__data__numerical-pde-examples.js.txt"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/NumericalPdeLabs.jsx",
+          "sha256": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+          "archive": "docs/teaching/archive/numerical-pdes-independent-start/src__learn__components__lesson-labs__NumericalPdeLabs.jsx.txt"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/numerical-pde-labs.css",
+          "sha256": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+          "archive": "docs/teaching/archive/numerical-pdes-independent-start/src__learn__components__lesson-labs__numerical-pde-labs.css.txt"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js",
+          "sha256": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893",
+          "archive": "docs/teaching/archive/numerical-pdes-independent-start/src__learn__data__curriculum__blueprints__numerical-pdes-grids-finite-elements-stability.js.txt"
+        }
+      ]
+    }
+  },
+  "initialFindingEvidence": {
+    "path": "scratch/numerical-pdes-independent-review/initial-findings.json",
+    "sha256": "12c04303b04acc6b94af63a36f555889310458b4fa9c35b558e602511ab1fb47",
+    "result": {
+      "observedAt": "2026-09-11T10:19:08.984Z",
+      "source": "archived original source",
+      "input": {
+        "intervals": 3,
+        "length": 0.7,
+        "profile": "linear",
+        "scale": 1.7,
+        "left": -2.3,
+        "right": 4.1,
+        "method": "jacobi",
+        "iterations": 9,
+        "tolerance": 0.03
+      },
+      "error": "RangeError: Position must be finite and between 0 and 0.6999999999999998.",
+      "meshEndpoint": 0.6999999999999998,
+      "requestedEndpoint": 0.7
+    }
+  },
+  "findings": [
+    {
+      "severity": "material accepted-input correctness defect",
+      "problem": "An allowed odd grid and decimal domain length rounded its generated endpoint below the requested curve endpoint, causing the exported Poisson model to throw.",
+      "exactReproducer": {
+        "intervals": 3,
+        "length": 0.7,
+        "profile": "linear",
+        "scale": 1.7,
+        "left": -2.3,
+        "right": 4.1,
+        "method": "jacobi",
+        "iterations": 9,
+        "tolerance": 0.03
+      },
+      "authorRepair": "Pin both mesh and plot endpoints to the actual domain values. The displayed native Poisson helper pins its returned mesh endpoints as well. No interpolation domain tolerance was broadened.",
+      "resolution": "Closed by changed odd-grid Green/continuous-extremum cases, explicit JS mesh/curve endpoint equality, 20 changed native endpoint/cubic cases and actual final source-matched browser programs."
+    }
+  ],
+  "productionEditsByReviewer": [],
+  "sourceRead": [
+    "Entire 15-section lesson and 15 changed practice solutions",
+    "All 16 actual complete program strings, questions and stdout",
+    "Entire pure model, component and CSS source",
+    "Individual brief, complete assessed design, author verification and design-only independent assessment",
+    "Exact inventory and three incoming destination-note dispositions"
+  ],
+  "mathematicalReview": [
+    "Negative-Laplacian sign, Taylor remainder and defect direction",
+    "Boundary elimination, discrete maximum principle and normalization-aware inverse bound",
+    "Convex reconstruction, local remainder and exact-versus-sampled error",
+    "Explicit monotonicity versus finite-grid Euclidean spectral condition",
+    "Method-specific implicit factors, energy identity and fixed-space time comparison",
+    "Outward Neumann/Robin signs, compatibility and series resistance",
+    "Periodic upwind contraction, CFL necessity and scalar entropy flux scope",
+    "Exact load functionals, nonuniform assembly and source-alignment kink",
+    "Galerkin energy orthogonality, 1D constant-coefficient nodal exactness and integrated errors",
+    "Unequal grid spacing, row-major boundaries and affine triangle gradients",
+    "Weighted Jacobi and norm-specific coarse-space correction"
+  ],
+  "native": {
+    "record": {
+      "path": "scratch/numerical-pdes-independent-review/native-results.json",
+      "sha256": "310b520cd735b5525e9db975b884c99c5a5aa0e7b6d20e8fd4d15c15d11024e3"
+    },
+    "result": {
+      "completedAt": "2026-09-11T10:22:21.351155+00:00",
+      "passed": true,
+      "sourceHashes": [
+        {
+          "path": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+          "sha256": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e"
+        },
+        {
+          "path": "src/learn/data/numerical-pde-models.js",
+          "sha256": "d5a078c6db80284805f9c9c3e467ce38f29bba54b0fa284816ef6ef10aa015d7"
+        },
+        {
+          "path": "src/learn/data/numerical-pde-examples.js",
+          "sha256": "c2a25964f5d2f3b18c9b242cf4897a21fe030630aaa963c84ec489d3e2e80821"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/NumericalPdeLabs.jsx",
+          "sha256": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/numerical-pde-labs.css",
+          "sha256": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js",
+          "sha256": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+        }
+      ],
+      "counts": {
+        "actual displayed stdout": 16,
+        "exact discrete Green solution": 36,
+        "exact Green residual identity": 36,
+        "whole-field stationary-point certificate": 36,
+        "changed native endpoint and cubic exactness": 20,
+        "changed native global field report": 4,
+        "full sine spectral propagation": 216,
+        "changed actual native diffusion": 72,
+        "binomial circular transport": 36,
+        "exact rational translated cell overlap": 18,
+        "changed native binomial transport": 18,
+        "FEM Green nodal values": 48,
+        "exact expanded field polynomial integral": 48,
+        "exact expanded slope polynomial integral": 48,
+        "changed native FEM Green solution": 48,
+        "ambient affine triangle energy": 48,
+        "ambient affine gradient reproduction": 48,
+        "changed native triangle": 12,
+        "gradient-space orthogonal coarse projection": 7,
+        "coarse actual energy norm": 7,
+        "coarse gradient orthogonality": 7,
+        "integrated Neumann face balance": 9,
+        "changed exact native Neumann balance": 9,
+        "minimum-energy interface temperature": 6,
+        "minimum-energy interface flux": 6,
+        "changed exact practice budget thresholds": 2
+      },
+      "maximumScaledError": 1.3007094334596903e-14,
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "numpy": "2.3.5",
+      "mpmathPrecision": 80
+    },
+    "scripts": [
+      {
+        "path": "scripts/verify-numerical-pdes-independent.mjs",
+        "sha256": "fa3cbfcff1c949238759d8a34cc83cd0ae435c6ed9ca16053c56f908e5a08c63"
+      },
+      {
+        "path": "scripts/verify-numerical-pdes-independent.py",
+        "sha256": "29cde99e22c684143fffa559cbcbe139cc6cfe8e7241d8d3ffd1043148aa526f"
+      }
+    ]
+  },
+  "browser": {
+    "record": {
+      "path": "scratch/numerical-pdes-independent-review/browser/results.json",
+      "sha256": "5816f5f4b543a24e2cbd00cb0f50dfb1bb0f56653237de99763dbf2d87849ae8"
+    },
+    "result": {
+      "startedAt": "2026-09-11T10:19:34.010Z",
+      "completedAt": "2026-09-11T10:20:01.314Z",
+      "passed": true,
+      "sourceHashes": [
+        {
+          "path": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+          "sha256": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e"
+        },
+        {
+          "path": "src/learn/data/numerical-pde-models.js",
+          "sha256": "d5a078c6db80284805f9c9c3e467ce38f29bba54b0fa284816ef6ef10aa015d7"
+        },
+        {
+          "path": "src/learn/data/numerical-pde-examples.js",
+          "sha256": "c2a25964f5d2f3b18c9b242cf4897a21fe030630aaa963c84ec489d3e2e80821"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/NumericalPdeLabs.jsx",
+          "sha256": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/numerical-pde-labs.css",
+          "sha256": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js",
+          "sha256": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+        }
+      ],
+      "records": [
+        {
+          "width": 1440,
+          "states": [
+            {
+              "name": "nonzero last boundary incomplete",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 274,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "fine direct certificate",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 322,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "linear exactness has undefined rate",
+              "geometry": []
+            },
+            {
+              "name": "overshoot plot range",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 85,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "refined high-mode common time",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 85,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "reversed conductivity contrast",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 3,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "excess outward flux",
+              "geometry": []
+            },
+            {
+              "name": "restored full balance",
+              "geometry": []
+            },
+            {
+              "name": "left exact three-cell translation",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 32,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "centered overshoot is visible",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 32,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "stationary entropy shock",
+              "geometry": []
+            },
+            {
+              "name": "negative fan fixed-face value",
+              "geometry": []
+            },
+            {
+              "name": "moved interior load weights",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 4,
+                  "pointsInside": true
+                },
+                {
+                  "labels": [],
+                  "pointCount": 245,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "source-aligned reconstruction",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 4,
+                  "pointsInside": true
+                },
+                {
+                  "labels": [],
+                  "pointCount": 247,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "upper-right boundary neighbors",
+              "geometry": []
+            },
+            {
+              "name": "stretched element geometry",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 0,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "energy falls while L2 grows",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 27,
+                  "pointsInside": true
+                }
+              ]
+            }
+          ],
+          "screenshots": [
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/restriction-reading-1440.png",
+              "sha256": "b1f28678a6d9602910195f502a4a1813f7318b62fa7f099b9e81346abf1eead1"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/boundary-row-1440.png",
+              "sha256": "d90ee7d1c0f5d05e8042b5f0f5507ddfe0360b7f27bf769eb26ca180fc2919c5"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/field-budget-1440.png",
+              "sha256": "55bff3b6815c203d7c31bc8302729bdec25e1ade777ad8ddde30f8ba03409b3a"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/linear-exactness-1440.png",
+              "sha256": "f9642427928c10a92503a56a71c89cadda9e7a89c6b512b5fc982d1b224973e0"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/diffusion-overshoot-1440.png",
+              "sha256": "afba65eb43e09585e3a00b9486e9ae25f4ecf0f27499f2aa0f7c4bb35b20a466"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/material-profile-1440.png",
+              "sha256": "b5dccbdccbec1ee92b53e3bb9cf7a25269db96af3ccb8bbe2a3801b61fb77b81"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/flux-mismatch-1440.png",
+              "sha256": "596371385afc7ad9921eabf2b776036d34de868b49cf72b83518ffc5fbd7ac1e"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/left-translation-1440.png",
+              "sha256": "1e174ffff1493c312ff80b55c699ead9908aaf87fe4e60add3e6ad6f8cd1da3a"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/transport-overshoot-1440.png",
+              "sha256": "819da091cd98e06da7499210c4d381775c9d58a62dcf4033dd86d5513b2e6c0e"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/stationary-face-1440.png",
+              "sha256": "e630cf4f916da23d57dc1f4b699f20918e5aab7be8fa77fe75b1d72d5a24290c"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/nonuniform-assembly-1440.png",
+              "sha256": "2356423eb994161330779f90d6ac576fbfdd3e1c365740820251aedd80ce5f97"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/point-field-1440.png",
+              "sha256": "bbdd9525ec8e05bf945d87ffe8e6730cbf33722f2701f34c134e68639e287824"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/corner-indices-1440.png",
+              "sha256": "01f5593eacba2843f954eb52216ce336f61b1dd85c52fbc4a1248254e8801068"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/triangle-gradients-1440.png",
+              "sha256": "bfcf33963d56df321d82d2309711ecffdc30a89dc7736652f71c3a474b35507f"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/coarse-high-mode-1440.png",
+              "sha256": "41c0d5fa602874a40848c93057a52ac1a1c45b158347fffc7fed775998090608"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/coarse-norms-1440.png",
+              "sha256": "c2996021f446b204613f4caf018fd011c89ea8578a9011917e6459a1a9d44b17"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/reconstruction-proof-1440.png",
+              "sha256": "73cb880683c0a033b7f6d6693e7cd08822d9735ab6403e7f97e124dc539669c7"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/energy-proof-1440.png",
+              "sha256": "fc5926bd80b6088752ff1e40c3ec9a316c386fb604e19d62cb835c0b2181c5e1"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/changed-report-question-1440.png",
+              "sha256": "b8962e64ad27e1e253090c27b80e60868d9dc19c128ef38764fee73023d0e3c4"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/changed-report-output-1440.png",
+              "sha256": "d73eb5feed225e6cce2aa5dfcb3b5669d40a201c837f9aa718422c18366450f1"
+            }
+          ],
+          "errors": [],
+          "failedRequests": [],
+          "keyboard": [
+            "Reset: From a stencil row to a field certificate",
+            "Reset: A refinement test can tell the wrong story",
+            "Reset: Watch a mode, not just a stability badge",
+            "Reset: Two materials share one steady flux",
+            "Reset: A boundary gauge cannot repair missing heat",
+            "Reset: Move cell averages through shared faces",
+            "Reset: Choose a Burgers face flux from the wave",
+            "Reset: Assemble overlapping hats; resolve a point source",
+            "Reset: A two-dimensional neighbor is not always a vector neighbor",
+            "Reset: Map a triangle, then map its gradients",
+            "Reset: Remove error on two resolutions",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual select arrows",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer"
+          ],
+          "programs": [
+            "Derive a row with exact fractions",
+            "Solve the tridiagonal problem",
+            "Stop only when the requested field is certified",
+            "Separate a useful refinement test from an exactness trap",
+            "Execute three different time updates",
+            "Refine time while keeping space fixed",
+            "Combine resistances, not conductivities",
+            "Reject incompatible fluxes before choosing a mean",
+            "Check mass and shape separately",
+            "Read the entropy solution at one cell face",
+            "Assemble overlapping hats on an actual mesh",
+            "Integrate field and slope errors",
+            "Solve a sparse rectangular problem",
+            "Calculate a triangle's basis gradients",
+            "Compute one explicitly defined coarse correction",
+            "Deliver a changed field-tolerance report"
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "equations": [
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            }
+          ],
+          "anchors": [
+            "#npde-field",
+            "#npde-stencil",
+            "#npde-solve",
+            "#npde-certificate",
+            "#npde-reconstruct",
+            "#npde-refine",
+            "#npde-diffusion",
+            "#npde-implicit",
+            "#npde-flux",
+            "#npde-transport",
+            "#npde-elements",
+            "#npde-energy",
+            "#npde-geometry",
+            "#npde-solvers",
+            "#npde-practice"
+          ]
+        },
+        {
+          "width": 390,
+          "states": [
+            {
+              "name": "nonzero last boundary incomplete",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 274,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "fine direct certificate",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 322,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "linear exactness has undefined rate",
+              "geometry": []
+            },
+            {
+              "name": "overshoot plot range",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 85,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "refined high-mode common time",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 85,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "reversed conductivity contrast",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 3,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "excess outward flux",
+              "geometry": []
+            },
+            {
+              "name": "restored full balance",
+              "geometry": []
+            },
+            {
+              "name": "left exact three-cell translation",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 32,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "centered overshoot is visible",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 32,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "stationary entropy shock",
+              "geometry": []
+            },
+            {
+              "name": "negative fan fixed-face value",
+              "geometry": []
+            },
+            {
+              "name": "moved interior load weights",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 4,
+                  "pointsInside": true
+                },
+                {
+                  "labels": [],
+                  "pointCount": 245,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "source-aligned reconstruction",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 4,
+                  "pointsInside": true
+                },
+                {
+                  "labels": [],
+                  "pointCount": 247,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "upper-right boundary neighbors",
+              "geometry": []
+            },
+            {
+              "name": "stretched element geometry",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 0,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "energy falls while L2 grows",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 27,
+                  "pointsInside": true
+                }
+              ]
+            }
+          ],
+          "screenshots": [
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/restriction-reading-390.png",
+              "sha256": "5de1004f29c4a9f210948ed70c7125c5f045477e17ad7438f5a57d5c60b75546"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/boundary-row-390.png",
+              "sha256": "6272e7b1fc97573467999af07adacc8347d00e9180267b4c2bc2cf23208757c1"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/field-budget-390.png",
+              "sha256": "d5888cb111b0164a3865b5fe0f2484b66b0318e57a35dfbec93efa8a5ba78315"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/linear-exactness-390.png",
+              "sha256": "378a7329dd6fdeedae10d985a62a93d29e0c49ccb959d2bbfc6b048c1d514a6c"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/diffusion-overshoot-390.png",
+              "sha256": "d280617401312e1c029aa8b8f89a756f5672246b2f84d117802024962fd7b08d"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/material-profile-390.png",
+              "sha256": "ea0b3e0c2e1614641c154b3ec35a4aa28c4faa2ffd66cab1dd4441670ad61fd5"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/flux-mismatch-390.png",
+              "sha256": "1b6dd68615d18f7a4870d934a995e3788070792c71c2c58a731f6ed08bae160a"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/left-translation-390.png",
+              "sha256": "859eb9abcdfe91587fa9c9b995975bdf8cbe69e78bcb1def4f576cebc31f821e"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/transport-overshoot-390.png",
+              "sha256": "42a0a14217a80961c0e60a01eec15b435e82f9611c1a098ace6a453c50da5b71"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/stationary-face-390.png",
+              "sha256": "b980d44e713c72b1e05c5d317ff13cf33a7b1db4ebfe710878c6c77b9a133035"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/nonuniform-assembly-390.png",
+              "sha256": "b7d81e0e9998e2337040a1b89bd85131a4d636c0aae3e21a055ea2572e45aa27"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/point-field-390.png",
+              "sha256": "3ddea72079c78694d80f378b130458a06f51cf898385a0be62bb35ed61650225"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/corner-indices-390.png",
+              "sha256": "788698ab2b0a44391651aec7d10f8ace1ca603f93bf69a29fe5677dd8575ed6e"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/triangle-gradients-390.png",
+              "sha256": "4946d51dd8adb5c1d7ca19cfbc849ea1aee5ec5a7cc0d579e1ce15960c469969"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/coarse-high-mode-390.png",
+              "sha256": "49a3b99666a2e2ade94edb755ab9e245cb9b229eaf041d0beefdff5ee208e144"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/coarse-norms-390.png",
+              "sha256": "eeb2957d16f30c11ac752ba2c9700ae381567262ec612ba9020c00b57b4fb1ea"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/reconstruction-proof-390.png",
+              "sha256": "f985c4f7db6856e06f92ef5e3b1ab3a8d64cadb011d5791389bd497660a56c65"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/energy-proof-390.png",
+              "sha256": "5a4c2e72bd017cc7da3a4a763f236ec11c724629e8679f5fbdfef6870f7329a3"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/changed-report-question-390.png",
+              "sha256": "d91f74ec9e2d6a6872d474ce3ae0648e1541bac5cd01cd3a7934738734a438dd"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/changed-report-output-390.png",
+              "sha256": "2fe9bff3e6ed919b62a2c0f1c941c28d8c3b92b46eb3e4fa147a30b8e5ca7d46"
+            }
+          ],
+          "errors": [],
+          "failedRequests": [],
+          "keyboard": [
+            "Reset: From a stencil row to a field certificate",
+            "Reset: A refinement test can tell the wrong story",
+            "Reset: Watch a mode, not just a stability badge",
+            "Reset: Two materials share one steady flux",
+            "Reset: A boundary gauge cannot repair missing heat",
+            "Reset: Move cell averages through shared faces",
+            "Reset: Choose a Burgers face flux from the wave",
+            "Reset: Assemble overlapping hats; resolve a point source",
+            "Reset: A two-dimensional neighbor is not always a vector neighbor",
+            "Reset: Map a triangle, then map its gradients",
+            "Reset: Remove error on two resolutions",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual select arrows",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer"
+          ],
+          "programs": [
+            "Derive a row with exact fractions",
+            "Solve the tridiagonal problem",
+            "Stop only when the requested field is certified",
+            "Separate a useful refinement test from an exactness trap",
+            "Execute three different time updates",
+            "Refine time while keeping space fixed",
+            "Combine resistances, not conductivities",
+            "Reject incompatible fluxes before choosing a mean",
+            "Check mass and shape separately",
+            "Read the entropy solution at one cell face",
+            "Assemble overlapping hats on an actual mesh",
+            "Integrate field and slope errors",
+            "Solve a sparse rectangular problem",
+            "Calculate a triangle's basis gradients",
+            "Compute one explicitly defined coarse correction",
+            "Deliver a changed field-tolerance report"
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "equations": [
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            }
+          ],
+          "anchors": [
+            "#npde-field",
+            "#npde-stencil",
+            "#npde-solve",
+            "#npde-certificate",
+            "#npde-reconstruct",
+            "#npde-refine",
+            "#npde-diffusion",
+            "#npde-implicit",
+            "#npde-flux",
+            "#npde-transport",
+            "#npde-elements",
+            "#npde-energy",
+            "#npde-geometry",
+            "#npde-solvers",
+            "#npde-practice"
+          ]
+        },
+        {
+          "width": 320,
+          "states": [
+            {
+              "name": "nonzero last boundary incomplete",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 274,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "fine direct certificate",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 322,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "linear exactness has undefined rate",
+              "geometry": []
+            },
+            {
+              "name": "overshoot plot range",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 85,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "refined high-mode common time",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 85,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "reversed conductivity contrast",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 3,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "excess outward flux",
+              "geometry": []
+            },
+            {
+              "name": "restored full balance",
+              "geometry": []
+            },
+            {
+              "name": "left exact three-cell translation",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 32,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "centered overshoot is visible",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 32,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "stationary entropy shock",
+              "geometry": []
+            },
+            {
+              "name": "negative fan fixed-face value",
+              "geometry": []
+            },
+            {
+              "name": "moved interior load weights",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 4,
+                  "pointsInside": true
+                },
+                {
+                  "labels": [],
+                  "pointCount": 245,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "source-aligned reconstruction",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 4,
+                  "pointsInside": true
+                },
+                {
+                  "labels": [],
+                  "pointCount": 247,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "upper-right boundary neighbors",
+              "geometry": []
+            },
+            {
+              "name": "stretched element geometry",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 0,
+                  "pointsInside": true
+                }
+              ]
+            },
+            {
+              "name": "energy falls while L2 grows",
+              "geometry": [
+                {
+                  "labels": [],
+                  "pointCount": 27,
+                  "pointsInside": true
+                }
+              ]
+            }
+          ],
+          "screenshots": [
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/restriction-reading-320.png",
+              "sha256": "0049582cf791469cc87d0053cab9d537b65ef5e324c872423bd0ca1afef74832"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/boundary-row-320.png",
+              "sha256": "17ab5fbb5661025f3c047b6b51595366c690a0a8fc3de788ce1301d746030abb"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/field-budget-320.png",
+              "sha256": "61b9bba616f387f2ad13cce2e75c56283366ab89a07e6875164cd8b8953a216a"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/linear-exactness-320.png",
+              "sha256": "9e3d990ce5fbb7b5907abfd6f5101c033e9a60df6260aa9bab5b1672af8d6bd7"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/diffusion-overshoot-320.png",
+              "sha256": "9c2d604601ead4af1fa1a70f93e2548cd34596ad8c740b22583f607fe7c23c9e"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/material-profile-320.png",
+              "sha256": "a9eb4f38f66ee19192ca28b67a6ada2043b603f98d5cac833b5f857171dad0a0"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/flux-mismatch-320.png",
+              "sha256": "736bd1555f8b91c1fdc7c5a2a08828e7d3724db1a9a42bd93ce97ad3047078aa"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/left-translation-320.png",
+              "sha256": "ac8520a85033c4c458f455606004b605338c36b229e044a963efcfa1149e5e88"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/transport-overshoot-320.png",
+              "sha256": "fba7719023a59a59ea3719be16f3852ff374107fc1b85780e8311f9862d36276"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/stationary-face-320.png",
+              "sha256": "a5478682e5b13e6f8eccbd30ca98c5f46b5059514477b99ee65a30b306dca1e7"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/nonuniform-assembly-320.png",
+              "sha256": "07d1311ce0e6ef600355e0bdcf169f9c0003efba9d305de1f74ac79f70933fc5"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/point-field-320.png",
+              "sha256": "30e31367f8c673e3ed79e86b2fa7888f4b3645fa1abb4cc5ca7c935387bbbcd4"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/corner-indices-320.png",
+              "sha256": "b6784ffd394d35a4b9a9279545e49f57782759c13e45451085cc8a8f3a6dc442"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/triangle-gradients-320.png",
+              "sha256": "da773d186b31299fbedee1cb092d11c7a45ff2ca1c3f087ec7637c532fe51653"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/coarse-high-mode-320.png",
+              "sha256": "18ab0a278879da426687e5537569d51da901ad702e57dd67505628f158e97a4a"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/coarse-norms-320.png",
+              "sha256": "db9dc35ffcc3b52e873cfb97a497073a7db33c514772b49b797979b38e6c3e97"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/reconstruction-proof-320.png",
+              "sha256": "5261595fb457bb4a7232129eef58a06fa6a270b79b37e91219fa39164cb6de24"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/energy-proof-320.png",
+              "sha256": "319680a7b5e495885fdbf3563fe9b1cd5d74657c8ff8faa6b3af9c7c0eb78c0a"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/changed-report-question-320.png",
+              "sha256": "f0e3dddf0ab6087d5c921da45e3c93dcaa31224da01b2d421c4ada315a972146"
+            },
+            {
+              "path": "scratch/numerical-pdes-independent-review/browser/changed-report-output-320.png",
+              "sha256": "3a649375108ff1be73437ca2feea4e5ce09460877fa97a90598e3b1749066ba6"
+            }
+          ],
+          "errors": [],
+          "failedRequests": [],
+          "keyboard": [
+            "Reset: From a stencil row to a field certificate",
+            "Reset: A refinement test can tell the wrong story",
+            "Reset: Watch a mode, not just a stability badge",
+            "Reset: Two materials share one steady flux",
+            "Reset: A boundary gauge cannot repair missing heat",
+            "Reset: Move cell averages through shared faces",
+            "Reset: Choose a Burgers face flux from the wave",
+            "Reset: Assemble overlapping hats; resolve a point source",
+            "Reset: A two-dimensional neighbor is not always a vector neighbor",
+            "Reset: Map a triangle, then map its gradients",
+            "Reset: Remove error on two resolutions",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual slider arrow",
+            "Actual select arrows",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer",
+            "Independent hint then answer"
+          ],
+          "programs": [
+            "Derive a row with exact fractions",
+            "Solve the tridiagonal problem",
+            "Stop only when the requested field is certified",
+            "Separate a useful refinement test from an exactness trap",
+            "Execute three different time updates",
+            "Refine time while keeping space fixed",
+            "Combine resistances, not conductivities",
+            "Reject incompatible fluxes before choosing a mean",
+            "Check mass and shape separately",
+            "Read the entropy solution at one cell face",
+            "Assemble overlapping hats on an actual mesh",
+            "Integrate field and slope errors",
+            "Solve a sparse rectangular problem",
+            "Calculate a triangle's basis gradients",
+            "Compute one explicitly defined coarse correction",
+            "Deliver a changed field-tolerance report"
+          ],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "equations": [
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            }
+          ],
+          "anchors": [
+            "#npde-field",
+            "#npde-stencil",
+            "#npde-solve",
+            "#npde-certificate",
+            "#npde-reconstruct",
+            "#npde-refine",
+            "#npde-diffusion",
+            "#npde-implicit",
+            "#npde-flux",
+            "#npde-transport",
+            "#npde-elements",
+            "#npde-energy",
+            "#npde-geometry",
+            "#npde-solvers",
+            "#npde-practice"
+          ]
+        }
+      ]
+    },
+    "script": {
+      "path": "scripts/review-numerical-pdes-independent.cjs",
+      "sha256": "3d35b31b1a8182f84f3cb17fee6b29f9ca540b5bf681cae9b11e6c110f21246b"
+    }
+  },
+  "openedImages": [
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/restriction-reading-320.png",
+      "sha256": "0049582cf791469cc87d0053cab9d537b65ef5e324c872423bd0ca1afef74832",
+      "observation": "Ordinary restriction/reconstruction flow; same dots do not imply the same between-node field.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/boundary-row-390.png",
+      "sha256": "6272e7b1fc97573467999af07adacc8347d00e9180267b4c2bc2cf23208757c1",
+      "observation": "Right endpoint row contributions, nonzero boundary and numerical field.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/field-budget-320.png",
+      "sha256": "61b9bba616f387f2ad13cce2e75c56283366ab89a07e6875164cd8b8953a216a",
+      "observation": "Three separate error terms, summed certificate and arithmetic qualification.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/diffusion-overshoot-1440.png",
+      "sha256": "afba65eb43e09585e3a00b9486e9ae25f4ecf0f27499f2aa0f7c4bb35b20a466",
+      "observation": "Actual unstable amplitude stays inside the rescaled plot at a common time.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/material-profile-390.png",
+      "sha256": "ea0b3e0c2e1614641c154b3ec35a4aa28c4faa2ffd66cab1dd4441670ad61fd5",
+      "observation": "Reversed material contrast, continuous temperature and matching flux interpretation.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/left-translation-320.png",
+      "sha256": "ac8520a85033c4c458f455606004b605338c36b229e044a963efcfa1149e5e88",
+      "observation": "Periodic cell values and exactly translated reference at the same time.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/nonuniform-assembly-1440.png",
+      "sha256": "2356423eb994161330779f90d6ac576fbfdd3e1c365740820251aedd80ce5f97",
+      "observation": "Highlighted overlapping matrix entries and source load; distinct missed kink.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/point-field-390.png",
+      "sha256": "3ddea72079c78694d80f378b130458a06f51cf898385a0be62bb35ed61650225",
+      "observation": "Source between nodes; nodal agreement versus integrated field and energy errors.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/corner-indices-320.png",
+      "sha256": "b6784ffd394d35a4b9a9279545e49f57782759c13e45451085cc8a8f3a6dc442",
+      "observation": "Upper-right interior index and two prescribed boundary neighbors without row wrap.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/triangle-gradients-320.png",
+      "sha256": "da773d186b31299fbedee1cb092d11c7a45ff2ca1c3f087ec7637c532fe51653",
+      "observation": "Equal-scale stretched triangle and the inverse-length gradient table.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/coarse-norms-390.png",
+      "sha256": "eeb2957d16f30c11ac752ba2c9700ae381567262ec612ba9020c00b57b4fb1ea",
+      "observation": "Energy decreases while the immediately preceding L2 norm increases.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/stationary-face-390.png",
+      "sha256": "b980d44e713c72b1e05c5d317ff13cf33a7b1db4ebfe710878c6c77b9a133035",
+      "observation": "Shock state versus unique flux; keyboard focus and explicit nonunique trace.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/energy-proof-320.png",
+      "sha256": "319680a7b5e495885fdbf3563fe9b1cd5d74657c8ff8faa6b3af9c7c0eb78c0a",
+      "observation": "Ordinary Galerkin/Pythagorean proof and visible exact-integration/solve assumptions.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/reconstruction-proof-390.png",
+      "sha256": "f985c4f7db6856e06f92ef5e3b1ab3a8d64cadb011d5791389bd497660a56c65",
+      "observation": "Local interpolation proof, Rolle argument and added between-node term.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/changed-report-question-320.png",
+      "sha256": "f0e3dddf0ab6087d5c921da45e3c93dcaa31224da01b2d421c4ada315a972146",
+      "observation": "Changed physical domain/source/boundary task with separate hint and solution.",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/numerical-pdes-independent-review/browser/changed-report-output-1440.png",
+      "sha256": "d73eb5feed225e6cce2aa5dfcb3b5669d40a201c837f9aa718422c18366450f1",
+      "observation": "Complete finite-budget failure/success output and scoped readiness/resources.",
+      "actuallyOpened": true
+    }
+  ],
+  "primarySourceChecks": [
+    {
+      "url": "https://fncbook.com/upwind/",
+      "scope": "Domain-of-dependence definitions, CFL necessity rather than sufficiency, upwind direction and inflow boundary."
+    },
+    {
+      "url": "https://fncbook.com/python/absstab-diffusion/",
+      "scope": "Scalar absolute-stability and spatial-spectrum reference opened; lesson-specific Dirichlet and implicit factors reviewed by local derivation and complementary full-sine tests."
+    },
+    {
+      "url": "https://jschoeberl.github.io/iFEM/FEM/erroranalysis.html",
+      "scope": "Affine chain-rule transformation, shape regularity, H2 interpolation/coercive approximation and regularity-dependent L2 extension. No transfer of general theorem assumptions into the weaker local lesson proof."
+    }
+  ],
+  "limitations": [
+    "Finite complementary cases support the source read; they do not prove every accepted floating input or every PDE theorem.",
+    "Whole-field extrema checks use 80-digit arithmetic and monotone-root bisection; the lesson supplies the analytical guarantee.",
+    "Only the 16 listed screenshots were actually opened, out of 60 reviewer captures.",
+    "The author owns its larger independent-from-implementation oracle and comprehensive browser suites; they are separately attributed.",
+    "No full video playback, physical-device or complete screen-reader audit, or observed beginner study was performed.",
+    "Production build, loading/routes, final shared ledger and user acceptance belong to separate integration."
+  ]
+}

@@ -1,0 +1,2077 @@
+{
+  "topicId": "causal-inference-do-calculus",
+  "frozenAt": "2026-09-10T17:25:46.682374+00:00",
+  "authorStatus": "implementation-native-browser-verified; independent review and root production integration separate",
+  "sourceFiles": [
+    {
+      "path": "src/learn/data/topics/causal-inference-do-calculus.jsx",
+      "sha256": "cc99f7d4ffdce7e7fa30c47e12454bb56354002a858cfa234c64ea004e61bf9d",
+      "bytes": 51621
+    },
+    {
+      "path": "src/learn/data/causal-inference-models.js",
+      "sha256": "25b4f62b7a2ef3f426be665354f8e0536be7bd9c1541c4110cf6c1a890255245",
+      "bytes": 18098
+    },
+    {
+      "path": "src/learn/data/causal-inference-examples.js",
+      "sha256": "37a96b8a41c67183059f1ab3a0c5aca5819cffaaa38a0d7bc650bc185de02401",
+      "bytes": 13717
+    },
+    {
+      "path": "src/learn/components/lesson-labs/CausalInferenceLabs.jsx",
+      "sha256": "15af27e45fc21fa27eae608a77c0be0c02248bca74ac535f7cf8b2c939fd5fd9",
+      "bytes": 23865
+    },
+    {
+      "path": "src/learn/components/lesson-labs/causal-inference-labs.css",
+      "sha256": "3bdc5bc33a1a89bbd8b97396c0c6cefd903d3265e7eaa21e36816fac1189489a",
+      "bytes": 8478
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/causal-inference-do-calculus.js",
+      "sha256": "7de37db3ac95f6854dd1739d10f80311ec9ad5ba674e068554c29dbddf985f83",
+      "bytes": 3519
+    },
+    {
+      "path": "scripts/prepare-causal-inference-examples.py",
+      "sha256": "7651f873737ec1232cb862e04fe294bd17adccd32f2a36003ab748e7250187fb",
+      "bytes": 12375
+    },
+    {
+      "path": "scripts/format-causal-inference.cjs",
+      "sha256": "7c79ef71ddd3e30ec1bb886a192030062381870070b87c48d0d2e66cedde9d3b",
+      "bytes": 2822
+    },
+    {
+      "path": "scripts/verify-causal-inference.py",
+      "sha256": "0766b4906c92bbb738c5a407045a72881479b12d3f30051a1eaa2cbaa1d15320",
+      "bytes": 16443
+    },
+    {
+      "path": "scripts/review-causal-inference.cjs",
+      "sha256": "190358c7b16f80c0a96cc327e9dea7ee11b7745ec220ae3791b163ca536003d3",
+      "bytes": 17605
+    },
+    {
+      "path": "docs/teaching/CAUSAL-INFERENCE-LESSON-DESIGN.md",
+      "sha256": "53c5dec1ee221fb37ce894d5228175635ce71f627976eddcf04ee36fe59e86e8",
+      "bytes": 18727
+    },
+    {
+      "path": "docs/teaching/CAUSAL-INFERENCE-VERIFICATION.md",
+      "sha256": "6e0acbe0b244570ae51689cd360cc7f914e45e26c21dd28a52d7a143cd214178",
+      "bytes": 11875
+    },
+    {
+      "path": "docs/teaching/topic-notes/bayesian-networks-causal-graphical-models.md",
+      "sha256": "7e2f0f1118b56096e7894cbb50a21bec6da7f6ece1470c611d374decb18c8533",
+      "bytes": 2462
+    },
+    {
+      "path": "docs/teaching/evidence/causal-inference-original-content.json",
+      "sha256": "35b312f7f8a0c8d62c607c1caed6769e20dd5ec80ef5d06858997937d174bfea",
+      "bytes": 9372
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-10T17:20:23.054769+00:00",
+    "python": "3.12.14",
+    "graphSeparationCases": 1536,
+    "ruleCases": 6,
+    "offerCases": 294,
+    "frontdoorCases": 98,
+    "counterfactualCases": 88,
+    "estimatorCases": 48,
+    "invalidCases": [
+      "cyclic",
+      "duplicate",
+      "unknown-node",
+      "condition-endpoint",
+      "bad-rule",
+      "negative-population",
+      "nan-assignment",
+      "negative-mediator",
+      "direct-out-of-range",
+      "coupling-out-of-range",
+      "unknown-treatment",
+      "zero-estimated-propensity"
+    ],
+    "maximumAbsoluteError": 2.7755575615628914e-16,
+    "programs": [
+      {
+        "key": "mechanisms",
+        "stdout": "X = 0 | observed risk = 7/50 | intervention risk = 1/5\nX = 1 | observed risk = 9/25 | intervention risk = 3/10"
+      },
+      {
+        "key": "selection",
+        "stdout": "unselected Y risks: 1/2 1/2\ngiven C=1, Y risks: 1 1/2\nselected association: -1/2\nSelecting D=1 gives the same set because D=C.\nChanging X does not change the independent mechanism of Y."
+      },
+      {
+        "key": "originalOffer",
+        "stdout": "0.22\n0.1"
+      },
+      {
+        "key": "nonidentification",
+        "stdout": "A observed: {(0, 0): '2/5', (0, 1): '1/10', (1, 0): '1/10', (1, 1): '2/5'}\nA do risks: ['3/20', '17/20'] ATE: 7/10\nB observed: {(0, 0): '2/5', (0, 1): '1/10', (1, 0): '1/10', (1, 1): '2/5'}\nB do risks: ['11/20', '9/20'] ATE: -1/10"
+      },
+      {
+        "key": "ruleThree",
+        "stdout": "unconditional P(Y=1): 1/2\nunconditional P(Y=1 | do(Z=1)): 1/2\nP(Y=1 | W=1): 1\nP(Y=1 | do(Z=1), W=1): 1/2\nZ is an ancestor of conditioned W: do not cut Y->Z for the rule-three test."
+      },
+      {
+        "key": "frontdoor",
+        "stdout": "direct = 0 | inner = ['1/5', '7/10']\nformula: ['1/4', '3/5'] | true do: ['1/4', '3/5']\ndirect = 1/10 | inner = ['1/4', '3/4']\nformula: ['3/10', '13/20'] | true do: ['1/4', '7/10']"
+      },
+      {
+        "key": "counterfactual",
+        "stdout": "overlap 0 | do risks ['1/4', '3/4'] | would fail without 1\noverlap 1/8 | do risks ['1/4', '3/4'] | would fail without 5/6\noverlap 1/4 | do risks ['1/4', '3/4'] | would fail without 2/3"
+      },
+      {
+        "key": "estimators",
+        "stdout": "both correct: 1/10\nonly propensity correct: 1/10\nonly outcomes correct: 1/10\nboth wrong: 19/100\nThese are population expectations, not guaranteed finite-sample estimates."
+      },
+      {
+        "key": "instrument",
+        "stdout": "treatment rates: ['1/5', '4/5']\noutcome rates: ['1/10', '7/25']\nassignment effect: 9/50 | first stage: 3/5\nWald ratio / complier effect: 3/10\npopulation ATE in this fully known model: 17/50"
+      },
+      {
+        "key": "uncertainty",
+        "stdout": "adjusted estimate: 0.1\nbootstrap 2.5% and 97.5%: -0.05 0.2439\nResamples: 5000 | fixed-cell percentile approximation; not exact coverage.\nThis quantifies sampling variation under the design, not hidden-confounding bias."
+      }
+    ],
+    "preservedOriginalPrograms": 1,
+    "practice": {
+      "changed_population": {
+        "risks": [
+          "31/100",
+          "81/200"
+        ],
+        "ate": "19/200",
+        "raw": -0.015704584040747028
+      },
+      "collider": {
+        "selected_y_risks": [
+          "1",
+          "3/4"
+        ],
+        "difference": "-1/4",
+        "actualLearnerFunction": true
+      },
+      "education_adjustment": "Both E and S block the sole backdoor path.",
+      "changed_hidden_mechanism": {
+        "do0": "2/5",
+        "do1": "3/5"
+      },
+      "rule_three_selection": {
+        "natural": "1",
+        "intervened": "3/10",
+        "actualLearnerFunction": true
+      },
+      "changed_frontdoor": {
+        "actualLearnerFunction": true,
+        "stdout": "direct = 0 | inner = ['1/5', '7/10']\nformula: ['3/10', '1/2'] | true do: ['3/10', '1/2']\ndirect = 1/10 | inner = ['1/4', '3/4']\nformula: ['7/20', '11/20'] | true do: ['3/10', '3/5']"
+      },
+      "counterfactual": {
+        "treated_success_failure_without": "11/15",
+        "untreated_success_success_with": "4/5"
+      },
+      "augmented_arm": [
+        "3/5",
+        "4/5",
+        "4/5"
+      ],
+      "instrument": {
+        "first_stage": 0.4,
+        "assignment_effect": 0.2,
+        "local_effect": 0.5,
+        "population_ate": 0.26,
+        "exclusion_failure_ratio": 0.55
+      },
+      "actual_program_changed_nuisance": "1/10"
+    },
+    "allPassed": true
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T17:22:25.245Z",
+    "records": [
+      {
+        "width": 1440,
+        "anchors": [
+          {
+            "href": "#1-observe-a-pattern-ask-about-a-change",
+            "top": 99.53125
+          },
+          {
+            "href": "#2-replace-one-mechanism",
+            "top": 100.3125
+          },
+          {
+            "href": "#3-find-which-paths-stay-open",
+            "top": 99.796875
+          },
+          {
+            "href": "#4-standardize-the-comparison",
+            "top": 99.953125
+          },
+          {
+            "href": "#5-ask-whether-the-answer-is-identified",
+            "top": 100.3125
+          },
+          {
+            "href": "#6-use-the-three-rules-of-do-calculus",
+            "top": 99.53125
+          },
+          {
+            "href": "#7-identify-an-effect-through-a-mediator",
+            "top": 100.421875
+          },
+          {
+            "href": "#8-keep-the-same-unit-in-a-counterfactual",
+            "top": 99.734375
+          },
+          {
+            "href": "#9-estimate-after-identifying",
+            "top": 100.015625
+          },
+          {
+            "href": "#10-match-the-design-to-the-causal-question",
+            "top": 100.4375
+          },
+          {
+            "href": "#11-practise-changing-the-assumptions",
+            "top": 100.46875
+          },
+          {
+            "href": "#12-continue-with-explicit-assumptions",
+            "top": 99.671875
+          }
+        ],
+        "captures": [
+          "ordinary-intro-1440.png",
+          "ordinary-section-1-1440.png",
+          "ordinary-section-2-1440.png",
+          "ordinary-section-3-1440.png",
+          "ordinary-section-4-1440.png",
+          "ordinary-section-5-1440.png",
+          "ordinary-section-6-1440.png",
+          "ordinary-section-7-1440.png",
+          "ordinary-section-8-1440.png",
+          "ordinary-section-9-1440.png",
+          "ordinary-section-10-1440.png",
+          "ordinary-section-11-1440.png",
+          "ordinary-section-12-1440.png",
+          "ordinary-figure-1-1440.png",
+          "ordinary-figure-2-1440.png",
+          "ordinary-lab-1-1440.png",
+          "ordinary-lab-graph-1-1440.png",
+          "ordinary-lab-2-1440.png",
+          "ordinary-lab-3-1440.png",
+          "ordinary-lab-graph-3-1440.png",
+          "ordinary-lab-4-1440.png",
+          "ordinary-lab-graph-4-1440.png",
+          "ordinary-lab-5-1440.png",
+          "conditioned-descendant-1440.png",
+          "reversed-composition-1440.png",
+          "no-treated-cases-1440.png",
+          "rule-three-ancestor-1440.png",
+          "frontdoor-direct-path-1440.png",
+          "paired-worlds-posterior-1440.png",
+          "preserved-example-question-1440.png",
+          "preserved-example-output-1440.png",
+          "changed-counterfactual-solution-1440.png",
+          "sources-1440.png"
+        ],
+        "controls": [
+          "four motifs, keyboard conditioning including descendant, path status, unchanged edges and reset",
+          "randomization, assignment reversal, zero overlap, absent treatment group, irrelevant empty stratum and reset",
+          "six rule cases, incoming/outgoing cut counts, rule-three ancestor exception and reset",
+          "frontdoor valid calculation, direct-path violation, unsupported mediator/treatment pairs, constant mediator supported target and reset",
+          "counterfactual coupling endpoints, unchanged experimental marginals, all four consistency states and reset"
+        ],
+        "code": [
+          {
+            "title": "Replace the assignment mechanism",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Calculate the association created by selection",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Compare raw and adjusted conversion risks",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Two hidden explanations, exactly the same observed data",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Why rule three needs its ancestor exception",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Use observed factors despite a hidden common cause",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Keep the same hidden response type across worlds",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Check both routes to the augmented-estimator identity",
+            "client": 758,
+            "scroll": 801,
+            "overflow": "auto"
+          },
+          {
+            "title": "Resample within the original treatment/activity cells",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Separate assignment, treatment and complier effects",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          }
+        ],
+        "equations": [
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          }
+        ],
+        "externalLinks": [
+          {
+            "href": "https://ftp.cs.ucla.edu/pub/stat_ser/r416-reprint.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.bradyneal.com/causal-inference-course",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://miguelhernan.org/whatifbook",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://users.nber.org/~rdehejia/%21%40%24AEM/Topic%2004%20IV/readings/angrist_imbens_rubin_JASA_1996.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.pywhy.org/EconML/spec/estimation/dr.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "mathErrors": 0,
+        "fonts": {
+          "status": "loaded",
+          "faces": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Caligraphic",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Caligraphic",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Fraktur",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Fraktur",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Script",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Size1",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Size2",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Size4",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Typewriter",
+              "weight": "400",
+              "status": "unloaded"
+            }
+          ],
+          "lessonFamily": "\"Space Grotesk\", sans-serif"
+        },
+        "overflow": [],
+        "pageOverflow": false,
+        "svgTextOverflow": []
+      },
+      {
+        "width": 390,
+        "anchors": [
+          {
+            "href": "#1-observe-a-pattern-ask-about-a-change",
+            "top": 100.375
+          },
+          {
+            "href": "#2-replace-one-mechanism",
+            "top": 100.109375
+          },
+          {
+            "href": "#3-find-which-paths-stay-open",
+            "top": 99.96875
+          },
+          {
+            "href": "#4-standardize-the-comparison",
+            "top": 99.609375
+          },
+          {
+            "href": "#5-ask-whether-the-answer-is-identified",
+            "top": 99.8125
+          },
+          {
+            "href": "#6-use-the-three-rules-of-do-calculus",
+            "top": 100
+          },
+          {
+            "href": "#7-identify-an-effect-through-a-mediator",
+            "top": 100.421875
+          },
+          {
+            "href": "#8-keep-the-same-unit-in-a-counterfactual",
+            "top": 99.515625
+          },
+          {
+            "href": "#9-estimate-after-identifying",
+            "top": 99.5
+          },
+          {
+            "href": "#10-match-the-design-to-the-causal-question",
+            "top": 99.765625
+          },
+          {
+            "href": "#11-practise-changing-the-assumptions",
+            "top": 100.390625
+          },
+          {
+            "href": "#12-continue-with-explicit-assumptions",
+            "top": 99.546875
+          }
+        ],
+        "captures": [
+          "ordinary-intro-390.png",
+          "ordinary-section-1-390.png",
+          "ordinary-section-2-390.png",
+          "ordinary-section-3-390.png",
+          "ordinary-section-4-390.png",
+          "ordinary-section-5-390.png",
+          "ordinary-section-6-390.png",
+          "ordinary-section-7-390.png",
+          "ordinary-section-8-390.png",
+          "ordinary-section-9-390.png",
+          "ordinary-section-10-390.png",
+          "ordinary-section-11-390.png",
+          "ordinary-section-12-390.png",
+          "ordinary-figure-1-390.png",
+          "ordinary-figure-2-390.png",
+          "ordinary-lab-1-390.png",
+          "ordinary-lab-graph-1-390.png",
+          "ordinary-lab-2-390.png",
+          "ordinary-lab-3-390.png",
+          "ordinary-lab-graph-3-390.png",
+          "ordinary-lab-4-390.png",
+          "ordinary-lab-graph-4-390.png",
+          "ordinary-lab-5-390.png",
+          "conditioned-descendant-390.png",
+          "reversed-composition-390.png",
+          "no-treated-cases-390.png",
+          "rule-three-ancestor-390.png",
+          "frontdoor-direct-path-390.png",
+          "paired-worlds-posterior-390.png",
+          "preserved-example-question-390.png",
+          "preserved-example-output-390.png",
+          "changed-counterfactual-solution-390.png",
+          "sources-390.png"
+        ],
+        "controls": [
+          "four motifs, keyboard conditioning including descendant, path status, unchanged edges and reset",
+          "randomization, assignment reversal, zero overlap, absent treatment group, irrelevant empty stratum and reset",
+          "six rule cases, incoming/outgoing cut counts, rule-three ancestor exception and reset",
+          "frontdoor valid calculation, direct-path violation, unsupported mediator/treatment pairs, constant mediator supported target and reset",
+          "counterfactual coupling endpoints, unchanged experimental marginals, all four consistency states and reset"
+        ],
+        "code": [
+          {
+            "title": "Replace the assignment mechanism",
+            "client": 348,
+            "scroll": 722,
+            "overflow": "auto"
+          },
+          {
+            "title": "Calculate the association created by selection",
+            "client": 348,
+            "scroll": 657,
+            "overflow": "auto"
+          },
+          {
+            "title": "Compare raw and adjusted conversion risks",
+            "client": 348,
+            "scroll": 585,
+            "overflow": "auto"
+          },
+          {
+            "title": "Two hidden explanations, exactly the same observed data",
+            "client": 348,
+            "scroll": 671,
+            "overflow": "auto"
+          },
+          {
+            "title": "Why rule three needs its ancestor exception",
+            "client": 348,
+            "scroll": 621,
+            "overflow": "auto"
+          },
+          {
+            "title": "Use observed factors despite a hidden common cause",
+            "client": 348,
+            "scroll": 642,
+            "overflow": "auto"
+          },
+          {
+            "title": "Keep the same hidden response type across worlds",
+            "client": 348,
+            "scroll": 614,
+            "overflow": "auto"
+          },
+          {
+            "title": "Check both routes to the augmented-estimator identity",
+            "client": 348,
+            "scroll": 801,
+            "overflow": "auto"
+          },
+          {
+            "title": "Resample within the original treatment/activity cells",
+            "client": 348,
+            "scroll": 707,
+            "overflow": "auto"
+          },
+          {
+            "title": "Separate assignment, treatment and complier effects",
+            "client": 348,
+            "scroll": 736,
+            "overflow": "auto"
+          }
+        ],
+        "equations": [
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          }
+        ],
+        "externalLinks": [
+          {
+            "href": "https://ftp.cs.ucla.edu/pub/stat_ser/r416-reprint.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.bradyneal.com/causal-inference-course",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://miguelhernan.org/whatifbook",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://users.nber.org/~rdehejia/%21%40%24AEM/Topic%2004%20IV/readings/angrist_imbens_rubin_JASA_1996.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.pywhy.org/EconML/spec/estimation/dr.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "mathErrors": 0,
+        "fonts": {
+          "status": "loaded",
+          "faces": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Caligraphic",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Caligraphic",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Fraktur",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Fraktur",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Script",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Size1",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Size2",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Size4",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Typewriter",
+              "weight": "400",
+              "status": "unloaded"
+            }
+          ],
+          "lessonFamily": "\"Space Grotesk\", sans-serif"
+        },
+        "overflow": [],
+        "pageOverflow": false,
+        "svgTextOverflow": []
+      },
+      {
+        "width": 320,
+        "anchors": [
+          {
+            "href": "#1-observe-a-pattern-ask-about-a-change",
+            "top": 100.1875
+          },
+          {
+            "href": "#2-replace-one-mechanism",
+            "top": 99.546875
+          },
+          {
+            "href": "#3-find-which-paths-stay-open",
+            "top": 99.625
+          },
+          {
+            "href": "#4-standardize-the-comparison",
+            "top": 100.015625
+          },
+          {
+            "href": "#5-ask-whether-the-answer-is-identified",
+            "top": 100.390625
+          },
+          {
+            "href": "#6-use-the-three-rules-of-do-calculus",
+            "top": 100
+          },
+          {
+            "href": "#7-identify-an-effect-through-a-mediator",
+            "top": 99.859375
+          },
+          {
+            "href": "#8-keep-the-same-unit-in-a-counterfactual",
+            "top": 99.90625
+          },
+          {
+            "href": "#9-estimate-after-identifying",
+            "top": 99.84375
+          },
+          {
+            "href": "#10-match-the-design-to-the-causal-question",
+            "top": 100.21875
+          },
+          {
+            "href": "#11-practise-changing-the-assumptions",
+            "top": 99.890625
+          },
+          {
+            "href": "#12-continue-with-explicit-assumptions",
+            "top": 100.421875
+          }
+        ],
+        "captures": [
+          "ordinary-intro-320.png",
+          "ordinary-figure-1-320.png",
+          "ordinary-figure-2-320.png",
+          "ordinary-lab-1-320.png",
+          "ordinary-lab-graph-1-320.png",
+          "ordinary-lab-2-320.png",
+          "ordinary-lab-3-320.png",
+          "ordinary-lab-graph-3-320.png",
+          "ordinary-lab-4-320.png",
+          "ordinary-lab-graph-4-320.png",
+          "ordinary-lab-5-320.png",
+          "conditioned-descendant-320.png",
+          "reversed-composition-320.png",
+          "no-treated-cases-320.png",
+          "rule-three-ancestor-320.png",
+          "frontdoor-direct-path-320.png",
+          "paired-worlds-posterior-320.png",
+          "preserved-example-question-320.png",
+          "preserved-example-output-320.png",
+          "changed-counterfactual-solution-320.png",
+          "equation-1-320.png",
+          "equation-2-320.png",
+          "equation-3-320.png",
+          "equation-4-320.png",
+          "equation-5-320.png",
+          "equation-6-320.png",
+          "equation-7-320.png",
+          "equation-8-320.png",
+          "equation-9-320.png",
+          "equation-10-320.png",
+          "equation-11-320.png",
+          "equation-12-320.png",
+          "equation-13-320.png",
+          "equation-14-320.png",
+          "sources-320.png"
+        ],
+        "controls": [
+          "four motifs, keyboard conditioning including descendant, path status, unchanged edges and reset",
+          "randomization, assignment reversal, zero overlap, absent treatment group, irrelevant empty stratum and reset",
+          "six rule cases, incoming/outgoing cut counts, rule-three ancestor exception and reset",
+          "frontdoor valid calculation, direct-path violation, unsupported mediator/treatment pairs, constant mediator supported target and reset",
+          "counterfactual coupling endpoints, unchanged experimental marginals, all four consistency states and reset"
+        ],
+        "code": [
+          {
+            "title": "Replace the assignment mechanism",
+            "client": 278,
+            "scroll": 722,
+            "overflow": "auto"
+          },
+          {
+            "title": "Calculate the association created by selection",
+            "client": 278,
+            "scroll": 657,
+            "overflow": "auto"
+          },
+          {
+            "title": "Compare raw and adjusted conversion risks",
+            "client": 278,
+            "scroll": 585,
+            "overflow": "auto"
+          },
+          {
+            "title": "Two hidden explanations, exactly the same observed data",
+            "client": 278,
+            "scroll": 671,
+            "overflow": "auto"
+          },
+          {
+            "title": "Why rule three needs its ancestor exception",
+            "client": 278,
+            "scroll": 621,
+            "overflow": "auto"
+          },
+          {
+            "title": "Use observed factors despite a hidden common cause",
+            "client": 278,
+            "scroll": 642,
+            "overflow": "auto"
+          },
+          {
+            "title": "Keep the same hidden response type across worlds",
+            "client": 278,
+            "scroll": 614,
+            "overflow": "auto"
+          },
+          {
+            "title": "Check both routes to the augmented-estimator identity",
+            "client": 278,
+            "scroll": 801,
+            "overflow": "auto"
+          },
+          {
+            "title": "Resample within the original treatment/activity cells",
+            "client": 278,
+            "scroll": 707,
+            "overflow": "auto"
+          },
+          {
+            "title": "Separate assignment, treatment and complier effects",
+            "client": 278,
+            "scroll": 736,
+            "overflow": "auto"
+          }
+        ],
+        "equations": [
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          }
+        ],
+        "externalLinks": [
+          {
+            "href": "https://ftp.cs.ucla.edu/pub/stat_ser/r416-reprint.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.bradyneal.com/causal-inference-course",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://miguelhernan.org/whatifbook",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://users.nber.org/~rdehejia/%21%40%24AEM/Topic%2004%20IV/readings/angrist_imbens_rubin_JASA_1996.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.pywhy.org/EconML/spec/estimation/dr.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "mathErrors": 0,
+        "fonts": {
+          "status": "loaded",
+          "faces": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "300",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "500",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600",
+              "status": "loaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Caligraphic",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Caligraphic",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Fraktur",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Fraktur",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "700",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_SansSerif",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Script",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Size1",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Size2",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "KaTeX_Size4",
+              "weight": "400",
+              "status": "unloaded"
+            },
+            {
+              "family": "KaTeX_Typewriter",
+              "weight": "400",
+              "status": "unloaded"
+            }
+          ],
+          "lessonFamily": "\"Space Grotesk\", sans-serif"
+        },
+        "overflow": [],
+        "pageOverflow": false,
+        "svgTextOverflow": []
+      }
+    ],
+    "errors": [],
+    "environmentMessages": [
+      {
+        "width": 1440,
+        "url": "http://127.0.0.1:5173/@vite/client",
+        "text": "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5173/@vite/client",
+        "text": "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      },
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5173/@vite/client",
+        "text": "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T17:19:40.287Z",
+    "files": [
+      "src/learn/data/topics/causal-inference-do-calculus.jsx",
+      "src/learn/data/causal-inference-models.js",
+      "src/learn/data/causal-inference-examples.js",
+      "src/learn/components/lesson-labs/CausalInferenceLabs.jsx",
+      "src/learn/data/curriculum/blueprints/causal-inference-do-calculus.js",
+      "src/learn/components/lesson-labs/causal-inference-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "openedFinalScreenshots": [
+    {
+      "path": "scratch/causal-inference-browser/ordinary-intro-1440.png",
+      "sha256": "af389e32e8471e5997e2d86eb265051961a6d23943912eee340d293766e6be6b",
+      "bytes": 233281
+    },
+    {
+      "path": "scratch/causal-inference-browser/ordinary-figure-1-390.png",
+      "sha256": "a904fbe529708cd838fa46a585b25009fb23de348da3fe02f0c18c1501191e29",
+      "bytes": 52049
+    },
+    {
+      "path": "scratch/causal-inference-browser/ordinary-figure-2-320.png",
+      "sha256": "7ba4c1dde74725655edd18fb30e1549c8a0cba2f5bf5bc3c7a2ef4f917b49e29",
+      "bytes": 54220
+    },
+    {
+      "path": "scratch/causal-inference-browser/ordinary-lab-3-320.png",
+      "sha256": "a7a4aa389c8a3e46183833ff797fdbc26719a4148df4872c2fda96a3959c52f3",
+      "bytes": 56578
+    },
+    {
+      "path": "scratch/causal-inference-browser/ordinary-lab-2-1440.png",
+      "sha256": "f6a769b589d39973811f220882782c63121044858bf9a5a147c180e27ff78ad5",
+      "bytes": 162253
+    },
+    {
+      "path": "scratch/causal-inference-browser/reversed-composition-390.png",
+      "sha256": "a3c857170f46b2e3937bfbabc3945b68d8920a575a6ea46ff922446aca759be6",
+      "bytes": 61384
+    },
+    {
+      "path": "scratch/causal-inference-browser/conditioned-descendant-320.png",
+      "sha256": "1e66ec5e6714f2930cd5c0b1e7f0ae6d0038581d62b0a9aa66f38211d4598173",
+      "bytes": 49813
+    },
+    {
+      "path": "scratch/causal-inference-browser/frontdoor-direct-path-320.png",
+      "sha256": "8392ddefee445b2f97ceca6054110d8984537e5695b18e779b4de6991377092b",
+      "bytes": 54427
+    },
+    {
+      "path": "scratch/causal-inference-browser/paired-worlds-posterior-390.png",
+      "sha256": "c8424cad8ca55cd069a3123d71f4bb3296eaf844b19b6462027c819f0aa49673",
+      "bytes": 63165
+    },
+    {
+      "path": "scratch/causal-inference-browser/ordinary-lab-5-1440.png",
+      "sha256": "c5f999c8f7d2e5f19523c77a86849f62accb23bae710cb39997a21cbf75cf5f8",
+      "bytes": 162481
+    },
+    {
+      "path": "scratch/causal-inference-browser/rule-three-ancestor-1440.png",
+      "sha256": "906a2290ed3de1040c1d08b2e6dfb04fa4a1560884076f81af1b279be59e24ac",
+      "bytes": 150726
+    },
+    {
+      "path": "scratch/causal-inference-browser/equation-4-320.png",
+      "sha256": "a9d2d53ab1af9ec42a867cb5ad47e2a55f6cf7f42162dd2cfd3d0ef006061a19",
+      "bytes": 66366
+    },
+    {
+      "path": "scratch/causal-inference-browser/equation-8-320.png",
+      "sha256": "e785fd2df643c626e13074eb37b3edc733c238db8eaf74aa0b006167e20f1fee",
+      "bytes": 73500
+    },
+    {
+      "path": "scratch/causal-inference-browser/equation-10-320.png",
+      "sha256": "ca7b78bcd654950689321c0516bb241392b36bd19acacf0c93faef2741e47b72",
+      "bytes": 58604
+    },
+    {
+      "path": "scratch/causal-inference-browser/preserved-example-question-390.png",
+      "sha256": "6bf6b36f5812725930ff17b1b4c0291b93da9f96cc28122d5b34fa950630b751",
+      "bytes": 71386
+    },
+    {
+      "path": "scratch/causal-inference-browser/preserved-example-output-390.png",
+      "sha256": "e5d9341644b9e57184698dee6ba36b154d211e68d5f8c58510dc37d6318d6672",
+      "bytes": 67089
+    },
+    {
+      "path": "scratch/causal-inference-browser/changed-counterfactual-solution-390.png",
+      "sha256": "5dc5159da91a0f8764fc5540e0aa6bb55921fc65e09613b358ccbf3fce21d7fe",
+      "bytes": 89881
+    },
+    {
+      "path": "scratch/causal-inference-browser/sources-320.png",
+      "sha256": "b21158a41a08857ae6ebf326b4a51f776464c42f753dde45196469e50042da3c",
+      "bytes": 78550
+    },
+    {
+      "path": "scratch/causal-inference-browser/ordinary-lab-graph-1-390.png",
+      "sha256": "dc0a9252e3ed3cd117aadb01624c51888a3ef24a663650242d38c784c15b1b08",
+      "bytes": 57661
+    },
+    {
+      "path": "scratch/causal-inference-browser/ordinary-lab-4-390.png",
+      "sha256": "952e924db833b67cc7ebf6862a2d2dcb90d168329c31c3c71009688e7007de42",
+      "bytes": 53380
+    }
+  ],
+  "limitations": [
+    "No full video playback or full book review claimed.",
+    "Finite models and tests do not establish unrestricted causal identification or universal learner mastery.",
+    "No independent beginner usability study; learner acceptance remains pending.",
+    "Root owns shared production/loading/route integration."
+  ],
+  "commands": [
+    "scratch/lesson-tools/Scripts/python.exe -X utf8 -I scripts/verify-causal-inference.py",
+    "node scripts/format-causal-inference.cjs",
+    "REQUIRE_WEB_FONTS=1 node scripts/review-causal-inference.cjs (authorized public-font network access)"
+  ]
+}

@@ -1,0 +1,795 @@
+{
+  "startedAt": "2026-09-14T09:05:12.429Z",
+  "complete": true,
+  "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "8be3726498fcd8460871699eccb84a564127a2b5532bfca3d5a67217c3310ecc",
+    "src/learn/components/lesson-labs/gradient-variants-labs.css": "f4fb39b96a2d6ddf82d1e6ed41177ba686b860f48f1500e39a6894700959a38a",
+    "src/learn/components/lesson-labs/RandomVariableLabs.jsx": "56bc639cfc9631fe8ee095906db4f9563b8a308f3f5896389cd9752c2be57de0",
+    "src/learn/components/lesson-labs/random-variable-labs.css": "a23e995cb0c6fc577207f9661ce6e06612b005cf6e673fcc8c4d795a8a7a0e14",
+    "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx": "35a10baf290aeddba3917050462cf7dec2ce9eb189f4a1566c96f07da01b4b0a",
+    "src/learn/components/lesson-labs/single-variable-calculus-labs.css": "f8e145eab54a14e3b4e69e6c25d62a76f718a6ad0099852b49e5279c98689033",
+    "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "d23a5ffbbc2f82984a7f409e5d6a2f8ecdbdb617561bd59116bed53cf4765dc8",
+    "src/learn/components/lesson-labs/conditioning-stability-labs.css": "41cf2b148fc60d9fd0406a58de13b91429eef4ac9bb8cbae2f313fbccebd2f00"
+  },
+  "topicCount": 4,
+  "scope": "Final production-source representative layout captures; actual screenshot inspection follows separately. No model or full interaction-suite revalidation claimed.",
+  "records": [
+    {
+      "key": "gradient-parameter-final",
+      "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/gradient-parameter-final-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Full empirical quadratic objective, current parameter and proposed batch updatefull mean lossparameter θ-44Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent."
+      ],
+      "labelSizes": [
+        {
+          "text": "full mean loss",
+          "renderedFontPx": 15.92
+        },
+        {
+          "text": "parameter θ",
+          "renderedFontPx": 15.92
+        },
+        {
+          "text": "-4",
+          "renderedFontPx": 12.73
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 12.73
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent.",
+        "labelCount": 4,
+        "issues": []
+      }
+    },
+    {
+      "key": "gradient-parameter-final",
+      "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "width": 390,
+      "screenshot": "docs/teaching/evidence/screenshots/gradient-parameter-final-390-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Full empirical quadratic objective, current parameter and proposed batch updatefull mean lossparameter θ-44Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent."
+      ],
+      "labelSizes": [
+        {
+          "text": "full mean loss",
+          "renderedFontPx": 15.55
+        },
+        {
+          "text": "parameter θ",
+          "renderedFontPx": 15.55
+        },
+        {
+          "text": "-4",
+          "renderedFontPx": 15.55
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 15.55
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent.",
+        "labelCount": 4,
+        "issues": []
+      }
+    },
+    {
+      "key": "gradient-parameter-final",
+      "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/gradient-parameter-final-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Full empirical quadratic objective, current parameter and proposed batch updatefull mean lossparameter θ-44Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent."
+      ],
+      "labelSizes": [
+        {
+          "text": "full mean loss",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "parameter θ",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "-4",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 12.39
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent.",
+        "labelCount": 4,
+        "issues": []
+      }
+    },
+    {
+      "key": "gradient-blocks-final",
+      "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/gradient-blocks-final-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Block 1 parameter norm and update norm on a shared linear scaleBlock 1: absolute norms||θ|| = 5||Δθ|| = 0.05Relative: 0.01Shared linear norm scale across both blocks. θ=[3, 4], data g=[0.6, 0.8]. Ratio 0.5.Block 2 parameter norm and update norm on a shared linear scaleBlock 2: absolute norms||θ|| = 0.5||Δθ|| = 0.005Relative: 0.01Shared linear norm scale across both blocks. θ=[0.3, 0.4], data g=[0.6, 0.8]. Ratio 0.05."
+      ],
+      "labelSizes": [
+        {
+          "text": "Block 1: absolute norms",
+          "renderedFontPx": 15.92
+        },
+        {
+          "text": "||θ|| = 5",
+          "renderedFontPx": 15.92
+        },
+        {
+          "text": "||Δθ|| = 0.05",
+          "renderedFontPx": 15.92
+        },
+        {
+          "text": "Relative: 0.01",
+          "renderedFontPx": 15.92
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 18,
+        "description": "Shared linear norm scale across both blocks. θ=[3, 4], data g=[0.6, 0.8]. Ratio 0.5.",
+        "labelCount": 4,
+        "issues": []
+      }
+    },
+    {
+      "key": "gradient-blocks-final",
+      "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "width": 390,
+      "screenshot": "docs/teaching/evidence/screenshots/gradient-blocks-final-390-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Block 1 parameter norm and update norm on a shared linear scaleBlock 1: absolute norms||θ|| = 5||Δθ|| = 0.05Relative: 0.01Shared linear norm scale across both blocks. θ=[3, 4], data g=[0.6, 0.8]. Ratio 0.5.Block 2 parameter norm and update norm on a shared linear scaleBlock 2: absolute norms||θ|| = 0.5||Δθ|| = 0.005Relative: 0.01Shared linear norm scale across both blocks. θ=[0.3, 0.4], data g=[0.6, 0.8]. Ratio 0.05."
+      ],
+      "labelSizes": [
+        {
+          "text": "Block 1: absolute norms",
+          "renderedFontPx": 15.55
+        },
+        {
+          "text": "||θ|| = 5",
+          "renderedFontPx": 15.55
+        },
+        {
+          "text": "||Δθ|| = 0.05",
+          "renderedFontPx": 15.55
+        },
+        {
+          "text": "Relative: 0.01",
+          "renderedFontPx": 15.55
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 18,
+        "description": "Shared linear norm scale across both blocks. θ=[3, 4], data g=[0.6, 0.8]. Ratio 0.5.",
+        "labelCount": 4,
+        "issues": []
+      }
+    },
+    {
+      "key": "gradient-blocks-final",
+      "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/gradient-blocks-final-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Block 1 parameter norm and update norm on a shared linear scaleBlock 1: absolute norms||θ|| = 5||Δθ|| = 0.05Relative: 0.01Shared linear norm scale across both blocks. θ=[3, 4], data g=[0.6, 0.8]. Ratio 0.5.Block 2 parameter norm and update norm on a shared linear scaleBlock 2: absolute norms||θ|| = 0.5||Δθ|| = 0.005Relative: 0.01Shared linear norm scale across both blocks. θ=[0.3, 0.4], data g=[0.6, 0.8]. Ratio 0.05."
+      ],
+      "labelSizes": [
+        {
+          "text": "Block 1: absolute norms",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "||θ|| = 5",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "||Δθ|| = 0.05",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "Relative: 0.01",
+          "renderedFontPx": 12.39
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 18,
+        "description": "Shared linear norm scale across both blocks. θ=[3, 4], data g=[0.6, 0.8]. Ratio 0.5.",
+        "labelCount": 4,
+        "issues": []
+      }
+    },
+    {
+      "key": "random-variable-loss-final",
+      "topic": "random-variables-expectation-covariance",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/random-variable-loss-final-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Expected loss over possible predictionsSquared loss020-304Horizontal axis: prediction c"
+      ],
+      "labelSizes": [
+        {
+          "text": "Squared loss",
+          "renderedFontPx": 17.51
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 17.51
+        },
+        {
+          "text": "20",
+          "renderedFontPx": 17.51
+        },
+        {
+          "text": "-3",
+          "renderedFontPx": 17.51
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 17.51
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 17.51
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 2,
+        "description": "Exact loss equals variance 3.1875 plus squared distance from mean 0.25",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "random-variable-loss-final",
+      "topic": "random-variables-expectation-covariance",
+      "width": 390,
+      "screenshot": "docs/teaching/evidence/screenshots/random-variable-loss-final-390-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Expected loss over possible predictionsSquared loss020-304Horizontal axis: prediction c"
+      ],
+      "labelSizes": [
+        {
+          "text": "Squared loss",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "20",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "-3",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 19.25
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 2,
+        "description": "Exact loss equals variance 3.1875 plus squared distance from mean 0.25",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "random-variable-loss-final",
+      "topic": "random-variables-expectation-covariance",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/random-variable-loss-final-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Expected loss over possible predictionsSquared loss020-304Horizontal axis: prediction c"
+      ],
+      "labelSizes": [
+        {
+          "text": "Squared loss",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "20",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "-3",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 15.05
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 2,
+        "description": "Exact loss equals variance 3.1875 plus squared distance from mean 0.25",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "random-variable-conditional-final",
+      "topic": "random-variables-expectation-covariance",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/random-variable-conditional-final-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "G = -2G = 2-3-2023Horizontal axis: Y on a common scaleEach row connects its two Y values. Green is that group's mean; the dashed line is the overall mean. Changing group weights moves the overall mean. A faded zero-mass row contributes nothing and has no identified conditional mean."
+      ],
+      "labelSizes": [
+        {
+          "text": "G = -2",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "G = 2",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "-3",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "-2",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "3",
+          "renderedFontPx": 21.5
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 5,
+        "description": "Conditional Y values on the same axis. Overall mean 0. Active group means at minus two and/or plus two.",
+        "labelCount": 7,
+        "issues": []
+      }
+    },
+    {
+      "key": "random-variable-conditional-final",
+      "topic": "random-variables-expectation-covariance",
+      "width": 390,
+      "screenshot": "docs/teaching/evidence/screenshots/random-variable-conditional-final-390-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "G = -2G = 2-3-2023Horizontal axis: Y on a common scaleEach row connects its two Y values. Green is that group's mean; the dashed line is the overall mean. Changing group weights moves the overall mean. A faded zero-mass row contributes nothing and has no identified conditional mean."
+      ],
+      "labelSizes": [
+        {
+          "text": "G = -2",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "G = 2",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "-3",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "-2",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 19.25
+        },
+        {
+          "text": "3",
+          "renderedFontPx": 19.25
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 5,
+        "description": "Conditional Y values on the same axis. Overall mean 0. Active group means at minus two and/or plus two.",
+        "labelCount": 7,
+        "issues": []
+      }
+    },
+    {
+      "key": "random-variable-conditional-final",
+      "topic": "random-variables-expectation-covariance",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/random-variable-conditional-final-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "G = -2G = 2-3-2023Horizontal axis: Y on a common scaleEach row connects its two Y values. Green is that group's mean; the dashed line is the overall mean. Changing group weights moves the overall mean. A faded zero-mass row contributes nothing and has no identified conditional mean."
+      ],
+      "labelSizes": [
+        {
+          "text": "G = -2",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "G = 2",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "-3",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "-2",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 15.05
+        },
+        {
+          "text": "3",
+          "renderedFontPx": 15.05
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 5,
+        "description": "Conditional Y values on the same axis. Overall mean 0. Active group means at minus two and/or plus two.",
+        "labelCount": 7,
+        "issues": []
+      }
+    },
+    {
+      "key": "calculus-taylor-final",
+      "topic": "single-variable-calculus-limits-derivatives-integrals",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/calculus-taylor-final-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Function / polynomial-13.58-202Input x"
+      ],
+      "labelSizes": [
+        {
+          "text": "Function / polynomial",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "-1",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "3.5",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "8",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "-2",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 21.5
+        },
+        {
+          "text": "Input x",
+          "renderedFontPx": 21.5
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 9,
+        "description": "Function and its finite Taylor polynomial evaluated in floating-point arithmetic",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "calculus-taylor-final",
+      "topic": "single-variable-calculus-limits-derivatives-integrals",
+      "width": 390,
+      "screenshot": "docs/teaching/evidence/screenshots/calculus-taylor-final-390-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Function / polynomial-13.58-202Input x"
+      ],
+      "labelSizes": [
+        {
+          "text": "Function / polynomial",
+          "renderedFontPx": 16.36
+        },
+        {
+          "text": "-1",
+          "renderedFontPx": 17.38
+        },
+        {
+          "text": "3.5",
+          "renderedFontPx": 17.38
+        },
+        {
+          "text": "8",
+          "renderedFontPx": 17.38
+        },
+        {
+          "text": "-2",
+          "renderedFontPx": 17.38
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 17.38
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 17.38
+        },
+        {
+          "text": "Input x",
+          "renderedFontPx": 16.36
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 9,
+        "description": "Function and its finite Taylor polynomial evaluated in floating-point arithmetic",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "calculus-taylor-final",
+      "topic": "single-variable-calculus-limits-derivatives-integrals",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/calculus-taylor-final-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Function / polynomial-13.58-202Input x"
+      ],
+      "labelSizes": [
+        {
+          "text": "Function / polynomial",
+          "renderedFontPx": 12.86
+        },
+        {
+          "text": "-1",
+          "renderedFontPx": 13.66
+        },
+        {
+          "text": "3.5",
+          "renderedFontPx": 13.66
+        },
+        {
+          "text": "8",
+          "renderedFontPx": 13.66
+        },
+        {
+          "text": "-2",
+          "renderedFontPx": 13.66
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 13.66
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 13.66
+        },
+        {
+          "text": "Input x",
+          "renderedFontPx": 12.86
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 9,
+        "description": "Function and its finite Taylor polynomial evaluated in floating-point arithmetic",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "conditioning-measurement-final",
+      "topic": "conditioning-stability-numerical-analysis",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/conditioning-measurement-final-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "001122",
+        "Vertical axis: amount x₂",
+        "Horizontal axis: amount x₁"
+      ],
+      "labelSizes": [
+        {
+          "text": "0",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 24.73
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 12,
+        "description": "Measurement lines and their exact intersection",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "conditioning-measurement-final",
+      "topic": "conditioning-stability-numerical-analysis",
+      "width": 390,
+      "screenshot": "docs/teaching/evidence/screenshots/conditioning-measurement-final-390-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "001122",
+        "Vertical axis: amount x₂",
+        "Horizontal axis: amount x₁"
+      ],
+      "labelSizes": [
+        {
+          "text": "0",
+          "renderedFontPx": 17.58
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 17.58
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 17.58
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 17.58
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 17.58
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 17.58
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 12,
+        "description": "Measurement lines and their exact intersection",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "conditioning-measurement-final",
+      "topic": "conditioning-stability-numerical-analysis",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/conditioning-measurement-final-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "001122",
+        "Vertical axis: amount x₂",
+        "Horizontal axis: amount x₁"
+      ],
+      "labelSizes": [
+        {
+          "text": "0",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 13.77
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 12,
+        "description": "Measurement lines and their exact intersection",
+        "labelCount": 6,
+        "issues": []
+      }
+    }
+  ],
+  "completedAt": "2026-09-14T09:05:25.967Z",
+  "visualInspection": {
+    "inspectedAt": "2026-09-14T09:08:47.297Z",
+    "inspectedScreenshots": [
+      "docs/teaching/evidence/screenshots/gradient-parameter-final-1366-after.png",
+      "docs/teaching/evidence/screenshots/gradient-parameter-final-390-after.png",
+      "docs/teaching/evidence/screenshots/gradient-parameter-final-320-after.png",
+      "docs/teaching/evidence/screenshots/gradient-blocks-final-1366-after.png",
+      "docs/teaching/evidence/screenshots/gradient-blocks-final-390-after.png",
+      "docs/teaching/evidence/screenshots/gradient-blocks-final-320-after.png",
+      "docs/teaching/evidence/screenshots/random-variable-loss-final-1366-after.png",
+      "docs/teaching/evidence/screenshots/random-variable-loss-final-390-after.png",
+      "docs/teaching/evidence/screenshots/random-variable-loss-final-320-after.png",
+      "docs/teaching/evidence/screenshots/random-variable-conditional-final-1366-after.png",
+      "docs/teaching/evidence/screenshots/random-variable-conditional-final-390-after.png",
+      "docs/teaching/evidence/screenshots/random-variable-conditional-final-320-after.png",
+      "docs/teaching/evidence/screenshots/calculus-taylor-final-1366-after.png",
+      "docs/teaching/evidence/screenshots/calculus-taylor-final-390-after.png",
+      "docs/teaching/evidence/screenshots/calculus-taylor-final-320-after.png",
+      "docs/teaching/evidence/screenshots/conditioning-measurement-final-1366-after.png",
+      "docs/teaching/evidence/screenshots/conditioning-measurement-final-390-after.png",
+      "docs/teaching/evidence/screenshots/conditioning-measurement-final-320-after.png"
+    ],
+    "result": "All18 targeted desktop/390/320 captures were actually viewed. Gradient captions reflow; enlarged ticks remain readable. Random-variable and calculus corner labels are separated. Measurement lines remain outside the revised y-tick gutter. No unresolved defect found in these inspected states.",
+    "limitations": "Representative affected states only; not exhaustive interactions, numerical-program revalidation or user acceptance."
+  }
+}

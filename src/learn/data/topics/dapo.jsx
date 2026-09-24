@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -1102,16 +1103,17 @@ trainer.train()`}
       </Prose>
 
       <Heatmap
-        title="Method selection by failure mode and rollout length"
+        label="Method selection by failure mode and rollout length"
         rowLabels={["GRPO baseline", "GRPO + clip-higher", "GRPO + dynamic sampling", "Full DAPO (all 4 patches)", "Plain PPO"]}
         colLabels={["Short rollouts (≤1k tok)", "Long rollouts (2k–8k tok)", "Very long (8k+ tok)", "Hard problems", "Entropy stable"]}
-        values={[
+        matrix={[
           [1.0, 0.5, 0.2, 0.6, 0.5],
           [0.9, 0.8, 0.5, 0.7, 0.8],
           [0.8, 0.7, 0.5, 0.8, 0.6],
           [0.7, 0.9, 1.0, 1.0, 0.9],
           [1.0, 0.4, 0.1, 0.5, 1.0],
         ]}
+        colorScale="gold"
       />
 
       <H3>Use GRPO baseline when</H3>

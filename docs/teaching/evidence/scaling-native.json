@@ -1,0 +1,40 @@
+{
+  "verifiedAt": "2026-09-21T18:26:32.627268+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/scaling-examples.js",
+  "sourceHash": "c5bd20f01db2d04ef6185621a654dad09f10bd78695eb6b36dc3ee588db60287",
+  "verifier": "scripts/verify-scaling-examples.py",
+  "verifierHash": "1ff12cebd34c8f59ea87dc2211bb7571b4260ea1444864f752989aa9d00d2cd6",
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "fittedStateParity": {
+      "file": "fitted_preparation.py",
+      "codeHash": "c2a37882bc45cf94533dba7d187d9957aec17b018a77ae135399647348d57f05",
+      "stdoutHash": "84d92eefa8ad451c377ab583b9e0e6ec0f3fbd45dca14ef45977770c5fcc08eb",
+      "stdout": "category columns: ['a', 'b', 'not_recorded']\nmedians: [20.0, 300.0, 7.0]\nnew rows: [[0.707107, 0.0, 2.0, 0.0, 0.0, 0.0], [0.0, 2.828427, 0.0, 0.0, 0.0, 1.0]]\nlibrary parity: True\nedited second coordinate: 4.949747"
+    },
+    "penguinExperiment": {
+      "file": "penguins_prepare.py",
+      "codeHash": "71e52b36515fbff999894994ad24605a83099c115539e8870562dbcd190a9e94",
+      "stdoutHash": "0fe9a8247079db8b6fb407e4300c1027a52428ead1a1d997a5cf4a58208d1e52",
+      "stdout": "majority 38 / 86\nraw 67 / 86 0.7791\nstandard 84 / 86 0.9767\nminmax 85 / 86 0.9884\nrobust 85 / 86 0.9884\n['numeric__bill_length_mm' 'numeric__bill_depth_mm'\n 'numeric__flipper_length_mm' 'numeric__body_mass_g'\n 'category__sex_female' 'category__sex_male' 'category__sex_not_recorded']\n[[ 1.3091  0.8773  0.1645 -0.1128  0.      1.      0.    ]]"
+    },
+    "crossFitEncoding": {
+      "file": "cross_fit.py",
+      "codeHash": "1266b727cc7148c46d593b06c289012fb23148a4c7c0e1b709c55d079d5d5252",
+      "stdoutHash": "5ce2749d273dab6f81c458a5cf9425c7f877aae8ff7fabd38cb414e84e2bd4a2",
+      "stdout": "[0.555556 0.777778 0.222222 0.444444 0.222222 0.777778]\n[0.555556 0.222222 0.222222 0.222222 0.222222 0.555556]"
+    }
+  },
+  "oracles": 37,
+  "limits": [
+    "The penguin program ran against the served copy of the supplied CSV; no network access was used.",
+    "One fixed stratified split of one curated collection; the comparison is a single controlled demonstration.",
+    "One extra correct row does not establish that min-max or robust scaling is generally better than standard scaling.",
+    "Numerical results can differ on other library versions."
+  ]
+}

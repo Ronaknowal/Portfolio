@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-09-11T13:43:12.056779+00:00",
+  "neighborCases": 180,
+  "regressionCases": 152,
+  "exactSearchQueries": 625,
+  "changedLibraryCases": 18,
+  "standalonePrograms": 11,
+  "note": "Reused unchanged actual program executions; new independent NumPy/sklearn checks compare mechanisms and changed inputs.",
+  "sourceHashes": {
+    "src/learn/data/knn-models.js": "b9eb84f09a36ed8cdad9b392de8c1d4e074fc33353e065f646e188a7ef9bb48b",
+    "src/learn/data/knn-examples.js": "b07eacd797f1e489ee16b9a27d2a74e16a782e08620c101c51246335aa3d0264"
+  }
+}

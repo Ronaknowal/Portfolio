@@ -1,0 +1,93 @@
+{
+  "topic": {
+    "title": "Conditioning, Stability & Numerical Analysis",
+    "level": "intermediate",
+    "blueprint": {
+      "summary": "Separate unavoidable sensitivity in a problem from avoidable numerical error in its algorithm.",
+      "outcomes": [
+        "Distinguish forward error, backward error and residual",
+        "Compare stable algorithms on well-conditioned and ill-conditioned inputs"
+      ],
+      "prerequisites": [
+        "Floating-Point Representation & Numerical Error",
+        "Vectors, Matrices & Tensor Operations"
+      ],
+      "sequence": [
+        "Perturb the input to a small numerical problem",
+        "Compare absolute and relative output error",
+        "Relate sensitivity to a condition number",
+        "Separate problem conditioning from algorithmic stability",
+        "Choose a tolerance and higher-precision reference"
+      ],
+      "visual": {
+        "type": "precision and error plot",
+        "question": "Why can equivalent expressions return different answers?",
+        "interaction": "Sweep small inputs and compare naive versus stable formulas"
+      },
+      "practice": {
+        "task": "Repair a cancellation-prone computation",
+        "success": "Errors are measured against a trustworthy reference across scales"
+      },
+      "misconceptions": [
+        "More decimal digits in printed output do not create precision",
+        "A small residual does not always imply small solution error"
+      ],
+      "sources": [
+        "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html"
+      ],
+      "depth": "core",
+      "reviewFocus": "Specify dtype, rounding assumptions and reference precision."
+    },
+    "id": "conditioning-stability-numerical-analysis",
+    "trackId": "math-foundations",
+    "section": "Bridges: Mathematical Language, Proof & Measurement",
+    "trackIds": [
+      "math-foundations"
+    ],
+    "prerequisiteStatus": "recorded",
+    "prerequisiteIds": [
+      "floating-point-representation-numerical-error",
+      "vectors-matrices-tensor-operations"
+    ],
+    "designStatus": "topic-brief-ready",
+    "publicationStatus": "planned",
+    "teachingReview": "individual-review-required",
+    "domainStrategy": "mathematics"
+  },
+  "domainGuidance": {
+    "strategy": "mathematics",
+    "flow": [
+      "Pose a concrete question and identify known/unknown quantities",
+      "Link a small numerical case, a representation and defined notation",
+      "Derive the mechanism with justified intermediate steps",
+      "Interpret a complete worked result",
+      "Test a changed case, assumption and counterexample",
+      "Connect to a formal or applied deeper branch"
+    ],
+    "visuals": [
+      "Linked geometric and symbolic views",
+      "Labeled distributions and repeated samples",
+      "Stepwise derivation with exact-value inspection"
+    ],
+    "practice": "Hand calculation, explanation of a representation, flawed reasoning to repair, and independent transfer with an explained solution.",
+    "verification": "Check assumptions, conventions, proof steps, units, numerical approximations and independent reference values.",
+    "exampleAnchor": "Small vectors, measurements and uncertainty; connect exact operations to an interpreted decision.",
+    "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+    "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+  },
+  "authoringNotes": {
+    "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+    "workflow": "docs/teaching/topic-notes/README.md",
+    "destination": {
+      "path": "docs/teaching/topic-notes/conditioning-stability-numerical-analysis.md",
+      "exists": false,
+      "markdown": null
+    },
+    "unassigned": {
+      "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+      "exists": true,
+      "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: open\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: unresolved in this narrow title/brief search. The first five DSA practice sets do not establish coverage of this family, and the current three-lesson request is not a full-catalogue audit.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: unassigned; no topic added and no existing lesson rewritten by this discovery.\n- Implementation/verification links: none yet.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+    }
+  },
+  "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction."
+}

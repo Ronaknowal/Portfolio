@@ -1,0 +1,185 @@
+{
+  "startedAt": "2026-09-16T16:47:11.328Z",
+  "completedAt": "2026-09-16T16:48:09.322Z",
+  "topicId": "feature-selection-importance-shap-permutation-mutual-info",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "c45aaa6413f4664975f20dbe8f9386ac10eb5ab6bd00689d17e5360955a12466",
+  "sourceHashes": {
+    "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx": "5e3fd265e17905591a42781745c1ee148bca68dd29baaea3527b9050066e9823",
+    "src/learn/data/selection-models.js": "bdbf0c7972d337382a4d85a6ee9cf205822a99855c89ce3c5b7c188cf058d0dc",
+    "src/learn/data/selection-data.js": "6bae5793a66a6531ba5470607b1bf554837430ddae86dcce6b2cb4dd68e45937",
+    "src/learn/data/selection-examples.js": "9dd716db1d8972318d41dd1f1acfe6e501f9765dd62b63d31d884f076612a76e",
+    "src/learn/components/lesson-labs/SelectionShared.jsx": "297e99b8bb23534514c6a86006e9802e84cd7ba7b69780993039c17a331cf3cd",
+    "src/learn/components/lesson-labs/SelectionLabs.jsx": "25d75fca677f495e5d80393f040f33ebbe1e6433a45cd18aa7cbc3e441bcb163",
+    "src/learn/components/lesson-labs/SelectionFigures.jsx": "f4ebfa82a60b564729eab5559b9013e4f7d04759afb5ba0dca98864e494d7ed4",
+    "src/learn/components/lesson-labs/selection-labs.css": "3f30b036ed45643d50c2b34df9dc51ceb633d9eea87069756f5c20ee8357756f",
+    "src/learn/data/curriculum/blueprints/feature-selection-importance-shap-permutation-mutual-info.js": "7a2af3ecb83aca4cb4a3d266bc6dbb2d77f95307c162a4ef2fe122b51aaded1c",
+    "public/learn-assets/feature-selection/wine.data": "6be6b1203f3d51df0b553a70e57b8a723cd405683958204f96d23d7cd6aea659",
+    "public/learn-assets/feature-selection/ATTRIBUTION.txt": "bd795e57af39e89adbbf90542330fa8efff5ccbe062d5928e0fee881ddfd635d"
+  },
+  "routePosition": 23,
+  "moduleTopicCount": 39,
+  "dataset": {
+    "file": "/learn-assets/feature-selection/wine.data",
+    "sha256": "6be6b1203f3d51df0b553a70e57b8a723cd405683958204f96d23d7cd6aea659",
+    "bytes": 10782,
+    "reservedScored": false
+  },
+  "records": [
+    {
+      "case": "Complete visible code and output for four programs, nine route anchors, five figures, ten practice tasks, every published mean accuracy and permutation value, the served unchanged dataset with its hash and attribution, and the module sequence"
+    },
+    {
+      "case": "Count investigation: nothing preselected and nothing drawn before a prediction, the worked 0.188722 bits, the perfect-copy and independent contrasts, the count-scaling null that changes the sample size but not the estimate, the practice fixture, and an edit that retires both the prediction and its feedback"
+    },
+    {
+      "case": "Lattice investigation: the current subset score and candidate identities shown before committing, the strict rule stopping at the empty set with its announced reason, the forced policy reaching the pair, Y = A found, and the display-order null leaving every score identical"
+    },
+    {
+      "case": "Donor investigation: the +4 increase for the first-sensor model, the unused-column and identity-donor nulls, the practice donor with two fixed points giving +0.5, the three-model contrast table, and an invalid donor ordering refused with a local reason rather than silently repaired"
+    },
+    {
+      "case": "Coalition investigation: the zero-reference allocation 5 and 6, the two-row reference changing the baseline to 1.5 while the prediction stays at 11 and the mean output differs from the output at the mean input, the γ = 0 order null, the observed-target null, practice 4, and an instance at its own reference receiving exactly zero"
+    },
+    {
+      "case": "Wine investigation: the recorded baseline 0.33 and class-1 probability zero with the exact float32 split trace, the alcohol contrast reaching probability one, the malic-acid null leaving every value alone, the class-3 cohort reference changing the baseline to zero without changing the prediction, and an out-of-range edit marked as extrapolation rather than refused"
+    },
+    {
+      "case": "Figures carry their required content: the five routes badge where fitting happens, the exact-copy table shows the double count, both arrival orders end at the same value, the boundary diagram closes the unscored reserve and the two importance panels stay on separate axes, and the tree figure exposes the exact threshold and a coalition value built from a hundred hybrid rows"
+    },
+    {
+      "case": "Sequential semantics: positive determinant-one MI versus true independence, inclusive numeric boundary, positive4e-16 permutation change, cancellation versus matching reference, order independence with a nonlinear model, declared small-contribution tie, zero-width levels and all80 donor-repeat points within their axis"
+    },
+    {
+      "case": "Scroll regions have no background or pseudo-element gradients; measured overflow alone shows a plain cue and focusable named frame; a mobile SVG scrolls with the keyboard and fitting frames omit the cue"
+    },
+    {
+      "case": "With all five investigations revealed, no label leaves its own SVG, overlaps another label or is crossed by a foreground line, at five widths; the sweep asserts it actually had the investigation diagrams in front of it, and every drawn label clears a 9.4 effective-px floor at 390 and 320",
+      "sweepCoverage": [
+        {
+          "width": 1366,
+          "total": 19,
+          "inInvestigations": 7,
+          "labels": 220
+        },
+        {
+          "width": 1024,
+          "total": 19,
+          "inInvestigations": 7,
+          "labels": 220
+        },
+        {
+          "width": 768,
+          "total": 19,
+          "inInvestigations": 7,
+          "labels": 220
+        },
+        {
+          "width": 390,
+          "total": 19,
+          "inInvestigations": 7,
+          "labels": 220
+        },
+        {
+          "width": 320,
+          "total": 19,
+          "inInvestigations": 7,
+          "labels": 220
+        }
+      ],
+      "labelFloors": [
+        {
+          "width": 390,
+          "smallestEffectivePx": 9.88,
+          "label": "accuracy 0.5 · 2/4"
+        },
+        {
+          "width": 320,
+          "smallestEffectivePx": 9.88,
+          "label": "thirteen"
+        }
+      ]
+    },
+    {
+      "case": "A wrong prediction is marked as a miss with the ≠ mark, the recorded-versus-calculated sentence and an outside-tolerance numeric message; a correct numeric guess reads as within tolerance; and in all five investigations nothing is drawn or tabulated before a prediction, a radio alone reveals nothing, and a single edit retires the verdict, the drawing and the recorded choice"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-BL7VWv9o.js",
+        "assets/Reader-R40-jRVw.js",
+        "assets/LevelBadge-Bsew8oSh.js",
+        "assets/feature-selection-importance-shap-permutation-mutual-info-CCBWfBSb.js",
+        "assets/Code-DY7qG_mj.js",
+        "assets/Callout-B34AT7_Z.js",
+        "assets/Math-kDx_UmNu.js",
+        "assets/LessonElements-CIbly3P0.js",
+        "assets/RunnableExample-B6fMNJgg.js"
+      ],
+      "rawScriptBytes": 1522797,
+      "gzipEstimateBytes": 346581,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout: no document overflow, no overflowing formula, and every data table stacked into labelled rows"
+    },
+    {
+      "case": "Narrow 320px layout: no document overflow, no overflowing formula, and every data table stacked into labelled rows"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\selection-information-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-information-scaled-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-subset-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-subset-forced-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-donor-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-donor-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-donor-practice-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-donor-invalid-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-coalition-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-coalition-two-row-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-coalition-zero-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-wine-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-wine-alcohol-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-wine-malic-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-wine-cohort-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-wine-extrapolation-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-1-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-2-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-3-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-4-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-5-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-information-near-independent-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-donor-tiny-increase-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-coalition-cancellation-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-scroll-cue-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-scroll-cue-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-information-miss-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-investigation-1-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-1-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-investigation-2-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-2-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-investigation-3-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-3-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-investigation-4-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-4-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-investigation-5-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-5-390.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-1-320.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-figure-4-320.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-information-320.png",
+    "docs\\teaching\\evidence\\screenshots\\selection-wine-320.png"
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states: a matched prediction, a retired one, the count-scaling null, the forced search policy, an invalid donor ordering refused, an instance at its own reference, the alcohol contrast and the malic-acid null, the class-3 cohort, a marked extrapolation, and every inline figure at desktop and at 320 or 390 px. They require separate visual inspection."
+}

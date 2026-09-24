@@ -1,0 +1,463 @@
+.process-lab, .process-inline {
+  --process-gold: #efc66c;
+  --process-blue: #85b9df;
+  --process-ink: #e4e8ed;
+  --process-muted: #b3bdc8;
+  color: var(--process-ink);
+  margin: 2rem 0;
+}
+
+.process-lab {
+  border-block: 1px solid #34404c;
+  background: #0b1118;
+  padding: 1.5rem;
+}
+
+.process-lab h3 {
+  margin: 0.25rem 0 1rem;
+}
+
+.process-lab h4, .process-inline h4 {
+  margin: 1rem 0 0.6rem;
+}
+
+.process-eyebrow {
+  color: var(--process-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+}
+
+.process-small, .process-inline figcaption {
+  color: var(--process-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.process-inline figcaption {
+  margin-top: 0.8rem;
+}
+
+.process-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: end;
+  margin: 1.2rem 0;
+}
+
+.process-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.process-actions button, .process-flow-options button {
+  min-height: 44px;
+  color: var(--process-ink);
+  background: #101923;
+  border: 1px solid #526171;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.process-actions button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.process-flow-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.process-flow-options button[aria-pressed="true"] {
+  border-color: var(--process-gold);
+  background: #292519;
+}
+
+.process-reference {
+  stroke: var(--process-blue);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+}
+
+.process-mass-flow .process-flow-row {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 4.5rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.process-mass-flow .process-flow-row > div {
+  height: 12px;
+  background: #233140;
+}
+
+.process-mass-flow i {
+  display: block;
+  height: 100%;
+  background: var(--process-blue);
+}
+
+.process-mass-flow .process-active i {
+  background: var(--process-gold);
+}
+
+.process-pair, .process-class-diagrams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+  gap: 1.5rem;
+}
+
+.process-diagram-text {
+  color: var(--process-gold);
+  font-size: 1.5rem;
+}
+
+.process-controls label {
+  display: flex;
+  flex: 1 1 220px;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  color: var(--process-muted);
+  font-size: 0.9rem;
+}
+
+.process-controls button, .process-controls select, .process-controls input, .process-flow-buttons button {
+  min-height: 44px;
+  border: 1px solid #526171;
+  border-radius: 4px;
+  background: #101923;
+  color: var(--process-ink);
+  padding: 0.6rem 0.7rem;
+  font: inherit;
+}
+
+.process-controls select, .process-controls input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.process-controls button, .process-flow-buttons button {
+  cursor: pointer;
+}
+
+.process-controls button {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.process-table-scroll.process-compact-table table {
+  font-size: 0.85rem;
+}
+
+.process-table-scroll.process-compact-table th, .process-table-scroll.process-compact-table td {
+  padding-inline: 0.3rem;
+}
+
+.process-table-scroll.process-compact-table th:first-child {
+  min-width: 0;
+}
+
+.process-controls button:hover, .process-flow-buttons button:hover {
+  border-color: var(--process-gold);
+}
+
+.process-controls button:disabled, .process-controls select:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.process-lab :focus-visible, .process-inline :focus-visible {
+  outline: 3px solid var(--process-gold);
+  outline-offset: 3px;
+}
+
+.process-lab [role="alert"] {
+  border-left: 3px solid #ffac9a;
+  padding-left: 1rem;
+  color: #ffd3c9;
+}
+
+.process-figure-scroll {
+  width: 100%;
+  min-width: 0;
+}
+
+.process-wide, .process-table-scroll {
+  overflow-x: auto;
+}
+
+.process-figure {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  height: auto;
+}
+
+.process-figure text {
+  font: 16px system-ui, sans-serif;
+  fill: var(--process-ink);
+}
+
+.process-grid {
+  stroke: #41505f;
+  stroke-width: 1;
+}
+
+.process-connector {
+  stroke: #98a8b8;
+  stroke-width: 1.6;
+  fill: none;
+}
+
+.process-node {
+  fill: #182633;
+  stroke: var(--process-blue);
+  stroke-width: 2;
+}
+
+.process-boundary {
+  stroke: var(--process-gold);
+  stroke-width: 3;
+}
+
+.process-bar, .process-point {
+  fill: var(--process-gold);
+}
+
+.process-on-fill {
+  fill: #18202b !important;
+}
+
+.process-line {
+  fill: none;
+  stroke: var(--process-gold);
+  stroke-width: 2.5;
+}
+
+.process-equilibrium {
+  stroke: var(--process-blue);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+}
+
+.process-window, .process-band {
+  fill: #85b9df;
+  fill-opacity: 0.12;
+}
+
+.process-event {
+  stroke: var(--process-blue);
+  stroke-width: 3;
+}
+
+.process-event-selected {
+  stroke: var(--process-gold);
+  stroke-width: 5;
+}
+
+.process-holding-on {
+  stroke: var(--process-gold);
+  stroke-width: 10;
+}
+
+.process-holding-off {
+  stroke: var(--process-blue);
+  stroke-width: 10;
+}
+
+.process-ghost-path {
+  fill: none;
+  stroke: #8aa2b8;
+  stroke-opacity: 0.45;
+  stroke-width: 1.1;
+}
+
+.process-highlight-increment {
+  stroke: #fff2d2;
+  stroke-width: 5;
+}
+
+.process-independent-fill {
+  fill: #264760;
+  stroke: var(--process-blue);
+}
+
+.process-barrier {
+  stroke: #f5a799;
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+}
+
+.process-schematic {
+  fill: none;
+  stroke: var(--process-gold);
+  stroke-width: 2;
+  stroke-dasharray: 3 3;
+}
+
+.process-bridge-variance {
+  stroke: var(--process-blue);
+  stroke-width: 3;
+  stroke-dasharray: 4 4;
+}
+
+.process-table-scroll {
+  margin: 1rem 0;
+}
+
+.process-table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.process-table-scroll th, .process-table-scroll td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #33404b;
+  text-align: right;
+}
+
+.process-table-scroll th:first-child {
+  text-align: left;
+  white-space: normal;
+  min-width: 6rem;
+}
+
+.process-table-scroll caption {
+  text-align: left;
+  color: var(--process-muted);
+  padding-bottom: 0.6rem;
+  font-size: 0.85rem;
+  white-space: normal;
+}
+
+.process-table-scroll th {
+  white-space: normal;
+}
+
+.process-lab details {
+  margin-top: 1.4rem;
+}
+
+.process-lab summary {
+  cursor: pointer;
+  padding-block: 0.6rem;
+  min-height: 24px;
+  color: var(--process-gold);
+}
+
+.process-plot-pair, .process-path-families, .process-class-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: 1.5rem;
+}
+
+.process-symbol-row {
+  display: flex;
+  gap: 0.6rem;
+  margin: 0.4rem 0;
+}
+
+.process-symbol-row span {
+  border: 1px solid #485562;
+  width: 2.2rem;
+  text-align: center;
+  padding-block: 0.3rem;
+}
+
+.process-symbol-row .process-selected {
+  border-color: var(--process-gold);
+  color: var(--process-gold);
+  background: #302716;
+}
+
+.process-mass-strip {
+  display: flex;
+  height: 16px;
+  width: 100%;
+  margin-block: 1rem;
+  background: #1c2733;
+}
+
+.process-mass-strip span {
+  min-width: 0;
+}
+
+.process-lower {
+  background: #d89e92;
+}
+
+.process-surviving {
+  background: var(--process-blue);
+}
+
+.process-upper {
+  background: var(--process-gold);
+}
+
+.process-flow-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.process-flow-buttons button[aria-pressed="true"] {
+  border-color: var(--process-gold);
+  background: #292519;
+}
+
+.process-flow-row {
+  margin: 0.8rem 0;
+}
+
+.process-flow-track {
+  height: 12px;
+  background: #233140;
+}
+
+.process-flow-track span {
+  display: block;
+  height: 100%;
+  background: var(--process-blue);
+}
+
+.process-flow-row.is-selected .process-flow-track span {
+  background: var(--process-gold);
+}
+
+.process-equation-lines {
+  border-left: 2px solid var(--process-gold);
+  padding-left: 1rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 550px) {
+  .process-lab {
+    padding: 1rem 0.65rem;
+  }
+  .process-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .process-controls button {
+    width: 100%;
+    text-align: left;
+  }
+  .process-flow-buttons {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .process-figure text {
+    font-size: 17px;
+  }
+}

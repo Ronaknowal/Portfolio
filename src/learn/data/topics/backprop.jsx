@@ -1,46 +1,242 @@
-import BackpropVisualizer from "../../components/BackpropVisualizer";
-import { Prose, H3, CodeBlock } from "../../components/content";
-import { colors } from "../../styles";
+import { Prose, H2, H3, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { BackpropTable } from '../../components/lesson-labs/BackpropShared.jsx';
+import MechanismProgram from '../../components/lesson-labs/MechanismProgram.jsx';
+import mechanismProgram from '../backprop-mechanism-program.js';
+import { BackpropFitLab, BackpropSharedLab, BackpropDifferenceLab } from '../../components/lesson-labs/BackpropLabs.jsx';
+import { BackpropScalarFigure, BackpropBroadcastFigure, BackpropShapeFigure, BackpropTrainingFigure, BackpropProductsFigure, BackpropCheckpointFigure } from '../../components/lesson-labs/BackpropFigures.jsx';
 
-const backprop = {
-  title: "Backpropagation & Automatic Differentiation",
-  readTime: "12 min",
-  content: () => (
-    <div>
-      <Prose>
-        Backpropagation is the algorithm that makes training deep neural networks practical. It efficiently computes the gradient of the loss function with respect to every weight in the network by applying the chain rule of calculus layer by layer, from the output back to the input.
-      </Prose>
-
-      <BackpropVisualizer />
-
-      <H3>The Chain Rule at Scale</H3>
-
-      <Prose>
-        Consider a simple network: input x passes through layers f, g, and h to produce output y = h(g(f(x))). The gradient of the loss L with respect to the weights of f requires multiplying the gradients through each intermediate layer — that is the chain rule applied recursively.
-      </Prose>
-
-      <CodeBlock>
-        <span style={{ color: colors.textDim }}># Forward pass — compute and cache activations</span>{"\n"}
-        z1 = W1 @ x + b1{"\n"}
-        a1 = relu(z1){"\n"}
-        z2 = W2 @ a1 + b2{"\n"}
-        loss = mse(z2, target){"\n"}
-        {"\n"}
-        <span style={{ color: colors.textDim }}># Backward pass — chain rule from output to input</span>{"\n"}
-        dL_dz2 = 2 * (z2 - target) / n{"\n"}
-        dL_dW2 = dL_dz2 @ a1.T{"\n"}
-        dL_da1 = W2.T @ dL_dz2{"\n"}
-        dL_dz1 = dL_da1 * (z1 &gt; 0)  <span style={{ color: colors.textDim }}># relu derivative</span>{"\n"}
-        dL_dW1 = dL_dz1 @ x.T
-      </CodeBlock>
-
-      <H3>Computational Graph Perspective</H3>
-
-      <Prose>
-        Modern frameworks like PyTorch build a dynamic computational graph during the forward pass. Each operation records its inputs and the local gradient function. During backward(), gradients flow through this graph in reverse topological order — this is automatic differentiation, and backpropagation is its specific application to neural network training.
-      </Prose>
-    </div>
-  ),
+// Complete prepared manuscript rendered with topic-specific mechanisms. See the retained design for provenance and checks.
+const backpropContent = {
+  title: 'Backpropagation & Automatic Differentiation',
+  hasIntegratedGuide: true,
+  readTime: '60–80 min + practice',
+  content: () => <div className="backprop-lesson">
+    <Prose><strong>{"Explore as you read."}</strong>{" Edit the two-example fit, learning rate, repeated-path coefficient and finite-difference step/offset. Show fitted line, residuals, derivative contributions and before/after loss immediately; step the backward accumulation without hiding the current total. The finite-difference panel displays both errors and the analytic derivative. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish a correct gradient from a useful step size, and truncation/cancellation from a faulty derivative."}</Prose>
+    <Prose>{"The previous lesson built a network that turns inputs into predictions. Training needs the reverse question: "}<strong>{"which adjustable numbers contributed to the error, and how would a small change in each affect it?"}</strong>{" Backpropagation answers that question by combining local sensitivities through the computation you already performed."}</Prose>
+    <Prose>{"It computes derivatives. The optimizer then uses those derivatives to change parameters. Keeping these two jobs separate explains why a correct backward pass can accompany an overly large, harmful update—and why a decreasing loss does not certify a correct backward pass."}</Prose>
+    <Prose><strong>{"First pass:"}</strong>{" read §§1–5 and solve practices 1–4. You should be able to trace a shared computation, obtain a network's gradients and diagnose a failed numerical check. §6 and practices 5–8 are deeper routes through a complete teaching engine, higher derivatives, custom operations and memory tradeoffs. Reading and tracing take roughly 60–80 minutes; core practice and programs add 40–60 minutes. The optional engine and advanced practice deserve a separate session."}</Prose>
+    <nav className="backprop-section-route" aria-label="Backpropagation section route"><p>Jump within this lesson</p><ol><li><a href="#1-a-derivative-carries-the-effect-of-a-small-change">{"1. A derivative carries the effect of a small change"}</a></li><li><a href="#2-shared-computations-need-a-sum-of-contributions">{"2. Shared computations need a sum of contributions"}</a></li><li><a href="#3-from-individual-numbers-to-tensor-gradients">{"3. From individual numbers to tensor gradients"}</a></li><li><a href="#4-check-derivatives-as-evidence-not-a-certificate">{"4. Check derivatives as evidence, not a certificate"}</a></li><li><a href="#5-use-an-autograd-framework-deliberately">{"5. Use an autograd framework deliberately"}</a></li><li><a href="#6-deeper-routes-through-ad">{"6. Deeper routes through AD"}</a></li><li><a href="#7-practice-with-changed-graphs-and-failure-cases">{"7. Practice with changed graphs and failure cases"}</a></li><li><a href="#8-references-and-alternative-routes">{"8. References and alternative routes"}</a></li></ol></nav>
+    <H2>{"1. A derivative carries the effect of a small change"}</H2>
+    <Prose>{"Start with one scalar neuron:"}</Prose>
+    <MathBlock>{"z=wx+b,\\qquad a=\\operatorname{ReLU}(z),\\qquad\nL=\\tfrac12(a-y)^2."}</MathBlock>
+    <Prose>{"The input is "}<Math>{"x=2"}</Math>{", weight "}<Math>{"w=3"}</Math>{", bias "}<Math>{"b=-1"}</Math>{", target "}<Math>{"y=1"}</Math>{". Forward computation gives "}<Math>{"z=5"}</Math>{", "}<Math>{"a=5"}</Math>{", error "}<Math>{"a-y=4"}</Math>{", and loss 8. The factor 1/2 makes the derivative of the squared error especially simple. Later mean-squared-error examples deliberately use a different reduction and retain its factor 2."}</Prose>
+    <Prose>{"Suppose "}<Math>{"w"}</Math>{" increases a little. The score increases by twice that amount because "}<Math>{"x=2"}</Math>{". ReLU has slope 1 at the current positive score. Loss changes at a rate of 4 with respect to the activation because the current error is 4. Combining these effects gives"}</Prose>
+    <MathBlock>{"\\frac{\\partial L}{\\partial w}\n=\\frac{\\partial L}{\\partial a}\n\\frac{\\partial a}{\\partial z}\n\\frac{\\partial z}{\\partial w}\n=4\\cdot1\\cdot2=8."}</MathBlock>
+    <Prose>{"This is the "}<strong>{"chain rule"}</strong>{": multiply sensitivities along a path. A derivative describes the local rate near this state, not the exact effect of any large edit."}</Prose>
+    <BackpropScalarFigure />
+    <Prose>{"Working backward:"}</Prose>
+    <BackpropTable caption="One neuron: forward values and loss sensitivities" headers={[<>{"Object"}</>,<>{"Forward value"}</>,<>{"Sensitivity of loss"}</>]} rows={[[<><Math>{"L"}</Math></>,<>{"8"}</>,<><Math>{"\\partial L/\\partial L=1"}</Math></>],[<><Math>{"a"}</Math></>,<>{"5"}</>,<>{"4"}</>],[<><Math>{"z"}</Math></>,<>{"5"}</>,<>{"4"}</>],[<><Math>{"w"}</Math></>,<>{"3"}</>,<>{"8"}</>],[<><Math>{"b"}</Math></>,<>{"−1"}</>,<>{"4"}</>],[<><Math>{"x"}</Math></>,<>{"2"}</>,<>{"12"}</>]]} />
+    <Prose>{"The gradient with respect to the input is meaningful too: it describes how loss changes if the input changes while weights remain fixed. Training normally updates the parameters, not the recorded input. Sensitivity analysis, inverse problems and some explanation methods instead ask about input derivatives. An input gradient describes the model's local behavior; it does not establish a causal explanation of the real world."}</Prose>
+    <Prose>{"A gradient-descent update with learning rate 0.1 gives "}<Math>{"w=2.2,b=-1.4"}</Math>{". At the same input the new score is 3, so the new loss is 2. We did not recompute gradients halfway through the simultaneous update: both changes used the same old model."}</Prose>
+    <Prose><strong>{"Investigation A — change the step."}</strong>{" First trace the single neuron. Then edit the learning rate in the two-example line fit with "}<Math>{"x=(1,2)"}</Math>{", targets (1,3), "}<Math>{"w=1,b=0"}</Math>{" and mean squared error. The updated line and loss move together: at 0.1, loss falls from 0.5 to 0.17; at 1 it rises to 12.5; at 0 it stays fixed. Correct derivatives supply a local direction, not an automatically safe step length."}</Prose>
+    <BackpropFitLab />
+    <H2>{"2. Shared computations need a sum of contributions"}</H2>
+    <Prose>{"Programs are graphs because one intermediate result can be reused. Let"}</Prose>
+    <MathBlock>{"u=x\\cdot x,\\qquad L=u+2u."}</MathBlock>
+    <Prose>{"At "}<Math>{"x=3"}</Math>{", "}<Math>{"u=9"}</Math>{" and "}<Math>{"L=27"}</Math>{". Loss receives "}<Math>{"u"}</Math>{" along two routes: one with coefficient 1 and one with coefficient 2. Therefore"}</Prose>
+    <MathBlock>{"\\bar u=1+2=3,\\qquad \\bar x=3x+3x=18."}</MathBlock>
+    <Prose>{"The bar notation "}<Math>{"\\bar v"}</Math>{" means "}<Math>{"\\partial L/\\partial v"}</Math>{", the sensitivity of the final loss to an intermediate value. It is not another forward value."}</Prose>
+    <Prose>{"There are "}<strong>{"two different reasons to add"}</strong>{" here. The intermediate "}<Math>{"u"}</Math>{" has two consumers, so their contributions accumulate. Then "}<Math>{"x"}</Math>{" occupies both input slots of multiplication, so both slot contributions accumulate. Visiting a graph node once must not erase a repeated operand's second contribution."}</Prose>
+    <BackpropSharedLab />
+    <Prose><strong>{"Investigation B — edit a reused branch."}</strong>{" Change the second branch coefficient from 2 and watch both path contributions to the gradient at "}<Math>{"x=3"}</Math>{". At coefficient −1 the branches cancel: forward loss and derivative are both 0. At coefficient 0 the result is "}<Math>{"x^2"}</Math>{", with derivative 6. Crossing a sign change explains why lowering a coefficient need not reduce the gradient magnitude."}</Prose>
+    <Prose>{"The general reverse rule is"}</Prose>
+    <MathBlock>{"\\bar v_i \\mathrel{+}= \\bar v_j\n\\frac{\\partial v_j}{\\partial v_i}."}</MathBlock>
+    <Prose>{"Read “+=” as “add this path's contribution to any contributions already received.” To apply that rule safely, process an operation only after all downstream users of its result have contributed. This is "}<strong>{"reverse topological order"}</strong>{". Forward execution order already respects dependencies; reversing an appropriately recorded operation list is one implementation. A traversal of the reachable graph is another."}</Prose>
+    <Prose><strong>{"Automatic differentiation"}</strong>{", or AD, applies known derivative rules to elementary operations and combines their numerical values. It does not need to expand one enormous symbolic expression, and it does not perturb every parameter to estimate its effect. It still uses finite-precision arithmetic and the derivative conventions of its primitives. "}<a href={"https://jmlr.org/papers/v18/17-468.html"}>{"Baydin and colleagues' AD survey"}</a>{" distinguishes these approaches and develops both accumulation directions."}</Prose>
+    <H3>{"The few local rules behind a large network"}</H3>
+    <Prose>{"Let "}<Math>{"g"}</Math>{" denote the incoming sensitivity at an operation's output."}</Prose>
+    <BackpropTable caption="Local derivative rules and their saved forward values" headers={[<>{"Operation"}</>,<>{"Contribution to each input"}</>,<>{"Value needed from forward"}</>]} rows={[[<><Math>{"a+b"}</Math></>,<><Math>{"g"}</Math>{" to both"}</>,<>{"None for scalar addition"}</>],[<><Math>{"ab"}</Math></>,<><Math>{"gb"}</Math>{" to "}<Math>{"a"}</Math>{", "}<Math>{"ga"}</Math>{" to "}<Math>{"b"}</Math></>,<>{"Both operands"}</>],[<><Math>{"\\tanh(a)"}</Math></>,<><Math>{"g(1-\\tanh^2(a))"}</Math></>,<>{"Input or tanh output"}</>],[<><Math>{"\\operatorname{ReLU}(a)"}</Math></>,<><Math>{"g\\,1[a>0]"}</Math></>,<>{"Positive-input mask"}</>],[<><Math>{"\\exp(a)"}</Math></>,<><Math>{"g\\exp(a)"}</Math></>,<>{"Exponential output"}</>],[<><Math>{"\\log(a)"}</Math>{", "}<Math>{"a>0"}</Math></>,<><Math>{"g/a"}</Math></>,<>{"Input"}</>]]} />
+    <Prose>{"At a nondifferentiable point such as ReLU 0, the mathematical derivative is not unique because it does not exist in the ordinary sense. Our engine and PyTorch use 0 for this primitive. Do not mistake agreement on that convention for proof of differentiability."}</Prose>
+    <H2>{"3. From individual numbers to tensor gradients"}</H2>
+    <Prose>{"The scalar rules also explain arrays. The main new work is keeping shapes and repeated uses straight."}</Prose>
+    <H3>{"Broadcasting forward means summing backward"}</H3>
+    <Prose>{"Suppose a bias "}<Math>{"b=(b_1,b_2)"}</Math>{" is added to every row of a 3×2 matrix. Each bias entry is used three times. If incoming sensitivities are"}</Prose>
+    <MathBlock>{"G=\\begin{bmatrix}1&2\\\\3&4\\\\5&6\\end{bmatrix},\n\\qquad\n\\bar b=(1+3+5,\\;2+4+6)=(9,12)."}</MathBlock>
+    <Prose>{"The backward result has the bias's shape, not the output's shape. More generally, undo newly added axes and expanded size-one axes by summing. Averaging here would be wrong unless an earlier mean reduction supplies that factor."}</Prose>
+    <BackpropBroadcastFigure />
+    <Prose>{"For "}<Math>{"Y=AB"}</Math>{", with "}<Math>{"A"}</Math>{" shape "}<Math>{"N\\times D"}</Math>{" and "}<Math>{"B"}</Math>{" shape "}<Math>{"D\\times H"}</Math>{", incoming "}<Math>{"G"}</Math>{" has shape "}<Math>{"N\\times H"}</Math>{". The pullbacks are"}</Prose>
+    <MathBlock>{"\\bar A=GB^\\top,\\qquad \\bar B=A^\\top G."}</MathBlock>
+    <Prose>{"For example, "}<Math>{"Y_{ij}=\\sum_k A_{ik}B_{kj}"}</Math>{". Differentiating with respect to "}<Math>{"A_{ik}"}</Math>{" leaves "}<Math>{"B_{kj}"}</Math>{", and summing over every affected output "}<Math>{"j"}</Math>{" gives the first matrix product. The transpose is a consequence of which dimensions are contracted, not a trick to make a shape error disappear."}</Prose>
+    <H3>{"A full two-layer classifier"}</H3>
+    <Prose>{"Here the NumPy teaching engine stores a weight matrix as "}<strong>{"input width × output width"}</strong>{". PyTorch's "}<Code>{"nn.Linear.weight"}</Code>{" stores its transpose, as the previous lesson explained. We state the convention before comparing them."}</Prose>
+    <MathBlock>{"Z_1=XW_1+b_1,\\quad A_1=\\tanh(Z_1),\\quad\nZ_2=A_1W_2+b_2."}</MathBlock>
+    <Prose>{"For a batch of "}<Math>{"N"}</Math>{" rows, input width "}<Math>{"D"}</Math>{", hidden width "}<Math>{"H"}</Math>{" and "}<Math>{"C"}</Math>{" classes:"}</Prose>
+    <BackpropTable caption="Two-layer classifier tensor shapes" headers={[<>{"Object"}</>,<>{"Shape"}</>]} rows={[[<><Math>{"X,W_1,b_1"}</Math></>,<><Math>{"N\\times D,\\ D\\times H,\\ H"}</Math></>],[<><Math>{"A_1,W_2,b_2"}</Math></>,<><Math>{"N\\times H,\\ H\\times C,\\ C"}</Math></>],[<>{"logits "}<Math>{"Z_2"}</Math>{" and probabilities "}<Math>{"P"}</Math></>,<><Math>{"N\\times C"}</Math></>],[<>{"integer labels "}<Math>{"y"}</Math></>,<><Math>{"N"}</Math></>]]} />
+    <Prose>{"Mean cross-entropy is "}<Math>{"L=-N^{-1}\\sum_i\\log P_{i,y_i}"}</Math>{". For one row, write it directly as "}<Math>{"-z_y+\\log\\sum_c e^{z_c}"}</Math>{". Differentiating gives "}<Math>{"p_c-1[c=y]"}</Math>{"; the batch mean supplies 1/N:"}</Prose>
+    <MathBlock>{"G_2=(P-\\operatorname{onehot}(y))/N."}</MathBlock>
+    <Prose>{"The remaining reverse pass is"}</Prose>
+    <MathBlock>{"\\bar W_2=A_1^\\top G_2,\\quad \\bar b_2=\\sum_i(G_2)_{i,:},\n\\quad \\bar A_1=G_2W_2^\\top,"}</MathBlock>
+    <MathBlock>{"G_1=\\bar A_1\\odot(1-A_1^2),\\quad\n\\bar W_1=X^\\top G_1,\\quad \\bar b_1=\\sum_i(G_1)_{i,:}."}</MathBlock>
+    <Prose>{"The loss becomes a matrix of logit sensitivities, the output layer passes them into hidden activations, tanh changes them according to its slopes, and the first layer collects parameter contributions. ReLU substitutes its positive mask for "}<Math>{"1-A_1^2"}</Math>{". A mean squared error "}<Math>{"\\operatorname{mean}((q-y)^2)"}</Math>{" instead starts with "}<Math>{"2(q-y)/K"}</Math>{", where "}<Math>{"K"}</Math>{" is the number of averaged entries. The loss definition determines the factor; do not silently drop 2 because a different example used half-squared error."}</Prose>
+    <BackpropShapeFigure />
+    <H3>{"A real offline training program"}</H3>
+    <Prose>{"The complete download "}<a href={"/learn-assets/backpropagation/teaching-autodiff.py"}>{"teaching-autodiff.py"}</a>{" contains every operation, graph traversal and training loop; it needs no hidden initialization variables. Keep the accompanying "}<a href={"/learn-assets/backpropagation/digits-400.csv"}>{"digits -400.csv"}</a>{" beside it. Install "}<Code>{"numpy==2.3.5"}</Code>{" and "}<Code>{"scikit-learn==1.9.1"}</Code>{" in a Python 3.12 environment, then run:"}</Prose>
+    <CodeBlock language="text">{"python teaching-autodiff.py"}</CodeBlock>
+    <Prose>{"It first learns all four constructed XOR rows using a 2→4→1 tanh network and mean squared error, then trains a 64→16→10 digit classifier with mean cross-entropy. Parameters begin from the file's explicit seeded normal draws; updates use ordinary full-batch gradient descent. No pretrained network or online input is involved."}</Prose>
+    <Prose>{"The digit data is the same 400-image UCI fixture introduced in Perceptrons:28 train/12 validation images per digit, split seed 22, divided by the known pixel bound 16. The CSV is a selection from the historical UCI test partition, repartitioned for this lesson; it is neither MNIST nor a new writer-independent benchmark. "}<a href={"/learn-assets/backpropagation/data-provenance.md"}>{"Dataset attribution and transformations"}</a>{"."}</Prose>
+    <Prose>{"The actual executed output includes:"}</Prose>
+    <BackpropTable caption="Recorded XOR and digit observations from separate training runs" headers={[<>{"Updates"}</>,<>{"XOR mean squared error"}</>,<>{"Digit training cross-entropy"}</>,<>{"Digit validation correct /120"}</>]} rows={[[<>{"0"}</>,<>{"2.903633"}</>,<>{"3.597477"}</>,<>{"17"}</>],[<>{"1"}</>,<>{"1.247883"}</>,<>{"3.048748"}</>,<>{"17"}</>],[<>{"10"}</>,<>{".299061"}</>,<>{"1.957156"}</>,<>{"40"}</>],[<>{"100"}</>,<>{".113301"}</>,<>{".456258"}</>,<>{"101"}</>],[<>{"500"}</>,<><Math>{"1.83\\times10^{-9}"}</Math></>,<>{".065882"}</>,<>{"112"}</>]]} />
+    <Prose>{"These columns are two different runs, not competing models on the same task. XOR also continues to 2000 updates and reproduces its four targets to roughly machine precision in this run. Its input space contains only those four Boolean rows, so we report truth-table fit, not generalization to a hidden real-world population."}</Prose>
+    <Prose>{"For digits,500 updates give 112/120 validation correct. This evaluates the selected instructional model, not the correctness of every derivative. The preceding activation comparison used different width, optimizer, precision and initialization; it is not an isolated comparison of autograd engines."}</Prose>
+    <BackpropTrainingFigure />
+    <H2>{"4. Check derivatives as evidence, not a certificate"}</H2>
+    <Prose>{"A model can learn despite an incorrect derivative. It can also fail despite correct derivatives. Check a backward rule directly on controlled inputs."}</Prose>
+    <Prose>{"A central finite difference estimates a derivative as"}</Prose>
+    <MathBlock>{"D_hf(x)=\\frac{f(x+h)-f(x-h)}{2h}."}</MathBlock>
+    <Prose>{"For a sufficiently smooth function, Taylor expansion gives an "}<Math>{"O(h^2)"}</Math>{" truncation term. But subtracting nearby finite-precision values loses significant digits, and division by "}<Math>{"h"}</Math>{" amplifies evaluation error. Making "}<Math>{"h"}</Math>{" smaller indefinitely can make the estimate worse. Parameter units, value scale, dtype and derivative magnitude all affect a useful perturbation. "}<a href={"https://fncbook.com/python/fd-converge/"}>{"Fundamentals of Numerical Computation, §5.5"}</a>{"."}</Prose>
+    <Prose>{"Run this complete standard-library calculation:"}</Prose>
+    <CodeBlock language="python">{"import math\n\ndef central_difference(function, point, step):\n    return (function(point + step) - function(point - step)) / (2 * step)\n\nfor step in (1e-1, 1e-3, 1e-5, 1e-9, 1e-13, 1e-15):\n    estimate = central_difference(math.sin, 1.0, step)\n    error = abs(estimate - math.cos(1.0))\n    offset_estimate = central_difference(lambda x: 1e12 + x, 1.0, step)\n    print(f\"{step:.0e}\", f\"{error:.3e}\", f\"{offset_estimate:.9f}\")"}</CodeBlock>
+    <Prose>{"Our binary64 calculation gave:"}</Prose>
+    <BackpropTable caption="Perturbation size, sine derivative error and offset-linear estimate" headers={[<><Math>{"h"}</Math></>,<>{"Absolute error for derivative of "}<Math>{"\\sin(1)"}</Math></>,<>{"Estimated derivative of "}<Math>{"10^{12}+x"}</Math>{" at 1"}</>]} rows={[[<><Math>{"10^{-1}"}</Math></>,<><Math>{"9.001\\times10^{-4}"}</Math></>,<>{".999755859"}</>],[<><Math>{"10^{-3}"}</Math></>,<><Math>{"9.005\\times10^{-8}"}</Math></>,<>{".976562500"}</>],[<><Math>{"10^{-5}"}</Math></>,<><Math>{"1.114\\times10^{-11}"}</Math></>,<>{"0"}</>],[<><Math>{"10^{-9}"}</Math></>,<><Math>{"2.970\\times10^{-9}"}</Math></>,<>{"0"}</>],[<><Math>{"10^{-13}"}</Math></>,<><Math>{"1.788\\times10^{-4}"}</Math></>,<>{"0"}</>],[<><Math>{"10^{-15}"}</Math></>,<>{".0148092"}</>,<>{"0"}</>]]} />
+    <Prose>{"The second function's mathematical derivative is 1 everywhere. At "}<Math>{"h=10^{-5}"}</Math>{" both evaluated values round to the same large number, so their difference is 0. This does not disprove the derivative; it exposes an unsuitable numerical check. Adding a constant can leave a derivative unchanged while damaging the finite-difference estimate."}</Prose>
+    <Prose><strong>{"Investigation F — choose a check you can interpret."}</strong>{" Edit the evaluation point, perturbation and optional large additive offset. Watch the evaluated pair, derivative estimate and error change together. Compare an ordinary sine example with an offset linear function and a zero-derivative quadratic case. When the correct derivative is 0, use absolute error: relative error has an undefined denominator."}</Prose>
+    <BackpropDifferenceLab />
+    <Prose>{"At ReLU 0, the symmetric finite difference is 0.5 while our derivative convention is 0. There is no ordinary derivative there to certify. For a smooth network check, use double precision, fixed input and parameter copies, deterministic state, and perturbations that do not cross a relevant corner. If randomness or running statistics change between the plus and minus evaluations, the calculation compares different functions."}</Prose>
+    <Prose>{"The author checks compared every parameter of a small 2→3→2 tanh classifier against PyTorch at the same initialization and the same input. Maximum absolute differences were at most "}<Math>{"5.56\\times10^{-17}"}</Math>{". Central differences at "}<Math>{"h=10^{-5}"}</Math>{" differed by at most "}<Math>{"1.16\\times10^{-11}"}</Math>{" on those parameters. Separate cases checked repeated operands, broadcasting, matrix multiplication, tanh, ReLU's convention and log/exp composition. The saved check script includes exact inputs, not unnamed “initial” arrays reconstructed after training."}</Prose>
+    <Prose>Replay the <a href="/learn-assets/backpropagation/author-calculations.py">complete same-state checking program</a> beside the engine and CSV; compare its output with the <a href="/learn-assets/backpropagation/calculated-inputs.json">recorded calculations</a>. It needs the NumPy/scikit-learn environment above plus PyTorch 2.14.0 (CPU is sufficient).</Prose>
+    <Prose>{"This supports those checked rules, shapes and inputs. It does not certify every graph, dtype, nonfinite value, shape or custom operation. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.autograd.gradcheck.gradcheck.html"}>{"PyTorch gradcheck"}</a>{" documents double-precision defaults and issues at nonsmooth points, overlapping storage and nondeterminism. Use absolute and relative tolerances that express the accuracy needed for the actual derivative."}</Prose>
+    <H3>{"Forward and backward must describe the same function"}</H3>
+    <Prose>{"For stable cross-entropy, calculate"}</Prose>
+    <MathBlock>{"\\log p_c=(z_c-m)-\\log\\sum_j e^{z_j-m},\\qquad m=\\max_j z_j."}</MathBlock>
+    <Prose>{"Do not compute "}<Math>{"\\log(p_c+\\epsilon)"}</Math>{" and keep the unmodified "}<Math>{"(p-y)/N"}</Math>{" derivative. That changes the forward objective while leaving the old backward formula. With logits(1000,−1000) and true class 1, the stable loss is 2000; clipping a tiny probability would instead cap the loss. A stable formulation preserves the intended function across this finite input range."}</Prose>
+    <H2>{"5. Use an autograd framework deliberately"}</H2>
+    <section id="backprop-code-route">
+    <H3>Move one complete training step between implementations</H3>
+    <Prose>The downloadable NumPy engine already implements the scratch route: saved forward values, local pullbacks, broadcast reduction, reverse graph order and accumulation. Reuse it here. Put <Code>engine-library-bridge.py</Code> beside <a href="/learn-assets/backpropagation/teaching-autodiff.py">teaching-autodiff.py</a> and run <Code>python engine-library-bridge.py</Code> in the same NumPy/PyTorch environment. This bridge needs no CSV and does not rerun either training experiment.</Prose>
+    <Prose>The fixed three-row, two-feature fixture feeds a 2→3→2 tanh classifier on both sides. Copy the actual NumPy parameters into two <Code>nn.Linear</Code> layers, transposing only the weight matrices because the engine stores input-by-output weights. Both use float64, integer class labels and mean cross-entropy. After backward, transpose the library weight gradients back before comparing every parameter. A matching shape alone would not establish this correspondence.</Prose>
+    <Prose>The engine's explicit <Code>p.data - rate * p.grad</Code> matches <a href="https://docs.pytorch.org/docs/2.14/generated/torch.optim.SGD.html">plain PyTorch SGD</a> with no momentum or weight decay. Both updates use the same old gradients. At rate 0.2 the recorded loss moves from 0.840015027835 to 0.774784850062; rate zero preserves the original loss. All four gradient-array differences are below 7 × 10⁻¹⁷ in this run. The bridge calls <Code>zero_grad</Code> on the library side because its accumulation policy differs from the teaching engine's fresh-backward policy.</Prose>
+    <MechanismProgram {...mechanismProgram} title="Read and run the teaching-engine / PyTorch bridge" />
+    <Prose>Reverse graph traversal visits each reachable node once and each dependency edge once: O(V + E) graph work and O(V) traversal bookkeeping, plus the numerical work and saved arrays of its primitives. For this dense N-by-D, H-hidden, C-output network, forward and reverse matrix arithmetic scale as O(NDH + NHC); parameters and principal batch intermediates occupy O(ND + DH + HC + NH + NC) values. This engine uses efficient matrix products and exact broadcast sums, but its recursive traversal and two-dimensional matmul contract are intentionally bounded. Production frameworks add device kernels, broader operations, mutation tracking and higher-order differentiation; the engine does not emulate them.</Prose>
+    <Prose><strong>Diagnose a mismatch:</strong> replace the library's mean cross-entropy with its sum while leaving the engine unchanged. Which printed quantities should still agree, and by what factor should the loss and gradients differ? Repair the comparison without changing either model's weights.</Prose>
+    <details><summary>Implementation exercise solution</summary><Prose>Forward logits still agree. The three-row summed loss and each parameter gradient are three times their mean-reduction values, so the same learning rate produces a different update. Use mean on both sides, or divide the summed objective by three before backward. Reducing the learning rate alone can align this one update but leaves the reported objectives and gradients differently scaled.</Prose></details>
+    </section>
+    <Prose>{"With PyTorch, a leaf tensor whose "}<Code>{"requires_grad"}</Code>{" flag is true can receive a gradient in its "}<Code>{".grad"}</Code>{" field. Operations in ordinary gradient mode construct a graph when needed. A scalar's "}<Code>{"backward()"}</Code>{" starts from sensitivity 1; for a vector output, explicitly supply the output weighting or reduce it to the scalar objective you intend."}</Prose>
+    <Prose>{"This complete program isolates gradient accumulation:"}</Prose>
+    <CodeBlock language="python">{"import torch\n\nx = torch.tensor(3.0, requires_grad=True)\nloss = x * x\nloss.backward(retain_graph=True)\nprint(x.grad.item())\nloss.backward()\nprint(x.grad.item())\nx.grad = None\nnew_loss = x * x\nnew_loss.backward()\nprint(x.grad.item())"}</CodeBlock>
+    <Prose>{"Expected outputs are 6,12,6. PyTorch accumulates leaf gradients; clearing them and recomputing the graph restores one contribution. By contrast, our teaching engine deliberately clears every reachable buffer on each "}<Code>{"backward"}</Code>{" call. Its second call returns a fresh derivative. An engine's reset policy is an API choice, not a chain-rule difference."}</Prose>
+    <Prose><Code>{"retain_graph=True"}</Code>{" preserves information for another backward through the same forward computation. It does not make the derivative computation differentiable; "}<Code>{"create_graph=True"}</Code>{" does that. If several losses should contribute together, adding them and making one backward call is often simpler than retaining and repeatedly traversing their shared graph. Holding references to graphs can retain memory; the flag alone does not imply that every new iteration must leak."}</Prose>
+    <BackpropTable caption="Autograd operations and their distinct effects" headers={[<>{"Operation"}</>,<>{"Meaning"}</>,<>{"Useful distinction"}</>]} rows={[[<><Code>{"x.detach()"}</Code></>,<>{"A value sharing storage without the old derivative path"}</>,<>{"Does not make an independent copy"}</>],[<><Code>{"torch.no_grad()"}</Code></>,<>{"Suppress graph recording for ordinary computations in the context"}</>,<>{"Does not choose training/evaluation behavior"}</>],[<><Code>{"parameter.requires_grad_(False)"}</Code></>,<>{"Exclude that leaf parameter from gradient accumulation"}</>,<>{"Input gradients may still need a path through its operations"}</>],[<><Code>{"model.eval()"}</Code></>,<>{"Select evaluation behavior of modules that have it"}</>,<>{"Does not disable autograd"}</>]]} />
+    <Prose>{"For example, a frozen weight can still multiply an input that requires a gradient; the derivative with respect to that input uses the frozen value. Wrapping the entire computation in "}<Code>{"no_grad"}</Code>{" would block the desired path. Later Transfer Learning will use this distinction. "}<a href={"https://docs.pytorch.org/docs/2.14/notes/autograd.html"}>{"PyTorch autograd mechanics"}</a>{"."}</Prose>
+    <Prose>{"If an intermediate is overwritten before backward needs its old value, differentiation can fail or become invalid. PyTorch tracks many such modifications; the teaching engine instead makes forward arrays read-only and creates new parameter tensors after an update. Do not bypass those protections with hidden mutation or shared writable aliases."}</Prose>
+    <H2>{"6. Deeper routes through AD"}</H2>
+    <H3>{"Read the teaching engine as a small system"}</H3>
+    <Prose>{"The "}<a href={"/learn-assets/backpropagation/teaching-autodiff.py"}>{"complete engine and two training programs"}</a>{" are intended to be read with the derivative tables above. Its main pieces have separate responsibilities:"}</Prose>
+    <ol><li>{"A "}<Code>{"Tensor"}</Code>{" stores a copied, read-only float64 forward value, gradient buffer, parents and one local pullback."}</li><li>{"An operation computes its output immediately and installs a closure that will later read the output's incoming gradient."}</li><li><Code>{"add_gradient"}</Code>{" sums contributions and reduces broadcast dimensions to the parent's shape. It respects the parent's "}<Code>{"requires_grad"}</Code>{" flag."}</li><li><Code>{"backward"}</Code>{" visits each reachable node once, clears old buffers, validates the seed and applies pullbacks in reverse order."}</li><li>{"Each training update creates new parameter leaves from the old values and gradients. The next forward therefore belongs to the new model."}</li></ol>
+    <Prose>{"The repeated-operand example explains why a visited set does not remove repeated contributions: the multiply closure still sends one contribution for each operand slot, even when both refer to the same parent. The closure does not run when the operation is first created; its output gradient will only be available during backward."}</Prose>
+    <Prose>{"Here are the central local rules from the full file:"}</Prose>
+    <CodeBlock language="python">{"# Inside Tensor.__mul__, after constructing result:\ndef pullback():\n    self.add_gradient(other.data * result.grad)\n    other.add_gradient(self.data * result.grad)\n\n# Inside Tensor.__matmul__, for two matrices:\ndef pullback():\n    self.add_gradient(result.grad @ other.data.T)\n    other.add_gradient(self.data.T @ result.grad)"}</CodeBlock>
+    <Prose>{"These are excerpts from the complete downloadable file, not standalone programs. The file includes setup, all supporting methods, strict positive-input validation for log, stable cross-entropy and both data pipelines. Two-dimensional matrix multiplication is its explicit contract; it does not promise arbitrary batched matmul, complex derivatives, GPU execution, mutation tracking, sparse tensors or higher-order differentiation. Its recursive graph traversal is adequate for these small graphs, not an unbounded-depth engine."}</Prose>
+    <Prose>{"The engine's "}<Code>{"cross_entropy"}</Code>{" computes log-probabilities directly from shifted logits. Its backward uses exactly the derivative of that function. The program checks integer label shape and range, rather than accepting an accidental broadcast target."}</Prose>
+    <Prose>{"Rebuilding this mechanism is educational. For practical large models, established frameworks provide far more primitive coverage, memory scheduling and execution support. Writing a custom operation can still be appropriate when you have a verified specialized implementation; it does not require replacing an entire framework."}</Prose>
+    <H3>{"Forward mode and reverse mode answer different directional questions"}</H3>
+    <Prose>{"For a function "}<Math>{"f:\\mathbb R^n\\to\\mathbb R^m"}</Math>{", its "}<strong>{"Jacobian"}</strong>{" "}<Math>{"J"}</Math>{" has entry "}<Math>{"J_{ij}=\\partial f_i/\\partial x_j"}</Math>{" and shape "}<Math>{"m\\times n"}</Math>{"."}</Prose>
+    <Prose>{"A "}<strong>{"Jacobian-vector product"}</strong>{", "}<Math>{"Jv"}</Math>{", asks: if inputs start changing in direction "}<Math>{"v"}</Math>{", which way do outputs initially change? Forward-mode AD carries one such tangent alongside each forward value."}</Prose>
+    <Prose>{"A "}<strong>{"vector-Jacobian product"}</strong>{", usually written "}<Math>{"u^\\top J"}</Math>{" or as the column "}<Math>{"J^\\top u"}</Math>{", asks: how sensitive is a weighted combination of outputs to each input? Reverse mode carries the output weighting "}<Math>{"u"}</Math>{" backward. Scalar-loss differentiation uses "}<Math>{"u=1"}</Math>{"."}</Prose>
+    <Prose>{"Take"}</Prose>
+    <MathBlock>{"f(x_1,x_2)=(x_1x_2,\\ \\sin x_1,\\ x_2^2)."}</MathBlock>
+    <Prose>{"At "}<Math>{"x=(0.3,0.7)"}</Math>{","}</Prose>
+    <MathBlock>{"J=\\begin{bmatrix}.7&.3\\\\\\cos(.3)&0\\\\0&1.4\\end{bmatrix}."}</MathBlock>
+    <Prose>{"For input direction "}<Math>{"v=(1,2)"}</Math>{", "}<Math>{"Jv=(1.3,0.955336,2.8)"}</Math>{". For output weighting "}<Math>{"u=(1,-1,2)"}</Math>{", "}<Math>{"J^\\top u=(-0.255336,3.1)"}</Math>{". They have different shapes because they answer different questions."}</Prose>
+    <BackpropProductsFigure />
+    <Prose>{"The following complete CPU program computes these products without constructing the full Jacobian:"}</Prose>
+    <CodeBlock language="python">{"import torch\n\ndef function(x):\n    return torch.stack([x[0] * x[1], torch.sin(x[0]), x[1] ** 2])\n\nx = torch.tensor([0.3, 0.7], dtype=torch.float64)\ndirection = torch.tensor([1.0, 2.0], dtype=torch.float64)\noutput_weight = torch.tensor([1.0, -1.0, 2.0], dtype=torch.float64)\nvalue, tangent = torch.func.jvp(function, (x,), (direction,))\nvalue, pullback = torch.func.vjp(function, x)\nsensitivity = pullback(output_weight)[0]\nprint(value.tolist())\nprint(tangent.tolist())\nprint(sensitivity.tolist())\nprint(float(output_weight @ tangent), float(sensitivity @ direction))"}</CodeBlock>
+    <Prose>{"The first result is approximately(0.21,0.295520,0.49). The next two are the products above. Both final inner products equal approximately 5.944664, illustrating "}<Math>{"u^\\top(Jv)=(J^\\top u)^\\top v"}</Math>{". The author calculation executed these operations in PyTorch 2.14.0+cpu. "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.func.jvp.html"}>{"JVP API"}</a>{", "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.func.vjp.html"}>{"VJP API"}</a>{"."}</Prose>
+    <Prose>{"Obtaining an entire dense Jacobian by separate directional sweeps generally needs "}<Math>{"n"}</Math>{" input-basis JVPs or "}<Math>{"m"}</Math>{" output-basis VJPs. A scalar loss with many parameters therefore favors one reverse sweep over computing a full gradient by one forward direction per parameter. That is operation-count reasoning, not an exact wall-clock speedup by the number of parameters. Batching, structure, primitive costs and memory affect actual runtime. If you need only one directional derivative, one JVP can be the right request even for a large network."}</Prose>
+    <Prose>{"JAX exposes the same ideas as "}<Code>{"jax.jvp"}</Code>{", "}<Code>{"jax.vjp"}</Code>{", "}<Code>{"jax.grad"}</Code>{", "}<Code>{"jax.jacfwd"}</Code>{" and "}<Code>{"jax.jacrev"}</Code>{". Its "}<a href={"https://docs.jax.dev/en/latest/notebooks/autodiff_cookbook.html"}>{"Autodiff Cookbook"}</a>{" provides an alternate implementation route and full-Jacobian examples. The PyTorch program keeps this lesson runnable in one installed framework; no JAX output is claimed executed here."}</Prose>
+    <H3>{"Higher derivatives without storing a Hessian"}</H3>
+    <Prose>{"The "}<strong>{"Hessian"}</strong>{" of a scalar function is the matrix of its second derivatives. It describes how the gradient changes with the input. A Hessian-vector product "}<Math>{"Hv"}</Math>{" often provides the needed curvature information without allocating an "}<Math>{"n\\times n"}</Math>{" array."}</Prose>
+    <Prose>{"For "}<Math>{"f(x_1,x_2)=x_1^2+x_1x_2+3x_2^2"}</Math>{","}</Prose>
+    <MathBlock>{"\\nabla f=(2x_1+x_2,\\ x_1+6x_2),\\quad\nH=\\begin{bmatrix}2&1\\\\1&6\\end{bmatrix}."}</MathBlock>
+    <Prose>{"At(0.3,0.7), the gradient is(1.3,4.5). For "}<Math>{"v=(1,2)"}</Math>{", "}<Math>{"Hv=(4,13)"}</Math>{"."}</Prose>
+    <CodeBlock language="python">{"import torch\n\nx = torch.tensor([0.3, 0.7], requires_grad=True, dtype=torch.float64)\nv = torch.tensor([1.0, 2.0], dtype=torch.float64)\nloss = x[0] ** 2 + x[0] * x[1] + 3 * x[1] ** 2\ngradient = torch.autograd.grad(loss, x, create_graph=True)[0]\nhessian_vector = torch.autograd.grad(gradient @ v, x)[0]\nprint(gradient.tolist())\nprint(hessian_vector.tolist())"}</CodeBlock>
+    <Prose>{"The displayed values were checked by the author calculation. Differentiating "}<Code>{"gradient.sum()"}</Code>{" would produce "}<Math>{"H\\mathbf1"}</Math>{", not the Hessian diagonal. Similarly, applying a scalar-gradient transformation directly to a vector-valued gradient is not a general way to obtain that diagonal. Use an explicit Jacobian transformation to materialize a Hessian only when needed."}</Prose>
+    <H3>{"Custom derivatives and deliberate surrogate gradients"}</H3>
+    <Prose>{"A custom operation pairs a forward function with its backward rule. Here is a complete hard-sigmoid example, including a finite-difference check "}<strong>{"away from its corners"}</strong>{":"}</Prose>
+    <CodeBlock language="python">{"import torch\n\nclass HardSigmoid(torch.autograd.Function):\n    @staticmethod\n    def forward(ctx, x):\n        ctx.save_for_backward(x)\n        return torch.clamp(0.2 * x + 0.5, 0.0, 1.0)\n\n    @staticmethod\n    def backward(ctx, incoming):\n        (x,) = ctx.saved_tensors\n        active = (x > -2.5) & (x < 2.5)\n        return incoming * 0.2 * active\n\nx = torch.tensor([-3., -2., 0., 2., 3.],\n                 requires_grad=True, dtype=torch.float64)\nprint(torch.autograd.gradcheck(HardSigmoid.apply, (x,)))\nHardSigmoid.apply(x).sum().backward()\nprint(x.grad.tolist())"}</CodeBlock>
+    <Prose>{"Its expected gradient is(0,.2,.2,.2,0), and the check passes at those tested smooth points. At±2.5, the chosen backward is 0 but the function has a corner; a central-difference mismatch there is not evidence for a unique true derivative. The complete custom-operation program is included among the independently replayed native examples; its piecewise rule is derived here."}</Prose>
+    <Prose>{"A "}<strong>{"straight-through estimator"}</strong>{" intentionally uses a surrogate backward—for example, rounding forward but pretending the local slope is 1. It is not the exact derivative of rounding. Numerical differentiation of the hard forward function should not be expected to validate that surrogate. Evaluate whether the estimator serves the intended optimization problem, and label the substitution explicitly."}</Prose>
+    <H3>{"Accumulating a mean loss across unequal microbatches"}</H3>
+    <Prose>{"If memory permits only part of a batch at once, compute several forward/backward passes before one optimizer step. For a full-batch mean over "}<Math>{"N"}</Math>{" independent examples, a microbatch with "}<Math>{"n_j"}</Math>{" examples contributes "}<Math>{"(n_j/N)"}</Math>{" times its own mean loss."}</Prose>
+    <Prose>{"With "}<Math>{"x=(1,2,3,4,5)"}</Math>{", targets "}<Math>{"2x"}</Math>{", prediction "}<Math>{"wx"}</Math>{" and "}<Math>{"w=0"}</Math>{", the full mean-squared-error gradient is −44. Splitting into batches of 2 and 3 and summing their unweighted means gives −76⅔ instead. The smaller batch was given too much relative weight."}</Prose>
+    <CodeBlock language="python">{"import torch\n\nx = torch.arange(1., 6., dtype=torch.float64)\ntargets = 2 * x\nfor mode in (\"full\", \"weighted\", \"unweighted\"):\n    weight = torch.tensor(0., requires_grad=True, dtype=torch.float64)\n    slices = (slice(None),) if mode == \"full\" else (slice(0, 2), slice(2, 5))\n    for part in slices:\n        errors = weight * x[part] - targets[part]\n        loss = (errors ** 2).mean()\n        if mode == \"weighted\":\n            loss = loss * len(errors) / len(x)\n        loss.backward()\n    print(mode, weight.grad.item())"}</CodeBlock>
+    <Prose>{"The author executed these cases: full −44, weighted −44 to roundoff, unweighted −76.666667. In a real loop, zero gradients once before the group and step once after it. Equality assumes an additive objective, unchanged parameters during accumulation and compatible stochastic/state behavior. Batch-dependent normalization can change the function when you change microbatch composition; correct weighting alone does not fix that. The Normalization lesson will make those dependencies visible."}</Prose>
+    <H3>{"Activation checkpointing trades storage for recomputation"}</H3>
+    <Prose>{"Reverse mode saves values that later pullbacks need. It need not save every possible intermediate forever. "}<strong>{"Activation checkpointing"}</strong>{" stores selected boundaries and recomputes omitted forward values when backward reaches that region."}</Prose>
+    <Prose>{"For an ideal chain of "}<Math>{"L"}</Math>{" similarly sized layers split into "}<Math>{"K"}</Math>{" segments, a simple storage model is proportional to "}<Math>{"K+L/K"}</Math>{": retained boundaries plus one segment's intermediates. Choosing "}<Math>{"K"}</Math>{" near "}<Math>{"\\sqrt L"}</Math>{" gives an "}<Math>{"O(\\sqrt L)"}</Math>{" activation-storage model. Real graphs have unequal tensors, branches, parameters, optimizer state and temporary buffers; this formula is not a total-memory prediction."}</Prose>
+    <BackpropCheckpointFigure />
+    <Prose>{"A complete deterministic comparison:"}</Prose>
+    <CodeBlock language="python">{"import torch\nfrom torch.utils.checkpoint import checkpoint\n\ndef block(x):\n    return torch.tanh(x @ x.T / x.shape[0])\n\nx = torch.tensor([[0.2, -0.4], [0.7, 0.1]],\n                 requires_grad=True, dtype=torch.float64)\nordinary = block(x).sum()\ngradient_a = torch.autograd.grad(ordinary, x)[0]\nrecomputed = checkpoint(block, x, use_reentrant=False).sum()\ngradient_b = torch.autograd.grad(recomputed, x)[0]\nprint(torch.allclose(gradient_a, gradient_b, atol=1e-12, rtol=1e-12))"}</CodeBlock>
+    <Prose>{"The executed result is True for this deterministic block. There is no measured speed or memory claim. Recomputed code must represent the same function: changed global state, device moves or uncontrolled randomness can invalidate equivalence. "}<a href={"https://docs.pytorch.org/docs/2.14/checkpoint.html"}>{"PyTorch checkpoint documentation"}</a>{" describes these conditions and its implementations."}</Prose>
+    <Prose>{"At larger scale, activation storage is only one cost. Parameter/gradient/optimizer-state sharding and pipeline scheduling address different bottlenecks; communication compression adds another approximation decision. Their dedicated distributed-training and GPU lessons own those mechanisms. Backprop supplies the derivative dependencies those systems must preserve. No universal rule says activations dominate every model, that checkpointing costs a fixed percentage, or that compressed gradients cause a fixed accuracy tradeoff."}</Prose>
+    <H2>{"7. Practice with changed graphs and failure cases"}</H2>
+    <H3>{"1. Two uses, one parameter"}</H3>
+    <Prose>{"For "}<Math>{"u=x^2"}</Math>{", "}<Math>{"L=u-0.5u"}</Math>{" at "}<Math>{"x=2"}</Math>{", compute the forward values and derivative. Explain both places where reverse contributions add."}</Prose>
+    <details><summary>{"Hint"}</summary>
+    <Prose>{"First collect the two contributions at "}<Math>{"u"}</Math>{"; then apply the two operand slots in "}<Math>{"x\\cdot x"}</Math>{"."}</Prose>
+    </details>
+    <details><summary>{"Solution"}</summary>
+    <Prose><Math>{"u=4,L=2,\\bar u=1-.5=.5"}</Math>{". Each multiply input slot contributes "}<Math>{".5(2)=1"}</Math>{", so "}<Math>{"\\bar x=2"}</Math>{". Visiting "}<Math>{"x"}</Math>{" once while dropping one operand contribution incorrectly gives 1."}</Prose>
+    </details>
+    <H3>{"2. Undo a different broadcast"}</H3>
+    <Prose>{"A bias with shape(2,) was added to two rows. Incoming sensitivities are[[-1,0],[2,4]]. What is the bias gradient? If a mean over all four outputs produced those sensitivities, should you divide by 4 again?"}</Prose>
+    <details><summary>{"Hint"}</summary>
+    <Prose>{"The incoming sensitivities already include all downstream operations."}</Prose>
+    </details>
+    <details><summary>{"Solution"}</summary>
+    <Prose>{"The gradient is(1,4), a sum down each column. Do not divide again: if the mean supplied a factor 1/4, it is already present in the incoming array. Double normalization changes the derivative."}</Prose>
+    </details>
+    <H3>{"3. One calculation, a dangerous update"}</H3>
+    <Prose>{"For the two-example line fit in investigationA, derive gradients −2 and −1 from the mean-squared-error definition. Explain why the learning-rate 1 update increases loss without implying a bad backward rule."}</Prose>
+    <details><summary>{"Hint"}</summary>
+    <Prose>{"The two residuals initially are 0 and −1. A mean over two entries cancels the derivative's factor 2."}</Prose>
+    </details>
+    <details><summary>{"Solution"}</summary>
+    <Prose><Math>{"\\partial L/\\partial w=(0)(1)+(-1)(2)=-2"}</Math>{" and "}<Math>{"\\partial L/\\partial b=0-1=-1"}</Math>{". A simultaneous step gives(3,1), predictions(4,7), residuals(3,4), mean loss 12.5. The gradient is local and the step is too large for this quadratic; finite changes require evaluating the new loss."}</Prose>
+    </details>
+    <H3>{"4. Interpret two failed gradient checks"}</H3>
+    <Prose>{"One check of ReLU at 0 reports AD 0 and central difference.5. Another check of "}<Math>{"10^{12}+x"}</Math>{" at 1 with "}<Math>{"h=10^{-5}"}</Math>{" reports AD 1 and finite difference 0. Are these the same kind of failure? State a useful next action for each."}</Prose>
+    <details><summary>{"Hint"}</summary>
+    <Prose>{"Ask first whether an ordinary derivative exists, then whether the two evaluated values are numerically distinct."}</Prose>
+    </details>
+    <details><summary>{"Solution"}</summary>
+    <Prose>{"ReLU has a corner: test smooth points on both sides and document the chosen boundary convention. The offset linear function is smooth, but rounding destroys the tiny difference: inspect the actual paired values, change perturbation/scale or remove the irrelevant offset in a separate diagnostic. Neither mismatch alone proves that the implemented local rule is wrong."}</Prose>
+    </details>
+    <H3>{"5. An input-direction product"}</H3>
+    <Prose>{"For the vector function in §6 at(0.3,0.7), choose "}<Math>{"v=(0,1)"}</Math>{". Compute "}<Math>{"Jv"}</Math>{", and explain why it is not the gradient of a scalar loss."}</Prose>
+    <details><summary>{"Hint"}</summary>
+    <Prose>{"The direction selects the second Jacobian column."}</Prose>
+    </details>
+    <details><summary>{"Solution"}</summary>
+    <Prose><Math>{"Jv=(.3,0,1.4)"}</Math>{". It lists the three output rates when only the second input changes. A scalar-loss gradient would instead require choosing a scalar combination of those outputs and would have two input coordinates."}</Prose>
+    </details>
+    <H3>{"6. A sum of gradient entries is not a diagonal"}</H3>
+    <Prose>{"For "}<Math>{"f=x_1^2+x_1x_2+3x_2^2"}</Math>{", compute the derivative of the sum of gradient entries and compare it with the Hessian diagonal."}</Prose>
+    <details><summary>{"Hint"}</summary>
+    <Prose>{"The summed gradient is "}<Math>{"3x_1+7x_2"}</Math>{"."}</Prose>
+    </details>
+    <details><summary>{"Solution"}</summary>
+    <Prose>{"Its derivative is(3,7), equal to "}<Math>{"H(1,1)"}</Math>{" for this symmetric Hessian. The diagonal is(2,6). Off-diagonal terms contribute to the row sums and cannot be discarded."}</Prose>
+    </details>
+    <H3>{"7. Repair an accumulation loop"}</H3>
+    <Prose>{"Suppose a mean loss covers ten examples and microbatches have sizes 4,4,2. Give the three weights multiplying the microbatch means. State two conditions under which even these weights do not reproduce one full-batch update."}</Prose>
+    <details><summary>{"Hint"}</summary>
+    <Prose>{"Weight by fraction of examples, and keep the underlying function fixed."}</Prose>
+    </details>
+    <details><summary>{"Solution"}</summary>
+    <Prose>{"Weights are.4,.4,.2. Updating parameters after each microbatch changes the evaluation state; batch-dependent normalization can change the function. Randomness can also differ unless comparisons control its realization. Small floating-point summation differences can remain even when the mathematical gradients agree."}</Prose>
+    </details>
+    <H3>{"8. Extend one primitive and expose a wrong rule"}</H3>
+    <Prose>{"Add a sigmoid operation to the teaching engine. Derive its local pullback, check both positive and negative inputs against PyTorch, and check a reused sigmoid output. Then deliberately replace its derivative with a constant and identify a fixture that detects the error. Keep the complete file's reset and broadcast contracts."}</Prose>
+    <details><summary>{"Hint"}</summary>
+    <Prose>{"Use a stable sigmoid forward calculation and cache its result. The pullback multiplies by "}<Math>{"\\sigma(x)(1-\\sigma(x))"}</Math>{". A point far from zero distinguishes this from a constant slope."}</Prose>
+    </details>
+    <details><summary>{"Solution and evaluation criteria"}</summary>
+    <Prose>{"A correct operation returns the pointwise sigmoid and adds incoming×output×(1−output) to the parent's buffer. At 0 its slope is.25; at 2 it is about.104994, so a constant.25 rule is exposed. Reusing the result in "}<Math>{"s+3s"}</Math>{" multiplies the accumulated input derivative by 4. Report actual inputs, dtype, absolute error and a perturbation sweep for a smooth case; the grade depends on these checks and correct graph behavior, not on whether a training curve happens to decrease. No unexecuted extension result is supplied as a measured output."}</Prose>
+    </details>
+    <H2>{"8. References and alternative routes"}</H2>
+    <ul><li><a href={"https://www.3blue1brown.com/lessons/backpropagation/"}>{"3Blue1Brown: What is backpropagation really doing?"}</a>{" — creator-hosted video and text companion. The reviewed introductory text explains how desired output changes propagate into hidden contributions; use after the first graph if the algebra feels detached. Video playback was not independently reviewed."}</li><li><a href={"https://cs231n.github.io/optimization-2/"}>{"Stanford CS 231 n: Backpropagation, Intuitions"}</a>{" — lecture notes for the local-gate view and chain rule. The compound-expression section is a useful alternative to our shared-square example. At nonsmooth ties, use an explicitly stated convention rather than interpreting informal max rules as unique derivatives."}</li><li><a href={"https://jmlr.org/papers/v18/17-468.html"}>{"Baydin et al.: Automatic Differentiation in Machine Learning"}</a>{" — broad survey of numerical/symbolic distinctions, forward/reverse modes, applications and implementation approaches. Read §§2–3 first; source transformation and research directions are later branches."}</li><li><a href={"https://docs.pytorch.org/docs/2.14/notes/autograd.html"}>{"PyTorch autograd mechanics"}</a>{", "}<a href={"https://docs.pytorch.org/docs/2.14/generated/torch.autograd.gradcheck.gradcheck.html"}>{"gradcheck"}</a>{" and "}<a href={"https://docs.pytorch.org/docs/2.14/checkpoint.html"}>{"checkpoint"}</a>{" — contracts for the APIs and edge cases used here."}</li><li><a href={"https://docs.jax.dev/en/latest/notebooks/autodiff_cookbook.html"}>{"JAX Autodiff Cookbook"}</a>{" — another programming route to JVPs, VJPs, Jacobians and Hessians; optional if you want to connect the same mathematics to a second framework."}</li><li><a href={"https://fncbook.com/python/fd-converge/"}>{"Fundamentals of Numerical Computation: Convergence of finite differences"}</a>{" — a deeper explanation of why a perturbation sweep is more informative than one fixed epsilon."}</li></ul>
+    <Prose>{"The next topic is "}<strong>{"Loss Functions: CE, MSE, Focal, Contrastive & Triplet"}</strong>{". You now know how to differentiate an objective; next, decide what the objective asks the model to get right."}</Prose>
+  </div>,
 };
-
-export default backprop;
+export default backpropContent;

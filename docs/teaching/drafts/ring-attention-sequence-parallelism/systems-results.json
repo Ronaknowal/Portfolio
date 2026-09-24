@@ -1,0 +1,2407 @@
+{
+  "work": [
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "contiguous",
+      "tile": 1,
+      "owners": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          12,
+          13,
+          14,
+          15
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          10,
+          0,
+          0
+        ],
+        [
+          16,
+          16,
+          10,
+          0
+        ],
+        [
+          16,
+          16,
+          16,
+          10
+        ]
+      ],
+      "row_totals": [
+        10,
+        26,
+        42,
+        58
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          0,
+          16,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          0,
+          16
+        ]
+      ],
+      "ideal_round_critical_pairs": 58,
+      "executed_tile_cells": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          10,
+          0,
+          0
+        ],
+        [
+          16,
+          16,
+          10,
+          0
+        ],
+        [
+          16,
+          16,
+          16,
+          10
+        ]
+      ],
+      "tile_round_critical_cells": 58
+    },
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "contiguous",
+      "tile": 2,
+      "owners": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          12,
+          13,
+          14,
+          15
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          10,
+          0,
+          0
+        ],
+        [
+          16,
+          16,
+          10,
+          0
+        ],
+        [
+          16,
+          16,
+          16,
+          10
+        ]
+      ],
+      "row_totals": [
+        10,
+        26,
+        42,
+        58
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          0,
+          16,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          0,
+          16
+        ]
+      ],
+      "ideal_round_critical_pairs": 58,
+      "executed_tile_cells": [
+        [
+          12,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          12,
+          0,
+          0
+        ],
+        [
+          16,
+          16,
+          12,
+          0
+        ],
+        [
+          16,
+          16,
+          16,
+          12
+        ]
+      ],
+      "tile_round_critical_cells": 60
+    },
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "contiguous",
+      "tile": 4,
+      "owners": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          12,
+          13,
+          14,
+          15
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          10,
+          0,
+          0
+        ],
+        [
+          16,
+          16,
+          10,
+          0
+        ],
+        [
+          16,
+          16,
+          16,
+          10
+        ]
+      ],
+      "row_totals": [
+        10,
+        26,
+        42,
+        58
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          0,
+          16,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          0,
+          16
+        ]
+      ],
+      "ideal_round_critical_pairs": 58,
+      "executed_tile_cells": [
+        [
+          16,
+          0,
+          0,
+          0
+        ],
+        [
+          16,
+          16,
+          0,
+          0
+        ],
+        [
+          16,
+          16,
+          16,
+          0
+        ],
+        [
+          16,
+          16,
+          16,
+          16
+        ]
+      ],
+      "tile_round_critical_cells": 64
+    },
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "striped",
+      "tile": 1,
+      "owners": [
+        [
+          0,
+          4,
+          8,
+          12
+        ],
+        [
+          1,
+          5,
+          9,
+          13
+        ],
+        [
+          2,
+          6,
+          10,
+          14
+        ],
+        [
+          3,
+          7,
+          11,
+          15
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          6,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          10,
+          6
+        ],
+        [
+          10,
+          10,
+          10,
+          10
+        ]
+      ],
+      "row_totals": [
+        28,
+        32,
+        36,
+        40
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          6,
+          10
+        ]
+      ],
+      "ideal_round_critical_pairs": 40,
+      "executed_tile_cells": [
+        [
+          10,
+          6,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          10,
+          6
+        ],
+        [
+          10,
+          10,
+          10,
+          10
+        ]
+      ],
+      "tile_round_critical_cells": 40
+    },
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "striped",
+      "tile": 2,
+      "owners": [
+        [
+          0,
+          4,
+          8,
+          12
+        ],
+        [
+          1,
+          5,
+          9,
+          13
+        ],
+        [
+          2,
+          6,
+          10,
+          14
+        ],
+        [
+          3,
+          7,
+          11,
+          15
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          6,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          10,
+          6
+        ],
+        [
+          10,
+          10,
+          10,
+          10
+        ]
+      ],
+      "row_totals": [
+        28,
+        32,
+        36,
+        40
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          6,
+          10
+        ]
+      ],
+      "ideal_round_critical_pairs": 40,
+      "executed_tile_cells": [
+        [
+          12,
+          12,
+          12,
+          12
+        ],
+        [
+          12,
+          12,
+          12,
+          12
+        ],
+        [
+          12,
+          12,
+          12,
+          12
+        ],
+        [
+          12,
+          12,
+          12,
+          12
+        ]
+      ],
+      "tile_round_critical_cells": 48
+    },
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "striped",
+      "tile": 4,
+      "owners": [
+        [
+          0,
+          4,
+          8,
+          12
+        ],
+        [
+          1,
+          5,
+          9,
+          13
+        ],
+        [
+          2,
+          6,
+          10,
+          14
+        ],
+        [
+          3,
+          7,
+          11,
+          15
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          6,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          10,
+          6
+        ],
+        [
+          10,
+          10,
+          10,
+          10
+        ]
+      ],
+      "row_totals": [
+        28,
+        32,
+        36,
+        40
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          6,
+          10
+        ]
+      ],
+      "ideal_round_critical_pairs": 40,
+      "executed_tile_cells": [
+        [
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16,
+          16
+        ]
+      ],
+      "tile_round_critical_cells": 64
+    },
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "zigzag",
+      "tile": 1,
+      "owners": [
+        [
+          0,
+          1,
+          14,
+          15
+        ],
+        [
+          2,
+          3,
+          12,
+          13
+        ],
+        [
+          4,
+          5,
+          10,
+          11
+        ],
+        [
+          6,
+          7,
+          8,
+          9
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          10,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          10,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          10
+        ]
+      ],
+      "row_totals": [
+        34,
+        34,
+        34,
+        34
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ]
+      ],
+      "ideal_round_critical_pairs": 34,
+      "executed_tile_cells": [
+        [
+          10,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          10,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          10,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          10
+        ]
+      ],
+      "tile_round_critical_cells": 34
+    },
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "zigzag",
+      "tile": 2,
+      "owners": [
+        [
+          0,
+          1,
+          14,
+          15
+        ],
+        [
+          2,
+          3,
+          12,
+          13
+        ],
+        [
+          4,
+          5,
+          10,
+          11
+        ],
+        [
+          6,
+          7,
+          8,
+          9
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          10,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          10,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          10
+        ]
+      ],
+      "row_totals": [
+        34,
+        34,
+        34,
+        34
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ]
+      ],
+      "ideal_round_critical_pairs": 34,
+      "executed_tile_cells": [
+        [
+          12,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          12,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          12,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          12
+        ]
+      ],
+      "tile_round_critical_cells": 36
+    },
+    {
+      "length": 16,
+      "ranks": 4,
+      "layout": "zigzag",
+      "tile": 4,
+      "owners": [
+        [
+          0,
+          1,
+          14,
+          15
+        ],
+        [
+          2,
+          3,
+          12,
+          13
+        ],
+        [
+          4,
+          5,
+          10,
+          11
+        ],
+        [
+          6,
+          7,
+          8,
+          9
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          10,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          10,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          10
+        ]
+      ],
+      "row_totals": [
+        34,
+        34,
+        34,
+        34
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8,
+          8
+        ]
+      ],
+      "ideal_round_critical_pairs": 34,
+      "executed_tile_cells": [
+        [
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16,
+          16
+        ]
+      ],
+      "tile_round_critical_cells": 64
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "contiguous",
+      "tile": 1,
+      "owners": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          0,
+          0
+        ],
+        [
+          16,
+          10,
+          0
+        ],
+        [
+          16,
+          16,
+          10
+        ]
+      ],
+      "row_totals": [
+        10,
+        26,
+        42
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          0,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          16
+        ]
+      ],
+      "ideal_round_critical_pairs": 42,
+      "executed_tile_cells": [
+        [
+          10,
+          0,
+          0
+        ],
+        [
+          16,
+          10,
+          0
+        ],
+        [
+          16,
+          16,
+          10
+        ]
+      ],
+      "tile_round_critical_cells": 42
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "contiguous",
+      "tile": 2,
+      "owners": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          0,
+          0
+        ],
+        [
+          16,
+          10,
+          0
+        ],
+        [
+          16,
+          16,
+          10
+        ]
+      ],
+      "row_totals": [
+        10,
+        26,
+        42
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          0,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          16
+        ]
+      ],
+      "ideal_round_critical_pairs": 42,
+      "executed_tile_cells": [
+        [
+          12,
+          0,
+          0
+        ],
+        [
+          16,
+          12,
+          0
+        ],
+        [
+          16,
+          16,
+          12
+        ]
+      ],
+      "tile_round_critical_cells": 44
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "contiguous",
+      "tile": 4,
+      "owners": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          0,
+          0
+        ],
+        [
+          16,
+          10,
+          0
+        ],
+        [
+          16,
+          16,
+          10
+        ]
+      ],
+      "row_totals": [
+        10,
+        26,
+        42
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          0,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          16
+        ]
+      ],
+      "ideal_round_critical_pairs": 42,
+      "executed_tile_cells": [
+        [
+          16,
+          0,
+          0
+        ],
+        [
+          16,
+          16,
+          0
+        ],
+        [
+          16,
+          16,
+          16
+        ]
+      ],
+      "tile_round_critical_cells": 48
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "striped",
+      "tile": 1,
+      "owners": [
+        [
+          0,
+          3,
+          6,
+          9
+        ],
+        [
+          1,
+          4,
+          7,
+          10
+        ],
+        [
+          2,
+          5,
+          8,
+          11
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          6
+        ],
+        [
+          10,
+          10,
+          10
+        ]
+      ],
+      "row_totals": [
+        22,
+        26,
+        30
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          10
+        ]
+      ],
+      "ideal_round_critical_pairs": 30,
+      "executed_tile_cells": [
+        [
+          10,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          6
+        ],
+        [
+          10,
+          10,
+          10
+        ]
+      ],
+      "tile_round_critical_cells": 30
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "striped",
+      "tile": 2,
+      "owners": [
+        [
+          0,
+          3,
+          6,
+          9
+        ],
+        [
+          1,
+          4,
+          7,
+          10
+        ],
+        [
+          2,
+          5,
+          8,
+          11
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          6
+        ],
+        [
+          10,
+          10,
+          10
+        ]
+      ],
+      "row_totals": [
+        22,
+        26,
+        30
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          10
+        ]
+      ],
+      "ideal_round_critical_pairs": 30,
+      "executed_tile_cells": [
+        [
+          12,
+          12,
+          12
+        ],
+        [
+          12,
+          12,
+          12
+        ],
+        [
+          12,
+          12,
+          12
+        ]
+      ],
+      "tile_round_critical_cells": 36
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "striped",
+      "tile": 4,
+      "owners": [
+        [
+          0,
+          3,
+          6,
+          9
+        ],
+        [
+          1,
+          4,
+          7,
+          10
+        ],
+        [
+          2,
+          5,
+          8,
+          11
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          6,
+          6
+        ],
+        [
+          10,
+          10,
+          6
+        ],
+        [
+          10,
+          10,
+          10
+        ]
+      ],
+      "row_totals": [
+        22,
+        26,
+        30
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          6,
+          10,
+          10
+        ],
+        [
+          6,
+          6,
+          10
+        ]
+      ],
+      "ideal_round_critical_pairs": 30,
+      "executed_tile_cells": [
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16
+        ]
+      ],
+      "tile_round_critical_cells": 48
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "zigzag",
+      "tile": 1,
+      "owners": [
+        [
+          0,
+          1,
+          10,
+          11
+        ],
+        [
+          2,
+          3,
+          8,
+          9
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          8,
+          8
+        ],
+        [
+          8,
+          10,
+          8
+        ],
+        [
+          8,
+          8,
+          10
+        ]
+      ],
+      "row_totals": [
+        26,
+        26,
+        26
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8
+        ]
+      ],
+      "ideal_round_critical_pairs": 26,
+      "executed_tile_cells": [
+        [
+          10,
+          8,
+          8
+        ],
+        [
+          8,
+          10,
+          8
+        ],
+        [
+          8,
+          8,
+          10
+        ]
+      ],
+      "tile_round_critical_cells": 26
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "zigzag",
+      "tile": 2,
+      "owners": [
+        [
+          0,
+          1,
+          10,
+          11
+        ],
+        [
+          2,
+          3,
+          8,
+          9
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          8,
+          8
+        ],
+        [
+          8,
+          10,
+          8
+        ],
+        [
+          8,
+          8,
+          10
+        ]
+      ],
+      "row_totals": [
+        26,
+        26,
+        26
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8
+        ]
+      ],
+      "ideal_round_critical_pairs": 26,
+      "executed_tile_cells": [
+        [
+          12,
+          8,
+          8
+        ],
+        [
+          8,
+          12,
+          8
+        ],
+        [
+          8,
+          8,
+          12
+        ]
+      ],
+      "tile_round_critical_cells": 28
+    },
+    {
+      "length": 12,
+      "ranks": 3,
+      "layout": "zigzag",
+      "tile": 4,
+      "owners": [
+        [
+          0,
+          1,
+          10,
+          11
+        ],
+        [
+          2,
+          3,
+          8,
+          9
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ]
+      ],
+      "legal_pairs": [
+        [
+          10,
+          8,
+          8
+        ],
+        [
+          8,
+          10,
+          8
+        ],
+        [
+          8,
+          8,
+          10
+        ]
+      ],
+      "row_totals": [
+        26,
+        26,
+        26
+      ],
+      "rounds": [
+        [
+          10,
+          10,
+          10
+        ],
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8
+        ]
+      ],
+      "ideal_round_critical_pairs": 26,
+      "executed_tile_cells": [
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16
+        ]
+      ],
+      "tile_round_critical_cells": 48
+    }
+  ],
+  "hypothetical_cost": [
+    {
+      "local_length": 128,
+      "ranks": 4,
+      "full_length": 512,
+      "two_gemm_flops_per_round": 33554432,
+      "one_direction_bytes_per_transfer": 65536,
+      "forward_send_bytes_per_rank": 196608,
+      "compute_us": 0.33554432,
+      "transfer_us": 3.31072,
+      "synchronous_us": 11.27433728,
+      "ideal_overlap_us": 10.26770432,
+      "compute_only_us": 1.34217728,
+      "memory_bytes": {
+        "query": 131072,
+        "local_or_current_kv": 65536,
+        "next_receive_kv": 65536,
+        "fp32_numerator": 262144,
+        "fp32_maximum_and_sum": 8192,
+        "output_if_distinct": 131072,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 1187840
+    },
+    {
+      "local_length": 1024,
+      "ranks": 4,
+      "full_length": 4096,
+      "two_gemm_flops_per_round": 2147483648,
+      "one_direction_bytes_per_transfer": 524288,
+      "forward_send_bytes_per_rank": 1572864,
+      "compute_us": 21.47483648,
+      "transfer_us": 12.485759999999999,
+      "synchronous_us": 123.35662592,
+      "ideal_overlap_us": 85.89934592,
+      "compute_only_us": 85.89934592,
+      "memory_bytes": {
+        "query": 1048576,
+        "local_or_current_kv": 524288,
+        "next_receive_kv": 524288,
+        "fp32_numerator": 2097152,
+        "fp32_maximum_and_sum": 65536,
+        "output_if_distinct": 1048576,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 5832704
+    },
+    {
+      "local_length": 4096,
+      "ranks": 4,
+      "full_length": 16384,
+      "two_gemm_flops_per_round": 34359738368,
+      "one_direction_bytes_per_transfer": 2097152,
+      "forward_send_bytes_per_rank": 6291456,
+      "compute_us": 343.59738368,
+      "transfer_us": 43.943039999999996,
+      "synchronous_us": 1506.21865472,
+      "ideal_overlap_us": 1374.38953472,
+      "compute_only_us": 1374.38953472,
+      "memory_bytes": {
+        "query": 4194304,
+        "local_or_current_kv": 2097152,
+        "next_receive_kv": 2097152,
+        "fp32_numerator": 8388608,
+        "fp32_maximum_and_sum": 262144,
+        "output_if_distinct": 4194304,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 21757952
+    }
+  ],
+  "strong_scaling_fixed_length_4096": [
+    {
+      "local_length": 4096,
+      "ranks": 1,
+      "full_length": 4096,
+      "two_gemm_flops_per_round": 34359738368,
+      "one_direction_bytes_per_transfer": 2097152,
+      "forward_send_bytes_per_rank": 0,
+      "compute_us": 343.59738368,
+      "transfer_us": 43.943039999999996,
+      "synchronous_us": 343.59738368,
+      "ideal_overlap_us": 343.59738368,
+      "compute_only_us": 343.59738368,
+      "memory_bytes": {
+        "query": 4194304,
+        "local_or_current_kv": 2097152,
+        "next_receive_kv": 2097152,
+        "fp32_numerator": 8388608,
+        "fp32_maximum_and_sum": 262144,
+        "output_if_distinct": 4194304,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 21757952
+    },
+    {
+      "local_length": 2048,
+      "ranks": 2,
+      "full_length": 4096,
+      "two_gemm_flops_per_round": 8589934592,
+      "one_direction_bytes_per_transfer": 1048576,
+      "forward_send_bytes_per_rank": 1048576,
+      "compute_us": 85.89934592,
+      "transfer_us": 22.971519999999998,
+      "synchronous_us": 194.77021184,
+      "ideal_overlap_us": 171.79869184,
+      "compute_only_us": 171.79869184,
+      "memory_bytes": {
+        "query": 2097152,
+        "local_or_current_kv": 1048576,
+        "next_receive_kv": 1048576,
+        "fp32_numerator": 4194304,
+        "fp32_maximum_and_sum": 131072,
+        "output_if_distinct": 2097152,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 11141120
+    },
+    {
+      "local_length": 1024,
+      "ranks": 4,
+      "full_length": 4096,
+      "two_gemm_flops_per_round": 2147483648,
+      "one_direction_bytes_per_transfer": 524288,
+      "forward_send_bytes_per_rank": 1572864,
+      "compute_us": 21.47483648,
+      "transfer_us": 12.485759999999999,
+      "synchronous_us": 123.35662592,
+      "ideal_overlap_us": 85.89934592,
+      "compute_only_us": 85.89934592,
+      "memory_bytes": {
+        "query": 1048576,
+        "local_or_current_kv": 524288,
+        "next_receive_kv": 524288,
+        "fp32_numerator": 2097152,
+        "fp32_maximum_and_sum": 65536,
+        "output_if_distinct": 1048576,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 5832704
+    },
+    {
+      "local_length": 512,
+      "ranks": 8,
+      "full_length": 4096,
+      "two_gemm_flops_per_round": 536870912,
+      "one_direction_bytes_per_transfer": 262144,
+      "forward_send_bytes_per_rank": 1835008,
+      "compute_us": 5.36870912,
+      "transfer_us": 7.24288,
+      "synchronous_us": 93.64983296,
+      "ideal_overlap_us": 56.068869119999995,
+      "compute_only_us": 42.94967296,
+      "memory_bytes": {
+        "query": 524288,
+        "local_or_current_kv": 262144,
+        "next_receive_kv": 262144,
+        "fp32_numerator": 1048576,
+        "fp32_maximum_and_sum": 32768,
+        "output_if_distinct": 524288,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 3178496
+    },
+    {
+      "local_length": 256,
+      "ranks": 16,
+      "full_length": 4096,
+      "two_gemm_flops_per_round": 134217728,
+      "one_direction_bytes_per_transfer": 131072,
+      "forward_send_bytes_per_rank": 1966080,
+      "compute_us": 1.34217728,
+      "transfer_us": 4.62144,
+      "synchronous_us": 90.79643648,
+      "ideal_overlap_us": 70.66377727999999,
+      "compute_only_us": 21.47483648,
+      "memory_bytes": {
+        "query": 262144,
+        "local_or_current_kv": 131072,
+        "next_receive_kv": 131072,
+        "fp32_numerator": 524288,
+        "fp32_maximum_and_sum": 16384,
+        "output_if_distinct": 262144,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 1851392
+    }
+  ],
+  "weak_scaling_fixed_local_length_1024": [
+    {
+      "local_length": 1024,
+      "ranks": 1,
+      "full_length": 1024,
+      "two_gemm_flops_per_round": 2147483648,
+      "one_direction_bytes_per_transfer": 524288,
+      "forward_send_bytes_per_rank": 0,
+      "compute_us": 21.47483648,
+      "transfer_us": 12.485759999999999,
+      "synchronous_us": 21.47483648,
+      "ideal_overlap_us": 21.47483648,
+      "compute_only_us": 21.47483648,
+      "memory_bytes": {
+        "query": 1048576,
+        "local_or_current_kv": 524288,
+        "next_receive_kv": 524288,
+        "fp32_numerator": 2097152,
+        "fp32_maximum_and_sum": 65536,
+        "output_if_distinct": 1048576,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 5832704
+    },
+    {
+      "local_length": 1024,
+      "ranks": 2,
+      "full_length": 2048,
+      "two_gemm_flops_per_round": 2147483648,
+      "one_direction_bytes_per_transfer": 524288,
+      "forward_send_bytes_per_rank": 524288,
+      "compute_us": 21.47483648,
+      "transfer_us": 12.485759999999999,
+      "synchronous_us": 55.43543296,
+      "ideal_overlap_us": 42.94967296,
+      "compute_only_us": 42.94967296,
+      "memory_bytes": {
+        "query": 1048576,
+        "local_or_current_kv": 524288,
+        "next_receive_kv": 524288,
+        "fp32_numerator": 2097152,
+        "fp32_maximum_and_sum": 65536,
+        "output_if_distinct": 1048576,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 5832704
+    },
+    {
+      "local_length": 1024,
+      "ranks": 4,
+      "full_length": 4096,
+      "two_gemm_flops_per_round": 2147483648,
+      "one_direction_bytes_per_transfer": 524288,
+      "forward_send_bytes_per_rank": 1572864,
+      "compute_us": 21.47483648,
+      "transfer_us": 12.485759999999999,
+      "synchronous_us": 123.35662592,
+      "ideal_overlap_us": 85.89934592,
+      "compute_only_us": 85.89934592,
+      "memory_bytes": {
+        "query": 1048576,
+        "local_or_current_kv": 524288,
+        "next_receive_kv": 524288,
+        "fp32_numerator": 2097152,
+        "fp32_maximum_and_sum": 65536,
+        "output_if_distinct": 1048576,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 5832704
+    },
+    {
+      "local_length": 1024,
+      "ranks": 8,
+      "full_length": 8192,
+      "two_gemm_flops_per_round": 2147483648,
+      "one_direction_bytes_per_transfer": 524288,
+      "forward_send_bytes_per_rank": 3670016,
+      "compute_us": 21.47483648,
+      "transfer_us": 12.485759999999999,
+      "synchronous_us": 259.19901184,
+      "ideal_overlap_us": 171.79869184,
+      "compute_only_us": 171.79869184,
+      "memory_bytes": {
+        "query": 1048576,
+        "local_or_current_kv": 524288,
+        "next_receive_kv": 524288,
+        "fp32_numerator": 2097152,
+        "fp32_maximum_and_sum": 65536,
+        "output_if_distinct": 1048576,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 5832704
+    },
+    {
+      "local_length": 1024,
+      "ranks": 16,
+      "full_length": 16384,
+      "two_gemm_flops_per_round": 2147483648,
+      "one_direction_bytes_per_transfer": 524288,
+      "forward_send_bytes_per_rank": 7864320,
+      "compute_us": 21.47483648,
+      "transfer_us": 12.485759999999999,
+      "synchronous_us": 530.8837836800001,
+      "ideal_overlap_us": 343.59738368,
+      "compute_only_us": 343.59738368,
+      "memory_bytes": {
+        "query": 1048576,
+        "local_or_current_kv": 524288,
+        "next_receive_kv": 524288,
+        "fp32_numerator": 2097152,
+        "fp32_maximum_and_sum": 65536,
+        "output_if_distinct": 1048576,
+        "one_fp32_128_square_score_tile_per_head": 524288
+      },
+      "listed_memory_total_bytes": 5832704
+    }
+  ],
+  "ulysses": {
+    "global_token_head_labels": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6,
+        7
+      ],
+      [
+        8,
+        9,
+        10,
+        11
+      ],
+      [
+        12,
+        13,
+        14,
+        15
+      ],
+      [
+        16,
+        17,
+        18,
+        19
+      ],
+      [
+        20,
+        21,
+        22,
+        23
+      ],
+      [
+        24,
+        25,
+        26,
+        27
+      ],
+      [
+        28,
+        29,
+        30,
+        31
+      ]
+    ],
+    "sequence_shards": [
+      [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          12,
+          13,
+          14,
+          15
+        ]
+      ],
+      [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ]
+      ]
+    ],
+    "head_shards": [
+      [
+        [
+          0,
+          1
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          28,
+          29
+        ]
+      ],
+      [
+        [
+          2,
+          3
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          30,
+          31
+        ]
+      ]
+    ],
+    "restored": [
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6,
+        7
+      ],
+      [
+        8,
+        9,
+        10,
+        11
+      ],
+      [
+        12,
+        13,
+        14,
+        15
+      ],
+      [
+        16,
+        17,
+        18,
+        19
+      ],
+      [
+        20,
+        21,
+        22,
+        23
+      ],
+      [
+        24,
+        25,
+        26,
+        27
+      ],
+      [
+        28,
+        29,
+        30,
+        31
+      ]
+    ],
+    "per_tensor_elements_per_rank_before_and_after": 16,
+    "per_rank_nonlocal_elements_one_reshard": 8
+  },
+  "labels": {
+    "input": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "correct_global_next_targets": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      -100
+    ],
+    "wrong_shift_after_split": [
+      11,
+      12,
+      -100,
+      14,
+      15,
+      -100
+    ]
+  },
+  "loss_averaging": {
+    "valid_tokens": [
+      3,
+      1
+    ],
+    "mean_losses": [
+      2,
+      6
+    ],
+    "correct": 3,
+    "wrong": 4
+  },
+  "rope_pair": {
+    "query_global_position": 5,
+    "key_global_position": 1,
+    "angular_frequency": 1,
+    "unrotated_vectors": [
+      1,
+      0
+    ],
+    "correct_unscaled_dot": -0.6536436208636119,
+    "wrong_chunk_reset_dot": 0.5403023058681398
+  },
+  "one_million_mha_qkvo_bytes": 65536000000,
+  "fixed_dataset_relative_attention_cost_L_doubled": 2,
+  "fixed_sequences_relative_attention_cost_L_doubled": 4
+}

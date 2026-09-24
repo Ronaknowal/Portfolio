@@ -1,0 +1,259 @@
+/* Feature-selection lesson: investigations, figures and their tables.
+ *
+ * Two deliberate rules here.
+ *
+ * 1. SVG text uses the font-size and font-family LONGHANDS, never the `font`
+ *    shorthand. The shorthand overrides every font-size attribute in the
+ *    subtree, which silently flattens a diagram's type hierarchy.
+ * 2. Every data table stacks below the narrow breakpoint, using the heading
+ *    copied into each cell's data-heading attribute, so a wide table becomes a
+ *    readable list at 320px instead of a horizontal scroll of clipped numbers.
+ */
+
+.fs-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.fs-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.fs-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.fs-investigation button, .fs-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.fs-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.fs-investigation button:disabled, .fs-figure button:disabled { opacity: .4; cursor: default; }
+.fs-investigation :is(button, input, select, summary, [tabindex]):focus-visible,
+.fs-figure :is(button, input, select, summary, [tabindex]):focus-visible { outline: 2px solid #a5c7b5; outline-offset: 3px; }
+.fs-question, .fs-caption, .fs-note, .fs-pending { font-size: .92rem; line-height: 1.75; }
+.fs-caption { color: #b5bfbb; }
+.fs-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.fs-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+
+.fs-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.fs-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.fs-controls.is-tight { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+.fs-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.fs-field > span { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .2rem .6rem; overflow-wrap: anywhere; }
+.fs-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.fs-field :is(select, input[type="number"], input[type="text"]) {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.fs-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.fs-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.fs-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .9rem 0; }
+.fs-buttons > span { font-size: .85rem; line-height: 1.6; font-family: var(--font-mono, monospace); color: #bbc4bf; }
+.fs-readout { border-left: 2px solid #e7b94a; padding-left: .85rem; line-height: 1.75; font-size: .93rem; }
+
+/* Predict, then check */
+.fs-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.fs-prediction > p { margin: 0 0 .55rem; }
+.fs-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.fs-prediction legend { padding: 0; font-weight: 600; }
+.fs-choices { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin: .5rem 0 .7rem; }
+.fs-choice { display: flex; align-items: center; gap: .45rem; min-height: 34px; }
+.fs-choice input { accent-color: #e7b94a; width: 18px; height: 18px; }
+.fs-numeric-guess { max-width: 21rem; margin-bottom: .6rem; }
+.fs-numeric-guess input {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.fs-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 3px solid #8eb9a5; }
+.fs-verdict.is-miss { border-left-color: #da9c86; }
+.fs-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.fs-reason textarea {
+  min-height: 52px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+.fs-reason { margin-bottom: .7rem; }
+
+/* Tables */
+.fs-table-scroll { overflow-x: auto; scrollbar-gutter: stable; max-width: 100%; margin: 1.1rem 0; }
+
+.fs-scroll-group { min-width: 0; max-width: 100%; }
+.fs-scroll-content { max-width: 100%; overflow-x: auto; scrollbar-color: #70847a #121816; }
+.fs-scroll-content:focus-visible { outline: 2px solid #e7b94a; outline-offset: 3px; }
+.fs-scroll-hint { color: #aebfb6; font-size: .75rem; line-height: 1.5; margin: .6rem 0 .3rem; }
+.fs-scroll-hint[hidden] { display: none; }
+.fs-table-scroll table { width: 100%; border-collapse: collapse; font-size: .78rem; line-height: 1.65; font-family: var(--font-mono, monospace); }
+/* The caption lives OUTSIDE the scrolling box. Inside it, a caption stretches to
+   the table's own width and is then clipped mid-word by the scroll container. */
+.fs-table-caption {
+  text-align: left; margin: 1.1rem 0 .35rem; color: #bac6bf;
+  font-size: .8rem; line-height: 1.6; overflow-wrap: anywhere;
+}
+.fs-table-caption + .fs-table-scroll { margin-top: 0; }
+.fs-table-scroll th, .fs-table-scroll td { padding: .5rem .6rem; border-bottom: 1px solid #303a35; text-align: left; white-space: nowrap; }
+/* A heading never needs to be on one line: letting headings wrap is what keeps
+   a table of short numbers from being as wide as its longest column title. */
+.fs-table-scroll th { color: #d0ddd5; white-space: normal; min-width: 4.5rem; }
+.fs-table-scroll :is(th, td):last-child { white-space: normal; min-width: 6rem; }
+/* A table whose cells hold sentences, not numbers, wraps everywhere. Without
+   this its columns are as wide as their longest sentence and the reader loses
+   the right-hand ones off the edge with no cue that they exist. */
+.fs-table-scroll.is-wrapping td { white-space: normal; min-width: 7rem; }
+.fs-table-scroll.is-wrapping table { table-layout: fixed; }
+.fs-table-scroll tr.is-selected td { color: #f0e6c8; background: #1a2320; }
+.fs-table-scroll tr.is-zero td { color: #c9bfa6; }
+.fs-table-scroll tr.is-muted td { color: #93a09a; }
+.fs-rows { max-height: 19rem; overflow-y: auto; }
+
+.fs-investigation details, .fs-figure details { margin: 1rem 0; }
+.fs-investigation summary, .fs-figure summary { cursor: pointer; color: #e7b94a; line-height: 1.7; min-height: 32px; }
+
+/* Plots and figures */
+.fs-plot { margin: 1.3rem 0; }
+.fs-plot figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; }
+.fs-plot svg, .fs-figure svg, .fs-waterfall svg, .fs-stage svg { display: block; width: 100%; height: auto; }
+/* One rule for every SVG in the lesson. A diagram drawn inside an investigation
+   stage is not covered by a figure-only selector, and inheriting the page's
+   16px body size into a 340-unit viewBox magnifies every label. Longhands, not
+   the `font` shorthand, so a per-element font-size attribute still applies. */
+.fs-lesson svg text {
+  fill: #cfd7d2; font-size: 12px; font-family: var(--font-mono, monospace);
+}
+.fs-lesson svg text.is-small { font-size: 10px; }
+.fs-lesson svg text.is-heading { font-size: 13px; fill: #e2e8e4; }
+.fs-plot svg { max-width: 560px; margin-inline: auto; }
+.fs-axis { stroke: #4a5650; }
+.fs-grid { stroke: #262d2a; stroke-dasharray: 3 3; }
+.fs-solid-grid { stroke: #262d2a; }
+.fs-curve { fill: none; stroke-width: 1.8; }
+.fs-curve.is-total { stroke: #e7b94a; stroke-width: 2.2; }
+.fs-curve.is-data { stroke: #8eb9a5; stroke-dasharray: 5 3; }
+.fs-curve.is-alt { stroke: #91aecf; stroke-dasharray: 2 3; }
+.fs-curve.is-faint { stroke: #4f6a5d; stroke-width: 1.2; stroke-dasharray: 3 3; }
+.fs-stem { stroke-width: 2; stroke: #8eb9a5; }
+.fs-mark { fill: #e7b94a; }
+.fs-mark.is-hollow { fill: none; stroke: #e7b94a; stroke-width: 1.6; }
+.fs-observation { fill: #d8dcd9; }
+.fs-flow { fill: none; stroke: #8eb9a5; stroke-width: 1.4; }
+.fs-flow.is-alt { stroke: #91aecf; stroke-dasharray: 5 3; }
+.fs-flow.is-causal { stroke: #cf9191; stroke-dasharray: 2 3; }
+.fs-lane { fill: #121816; stroke: #46504b; }
+.fs-lane.is-fixed { stroke: #8eb9a5; }
+.fs-lane.is-refit { stroke: #e7b94a; }
+.fs-lane.is-closed { fill: #15100f; stroke: #7a5f5f; stroke-dasharray: 4 3; }
+.fs-zero-mark { fill: none; stroke: #da9c86; stroke-width: 1.6; }
+.fs-zero-text { fill: #da9c86; font-weight: 700; }
+
+/* Target classes: colour always accompanies a label or a shape */
+.fs-target-0 { fill: #91aecf; }
+.fs-target-1 { fill: #e7b94a; }
+
+.fs-figure { margin: 1.75rem 0; padding: 1.2rem 0; border-block: 1px solid #333; color: #d8d8d8; }
+.fs-figure figcaption { font-size: .94rem; line-height: 1.7; margin-bottom: 1rem; }
+.fs-figure p { font-size: .92rem; line-height: 1.7; }
+.fs-figure > svg { max-width: 560px; margin-inline: auto; }
+.fs-svg-frame { max-width: 100%; }
+.fs-svg-frame > svg { max-width: 560px; margin-inline: auto; }
+.fs-panels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+.fs-panels.is-pair { grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); }
+.fs-panels.is-stacked { grid-template-columns: minmax(0, 1fr); }
+.fs-panel { border: 1px solid #2b332f; border-radius: 4px; padding: .6rem; min-width: 0; }
+.fs-panel h4 { margin: 0 0 .4rem; font-size: .9rem; line-height: 1.5; color: #d0ddd5; }
+.fs-panel p { margin: .4rem 0 0; font-size: .84rem; line-height: 1.65; color: #b5bfbb; }
+.fs-panel svg { max-width: 100%; }
+
+/* Signed bars */
+.fs-bars { display: grid; gap: .35rem; margin: 1rem 0; }
+.fs-bars > .fs-caption { margin: 0 0 .3rem; }
+.fs-bar-row { display: grid; grid-template-columns: minmax(7.5rem, 12rem) minmax(0, 1fr) minmax(6rem, auto); gap: .6rem; align-items: center; font-size: 12px; line-height: 1.5; font-family: var(--font-mono, monospace); }
+.fs-bar-row.is-highlight { background: #1d2119; border-radius: 3px; box-shadow: inset 3px 0 0 #9a8347; }
+.fs-bar-row.is-highlight .fs-bar-name { color: #f0e6c8; padding-left: .4rem; }
+.fs-bar-name { overflow-wrap: anywhere; color: #cfd7d2; }
+.fs-bar-track { position: relative; height: 14px; background: #151c19; border-radius: 2px; }
+.fs-bar-zero { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #4a5650; }
+.fs-bar-fill { position: absolute; top: 2px; bottom: 2px; border-radius: 1px; }
+.fs-bar-fill.is-positive { background: #8eb9a5; }
+.fs-bar-fill.is-negative { background: #cf9191; background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.3) 0 3px, transparent 3px 6px); }
+.fs-bar-exact-zero { position: absolute; left: 50%; top: -2px; transform: translateX(-50%); color: #da9c86; font-weight: 700; }
+.fs-bar-value { color: #bbc4bf; white-space: nowrap; text-align: right; }
+
+/* Waterfall */
+.fs-waterfall { margin: 1rem 0; }
+.fs-waterfall svg { max-width: 460px; margin-inline: auto; }
+.fs-wf-bar.is-up { fill: #8eb9a5; }
+.fs-wf-bar.is-down { fill: #cf9191; }
+.fs-wf-bar.is-base { fill: #6f8b7e; }
+
+/* Stages, chips and mosaics */
+.fs-stage + .fs-stage { margin-top: 1.4rem; }
+.fs-stage > h4 { margin: 0 0 .4rem; font-size: 1rem; line-height: 1.6; color: #d8dcd9; }
+.fs-chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0; font-size: 12px; line-height: 1.5; font-family: var(--font-mono, monospace); }
+.fs-chip { border: 1px solid #3b4642; border-radius: 3px; padding: .25rem .5rem; color: #b5bfbb; }
+.fs-chip.is-kept { border-color: #9a8347; color: #f0e6c8; background: #1d2119; }
+.fs-chip.is-changed { border-color: #8eb9a5; color: #dcefe4; background: #14201b; }
+.fs-chip.is-outside { border-color: #b57b6a; color: #f0d4c8; background: #22150f; }
+.fs-grid-counts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: .6rem; margin: .8rem 0; }
+.fs-grid-counts > div { border: 1px solid #2b332f; border-radius: 4px; padding: .5rem .6rem; font-size: .85rem; line-height: 1.6; }
+.fs-grid-counts strong { color: #e7b94a; display: block; font-size: 1.05rem; }
+
+.fs-practice { margin-block: 1.5rem; }
+.fs-practice details { border-left: 2px solid #77623b; padding: .7rem 1rem; }
+.fs-practice summary { color: #e2b55a; cursor: pointer; line-height: 1.6; }
+.fs-practice details + details { margin-top: .65rem; }
+.fs-route { border-left: 2px solid #8eb9a5; padding-left: .85rem; }
+.fs-lesson a { overflow-wrap: anywhere; }
+.fs-lesson code { overflow-wrap: anywhere; }
+/* A long unspaced arithmetic run in prose has no break opportunity of its own
+   and pushes the whole document sideways at 320px. Break only when a word
+   genuinely cannot fit, which leaves ordinary text alone. */
+.fs-lesson :is(p, li, dd, dt) { overflow-wrap: break-word; }
+
+/* A full-width diagram is capped so its type is not magnified by the column:
+   the viewBox is ~340 units, so a wider box would scale 12px type to 22px. */
+.fs-figure > .fs-panel > .fs-scroll-group svg, .fs-investigation .fs-stage > .fs-scroll-group svg {
+  max-width: 460px; margin-inline: auto; display: block;
+}
+
+@media (max-width: 820px) {
+  /* An SVG authored at viewBox 340 and sized to a 250px column renders its 10px
+     labels at 7.4 effective px. Hold a floor on the rendered width instead and
+     let the container scroll, which is the same bargain the tables make: the
+     text stays readable and the box says so. */
+  .fs-lesson svg { min-width: 336px; }
+  .fs-investigation header { gap: .65rem; }
+  .fs-panels { grid-template-columns: minmax(0, 1fr); }
+  .fs-figure { padding-block: 1rem; }
+  .fs-bar-row { grid-template-columns: minmax(0, 1fr) minmax(5.5rem, auto); }
+  .fs-bar-track { grid-column: 1 / -1; }
+  .fs-bar-value { text-align: left; }
+
+  /* Stack every data table into labelled rows rather than shrinking its type
+     or hiding columns behind a horizontal scrollbar. */
+  .fs-table-scroll.is-stackable { overflow-x: visible; }
+  .fs-table-scroll.is-stackable table, .fs-table-scroll.is-stackable tbody,
+  .fs-table-scroll.is-stackable tr, .fs-table-scroll.is-stackable td { display: block; width: auto; }
+  .fs-table-scroll.is-stackable thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .fs-table-scroll.is-stackable tr { border: 1px solid #2b332f; border-radius: 4px; padding: .3rem .1rem; margin-bottom: .55rem; }
+  .fs-table-scroll.is-stackable td {
+    border-bottom: 0; padding: .25rem .55rem; white-space: normal; min-width: 0;
+    display: grid; grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr); gap: .3rem .7rem; align-items: baseline;
+  }
+  .fs-table-scroll.is-stackable td::before {
+    content: attr(data-heading); color: #9fb0a8; overflow-wrap: anywhere;
+  }
+  .fs-table-scroll.is-stackable td:last-child { min-width: 0; }
+}
+
+@media (max-width: 400px) {
+  /* Keep the heading beside its value rather than above it. Stacking the two
+     doubles the height of every stacked table, and a thirteen-row matrix then
+     runs to several thousand pixels on a phone. */
+  .fs-table-scroll.is-stackable td { grid-template-columns: minmax(0, 6.2rem) minmax(0, 1fr); gap: .2rem .5rem; }
+  .fs-table-scroll.is-stackable td::before { font-size: .74rem; line-height: 1.45; }
+  .fs-controls, .fs-controls.is-wide, .fs-controls.is-tight { grid-template-columns: minmax(0, 1fr); }
+  .fs-grid-counts { grid-template-columns: minmax(0, 1fr); }
+}
+
+.fs-count-group {
+  border: 1px solid #2b332f; border-radius: 4px; padding: .5rem .6rem .7rem; margin: 0; min-width: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem;
+}
+.fs-count-group legend { grid-column: 1 / -1; padding: 0 .3rem; font-size: .85rem; color: #d0ddd5; }
+@media (max-width: 520px) { .fs-count-group { grid-template-columns: minmax(0, 1fr); } }

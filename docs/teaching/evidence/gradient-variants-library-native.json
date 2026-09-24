@@ -1,0 +1,16 @@
+{
+  "source": "public/learn-assets/gradient-variants/optimizer_library_bridge.py",
+  "sha256": "f91e933ca3b6574cac574055388b73f2a2a47030550534482aed0ef6f916c02b",
+  "command": "python public/learn-assets/gradient-variants/optimizer_library_bridge.py",
+  "environment": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "torch": "2.14.0+cpu"
+  },
+  "pytensorCache": "workspace-local; default compiler backend",
+  "exitCode": 0,
+  "seconds": 8.79,
+  "stdout": "sgd: None skipped; zero gradient moved parameters\nsgd: final [0.289433, -2.596276]; all parameter/state steps and resumed suffix passed\nadagrad: None skipped; zero gradient moved parameters\nadagrad: final [0.92629, -1.998622]; all parameter/state steps and resumed suffix passed\nrmsprop: None skipped; zero gradient moved parameters\nrmsprop: final [0.678629, -1.993599]; all parameter/state steps and resumed suffix passed\nadam: None skipped; zero gradient moved parameters\nadam: final [0.816649, -2.052806]; all parameter/state steps and resumed suffix passed\nadamw: None skipped; zero gradient moved parameters\nadamw: final [0.800232, -2.065774]; all parameter/state steps and resumed suffix passed\nTiny-gradient epsilon checks passed; zero without decay keeps AdaGrad/RMSProp parameters fixed\nNonfinite gradient rejected before update\nOverflow rejected without modifying supplied state\n",
+  "stderr": ""
+}

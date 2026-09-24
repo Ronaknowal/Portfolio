@@ -1,0 +1,18 @@
+import { Code, H3, Prose } from '../content';
+import MechanismProgram from './MechanismProgram.jsx';
+import output from '../../data/string-matching-library-output.json';
+
+export default function StringSearchLibraryBridge() {
+  return <section id="string-library-bridge" data-implementation-depth="string-matching">
+    <H3>Choose a one-shot search or preserve streaming state</H3>
+    <Prose>For an ordinary in-memory first occurrence, use <Code>text.find(pattern)</Code>; it returns −1 when absent. Do not wrap a search in Python merely to imitate a lower-level library implementation. KMP remains valuable when the required output is every overlap, a worst-case comparison bound, reusable prefix information, or matches crossing a stream boundary.</Prose>
+    <Prose>The complete comparison adapts find to all overlaps by restarting at <Code>position + 1</Code>. It passes a start index instead of allocating a text suffix. Advancing by the pattern length would silently change the task to nonoverlapping matches. It handles the empty pattern as every boundary, matching the local KMP contract. Save <a href="/learn-assets/string-matching-prefix-functions-rolling-hashes/string_matching_mechanisms.py" download>string_matching_mechanisms.py</a> beside it and run <Code>python string_search_library.py</Code>; no package is needed.</Prose>
+    <MechanismProgram source="/learn-assets/string-matching-prefix-functions-rolling-hashes/string_search_library.py" title="Compare built-in searching with exact KMP and chunk state" output={output['string_search_library.py']} />
+    <Prose>The result [0, 1, 2] for AAAAA / AAA makes the overlap contract visible. Both APIs count Python code points, not user-perceived characters or bytes. NFC normalization changes the sample length from four code points to three: offsets in the transformed string need an explicit mapping if an application must highlight the original text. This program compares within one coordinate system. A normalized whole string is also not generally equivalent to independently normalizing arbitrary chunks.</Prose>
+    <Prose>The repeated-find adapter makes z + 1 library calls for z reported occurrences. Python's API does not promise this adapter KMP's O(n + m + z) total comparison bound; dense overlaps can repeat pattern work. For that guarantee or unbounded input, retain the earlier prefix table and stream matcher, using O(m) matching state plus delivered output. A one-shot built-in call is a practical tool choice, not evidence that it executes our exact KMP algorithm. The <a href="https://docs.python.org/3/library/stdtypes.html#str.find" target="_blank" rel="noopener noreferrer">string search contract</a> is the reference for absence and start/end semantics.</Prose>
+    <H3>Transfer: a chunked log with seam-spanning matches</H3>
+    <Prose>Implement a generator that feeds ['aa', '', 'aaa', 'a'] to StreamMatcher('aaa') and yields each start once, without joining the chunks. Compare with a one-shot search only in the test oracle. Add an empty-pattern case.</Prose>
+    <details><summary>Optional hint</summary><Prose>The matcher owns the total offset and prefix length. A delivery boundary does not reset either one, and an empty delivery does not advance the offset.</Prose></details>
+    <details><summary>Solution and reasoning</summary><Prose>Construct one matcher, then yield from matcher.feed(chunk) for each chunk. The nonempty pattern reports [0, 1, 2, 3]. For an empty pattern, boundaries [0, 1, 2, 3, 4, 5, 6] each appear once, including boundary 0 on the first feed. Success means seam overlaps survive, empty chunks add no duplicate boundaries, and working matching state depends on the pattern rather than total text length.</Prose></details>
+  </section>;
+}

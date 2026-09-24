@@ -1,0 +1,26 @@
+{
+  "checkedOn": "2026-09-22",
+  "sourceSha256": "edaf1c9e3c7b867a0e982e70b13970be615e180fce7693872ca6d373ad4d779b",
+  "measuredReportSha256": "057dd59310798378580f8d03b6706b7d9e9f822a5451d8969f8f2a514a0b0b80",
+  "torchVersion": "2.14.0+cpu",
+  "nativeChecks": [
+    "manual attention and SDPA outputs",
+    "padding and candidate masks",
+    "scratch cross entropy parity",
+    "softmax shift stability",
+    "finite gradients",
+    "cost threshold tie and either side",
+    "split sentence disjointness",
+    "token budget",
+    "unsupported text rejection",
+    "600-step CPU training",
+    "saved-model JSON inference"
+  ],
+  "browserChecks": "Integration owner records separately",
+  "notExecuted": [
+    "pretrained encoder training",
+    "GPU experiments",
+    "policy-gradient extension",
+    "network service deployment"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "startedAt": "2026-09-14T08:48:39.226Z",
+  "completedAt": "2026-09-14T08:49:12.360Z",
+  "topicId": "pca-dimensionality-reduction",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+  "sourceHashes": {
+    "src/learn/data/topics/pca-dimensionality-reduction.jsx": "e242fc5a5d5300441abc797705a85fdceeb1997d02094be3c7d382b59e25b403",
+    "src/learn/data/pca-models.js": "68fe8a36470a7351c7d0e73bc84339502912eaa8f405892d4b1b709fdedf1b21",
+    "src/learn/data/pca-wine-data.js": "d5964935fb9bd4af7e4164fb1275fcdee339b5720267ad6e7cdf7ba85e141e84",
+    "src/learn/data/pca-examples.js": "166065296261d699661c0b48dd89e853882a084d2b6fe272fc0102a5a046265b",
+    "src/learn/components/lesson-labs/PcaLabs.jsx": "f7f6077243b3b20858c3e7e618bb07f4d2ab2174907cf2b491808f89f8710d2c",
+    "src/learn/components/lesson-labs/PcaFigures.jsx": "2419498b8c7926cfb6d221cf5efbfee37cef4bd6a616c9ebf0fc11d3f4b72d5a",
+    "src/learn/components/lesson-labs/pca-labs.css": "6b4044f60f0dab5aae4b4ec7c95b88e3d07724b31d209c8797a92e2e2c0caea1",
+    "src/learn/data/curriculum/blueprints/pca-dimensionality-reduction.js": "229de2e79201b983ab78feffd8c8667d180fea8902107c9d2297cf938ee5ff2d",
+    "public/learn-assets/pca/wine.csv": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f"
+  },
+  "moduleTopicCount": 39,
+  "records": [
+    {
+      "case": "Complete visible code/output for eight programs, eleven route anchors, seven figures, eight practice tasks, downloadable CSV, current metadata and module sequence"
+    },
+    {
+      "case": "Projection workbench: hidden residual until comparison, correct SSE feedback, stale invalidation, fit-best-direction, point editing with Back, translation and reset"
+    },
+    {
+      "case": "Projection regression: Add→Back restores selection, noninteger fitted optimum retains precision, compared prediction freezes and changed inputs release it"
+    },
+    {
+      "case": "Metric lab: pending versus applied state, second-axis flip at m = 10 with 96.15%, exact tie at m = a/b, standardized tie at every multiplier, reset"
+    },
+    {
+      "case": "Metric regression: legal b=4, multiplier=10 renders and applies raw ±40 coordinates; independent axis variances and 99.75% agree; standardized alternative ties"
+    },
+    {
+      "case": "Budget lab: curve hidden until commitment, 10% selects 8 and 6% selects 10 with bracketing ratios, stale invalidation on budget change, per-wine residual table at explored k, reset"
+    },
+    {
+      "case": "Label lab: PC1 collision at 99.01%, label-rule switch reverses usefulness without changing the fit, PC2 collision for x labels, reset"
+    },
+    {
+      "case": "Class-information regression: PC2 and y labels produce two class-pure locations, not four distinct observations, with a frozen checked prediction"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-D_PhhhTk.js",
+        "assets/Reader-BzvpuOZD.js",
+        "assets/LevelBadge-iqFUaCGh.js",
+        "assets/pca-dimensionality-reduction-ilMbLkLz.js",
+        "assets/Code-DfDBBZwh.js",
+        "assets/Callout-R9JvahHh.js",
+        "assets/Math-BcjjO3Ka.js",
+        "assets/LessonElements-CDSbg__y.js",
+        "assets/RunnableExample-B-FTL0k1.js"
+      ],
+      "rawScriptBytes": 1468490,
+      "gzipEstimateBytes": 333338,
+      "interpretation": "Built requested file sizes; gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout, readable formula grouping and all deeper branches rendered"
+    },
+    {
+      "case": "Narrow 320px layout, readable formula grouping and all deeper branches rendered"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/pca-projection-desktop.png",
+    "docs/teaching/evidence/pca-shadow-desktop.png",
+    "docs/teaching/evidence/pca-wine-overview-desktop.png",
+    "docs/teaching/evidence/pca-budget-desktop.png",
+    "docs/teaching/evidence/pca-metric-tie-desktop.png",
+    "docs/teaching/evidence/pca-labels-collision-desktop.png",
+    "docs/teaching/evidence/pca-biplot-desktop.png",
+    "docs/teaching/evidence/pca-residual-alarm-desktop.png",
+    "docs/teaching/evidence/pca-conservation-mobile.png",
+    "docs/teaching/evidence/pca-shapes-mobile.png",
+    "docs/teaching/evidence/pca-labels-mobile.png",
+    "docs/teaching/evidence/pca-gaussian-mobile.png",
+    "docs/teaching/evidence/pca-metric-mobile.png"
+  ],
+  "visualInterpretation": "Intended Space Grotesk font loaded before checks. Screenshots capture informative states: a compared prediction, a revealed budget crossing, the labeled overview. They require separate visual inspection; structural checks alone do not establish teaching quality."
+}

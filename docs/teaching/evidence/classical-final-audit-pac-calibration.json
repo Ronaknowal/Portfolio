@@ -1,0 +1,355 @@
+{
+  "topics": {
+    "pac": {
+      "checkedAt": "2026-09-21T06:03:39.912Z",
+      "passed": true,
+      "checks": [
+        {
+          "name": "Repeated manual inputs preserve consistent labels and refute conflicting ones",
+          "passed": true
+        },
+        {
+          "name": "Risk boundary at fitted [.2,0.301]",
+          "passed": true,
+          "details": {
+            "risk": 0.19900000000000007,
+            "epsilon": 0.2,
+            "meetsTarget": true
+          }
+        },
+        {
+          "name": "Risk boundary at fitted [.2,0.3]",
+          "passed": true,
+          "details": {
+            "risk": 0.20000000000000007,
+            "epsilon": 0.2,
+            "meetsTarget": true
+          }
+        },
+        {
+          "name": "Risk boundary at fitted [.2,0.299]",
+          "passed": true,
+          "details": {
+            "risk": 0.20100000000000007,
+            "epsilon": 0.2,
+            "meetsTarget": false
+          }
+        },
+        {
+          "name": "Target narrower than epsilon has no invalid coverage-strip geometry",
+          "passed": true
+        },
+        {
+          "name": "Witness translation and Add preserve coordinate range",
+          "passed": true
+        },
+        {
+          "name": "Reset restores seed and draw size",
+          "passed": true
+        },
+        {
+          "name": "Repeated input accepted in the actual manual-label UI",
+          "passed": true
+        },
+        {
+          "name": "Manual-to-generated transition establishes a baseline without inventing a direction",
+          "passed": true
+        },
+        {
+          "name": "Interval presets respect the 24-observation cap",
+          "passed": true
+        },
+        {
+          "name": "Narrow-target UI explains the trivial success event instead of drawing strips outside the target",
+          "passed": true
+        },
+        {
+          "name": "Changed targets relabel fixed-coordinate presets truthfully",
+          "passed": true
+        },
+        {
+          "name": "Finite-world buttons respect their own 24-observation cap",
+          "passed": true
+        },
+        {
+          "name": "No page errors throughout supported-state checks",
+          "passed": true
+        }
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-pac-baseline-desktop.png",
+          "sha256": "b3c5b5811d4d569cd39d9dc2585efcf63888b6c5614844488f8c3a0e88e8114c"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-pac-changed-target-1366.png",
+          "sha256": "3eb865bdf91ab7612dc76a2f12515610bdf611b57fad5f3fb98c0e2890d81d62"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-pac-changed-target-390.png",
+          "sha256": "66cb7de52d2ad5ea7ccdde7428cd18e9af2422d0e7e5c25dcd2451c1064637fb"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-pac-changed-target-320.png",
+          "sha256": "cfb6f4691e02a6894119636307daf116e78dd14db85b3e94034278642463b006"
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/data/topics/pac-learning-vc-dimension.jsx": "0fb33c185a7a339c339c99c4fc98f8bbcff609e041728eaae732ab15c2a415f7",
+        "src/learn/data/pac-models.js": "4db180007addae0b65518a32ddd49b6b6c3b07d53a9cd61756289b1a3a383261",
+        "src/learn/data/pac-data.js": "8754a2d5228e6f5a391df5d7bc9ca385aac4c6083ba2e6b497106d33b3131285",
+        "src/learn/data/pac-examples.js": "2ad31dd00134354d3de0a6176bf4d4fae16cc6c39cc8ab47db3c1b72c429d05a",
+        "src/learn/components/lesson-labs/PacFigures.jsx": "21c0fff8b50e896920948588109a9e1a3cde8db4854fd6585535fc5f45f37420",
+        "src/learn/components/lesson-labs/PacLabs.jsx": "b41a187de8c1e9c4e4effda03094472e579a5b0543f90b7ece97236db8a48064",
+        "src/learn/components/lesson-labs/PacShared.jsx": "22c837566ae1b38b139bfe14667ade1f5423b426061381ac6d61c22515892074",
+        "src/learn/components/lesson-labs/pac-labs.css": "2943d4850ec64d73571e4ff31694affc9b4c39c90abf4d20d814af6ab3858d28"
+      },
+      "environment": {
+        "browser": "Edge Chromium",
+        "base": "http://127.0.0.1:4184",
+        "viewports": [
+          1366,
+          390,
+          320
+        ]
+      },
+      "limits": "Targeted checks on the shared development server. Root owns final production integration. Existing source-matching native and unchanged figure evidence are reused.",
+      "capturesRefreshedAt": "2026-09-21T06:23:38.650Z",
+      "captureNote": "Same corrected states recaptured with .learn-nav hidden only for screenshot capture; numerical checks were not rerun.",
+      "verificationCommands": [
+        {
+          "command": "node scripts/build-curriculum-inventory.mjs --topic pac-learning-vc-dimension --work finish",
+          "result": "complete; read-only preflight"
+        },
+        {
+          "command": "node scripts/verify-pac-models.mjs --no-evidence",
+          "result": "525 grouped checks / 98 groups passed"
+        },
+        {
+          "command": "scratch/lesson-tools/Scripts/python.exe scripts/verify-pac-sources.py --no-evidence",
+          "result": "98 hygiene checks passed"
+        },
+        {
+          "command": "node scripts/verify-classical-final-pac-calibration.cjs pac",
+          "result": "14 complementary checks passed"
+        }
+      ]
+    },
+    "calibration": {
+      "checkedAt": "2026-09-21T06:22:33.724Z",
+      "passed": true,
+      "checks": [
+        {
+          "name": "One-class 0 smoothed optimum exists; lab refusal is an explicit evidence policy",
+          "passed": true,
+          "details": {
+            "target": 0.125,
+            "a": 0,
+            "b": -1.9459101490553135
+          }
+        },
+        {
+          "name": "One-class 1 smoothed optimum exists; lab refusal is an explicit evidence policy",
+          "passed": true,
+          "details": {
+            "target": 0.875,
+            "a": 0,
+            "b": 1.9459101490553132
+          }
+        },
+        {
+          "name": "One occupied bin correctly retains nonzero ECE .5",
+          "passed": true
+        },
+        {
+          "name": "Named original-card preset resets the complete fixture after changed outcomes",
+          "passed": true
+        },
+        {
+          "name": "All tied input scores produce one finished block without interpolating a nonexistent second knot",
+          "passed": true
+        },
+        {
+          "name": "One-class overlay refusal matches corrected lesson explanation",
+          "passed": true
+        },
+        {
+          "name": "Smallest-card null remains null when the applied minimum is already zero",
+          "passed": true
+        },
+        {
+          "name": "Baseline caption follows the selected score branch",
+          "passed": true
+        },
+        {
+          "name": "absolute: alpha .01 produces the whole line with unbounded width",
+          "passed": true
+        },
+        {
+          "name": "absolute: returning to an available rank restores a finite width",
+          "passed": true
+        },
+        {
+          "name": "normalized: alpha .01 produces the whole line with unbounded width",
+          "passed": true
+        },
+        {
+          "name": "normalized: returning to an available rank restores a finite width",
+          "passed": true
+        },
+        {
+          "name": "cqr: alpha .01 produces the whole line with unbounded width",
+          "passed": true
+        },
+        {
+          "name": "cqr: returning to an available rank restores a finite width",
+          "passed": true
+        },
+        {
+          "name": "Crossed CQR endpoints remain a distinct empty set",
+          "passed": true
+        },
+        {
+          "name": "Returning from an empty CQR set produces finite width 6 and CQR-specific feedback",
+          "passed": true
+        },
+        {
+          "name": "Last-two-residual preset preserves prior changes to the other residuals",
+          "passed": true
+        },
+        {
+          "name": "No page errors throughout supported-state checks",
+          "passed": true
+        }
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-calibration-probability-layers-desktop.png",
+          "sha256": "8b47b01f2597da7d304af4a2aa6df8e9f908297ed893f48cb346ee6e2201931d"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-calibration-one-bin-feedback.png",
+          "sha256": "e5220f11f6a11b18737e62f4ec7da74bd001c13319a12423d456652e7dbf42e5"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-calibration-single-knot-one-class.png",
+          "sha256": "c3be73dd2ad24bd1ccfec5be2d0c1863687827de8bc4c49d3119abd122855222"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-calibration-cqr-unbounded-1366.png",
+          "sha256": "1db8d2c4a2464640bc0d2acb8cff26cdaa6e23768179f485797dd537e0910262"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-calibration-cqr-unbounded-390.png",
+          "sha256": "bff8c0f0ae8d999f017758e759cfed665c81a3156aa0c516a788f0750f57295b"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-calibration-cqr-unbounded-320.png",
+          "sha256": "188c32c4da5e265fcf3c96c4f5f44a6f4e119e84baaba495e145704933838565"
+        },
+        {
+          "file": "docs/teaching/evidence/screenshots/classical-final-calibration-cqr-restored-320.png",
+          "sha256": "1d6618cf14021e4a5027ee359886dc1677043ad38b2e7d024dec08a700007700"
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/data/topics/calibration-conformal-prediction.jsx": "1546018d7163d41852fa18fba0e031c2c73880c557b8bffdb995a0a9cfe46201",
+        "src/learn/data/calibration-models.js": "ef98b3d422a4aa3c2f7d105bb24ddce8eda7dccec14cf30b67336356bbec39fc",
+        "src/learn/data/calibration-data.js": "74b58179686799f4614602c4d19656f31cc792cd0df9f17f1b06a1c259f94a51",
+        "src/learn/data/calibration-examples.js": "3b7e37fce3f6637614b81c0a3720bd2dcb30e30a66f4280ba95641708b95b5a1",
+        "src/learn/components/lesson-labs/CalibrationFigures.jsx": "5ffe866ef775ad735bd912be53ebd86be3fe1e7168c32a0c4a301012af91e0ef",
+        "src/learn/components/lesson-labs/CalibrationLabs.jsx": "1cfe2fadc945b550bba5ac0d3f46a8b63634c6ab907e20e89faaa52b6b932445",
+        "src/learn/components/lesson-labs/CalibrationShared.jsx": "7ecd476f9a51d80856a6840c5e3a62c4fe6b7b370d373ebd9b1d5dda3da7daf7",
+        "src/learn/components/lesson-labs/calibration-labs.css": "1d83760fe3a634d51c94713badeeac346646acd401f4f816db4898e466947761"
+      },
+      "environment": {
+        "browser": "Edge Chromium",
+        "base": "http://127.0.0.1:4184",
+        "viewports": [
+          1366,
+          390,
+          320
+        ]
+      },
+      "limits": "Targeted checks on the shared development server. Root owns final production integration. Existing source-matching native and unchanged figure evidence are reused.",
+      "reusedNative": {
+        "receipt": "docs/teaching/evidence/calibration-native.json",
+        "receiptSha256": "326d1701a73bb3759a6986a8789a8fcff085a22afc64f89308be5b8b90365cab",
+        "dataReceiptSha256": "5ee27fa8add8400b93f7412ee793efa9375fd6a75ef7b362ed13587ca23178d4",
+        "matchingSources": {
+          "docs/teaching/drafts/calibration-conformal-prediction/calibration_calculations.py": "c2884d2a47fa601b5f1b8aeee35afe4ad6074490cf9b62c71903d6d081ea21a2",
+          "docs/teaching/drafts/calibration-conformal-prediction/uncertainty_experiments.py": "92463e8a10ed7e338fb3c8af411a4ca5d76fabb020b84fb7b0c941ab6d7c0e19",
+          "public/learn-assets/calibration/airfoil-subset.csv": "5839135483aa9c45bac8416d9bbb0b1966858a21758beb4a8fb9b1fa1dd83bb5",
+          "public/learn-assets/calibration/ATTRIBUTION.txt": "064372ff6d38ef049e08d2617e36d9655df8999441ab504003e1dd7bf300e07c",
+          "public/learn-assets/calibration/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+          "public/learn-assets/calibration/calibration_calculations.py": "c2884d2a47fa601b5f1b8aeee35afe4ad6074490cf9b62c71903d6d081ea21a2",
+          "public/learn-assets/calibration/conformal_rank.py": "f3d3bf7f32cd63a79729af3dbba2293724849790a2db22b176b60aac1af78283",
+          "public/learn-assets/calibration/monotone_map.py": "99bd88523833a2ba269eff5915d0f402c79f01567fce17eec640443900789c72",
+          "public/learn-assets/calibration/reliability_bins.py": "c3359a95f7fd2ef29c025b95072d3b1b8e71631bc25bd03f71c09168206f0ae5",
+          "public/learn-assets/calibration/uncertainty_experiments.py": "92463e8a10ed7e338fb3c8af411a4ca5d76fabb020b84fb7b0c941ab6d7c0e19",
+          "src/learn/data/calibration-data.js": "74b58179686799f4614602c4d19656f31cc792cd0df9f17f1b06a1c259f94a51",
+          "src/learn/data/calibration-examples.js": "3b7e37fce3f6637614b81c0a3720bd2dcb30e30a66f4280ba95641708b95b5a1"
+        },
+        "note": "Historical execution reused only for these unchanged programs/assets/generated records; no current whole-browser certification is inferred."
+      },
+      "verificationCommands": [
+        {
+          "command": "node scripts/build-curriculum-inventory.mjs --topic calibration-conformal-prediction --work finish",
+          "result": "complete; read-only preflight"
+        },
+        {
+          "command": "node scripts/verify-calibration-models.mjs --no-evidence",
+          "result": "549 grouped checks / 72 groups passed"
+        },
+        {
+          "command": "scratch/lesson-tools/Scripts/python.exe scripts/verify-calibration-sources.py --no-evidence",
+          "result": "85 hygiene checks over 19 files and 1914 escape sites passed"
+        },
+        {
+          "command": "node scripts/verify-classical-final-pac-calibration.cjs calibration",
+          "result": "18 complementary checks passed"
+        }
+      ],
+      "primaryResearch": [
+        {
+          "url": "https://www.csie.ntu.edu.tw/~htlin/paper/doc/plattprob.pdf",
+          "locator": "Smoothed targets and Theorem 1: Hessian positive definite iff score minimum differs from maximum",
+          "application": "Distinguishes an explicit one-class evidence refusal from mathematical non-identifiability."
+        }
+      ],
+      "visualInspection": {
+        "retainedDiagrams": [
+          "docs/teaching/evidence/screenshots/calibration-figure-1-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-2-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-3-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-4-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-5-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-6-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-7-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-8-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-9-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-10-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-11-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-12-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-13-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-14-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-15-desktop.png",
+          "docs/teaching/evidence/screenshots/calibration-figure-16-desktop.png"
+        ],
+        "currentCaptures": [
+          "docs/teaching/evidence/screenshots/classical-final-calibration-probability-layers-desktop.png",
+          "docs/teaching/evidence/screenshots/classical-final-calibration-one-bin-feedback.png",
+          "docs/teaching/evidence/screenshots/classical-final-calibration-single-knot-one-class.png",
+          "docs/teaching/evidence/screenshots/classical-final-calibration-cqr-unbounded-1366.png",
+          "docs/teaching/evidence/screenshots/classical-final-calibration-cqr-unbounded-390.png",
+          "docs/teaching/evidence/screenshots/classical-final-calibration-cqr-unbounded-320.png",
+          "docs/teaching/evidence/screenshots/classical-final-calibration-cqr-restored-320.png"
+        ],
+        "assessment": "Opened retained diagrams and current corrected states; readable at inspected sizes; no new clipping/overflow in targeted states. Exact packet and source comparison supplements the heuristic image inspection."
+      }
+    }
+  },
+  "verifierSha256": "98987e42e5c59e13bbb956db21453d269e47237f134a9e51cb7e1a49fd0b26fe",
+  "review": "docs/teaching/CLASSICAL-FINAL-PAC-CALIBRATION-AUDIT.md",
+  "reviewSha256": "e0d79722adc04727c1fe5d51718f54743320afde5deccec45db648831aff526f"
+}

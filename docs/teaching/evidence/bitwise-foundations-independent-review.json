@@ -1,0 +1,436 @@
+{
+  "reviewedAt": "2026-09-11T09:34:01.698558+00:00",
+  "topicId": "arrays-strings-hash-maps",
+  "scope": "Bounded independent review of the bitwise extension; preservation of original sections 1\u20138, programs and problem objects separately checked.",
+  "status": "independent review passed; production integration remains separate",
+  "reviewer": "/root/testing_documentation_completion",
+  "authorFreeze": "2026-09-11T09:14:38.596Z",
+  "authorPacket": {
+    "path": "docs/teaching/evidence/bitwise-foundations-author-review.json",
+    "sha256": "f2dfd9a0f9cee2f510fe93f294f3275ed6e32c8f40fe73be0e9366fc2104402e"
+  },
+  "sources": [
+    {
+      "path": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+      "sha256": "8e6ab3e6fc03b5563bb1b8123aeecef17b8bfb9e8a88df4122a592e9c65bba7a"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/arrays-strings-hash-maps.js",
+      "sha256": "813f12b6105312874dc528ba3c2b9a0ed838c63ac11c88a83eb33c6226904582"
+    },
+    {
+      "path": "src/learn/data/practice/arrays-strings-hash-maps.js",
+      "sha256": "7f74c4ec69e181d495bf3dc771282e2ed526be530eb966c01adffd41eb4e3330"
+    },
+    {
+      "path": "src/learn/data/array-map-foundations-examples.js",
+      "sha256": "a836e5fdaa05a26bea81562fa9bb796758790fbc1b81538ba8ab4e0b0dbf21e2"
+    },
+    {
+      "path": "src/learn/data/array-map-foundations-model.js",
+      "sha256": "d7f6296609374210a83f9d9b9c02f749aeeb6029fd48bf2621ab3431d00c670c"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx",
+      "sha256": "d77c59e0ae51146cdc026f374958c3f6a78cb614d8b8fce61055667b22f1c9cc"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/systems-structures.css",
+      "sha256": "f527533566232abe4779693b0bd9d82bbe78c8cd7390fc7b0cfc260055130b97"
+    },
+    {
+      "path": "src/learn/data/bitwise-foundations-models.js",
+      "sha256": "0c95980acc1152a9b3259aee0f957365df95149f1309d88a700f1ffb2dceafc3"
+    },
+    {
+      "path": "src/learn/data/bitwise-foundations-examples.js",
+      "sha256": "1b07dd88e48dc3ac79eb80fd53c0bebfd3a87cd4d2a5c66f26ee9403eec3489a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx",
+      "sha256": "5b7ca2246f65af8fdabf7bdb2af1f448e0d78cc531ddb4c7964e180c56263c6e"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/bitwise-foundations-labs.css",
+      "sha256": "6d9be37c1b48dedeb22a6b426e5acfa29f10c501f8637fd4ec5b6972a3e109d4"
+    }
+  ],
+  "originalArchives": [
+    {
+      "path": "docs/teaching/evidence/bitwise-foundations-original.json",
+      "sha256": "bcf19943dd293afdf2b9cae33b7f1c1dfa9ea3c7c639b830b44989ccf5c902dd"
+    },
+    {
+      "path": "docs/teaching/evidence/bitwise-foundations-original-sources.json",
+      "sha256": "df2c677ade3467fd5bba303e2b60c7fc7fb5eb094107b1391b6041b83738a4ca"
+    }
+  ],
+  "native": {
+    "record": {
+      "path": "scratch/bitwise-independent-review/native-results.json",
+      "sha256": "66891c3cba56fd831f1078ee1d4911bdefda1b62c50473f701d62391a9e5e0a8"
+    },
+    "results": {
+      "checkedAt": "2026-09-11T09:33:31.447784+00:00",
+      "status": "passed",
+      "sources": [
+        {
+          "path": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+          "sha256": "8e6ab3e6fc03b5563bb1b8123aeecef17b8bfb9e8a88df4122a592e9c65bba7a"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/arrays-strings-hash-maps.js",
+          "sha256": "813f12b6105312874dc528ba3c2b9a0ed838c63ac11c88a83eb33c6226904582"
+        },
+        {
+          "path": "src/learn/data/practice/arrays-strings-hash-maps.js",
+          "sha256": "7f74c4ec69e181d495bf3dc771282e2ed526be530eb966c01adffd41eb4e3330"
+        },
+        {
+          "path": "src/learn/data/array-map-foundations-examples.js",
+          "sha256": "a836e5fdaa05a26bea81562fa9bb796758790fbc1b81538ba8ab4e0b0dbf21e2"
+        },
+        {
+          "path": "src/learn/data/array-map-foundations-model.js",
+          "sha256": "d7f6296609374210a83f9d9b9c02f749aeeb6029fd48bf2621ab3431d00c670c"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx",
+          "sha256": "d77c59e0ae51146cdc026f374958c3f6a78cb614d8b8fce61055667b22f1c9cc"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/systems-structures.css",
+          "sha256": "f527533566232abe4779693b0bd9d82bbe78c8cd7390fc7b0cfc260055130b97"
+        },
+        {
+          "path": "src/learn/data/bitwise-foundations-models.js",
+          "sha256": "0c95980acc1152a9b3259aee0f957365df95149f1309d88a700f1ffb2dceafc3"
+        },
+        {
+          "path": "src/learn/data/bitwise-foundations-examples.js",
+          "sha256": "1b07dd88e48dc3ac79eb80fd53c0bebfd3a87cd4d2a5c66f26ee9403eec3489a"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx",
+          "sha256": "5b7ca2246f65af8fdabf7bdb2af1f448e0d78cc531ddb4c7964e180c56263c6e"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/bitwise-foundations-labs.css",
+          "sha256": "6d9be37c1b48dedeb22a6b426e5acfa29f10c501f8637fd4ec5b6972a3e109d4"
+        }
+      ],
+      "counts": {
+        "actualCompletePrograms": 11,
+        "changedSignedWordByteOracles": 91,
+        "signedArbitrarySizeParityOracles": 160,
+        "signedLargeTwoSingletonOracles": 120,
+        "arbitrarySizeCountPowerDistanceOracles": 24,
+        "changedLargeFiniteSetQueries": 60,
+        "invalidPromiseCounterexamples": 4,
+        "rejectedNativeCalls": 10
+      },
+      "modelCounts": {
+        "frozenSources": 11,
+        "originalArchiveFiles": 7,
+        "originalProblemObjects": 10,
+        "exactOriginalSectionBlock": 1,
+        "sourcePositionMaps": 656,
+        "setPermutationQueries": 600,
+        "parityPrefixes": 1828,
+        "partitionWitnesses": 120,
+        "sparseRemovalWitnesses": 1385,
+        "rejectedModelCalls": 10
+      },
+      "limits": "Complementary finite cases and source proofs, not arbitrary-input formal verification or timing evidence."
+    }
+  },
+  "browser": {
+    "record": {
+      "path": "scratch/bitwise-independent-review/browser/results.json",
+      "sha256": "12cd274d5b092673b9bccf408bbe1ffab98cf5655bb5f61755529ce68b885af9"
+    },
+    "results": {
+      "checkedAt": "2026-09-11T09:28:55.316Z",
+      "status": "passed",
+      "sources": [
+        {
+          "path": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+          "sha256": "8e6ab3e6fc03b5563bb1b8123aeecef17b8bfb9e8a88df4122a592e9c65bba7a"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/arrays-strings-hash-maps.js",
+          "sha256": "813f12b6105312874dc528ba3c2b9a0ed838c63ac11c88a83eb33c6226904582"
+        },
+        {
+          "path": "src/learn/data/practice/arrays-strings-hash-maps.js",
+          "sha256": "7f74c4ec69e181d495bf3dc771282e2ed526be530eb966c01adffd41eb4e3330"
+        },
+        {
+          "path": "src/learn/data/array-map-foundations-examples.js",
+          "sha256": "a836e5fdaa05a26bea81562fa9bb796758790fbc1b81538ba8ab4e0b0dbf21e2"
+        },
+        {
+          "path": "src/learn/data/array-map-foundations-model.js",
+          "sha256": "d7f6296609374210a83f9d9b9c02f749aeeb6029fd48bf2621ab3431d00c670c"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx",
+          "sha256": "d77c59e0ae51146cdc026f374958c3f6a78cb614d8b8fce61055667b22f1c9cc"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/systems-structures.css",
+          "sha256": "f527533566232abe4779693b0bd9d82bbe78c8cd7390fc7b0cfc260055130b97"
+        },
+        {
+          "path": "src/learn/data/bitwise-foundations-models.js",
+          "sha256": "0c95980acc1152a9b3259aee0f957365df95149f1309d88a700f1ffb2dceafc3"
+        },
+        {
+          "path": "src/learn/data/bitwise-foundations-examples.js",
+          "sha256": "1b07dd88e48dc3ac79eb80fd53c0bebfd3a87cd4d2a5c66f26ee9403eec3489a"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx",
+          "sha256": "5b7ca2246f65af8fdabf7bdb2af1f448e0d78cc531ddb4c7964e180c56263c6e"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/bitwise-foundations-labs.css",
+          "sha256": "6d9be37c1b48dedeb22a6b426e5acfa29f10c501f8637fd4ec5b6972a3e109d4"
+        }
+      ],
+      "results": [
+        {
+          "width": 1440,
+          "actualFonts": true,
+          "operatedStates": 52,
+          "newLabs": 4,
+          "completeNewPrograms": 5,
+          "practicePlacements": 15,
+          "changedPracticeSolutions": 4,
+          "errors": [],
+          "documentOverflow": false
+        },
+        {
+          "width": 390,
+          "actualFonts": true,
+          "operatedStates": 52,
+          "newLabs": 4,
+          "completeNewPrograms": 5,
+          "practicePlacements": 15,
+          "changedPracticeSolutions": 4,
+          "errors": [],
+          "documentOverflow": false
+        },
+        {
+          "width": 320,
+          "actualFonts": true,
+          "operatedStates": 52,
+          "newLabs": 4,
+          "completeNewPrograms": 5,
+          "practicePlacements": 15,
+          "changedPracticeSolutions": 4,
+          "errors": [],
+          "documentOverflow": false
+        }
+      ],
+      "images": [
+        {
+          "path": "scratch/bitwise-independent-review/browser/reading-place-values-1440.png",
+          "sha256": "eb3bc25f9147adb7129025cba3cde4fbb7e605e059e5c274b413edf139ed47f6"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/changed-high-set-1440.png",
+          "sha256": "7d2d916cb41d400c55864ff482cb3ecf065ac62ef535a45d4595d8c4b346cd53"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/negative-weight-1440.png",
+          "sha256": "78ffdfa8a8d9388fef2b833c730452c91037d54f8964a9172250977e41ea6260"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/seven-place-shift-1440.png",
+          "sha256": "b9de5f3478dbb4d5f167cb1b9444b161e58fefac65d9cbeff0a4f09dc569faa7"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/zero-survivor-1440.png",
+          "sha256": "2ffebd45d339b92081d6af6403e6bb62c867c6abe92b95a3d6289a415b3870c6"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/invalid-keeps-finished-trace-1440.png",
+          "sha256": "f0bde09bc40e3a4b9956a6d88144322e618b79cb48e4de85727c7dddd3af2e1f"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/five-place-borrow-1440.png",
+          "sha256": "9b92007dbb707f8c543acd96a18ba3830794a1dd2ce3159e5841eac63e87ec6d"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/separating-partition-1440.png",
+          "sha256": "a5bbe2a2efe8a504717f4115f3a98a867fc89eb890ddcda07930c1ea02f88705"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/bitmap-transfer-feedback-1440.png",
+          "sha256": "f4c7b692c025c3c58e78f11c2efd409319b3a01e5750f710306926af19bd8f01"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/reading-partition-proof-1440.png",
+          "sha256": "f26abf29cd449ca0b90e6e1189a11873d0e84dad7d3856da0be11c0e457fa878"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/reading-place-values-390.png",
+          "sha256": "708a4bfd4634fcf0d2473848b56674f1f3c8f10c4bc5835db8a00b04847c351d"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/changed-high-set-390.png",
+          "sha256": "062c3768d853a3d69989f028bf7068bdbf5ae31bea91e6ed442cc11494c5f61e"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/negative-weight-390.png",
+          "sha256": "f633dbe90f51eee7f3b4c0e74bc89594044518a6c3e0c3a44b7d58da35b524af"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/seven-place-shift-390.png",
+          "sha256": "d3ac5d134b85ad0026c17698a21f2b4781097132d88a88a678bea4b83c8ae07b"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/zero-survivor-390.png",
+          "sha256": "aa38c8da9e88e5881b66ee25af64c9376b808739a046f3270d181d9f44c4e709"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/invalid-keeps-finished-trace-390.png",
+          "sha256": "df07e9f796d302b63511097bbe8cb5dc7e5455eb902f386cbd9a5ca63b350f71"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/five-place-borrow-390.png",
+          "sha256": "8560c42f1b16b13e1fb0e6ca94ae72955e547d077d88a195f6bd1fb7a117bfd0"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/separating-partition-390.png",
+          "sha256": "6386a61ae51937615c5410f74c5775870ff35b99eac6549c5ce912457872061f"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/bitmap-transfer-feedback-390.png",
+          "sha256": "050d7139de4a0cd1148e3f35f5339694e4e8bf371a82c0b4ad7db098dc1e37ce"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/reading-partition-proof-390.png",
+          "sha256": "fbda56b5df1bb64bc8b6f5117a5552454b3fd907311d90213c4b4204ad4928e4"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/reading-place-values-320.png",
+          "sha256": "8534d01422051f788ec0f1c4ace4fba8ad1045693f4ed7b83ecf0a601673f889"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/changed-high-set-320.png",
+          "sha256": "3507e2f8ba35549902ac2e210d4dada4a86af79e9a677a4928a49175f816ae6b"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/negative-weight-320.png",
+          "sha256": "807b24bfecb274dc20fbca8bc617036c639d706996102b10e2388b9c1c39d329"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/seven-place-shift-320.png",
+          "sha256": "0cc746b937c023746255990eb4416490fef3893571697acf58fff5f27eb97b44"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/zero-survivor-320.png",
+          "sha256": "810976b9eb624325c5e46e396f61989311cc0322f44d98849df511e069871c10"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/invalid-keeps-finished-trace-320.png",
+          "sha256": "67fd53df27bcc12a15929f163a2435646ef860ca4f934eedd2575c719bbf423d"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/five-place-borrow-320.png",
+          "sha256": "0750311cdccb2fb59d4eb13de42bbff1af497e29d9059f85eb9078af5ee08997"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/separating-partition-320.png",
+          "sha256": "be3a1cd15556b16272839a8cfb5d9216fe5dbf99f4c8b3c35588d5d81111ba98"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/bitmap-transfer-feedback-320.png",
+          "sha256": "9b036a8380f9f308f3536f9b0fde780859b5492575b314d735528f0a84ce5a6c"
+        },
+        {
+          "path": "scratch/bitwise-independent-review/browser/reading-partition-proof-320.png",
+          "sha256": "3c7aa1c4dac898f2a8dbffb80ea1b5c693f74f2aa2a5c241ce86f01274de0b4a"
+        }
+      ]
+    }
+  },
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/bitwise-independent-review/browser/seven-place-shift-320.png",
+      "sha256": "0cc746b937c023746255990eb4416490fef3893571697acf58fff5f27eb97b44"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/five-place-borrow-390.png",
+      "sha256": "8560c42f1b16b13e1fb0e6ca94ae72955e547d077d88a195f6bd1fb7a117bfd0"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/zero-survivor-1440.png",
+      "sha256": "2ffebd45d339b92081d6af6403e6bb62c867c6abe92b95a3d6289a415b3870c6"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/changed-high-set-320.png",
+      "sha256": "3507e2f8ba35549902ac2e210d4dada4a86af79e9a677a4928a49175f816ae6b"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/reading-place-values-390.png",
+      "sha256": "708a4bfd4634fcf0d2473848b56674f1f3c8f10c4bc5835db8a00b04847c351d"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/negative-weight-1440.png",
+      "sha256": "78ffdfa8a8d9388fef2b833c730452c91037d54f8964a9172250977e41ea6260"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/reading-partition-proof-390.png",
+      "sha256": "fbda56b5df1bb64bc8b6f5117a5552454b3fd907311d90213c4b4204ad4928e4"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/separating-partition-320.png",
+      "sha256": "be3a1cd15556b16272839a8cfb5d9216fe5dbf99f4c8b3c35588d5d81111ba98"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/bitmap-transfer-feedback-390.png",
+      "sha256": "050d7139de4a0cd1148e3f35f5339694e4e8bf371a82c0b4ad7db098dc1e37ce"
+    },
+    {
+      "path": "scratch/bitwise-independent-review/browser/invalid-keeps-finished-trace-320.png",
+      "sha256": "67fd53df27bcc12a15929f163a2435646ef860ca4f934eedd2575c719bbf423d"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "scripts/verify-bitwise-independent.mjs",
+      "sha256": "17c8b241be291117721a441393178df3b42646c861c58fbacbd89c6926bcee23"
+    },
+    {
+      "path": "scripts/verify-bitwise-independent.py",
+      "sha256": "014796adda4df3bd0f11097197a23bac41e26068895fa69eaa6b6d80dce27eea"
+    },
+    {
+      "path": "scripts/review-bitwise-independent.cjs",
+      "sha256": "8c6fd75f742a41106ac06e919a11165cc0a87e3dc7089c30df22918073856ed1"
+    },
+    {
+      "path": "scripts/close-bitwise-independent-review.py",
+      "sha256": "597f4e950ea2e77c92fb54b582faeada74b85442a6eee04c1215eb935f439309"
+    }
+  ],
+  "sourceRead": [
+    "Complete frozen body and extension design/brief; exact inventory and destination/inbox note.",
+    "All five new native programs, model functions, all four lab components and computed partition figure, CSS, four changed practice solutions and five new problem annotations.",
+    "Existing sections and six programs read for context; their preservation independently compared with the original byte archive."
+  ],
+  "findings": [],
+  "productionEditsByReviewer": [],
+  "primaryResourcesChecked": [
+    "https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types",
+    "https://leetcode.com/problems/single-number/",
+    "https://leetcode.com/problems/number-of-1-bits/",
+    "https://leetcode.com/problems/power-of-two/",
+    "https://leetcode.com/problems/hamming-distance/",
+    "https://leetcode.com/problems/single-number-iii/"
+  ],
+  "limits": "No whole-catalogue audit, judge submissions/editorial access, video viewing, physical-phone or complete screen-reader test, timing benchmark or arbitrary-input formal verification. Author broader tests remain separately attributed."
+}

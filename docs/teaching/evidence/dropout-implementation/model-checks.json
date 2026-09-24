@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "assertions": 687,
+  "groups": [
+    "native fixture parity",
+    "finite-difference gradients",
+    "boundaries and effective geometry",
+    "residuals",
+    "schedules and actual counted branch calls",
+    "state",
+    "saved MC prefixes",
+    "recorded fit and pixel conservation",
+    "JSX and downloads"
+  ]
+}

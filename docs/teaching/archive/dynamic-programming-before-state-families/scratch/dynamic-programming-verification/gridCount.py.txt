@@ -1,0 +1,17 @@
+def count_paths(blocked):
+    if not blocked or not blocked[0] or any(len(row) != len(blocked[0]) for row in blocked):
+        raise ValueError("Use a nonempty rectangular grid")
+    ways = [0] * len(blocked[0])
+    ways[0] = 1
+    for row in blocked:
+        for column, is_blocked in enumerate(row):
+            if is_blocked:
+                ways[column] = 0
+            elif column:
+                # ways[column]: above, old row. ways[column-1]: left, new row.
+                ways[column] += ways[column - 1]
+    return ways[-1]
+
+print(count_paths([[False, False, False], [False, True, False], [False, False, False]]))
+print(count_paths([[True]]))
+print(count_paths([[False]]))

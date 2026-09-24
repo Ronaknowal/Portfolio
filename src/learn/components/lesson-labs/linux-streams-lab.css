@@ -1,0 +1,66 @@
+.linux-stream-lab { --stream-out: #e2b55a; --stream-err: #a9c5d5; container-type: inline-size; }
+.linux-stream-lab :is(button, input) { font: inherit; }
+.linux-stream-lab button { min-height: 44px; padding: 10px 12px; color: #dedede; border: 1px solid #4a4742; background: #181818; border-radius: 4px; text-align: left; cursor: pointer; }
+.linux-stream-lab button:hover { background: #24211c; }
+.linux-stream-lab button[aria-pressed="true"] { border-color: #e2b55a; background: #272218; color: #f0d9aa; }
+.linux-stream-lab :is(button, input, summary):focus-visible { outline: 2px solid #e2b55a; outline-offset: 4px; }
+.linux-stream-lab fieldset { margin: 20px 0 16px; padding: 0; border: 0; min-width: 0; }
+.linux-stream-lab legend { color: #eeeeec; font-size: 14px; margin-bottom: 10px; padding: 0; }
+.linux-stream-presets > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.linux-stream-lab button code { display: block; margin-top: 3px; font-size: 12px; overflow-wrap: anywhere; }
+.linux-stream-lab .linux-stream-command-label { margin: 20px 0 8px; font-size: 13px; }
+.linux-stream-command { padding: 14px; border: 1px solid #38352e; background: #080909; font-size: 13px; line-height: 1.75; overflow: auto; max-width: 100%; }
+.linux-stream-command code { color: #e6d4b0; }
+.linux-stream-lab .linux-stream-deeper { border-top: 1px solid #34322e; margin-top: 18px; }
+.linux-stream-deeper p { font-size: 14px; }
+.linux-stream-order { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 6px 0 16px; }
+.linux-stream-prediction > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.linux-stream-prediction label { display: flex; gap: 7px; align-items: center; border: 1px solid #44413b; min-height: 44px; padding: 5px 10px; font-size: 13px; border-radius: 3px; cursor: pointer; }
+.linux-stream-prediction label:has(input:checked) { background: #272218; border-color: #e2b55a; color: #f0d9aa; }
+.linux-stream-lab input { accent-color: #e2b55a; width: 17px; height: 17px; flex-shrink: 0; }
+.linux-stream-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.linux-stream-lab .linux-stream-trace { background: #e2b55a; color: #14120e; border-color: #e2b55a; font-weight: 600; }
+.linux-stream-lab .linux-stream-trace:hover { background: #ecc779; }
+.linux-stream-diagram { margin: 24px 0 12px; }
+.linux-stream-source { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; padding-bottom: 12px; border-bottom: 1px solid #39362f; }
+.linux-stream-source span { font-size: 12px; color: #aaa79e; }
+.linux-stream-route { --stream-color: var(--stream-out); display: grid; grid-template-columns: minmax(0, 1fr) 60px minmax(0, 1fr); align-items: stretch; margin-top: 18px; }
+.linux-stream-route--stderr { --stream-color: var(--stream-err); }
+.linux-stream-port, .linux-stream-destination { min-width: 0; padding: 12px; background: #131414; border: 1px solid #4a4942; display: flex; flex-direction: column; justify-content: center; gap: 4px; line-height: 1.5; }
+.linux-stream-port { border-color: var(--stream-color); }
+.linux-stream-port > strong { color: var(--stream-color); }
+.linux-stream-port strong span { font-weight: 400; }
+.linux-stream-port code { font-size: 12px; color: #dbd8d0; overflow-wrap: anywhere; }
+.linux-stream-small { display: block; color: #aaa9a3; font-size: 11px; line-height: 1.6; }
+.linux-stream-destination > strong { font-size: 14px; overflow-wrap: anywhere; }
+.linux-stream-destination > span:last-child { font-size: 11px; color: #b1b0aa; }
+.linux-stream-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; }
+.linux-stream-arrow span { font-size: 10px; color: var(--stream-color); margin-bottom: 5px; }
+.linux-stream-arrow i { width: 100%; height: 0; border-top: 2px solid var(--stream-color); position: relative; }
+.linux-stream-arrow i::after { content: ""; position: absolute; right: 0; top: -5px; width: 8px; height: 8px; border-top: 2px solid var(--stream-color); border-right: 2px solid var(--stream-color); transform: rotate(45deg); }
+.linux-stream-route--stderr .linux-stream-arrow i { border-top-style: dashed; }
+.linux-stream-pipe-result { grid-column: 3; display: grid; grid-template-rows: 52px auto; }
+.linux-stream-pipe-result .linux-stream-arrow { position: relative; align-items: flex-start; padding-left: 24px; }
+.linux-stream-pipe-result .linux-stream-arrow i { position: absolute; height: 100%; width: 0; left: 15px; top: 0; border-top: 0; border-left: 2px solid var(--stream-color); }
+.linux-stream-pipe-result .linux-stream-arrow i::after { right: -3px; top: auto; bottom: 0; transform: rotate(135deg); }
+.linux-stream-diagram figcaption { color: #aaa9a3; font-size: 11px; line-height: 1.65; margin: 14px 0; }
+.linux-stream-feedback { border-top: 1px solid #444039; padding-top: 2px; }
+.linux-stream-feedback p { font-size: 14px; }
+.linux-stream-results h4 { color: #e9e7e0; font-size: 15px; margin: 20px 0 10px; }
+.linux-stream-output-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 12px; }
+.linux-stream-output { border: 1px solid #373833; padding: 12px; min-width: 0; }
+.linux-stream-output > strong { display: block; font-size: 13px; margin-bottom: 8px; }
+.linux-stream-output pre { margin: 4px 0 10px; font-size: 12px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; color: #dbd8d0; }
+.linux-stream-output p { font-size: 13px; color: #aaa9a3; }
+.linux-stream-status { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 13px; margin-top: 18px; }
+.linux-stream-status strong { display: inline-block; color: #f2d294; padding: 2px 8px; border: 1px solid #51452f; margin-left: 5px; font-variant-numeric: tabular-nums; }
+.linux-stream-status + p { font-size: 14px; }
+.linux-stream-failure { display: flex; align-items: center; gap: 10px; font-size: 14px; min-height: 44px; cursor: pointer; }
+@container (max-width: 420px) {
+  .linux-stream-presets > div, .linux-stream-order { grid-template-columns: 1fr; }
+  .linux-stream-route { grid-template-columns: minmax(0, 1fr) 35px minmax(0, 1fr); }
+  .linux-stream-port, .linux-stream-destination { padding: 8px; }
+  .linux-stream-port code { font-size: 12px; }
+  .linux-stream-destination > strong { font-size: 13px; }
+  .linux-stream-arrow span { font-size: 9px; }
+}

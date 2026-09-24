@@ -1,0 +1,109 @@
+{
+  "checkedAt": "2026-09-11T19:40:29.943Z",
+  "sourceHashes": {
+    "src/learn/data/k-means-hierarchical-models.js": "9d70b442ca65ae4dbf6f6c784f7789d0e1936bdf8da9e92d08db895f32d263e0",
+    "src/learn/data/k-means-hierarchical-faithful.js": "64358723bb94ea232a9b4e5da3f61fedc6464711234690e47a390914aaa60e50",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "0aa180e6cfb129650cec2ae10488629c91a5e1e74748ad15705e8ac38b634289",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "6c7fd2d1bee3045f83adb8d5247d090fa71e33592803938e378a2c9f060ef72b",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "2d8926a79691a378c2bec5849cdf1afde04bba05ed146915c9a362d822e057ce"
+  },
+  "verifierHash": "8990941e6964dd00958315cd65d719f3a13817f1fad0a4e33929a64b6a76d7e3",
+  "counts": {
+    "enumerated rectangle fixed points": 2,
+    "phasewise residual and mean identities": 45,
+    "explicit tie and empty-center policy": 1,
+    "independent D squared cumulative draws": 15,
+    "zero-distance and multi-center support": 1,
+    "independent all-candidate linkage minima and Ward identities": 36,
+    "height and squared-error unit scaling": 8,
+    "equal-height cut cannot realize four clusters": 4,
+    "unit and feature-weight states": 8,
+    "expanded pixel versus weighted palette objectives": 6,
+    "exhaustive two-group partitions": 53,
+    "exhaustive optimum bounds Lloyd fixed points": 3,
+    "seeded frequency draws versus exact D² probabilities": 3,
+    "chain fixture linkage contrast": 4,
+    "palette image mosaic": 6,
+    "palette image sky": 8,
+    "palette image gradient": 8
+  },
+  "totalGroupedChecks": 211,
+  "rejectedInputs": 13,
+  "arithmeticRange": {
+    "rejected": [
+      "distinct tiny assignment",
+      "distinct tiny hierarchy",
+      "Ward factor erases positive subnormal separation",
+      "positive weighted assignment disappears",
+      "positive weighted moved error disappears",
+      "nonzero weighted coordinate disappears",
+      "positive D squared probability disappears",
+      "one nonzero coordinate square disappears"
+    ],
+    "acceptedPositiveStates": [
+      {
+        "separation": 1e-150,
+        "sse": 1e-300,
+        "height": 1e-150
+      },
+      {
+        "separation": 1e-160,
+        "sse": 1e-320,
+        "height": 9.99994433575849e-161
+      },
+      {
+        "separation": 1e-161,
+        "sse": 1e-322,
+        "height": 9.940479322862118e-162
+      }
+    ],
+    "genuineZeroCases": 3
+  },
+  "rectangleObjectives": [
+    6.666666666666667,
+    6.666666666666667,
+    10.000000000000002,
+    6.666666666666667,
+    9,
+    1,
+    6.666666666666667
+  ],
+  "fixtureHeights": {
+    "single": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      2.1213203435596424,
+      4.6097722286464435
+    ],
+    "complete": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      3.2015621187164243,
+      8.514693182963201
+    ],
+    "average": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      2.6628273967555645,
+      6.483406249632739
+    ],
+    "ward": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      3.758324094593227,
+      10.584973626167741
+    ]
+  },
+  "scope": "Bounded independent pairwise-SSE, exhaustive two-group partitions, all-candidate linkage on the six-point and chain fixtures, seeded D² frequency draws, expanded-pixel objectives for three images and unit/probability oracles. Component hashes identify the proposed UI, not a completed browser review.",
+  "limitations": [
+    "No universal k-means global optimum or initialization guarantee is inferred.",
+    "Hierarchy input is bounded to 16 points; exact floating-point ties use deterministic IDs.",
+    "Numeric squared sRGB error is not perceptual image quality or encoded file size.",
+    "Root owns actual browser and lesson integration checks."
+  ],
+  "passed": true
+}

@@ -1,0 +1,52 @@
+.data-lesson .data-deeper { border-top: 1px solid #383229; margin: 28px 0; padding-top: 10px; }
+.data-lesson .data-deeper > summary { color: #e2b55a; cursor: pointer; padding: 12px 0; font-size: 17px; }
+.data-lesson .data-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 20px 0; list-style: none; }
+.data-lesson .data-flow li { flex: 1 1 120px; border-bottom: 2px solid #8c743e; padding: 12px 4px; }
+.data-lesson .data-flow li strong, .data-lesson .data-flow li small { display: block; }
+.data-lesson .data-flow li small { color: #bcb6aa; font-size: 13px; line-height: 1.6; }
+.data-lab { color: #d0ccc3; }
+.data-lab h4 { margin: 16px 0 8px; color: #e8dfcb; font-size: 15px; }
+.data-lab code { overflow-wrap: anywhere; color: #e2c487; }
+.data-lab pre { white-space: pre; overflow: auto; max-width: 100%; font-size: 12px; line-height: 1.8; padding: 12px; margin: 8px 0; background: #12110f; border: 1px solid #373329; }
+.data-lab button, .data-lab select, .data-lab input { font: inherit; color: #e9e2d2; background: #171612; border: 1px solid #6d6046; border-radius: 3px; min-height: 44px; padding: 8px 10px; min-width: 0; max-width: 100%; }
+.data-lab :is(button,select) { cursor: pointer; }
+.data-lab button:hover:not(:disabled) { border-color: #e2b55a; background: #262012; }
+.data-lab button:disabled { opacity: .4; cursor: default; }
+.data-controls { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+.data-controls label { display: grid; gap: 5px; flex: 1 1 220px; min-width: 0; font-size: 14px; }
+.data-lab[data-lab="sql-join"] .data-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+.data-aggregate-key { font-size: 13px; line-height: 1.8; }
+.data-pipeline { list-style: none; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); padding: 0; gap: 5px; margin: 20px 0; }
+.data-pipeline li { color: #a9a49b; border-bottom: 2px solid #494338; padding: 10px 4px; font-size: 13px; }
+.data-pipeline li span { display: block; font-size: 18px; }
+.data-pipeline li.is-reached { border-color: #c5a359; }
+.data-pipeline li[aria-current] { color: #f0d497; background: #242014; }
+.data-pipeline li.is-blocked { border-color: #d79a78; color: #efbc9a; }
+.data-pipeline .data-stage-status { display: block; font-size: 12px; color: #efbc9a; }
+.data-stage { min-height: 170px; }
+.data-verdict { padding: 14px 0; border-top: 1px solid #62543a; line-height: 1.8; }
+.data-verdict.is-error { color: #efbc9a; }
+.data-step-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; border-top: 1px solid #383229; padding-top: 16px; }
+.data-step-controls span { font-size: 13px; }
+.data-state-columns, .data-source-columns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+.data-state { min-width: 0; padding: 0 0 10px; border-top: 2px solid #8c743e; }
+.data-state + .data-state { border-top-color: #699c7b; }
+.data-source-rows { list-style: none; padding: 0; margin: 0; display: grid; gap: 5px; }
+.data-source-rows li { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; border: 1px solid #494338; padding: 10px; font-size: 14px; }
+.data-source-rows li small { grid-column: 1/-1; color: #bcb6aa; }
+.data-source-rows .is-linked { border-color: #e2b55a; background: #292212; }
+.data-row-count { border-top: 1px solid #494338; padding-top: 16px; }
+.data-lineage { display: grid; gap: 6px; }
+.data-lineage button { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 14px; text-align: left; font-size: 14px; }
+.data-lineage button[aria-pressed=true] { border-color: #e2b55a; background: #292212; }
+.data-lineage button > span:first-child { font-size: 12px; color: #c1b9a8; }
+.data-credit { display: grid; grid-template-columns: auto 1fr 20px; gap: 10px; align-items: center; font-size: 14px; margin: 16px 0; }
+.data-credit-track { height: 14px; background: #2e2b25; }
+.data-credit-track i { display: block; height: 100%; background: #c9a154; }
+.data-state + .data-state .data-credit-track i { background: #6aaf83; }
+@media(max-width:620px) {
+  .data-lab[data-lab="sql-join"] .data-controls { grid-template-columns: 1fr; }
+  .data-state-columns, .data-source-columns { grid-template-columns: 1fr; }
+  .data-pipeline { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .data-lab .lesson-table-wrap th, .data-lab .lesson-table-wrap td { padding: 7px; font-size: 13px; }
+}

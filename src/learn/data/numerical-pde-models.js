@@ -1,0 +1,722 @@
+// Topic-owned bounded numerical models. Plot samples are diagnostics; the
+// Poisson certificate separately evaluates the represented vector with rationals.
+function integer(value, minimum, maximum, label) {
+  if (!Number.isSafeInteger(value) || value < minimum || value > maximum) {
+    throw new RangeError(`${label} must be an integer from ${minimum} to ${maximum}.`);
+  }
+  return value;
+}
+function real(value, minimum, maximum, label) {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < minimum || value > maximum) {
+    throw new RangeError(`${label} must be finite and between ${minimum} and ${maximum}.`);
+  }
+  return value;
+}
+function vector(values, size, label) {
+  if (!Array.isArray(values) || values.length !== size) throw new TypeError(`${label} has the wrong length.`);
+  for (let index = 0; index < size; index += 1) {
+    if (!Object.hasOwn(values, index)) throw new TypeError(`${label} must not contain missing entries.`);
+    real(values[index], -1e100, 1e100, label);
+  }
+  return values;
+}
+function finite(value, label) {
+  if (!Number.isFinite(value)) throw new RangeError(`${label} exceeded the supported arithmetic range.`);
+  return value;
+}
+export function formatPdeNumber(value, places = 6) {
+  if (value === 0) return "0";
+  if (!Number.isFinite(value)) return "outside numeric range";
+  const magnitude = Math.abs(value);
+  if (magnitude < 10 ** -places || magnitude >= 1e6) return value.toExponential(3);
+  return Number(value.toFixed(places)).toString();
+}
+
+// Positive-pivot LDL^T: symmetric positive definite tridiagonal inputs only.
+function factorTridiagonal(diagonal, offDiagonal) {
+  integer(diagonal.length, 1, 255, "System size");
+  vector(diagonal, diagonal.length, "Diagonal");
+  vector(offDiagonal, diagonal.length - 1, "Off diagonal");
+  const pivots = diagonal.slice();
+  const multipliers = [];
+  for (let row = 0; row < pivots.length; row += 1) {
+    if (!(pivots[row] > 0)) throw new RangeError("This no-pivot solver requires positive LDL pivots.");
+    if (row + 1 < pivots.length) {
+      multipliers[row] = finite(offDiagonal[row] / pivots[row], "Multiplier");
+      pivots[row + 1] = finite(pivots[row + 1] - multipliers[row] * offDiagonal[row], "Pivot");
+    }
+  }
+  return {
+    pivots,
+    multipliers
+  };
+}
+function solveFactored(factor, rhs) {
+  vector(rhs, factor.pivots.length, "Right-hand side");
+  const values = rhs.slice();
+  for (let row = 1; row < values.length; row += 1) values[row] -= factor.multipliers[row - 1] * values[row - 1];
+  for (let row = 0; row < values.length; row += 1) values[row] /= factor.pivots[row];
+  for (let row = values.length - 2; row >= 0; row -= 1) values[row] -= factor.multipliers[row] * values[row + 1];
+  values.forEach(value => finite(value, "Solution"));
+  return values;
+}
+export function solvePdeTridiagonal(diagonal, offDiagonal, rhs) {
+  return solveFactored(factorTridiagonal(diagonal, offDiagonal), rhs);
+}
+function gcd(first, second) {
+  let a = first < 0n ? -first : first;
+  let b = second < 0n ? -second : second;
+  while (b) [a, b] = [b, a % b];
+  return a;
+}
+function rational(numerator, denominator = 1n) {
+  if (!denominator) throw new RangeError("Zero rational denominator.");
+  const sign = denominator < 0n ? -1n : 1n;
+  const divisor = gcd(numerator, denominator);
+  return {
+    n: sign * numerator / divisor,
+    d: sign * denominator / divisor
+  };
+}
+const add = (a, b) => rational(a.n * b.d + b.n * a.d, a.d * b.d);
+const negate = a => ({
+  n: -a.n,
+  d: a.d
+});
+const subtract = (a, b) => add(a, negate(b));
+const multiply = (a, b) => rational(a.n * b.n, a.d * b.d);
+const divide = (a, b) => rational(a.n * b.d, a.d * b.n);
+const absolute = a => ({
+  n: a.n < 0n ? -a.n : a.n,
+  d: a.d
+});
+const greater = (a, b) => a.n * b.d > b.n * a.d;
+const whole = value => rational(BigInt(value));
+function exactNumber(value) {
+  if (value === 0) return whole(0);
+  finite(value, "Exact-number conversion");
+  const data = new DataView(new ArrayBuffer(8));
+  data.setFloat64(0, value);
+  const bits = data.getBigUint64(0);
+  const sign = bits >> 63n ? -1n : 1n;
+  const exponent = Number(bits >> 52n & 2047n);
+  const fraction = bits & (1n << 52n) - 1n;
+  const significand = exponent ? (1n << 52n) + fraction : fraction;
+  const power = (exponent || 1) - 1023 - 52;
+  return power >= 0 ? rational(sign * (significand << BigInt(power))) : rational(sign * significand, 1n << BigInt(-power));
+}
+function nextNumberUp(value) {
+  if (value === 0) return Number.MIN_VALUE;
+  const data = new DataView(new ArrayBuffer(8));
+  data.setFloat64(0, value);
+  data.setBigUint64(0, data.getBigUint64(0) + (value > 0 ? 1n : -1n));
+  return data.getFloat64(0);
+}
+function upperNumber(value) {
+  let candidate = Number(value.n) / Number(value.d);
+  finite(candidate, "Certificate conversion");
+  // Check the converted IEEE value against the rational, rather than assuming
+  // division rounded upward. Bounded lesson inputs need at most a few ULPs.
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    if (!greater(value, exactNumber(candidate))) return candidate;
+    candidate = nextNumberUp(candidate);
+  }
+  throw new RangeError("Cannot conservatively represent this certificate.");
+}
+function poissonCertificate({
+  intervals,
+  length,
+  profile,
+  scale,
+  values,
+  tolerance
+}) {
+  const count = whole(intervals);
+  const domain = exactNumber(length);
+  const amplitude = exactNumber(scale);
+  const hSquared = divide(multiply(domain, domain), multiply(count, count));
+  const inverse = divide(multiply(domain, domain), whole(8));
+  const stored = values.map(exactNumber);
+  let residual = whole(0);
+  for (let j = 1; j < intervals; j += 1) {
+    const position = rational(BigInt(j), BigInt(intervals));
+    const force = profile === "quartic" ? multiply(multiply(whole(12), amplitude), multiply(position, subtract(whole(1), position))) : profile === "quadratic" ? multiply(whole(2), amplitude) : whole(0);
+    const stencil = divide(subtract(subtract(multiply(whole(2), stored[j]), stored[j - 1]), stored[j + 1]), hSquared);
+    const current = absolute(subtract(force, stencil));
+    if (greater(current, residual)) residual = current;
+  }
+  const nodalDiscretization = profile === "quartic" ? divide(multiply(amplitude, hSquared), whole(4)) : whole(0);
+  const interpolation = profile === "linear" ? whole(0) : divide(multiply(multiply(whole(profile === "quartic" ? 3 : 2), amplitude), hSquared), whole(8));
+  const algebraic = multiply(inverse, residual);
+  const total = add(add(nodalDiscretization, interpolation), algebraic);
+  return {
+    residualUpper: upperNumber(residual),
+    scaledResidualUpper: upperNumber(multiply(hSquared, residual)),
+    algebraicBound: upperNumber(algebraic),
+    nodalDiscretizationBound: upperNumber(nodalDiscretization),
+    interpolationBound: upperNumber(interpolation),
+    fieldBound: upperNumber(total),
+    certified: !greater(total, exactNumber(tolerance)),
+    exactFieldBound: `${total.n}/${total.d}`,
+    contract: "Rational residual of the represented vector on the exact uniform grid; conservative displayed bounds."
+  };
+}
+export function piecewiseLinearValue(nodes, values, position) {
+  vector(nodes, nodes.length, "Nodes");
+  vector(values, nodes.length, "Values");
+  integer(nodes.length, 2, 256, "Node count");
+  for (let index = 1; index < nodes.length; index += 1) {
+    if (!(nodes[index] > nodes[index - 1])) throw new RangeError("Nodes must increase strictly.");
+  }
+  real(position, nodes[0], nodes.at(-1), "Position");
+  if (position === nodes.at(-1)) return values.at(-1);
+  const right = nodes.findIndex(node => node > position);
+  const weight = (position - nodes[right - 1]) / (nodes[right] - nodes[right - 1]);
+  return (1 - weight) * values[right - 1] + weight * values[right];
+}
+export function poissonProblem({
+  intervals = 8,
+  length = 1,
+  profile = "quartic",
+  scale = 1,
+  left = 0,
+  right = 0,
+  method = "direct",
+  iterations = 0,
+  tolerance = 0.001
+} = {}) {
+  integer(intervals, 2, 128, "Intervals");
+  real(length, 0.25, 4, "Length");
+  real(scale, 0, 4, "Source scale");
+  real(left, -10, 10, "Left endpoint");
+  real(right, -10, 10, "Right endpoint");
+  real(tolerance, 1e-10, 1, "Tolerance");
+  integer(iterations, 0, 4000, "Jacobi iteration budget");
+  if (!["quartic", "quadratic", "linear"].includes(profile)) throw new RangeError("Unknown source family.");
+  if (!["direct", "jacobi"].includes(method)) throw new RangeError("Unknown solve method.");
+  const h = length / intervals;
+  const nodes = Array.from({
+    length: intervals + 1
+  }, (_, j) => j === 0 ? 0 : j === intervals ? length : j * length / intervals);
+  const exact = x => {
+    const t = x / length;
+    const curved = profile === "quartic" ? t - 2 * t ** 3 + t ** 4 : profile === "quadratic" ? t * (1 - t) : 0;
+    return scale * length ** 2 * curved + left * (1 - t) + right * t;
+  };
+  const source = nodes.slice(1, -1).map(x => profile === "quartic" ? 12 * scale * (x / length) * (1 - x / length) : profile === "quadratic" ? 2 * scale : 0);
+  const rhs = source.map(value => h * h * value);
+  rhs[0] += left;
+  rhs[rhs.length - 1] += right;
+  const direct = solvePdeTridiagonal(Array(intervals - 1).fill(2), Array(intervals - 2).fill(-1), rhs);
+  let interior = method === "direct" ? direct : Array(intervals - 1).fill(0);
+  for (let step = 0; method === "jacobi" && step < iterations; step += 1) {
+    interior = interior.map((_, index) => (rhs[index] + (interior[index - 1] ?? 0) + (interior[index + 1] ?? 0)) / 2);
+  }
+  const values = [left, ...interior, right];
+  const targets = nodes.map(exact);
+  const residuals = interior.map((value, index) => (rhs[index] - 2 * value + (interior[index - 1] ?? 0) + (interior[index + 1] ?? 0)) / (h * h));
+  const certificate = poissonCertificate({
+    intervals,
+    length,
+    profile,
+    scale,
+    values,
+    tolerance
+  });
+  const curve = Array.from({
+    length: 257
+  }, (_, j) => {
+    const x = j === 0 ? 0 : j === 256 ? length : j * length / 256;
+    return {
+      x,
+      exact: exact(x),
+      numerical: piecewiseLinearValue(nodes, values, x)
+    };
+  });
+  return {
+    nodes,
+    values,
+    targets,
+    source,
+    rhs,
+    residuals,
+    direct: [left, ...direct, right],
+    h,
+    length,
+    intervals,
+    profile,
+    scale,
+    left,
+    right,
+    method,
+    iterations,
+    tolerance,
+    certificate,
+    curve,
+    nodalError: Math.max(...values.map((value, index) => Math.abs(value - targets[index]))),
+    sampledFieldError: Math.max(...curve.map(point => Math.abs(point.numerical - point.exact))),
+    weightedNodalL2: Math.sqrt(h * interior.reduce((sum, value, index) => sum + (value - targets[index + 1]) ** 2, 0)),
+    smallestEigenvalue: 4 / h ** 2 * Math.sin(Math.PI / (2 * intervals)) ** 2,
+    largestEigenvalue: 4 / h ** 2 * Math.cos(Math.PI / (2 * intervals)) ** 2
+  };
+}
+export function poissonRefinement(profile = "quartic") {
+  const rows = [8, 16, 32, 64].map(intervals => {
+    const result = poissonProblem({
+      intervals,
+      profile
+    });
+    return {
+      intervals,
+      h: result.h,
+      error: result.nodalError,
+      bound: result.certificate.fieldBound,
+      residual: result.certificate.residualUpper
+    };
+  });
+  return rows.map((row, index) => ({
+    ...row,
+    observedOrder: profile === "quartic" && index && row.error > 0 && rows[index - 1].error > 0 ? Math.log2(rows[index - 1].error / row.error) : null,
+    exactNodalDiscretizationError: profile === "quartic" ? row.h ** 2 / 4 : 0
+  }));
+}
+export function diffusionEvolution({
+  intervals = 8,
+  finalTime = 0.1,
+  timeSteps = 8,
+  mode = 1,
+  alpha = 1
+} = {}) {
+  integer(intervals, 3, 32, "Spatial intervals");
+  integer(timeSteps, 1, 80, "Time steps");
+  integer(mode, 1, intervals - 1, "Sine mode");
+  real(finalTime, 0.001, 0.4, "Final time");
+  real(alpha, 0.25, 2, "Diffusivity");
+  const h = 1 / intervals;
+  const dt = finalTime / timeSteps;
+  const ratio = alpha * dt / h ** 2;
+  const nodes = Array.from({
+    length: intervals + 1
+  }, (_, j) => j / intervals);
+  const initial = nodes.slice(1, -1).map(x => Math.sin(mode * Math.PI * x));
+  const eigenvalue = 4 / h ** 2 * Math.sin(mode * Math.PI / (2 * intervals)) ** 2;
+  const mu = alpha * dt * eigenvalue;
+  const factors = {
+    explicit: 1 - mu,
+    backward: 1 / (1 + mu),
+    crank: (1 - mu / 2) / (1 + mu / 2)
+  };
+  const backward = factorTridiagonal(Array(intervals - 1).fill(1 + 2 * ratio), Array(intervals - 2).fill(-ratio));
+  const crank = factorTridiagonal(Array(intervals - 1).fill(1 + ratio), Array(intervals - 2).fill(-ratio / 2));
+  let fields = {
+    explicit: initial.slice(),
+    backward: initial.slice(),
+    crank: initial.slice()
+  };
+  const frames = [];
+  for (let step = 0; step <= timeSteps; step += 1) {
+    const time = step * dt;
+    const continuousAmplitude = Math.exp(-alpha * (mode * Math.PI) ** 2 * time);
+    const semidiscreteAmplitude = Math.exp(-alpha * eigenvalue * time);
+    frames.push({
+      step,
+      time,
+      continuous: [0, ...initial.map(value => value * continuousAmplitude), 0],
+      semidiscrete: [0, ...initial.map(value => value * semidiscreteAmplitude), 0],
+      ...Object.fromEntries(Object.entries(fields).map(([name, values]) => [name, [0, ...values, 0]]))
+    });
+    if (step === timeSteps) break;
+    fields = {
+      explicit: fields.explicit.map((value, j) => (1 - 2 * ratio) * value + ratio * ((fields.explicit[j - 1] ?? 0) + (fields.explicit[j + 1] ?? 0))),
+      backward: solveFactored(backward, fields.backward),
+      crank: solveFactored(crank, fields.crank.map((value, j) => (1 - ratio) * value + ratio / 2 * ((fields.crank[j - 1] ?? 0) + (fields.crank[j + 1] ?? 0))))
+    };
+    if (Object.values(fields).some(values => values.some(value => !Number.isFinite(value) || Math.abs(value) > 1e80))) {
+      return {
+        nodes,
+        frames,
+        ratio,
+        factors,
+        h,
+        dt,
+        mode,
+        finalTime,
+        timeSteps,
+        status: "stopped before an unrepresentable or >10^80 field",
+        complete: false
+      };
+    }
+  }
+  return {
+    nodes,
+    frames,
+    ratio,
+    factors,
+    h,
+    dt,
+    mode,
+    finalTime,
+    timeSteps,
+    eigenvalue,
+    finiteGridThreshold: 1 / (2 * Math.cos(Math.PI / (2 * intervals)) ** 2),
+    explicitMonotone: ratio <= 0.5,
+    status: "finished",
+    complete: true
+  };
+}
+export function materialInterface({
+  leftConductivity = 1,
+  rightConductivity = 10,
+  interfacePosition = 0.5,
+  leftTemperature = 1,
+  rightTemperature = 0
+} = {}) {
+  real(leftConductivity, 0.1, 20, "Left conductivity");
+  real(rightConductivity, 0.1, 20, "Right conductivity");
+  real(interfacePosition, 0.1, 0.9, "Interface position");
+  real(leftTemperature, -5, 5, "Left temperature");
+  real(rightTemperature, -5, 5, "Right temperature");
+  const resistances = [interfacePosition / leftConductivity, (1 - interfacePosition) / rightConductivity];
+  const flux = (leftTemperature - rightTemperature) / (resistances[0] + resistances[1]);
+  const interfaceTemperature = leftTemperature - flux * resistances[0];
+  const arithmeticCoefficient = interfacePosition * leftConductivity + (1 - interfacePosition) * rightConductivity;
+  return {
+    resistances,
+    flux,
+    interfaceTemperature,
+    arithmeticFlux: arithmeticCoefficient * (leftTemperature - rightTemperature),
+    curve: [{
+      x: 0,
+      y: leftTemperature
+    }, {
+      x: interfacePosition,
+      y: interfaceTemperature
+    }, {
+      x: 1,
+      y: rightTemperature
+    }]
+  };
+}
+export function neumannBalance({
+  cells = 4,
+  source = 2,
+  leftOutward = 1,
+  rightOutward = 1
+} = {}) {
+  integer(cells, 2, 32, "Cell count");
+  real(source, -4, 4, "Source");
+  real(leftOutward, -4, 4, "Left outward flux");
+  real(rightOutward, -4, 4, "Right outward flux");
+  const h = 1 / cells;
+  const mismatch = subtract(exactNumber(source), add(exactNumber(leftOutward), exactNumber(rightOutward)));
+  const loads = Array(cells).fill(source * h);
+  loads[0] -= leftOutward;
+  loads[cells - 1] -= rightOutward;
+  if (mismatch.n !== 0n) return {
+    compatible: false,
+    mismatch: source - leftOutward - rightOutward,
+    loads,
+    values: null,
+    fluxes: null
+  };
+  const diagonal = Array(cells - 1).fill(2 / h);
+  diagonal[cells - 2] = 1 / h;
+  const pinned = [0, ...solvePdeTridiagonal(diagonal, Array(cells - 2).fill(-1 / h), loads.slice(1))];
+  const average = pinned.reduce((sum, value) => sum + value, 0) / cells;
+  const values = pinned.map(value => value - average);
+  const fluxes = [-leftOutward, ...values.slice(0, -1).map((value, j) => (value - values[j + 1]) / h), rightOutward];
+  return {
+    compatible: true,
+    mismatch: 0,
+    loads,
+    values,
+    fluxes,
+    balanceErrors: values.map((_, j) => fluxes[j + 1] - fluxes[j] - source * h),
+    mean: values.reduce((sum, value) => sum + value, 0) / cells
+  };
+}
+function pulseAverage(left, right, shift) {
+  const offset = (shift % 1 + 1) % 1;
+  let overlap = 0;
+  for (const copy of [-1, 0, 1]) {
+    overlap += Math.max(0, Math.min(right, 0.5 + offset + copy) - Math.max(left, 0.25 + offset + copy));
+  }
+  return overlap / (right - left);
+}
+export function advectionEvolution({
+  cells = 16,
+  courant = 0.75,
+  steps = 12,
+  velocity = 1,
+  profile = "pulse",
+  scheme = "upwind"
+} = {}) {
+  integer(cells, 8, 40, "Cell count");
+  real(courant, 0, 1.5, "Absolute Courant ratio");
+  integer(steps, 0, 60, "Transport steps");
+  if (![-1, 1].includes(velocity)) throw new RangeError("Velocity is +1 or -1 in this model.");
+  if (!["pulse", "sine"].includes(profile) || !["upwind", "centered"].includes(scheme)) throw new RangeError("Unknown transport family.");
+  const h = 1 / cells;
+  const average = (index, shift) => profile === "pulse" ? pulseAverage(index * h, (index + 1) * h, shift) : 0.5 + 0.5 * Math.sin(2 * Math.PI * ((index + 0.5) * h - shift)) * Math.sin(Math.PI * h) / (Math.PI * h);
+  let values = Array.from({
+    length: cells
+  }, (_, j) => average(j, 0));
+  const frames = [];
+  for (let step = 0; step <= steps; step += 1) {
+    const time = step * courant * h;
+    frames.push({
+      step,
+      time,
+      values: values.slice(),
+      exact: values.map((_, j) => average(j, velocity * time)),
+      mass: h * values.reduce((sum, value) => sum + value, 0),
+      minimum: Math.min(...values),
+      maximum: Math.max(...values)
+    });
+    if (step === steps) break;
+    const old = values;
+    values = old.map((value, j) => scheme === "upwind" ? (1 - courant) * value + courant * old[(j - velocity + cells) % cells] : value - velocity * courant / 2 * (old[(j + 1) % cells] - old[(j - 1 + cells) % cells]));
+  }
+  return {
+    cells,
+    h,
+    courant,
+    steps,
+    velocity,
+    profile,
+    scheme,
+    frames,
+    monotone: scheme === "upwind" && courant <= 1,
+    numericalDiffusion: h * (1 - courant) / 2
+  };
+}
+export function burgersGodunovFlux(left, right) {
+  real(left, -5, 5, "Left state");
+  real(right, -5, 5, "Right state");
+  if (left <= right) {
+    const state = left > 0 ? left : right < 0 ? right : 0;
+    return {
+      flux: state * state / 2,
+      kind: left === right ? "constant" : "rarefaction",
+      faceState: state
+    };
+  }
+  const speed = (left + right) / 2;
+  const state = speed >= 0 ? left : right;
+  return {
+    flux: state * state / 2,
+    kind: "shock",
+    speed,
+    faceState: speed === 0 ? null : state
+  };
+}
+export function finiteElement1D({
+  nodes = [0, 0.25, 0.5, 0.75, 1],
+  sourceKind = "constant",
+  source = 2,
+  point = 1 / 3,
+  conductivity = 1,
+  left = 0,
+  right = 0
+} = {}) {
+  integer(nodes.length, 3, 13, "Mesh node count");
+  vector(nodes, nodes.length, "Mesh nodes");
+  if (nodes[0] !== 0 || nodes.at(-1) !== 1) throw new RangeError("This mesh must cover [0,1].");
+  for (let j = 1; j < nodes.length; j += 1) if (nodes[j] - nodes[j - 1] < 0.001) throw new RangeError("Element lengths must be at least 0.001.");
+  real(source, 0, 5, "Source strength");
+  real(point, 0.001, 0.999, "Source point");
+  real(conductivity, 0.1, 20, "Conductivity");
+  real(left, -5, 5, "Left endpoint");
+  real(right, -5, 5, "Right endpoint");
+  if (!["constant", "point"].includes(sourceKind)) throw new RangeError("Unknown load functional.");
+  const size = nodes.length;
+  const stiffness = Array.from({
+    length: size
+  }, () => Array(size).fill(0));
+  const load = Array(size).fill(0);
+  const elements = [];
+  for (let j = 0; j < size - 1; j += 1) {
+    const width = nodes[j + 1] - nodes[j];
+    const factor = conductivity / width;
+    stiffness[j][j] += factor;
+    stiffness[j + 1][j + 1] += factor;
+    stiffness[j][j + 1] -= factor;
+    stiffness[j + 1][j] -= factor;
+    if (sourceKind === "constant") {
+      load[j] += source * width / 2;
+      load[j + 1] += source * width / 2;
+    }
+    elements.push({
+      left: nodes[j],
+      right: nodes[j + 1],
+      width,
+      factor,
+      globalIndices: [j, j + 1]
+    });
+  }
+  if (sourceKind === "point") {
+    const rightIndex = nodes.findIndex(node => node >= point);
+    const width = nodes[rightIndex] - nodes[rightIndex - 1];
+    const fraction = (point - nodes[rightIndex - 1]) / width;
+    load[rightIndex - 1] += source * (1 - fraction);
+    load[rightIndex] += source * fraction;
+  }
+  const rhs = load.slice(1, -1);
+  rhs[0] -= stiffness[1][0] * left;
+  rhs[rhs.length - 1] -= stiffness[size - 2][size - 1] * right;
+  const values = [left, ...solvePdeTridiagonal(nodes.slice(1, -1).map((_, j) => stiffness[j + 1][j + 1]), nodes.slice(2, -1).map((_, j) => stiffness[j + 1][j + 2]), rhs), right];
+  const exact = x => source / conductivity * (sourceKind === "constant" ? x * (1 - x) / 2 : Math.min(x, point) * (1 - Math.max(x, point))) + left * (1 - x) + right * x;
+  let fieldError;
+  let l2Squared;
+  let energySquared;
+  if (sourceKind === "constant") {
+    const coefficient = source / (2 * conductivity);
+    fieldError = coefficient * Math.max(...elements.map(element => element.width ** 2)) / 4;
+    l2Squared = coefficient ** 2 * elements.reduce((sum, element) => sum + element.width ** 5 / 30, 0);
+    energySquared = conductivity * coefficient ** 2 * elements.reduce((sum, element) => sum + element.width ** 3 / 3, 0);
+  } else {
+    const element = elements.find(entry => point >= entry.left && point <= entry.right);
+    const fraction = (point - element.left) / element.width;
+    fieldError = source / conductivity * element.width * fraction * (1 - fraction);
+    l2Squared = fieldError ** 2 * element.width / 3;
+    energySquared = source ** 2 / conductivity * element.width * fraction * (1 - fraction);
+  }
+  const curveNodes = [...new Set([...Array.from({
+    length: 241
+  }, (_, j) => j / 240), ...nodes, point])].sort((a, b) => a - b);
+  return {
+    nodes: nodes.slice(),
+    values,
+    stiffness,
+    load,
+    rhs,
+    elements,
+    sourceKind,
+    source,
+    point,
+    conductivity,
+    left,
+    right,
+    fieldError,
+    l2Error: Math.sqrt(l2Squared),
+    energyError: Math.sqrt(energySquared),
+    nodalError: Math.max(...values.map((value, j) => Math.abs(value - exact(nodes[j])))),
+    slopes: elements.map((element, j) => (values[j + 1] - values[j]) / element.width),
+    curve: curveNodes.map(x => ({
+      x,
+      exact: exact(x),
+      numerical: piecewiseLinearValue(nodes, values, x)
+    }))
+  };
+}
+export function rectangleStencil({
+  xIntervals = 5,
+  yIntervals = 4,
+  xLength = 1,
+  yLength = 1,
+  selectedX = 2,
+  selectedY = 2
+} = {}) {
+  integer(xIntervals, 2, 9, "Horizontal intervals");
+  integer(yIntervals, 2, 9, "Vertical intervals");
+  integer(selectedX, 1, xIntervals - 1, "Selected horizontal node");
+  integer(selectedY, 1, yIntervals - 1, "Selected vertical node");
+  real(xLength, 0.5, 3, "Horizontal length");
+  real(yLength, 0.5, 3, "Vertical length");
+  const hx = xLength / xIntervals;
+  const hy = yLength / yIntervals;
+  const flat = (i, j) => (j - 1) * (xIntervals - 1) + i - 1;
+  const neighbors = [[0, 0, 2 / hx ** 2 + 2 / hy ** 2], [-1, 0, -1 / hx ** 2], [1, 0, -1 / hx ** 2], [0, -1, -1 / hy ** 2], [0, 1, -1 / hy ** 2]].map(([dx, dy, coefficient]) => {
+    const i = selectedX + dx;
+    const j = selectedY + dy;
+    const boundary = i === 0 || i === xIntervals || j === 0 || j === yIntervals;
+    return {
+      i,
+      j,
+      coefficient,
+      boundary,
+      index: boundary ? null : flat(i, j)
+    };
+  });
+  const unknowns = (xIntervals - 1) * (yIntervals - 1);
+  const nonzeros = unknowns + 2 * (xIntervals - 2) * (yIntervals - 1) + 2 * (yIntervals - 2) * (xIntervals - 1);
+  return {
+    hx,
+    hy,
+    xIntervals,
+    yIntervals,
+    xLength,
+    yLength,
+    selectedX,
+    selectedY,
+    selectedIndex: flat(selectedX, selectedY),
+    unknowns,
+    nonzeros,
+    neighbors
+  };
+}
+export function triangleElement(vertices = [[0, 0], [1, 0], [0, 1]]) {
+  if (!Array.isArray(vertices) || vertices.length !== 3) throw new TypeError("A triangle needs three vertices.");
+  for (let j = 0; j < 3; j += 1) {
+    if (!Object.hasOwn(vertices, j)) throw new TypeError("Missing triangle vertex.");
+    vector(vertices[j], 2, "Vertex").forEach(coordinate => real(coordinate, -8, 8, "Coordinate"));
+  }
+  const [a, b, c] = vertices;
+  const determinant = (b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]);
+  if (Math.abs(determinant) < 1e-8) throw new RangeError("This bounded model excludes degenerate or extremely thin triangles (|det J| < 10^-8).");
+  const area = Math.abs(determinant) / 2;
+  const gradients = [[b[1] - c[1], c[0] - b[0]], [c[1] - a[1], a[0] - c[0]], [a[1] - b[1], b[0] - a[0]]].map(pair => pair.map(value => value / determinant));
+  const stiffness = gradients.map(first => gradients.map(second => area * (first[0] * second[0] + first[1] * second[1])));
+  return {
+    vertices: vertices.map(point => point.slice()),
+    determinant,
+    area,
+    gradients,
+    stiffness
+  };
+}
+export function twoGridCorrection(mode = 1) {
+  integer(mode, 1, 7, "Fine-grid mode");
+  const intervals = 8;
+  const h = 1 / intervals;
+  const initial = Array.from({
+    length: 7
+  }, (_, j) => Math.sin(mode * Math.PI * (j + 1) / intervals));
+  const apply = values => values.map((value, j) => (2 * value - (values[j - 1] ?? 0) - (values[j + 1] ?? 0)) / h ** 2);
+  const defect = apply(initial);
+  const smooth = initial.map((value, j) => value - 2 / 3 * h ** 2 / 2 * defect[j]);
+  const prolongation = Array.from({
+    length: 7
+  }, (_, row) => Array.from({
+    length: 3
+  }, (_, column) => Math.max(0, 1 - Math.abs((row + 1) / 2 - (column + 1)))));
+  const restriction = values => Array.from({
+    length: 3
+  }, (_, column) => prolongation.reduce((sum, row, index) => sum + row[column] * values[index] / 2, 0));
+  const coarseRhs = restriction(apply(smooth));
+  const coarse = solvePdeTridiagonal(Array(3).fill(32), Array(2).fill(-16), coarseRhs);
+  const correction = prolongation.map(row => row.reduce((sum, value, j) => sum + value * coarse[j], 0));
+  const final = smooth.map((value, j) => value - correction[j]);
+  const norm = values => Math.sqrt(h * values.reduce((sum, value) => sum + value * value, 0));
+  const energy = values => Math.sqrt(h * apply(values).reduce((sum, value, j) => sum + value * values[j], 0));
+  return {
+    mode,
+    initial: [0, ...initial, 0],
+    smooth: [0, ...smooth, 0],
+    correction: [0, ...correction, 0],
+    final: [0, ...final, 0],
+    coarseRhs,
+    coarse,
+    prolongation,
+    norms: {
+      initial: norm(initial),
+      smooth: norm(smooth),
+      final: norm(final)
+    },
+    energyNorms: {
+      initial: energy(initial),
+      smooth: energy(smooth),
+      final: energy(final)
+    }
+  };
+}

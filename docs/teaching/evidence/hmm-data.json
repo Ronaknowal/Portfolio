@@ -1,0 +1,46 @@
+{
+  "verifiedAt": "2026-09-16T15:16:30.100752+00:00",
+  "stage": "author numerical verification of the served data and the packet's trust root",
+  "module": "src/learn/data/hmm-data.js",
+  "moduleHash": "8af3a3bcd2cfcdc280102ded1fc2dc3d24c3da60cf7079e0e65bf49dae3b837b",
+  "verifier": "scripts/verify-hmm-data.py",
+  "verifierHash": "82d4443e71fdff2857f4f3d1cf34b8ea6ff8c78fe388b2ac836e2042dd0fe876",
+  "packetInputs": "docs/teaching/drafts/hidden-markov-models-hmm/calculated-inputs.json",
+  "packetInputsHash": "d05a1926402b07a36bb994ac9c0614df417c4bccfc35c8902b8438fec61268f9",
+  "servedExtract": {
+    "path": "/learn-assets/hmm/ewt-sequences.json",
+    "bytes": 89597,
+    "sha256": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d"
+  },
+  "checks": {
+    "groups": 481,
+    "total": 2668
+  },
+  "trustRoot": {
+    "scalarLeaves": 13247,
+    "leavesReDerived": 13246,
+    "coverage": 0.999925,
+    "notCovered": [
+      "additional_author_checks.native_example_ast_parsed_not_executed"
+    ],
+    "notCoveredReason": "additional_author_checks.native_example_ast_parsed_not_executed records the state of the author's own process - that hmmlearn was absent during writing - rather than a calculation. Phase two installed hmmlearn 0.3.3 in an isolated environment and executed that program for real; scripts/verify-hmm-examples.py records the result, which supersedes this leaf rather than re-deriving it."
+  },
+  "independence": [
+    "Inference here uses retained scaling; the packet's author program uses log space throughout.",
+    "Forward evidence and the best path are additionally checked against exhaustive enumeration of all 16 paths, which uses no recurrence.",
+    "Section 8's smoothing is applied to integer counts through the manuscript's formulas, while the author program accumulates onto pre-seeded float arrays.",
+    "hmm-experiments.py is never imported by this file.",
+    "The seed-71 sampling and the Dirichlet starts are reproduced call for call, because a different call order would produce different data rather than a different route."
+  ],
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5"
+  },
+  "limits": [
+    "No network access; the extract this lesson serves is the only data read.",
+    "The 40 reserved sentences are read only to count them, never predicted or scored.",
+    "These are development results on a small, deliberately short-sentence extract under one coarse three-way label map; they are not held-out estimates or a claim about taggers.",
+    "Rendering, interaction and visual layout are verified separately."
+  ],
+  "passed": true
+}

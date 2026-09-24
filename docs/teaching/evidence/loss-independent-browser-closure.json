@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:4197",
+  "checks": [
+    "Fractional negative count is rejected locally, retains the last valid derived result, restores on blur; integer 90 reaches BCE cancellation",
+    "Adjacent threshold interval excludes its lower specimen, includes its upper specimen, handles 0/1 endpoints, and all four specimen selections highlight their correct confusion cells",
+    "The selected observation moves from 55% to 85% on a fixed quantitative axis; the equal-observation null aligns every dot"
+  ],
+  "captures": [
+    "docs/teaching/evidence/loss-independent-browser/1366-locations.png",
+    "docs/teaching/evidence/loss-independent-browser/1366-triplet.png",
+    "docs/teaching/evidence/loss-independent-browser/1366-reductions.png",
+    "docs/teaching/evidence/loss-independent-browser/1366-confusion.png",
+    "docs/teaching/evidence/loss-independent-browser/320-locations.png",
+    "docs/teaching/evidence/loss-independent-browser/320-triplet.png",
+    "docs/teaching/evidence/loss-independent-browser/320-reductions.png",
+    "docs/teaching/evidence/loss-independent-browser/320-confusion.png"
+  ],
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/LossFunctionsLabs.jsx": "4d783fde77c141197a9e9bc76deacebd475d3428774f89242215b1e9a86ffc68",
+    "src/learn/components/lesson-labs/NeuralLessonElements.jsx": "117f860029951ad4277eec573693d986c4f69500f5191a97c5135edd55a5321a",
+    "src/learn/components/lesson-labs/loss-functions-labs.css": "95d2709d5bd9c0b35055aad1109e3581dfd547361727e0177c218f5f39a91d3b",
+    "src/learn/components/lesson-labs/neural-lesson-elements.css": "aafb75ec5071ca3c182e326f9cb869aa779eab289d456664ebf7c7844b61cd44"
+  }
+}

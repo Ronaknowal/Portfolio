@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-09-11T14:07:24.827645+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1",
+    "pandas": "2.3.3",
+    "lifelines": "0.30.3",
+    "sksurv": "0.28.0"
+  },
+  "records": [
+    {
+      "index": 0,
+      "sourceSha256": "12f7ffdd022c985f37b90d77e73bfc6b1f2166bfafc84b7ed8cf878b51b7e9ba",
+      "setupBlocks": [],
+      "stdout": "n=200, events=113, censored=87\nevent rate: 0.56,  median observed time: 7.23\nKM control:   S(5.0)=0.603,  S(10.0)=0.361\nKM treatment: S(5.0)=0.780,  S(10.0)=0.613\n",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 1,
+      "sourceSha256": "96c52dbbff6928dfd36692c18426698339cd0da117df89775a25c887bab08ac0",
+      "setupBlocks": [
+        0
+      ],
+      "stdout": "Log-rank chi2=19.744,  O-E=23.460\nCritical value at alpha=0.05 (df=1): 3.841  ->  reject H0\n",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 2,
+      "sourceSha256": "0f39c5982bb9c2cfca613a2f26668e511f598c82b9f6b609b2a5eb2a76b44719",
+      "setupBlocks": [
+        0
+      ],
+      "stdout": "Converged at iteration 4\nCox beta (treatment): -0.8609\nHazard ratio exp(beta): 0.4228\nTrue beta=-0.7  ->  true HR=0.4966\n",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 3,
+      "sourceSha256": "5ad51796836091d6ff17ccbcf1c5abf8d2bf854d2b79106eb2320ae2b7add29c",
+      "setupBlocks": [],
+      "stdout": "KM S(26 weeks): 0.8750\nKM median survival time: inf\n<lifelines.CoxPHFitter: fitted with 432 total observations, 318 right-censored observations>\n             duration col = 'week'\n                event col = 'arrest'\n      baseline estimation = breslow\n   number of observations = 432\nnumber of events observed = 114\n   partial log-likelihood = -658.7477\n         time fit was run = 2026-09-11 14:07:23 UTC\n\n---\n             coef exp(coef)      p\ncovariate                         \nfin       -0.3794    0.6843 0.0474\nage       -0.0574    0.9442 0.0090\nrace       0.3139    1.3688 0.3081\nwexp      -0.1498    0.8609 0.4803\nmar       -0.4337    0.6481 0.2561\nparo      -0.0849    0.9186 0.6646\nprio       0.0915    1.0958 0.0014\n---\nConcordance = 0.6403\nPartial AIC = 1331.4953\nlog-likelihood ratio test = 33.2659 on 7 df\n-log2(p) of ll-ratio test = 15.3696\n\nConcordance index: 0.6403\n",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 4,
+      "sourceSha256": "a6db60309de67f41e7b7249c2ec64e69e9c8f9410e415a7cbc957228b84c7bb8",
+      "setupBlocks": [
+        3
+      ],
+      "stdout": "AFT concordance: 0.6401\nRSF concordance: 0.7345\n",
+      "stderr": "",
+      "failure": null
+    }
+  ],
+  "note": "Exact old bytes executed in the separate survival environment. np.interp in block0 is the old linear interpolation, not a valid KM step evaluation. Rossi print_summary includes a run timestamp; it is an execution record rather than deterministic expected output. These results do not validate the old surrounding narrative."
+}

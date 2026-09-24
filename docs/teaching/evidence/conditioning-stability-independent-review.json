@@ -1,0 +1,242 @@
+{
+  "topicId": "conditioning-stability-numerical-analysis",
+  "reviewedAt": "2026-09-11T06:41:28.486737+00:00",
+  "authorFrozenAt": "2026-09-11T06:19:37.973122+00:00",
+  "authorPacket": {
+    "path": "docs/teaching/evidence/conditioning-stability-author-review.json",
+    "sha256": "d13d723f847468b9923de16d0e7b5072563cac711bff4913be487ce27a862474"
+  },
+  "status": "independently reviewed; no unresolved material finding; parent production integration remains separate",
+  "productionSources": [
+    {
+      "path": "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx",
+      "sha256": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
+      "bytes": 53707
+    },
+    {
+      "path": "src/learn/data/conditioning-stability-models.js",
+      "sha256": "23a93f998e57d9ac9ceb346ec68d97667e31770c0e299f67c988fa55347a3358",
+      "bytes": 9790
+    },
+    {
+      "path": "src/learn/data/conditioning-stability-examples.js",
+      "sha256": "ff34eeee2340a6d9817574c4cf4811e9891b51637b0b0f21cb77e91e30100ad9",
+      "bytes": 21360
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "sha256": "45060210a4ab470b590cb54ffa56d64b2270c63976b76647ff38a3fbded878bd",
+      "bytes": 22406
+    },
+    {
+      "path": "src/learn/components/lesson-labs/conditioning-stability-labs.css",
+      "sha256": "6153a799c9e8380f740d19b80d4f608fbd5b71169c64d55d1ca9baf32d9ff6b4",
+      "bytes": 8130
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/conditioning-stability-numerical-analysis.js",
+      "sha256": "866ed0ecf0ef28bd6fbf96b375b9275a7a712660f9178231b8e537eeceb15e00",
+      "bytes": 5386
+    }
+  ],
+  "productionEdits": [],
+  "sourceReading": [
+    "Complete lesson including local proofs, eleven actual programs and all ten closing practice answers",
+    "Full six production files, assessed design and author verification narrative",
+    "Zero-reference/normal-result/singularity conditions, finite perturbation denominator, normwise and componentwise attainment, scaling units, summation path counts, refinement contraction, uniform fixed-time defect bound and reference provenance"
+  ],
+  "complementaryNative": {
+    "checkedAt": "2026-09-11T06:37:21.293305+00:00",
+    "passed": true,
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx",
+        "sha256": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
+        "bytes": 53707
+      },
+      {
+        "path": "src/learn/data/conditioning-stability-models.js",
+        "sha256": "23a93f998e57d9ac9ceb346ec68d97667e31770c0e299f67c988fa55347a3358",
+        "bytes": 9790
+      },
+      {
+        "path": "src/learn/data/conditioning-stability-examples.js",
+        "sha256": "ff34eeee2340a6d9817574c4cf4811e9891b51637b0b0f21cb77e91e30100ad9",
+        "bytes": 21360
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+        "sha256": "45060210a4ab470b590cb54ffa56d64b2270c63976b76647ff38a3fbded878bd",
+        "bytes": 22406
+      },
+      {
+        "path": "src/learn/components/lesson-labs/conditioning-stability-labs.css",
+        "sha256": "6153a799c9e8380f740d19b80d4f608fbd5b71169c64d55d1ca9baf32d9ff6b4",
+        "bytes": 8130
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/conditioning-stability-numerical-analysis.js",
+        "sha256": "866ed0ecf0ef28bd6fbf96b375b9275a7a712660f9178231b8e537eeceb15e00",
+        "bytes": 5386
+      }
+    ],
+    "checks": {
+      "actual_complete_programs": 11,
+      "native_normwise_lp_minimum": 32,
+      "native_componentwise_lp_minimum": 32,
+      "changed_native_augmented_matrix_power": 40,
+      "changed_native_companion_matrix_power": 6,
+      "model_disturbance_operator": 300,
+      "model_absolute_operator": 300,
+      "binary64_fraction_identity": 7,
+      "reference_polynomial_and_decimal_enclosure": 24,
+      "changed_native_sum_bound_and_recovery": 90,
+      "changed_native_refinement_rational_inverse": 20
+    },
+    "maxScaledDifference": 7.771561172376096e-16,
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scope": "Complementary finite reviewer oracles; production algorithms untouched. LP feasibility is numerical; rational and symbolic checks are identified separately."
+  },
+  "reviewerBrowser": {
+    "checkedAt": "2026-09-11T06:37:58.738Z",
+    "passed": true,
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx",
+        "sha256": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
+        "bytes": 53707
+      },
+      {
+        "path": "src/learn/data/conditioning-stability-models.js",
+        "sha256": "23a93f998e57d9ac9ceb346ec68d97667e31770c0e299f67c988fa55347a3358",
+        "bytes": 9790
+      },
+      {
+        "path": "src/learn/data/conditioning-stability-examples.js",
+        "sha256": "ff34eeee2340a6d9817574c4cf4811e9891b51637b0b0f21cb77e91e30100ad9",
+        "bytes": 21360
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+        "sha256": "45060210a4ab470b590cb54ffa56d64b2270c63976b76647ff38a3fbded878bd",
+        "bytes": 22406
+      },
+      {
+        "path": "src/learn/components/lesson-labs/conditioning-stability-labs.css",
+        "sha256": "6153a799c9e8380f740d19b80d4f608fbd5b71169c64d55d1ca9baf32d9ff6b4",
+        "bytes": 8130
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/conditioning-stability-numerical-analysis.js",
+        "sha256": "866ed0ecf0ef28bd6fbf96b375b9275a7a712660f9178231b8e537eeceb15e00",
+        "bytes": 5386
+      }
+    ],
+    "results": [
+      {
+        "width": 1440,
+        "states": 16,
+        "equations": 17,
+        "anchors": 10,
+        "fonts": true,
+        "overflow": false,
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 16,
+        "equations": 17,
+        "anchors": 10,
+        "fonts": true,
+        "overflow": false,
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 16,
+        "equations": 17,
+        "anchors": 10,
+        "fonts": true,
+        "overflow": false,
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ],
+    "scope": "Reviewer-operated changed states and keyboard/ordinary-reading captures; separate from author comprehensive82-state runs."
+  },
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/conditioning-independent-review/tiny-cancellation-320.png",
+      "sha256": "494c49623dbdf4d18c026892b9df2279d44588038706073f864ffdd95cc5abfa",
+      "review": "Actually opened by the independent reviewer using view_image."
+    },
+    {
+      "path": "scratch/conditioning-independent-review/positive-addition-tree-390.png",
+      "sha256": "fa125c75b8d3831f96979e48cc3037e4961b046dbf0aad2627dd20076622801f",
+      "review": "Actually opened by the independent reviewer using view_image."
+    },
+    {
+      "path": "scratch/conditioning-independent-review/reference-branches-320.png",
+      "sha256": "5ad6078c5e0b6e6543a7e0c76bd9b5db3e94646fd30db95cac28c0c15535801c",
+      "review": "Actually opened by the independent reviewer using view_image."
+    },
+    {
+      "path": "scratch/conditioning-independent-review/scaled-backward-witness-320.png",
+      "sha256": "e7a3c06731535e3c29913d7d574dc75b87cd3080a1188a6d3666d69f68adc672",
+      "review": "Actually opened by the independent reviewer using view_image."
+    },
+    {
+      "path": "scratch/conditioning-independent-review/nonunique-measurements-390.png",
+      "sha256": "d042b3a66382312985f08449efe46127e9de1d74d15168ed38f33ccd293ce5db",
+      "review": "Actually opened by the independent reviewer using view_image."
+    },
+    {
+      "path": "scratch/conditioning-independent-review/signed-propagation-320.png",
+      "sha256": "a7eb1bdc426c3672e68ca276f5f4880a7112d42c204270d39ef34bf4ddacd05d",
+      "review": "Actually opened by the independent reviewer using view_image."
+    },
+    {
+      "path": "scratch/conditioning-independent-review/positive-addition-tree-1440.png",
+      "sha256": "6a6f36e3c0ca58e76deb4c0aa562ae7bb6ba969eb0ceb6a1841bef1b0068c517",
+      "review": "Actually opened by the independent reviewer using view_image."
+    },
+    {
+      "path": "scratch/conditioning-independent-review/ordinary-residual-reading-320.png",
+      "sha256": "b67151cce8aad9ed3040eb5c6a74f6d6785fde62ada2a3bf9b6a57c7f6e7ed71",
+      "review": "Actually opened by the independent reviewer using view_image."
+    },
+    {
+      "path": "scratch/conditioning-independent-review/changed-report-answer-390.png",
+      "sha256": "6d21cd8e36c44582ba0a799722d9afc83187ffa1aaaf199febaa9ff63fa9e744",
+      "review": "Actually opened by the independent reviewer using view_image."
+    }
+  ],
+  "findings": [],
+  "primarySourcesRevisited": [
+    {
+      "url": "https://nhigham.com/2020/03/25/what-is-backward-error/",
+      "scope": "Nearby-problem definition, different permitted perturbations and first-order forward-error relation."
+    },
+    {
+      "url": "https://fncbook.com/zerostability/",
+      "scope": "Unwanted recurrence mode, fixed-interval boundedness and root-condition discussion; no embedded-program execution or video-viewing claim."
+    },
+    {
+      "url": "https://www.netlib.org/lapack/lug/node79.html",
+      "scope": "Componentwise versus normwise perturbation permissions and significance of small/zero entries."
+    }
+  ],
+  "limits": [
+    "The author comprehensive82-state browser run is separately attributed; this reviewer operated16 targeted states per width.",
+    "LP optimality checks are numerical finite evidence, not replacements for the independently read attainment proofs.",
+    "Rational/polynomial/operator checks and exact stored-input references are distinguished from rounded display readouts.",
+    "Only the nine named reviewer images were actually opened; other captures and author images are not counted as reviewer inspection.",
+    "No observed beginner study, user acceptance, full-video review, general library guarantee or production integration is claimed."
+  ]
+}

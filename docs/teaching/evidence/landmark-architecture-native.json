@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.0+cpu",
+    "torchvision": "0.29.0+cpu",
+    "numpy": "2.3.5",
+    "sklearn": "1.9.1"
+  },
+  "checks": [
+    "Complete saved twelve-fit replay equals every conserved packet value; producer/data bytes unchanged",
+    "Allfive full constructions run on meta tensors; four library counterparts match every copied component type/state shape and parameter count",
+    "Seven-class GAP modification has3591head parameters and batch2x7output at both64and96pixel sizes",
+    "Drop probability1 gives exact finite identity/input gradient and zero branch parameter gradients; invalid probabilities reject",
+    "Independent scalar-loop CAM reconstruction agrees with all80saved class logits within8e-6",
+    "StandaloneCAMcode reproduces the exact map and both2.5score routes"
+  ],
+  "constructions": [
+    {
+      "family": "lenet",
+      "parameters": 61706,
+      "output_shape": [
+        1,
+        10
+      ]
+    },
+    {
+      "family": "alexnet",
+      "parameters": 61100840,
+      "output_shape": [
+        1,
+        1000
+      ]
+    },
+    {
+      "family": "vgg16",
+      "parameters": 138357544,
+      "output_shape": [
+        1,
+        1000
+      ]
+    },
+    {
+      "family": "resnet18",
+      "parameters": 11689512,
+      "output_shape": [
+        1,
+        1000
+      ]
+    },
+    {
+      "family": "efficientnet_b0",
+      "parameters": 5288548,
+      "output_shape": [
+        1,
+        1000
+      ]
+    }
+  ],
+  "maximumDoubleCAMDifference": 7.099608438920768e-06,
+  "sources": {
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/architecture-experiments.py": "7d7f6192950bdb2f05ec778cd25c3fc0e9bb26872dea25294b38d26145c29a48",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/landmark_builders.py": "a2b4a7308d2e70c768dcea22d7d422cd7882d163d45e938ef31ce8c07d1c7cca",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-assets/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet/calculated-inputs.json": "51315455bc810213960d6c571fa3322d3e4c838439f9d9c665faa4e622e5bc91"
+  },
+  "limits": [
+    "This verifier reuses saved fits; full producer was executed separately22September",
+    "The four actual CPU pairedforward --compare invocations are recorded in the design; this command checks allfive constructions and component shapes on meta tensors",
+    "No pretrained ImageNet weights or photograph example executed; no hardware benchmark claim"
+  ]
+}

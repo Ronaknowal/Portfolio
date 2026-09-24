@@ -1,0 +1,147 @@
+{
+  "startedAt": "2026-09-16T16:18:35.069Z",
+  "completedAt": "2026-09-16T16:19:35.373Z",
+  "topicId": "cross-validation-hyperparameter-tuning",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "base": "http://127.0.0.1:4183",
+  "buildManifestHash": "ff6e90c340c54dd8ee8e70f667874eef9a30d6b2e68d949192978171a9f72f51",
+  "sourceHashes": {
+    "src/learn/data/topics/cross-validation-hyperparameter-tuning.jsx": "c16456eee696b78ff1347c53a088cf3f9a85e627d1781473e50d14bf868d0454",
+    "src/learn/data/validation-models.js": "53ac50c510d51052765de8f82809e21ac72b11da4397012bd8f3ece31c062086",
+    "src/learn/data/validation-data.js": "6a7b1a5d9ef55846fb723967202498ef4f71add328b1e94e1ae8e320b317a0a0",
+    "src/learn/data/validation-examples.js": "d5c8677e86c0b7513ef6748624b26a910062b94925b53a29b41ba93ce556394b",
+    "src/learn/components/lesson-labs/ValidationShared.jsx": "30829e8f16cf193ed6f7a2e5bbf80626722d5966bfc890a90e85399a49d5da06",
+    "src/learn/components/lesson-labs/ValidationLabs.jsx": "a448921b3f2ac3ed5a4d66bcda61a652d9ad5eed58be5efd1e829decf5f10d55",
+    "src/learn/components/lesson-labs/ValidationFigures.jsx": "6328ac52acef23c38fc1bb13e9037884c7211f68508beb9c2f5b64ac13c26c3a",
+    "src/learn/components/lesson-labs/validation-labs.css": "c86495c5e65c0a4d2a17b927aac911a092593f63f524ebb12862681b3b43c119",
+    "src/learn/data/curriculum/blueprints/cross-validation-hyperparameter-tuning.js": "e95b4dc370f106d1503a942baa8b19c1555bc2f8d51112336ea2d2e7af492477",
+    "public/learn-assets/cross-validation/penguins.csv": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+    "public/learn-assets/cross-validation/data-provenance.md": "74dd4e94c4f95070e4c98fffcc308aef0a957101fafd0d4086bbf2aa50407b30",
+    "public/learn-assets/cross-validation/nested-experiment.json": "f8a61a361629e29a0f9bb8e42f1b548620910611210c23709da9b095efd4290f"
+  },
+  "moduleTopicCount": 39,
+  "modulePosition": 21,
+  "records": [
+    {
+      "case": "Eleven sections, seven figures, four investigations, three complete executed programs, ten closed practice tasks, every manuscript claim, the served CSV and provenance, and the module sequence"
+    },
+    {
+      "case": "All four investigations open unset: no preselected prediction, no computed answer, and commit disabled until a choice exists"
+    },
+    {
+      "case": "I1 baseline trace, training-label contrast, own-label null, translation null, arbitrary edit retires the prediction, empty fold refused"
+    },
+    {
+      "case": "I2 0.6875 enumeration, duplicate-candidate null, sixteen-pattern saturation at 1 with future 0.5, and the 0,1,0,1 fixture before and after a matching rule"
+    },
+    {
+      "case": "I3 tie-resolved baseline 7/8 and 8/8, outer-training-label selection contrast, protected-label null, and the role swap where one relabelled row changes the fit in one fold and only correctness in the other"
+    },
+    {
+      "case": "I4 early-ranking baseline with its 150-unit ledger, later-start contrast, unobserved-value null, observed-value contrast, and the nine-candidate 270/810/210 ledger; before the Reveal control neither the hindsight block nor the post-Apply caption names the full-budget winner or its loss"
+    },
+    {
+      "case": "Sequential review: original question/output identity survives history edits; decimal symmetric distances use source-ID ties; tied minimum losses grade correctly; all three factor-2 finalists remain visible and distinct from the selected winner; all sixteen label patterns expose the exact mean; computed covariance fills retain diagonal and off-diagonal emphasis"
+    },
+    {
+      "case": "All eighteen real candidate means plus the final search’s six, the three protected results and baselines, all read-only, with the selection and assessment scores separately labelled and the final two-way tie surfaced"
+    },
+    {
+      "case": "Figure 3 prints original row IDs at the outer and the inner level, not sizes alone"
+    },
+    {
+      "case": "Layout inspected at 1366/1024/768/390/320: no document overflow, no display-formula overflow with every disclosure open, no SVG label below 9.5 effective pixels, and narrow captures of every diagram"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson body",
+      "requestedScripts": 9,
+      "rawScriptBytes": 1505318,
+      "gzipEstimateBytes": 338901,
+      "interpretation": "Built file sizes; the gzip figure is an estimate, not a measured network transfer or latency."
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance, Next opens the actual successor, and no render error or failed asset appeared"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\validation-folds-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-folds-previous-trial.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-selection-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-nested-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-halving-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-previous-output-identity.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-decimal-distance-tie.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-halving-tied-minimum.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-halving-multiple-finalists.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-real-experiment-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-final-search-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-loops-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-split-question-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-nested-rooms-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-coverage-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-risk-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-improvement-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-loops-320.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-coverage-320.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-risk-320.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-improvement-320.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-split-question-320.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-folds-390.png",
+    "docs\\teaching\\evidence\\screenshots\\validation-halving-390.png"
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "figures": 14,
+      "issues": []
+    },
+    {
+      "width": 1024,
+      "figures": 14,
+      "issues": []
+    },
+    {
+      "width": 768,
+      "figures": 14,
+      "issues": []
+    },
+    {
+      "width": 390,
+      "figures": 14,
+      "issues": []
+    },
+    {
+      "width": 320,
+      "figures": 14,
+      "issues": []
+    }
+  ],
+  "realResult": {
+    "selections": [
+      "11/StandardScaler",
+      "3/StandardScaler",
+      "3/RobustScaler"
+    ],
+    "correct": [
+      114,
+      114,
+      112
+    ],
+    "pooledAccuracy": 0.9883720930232558,
+    "foldMean": 0.9883549453343504,
+    "finalSelectionScore": 0.991304347826087
+  },
+  "visualInterpretation": "Assertions cover geometry, effective label size and overflow. They cannot tell whether a diagram is the right diagram: every screenshot listed here was opened and looked at separately, and the design record names what that pass changed.",
+  "limits": [
+    "A passing layout assertion is not a legible figure; the screenshots were inspected by eye.",
+    "One browser channel, one build. No screen-reader pass and no reduced-motion pass were run."
+  ]
+}

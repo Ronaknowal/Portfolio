@@ -1,0 +1,55 @@
+.bayesian-lab { padding: clamp(.85rem, 3vw, 1.65rem); margin: 1.8rem 0; border: 1px solid #354b58; border-radius: 6px; color: #d8e1e6; background: #0d151b; }
+.bayesian-lab h3 { color: #f4e8cd; line-height: 1.4; }
+.bayesian-lab p, .bayesian-inline p { line-height: 1.65; }
+.bayesian-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 1rem; margin: 1.2rem 0; }
+.bayesian-field { display: grid; gap: .5rem; min-width: 0; font-size: .88rem; }
+.bayesian-field input { width: 100%; accent-color: #e5b95f; min-height: 32px; }
+.bayesian-field select { min-height: 44px; max-width: 100%; min-width: 0; background: #14232d; color: #dce6eb; border: 1px solid #687883; border-radius: 4px; padding: .4rem; font: inherit; }
+.bayesian-lab button { min-height: 44px; border: 1px solid #526976; border-radius: 4px; background: #13232e; color: #e3eaf0; font: inherit; font-size: .86rem; padding: .6rem .8rem; cursor: pointer; }
+.bayesian-lab button[aria-pressed="true"] { color: #ffe0a1; background: #3a3020; border-color: #e5b95f; }
+.bayesian-lab :is(button, input, select, summary):focus-visible { outline: 3px solid #86c2db; outline-offset: 4px; }
+.bayesian-reset { margin-top: .8rem; }
+.bayesian-plot { margin: 1.25rem 0; min-width: 0; }
+.bayesian-plot figcaption, .bayesian-inline figcaption, .bayesian-exposures figcaption { font-size: .88rem; line-height: 1.6; margin-bottom: .8rem; }
+.bayesian-plot svg { display: block; width: 100%; max-width: 490px; height: auto; margin-inline: auto; overflow: visible; }
+.bayesian-plot svg text { fill: #d5e2e9; font: 17px ui-monospace, monospace; }
+.bayesian-legend { font-size: .8rem; color: #c9d3da; }
+.bayesian-readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 195px), 1fr)); margin: 1.1rem 0; border-top: 1px solid #3a4d59; }
+.bayesian-readout > div { padding: .8rem .6rem .8rem 0; border-bottom: 1px solid #3a4d59; min-width: 0; }
+.bayesian-readout dt { font-size: .78rem; color: #c1cdd4; }
+.bayesian-readout dd { margin: .35rem 0 0; color: #f3d18f; font-size: 1rem; overflow-wrap: anywhere; }
+.bayesian-result { padding: .9rem 1rem; border-left: 3px solid #79bbc9; background: #142631; font-size: .9rem; }
+.bayesian-inline { margin: 1.7rem 0; padding: 1rem; border-block: 1px solid #3b4a52; background: #0d151b; font-size: .91rem; }
+.bayesian-outcomes { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: .3rem; margin: 1rem 0; }
+.bayesian-outcomes span { display: grid; place-items: center; min-height: 32px; border-radius: 3px; border: 1px solid #688574; font-size: .82rem; }
+.bayesian-outcomes .success { color: #c6e6ce; background: #233c30; }
+.bayesian-outcomes .failure { color: #f5d295; background: #433522; border-color: #aa8650; }
+.bayesian-evidence-lanes { display: grid; gap: .7rem; }
+.bayesian-evidence-lanes > div { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: .5rem; align-items: center; padding: .7rem .5rem; border-left: 3px solid #9dc4a9; background: #13251d; }
+.bayesian-evidence-lanes > div + div { border-color: #e5b95f; background: #2b241a; }
+.bayesian-shared-source { border: 1px solid #e5b95f; margin: 1rem auto 0; padding: .7rem; max-width: 270px; text-align: center; color: #f3d18f; }
+.bayesian-shared-branches { display: flex; gap: .75rem; margin: 0 .5rem; justify-content: space-around; border-top: 1px solid #617989; }
+.bayesian-shared-branches span { padding-top: 1.8rem; position: relative; text-align: center; }
+.bayesian-shared-branches span::before { content: ""; position: absolute; left: 50%; top: 0; height: 1.4rem; border-left: 1px solid #617989; }
+.bayesian-exposures { margin: 1.2rem 0; font-size: .87rem; }
+.bayesian-exposures > div { margin: 1rem 0; }
+.bayesian-exposure-track { height: 24px; background: #273744; border: 1px solid #607786; margin-top: .45rem; }
+.bayesian-exposure-track i { display: block; height: 100%; background: #79bbc9; }
+.bayesian-exposures > div + div .bayesian-exposure-track i { background: #e5b95f; }
+.bayesian-composition { display: flex; height: 42px; border: 1px solid #8c9caa; }
+.bayesian-category-key { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: .8rem; font-size: .85rem; }
+.bayesian-category-key span { display: inline-flex; gap: .35rem; align-items: center; }
+.bayesian-category-key i { width: .65rem; height: .65rem; }
+.bayesian-precision-balance { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; font-size: .85rem; }
+.bayesian-precision-balance > div { width: 100%; height: 25px; background: #e5b95f; border: 1px solid #8297a1; }
+.bayesian-precision-balance i { display: block; background: #79bbc9; height: 100%; }
+.bayesian-choices { display: flex; flex-wrap: wrap; gap: .65rem; border: 0; padding: 0; margin: 1rem 0; }
+.bayesian-choices legend { margin-bottom: .65rem; font-size: .87rem; }
+.bayesian-lab details { margin: 1.2rem 0; }
+.bayesian-lab summary { cursor: pointer; color: #efd092; line-height: 1.5; }
+@media (max-width: 480px) {
+  .bayesian-evidence-lanes > div { grid-template-columns: 1fr; gap: .25rem; }
+  .bayesian-outcomes { gap: .18rem; }
+  .bayesian-outcomes span { font-size: .72rem; }
+  .bayesian-shared-branches { gap: .5rem; margin: 0; }
+}

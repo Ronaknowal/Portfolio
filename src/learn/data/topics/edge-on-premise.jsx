@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -90,7 +91,7 @@ smartphone / IoT      | 1B-4B (INT4)       | 1-10W         | zero (local)     | 
       <MathBlock>{"\\text{memory (GB)} = \\frac{N \\times b}{8 \\times 10^9}"}</MathBlock>
 
       <Prose>
-        For a Llama 3 8B model: at FP16 (<Code>b=16</Code>), that is <Code>8 \\ \\times 10^9 \\times 16 / (8 \\times 10^9) = 16\\ \\text{GB}</Code>. At INT4 (<Code>b=4</Code>), the same model occupies 4 GB — a 4× reduction that is the difference between "edge is impossible" and "edge is routine" on commodity hardware. At INT2, it falls to 2 GB, though quality degradation at 2-bit is severe for most tasks. Modern mixed-precision schemes like AWQ and GPTQ apply 4-bit quantization to weights while preserving activations at higher precision, recovering most of the quality loss from naive rounding.
+        For a Llama 3 8B model: at FP16 (<Code>b=16</Code>), that is <Code>{"8 \\times 10^9 \\times 16 / (8 \\times 10^9) = 16\\ \\text{GB}"}</Code>. At INT4 (<Code>b=4</Code>), the same model occupies 4 GB — a 4× reduction that is the difference between "edge is impossible" and "edge is routine" on commodity hardware. At INT2, it falls to 2 GB, though quality degradation at 2-bit is severe for most tasks. Modern mixed-precision schemes like AWQ and GPTQ apply 4-bit quantization to weights while preserving activations at higher precision, recovering most of the quality loss from naive rounding.
       </Prose>
 
       <MathBlock>{"\\text{compression ratio} = \\frac{b_{\\text{original}}}{b_{\\text{quantized}}} = \\frac{16}{4} = 4\\times"}</MathBlock>
@@ -102,7 +103,7 @@ smartphone / IoT      | 1B-4B (INT4)       | 1-10W         | zero (local)     | 
       <H3>Edge latency advantage</H3>
 
       <Prose>
-        The latency comparison between cloud and edge deployment reduces to a simple inequality. Let <Code>RTT</Code> be the network round-trip time to the cloud, <Code>T_{cloud}</Code> be cloud inference time for the full-size model, <Code>T_{edge}</Code> be edge inference time for the quantized model, and <Code>L_{LAN}</Code> be local area network latency (sub-millisecond for wired, 1–5ms for wireless):
+        The latency comparison between cloud and edge deployment reduces to a simple inequality. Let <Code>RTT</Code> be the network round-trip time to the cloud, <Code>{"T_{cloud}"}</Code> be cloud inference time for the full-size model, <Code>{"T_{edge}"}</Code> be edge inference time for the quantized model, and <Code>{"L_{LAN}"}</Code> be local area network latency (sub-millisecond for wired, 1–5ms for wireless):
       </Prose>
 
       <MathBlock>{"\\text{latency}_{\\text{cloud}} = RTT + T_{\\text{cloud}}"}</MathBlock>
@@ -110,7 +111,7 @@ smartphone / IoT      | 1B-4B (INT4)       | 1-10W         | zero (local)     | 
       <MathBlock>{"\\text{latency}_{\\text{edge}} = L_{\\text{LAN}} + T_{\\text{edge}}"}</MathBlock>
 
       <Prose>
-        Edge wins on total latency when <Code>RTT {">"} T_{edge} - T_{cloud} + L_{LAN}</Code>. Since <Code>RTT</Code> typically ranges from 20ms to 150ms and LAN latency is sub-5ms, edge inference wins whenever the inference time gap between the edge model (which is smaller and faster) and the cloud model doesn't exceed the RTT advantage. For a Jetson AGX Orin running a 7B INT4 model at roughly 40–60 tokens per second, time to first token is dominated by prefill time for the prompt, typically 100–300ms for normal-length prompts. Cloud inference with time to first token of 150–300ms plus 50ms RTT clearly loses to a local model that starts streaming tokens within 150ms with no additional network overhead. For voice AI specifically, the combined latency budget for the LLM stage is under 150ms — a threshold achievable on-device but often not through cloud for users not physically close to a datacenter.
+        Edge wins on total latency when <Code>{"RTT > T_{edge} - T_{cloud} + L_{LAN}"}</Code>. Since <Code>RTT</Code> typically ranges from 20ms to 150ms and LAN latency is sub-5ms, edge inference wins whenever the inference time gap between the edge model (which is smaller and faster) and the cloud model doesn't exceed the RTT advantage. For a Jetson AGX Orin running a 7B INT4 model at roughly 40–60 tokens per second, time to first token is dominated by prefill time for the prompt, typically 100–300ms for normal-length prompts. Cloud inference with time to first token of 150–300ms plus 50ms RTT clearly loses to a local model that starts streaming tokens within 150ms with no additional network overhead. For voice AI specifically, the combined latency budget for the LLM stage is under 150ms — a threshold achievable on-device but often not through cloud for users not physically close to a datacenter.
       </Prose>
 
       <H3>On-premise cluster sizing</H3>

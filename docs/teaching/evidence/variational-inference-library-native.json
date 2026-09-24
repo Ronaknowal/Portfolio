@@ -1,0 +1,19 @@
+{
+  "source": "public/learn-assets/variational-inference/pymc_variational.py",
+  "sha256": "4c95fdbd03e20c2e68a38a24aeac5b1d060abd5188a006fc05419a11e4e280c4",
+  "command": "python public/learn-assets/variational-inference/pymc_variational.py",
+  "environment": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "pymc": "6.3.2",
+    "pytensor": "3.3.2",
+    "arviz": "1.3.0",
+    "arviz-stats": "1.3.2",
+    "gudhi": "3.13.0"
+  },
+  "pytensorCache": "workspace-local; default compiler backend",
+  "exitCode": 0,
+  "seconds": 111.786,
+  "stdout": "rho=0.8; fitted mean [0.9865, -0.9703]; fitted variances [0.3666, 0.36]\n  exact mean-field variances [0.36, 0.36]; true marginal variances [1, 1]\n  achieved KL 0.513277 = family gap 0.510826 + optimization gap 0.002451\nrho=0.0; fitted mean [1.0026, -0.9687]; fitted variances [1.0063, 0.9869]\n  exact mean-field variances [1.0, 1.0]; true marginal variances [1, 1]\n  achieved KL 0.000547 = family gap 0.000000 + optimization gap 0.000547\nAnalytic KL, fitted-parameter and changed-correlation checks: passed; no q sampling error in these comparisons\n",
+  "stderr": "Finished [100%]: Average Loss = 0.5165\nFinished [100%]: Average Loss = 0.0020276\n"
+}

@@ -1,0 +1,1345 @@
+{
+  "recordedAt": "2026-09-10T17:35:01.549875+00:00",
+  "source": [
+    {
+      "path": "src/learn/data/topics/mutual-information-information-bottleneck.jsx",
+      "sha256": "5e0e545b07dafdae348914e655c2b2ffe403a3d908125f73ac1910aa67663786"
+    },
+    {
+      "path": "src/learn/data/mutual-information-models.js",
+      "sha256": "f3c40318bf0235e545f6882f40c92c6bafdbfff622f041b493d444181cb3540a"
+    },
+    {
+      "path": "src/learn/data/mutual-information-examples.js",
+      "sha256": "29574e13ad103256ca0ebd3df5970cc72c825c2b832e92b438ad7119922aca35"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/MutualInformationLabs.jsx",
+      "sha256": "dba25a9eb1bd8f15e69299c179e03636fc5ae60242ed5d381eee4daf51b03d1a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/mutual-information-labs.css",
+      "sha256": "9c99aba160c47544cf017c572c9e950cbc2c9f261b342864569a20899555f3c9"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/mutual-information-information-bottleneck.js",
+      "sha256": "9ad67b0e4c345a1258cfab29ba72dd1c0cdd0c9f5a6875540aa151158b1ced05"
+    }
+  ],
+  "native": {
+    "counts": {
+      "exact_programs": 9,
+      "changed_task_complete_program": 1,
+      "finite_tables_entropy_and_KL": 624,
+      "conditional_XOR_laws": 18,
+      "closed_form_representations": 80,
+      "IB_full_state_free_energy_identities": 2583,
+      "independent_constrained_row_minima": 72,
+      "variational_gap_identities": 100,
+      "sample_count_tables": 21,
+      "permutations_with_exact_marginal_conservation": 420,
+      "high_precision_Gaussian_scales": 8,
+      "changed_processing_laws": 27,
+      "rejected_model_inputs": 16
+    },
+    "maximum_absolute_error": 6.926036355547893e-09,
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "browser": [
+    {
+      "width": 1440,
+      "checks": [
+        "keyboard slider Channel flip probability=0.5",
+        "keyboard slider Channel flip probability=1",
+        "keyboard slider Probability of X=1=0",
+        "joint negative contribution, independent, inverted, zero-row and reset",
+        "keyboard slider Probability of B=1=0.1",
+        "conditional reveal, changed bias, explicit slices and reset",
+        "keyboard slider Encoder flip probability=0.2",
+        "keyboard slider Relevance weight beta=0.5",
+        "all representations, joint bars, changing rate/relevance/objective, reset",
+        "keyboard slider Update relevance weight beta=0",
+        "keyboard stepping, previous/40 bounds, symmetric/nuisance stationarity, beta zero, reset",
+        "keyboard slider Decoder flipped-label probability=0.98",
+        "keyboard slider Reference probability of Z=1=0.98",
+        "fixed true information, separately moved gaps, negative lower bound, exact reset",
+        "sparse/large/known-channel samples, draft invalid unchanged, keyboard valid apply, reset"
+      ],
+      "errors": [],
+      "requests": [],
+      "fonts": [
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_AMS",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Caligraphic",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Caligraphic",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Fraktur",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Fraktur",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Math",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Math",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Script",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Size1",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size2",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size3",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size4",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Typewriter",
+          "status": "unloaded"
+        }
+      ],
+      "geometry": {
+        "pageWidth": 1440,
+        "contentWidth": 1440,
+        "mathOverflow": [],
+        "smallSvgText": [],
+        "outsideSvgText": [],
+        "katexErrors": []
+      },
+      "headings": 10,
+      "examples": 9,
+      "independentPractice": 9
+    },
+    {
+      "width": 390,
+      "checks": [
+        "keyboard slider Channel flip probability=0.5",
+        "keyboard slider Channel flip probability=1",
+        "keyboard slider Probability of X=1=0",
+        "joint negative contribution, independent, inverted, zero-row and reset",
+        "keyboard slider Probability of B=1=0.1",
+        "conditional reveal, changed bias, explicit slices and reset",
+        "keyboard slider Encoder flip probability=0.2",
+        "keyboard slider Relevance weight beta=0.5",
+        "all representations, joint bars, changing rate/relevance/objective, reset",
+        "keyboard slider Update relevance weight beta=0",
+        "keyboard stepping, previous/40 bounds, symmetric/nuisance stationarity, beta zero, reset",
+        "keyboard slider Decoder flipped-label probability=0.98",
+        "keyboard slider Reference probability of Z=1=0.98",
+        "fixed true information, separately moved gaps, negative lower bound, exact reset",
+        "sparse/large/known-channel samples, draft invalid unchanged, keyboard valid apply, reset"
+      ],
+      "errors": [],
+      "requests": [],
+      "fonts": [
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_AMS",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Caligraphic",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Caligraphic",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Fraktur",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Fraktur",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Math",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Math",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Script",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Size1",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size2",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size3",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size4",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Typewriter",
+          "status": "unloaded"
+        }
+      ],
+      "geometry": {
+        "pageWidth": 390,
+        "contentWidth": 390,
+        "mathOverflow": [],
+        "smallSvgText": [],
+        "outsideSvgText": [],
+        "katexErrors": []
+      },
+      "headings": 10,
+      "examples": 9,
+      "independentPractice": 9
+    },
+    {
+      "width": 320,
+      "checks": [
+        "keyboard slider Channel flip probability=0.5",
+        "keyboard slider Channel flip probability=1",
+        "keyboard slider Probability of X=1=0",
+        "joint negative contribution, independent, inverted, zero-row and reset",
+        "keyboard slider Probability of B=1=0.1",
+        "conditional reveal, changed bias, explicit slices and reset",
+        "keyboard slider Encoder flip probability=0.2",
+        "keyboard slider Relevance weight beta=0.5",
+        "all representations, joint bars, changing rate/relevance/objective, reset",
+        "keyboard slider Update relevance weight beta=0",
+        "keyboard stepping, previous/40 bounds, symmetric/nuisance stationarity, beta zero, reset",
+        "keyboard slider Decoder flipped-label probability=0.98",
+        "keyboard slider Reference probability of Z=1=0.98",
+        "fixed true information, separately moved gaps, negative lower bound, exact reset",
+        "sparse/large/known-channel samples, draft invalid unchanged, keyboard valid apply, reset"
+      ],
+      "errors": [],
+      "requests": [],
+      "fonts": [
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_AMS",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Caligraphic",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Caligraphic",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Fraktur",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Fraktur",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Main",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Math",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Math",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_SansSerif",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Script",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Size1",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size2",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size3",
+          "status": "loaded"
+        },
+        {
+          "family": "KaTeX_Size4",
+          "status": "unloaded"
+        },
+        {
+          "family": "KaTeX_Typewriter",
+          "status": "unloaded"
+        }
+      ],
+      "geometry": {
+        "pageWidth": 320,
+        "contentWidth": 320,
+        "mathOverflow": [],
+        "smallSvgText": [],
+        "outsideSvgText": [],
+        "katexErrors": []
+      },
+      "headings": 10,
+      "examples": 9,
+      "independentPractice": 9
+    }
+  ],
+  "finalReading": [
+    {
+      "width": 1440,
+      "sectionLinks": [
+        {
+          "text": "A joint table and uncertainty removed",
+          "target": "#1-measure-the-value-of-an-observation",
+          "exists": true
+        },
+        {
+          "text": "Log ratios, units and exact calculation",
+          "target": "#2-compare-the-pairing-with-independence",
+          "exists": true
+        },
+        {
+          "text": "Nonlinear dependence and conditional information",
+          "target": "#3-find-information-that-single-features-miss",
+          "exists": true
+        },
+        {
+          "text": "Data processing and its equality condition",
+          "target": "#4-follow-information-through-a-processing-step",
+          "exists": true
+        },
+        {
+          "text": "Representations and the bottleneck objective",
+          "target": "#5-keep-the-signal-without-the-nuisance",
+          "exists": true
+        },
+        {
+          "text": "Actual encoder updates and local solutions",
+          "target": "#6-compute-a-finite-bottleneck",
+          "exists": true
+        },
+        {
+          "text": "Variational bounds and neural encoders",
+          "target": "#7-distinguish-a-training-bound-from-information",
+          "exists": true
+        },
+        {
+          "text": "Gaussian information and infinite limits",
+          "target": "#8-handle-continuous-values-and-measurement-noise",
+          "exists": true
+        },
+        {
+          "text": "Estimation, leakage and contrastive bounds",
+          "target": "#9-check-what-a-sample-can-support",
+          "exists": true
+        },
+        {
+          "text": "Independent transfer and rate-distortion",
+          "target": "#10-practise-and-connect-the-next-question",
+          "exists": true
+        }
+      ],
+      "practice": 10,
+      "horizontalScroll": null,
+      "geometry": {
+        "viewport": 1440,
+        "page": 1440,
+        "equationOverflow": 0,
+        "equationErrors": 0,
+        "loadedOriginalFont": true
+      },
+      "errors": [],
+      "failedRequests": []
+    },
+    {
+      "width": 390,
+      "sectionLinks": [
+        {
+          "text": "A joint table and uncertainty removed",
+          "target": "#1-measure-the-value-of-an-observation",
+          "exists": true
+        },
+        {
+          "text": "Log ratios, units and exact calculation",
+          "target": "#2-compare-the-pairing-with-independence",
+          "exists": true
+        },
+        {
+          "text": "Nonlinear dependence and conditional information",
+          "target": "#3-find-information-that-single-features-miss",
+          "exists": true
+        },
+        {
+          "text": "Data processing and its equality condition",
+          "target": "#4-follow-information-through-a-processing-step",
+          "exists": true
+        },
+        {
+          "text": "Representations and the bottleneck objective",
+          "target": "#5-keep-the-signal-without-the-nuisance",
+          "exists": true
+        },
+        {
+          "text": "Actual encoder updates and local solutions",
+          "target": "#6-compute-a-finite-bottleneck",
+          "exists": true
+        },
+        {
+          "text": "Variational bounds and neural encoders",
+          "target": "#7-distinguish-a-training-bound-from-information",
+          "exists": true
+        },
+        {
+          "text": "Gaussian information and infinite limits",
+          "target": "#8-handle-continuous-values-and-measurement-noise",
+          "exists": true
+        },
+        {
+          "text": "Estimation, leakage and contrastive bounds",
+          "target": "#9-check-what-a-sample-can-support",
+          "exists": true
+        },
+        {
+          "text": "Independent transfer and rate-distortion",
+          "target": "#10-practise-and-connect-the-next-question",
+          "exists": true
+        }
+      ],
+      "practice": 10,
+      "horizontalScroll": null,
+      "geometry": {
+        "viewport": 390,
+        "page": 390,
+        "equationOverflow": 0,
+        "equationErrors": 0,
+        "loadedOriginalFont": true
+      },
+      "errors": [],
+      "failedRequests": []
+    },
+    {
+      "width": 320,
+      "sectionLinks": [
+        {
+          "text": "A joint table and uncertainty removed",
+          "target": "#1-measure-the-value-of-an-observation",
+          "exists": true
+        },
+        {
+          "text": "Log ratios, units and exact calculation",
+          "target": "#2-compare-the-pairing-with-independence",
+          "exists": true
+        },
+        {
+          "text": "Nonlinear dependence and conditional information",
+          "target": "#3-find-information-that-single-features-miss",
+          "exists": true
+        },
+        {
+          "text": "Data processing and its equality condition",
+          "target": "#4-follow-information-through-a-processing-step",
+          "exists": true
+        },
+        {
+          "text": "Representations and the bottleneck objective",
+          "target": "#5-keep-the-signal-without-the-nuisance",
+          "exists": true
+        },
+        {
+          "text": "Actual encoder updates and local solutions",
+          "target": "#6-compute-a-finite-bottleneck",
+          "exists": true
+        },
+        {
+          "text": "Variational bounds and neural encoders",
+          "target": "#7-distinguish-a-training-bound-from-information",
+          "exists": true
+        },
+        {
+          "text": "Gaussian information and infinite limits",
+          "target": "#8-handle-continuous-values-and-measurement-noise",
+          "exists": true
+        },
+        {
+          "text": "Estimation, leakage and contrastive bounds",
+          "target": "#9-check-what-a-sample-can-support",
+          "exists": true
+        },
+        {
+          "text": "Independent transfer and rate-distortion",
+          "target": "#10-practise-and-connect-the-next-question",
+          "exists": true
+        }
+      ],
+      "practice": 10,
+      "horizontalScroll": {
+        "offset": 40,
+        "active": true,
+        "width": 250,
+        "total": 290
+      },
+      "geometry": {
+        "viewport": 320,
+        "page": 320,
+        "equationOverflow": 0,
+        "equationErrors": 0,
+        "loadedOriginalFont": true
+      },
+      "errors": [],
+      "failedRequests": []
+    }
+  ],
+  "promptAmendment": {
+    "at": "2026-09-10T17:33:49.209Z",
+    "unchangedExecutablePrograms": 9,
+    "unchangedOutputs": 9,
+    "results": [
+      {
+        "width": 1440,
+        "prompts": [
+          {
+            "question": "With balanced labels and a 20% flip probability, how much uncertainty remains after observing X?",
+            "title": "The original binary channel, with its output preserved",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Let X be equally likely \u00e2\u02c6\u20191, 0, 1 and Y=X\u00c2\u00b2. Does zero correlation make X useless?",
+            "title": "Zero covariance can coexist with a perfectly useful feature",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "A is fair, B has probability 0.25 of being 1, and Y=A xor B. Calculate individual, joint and conditional information.",
+            "title": "Reveal the information hidden in a pair",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Y flips X with probability 0.1 and Z independently flips X with probability 0.2. How much of the original label information is lost?",
+            "title": "Calculate the loss in a noisy processing chain",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "X contains a fair signal S and an independent fair nuisance N. The label flips S with probability 0.1. Which representation wins at beta = 3?",
+            "title": "Keep signal, nuisance, both, or neither",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "At beta = 3, compare an informative initialization with an exactly symmetric one. Does a stationary objective certify the best solution?",
+            "title": "Run a complete finite information bottleneck",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Fix the noisy-signal encoder. Change only the reference marginal and predictive decoder. Should actual mutual information change?",
+            "title": "Measure how loose the variational quantities are",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Let X be standard Normal and Z=X+sigma E with independent standard-Normal E. What happens as measurement noise shrinks?",
+            "title": "Keep coordinate units separate from information units",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Generate independent categorical pairs. Compare the empirical MI with its known population value 0, then inspect unique identifiers.",
+            "title": "A finite count table can report dependence under independence",
+            "previousTag": "P",
+            "fits": true
+          }
+        ],
+        "geometry": {
+          "page": 1440,
+          "loadedOriginalFont": true,
+          "equationOverflow": 0
+        },
+        "errors": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "prompts": [
+          {
+            "question": "With balanced labels and a 20% flip probability, how much uncertainty remains after observing X?",
+            "title": "The original binary channel, with its output preserved",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Let X be equally likely \u00e2\u02c6\u20191, 0, 1 and Y=X\u00c2\u00b2. Does zero correlation make X useless?",
+            "title": "Zero covariance can coexist with a perfectly useful feature",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "A is fair, B has probability 0.25 of being 1, and Y=A xor B. Calculate individual, joint and conditional information.",
+            "title": "Reveal the information hidden in a pair",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Y flips X with probability 0.1 and Z independently flips X with probability 0.2. How much of the original label information is lost?",
+            "title": "Calculate the loss in a noisy processing chain",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "X contains a fair signal S and an independent fair nuisance N. The label flips S with probability 0.1. Which representation wins at beta = 3?",
+            "title": "Keep signal, nuisance, both, or neither",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "At beta = 3, compare an informative initialization with an exactly symmetric one. Does a stationary objective certify the best solution?",
+            "title": "Run a complete finite information bottleneck",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Fix the noisy-signal encoder. Change only the reference marginal and predictive decoder. Should actual mutual information change?",
+            "title": "Measure how loose the variational quantities are",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Let X be standard Normal and Z=X+sigma E with independent standard-Normal E. What happens as measurement noise shrinks?",
+            "title": "Keep coordinate units separate from information units",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Generate independent categorical pairs. Compare the empirical MI with its known population value 0, then inspect unique identifiers.",
+            "title": "A finite count table can report dependence under independence",
+            "previousTag": "P",
+            "fits": true
+          }
+        ],
+        "geometry": {
+          "page": 390,
+          "loadedOriginalFont": true,
+          "equationOverflow": 0
+        },
+        "errors": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "prompts": [
+          {
+            "question": "With balanced labels and a 20% flip probability, how much uncertainty remains after observing X?",
+            "title": "The original binary channel, with its output preserved",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Let X be equally likely \u00e2\u02c6\u20191, 0, 1 and Y=X\u00c2\u00b2. Does zero correlation make X useless?",
+            "title": "Zero covariance can coexist with a perfectly useful feature",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "A is fair, B has probability 0.25 of being 1, and Y=A xor B. Calculate individual, joint and conditional information.",
+            "title": "Reveal the information hidden in a pair",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Y flips X with probability 0.1 and Z independently flips X with probability 0.2. How much of the original label information is lost?",
+            "title": "Calculate the loss in a noisy processing chain",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "X contains a fair signal S and an independent fair nuisance N. The label flips S with probability 0.1. Which representation wins at beta = 3?",
+            "title": "Keep signal, nuisance, both, or neither",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "At beta = 3, compare an informative initialization with an exactly symmetric one. Does a stationary objective certify the best solution?",
+            "title": "Run a complete finite information bottleneck",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Fix the noisy-signal encoder. Change only the reference marginal and predictive decoder. Should actual mutual information change?",
+            "title": "Measure how loose the variational quantities are",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Let X be standard Normal and Z=X+sigma E with independent standard-Normal E. What happens as measurement noise shrinks?",
+            "title": "Keep coordinate units separate from information units",
+            "previousTag": "P",
+            "fits": true
+          },
+          {
+            "question": "Generate independent categorical pairs. Compare the empirical MI with its known population value 0, then inspect unique identifiers.",
+            "title": "A finite count table can report dependence under independence",
+            "previousTag": "P",
+            "fits": true
+          }
+        ],
+        "geometry": {
+          "page": 320,
+          "loadedOriginalFont": true,
+          "equationOverflow": 0
+        },
+        "errors": [],
+        "failedRequests": []
+      }
+    ]
+  }
+}

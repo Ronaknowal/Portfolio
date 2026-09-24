@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "reviewed_at": "2026-09-10T12:41:32.031Z",
+  "viewport": "390x844",
+  "fixture": {
+    "probability": 0.05,
+    "target": 0.8,
+    "fraction": 1
+  },
+  "accessibleLabel": "Logit update mapped back: success probability 1 − 2.639e-6, failure probability 2.639e-6",
+  "keyboard": "Home on starting probability; End on step fraction",
+  "screenshot": "scratch/second-order-independent/probability-repair-390.png",
+  "scope": "Targeted actual UI regression only; author owns full browser review and final freeze"
+}

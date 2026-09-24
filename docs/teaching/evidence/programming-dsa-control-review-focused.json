@@ -1,0 +1,102 @@
+{
+  "capturedAt": "2026-09-21T16:29:04.346Z",
+  "base": "http://127.0.0.1:4194",
+  "manifestHash": "5d2cedc67cd081e181fa01bf92fc2c078407e206d1e904afe0ebf8677b3fc460",
+  "scope": [
+    "external-memory-algorithms-b-trees-i-o-complexity"
+  ],
+  "records": [
+    {
+      "id": "external-memory-algorithms-b-trees-i-o-complexity",
+      "ranges": [
+        {
+          "name": "Key to try8",
+          "initial": "8",
+          "minimum": "0",
+          "maximum": "99",
+          "dragged": "29",
+          "keyboardChangesOutput": false
+        },
+        {
+          "name": "Start of inclusive range",
+          "initial": "10",
+          "minimum": "0",
+          "maximum": "40",
+          "dragged": "11",
+          "keyboardChangesOutput": true
+        },
+        {
+          "name": "End of inclusive range",
+          "initial": "27",
+          "minimum": "0",
+          "maximum": "40",
+          "dragged": "11",
+          "keyboardChangesOutput": false
+        }
+      ],
+      "interactions": [
+        {
+          "name": "Next request",
+          "outputChanged": true
+        },
+        {
+          "name": "Next tree event",
+          "outputChanged": true
+        },
+        {
+          "name": "Next range page",
+          "outputChanged": true
+        },
+        {
+          "name": "Next merge pass",
+          "outputChanged": true
+        },
+        {
+          "name": "Next commit stage",
+          "outputChanged": true
+        }
+      ],
+      "desktop": {
+        "controls": 42,
+        "unlabeled": [],
+        "escaped": [],
+        "checkboxTargets": [],
+        "documentWidth": 1366,
+        "width": 1366
+      },
+      "stagedParameterChecks": "Final-tree search distinguishes present10/absent99; [10,11] returns11 and [10,35] returns all nine expected records after finishing the page trace.",
+      "phone": {
+        "controls": 42,
+        "unlabeled": [],
+        "escaped": [],
+        "checkboxTargets": [],
+        "documentWidth": 320,
+        "width": 320
+      },
+      "checkboxLabelClicks": 0
+    }
+  ],
+  "errors": [],
+  "captures": [],
+  "passed": true,
+  "sourceHashes": {
+    "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx": "60c6b3a2ec9f590aa4dc67ef3c95b97d49dfee5602d8328b70a2f93ac9f3384f",
+    "src/learn/components/content/index.js": "26c20d7f01cb68ca5d6ce605c0d2da7e22af24ae034a7fb797ca789c2e3442d7",
+    "src/learn/components/content/Prose.jsx": "695387da03034ea99e2e5d71bd6cd778cbf89f10f5904ed8f7be6cbc4a076792",
+    "src/learn/styles.js": "5e0c632f2b39cc90a86c644298d56ac4a57ac2446097729bce73f6745e732cc5",
+    "src/learn/components/content/Headings.jsx": "95606c94815626419f9a9d082c148eacf202dd20cdb492be84f88cbef77b9688",
+    "src/learn/components/content/Code.jsx": "c444c151c70e8cbef2b734a94070516f47bc77072f938646077a8bfc9e078310",
+    "src/learn/components/content/Callout.jsx": "bfebe0e2cc5dd0548391136bae67d66a73d500a750fc2d3ca6cc50739510e97e",
+    "src/learn/components/content/Figure.jsx": "c8c890a3b7238ae4ae9e33e782ed7742b9f7d2756d710a935b5b0968c92819d1",
+    "src/learn/components/lesson-labs/LessonElements.jsx": "232ff18e81cf9b79acd51a40e9e1683fad6f509083aeb0ab5f1ad8b7199f01e9",
+    "src/learn/components/lesson-labs/lessons.css": "a7fbce9cc83e7088ae93545f758e818996bacffa1344d4b0d3b3a04318aa3508",
+    "src/learn/components/lesson-labs/RunnableExample.jsx": "f4e797db7871565d0e3cae1f9c960747b713b74fd3b9d4ea9047967d2e4e8463",
+    "src/learn/components/lesson-labs/DsaPractice.jsx": "3bcdb1645ccd10446019f10fcb39f0796106a893e9f23731b0225ec58b6185f4",
+    "src/learn/components/lesson-labs/dsa-practice.css": "23f4b14f6be2227e8beb85e7fb98dea5fae5cb44e4587bbd95fa15b93fbc4540",
+    "src/learn/components/lesson-labs/ExternalMemoryLabs.jsx": "18a56e4332aa0a300a6b677aa01ea0e4e366bf24d48fe9a11c035bef192b629b",
+    "src/learn/data/external-memory-models.js": "daf2d5500705d464b79a16a981e1ccccc528b3dd31f427a45cfcb822ff68582b",
+    "src/learn/components/lesson-labs/external-memory-labs.css": "4051c60ceb370b9bb6f86ead6f5b72443d2c99d7e94372a90e946d925821c3a1",
+    "src/learn/data/external-memory-examples.js": "0a0f8f74b5f28879e9c352de6d7629bb6c63d78b92ce0b95b1dbde7eae6d68a4",
+    "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js": "cc61cade0a230cfdb77d80fb6c16f18c7a6d349de9f545b2c4e3fdaa919956cd"
+  }
+}

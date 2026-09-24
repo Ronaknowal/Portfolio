@@ -1,0 +1,104 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T05:50:02.836Z",
+  "base": "http://127.0.0.1:4194",
+  "groups": [
+    "Actual tensor-cell/type changes preserve the documented child index",
+    "Vote default/opposition/zero/symmetry/rotation, direct edit, invalid buffer and reset",
+    "Finite versus derivative squash, zero cases and actual same-count/different-label evidence",
+    "Inactive-child EM, absent-evidence state and actual commuting-map null",
+    "Demand-loaded real model, changed pixel and shift, zero shift, decoder-only change, masked-out null and reset",
+    "Actual pixel pointer drag, keyboard range endpoints and five complete input-to-painted-result observations",
+    "Opened programs, desktop390/320 geometry, full-size pixel targets, font/math bounds, neutral theme and retained captures",
+    "Malformed binary yields honest unavailable state; explicit retry loads the actual model without a substitute"
+  ],
+  "captures": [
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-em-guarded-390.png",
+      "bytes": 158272,
+      "sha256": "c762149e1aae832ed2bac924d2939b270ae526a82837ac5d9cab4d5caf0d1267"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-votes-1366.png",
+      "bytes": 170501,
+      "sha256": "a396fa3fb13fca071569fba2bf1137ac090d96d5a7a73aab57cec5c9dd5feff9"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-frozen-1366.png",
+      "bytes": 175680,
+      "sha256": "88d3d3ec17394ff7bc1b297670e2b8cca9a82729b867db8b520f0c3b14242e57"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-em-1366.png",
+      "bytes": 128029,
+      "sha256": "cf0017f863c525eb96c02b0386821c64cf3604f50d545af0560c3a640bbb7b39"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-votes-390.png",
+      "bytes": 179406,
+      "sha256": "946efc859a49f140088f7d562c63f1a30b4f8e1d423a6857c9f77062d442c34e"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-frozen-390.png",
+      "bytes": 188318,
+      "sha256": "8ec80ae35b3f0e39735ff5f426afca1779d6bfda4788ccd51557b1174a89c4d1"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-em-390.png",
+      "bytes": 132549,
+      "sha256": "99825b2c62b9798d859fda3ff0479a313daa071675b79d67fa508181098ffe9c"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-votes-320.png",
+      "bytes": 184139,
+      "sha256": "64c65b3ac20bb8e755df6348a0ae8d0c06582faf572e47c734e54832e0073a8f"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-frozen-320.png",
+      "bytes": 191894,
+      "sha256": "2536039a0b220381e8e2d7ceae421097ba32b0d997d338b6a76aac5dc7336a8c"
+    },
+    {
+      "file": "docs/teaching/evidence/capsule-browser/capsule-em-320.png",
+      "bytes": 134730,
+      "sha256": "c4a187a041828ae45088d348cd608ec14a89ea738c70019417a86d4b0c8b4773"
+    }
+  ],
+  "inputToPaintMs": [
+    64,
+    83,
+    85,
+    82,
+    100
+  ],
+  "limits": "Input-to-paint includes automation and two frames; not a pure inference benchmark. Only screenshot capture suppresses fixed navigation and skip-link overlays; interaction and geometry checks use the unchanged page. Captures require actual visual inspection. Native and independent review are separate.",
+  "sourceHashes": {
+    "src/learn/data/topics/capsule-networks.jsx": "3851e28799ffa6558af92fbd210fa28533a34d6d116e8e19776db62cbe77581d",
+    "src/learn/data/capsule-models.js": "f7b487a168aa79419826a09dbc30def7c63d9fd93b0a272f048fed1f59b49d70",
+    "src/learn/data/capsule-measurements.json": "8efdf10928daa851fbccada070a362f4fd31aae9bba50f1fae85327752ba42f7",
+    "src/learn/components/lesson-labs/CapsuleLabs.jsx": "226fa654912fe5f2b3a8f5a99d5dcdd7fb0d14a2fef11e4bc193708125bbfc58",
+    "src/learn/components/lesson-labs/capsules.css": "f5cc6c9888a369263d009d43413d189f991d4058a7b501fe8d862f8611937a59",
+    "scripts/generate-capsule-lesson.mjs": "5be5a67dbd11f8a31ba3095341c07c697365a6d57088a103234de972a6edef8e",
+    "public/learn-assets/capsule-networks/frozen-model.f32": "6ddc09bb463b9ba876692ad070a61b319b5e5dbdf57c824af8bad3355ed78b59",
+    "public/learn-assets/capsule-networks/frozen-model.json": "10b8aab33ab57f289fc15aa20b4124eb5f5ed9a48dbdc068ea14d532d762074a"
+  },
+  "visualInspection": {
+    "reviewed": true,
+    "observations": "Desktop and both phone widths: ordered controls, quantitative legends, neutral theme, no SVG clipping or page overflow. Final320px default votes/EM/frozen and390px guarded-mass view inspected after repair. Wide exact tables and the44px editable8x8grid intentionally retain local horizontal scrolling; numeric row/column controls provide equivalent selection. Fixed overlays are screenshot-only suppressed."
+  },
+  "visibleGridGuidanceRecheck": {
+    "passed": true,
+    "checkedAt": "2026-09-22T05:57:13.611Z",
+    "widths": [
+      390,
+      320
+    ],
+    "checks": [
+      "Visible local-scroll and numeric-selection guidance",
+      "Actual keyboard horizontal scrolling and pointer selection of last column update row/column",
+      "Changed real pixel inference and exact range/numeric value",
+      "Reset,44px cells and no document overflow"
+    ],
+    "limit": "Only explanatory hint changed; prior source reconstructed exactly before receipt refresh. Other full-suite model/source/retry interactions are reused unchanged."
+  }
+}

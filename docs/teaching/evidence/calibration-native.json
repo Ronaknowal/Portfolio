@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-09-20T07:50:47.296533+00:00",
+  "verifier": "scripts/verify-calibration-examples.py",
+  "verifierSha256": "7e0bc0b5d3373177cfe0225752aa9e15215fff0ac02561da579e6081151cfb8c",
+  "python": "3.12.14",
+  "runtimeVersions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1"
+  },
+  "packetSha256": {
+    "calibration_calculations.py": "c2884d2a47fa601b5f1b8aeee35afe4ad6074490cf9b62c71903d6d081ea21a2",
+    "uncertainty_experiments.py": "92463e8a10ed7e338fb3c8af411a4ca5d76fabb020b84fb7b0c941ab6d7c0e19"
+  },
+  "verbatimFunctionSha256": {
+    "reliability": "9fe2d94b94b819efa2dc43abfdc39fb559830661b4308a3a831611b466a828c7",
+    "fit_pav": "841d6b44c4f5eb3362dbd3d3606c86a1b8bd6336cc09d5fef64d2dcf9ef9acde",
+    "conformal_rank": "33500a1941045676208b681d91fcc565adaeda571d740772ec8f50c43279e1cb",
+    "conformal_threshold": "e2ff4dc25c8180fca4bb0e8d287baa34e6abf8ab211d37e2b06f7f7b9b57728f",
+    "rank_rotation": "59c6b1a1f7fad9131da6778eed99788e395dad23d079ed46adfacb6d133c1ba5",
+    "class_sets": "a303a1f19e73df337b11154e76a89ef539fe1124e0f3b87eedb3ac18c63d550f"
+  },
+  "servedSha256": {
+    "airfoil-subset.csv": "5839135483aa9c45bac8416d9bbb0b1966858a21758beb4a8fb9b1fa1dd83bb5",
+    "ATTRIBUTION.txt": "064372ff6d38ef049e08d2617e36d9655df8999441ab504003e1dd7bf300e07c",
+    "banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "calibration_calculations.py": "c2884d2a47fa601b5f1b8aeee35afe4ad6074490cf9b62c71903d6d081ea21a2",
+    "conformal_rank.py": "f3d3bf7f32cd63a79729af3dbba2293724849790a2db22b176b60aac1af78283",
+    "monotone_map.py": "99bd88523833a2ba269eff5915d0f402c79f01567fce17eec640443900789c72",
+    "reliability_bins.py": "c3359a95f7fd2ef29c025b95072d3b1b8e71631bc25bd03f71c09168206f0ae5",
+    "uncertainty_experiments.py": "92463e8a10ed7e338fb3c8af411a4ca5d76fabb020b84fb7b0c941ab6d7c0e19"
+  },
+  "programsExecuted": 5,
+  "oracles": 63,
+  "trustRootRegeneration": {
+    "checked-results.json": "byte-identical",
+    "experiment-results.json": "byte-identical"
+  },
+  "scope": "Five programs. Three are assembled from verbatim syntax-tree slices of the packet's calibration_calculations.py and a driver held in this verifier, written to public/learn-assets/calibration/ and executed there; the assembled text must equal the served asset byte for byte, so a hand edit to either side fails. Two are the packet's complete programs, served unchanged and run in a scratch workspace beside copies of the two served CSV files, where they must regenerate both of the packet's recorded JSON files byte for byte. Every printed number is then checked against an oracle computed here by a different route: the conformal rank by scanning integers in exact rational arithmetic rather than by any ceiling or quantile call, the rotation by the combined-rank argument rather than by rebuilding thresholds, the isotonic fit by the max-min formula over lower and upper sets rather than by the stack algorithm, and the bins and ECE by plain Python loops with no array library.",
+  "limitations": [
+    "Byte-identical regeneration is claimed for these library versions only. A different NumPy, SciPy or scikit-learn can move the last digits of a fitted optimum.",
+    "The drivers around the verbatim functions are authored here rather than extracted; they are pinned by the served file's own hash and executed, not transcribed onto the page.",
+    "MAPIE is documentation-based guidance in the lesson and is not installed or executed anywhere.",
+    "Browser rendering of these programs is checked separately by scripts/verify-calibration-browser.cjs."
+  ],
+  "passed": true
+}

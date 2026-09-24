@@ -1,0 +1,36 @@
+{
+  "retrievedAt": "2026-09-11T22:37:19.706487+00:00",
+  "repository": "https://github.com/numenta/NAB",
+  "commit": "ea702d75cc2258d9d7dd35ca8e5e2539d71f3140",
+  "license": "MIT (pinned repository LICENSE.txt, retained verbatim)",
+  "files": [
+    {
+      "file": "machine_temperature_system_failure.csv",
+      "upstreamPath": "data/realKnownCause/machine_temperature_system_failure.csv",
+      "url": "https://raw.githubusercontent.com/numenta/NAB/ea702d75cc2258d9d7dd35ca8e5e2539d71f3140/data/realKnownCause/machine_temperature_system_failure.csv",
+      "sha256": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+      "bytes": 732223
+    },
+    {
+      "file": "nab-event-windows.json",
+      "upstreamPath": "labels/combined_windows.json",
+      "url": "https://raw.githubusercontent.com/numenta/NAB/ea702d75cc2258d9d7dd35ca8e5e2539d71f3140/labels/combined_windows.json",
+      "sha256": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+      "bytes": 15359
+    },
+    {
+      "file": "NAB-LICENSE.txt",
+      "upstreamPath": "LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/numenta/NAB/ea702d75cc2258d9d7dd35ca8e5e2539d71f3140/LICENSE.txt",
+      "sha256": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3",
+      "bytes": 1056
+    },
+    {
+      "file": "nab-source-readme.md",
+      "upstreamPath": "data/README.md",
+      "url": "https://raw.githubusercontent.com/numenta/NAB/ea702d75cc2258d9d7dd35ca8e5e2539d71f3140/data/README.md",
+      "sha256": "1d32963e44a52323b44affff374a1222ebe5ef19ef8f7f6c6fd7a747aa52db30",
+      "bytes": 2931
+    }
+  ]
+}

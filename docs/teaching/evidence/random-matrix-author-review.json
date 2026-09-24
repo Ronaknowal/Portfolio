@@ -1,0 +1,1713 @@
+{
+  "topicId": "random-matrix-theory",
+  "authorFrozenAt": "2026-09-10T20:36:52.161044+00:00",
+  "status": "author-reviewed; independent review and integrated production remain separate",
+  "production": [
+    {
+      "path": "src/learn/data/topics/random-matrix-theory.jsx",
+      "sha256": "226725367e3a93a218a8e67b87349093333a7d7c7c1bca1d53bc5d05b1e96ad2",
+      "bytes": 47187
+    },
+    {
+      "path": "src/learn/data/random-matrix-models.js",
+      "sha256": "ba75ce3a68e187bfc0f55b861fb9209633ecaa7a2952601754edab742069776f",
+      "bytes": 11743
+    },
+    {
+      "path": "src/learn/data/random-matrix-examples.js",
+      "sha256": "4386d8e5b5b21886156b81c87fe2f97a844700b3b541a952bbb6ce6f63e59780",
+      "bytes": 15795
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "sha256": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493",
+      "bytes": 22124
+    },
+    {
+      "path": "src/learn/components/lesson-labs/random-matrix-labs.css",
+      "sha256": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489",
+      "bytes": 3919
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/random-matrix-theory.js",
+      "sha256": "517b37fe8e2666f224738aa5a045d5505f7dd1a0174379744c41ea6af46a0394",
+      "bytes": 4782
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-10T20:33:00.949972+00:00",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "programsExecuted": 11,
+    "exactOriginalPreserved": true,
+    "covarianceAndSpikes": 112,
+    "mpIntervalIntegrals": 144,
+    "maxEigenError": 8.881784197001252e-15,
+    "maxMpMassError": 3.552713678800501e-15,
+    "wigner": 24,
+    "twoLevel": 48,
+    "finiteBounds": 12,
+    "changedNumericalPracticeGroups": 7,
+    "openScenarioSourceReviewed": true,
+    "independentNullMaxima": 118,
+    "exactSignMatrices": 16,
+    "status": "passed",
+    "displayedMassHelperRegressions": [
+      {
+        "gamma": 0.02,
+        "variance": 0.01,
+        "totalMass": 0.9999999999999999,
+        "maxScaledError": 1.1102230246251565e-16
+      },
+      {
+        "gamma": 0.02,
+        "variance": 1,
+        "totalMass": 0.9999999999999999,
+        "maxScaledError": 1.1102230246251565e-16
+      },
+      {
+        "gamma": 0.02,
+        "variance": 4,
+        "totalMass": 0.9999999999999999,
+        "maxScaledError": 1.1102230246251565e-16
+      },
+      {
+        "gamma": 0.02,
+        "variance": 9,
+        "totalMass": 0.9999999999999999,
+        "maxScaledError": 1.9737298215558337e-16
+      },
+      {
+        "gamma": 0.02,
+        "variance": 100,
+        "totalMass": 0.9999999999999999,
+        "maxScaledError": 1.1102230246251565e-16
+      },
+      {
+        "gamma": 0.8,
+        "variance": 0.01,
+        "totalMass": 1.0,
+        "maxScaledError": 3.469446951953614e-18
+      },
+      {
+        "gamma": 0.8,
+        "variance": 1,
+        "totalMass": 1.0,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 0.8,
+        "variance": 4,
+        "totalMass": 1.0,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 0.8,
+        "variance": 9,
+        "totalMass": 1.0,
+        "maxScaledError": 1.9737298215558337e-16
+      },
+      {
+        "gamma": 0.8,
+        "variance": 100,
+        "totalMass": 1.0,
+        "maxScaledError": 2.021099337273174e-16
+      },
+      {
+        "gamma": 0.9999,
+        "variance": 0.01,
+        "totalMass": 1.0,
+        "maxScaledError": 0.0
+      },
+      {
+        "gamma": 0.9999,
+        "variance": 1,
+        "totalMass": 1.0,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 0.9999,
+        "variance": 4,
+        "totalMass": 1.0,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 0.9999,
+        "variance": 9,
+        "totalMass": 1.0,
+        "maxScaledError": 3.5090284675226367e-16
+      },
+      {
+        "gamma": 0.9999,
+        "variance": 100,
+        "totalMass": 1.0,
+        "maxScaledError": 1.8190803575637346e-16
+      },
+      {
+        "gamma": 0.99999,
+        "variance": 0.01,
+        "totalMass": 0.9999999999998965,
+        "maxScaledError": 1.0347278589506459e-13
+      },
+      {
+        "gamma": 0.99999,
+        "variance": 1,
+        "totalMass": 0.9999999999998965,
+        "maxScaledError": 1.0347278589506459e-13
+      },
+      {
+        "gamma": 0.99999,
+        "variance": 4,
+        "totalMass": 0.9999999999998965,
+        "maxScaledError": 1.0347278589506459e-13
+      },
+      {
+        "gamma": 0.99999,
+        "variance": 9,
+        "totalMass": 0.9999999999998965,
+        "maxScaledError": 1.0347278589506459e-13
+      },
+      {
+        "gamma": 0.99999,
+        "variance": 100,
+        "totalMass": 0.9999999999998965,
+        "maxScaledError": 1.0347278589506459e-13
+      },
+      {
+        "gamma": 0.999999,
+        "variance": 0.01,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048850226785362e-12
+      },
+      {
+        "gamma": 0.999999,
+        "variance": 1,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048850226785362e-12
+      },
+      {
+        "gamma": 0.999999,
+        "variance": 4,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048850226785362e-12
+      },
+      {
+        "gamma": 0.999999,
+        "variance": 9,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048850226785362e-12
+      },
+      {
+        "gamma": 0.999999,
+        "variance": 100,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048850226785362e-12
+      },
+      {
+        "gamma": 1,
+        "variance": 0.01,
+        "totalMass": 1.0,
+        "maxScaledError": 2.710505431213761e-20
+      },
+      {
+        "gamma": 1,
+        "variance": 1,
+        "totalMass": 1.0,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 1,
+        "variance": 4,
+        "totalMass": 1.0,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 1,
+        "variance": 9,
+        "totalMass": 1.0,
+        "maxScaledError": 1.75442650804963e-16
+      },
+      {
+        "gamma": 1,
+        "variance": 100,
+        "totalMass": 1.0,
+        "maxScaledError": 0.0
+      },
+      {
+        "gamma": 1.000001,
+        "variance": 0.01,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048739204482899e-12
+      },
+      {
+        "gamma": 1.000001,
+        "variance": 1,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048739204482899e-12
+      },
+      {
+        "gamma": 1.000001,
+        "variance": 4,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048739204482899e-12
+      },
+      {
+        "gamma": 1.000001,
+        "variance": 9,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048739204482899e-12
+      },
+      {
+        "gamma": 1.000001,
+        "variance": 100,
+        "totalMass": 1.0000000000050489,
+        "maxScaledError": 5.048739204482899e-12
+      },
+      {
+        "gamma": 1.00001,
+        "variance": 0.01,
+        "totalMass": 0.999999999999897,
+        "maxScaledError": 1.0302869668521453e-13
+      },
+      {
+        "gamma": 1.00001,
+        "variance": 1,
+        "totalMass": 0.999999999999897,
+        "maxScaledError": 1.0302869668521453e-13
+      },
+      {
+        "gamma": 1.00001,
+        "variance": 4,
+        "totalMass": 0.999999999999897,
+        "maxScaledError": 1.0302869668521453e-13
+      },
+      {
+        "gamma": 1.00001,
+        "variance": 9,
+        "totalMass": 0.999999999999897,
+        "maxScaledError": 1.0302869668521453e-13
+      },
+      {
+        "gamma": 1.00001,
+        "variance": 100,
+        "totalMass": 0.999999999999897,
+        "maxScaledError": 1.0302869668521453e-13
+      },
+      {
+        "gamma": 1.0001,
+        "variance": 0.01,
+        "totalMass": 1.0000000000000002,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 1.0001,
+        "variance": 1,
+        "totalMass": 1.0000000000000002,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 1.0001,
+        "variance": 4,
+        "totalMass": 1.0000000000000002,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 1.0001,
+        "variance": 9,
+        "totalMass": 1.0000000000000002,
+        "maxScaledError": 2.220446049250313e-16
+      },
+      {
+        "gamma": 1.0001,
+        "variance": 100,
+        "totalMass": 1.0000000000000002,
+        "maxScaledError": 2.842170943040401e-16
+      },
+      {
+        "gamma": 2.25,
+        "variance": 0.01,
+        "totalMass": 1.0,
+        "maxScaledError": 5.551115123125783e-17
+      },
+      {
+        "gamma": 2.25,
+        "variance": 1,
+        "totalMass": 1.0,
+        "maxScaledError": 1.3664283380001927e-16
+      },
+      {
+        "gamma": 2.25,
+        "variance": 4,
+        "totalMass": 1.0,
+        "maxScaledError": 1.3664283380001927e-16
+      },
+      {
+        "gamma": 2.25,
+        "variance": 9,
+        "totalMass": 1.0,
+        "maxScaledError": 1.9737298215558337e-16
+      },
+      {
+        "gamma": 2.25,
+        "variance": 100,
+        "totalMass": 1.0,
+        "maxScaledError": 2.2387561889795155e-16
+      },
+      {
+        "gamma": 20,
+        "variance": 0.01,
+        "totalMass": 1.0,
+        "maxScaledError": 1.734723475976807e-18
+      },
+      {
+        "gamma": 20,
+        "variance": 1,
+        "totalMass": 1.0,
+        "maxScaledError": 3.383536836952858e-16
+      },
+      {
+        "gamma": 20,
+        "variance": 4,
+        "totalMass": 1.0,
+        "maxScaledError": 3.383536836952858e-16
+      },
+      {
+        "gamma": 20,
+        "variance": 9,
+        "totalMass": 1.0,
+        "maxScaledError": 1.9737298215558337e-16
+      },
+      {
+        "gamma": 20,
+        "variance": 100,
+        "totalMass": 1.0,
+        "maxScaledError": 1.3858966884158905e-16
+      }
+    ]
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T20:01:33.963Z",
+    "records": [
+      {
+        "width": 1440,
+        "anchors": [
+          "#1-noise-can-have-principal-directions",
+          "#2-choose-the-matrix-and-count-its-directions",
+          "#3-why-high-dimensional-noise-does-not-collapse",
+          "#4-read-the-whole-marchenko-pastur-law",
+          "#5-a-limiting-edge-is-not-a-finite-test",
+          "#6-separate-a-population-spike-from-a-sample-component",
+          "#7-control-the-amplification-of-weak-directions",
+          "#8-symmetry-produces-a-different-spectral-law",
+          "#9-use-a-spectrum-to-make-a-better-decision",
+          "#10-practise-on-new-shapes-and-new-assumptions"
+        ],
+        "captures": [
+          "ordinary-intro-1440.png",
+          "ordinary-section-1-1440.png",
+          "ordinary-section-2-1440.png",
+          "ordinary-section-3-1440.png",
+          "ordinary-section-4-1440.png",
+          "ordinary-section-5-1440.png",
+          "ordinary-section-6-1440.png",
+          "ordinary-section-7-1440.png",
+          "ordinary-section-8-1440.png",
+          "ordinary-section-9-1440.png",
+          "ordinary-section-10-1440.png",
+          "inline-0-1440.png",
+          "inline-1-1440.png",
+          "inline-2-1440.png",
+          "random-covariance-initial-1440.png",
+          "random-finite-calibration-initial-1440.png",
+          "random-spike-initial-1440.png",
+          "random-wigner-initial-1440.png",
+          "random-level-gap-initial-1440.png",
+          "random-covariance-plot-1440.png",
+          "random-finite-calibration-plot-1440.png",
+          "random-spike-plot-1440.png",
+          "random-wigner-plot-1440.png",
+          "random-level-gap-plot-1440.png",
+          "covariance-wide-centered-1440.png",
+          "finite-matched-null-1440.png",
+          "spike-high-1440.png",
+          "wigner-sign-1440.png",
+          "gap-crossing-1440.png",
+          "gap-maximum-1440.png",
+          "practice-changed-program-1440.png"
+        ],
+        "programs": [
+          "Calculate the original noise edges",
+          "Connect counted rows, singular values and centering",
+          "Check the finite Gaussian second moment",
+          "Integrate the continuous mass and keep the atom",
+          "Calculate a finite Gaussian bound",
+          "Run a fully specified Monte Carlo comparison",
+          "Compare population value, sample value and direction",
+          "Follow a perturbation through inverse gains",
+          "Generate the correct symmetric Gaussian ensemble",
+          "Check the exact two-level gap",
+          "Distinguish average preservation from uniform preservation"
+        ],
+        "states": [
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 1
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 1
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 24
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 25
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 24
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 25
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "iid",
+            "score": 0.9333333333333333
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "duplicate",
+            "score": 0.7
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "spike",
+            "score": 0.05
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "iid",
+            "score": 0.9833333333333333
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "duplicate",
+            "score": 0.95
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "spike",
+            "score": 0.23333333333333334
+          },
+          {
+            "lab": "spike",
+            "columns": "16",
+            "population": 1
+          },
+          {
+            "lab": "spike",
+            "columns": "16",
+            "population": 5
+          },
+          {
+            "lab": "spike",
+            "columns": "32",
+            "population": 1
+          },
+          {
+            "lab": "spike",
+            "columns": "32",
+            "population": 5
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "sign",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "sign",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "sign",
+            "scaled": true
+          }
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_SansSerif",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "geometry": {
+          "outside": [],
+          "svgLabels": [],
+          "math": 18,
+          "bodyOverflow": false
+        }
+      },
+      {
+        "width": 390,
+        "anchors": [
+          "#1-noise-can-have-principal-directions",
+          "#2-choose-the-matrix-and-count-its-directions",
+          "#3-why-high-dimensional-noise-does-not-collapse",
+          "#4-read-the-whole-marchenko-pastur-law",
+          "#5-a-limiting-edge-is-not-a-finite-test",
+          "#6-separate-a-population-spike-from-a-sample-component",
+          "#7-control-the-amplification-of-weak-directions",
+          "#8-symmetry-produces-a-different-spectral-law",
+          "#9-use-a-spectrum-to-make-a-better-decision",
+          "#10-practise-on-new-shapes-and-new-assumptions"
+        ],
+        "captures": [
+          "ordinary-intro-390.png",
+          "ordinary-section-1-390.png",
+          "ordinary-section-2-390.png",
+          "ordinary-section-3-390.png",
+          "ordinary-section-4-390.png",
+          "ordinary-section-5-390.png",
+          "ordinary-section-6-390.png",
+          "ordinary-section-7-390.png",
+          "ordinary-section-8-390.png",
+          "ordinary-section-9-390.png",
+          "ordinary-section-10-390.png",
+          "inline-0-390.png",
+          "inline-1-390.png",
+          "inline-2-390.png",
+          "random-covariance-initial-390.png",
+          "random-finite-calibration-initial-390.png",
+          "random-spike-initial-390.png",
+          "random-wigner-initial-390.png",
+          "random-level-gap-initial-390.png",
+          "random-covariance-plot-390.png",
+          "random-finite-calibration-plot-390.png",
+          "random-spike-plot-390.png",
+          "random-wigner-plot-390.png",
+          "random-level-gap-plot-390.png",
+          "covariance-wide-centered-390.png",
+          "finite-matched-null-390.png",
+          "spike-high-390.png",
+          "wigner-sign-390.png",
+          "gap-crossing-390.png",
+          "gap-maximum-390.png",
+          "practice-changed-program-390.png"
+        ],
+        "programs": [
+          "Calculate the original noise edges",
+          "Connect counted rows, singular values and centering",
+          "Check the finite Gaussian second moment",
+          "Integrate the continuous mass and keep the atom",
+          "Calculate a finite Gaussian bound",
+          "Run a fully specified Monte Carlo comparison",
+          "Compare population value, sample value and direction",
+          "Follow a perturbation through inverse gains",
+          "Generate the correct symmetric Gaussian ensemble",
+          "Check the exact two-level gap",
+          "Distinguish average preservation from uniform preservation"
+        ],
+        "states": [
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 1
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 1
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 24
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 25
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 24
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 25
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "iid",
+            "score": 0.9333333333333333
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "duplicate",
+            "score": 0.7
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "spike",
+            "score": 0.05
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "iid",
+            "score": 0.9833333333333333
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "duplicate",
+            "score": 0.95
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "spike",
+            "score": 0.23333333333333334
+          },
+          {
+            "lab": "spike",
+            "columns": "16",
+            "population": 1
+          },
+          {
+            "lab": "spike",
+            "columns": "16",
+            "population": 5
+          },
+          {
+            "lab": "spike",
+            "columns": "32",
+            "population": 1
+          },
+          {
+            "lab": "spike",
+            "columns": "32",
+            "population": 5
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "sign",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "sign",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "sign",
+            "scaled": true
+          }
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_SansSerif",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "geometry": {
+          "outside": [],
+          "svgLabels": [],
+          "math": 18,
+          "bodyOverflow": false
+        }
+      },
+      {
+        "width": 320,
+        "anchors": [
+          "#1-noise-can-have-principal-directions",
+          "#2-choose-the-matrix-and-count-its-directions",
+          "#3-why-high-dimensional-noise-does-not-collapse",
+          "#4-read-the-whole-marchenko-pastur-law",
+          "#5-a-limiting-edge-is-not-a-finite-test",
+          "#6-separate-a-population-spike-from-a-sample-component",
+          "#7-control-the-amplification-of-weak-directions",
+          "#8-symmetry-produces-a-different-spectral-law",
+          "#9-use-a-spectrum-to-make-a-better-decision",
+          "#10-practise-on-new-shapes-and-new-assumptions"
+        ],
+        "captures": [
+          "ordinary-intro-320.png",
+          "ordinary-section-1-320.png",
+          "ordinary-section-2-320.png",
+          "ordinary-section-3-320.png",
+          "ordinary-section-4-320.png",
+          "ordinary-section-5-320.png",
+          "ordinary-section-6-320.png",
+          "ordinary-section-7-320.png",
+          "ordinary-section-8-320.png",
+          "ordinary-section-9-320.png",
+          "ordinary-section-10-320.png",
+          "inline-0-320.png",
+          "inline-1-320.png",
+          "inline-2-320.png",
+          "random-covariance-initial-320.png",
+          "random-finite-calibration-initial-320.png",
+          "random-spike-initial-320.png",
+          "random-wigner-initial-320.png",
+          "random-level-gap-initial-320.png",
+          "random-covariance-plot-320.png",
+          "random-finite-calibration-plot-320.png",
+          "random-spike-plot-320.png",
+          "random-wigner-plot-320.png",
+          "random-level-gap-plot-320.png",
+          "covariance-wide-centered-320.png",
+          "finite-matched-null-320.png",
+          "spike-high-320.png",
+          "wigner-sign-320.png",
+          "gap-crossing-320.png",
+          "gap-maximum-320.png",
+          "practice-changed-program-320.png"
+        ],
+        "programs": [
+          "Calculate the original noise edges",
+          "Connect counted rows, singular values and centering",
+          "Check the finite Gaussian second moment",
+          "Integrate the continuous mass and keep the atom",
+          "Calculate a finite Gaussian bound",
+          "Run a fully specified Monte Carlo comparison",
+          "Compare population value, sample value and direction",
+          "Follow a perturbation through inverse gains",
+          "Generate the correct symmetric Gaussian ensemble",
+          "Check the exact two-level gap",
+          "Distinguish average preservation from uniform preservation"
+        ],
+        "states": [
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "32,8",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "64,16",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 1
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 0
+          },
+          {
+            "lab": "covariance",
+            "shape": "48,48",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 1
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "gaussian",
+            "centered": false,
+            "zeroCount": 24
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "gaussian",
+            "centered": true,
+            "zeroCount": 25
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "sign",
+            "centered": false,
+            "zeroCount": 24
+          },
+          {
+            "lab": "covariance",
+            "shape": "24,48",
+            "law": "sign",
+            "centered": true,
+            "zeroCount": 25
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "iid",
+            "score": 0.9333333333333333
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "duplicate",
+            "score": 0.7
+          },
+          {
+            "lab": "finite",
+            "nullModel": "iid",
+            "observedModel": "spike",
+            "score": 0.05
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "iid",
+            "score": 0.9833333333333333
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "duplicate",
+            "score": 0.95
+          },
+          {
+            "lab": "finite",
+            "nullModel": "duplicate",
+            "observedModel": "spike",
+            "score": 0.23333333333333334
+          },
+          {
+            "lab": "spike",
+            "columns": "16",
+            "population": 1
+          },
+          {
+            "lab": "spike",
+            "columns": "16",
+            "population": 5
+          },
+          {
+            "lab": "spike",
+            "columns": "32",
+            "population": 1
+          },
+          {
+            "lab": "spike",
+            "columns": "32",
+            "population": 5
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "12",
+            "law": "sign",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "32",
+            "law": "sign",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "gaussian",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "gaussian",
+            "scaled": true
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "sign",
+            "scaled": false
+          },
+          {
+            "lab": "wigner",
+            "size": "48",
+            "law": "sign",
+            "scaled": true
+          }
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_SansSerif",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "geometry": {
+          "outside": [],
+          "svgLabels": [],
+          "math": 18,
+          "bodyOverflow": false
+        }
+      }
+    ],
+    "errors": []
+  },
+  "finalReading": {
+    "checkedAt": "2026-09-10T20:35:44.178Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "captures": [
+          "final-finite-bounds-1440.png",
+          "final-inverse-equation-1440.png",
+          "final-first-program-1440.png",
+          "final-first-output-1440.png",
+          "final-sources-1440.png",
+          "final-mass-program-1440.png",
+          "final-mass-output-1440.png"
+        ],
+        "external": [
+          {
+            "href": "https://rolandspeicher.com/lectures/course-on-high-dimensional-analysis-random-matrices-and-machine-learning-summer-term-2023/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.youtube.com/watch?v=isLIlb4GAss",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://rolandspeicher.com/wp-content/uploads/2023/08/hda_rmml.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://lpetrov.cc/rmt25/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-s096-topics-in-mathematics-of-data-science-fall-2015/5f0f7205d1cf274e80d77345a7edbf2a_MIT18_S096F15_TenLec.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www3.stat.sinica.edu.tw/statistica/oldpdf/A17n418.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://arxiv.org/pdf/1011.3027",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://numpy.org/doc/stable/reference/generated/numpy.linalg.eigh.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://numpy.org/doc/stable/reference/random/generator.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "geometry": {
+          "lines": [
+            "M50,115 H310 M180,205 V25",
+            "M105,190 L255,40",
+            "M155,90 L205,140"
+          ],
+          "colors": [
+            "rgb(236, 197, 116)",
+            "rgb(136, 189, 235)"
+          ]
+        },
+        "displayedMassHelperCodeOutputQuestionAndExplanation": true
+      },
+      {
+        "width": 390,
+        "captures": [
+          "final-finite-bounds-390.png",
+          "final-inverse-equation-390.png",
+          "final-first-program-390.png",
+          "final-first-output-390.png",
+          "final-sources-390.png",
+          "final-mass-program-390.png",
+          "final-mass-output-390.png"
+        ],
+        "external": [
+          {
+            "href": "https://rolandspeicher.com/lectures/course-on-high-dimensional-analysis-random-matrices-and-machine-learning-summer-term-2023/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.youtube.com/watch?v=isLIlb4GAss",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://rolandspeicher.com/wp-content/uploads/2023/08/hda_rmml.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://lpetrov.cc/rmt25/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-s096-topics-in-mathematics-of-data-science-fall-2015/5f0f7205d1cf274e80d77345a7edbf2a_MIT18_S096F15_TenLec.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www3.stat.sinica.edu.tw/statistica/oldpdf/A17n418.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://arxiv.org/pdf/1011.3027",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://numpy.org/doc/stable/reference/generated/numpy.linalg.eigh.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://numpy.org/doc/stable/reference/random/generator.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "geometry": {
+          "lines": [
+            "M50,115 H310 M180,205 V25",
+            "M105,190 L255,40",
+            "M155,90 L205,140"
+          ],
+          "colors": [
+            "rgb(236, 197, 116)",
+            "rgb(136, 189, 235)"
+          ]
+        },
+        "displayedMassHelperCodeOutputQuestionAndExplanation": true
+      },
+      {
+        "width": 320,
+        "captures": [
+          "final-finite-bounds-320.png",
+          "final-inverse-equation-320.png",
+          "final-first-program-320.png",
+          "final-first-output-320.png",
+          "final-sources-320.png",
+          "final-mass-program-320.png",
+          "final-mass-output-320.png"
+        ],
+        "external": [
+          {
+            "href": "https://rolandspeicher.com/lectures/course-on-high-dimensional-analysis-random-matrices-and-machine-learning-summer-term-2023/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.youtube.com/watch?v=isLIlb4GAss",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://rolandspeicher.com/wp-content/uploads/2023/08/hda_rmml.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://lpetrov.cc/rmt25/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-s096-topics-in-mathematics-of-data-science-fall-2015/5f0f7205d1cf274e80d77345a7edbf2a_MIT18_S096F15_TenLec.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www3.stat.sinica.edu.tw/statistica/oldpdf/A17n418.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://arxiv.org/pdf/1011.3027",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://numpy.org/doc/stable/reference/generated/numpy.linalg.eigh.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://numpy.org/doc/stable/reference/random/generator.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "geometry": {
+          "lines": [
+            "M50,115 H310 M180,205 V25",
+            "M105,190 L255,40",
+            "M155,90 L205,140"
+          ],
+          "colors": [
+            "rgb(236, 197, 116)",
+            "rgb(136, 189, 235)"
+          ]
+        },
+        "displayedMassHelperCodeOutputQuestionAndExplanation": true
+      }
+    ]
+  },
+  "openedImages": [
+    {
+      "path": "scratch/random-matrix-browser/inline-0-320.png",
+      "sha256": "193c28d0b0279d06ab4ece4bdfced97e705d8982f97536ffc39700449a8bec65",
+      "bytes": 32398
+    },
+    {
+      "path": "scratch/random-matrix-browser/inline-1-390.png",
+      "sha256": "e454c9e83dde71b9b1c1e7e89a796e93b411c55b4282b6239dd13f97422b3ef1",
+      "bytes": 81909
+    },
+    {
+      "path": "scratch/random-matrix-browser/inline-2-320.png",
+      "sha256": "aa6325a4fb514ec107b838512b7afbe1d389daf1c52748e336f9dd12f6323dea",
+      "bytes": 66951
+    },
+    {
+      "path": "scratch/random-matrix-browser/random-covariance-initial-390.png",
+      "sha256": "4bd1031fc00893672a2d55a21c4c9812ca668eaa3612fb5823891a67ecc6e2b7",
+      "bytes": 54572
+    },
+    {
+      "path": "scratch/random-matrix-browser/random-finite-calibration-plot-390.png",
+      "sha256": "cb3860c61cbe35266cbe244f5e2f75fa914f3912490a95990a8c696c6ab109e7",
+      "bytes": 80927
+    },
+    {
+      "path": "scratch/random-matrix-browser/random-spike-plot-320.png",
+      "sha256": "118a893fc05a59f7427a44b9b385be6514ad23acb22989ddbbf91ceb18854c4a",
+      "bytes": 60525
+    },
+    {
+      "path": "scratch/random-matrix-browser/random-wigner-plot-320.png",
+      "sha256": "bdd00ed1031365f04c858b8073b6356c11ed8f750af0a6c5496bbbc535b3e01f",
+      "bytes": 58955
+    },
+    {
+      "path": "scratch/random-matrix-browser/random-level-gap-plot-390.png",
+      "sha256": "03aa673b079a60054b68a4c1ed0d0435171d6b05d8236753564638b30e7b5a5e",
+      "bytes": 69146
+    },
+    {
+      "path": "scratch/random-matrix-browser/ordinary-section-3-390.png",
+      "sha256": "978aa4a694a0cdc515bcf4eb470d791a49681538d938850815758c313d4d80de",
+      "bytes": 98066
+    },
+    {
+      "path": "scratch/random-matrix-browser/ordinary-section-5-320.png",
+      "sha256": "324916380bf3018735f3a249af5145d238d5987843635ec7210e56f0adb80bb3",
+      "bytes": 70884
+    },
+    {
+      "path": "scratch/random-matrix-browser/practice-changed-program-320.png",
+      "sha256": "e7f3ac9d8b3e46fda93d3b8c45d45cb2a62ce2a02abdaa9029cf390b6c606579",
+      "bytes": 69392
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-finite-bounds-320.png",
+      "sha256": "766677d1339f6f8b3a447cc61bbed82121344af394c55790ece7a5e6f66996d6",
+      "bytes": 66362
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-inverse-equation-320.png",
+      "sha256": "308fb10f8e829eccd06c011bb8332cbb7d574232c247756003c6fae3d92e5ed9",
+      "bytes": 65321
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-first-program-390.png",
+      "sha256": "a66aa94ede901829247f90efd1b0bcf7c30d9d89128cab3c16899f31cbf35899",
+      "bytes": 77651
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-first-output-390.png",
+      "sha256": "9347c1d490d3b3548bc2aef39422578ab6fb865f60dd1958fbaf8cf84b8eff4b",
+      "bytes": 87504
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-sources-390.png",
+      "sha256": "73370f0c85a76bfae63ed1782c25f2db7ec9f9763d0b57ae652314e9070350c6",
+      "bytes": 96367
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-mass-program-390.png",
+      "sha256": "3f789e8b438ffc6e8851ea925eb1299004ea0c4cb1211fa2e0052f95f44303c3",
+      "bytes": 74344
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-mass-output-320.png",
+      "sha256": "3d66f2a63b3eede162a77dee06a34f21ab68cbebde659dc8430a1027f2ad76a0",
+      "bytes": 66453
+    }
+  ],
+  "preservation": {
+    "path": "docs/teaching/evidence/random-matrix-original-content.json",
+    "sha256": "471d69bbbd54ec8781159de6238cdc2fc6b4ae56fe3f1e182ff8d32f45acaad0",
+    "bytes": 17290
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T20:32:54.205Z",
+    "files": [
+      "src/learn/data/topics/random-matrix-theory.jsx",
+      "src/learn/data/random-matrix-models.js",
+      "src/learn/data/random-matrix-examples.js",
+      "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "src/learn/data/curriculum/blueprints/random-matrix-theory.js",
+      "src/learn/components/lesson-labs/random-matrix-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "reviewCorrection": {
+    "finding": "Displayed unsplit x-domain quadrature lost near-one endpoint mass",
+    "repaired": "Actual displayed helper uses angular substitution and explicit interval splits; 55 actual-helper moment regressions; all eleven prior outputs conserved",
+    "fullBehaviorVsTargeted": "Full interaction result precedes only the displayed helper/explanation update; final reading rechecks final helper code/output/question/note at all three widths."
+  }
+}

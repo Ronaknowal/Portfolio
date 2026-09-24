@@ -1,0 +1,125 @@
+{
+  "startedAt": "2026-09-16T16:36:56.970Z",
+  "completedAt": "2026-09-16T16:37:49.247Z",
+  "topicId": "regularization-l1-l2-elastic-net-dropout",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "f2787509a3983215a1e48f885dd2962305dd040327ab6b3470f1eca7796bf0ab",
+  "sourceHashes": {
+    "src/learn/data/topics/regularization-l1-l2-elastic-net-dropout.jsx": "4beba2cc9794d7a2a43ace68ce3b0c05bb3cfdf4052ba07aee61247513758367",
+    "src/learn/data/regularization-models.js": "ebaa342983bdda47941647f3bb2eae997d6e8e343fe232aa7982bb3111aa5aee",
+    "src/learn/data/regularization-data.js": "1c0f6b6f63a69c97a51c0d68b46c32ea1ae92da977690240ce4cf95ab9664609",
+    "src/learn/data/regularization-examples.js": "1ba29d70893361a5048139d44556fc056e2ff2a53ac0be497e030dd985b9f65e",
+    "src/learn/components/lesson-labs/RegularizationShared.jsx": "e2a51efd7f7ca4f0a3ef44a77486e1be02396ea6f52312a4c4c2a8430b4bc030",
+    "src/learn/components/lesson-labs/RegularizationLabs.jsx": "fdbafa3ab917373de262612c80671e0b50c5d9e88d13dd9ce2b3a8a5f535355d",
+    "src/learn/components/lesson-labs/RegularizationFigures.jsx": "4b05c391cb1ae435adfe9de768627f5315054a56f521303a1eb48857eec4d14a",
+    "src/learn/components/lesson-labs/regularization-labs.css": "16fb2c93dd8bf8e7100afd00a1077c6cd8b27e5c8464a6ffab8f6f784e9feba5",
+    "src/learn/data/curriculum/blueprints/regularization-l1-l2-elastic-net-dropout.js": "8bf4eade2a0c67fc2e62819df89ad98258e971ff195e6f05ac278d0b13071f3b",
+    "public/learn-assets/regularization/airfoil-self-noise.dat": "74c75fd71783f1e6b71f8a622b993dc592897a97cd689c5090a07147a1b097b3"
+  },
+  "moduleTopicCount": 39,
+  "dataset": {
+    "file": "/learn-assets/regularization/airfoil-self-noise.dat",
+    "sha256": "74c75fd71783f1e6b71f8a622b993dc592897a97cd689c5090a07147a1b097b3",
+    "bytes": 59984,
+    "reservedPredictionsComputed": false
+  },
+  "records": [
+    {
+      "case": "Complete visible code and output for three programs, eleven route anchors, eight figures, ten practice tasks, all eighteen candidate scores, both baselines, the served unchanged dataset with its hash and attribution, current metadata and module sequence"
+    },
+    {
+      "case": "Threshold lab: nothing preselected, the exact zero at z = 0.4, the 1.4 contrast crossing the threshold, the −0.6 null still exactly zero, the λ = 0 null returning z, the three-family comparison, and an edit that retires both the prediction and its feedback"
+    },
+    {
+      "case": "Coordinate lab: the exact zero second slope in one sweep with a zero optimality violation, the 7.4 contrast giving intercept 1, both nulls (target shift and row reorder), the constant column correctly minimized at zero under positive L1 penalty, the duplicate design returning (1, 0) or (0, 1) with the coordinate order recorded alongside the prediction, a required numeric row prediction, and an 18-sweep ridge history"
+    },
+    {
+      "case": "Airfoil trace: the recorded 124.465305 dB reproduced from five measurements, the 1,750 Hz contrast giving 123.628646 dB and moving exactly six polynomial terms, and the target-only null leaving the prediction untouched while the residual changes"
+    },
+    {
+      "case": "Dropout lab: both commitments required, the exact 2.5 expected loss matching the closed formula, the q = 1 contrast with labelled impossible branches, the practice fixture at 7/6 with a zero coefficient, non-uniform branch probabilities at q = 0.75, and the target null leaving the difference at 2.5"
+    },
+    {
+      "case": "Sequential regressions: decimal threshold ties and correct smooth slopes, legal ±4 map endpoints, inclusive numeric tolerance versus just-outside answers, selectors preserving custom data and reset restoring selectors, penalized versus genuinely flat constant coordinate, pure-lasso threshold labeling, and a positive 5e-17 dropout excess"
+    },
+    {
+      "case": "Figures carry their required content: the constraint budgets are the attained penalty measures, the duplicate segment lists its midpoint, the path figure reports actual per-fold nonzero counts including the twenty exact zeros at λ = 10, and the bit code prints both modes"
+    },
+    {
+      "case": "No label leaves its own SVG, overlaps another label or is crossed by a foreground line, at five widths"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-BE7D7NK9.js",
+        "assets/Reader-BJvvwDJa.js",
+        "assets/LevelBadge-CRQTzkCH.js",
+        "assets/regularization-l1-l2-elastic-net-dropout-DGy6fLS-.js",
+        "assets/Code-CekUUcyw.js",
+        "assets/Callout-CUCW0ywM.js",
+        "assets/Math-DnDQmBZI.js",
+        "assets/LessonElements-B9MExDoH.js",
+        "assets/RunnableExample-CQqgp-JO.js"
+      ],
+      "rawScriptBytes": 1509663,
+      "gzipEstimateBytes": 344502,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout, readable formula grouping and every deeper branch rendered"
+    },
+    {
+      "case": "Narrow 320px layout, readable formula grouping and every deeper branch rendered"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\regularization-threshold-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-threshold-family-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-coordinate-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-coordinate-constant-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-coordinate-duplicate-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-coordinate-history-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-airfoil-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-airfoil-changed-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-dropout-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-dropout-q1-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-dropout-practice-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-dropout-target-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-threshold-boundary-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-dropout-tiny-excess-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-dropout-tiny-excess-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-4-followed-term-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-1-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-2-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-3-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-4-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-5-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-6-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-7-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-8-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-threshold-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-coordinate-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-airfoil-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-dropout-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-3-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-5-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-6-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-7-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-8-390.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-1-320.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-2-320.png",
+    "docs\\teaching\\evidence\\screenshots\\regularization-figure-4-320.png"
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states: a matched prediction, a retired one, the duplicate order contrast, the constant column uniquely minimized at zero by its positive L1 penalty, the changed airfoil row with its six moved terms, the q = 1 dropout contrast, the legal threshold-map endpoint, a tiny positive dropout excess and every inline figure at desktop and at 320 or 390 px. They require separate visual inspection."
+}

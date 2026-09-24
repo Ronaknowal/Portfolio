@@ -1,0 +1,341 @@
+{
+  "startedAt": "2026-09-20T23:07:44.521Z",
+  "finishedAt": "2026-09-20T23:08:11.236Z",
+  "status": "passed",
+  "route": "http://127.0.0.1:4195/learn/path/full-curriculum/ml-problem-formulation-baselines-data-leakage?module=classical-ml",
+  "distDir": "dist-form",
+  "buildManifestSha256": "ebeaada0db3309a06c16320ef91cb88e82d17ffc66d808041999ec5aa503ab14",
+  "sourceHashes": {
+    "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "7d52eab6ece04f24699523892c9bbee8d5802b53c5501d911ea72ea4baf905d9",
+    "src/learn/data/formulation-models.js": "fc6fbb3436db0a44de721e3ca7412fef02fce7bc2ccefbe50dfb2ad4febc7558",
+    "src/learn/data/formulation-data.js": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+    "src/learn/data/formulation-examples.js": "f4ee3741cab02b659abdecc6ec312ab058a4869ea341e435523842620f8b0f43",
+    "src/learn/components/lesson-labs/FormulationShared.jsx": "29b5754fdffea19f9c1ffb6a7fbe410e870f3c9e8fbc2f6a5bd520299aefb15b",
+    "src/learn/components/lesson-labs/FormulationLabs.jsx": "e75846039f9adfcc9e80298b9bfae97f56fb3ea3f14fa4327f7609da50576033",
+    "src/learn/components/lesson-labs/FormulationFigures.jsx": "70ac1916f25678e5540e65b01c93686234a5490616f93697cd8fbaef98c821a3",
+    "src/learn/components/lesson-labs/formulation-labs.css": "83474ebe65bb9a50b317969a82e9622801da013b37351ce237219b088910915f",
+    "src/learn/data/curriculum/blueprints/ml-problem-formulation-baselines-data-leakage.js": "6f90b8dad21372d9ba27e57bab7290e2ce844eb61fe7065da22f1187fab925fa",
+    "public/learn-assets/problem-formulation/bank-additional.csv": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+    "public/learn-assets/problem-formulation/ATTRIBUTION.txt": "110376a5d04c375d813a9804b7e7e4869c7443ad2ebee181d55066b46d73dae2",
+    "public/learn-assets/problem-formulation/bank-marketing-variable-description.txt": "10045462a4c026f858dffa159370c4270510230c1fc63c6c91ca51bba4b3df26",
+    "public/learn-assets/problem-formulation/formulation-calculations.py": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0"
+  },
+  "verifierSha256": "bab50bd4fb9c88fef6dcc1a2740f1a225305a74bdde01276b2e1d25cf21418c1",
+  "records": [
+    {
+      "case": "Complete visible code and output for two programs, nine route anchors, seven figures, eight practice tasks, every measured score, the served dataset with its hash and attribution, the provider description and the downloadable calculation program, and current metadata"
+    },
+    {
+      "case": "Both investigations open with nothing selected, no verdict, no reveal and a disabled check"
+    },
+    {
+      "case": "The graded quantity of every investigation is absent from its rendered text before commitment and present after, pinned to the exact six-decimal value computed independently in this process; and investigation 2 renders no outcome for any of its 824 cases until a prediction is recorded",
+      "leakChecks": [
+        {
+          "investigation": 1,
+          "pinnedValue": "10.000000",
+          "absentBefore": true,
+          "presentAfter": true,
+          "phrasesAbsentBeforeAndPresentAfter": [
+            "Selected record",
+            "Selected value",
+            "Eligible records",
+            "Verdict"
+          ]
+        },
+        {
+          "investigation": 2,
+          "pinnedValue": "0.480000",
+          "absentBefore": true,
+          "presentAfter": true,
+          "phrasesAbsentBeforeAndPresentAfter": [
+            "subscribed",
+            "did not subscribe",
+            "Subscriptions among them",
+            "Entered the selected set"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "Two exact nulls are graded as nulls: reversing the selected block moves no set metric and says no identity entered or left, and editing the other sensor leaves the selected value unchanged to the last digit"
+    },
+    {
+      "case": "At a capacity whose precision does not terminate in six decimals, the value the page prints, typed back verbatim, grades as correct (capacity 3, printed 0.666667)",
+      "printedValue": "0.666667",
+      "trueValue": 0.6666666666666666
+    },
+    {
+      "case": "The baseline the caption names is the baseline the grader uses, in the second round as well as the first: after applying at capacity 25 the caption names capacity 25 and its precision, and a learner reasoning from it is graded correct",
+      "firstRoundCaptionCitesSectionFive": true,
+      "secondRoundCaptionNamesAppliedState": true
+    },
+    {
+      "case": "Moving one arrival from 8 to 4, with no event time changed, changes the admissible record and its value — the destination note's worked case, graded against a recorded prediction"
+    },
+    {
+      "case": "Editing a graded input retires the verdict, its reveal and the recorded prediction and holds the earlier attempt back; moving the ranking window, which is a view control, retires nothing"
+    },
+    {
+      "case": "An arrival earlier than its own event is refused by name, blocks grading rather than being squeezed into a verdict, and suppresses the drawing rather than placing an arrival to the left of the event it measures"
+    },
+    {
+      "case": "Every inline figure captured at desktop width, plus the informative states: the identity split, the threshold figure at equal and reversed costs, and the results figure on each of its three metrics"
+    },
+    {
+      "case": "No label leaves its own SVG, overlaps another label, is crossed by a straight foreground line, or is run through by a curve, at five widths; and every presentation attribute survives the stylesheet",
+      "shapesSampledAtLastWidth": 5,
+      "shapeClassesSampled": [
+        "form-arrow is-feedback",
+        "form-arrival",
+        "form-arrival",
+        "form-arrival",
+        "form-arrival"
+      ],
+      "curveSamplingNote": "Curves are sampled along their own geometry and tested against every label box, because the shared inspector reads straight lines only. Grid lines and shapes inside <defs> are excluded; nothing on this page carries an opaque backplate, so no crossing is permitted at all."
+    },
+    {
+      "case": "No table clips a column at desktop width; every table HAS a caption and every caption sits outside its scroll box",
+      "tablesChecked": 8
+    },
+    {
+      "case": "No rendered sentence glues a value to the word after it, across every prose element on the page",
+      "proseElementsScanned": 472,
+      "note": "This class is invisible in the source and in the DOM structure, and three instances reached the rendered page of this lesson before the guard existed."
+    },
+    {
+      "case": "Every KaTeX box carrying text, practice solutions opened, paints with real width AND height; and the number of KaTeX-drawn SVGs is pinned rather than filtered over an empty set",
+      "katexBoxesMeasured": 161,
+      "katexSvgsFound": 0,
+      "smallestKatexHeight": 9,
+      "smallestKatexWidth": 4.69,
+      "katexSvgNote": "This lesson's formulas use no radical, stretchy delimiter or KaTeX-drawn accent, so the SVG-collapse defect that changed a radius into a radius squared elsewhere cannot occur here. The stylesheet is still scoped by class, asserted offline, and the box measurement above is what would catch a collapse of the spans this page does use."
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure, and never another lesson's asset directory",
+      "requestedScripts": [
+        "assets/index-h6IqPPgB.js",
+        "assets/Reader-zajGlOgg.js",
+        "assets/LevelBadge-fcxXlMJN.js",
+        "assets/ml-problem-formulation-baselines-data-leakage-Da6FVzOL.js",
+        "assets/Code-Cr-sFThQ.js",
+        "assets/Callout-C744mU4E.js",
+        "assets/Math-CtdWs2Tn.js",
+        "assets/LessonElements-vvogr4W_.js",
+        "assets/RunnableExample-BFP6xqkL.js"
+      ],
+      "rawScriptBytes": 1763743,
+      "gzipEstimateBytes": 395520,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "No document or formula overflow at 390 and 320 px, wide tables stack rather than clip, and the investigations, every figure and the tallest formulas are captured at the narrow widths"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-timeline-initial-desktop.png",
+      "digest": "c580ab8a364450431188ff5894ab38aaded4ff0df0db8c89c807c5912b5884d6",
+      "bytes": 234408
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-timeline-committed-desktop.png",
+      "digest": "5d4c903104e4e69e6513e1aba24c8fda8dc37a765104ba8fe75e043fcb62953f",
+      "bytes": 329507
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-capacity-initial-desktop.png",
+      "digest": "1b76f034ce78a0932d2178657b48409041eb3d44e23856348f59f139b33c0d47",
+      "bytes": 262585
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-capacity-committed-desktop.png",
+      "digest": "95d7373080abbac1bbd4bda2a796d8ce39a040e998c071aa329793a3a81f7d57",
+      "bytes": 305863
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-capacity-membership-null-desktop.png",
+      "digest": "47183b338d04ab1f487f8176ff7bc079552671227b0b8143aad9f29755496dc0",
+      "bytes": 323607
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-timeline-entity-null-desktop.png",
+      "digest": "59f070ed465318764c4e97c2712b3744c1fe194a4fc0de5328c62b98eca5eea6",
+      "bytes": 329969
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-capacity-nonterminating-desktop.png",
+      "digest": "5e41f32049db0bfbd2dd8b3c20195b73ab695341935dc3cd57f06092618b3344",
+      "bytes": 303412
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-capacity-second-round-desktop.png",
+      "digest": "16cd8c5453332667b4d2e35da3d2545397b7d820cec11cf25b5792c2312fe114",
+      "bytes": 315496
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-timeline-arrival-moved-desktop.png",
+      "digest": "471eee0b0a86c6f91b4718b9f784f73be4abbba6d3d8d51b75cc4c8b2ed8393d",
+      "bytes": 327378
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-timeline-refused-desktop.png",
+      "digest": "1e7a6a246da347dd811d0da2e989b5baa9789d7ec401772724f880871ad79176",
+      "bytes": 238531
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-1-desktop.png",
+      "digest": "c946f41cc884779fe597e98813d55ddb1087e0d79c53dd6710409580282dd79b",
+      "bytes": 109513
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-2-desktop.png",
+      "digest": "ef0add054fc4d1027023be292ef5c4dfefe041498e0966e6d279a5d6a0a6bb88",
+      "bytes": 75840
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-3-desktop.png",
+      "digest": "0584fe74144f912b63ccd1003c16a4c0194309465ed9b6f96f72cc0ee15ed555",
+      "bytes": 68219
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-4-desktop.png",
+      "digest": "b36004b69b9363e697e350e3e9a84f392f0036ecf23c4aa370d46d0b0bf984be",
+      "bytes": 140122
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-5-desktop.png",
+      "digest": "25a620c2216ac7fd8e9fd599685e90f8d68cd1b6eed071f81d2e795a3396cd30",
+      "bytes": 197530
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-6-desktop.png",
+      "digest": "4609aa3fd87f7ee4aa6a53813ceac7983de228f6374da2a6e0adffc98b8ad3fd",
+      "bytes": 72952
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-7-desktop.png",
+      "digest": "62c8567c2dac28c7dfff5b8f68062936fe227cd0687110d8acd360480ab8056e",
+      "bytes": 137741
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-2-identity-split-desktop.png",
+      "digest": "7bb79c6683e3d9b17750000d220531fcd00e18368ee3d97abe2cbfbfdc76855d",
+      "bytes": 71965
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-3-equal-costs-desktop.png",
+      "digest": "45be5960ef9be357c668a0e80bc956cf07384d1b45acc6a13d7d86c1eade0872",
+      "bytes": 68089
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-3-reversed-desktop.png",
+      "digest": "44cda904779c53cf7b7ae27510a70dfb438e01c6184c60dfc5fab622dbf60fcb",
+      "bytes": 69236
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-5-logLoss-desktop.png",
+      "digest": "32ffc681fc979fe3c55ff711927acf065ee529b6d10d2a287a9b55fdaed8e716",
+      "bytes": 196478
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-5-precisionAt50-desktop.png",
+      "digest": "618afd4433422dcf50617e9f039c3175df44e12bbf3ad3c39551d09ccd7ed324",
+      "bytes": 197791
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-timeline-390.png",
+      "digest": "89bf230a763e2a1889a0d5137b86ca2f7233b2d92833d809f1c8a7f4f6ef92e1",
+      "bytes": 245449
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-capacity-390.png",
+      "digest": "8b09a3a3f116a351d4d5f6573f5c942e08489ff99c1aa7c4558eee934b09e2ae",
+      "bytes": 306578
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-1-390.png",
+      "digest": "7e5107c48e99b13883ff76ed912d957efdc4dcf5dcce3273e7a00c49996b4884",
+      "bytes": 107486
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-2-390.png",
+      "digest": "a635bce685dce1996857777085de4287b49a91695f347fbdd74c8d48bd64230d",
+      "bytes": 73950
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-3-390.png",
+      "digest": "6cbb1d23ed05dc1c2240b0ea81d098dcd4b066a8ffa33b828f8f910dc443535c",
+      "bytes": 66361
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-4-390.png",
+      "digest": "eac192d0b42994c3df67f4f34f592501e3775814ea1f1992b33df83dc42ea279",
+      "bytes": 127632
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-5-390.png",
+      "digest": "0d1466c56c11aa1a92411b3eb9621ebe07c73a0317abdc54a0292005578093be",
+      "bytes": 198684
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-6-390.png",
+      "digest": "760a94976f6ab529a2c44e030792939f14f4cd1eb57b3db5f87ba078b8d00bcf",
+      "bytes": 75145
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-7-390.png",
+      "digest": "661c764e937de2e8e59012734cab62d724b28799de9dfd94eb02031774e7688b",
+      "bytes": 129847
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-formula-0-320.png",
+      "digest": "ee0fd3de63303e6893c6c7a31030cdf99f04628a6204cacbc9a8f0e3644f21ba",
+      "bytes": 5880
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-formula-1-320.png",
+      "digest": "9dbb14101391fdb7a6aecc835577b55404dd885ed832bea3b9541c452a96ed28",
+      "bytes": 5045
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-formula-2-320.png",
+      "digest": "2031d7d2fa3691612c23f60aecc230e28e80a750c4d50feb486bafc7c26fe8f2",
+      "bytes": 3021
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-timeline-320.png",
+      "digest": "d0f75b686f968f22ee435ed27cc9195866f210c1d0bc218fd4fee62b2f1de57e",
+      "bytes": 250772
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-capacity-320.png",
+      "digest": "f18d9e70ca4911777e5cc353512760cb6c0cdf404e4967e9b2d71a9c36129a0e",
+      "bytes": 310138
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-1-320.png",
+      "digest": "c2617af18ed7ed77808b60b2074406b82547537e89673a3904b2d9b870e1ad4a",
+      "bytes": 114217
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-4-320.png",
+      "digest": "210f49419dab8eb31cd4bf471a1f7be7b9347a30a667cf2943b53da0286f46f6",
+      "bytes": 136485
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\formulation-figure-5-320.png",
+      "digest": "aab8b98d5c2934c3d664721d603b630188a4a49d1ccb9e31694e334ff9680156",
+      "bytes": 207119
+    }
+  ],
+  "screenshotCount": 39,
+  "visualInterpretation": "Screenshots capture informative states, not defaults only: each investigation before any commitment and after one, the two exact nulls, the refused impossible arrival, the destination note's moved-arrival case, the identity split, the threshold figure at three cost settings, the results figure on each of its three metrics, and every inline figure at desktop and 390 px with a selection at 320 px. They require separate visual inspection; a recorded digest proves identity, not legibility.",
+  "limitations": [
+    "A passing run is not a reading of the page. The captures above must be opened and looked at.",
+    "The painted-against-declared check catches a stylesheet overriding an attribute, and a shape painting black with no stroke. It does NOT catch a shape that is painted correctly and then COVERED by a later sibling. A general occlusion check is not attempted; the figure-by-figure visual pass is what covers it.",
+    "The shared layout inspector allows a small overlap and reads straight <line> elements only; the curve sampler above covers paths, polylines and polygons, and the model layer covers nominal label collisions.",
+    "Model correctness is checked by scripts/verify-formulation-models.mjs, data regeneration by scripts/verify-formulation-data.py and program execution by scripts/verify-formulation-examples.py.",
+    "Screen-reader behaviour is not simulated here; roles, labels and descriptions are asserted structurally."
+  ]
+}

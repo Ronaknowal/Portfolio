@@ -1,0 +1,49 @@
+{
+  "frozenAt": "2026-09-11T13:17:59.284Z",
+  "topicId": "decision-trees-random-forests",
+  "status": "author-reviewed; independent review pending",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/decision-trees-random-forests.jsx",
+      "sha256": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad"
+    },
+    {
+      "path": "src/learn/data/decision-tree-models.js",
+      "sha256": "c518194566df93953774c47fa76e373d078b280d73310d2f6e9cf3b8b25bea1c"
+    },
+    {
+      "path": "src/learn/data/decision-tree-examples.js",
+      "sha256": "949260f2041b803bd7cd7508113f29c8718a7a79c818a08e2fe0166c7589206e"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "sha256": "5afdc9586c078acb18488d43b78bb3bfdcf6e7d7b0d336362ac7f610ae10d989"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/decision-tree-labs.css",
+      "sha256": "71d8f34b8df64d06c3869cfa9550dec3e3d00575c6ec712b62c907acac9925d3"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/decision-trees-random-forests.js",
+      "sha256": "574b3155f5a414e97188510ddfd431343924270e4df75f771a1c517580444864"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/teaching/evidence/decision-tree-native-review.json",
+      "sha256": "224d2a46f38b56c09ddc56cdb2f711f9b4c1a6e01b3ef1fdc20f9787aeda8e3c"
+    },
+    {
+      "path": "docs/teaching/evidence/decision-tree-browser-review.json",
+      "sha256": "ce9672f6850ccaa376e1e4c66ca94e663739306a944c23c3495ef269b55d507c"
+    },
+    {
+      "path": "docs/teaching/evidence/decision-tree-figure-amendment.json",
+      "sha256": "cbb5d237379d251e93d0e8e4d0f712b5804f581ff6e84c22b064723c0069aafe"
+    }
+  ],
+  "visualAssessment": "Opened desktop/mobile partition, XOR, pruning, variance, bootstrap and permutation figures. Final scoped13px chart font fixes inherited22px mobile overlap; native and full interaction evidence remain valid for unchanged behaviors. Narrow figures scroll with visible instruction and accessible data. No user study or user acceptance claimed.",
+  "programs": 10,
+  "investigations": 7,
+  "changedPractice": 13
+}

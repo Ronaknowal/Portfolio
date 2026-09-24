@@ -1,0 +1,23 @@
+# Sequence-to-sequence — independent implementation review
+
+22 September 2026. Reviewer `convnext_finish`, separate from author `depthwise_finish`. This review covers the complete revision-3 manuscript, visual specifications and design, production body and generator, all four lab components and styles, pure protocol/inference model, complete canonical training/inference/mechanics programs, provenance, compact measurements and author/native evidence. It does not repeat the three fits or claim that development metrics are an untouched test.
+
+## Content and code assessment
+
+The production reader retains all twelve major sections, complete scalar forward/backward explanation, source/target/embedding/state axes, packing versus target masking, teacher forcing versus generation, candidate-owned search and explicit length-score convention. The actual weak neural result is reported beside a stronger rule baseline with split integrity, denominators, all seeds, termination and counterfactual boundaries intact. Historical and advanced interfaces, scheduled-sampling nuance, deployment configuration, changed-code practice, eight independent exercises and annotated alternative resources remain available. The ordinary `nn.GRU` route and exact scratch-cell owner are linked; local protocol code and full programs can be inspected or downloaded. No missing major prepared concept or promised implementation was found.
+
+The representations serve distinct mechanisms: two token timelines, a signed numerical state/gradient bridge, a finite probability tree with retained/pruned candidates, actual fixed-weight generation and source/prefix/context interventions, and measured learning curves. Current outputs are immediately visible. Known references, constructed edits, forced tokens, EOS and capped outputs remain distinct. Bounded inference and topic-owned deferred weights/source avoid eagerly importing the full experiment report.
+
+## Findings and corrections
+
+1. **P2 — padded input tracks disagreed with the published program.** The original browser helper appended PAD directly to the already-shifted input row. With target `a` and two ignored cells it showed `BOS,a,PAD,PAD`; the canonical batch computes `BOS,a,EOS,PAD`. Valid losses were unaffected, but the lab claimed to show actual shifted inputs. The author now pads target storage first and derives `BOS + padded_targets[:-1]`; browser and model tests explicitly inspect the EOS input at the first ignored target.
+2. **P2 — continuous controls could disagree with their numeric value.** Steps `.01`/`.05` quantized the range thumb while numeric fields accepted `.123`. The author changed continuous controls to `step="any"`, retaining integer caps/indices, and added actual numeric/range parity assertions. All visible lab input/select/button targets now have a scoped44px minimum.
+3. **Theme follow-up.** The shared plot component carries older green-tinted axis/text defaults; the topic must override them with neutral labels/axes. The author applied the neutral override; the independent report is rebound to that corrected CSS. This is a scoped presentation correction, without changing measured data or plotted geometry.
+
+## Complementary independent evidence
+
+`verify-seq2seq-independent.py` uses the actual public `batch` function only for its external token contract, then constructs separate native float64 embedding, encoder, decoder and readout modules directly from the saved state. Four new records have unsorted source lengths3/14/6/8 and unequal target lengths. Native packed-batch contexts and all32 teacher-forced decoder positions, including EOS/ignored storage, form the oracle. Changing only packed-away source storage to123 preserves contexts exactly.
+
+`verify-seq2seq-independent.mjs` compares production sequential mechanisms against that distinct native batched route: **3328 state/probability values, maximum absolute difference2.7755575615628914e−15**, below1e−10. It also compares every visual input/target token against the canonical batch and falsifies its guard with nonfinite, empty and deliberately wrong fixtures. This complements the author's complete447 generated trajectories,27 native beams and numerical derivative checks without redundant fitting.
+
+Retained evidence: [native oracle](evidence/seq2seq-independent-native.json), [independent results and source hashes](evidence/seq2seq-independent.json). Actual interaction, failure/retry and responsive screenshots remain in the separate [browser report](evidence/seq2seq-browser/report.json). Require final production source matching before phase completion; author checks and this review alone do not imply that build/ledger integration is finished.

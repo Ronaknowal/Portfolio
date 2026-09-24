@@ -1,0 +1,204 @@
+{
+  "checkedAt": "2026-09-22T19:12:52.274Z",
+  "base": "http://127.0.0.1:4195",
+  "checks": [
+    {
+      "case": "Home loads only the shared shell and its own presentation; no curriculum, lesson, lab or portfolio body",
+      "passed": true
+    },
+    {
+      "case": "Home entrances, cross-section navigation, skip link, keyboard disclosure, Escape/focus return, outside click and focus dismissal",
+      "passed": true
+    },
+    {
+      "case": "/ at 1440px",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/learn at 1440px",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/learn/paths at 1440px",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/portfolio at 1440px",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/ at 768px",
+      "width": 768,
+      "scrollWidth": 768,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/learn at 768px",
+      "width": 768,
+      "scrollWidth": 768,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/learn/paths at 768px",
+      "width": 768,
+      "scrollWidth": 768,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/portfolio at 768px",
+      "width": 768,
+      "scrollWidth": 768,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/ at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/learn at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/learn/paths at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/portfolio at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/ at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/learn at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/learn/paths at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "/portfolio at 320px",
+      "width": 320,
+      "scrollWidth": 339,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "All seven old portfolio anchors redirect and scroll correctly; home anchor stays home",
+      "passed": true
+    },
+    {
+      "case": "Existing sequence lesson route",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "Existing project training route",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overlapping": false,
+      "headerOverflow": false,
+      "clippedControls": []
+    },
+    {
+      "case": "All curated links, existing lesson and project deep links, progress conservation, page scroll reset and unknown-address recovery",
+      "passed": true
+    },
+    {
+      "case": "Section import failure provides working reload recovery",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "home-desktop.png",
+    "home-mobile.png",
+    "section-switcher-mobile.png"
+  ],
+  "errors": [],
+  "homePayload": [
+    {
+      "file": "/assets/index-0oJRoRSd.js",
+      "decodedBytes": 245254,
+      "encodedBytes": 78316
+    },
+    {
+      "file": "/assets/index-YEerEn9o.css",
+      "decodedBytes": 11514,
+      "encodedBytes": 2828
+    }
+  ],
+  "sourceHashes": {
+    "index.html": "2da230fbb851e5b8213fbbccd2ef206d43313779619da2a83383258530a33c32",
+    "src/main.jsx": "fbd6cb117767b3bd45dcb932a793e20cccac669919401b38b841f08ee8011a32",
+    "src/index.css": "2da3f4f1117562b036bec3fc244492e4663a88a6ff06ade78676ca8493c0bec3",
+    "src/Portfolio.jsx": "5a4a359e6a85aa4c27a3669bb56c667819157301d152f519840ce83d0793a3fa",
+    "src/site/SiteHeader.jsx": "09a7b28ddc59927b6c311ce1ce3251898ca3f5ada039c3f998b1a222287502b5",
+    "src/site/SiteRoutes.jsx": "e41618aed9e58d135a9191ab25f2e471840ce1d3e40fc091408b3c7b9be34e6c",
+    "src/site/Home.jsx": "0449f6cc83bc8e6936feb5d1ed1cc7d65f3fb7f9c1ca3289dc07feec471ccc79",
+    "src/site/sections.js": "65b70a8f654b54b25fb6c37c272eb118aa8845c06a8691b8ab5818a12adf80be",
+    "src/site/site.css": "4977fd76d336690da76ed5fa7decdcdf2b0d71d965d5ae5475dff2d341bbc8e0",
+    "src/site/home.css": "7f551e75b7eb4a03a0b5ec1dc7f43b1c3ee9ebd176dd26c038212af9d10f9bd8",
+    "src/learn/components/LearningNav.jsx": "a65bcf43561c86070d02dbe943d06b8bba1ba7eb11f73b0daff15389efa274fb",
+    "src/learn/learning-base.css": "84880691b3e7e74c47827b101c25bb681067cbc7c2c7fcdda2b6f7d9f1ca1786",
+    "src/learn/Reader.jsx": "b580833a6209bb975632664288b4a81344b14e6a2b94585a94aaee1eb59cc546"
+  },
+  "passed": true
+}

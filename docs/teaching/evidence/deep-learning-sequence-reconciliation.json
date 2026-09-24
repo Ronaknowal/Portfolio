@@ -1,0 +1,151 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T05:59:57.531Z",
+  "topics": [
+    {
+      "id": "depthwise-separable-dilated-convolutions",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 15
+    },
+    {
+      "id": "convnext-modern-cnn-designs",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 18
+    },
+    {
+      "id": "capsule-networks",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 19
+    },
+    {
+      "id": "rnns-lstms-grus",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 15
+    },
+    {
+      "id": "sequence-to-sequence-encoder-decoder",
+      "revision": 3,
+      "content": "complete",
+      "implementation": "complete",
+      "reviewedFiles": 17
+    }
+  ],
+  "unchangedOtherRows": 172,
+  "receipts": [
+    {
+      "path": "docs/teaching/evidence/depthwise-convolution-author.json",
+      "sha256": "9a3cd94471a7295ed43c1acbd43ee0358ab2d7757ee4139711831028b92f1123"
+    },
+    {
+      "path": "docs/teaching/evidence/depthwise-convolution-native.json",
+      "sha256": "c0e03eccdf89a570d32d1171aed83f45cb82c891cdd796991a5fce12a92e387d"
+    },
+    {
+      "path": "docs/teaching/evidence/depthwise-independent.json",
+      "sha256": "c31e2a115e7f083cdf57e7e25f37a6e07536be96ae258218e78fa9fbb08dfb56"
+    },
+    {
+      "path": "docs/teaching/evidence/depthwise-independent-native.json",
+      "sha256": "a2923701bf7ee850daf12dd6b97ffc3afff613d400b0b091fc3e73b84fba4fac"
+    },
+    {
+      "path": "docs/teaching/evidence/convnext-models.json",
+      "sha256": "7334498caa260dd66b101febafb8c419d48c7fde5cc597dfde45904e667394c2"
+    },
+    {
+      "path": "docs/teaching/evidence/convnext-native.json",
+      "sha256": "8b8302f81130be7706881a33ad120b0c5be07479db7a707960b7a139e70a41a1"
+    },
+    {
+      "path": "docs/teaching/evidence/convnext-independent.json",
+      "sha256": "42a89c682313c64030931642cefc02794bc9c97e48b6e87f61c36d6c45f381a0"
+    },
+    {
+      "path": "docs/teaching/evidence/convnext-independent-native.json",
+      "sha256": "5f93a15b7744e77cf1ccb3c84e63d22735acc835a092e0c418a45341c20bf4a6"
+    },
+    {
+      "path": "docs/teaching/evidence/capsule-author.json",
+      "sha256": "107394c442ad935e5e941fda42de272bd2e4ee54bf62b3a1f2668f9443cde1b1"
+    },
+    {
+      "path": "docs/teaching/evidence/capsule-native.json",
+      "sha256": "0b2e980945e8d868e4bf01f9e181695ecf67eed596e5e2f58a632587b7227a68"
+    },
+    {
+      "path": "docs/teaching/evidence/capsule-independent.json",
+      "sha256": "9dcf2508edfe79e5f992d77d99ab2d33dbacd920f82aede52c3b6e7e3df8b499"
+    },
+    {
+      "path": "docs/teaching/evidence/capsule-independent-native.json",
+      "sha256": "60cee740bb12407a92949f84d29f45152a9b1608dc96ba4147121d85c9dced7d"
+    },
+    {
+      "path": "docs/teaching/evidence/recurrent-author.json",
+      "sha256": "59b2500851c796588cdc872cc2645e82300331a259edb3ce33ea8398cbd49c43"
+    },
+    {
+      "path": "docs/teaching/evidence/recurrent-native.json",
+      "sha256": "ff152dcd71b2542c5bf586f5d6c5769e7c3f0a9a7a7cb94d58c490343a1b991c"
+    },
+    {
+      "path": "docs/teaching/evidence/recurrent-independent-review.json",
+      "sha256": "8de84251959f73df58e0495c3053c1168686c77bcba0cc691701640d9d16ea98"
+    },
+    {
+      "path": "docs/teaching/evidence/recurrent-independent-native.json",
+      "sha256": "cc15e01df28e1e8824d728ceb2bf7b7cf5f363d9144e877b491bbe1e6803aa25"
+    },
+    {
+      "path": "docs/teaching/evidence/recurrent-independent-models.json",
+      "sha256": "b4da992d8f3ed89e16fd071cd5bdb9ee60dcea67a3902f1b47ad6dfac7eaf090"
+    },
+    {
+      "path": "docs/teaching/evidence/seq2seq-author.json",
+      "sha256": "ebe4016aa1cf760e2fcb47bbe3f73621f4bddc275cf6c3768a3c687003da0a98"
+    },
+    {
+      "path": "docs/teaching/evidence/seq2seq-native.json",
+      "sha256": "a41dc6b102d85853cde3e13123040a413e7dc6d576d99368285ca5d914ae55ff"
+    },
+    {
+      "path": "docs/teaching/evidence/seq2seq-independent.json",
+      "sha256": "53bb7b6d2ddaf061cfa94f655eb0271a4f68941fdbae8ab324f1c70a3eabdd83"
+    },
+    {
+      "path": "docs/teaching/evidence/seq2seq-independent-native.json",
+      "sha256": "e89472d65e2e80e4316329cba8e32c8f6938a9142f58ae489732ede11fed1c36"
+    },
+    {
+      "path": "docs/teaching/evidence/modern-convolution-browser/report.json",
+      "sha256": "08045294e1399a24ece6bdee147338597b0885d3b4d7377f3362bc0b7f5dff4e"
+    },
+    {
+      "path": "docs/teaching/evidence/capsule-browser/report.json",
+      "sha256": "c39276eff3ed955892dcd78e7365d94cfa576ba2c91461251d058be51a160861"
+    },
+    {
+      "path": "docs/teaching/evidence/recurrent-browser/report.json",
+      "sha256": "0cf88214a2dfbbdb87dbc2685288240cdcf851b500977610f777e5c0e39cc1a2"
+    },
+    {
+      "path": "docs/teaching/evidence/seq2seq-browser/report.json",
+      "sha256": "c76520e432b45b09b64c64791bbe3b0351206858c934659417d8d62a1a1ff659"
+    },
+    {
+      "path": "docs/teaching/evidence/deep-learning-sequence-production-integration.json",
+      "sha256": "dd16880cc88d2489b242a308e34a88bc7d90344016fe04082217bc9ff2d38d45"
+    }
+  ],
+  "contentComplete": 177,
+  "implementationComplete": 150,
+  "preparedRemaining": 27
+}

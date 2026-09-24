@@ -1,0 +1,1091 @@
+{
+  "status": "content-prepared",
+  "date": "2026-09-22",
+  "scope": "Twelve specialist prepared Deep Learning content packets; no live/runtime/central-ledger edits by this author.",
+  "report": "docs/teaching/implementation-depth/PREPARED-SPECIALISTS-WRITING.md",
+  "reportSha256": "5469f864e46c633db4c2d98822d9d64bb9dd7014f671da8740e4738b85e48b58",
+  "authorEnvironment": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "torch": "2.14.0+cpu"
+  },
+  "unexecutedNewTargets": {
+    "torchdiffeq": "0.2.5",
+    "prodigyopt": "1.1.2",
+    "schedulefree": "1.4.1",
+    "distributed": "PyTorch CPU/Gloo real point-to-point Ring"
+  },
+  "checks": {
+    "pythonSyntaxFiles": 46,
+    "jsonFilesParsed": 40,
+    "newEmbeddedProgramsMatched": 5,
+    "missingRelativeFiles": [],
+    "topicPreflights": 12
+  },
+  "topics": [
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/data-provenance.md",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/design.md",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/lesson.md",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/visual-specifications.md",
+        "docs/teaching/topic-notes/boltzmann-machines-restricted-boltzmann-machines-rbm.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/calculated-inputs.json",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/data-provenance.md",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/design.md",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/digits-400.csv",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/lesson.md",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/rbm-study.py",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/visual-specifications.md",
+        "docs/teaching/topic-notes/boltzmann-machines-restricted-boltzmann-machines-rbm.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/bernoulli_rbm_bridge.py": "623453c29a018ef4ab3152282246d44f2ad25d0263a6f8faafc4bd766d17125e",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/calculated-inputs.json": "217a5e81b51bda1397f99fae73918329a20c4e0c6f3dfd531a159d49c08da9ca",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/data-provenance.md": "abe3d76fcbe21323669428c6c0cb82ed42d9b856cbe16589f1a915436036086f",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/design.md": "9d273a8741310c2cc728592caaf3066faef21f26b47bc8da40e4100ce9dd537b",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/lesson.md": "a290d62836ca4d07c5e98a54c17ac3fe42a3d96d941f3ff862c987617b5ec2c9",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/rbm-study.py": "f57facd7f4aa07452c255f67ed1e320096cca37d7f1a77822161e57a3919baee",
+        "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/visual-specifications.md": "38ba8e82e41d4d66b4dbc4d96fb02aa6f29ef9fd45e3c3e444359da0eb8d1355",
+        "docs/teaching/topic-notes/boltzmann-machines-restricted-boltzmann-machines-rbm.md": "e233ffef016e86d11ca1ef8d902980c6b030f53d2e2e436a1b6b02255f921014"
+      },
+      "coverage": [
+        {
+          "outcome": "Energy, free energy and exact finite-state learning",
+          "scratch": "rbm-study.py::free_energy/hidden_distribution/exact_negative/positive/main",
+          "library": "NumPy/SciPy stable primitives; BernoulliRBM for scalable sampled route",
+          "bridge": "same fitted W transpose and both biases; normalization/stationary transition oracle",
+          "practice": "Practice 1–6; changed-bias bridge exercise",
+          "scope": "Exact enumeration deliberately exponential and bounded"
+        },
+        {
+          "outcome": "CD/PCD/Gibbs, features and missing-data conditioning",
+          "scratch": "rbm-study.py::gibbs/conditional_missing/main",
+          "library": "bernoulli_rbm_bridge.py uses fit/transform/gibbs/score_samples",
+          "bridge": "probability versus draw; PCD objective versus exact LL/pseudo-likelihood",
+          "practice": "Practice 7–8; seed versus matched arithmetic exercise",
+          "scope": "General BM/DBN/DBM/AIS introduced conceptually; full RBM owned locally"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 2 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions.",
+        "bernoulli_rbm_bridge.py equals its complete Python manuscript fence.",
+        "Integration author performed a bounded source consistency read; not formal phase-two independent review.",
+        "Executed a four-state BernoulliRBM author probe: same-parameter transform, exact normalization and stationary transition assertions passed on scikit-learn1.9.1. No repeated digit benchmark."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [
+          "https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.BernoulliRBM.html"
+        ],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/design.md",
+          "docs/teaching/drafts/boltzmann-machines-restricted-boltzmann-machines-rbm/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Independently assess the BernoulliRBM API/source presentation and changed-bias/seed practice; the tiny author probe is not implementation certification.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/design.md",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/lesson.md",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/calculated-inputs.json",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/critic-regularization-study.py",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/data-provenance.md",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/design.md",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/digits-400.csv",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/lesson.md",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-calculations.py",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-results.json",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/calculated-inputs.json": "bbbd8a4cfe5bfbf9205868a7544d5d0dd623afc78d0316e229c6b5606779474d",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/critic-regularization-study.py": "f5e6e7ffc02d95598034a8599e92e86a4709f88cec84d70d49f2f456cfcf975f",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/data-provenance.md": "79d7285eab96e83e1151455e20ccd53cda9248f65e7b12443b9f4b6dbffff35d",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/design.md": "2b1f81e5eaad3d4729fad2b59ea1bcea72c11939b1e2c73ca55580167487bc8d",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/lesson.md": "5f0cf622e219482504a606c37f098997f11d0aa2c4c355ef99f1b3c960ef241b",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-calculations.py": "fcb66168467c6c1519c91702cd3712d75db9d04c47040e0ccf2fc74831561801",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/sensitivity-results.json": "472c0d519309bd9af032b01e4ce415462d5fe403ae27b0be50e7a03d131f2fe6",
+        "docs/teaching/drafts/spectral-normalization-gradient-penalty/visual-specifications.md": "feb6a8708ad738d1578893c04e82a4988348f8841175b7dfaf41e481c5b8f7fb"
+      },
+      "coverage": [
+        {
+          "outcome": "Largest stretch and power iteration",
+          "scratch": "sensitivity-calculations.py::power_trace",
+          "library": "torch.linalg.svd; parametrizations.spectral_norm",
+          "bridge": "estimate versus exact oracle; weight-dependent normalization derivative",
+          "practice": "Practice 1–3, 7; R1 extension",
+          "scope": "Dense finite matrices; convolution operator norm is separately bounded"
+        },
+        {
+          "outcome": "Input-gradient penalties, R1/R2 distinctions and training",
+          "scratch": "critic-regularization-study.py::gradient_penalty/main",
+          "library": "torch.autograd.grad(create_graph=True), nn.Module, Adam",
+          "bridge": "same interpolation inputs and parameter/graph modes",
+          "practice": "Practice 4–6; complete R1 solution above",
+          "scope": "Per-example independent critic; no full global Lipschitz proof"
+        },
+        {
+          "outcome": "Layer composition and robust margins",
+          "scratch": "lesson.md §§2,8; sensitivity-calculations.py::main",
+          "library": "Matrix/vector primitives; no invented certification API",
+          "bridge": "layer norm upper bound versus observed derivative",
+          "practice": "Practice 3,8,9",
+          "scope": "Worked linear certificate; arbitrary network certification excluded"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 2 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [
+          "https://docs.pytorch.org/docs/2.14/generated/torch.nn.utils.parametrizations.spectral_norm.html"
+        ],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/spectral-normalization-gradient-penalty/design.md",
+          "docs/teaching/drafts/spectral-normalization-gradient-penalty/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Assess the new R1 extension against the analytic linear-critic gradient and actual create_graph/mode behavior.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/modern-hopfield-networks/design.md",
+        "docs/teaching/drafts/modern-hopfield-networks/lesson.md",
+        "docs/teaching/drafts/modern-hopfield-networks/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/modern-hopfield-networks/associative_memory.py",
+        "docs/teaching/drafts/modern-hopfield-networks/author-checks.json",
+        "docs/teaching/drafts/modern-hopfield-networks/author_calculations.py",
+        "docs/teaching/drafts/modern-hopfield-networks/check_author_packet.py",
+        "docs/teaching/drafts/modern-hopfield-networks/data-provenance.md",
+        "docs/teaching/drafts/modern-hopfield-networks/design.md",
+        "docs/teaching/drafts/modern-hopfield-networks/digit-memory-fits.npz",
+        "docs/teaching/drafts/modern-hopfield-networks/digit-results.json",
+        "docs/teaching/drafts/modern-hopfield-networks/digit_memory.py",
+        "docs/teaching/drafts/modern-hopfield-networks/investigation-checks.json",
+        "docs/teaching/drafts/modern-hopfield-networks/lesson.md",
+        "docs/teaching/drafts/modern-hopfield-networks/mechanism-results.json",
+        "docs/teaching/drafts/modern-hopfield-networks/optdigits.names",
+        "docs/teaching/drafts/modern-hopfield-networks/optdigits.tes",
+        "docs/teaching/drafts/modern-hopfield-networks/optdigits.tra",
+        "docs/teaching/drafts/modern-hopfield-networks/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/modern-hopfield-networks/associative_memory.py": "64935825a113e769369419a9b4d3a944f96d9c7acdae8bc33fb7dbe76155364c",
+        "docs/teaching/drafts/modern-hopfield-networks/author-checks.json": "6bc81c982a9dece222a6fc5433f7198d7fcaf326a4d346c1be3c9d10bf2b5993",
+        "docs/teaching/drafts/modern-hopfield-networks/author_calculations.py": "2ea65126d5326acd37019a8832085e5e7cb28fe5be82bb530893c041bba73c45",
+        "docs/teaching/drafts/modern-hopfield-networks/check_author_packet.py": "587c99ba4dce210f7c2b4d706d25bf5586ee6a76f40b8a6bd0439bfbde2b6ad9",
+        "docs/teaching/drafts/modern-hopfield-networks/data-provenance.md": "049b89daf5ecd3c767af2429d643ad898f6ea7e76cc6ea3475cac153d359f8da",
+        "docs/teaching/drafts/modern-hopfield-networks/design.md": "98303b78d6e0c20ecd0eefaec62546dce252ce33c0788cac4bc53fcd45b9d347",
+        "docs/teaching/drafts/modern-hopfield-networks/digit-memory-fits.npz": "6752b5d608fa548b81c37191347b590bdfbf0170b830336de56206e39cfaec7a",
+        "docs/teaching/drafts/modern-hopfield-networks/digit-results.json": "514a0afdfd92410c0f3260edf2a913e1190a93734bf78f479b5244924d043a46",
+        "docs/teaching/drafts/modern-hopfield-networks/digit_memory.py": "374a9cfb1da9aa42d74b67fd3974f93e02131353e11571c3920323939d8d3037",
+        "docs/teaching/drafts/modern-hopfield-networks/investigation-checks.json": "d12122c74d0c76cf6407b3582f672037042215d2c3b8275cbc68129ffc3f6218",
+        "docs/teaching/drafts/modern-hopfield-networks/lesson.md": "e72e3f41571b86daf80e6f777b55b66cc5b15bd979522af94bb619eafecebc4f",
+        "docs/teaching/drafts/modern-hopfield-networks/mechanism-results.json": "2dd480cd1d0309f5f8c0382ae2bb77b667f1c8623e6d0c9b00ac7536e8a08a2c",
+        "docs/teaching/drafts/modern-hopfield-networks/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+        "docs/teaching/drafts/modern-hopfield-networks/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+        "docs/teaching/drafts/modern-hopfield-networks/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+        "docs/teaching/drafts/modern-hopfield-networks/visual-specifications.md": "fd3992930b242fb4a9406b0d09c30cad7c707ef52eb2220b83dbfd9b62d3ec96"
+      },
+      "coverage": [
+        {
+          "outcome": "Classical binary storage, asynchronous retrieval and energy",
+          "scratch": "associative_memory.py::store_binary/binary_recall/binary_energy",
+          "library": "NumPy arrays and indexed coordinate updates",
+          "bridge": "explicit zero diagonal, tie-preserving asynchronous state",
+          "practice": "Practice 1,9; order-dependent examples",
+          "scope": "Finite binary network; not universal capacity guarantee"
+        },
+        {
+          "outcome": "Stable modern retrieval and attention relation",
+          "scratch": "associative_memory.py::retrieve/iterate/energy",
+          "library": "torch.nn.functional.scaled_dot_product_attention in main",
+          "bridge": "matched Q/K/V/scale; new query-gradient exercise",
+          "practice": "Practice 2–4,8; distinct-value gradient extension",
+          "scope": "Energy interpretation requires its fixed-bank assumptions"
+        },
+        {
+          "outcome": "Learned bank and class-mass read",
+          "scratch": "digit_memory.py::read_memory/main",
+          "library": "nn.Linear, log_softmax/logsumexp, nll_loss, Adam",
+          "bridge": "projection parameters and log class-mass learning",
+          "practice": "Practice 5–7,10",
+          "scope": "Explicit tensor composition is ordinary route; optional hflayers APIs are not required outcomes"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 4 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [
+          "https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html"
+        ],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/modern-hopfield-networks/design.md",
+          "docs/teaching/drafts/modern-hopfield-networks/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Assess changed-value/query-gradient practice and actual scale/orientation/mask bindings in the attention comparison.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/xlstm-extended-lstm/design.md",
+        "docs/teaching/drafts/xlstm-extended-lstm/lesson.md",
+        "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/xlstm-extended-lstm/author-checks.json",
+        "docs/teaching/drafts/xlstm-extended-lstm/author_calculations.py",
+        "docs/teaching/drafts/xlstm-extended-lstm/check_author_packet.py",
+        "docs/teaching/drafts/xlstm-extended-lstm/data-provenance.md",
+        "docs/teaching/drafts/xlstm-extended-lstm/design.md",
+        "docs/teaching/drafts/xlstm-extended-lstm/investigation-results.json",
+        "docs/teaching/drafts/xlstm-extended-lstm/lesson.md",
+        "docs/teaching/drafts/xlstm-extended-lstm/mechanism-results.json",
+        "docs/teaching/drafts/xlstm-extended-lstm/memory_mechanisms.py",
+        "docs/teaching/drafts/xlstm-extended-lstm/optdigits.names",
+        "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tes",
+        "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tra",
+        "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-fits.npz",
+        "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-results.json",
+        "docs/teaching/drafts/xlstm-extended-lstm/row_sequence_models.py",
+        "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/xlstm-extended-lstm/author-checks.json": "49eee276225c978f58cffaaaf3781695d2ae9eab8edd0e124daf0b4593dd775a",
+        "docs/teaching/drafts/xlstm-extended-lstm/author_calculations.py": "972450d84af169b954a7f7602e29ca9cc4ac9c1e0e6f3e621e3269db12ebad87",
+        "docs/teaching/drafts/xlstm-extended-lstm/check_author_packet.py": "ac16f65ff36e39a78bc4343f14aff4234c84eee568d3aacc435f954e8d5245a9",
+        "docs/teaching/drafts/xlstm-extended-lstm/data-provenance.md": "1176a88e452cda054b0c5864d88317eeb2862a9a97b9e48aeb8a86f6882eab6c",
+        "docs/teaching/drafts/xlstm-extended-lstm/design.md": "b2b9d7260ac7c60697b381504b99c561270f1746d6298023752e313642a54e51",
+        "docs/teaching/drafts/xlstm-extended-lstm/investigation-results.json": "c1cf1993620cee4572777710e6af0a38b34696bdeae17862ea7f574c15d54950",
+        "docs/teaching/drafts/xlstm-extended-lstm/lesson.md": "922c829a45c0309ee751f1a8f44b54b1fd6387b38a1fab521276256f52c22c62",
+        "docs/teaching/drafts/xlstm-extended-lstm/mechanism-results.json": "898b9af1b4a8939313e63bb07ba10cecfd3473388bac403ab7cdffaf697205d8",
+        "docs/teaching/drafts/xlstm-extended-lstm/memory_mechanisms.py": "538752b266ac151392bfecd53f37d00d2f0464f1c70a466d5b4c5dd2672394cf",
+        "docs/teaching/drafts/xlstm-extended-lstm/optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02",
+        "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+        "docs/teaching/drafts/xlstm-extended-lstm/optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+        "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-fits.npz": "c4abe0356e06951ce2a67fdbdd676fb4e5822b34b4863821d348495d73d2680a",
+        "docs/teaching/drafts/xlstm-extended-lstm/row-sequence-results.json": "04cd0c138ad94e8bacf876384c3b95eaf7e8091dfe4ddb8743a83ed82d9c389f",
+        "docs/teaching/drafts/xlstm-extended-lstm/row_sequence_models.py": "893a151bd5465ddb60f9dbdba86770b6cf4a543f32c90d180fec62493037f0b2",
+        "docs/teaching/drafts/xlstm-extended-lstm/visual-specifications.md": "166fd2b21b171feecb0d8db5bf341f251edde338c5dedebdd5d6356c9e7b69d7"
+      },
+      "coverage": [
+        {
+          "outcome": "Scalar exponential memory with stabilization and learned gates",
+          "scratch": "memory_mechanisms.py::scalar_scan",
+          "library": "row_sequence_models.py::ScalarMemory",
+          "bridge": "raw/stabilized arithmetic and gradients; h/c/n/m correspondence",
+          "practice": "Practice 1,2; changed carry split",
+          "scope": "One-head full learned scalar cell; block-diagonal multihead/fused variants are family comparisons"
+        },
+        {
+          "outcome": "Matrix read, floor, recurrent/parallel/chunk execution",
+          "scratch": "memory_mechanisms.py::matrix_scan/parallel_read/chunk_read",
+          "library": "row_sequence_models.py::MatrixMemory",
+          "bridge": "C orientation, query scale, denominator floor, extra gate/RMS mapping",
+          "practice": "Practice 3–5,7; state-reset diagnosis",
+          "scope": "Unscaled chunk oracle moderate logs; extreme route uses stabilized scan"
+        },
+        {
+          "outcome": "Full trainable network, data roles and customization",
+          "scratch": "row_sequence_models.py::DigitReader/main",
+          "library": "nn.Module, RMSNorm, LSTM baseline, Adam",
+          "bridge": "state_dict, forward/state carry and causal prefixes",
+          "practice": "Practice 6,8–10",
+          "scope": "7B/TFLA/vision/forecast/control models introduced as named comparisons, not recreated end-to-end"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 4 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/xlstm-extended-lstm/design.md",
+          "docs/teaching/drafts/xlstm-extended-lstm/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Assess the chunk/reset exercise, stabilized versus moderate-input parallel contract and actual carried h/c/n/m state.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/hyena-long-convolution-models/blocked_convolution.py",
+        "docs/teaching/drafts/hyena-long-convolution-models/design.md",
+        "docs/teaching/drafts/hyena-long-convolution-models/lesson.md",
+        "docs/teaching/drafts/hyena-long-convolution-models/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/hyena-long-convolution-models/author-checks.json",
+        "docs/teaching/drafts/hyena-long-convolution-models/author-results.json",
+        "docs/teaching/drafts/hyena-long-convolution-models/author_calculations.py",
+        "docs/teaching/drafts/hyena-long-convolution-models/blocked_convolution.py",
+        "docs/teaching/drafts/hyena-long-convolution-models/check_author_packet.py",
+        "docs/teaching/drafts/hyena-long-convolution-models/convolution_mechanisms.py",
+        "docs/teaching/drafts/hyena-long-convolution-models/data-provenance.md",
+        "docs/teaching/drafts/hyena-long-convolution-models/design.md",
+        "docs/teaching/drafts/hyena-long-convolution-models/lesson.md",
+        "docs/teaching/drafts/hyena-long-convolution-models/mechanism-results.json",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice-fits.npz",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice-results.json",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice.data",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice.names",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice_models.py",
+        "docs/teaching/drafts/hyena-long-convolution-models/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/hyena-long-convolution-models/author-checks.json": "f86fda7e77db978b6a1ad208148554a03e983e003d65746a9d493da2a36fddf3",
+        "docs/teaching/drafts/hyena-long-convolution-models/author-results.json": "c75d8b038f36b0d1e04d052c1fc9f2e1930e547bc864a4031ed79b3e24ec298c",
+        "docs/teaching/drafts/hyena-long-convolution-models/author_calculations.py": "afc03ab280a25e3ec589cba60ed9449aa9d5f7e4c10b67e128ece5b6599d9b43",
+        "docs/teaching/drafts/hyena-long-convolution-models/blocked_convolution.py": "e57f23494187c37a294d21d51737b72f533f84245815407c13c96abc7e565c7f",
+        "docs/teaching/drafts/hyena-long-convolution-models/check_author_packet.py": "4aefa3d2158e94f801e49a4f058bece255e7fa43bf9947cb7e3aef6fb2b0ef7a",
+        "docs/teaching/drafts/hyena-long-convolution-models/convolution_mechanisms.py": "499a1af14787c65e0d056baba4ba8efbd3d51609b59edc414ce593296ed31ce5",
+        "docs/teaching/drafts/hyena-long-convolution-models/data-provenance.md": "5d8fe28c32ee2702b60c95fba3867c7677fc6f9e789397178a712485f5f7c07e",
+        "docs/teaching/drafts/hyena-long-convolution-models/design.md": "7c69a98ce194387d7a7829450cc2799b175c2a7849e399efbfa861f74fa32043",
+        "docs/teaching/drafts/hyena-long-convolution-models/lesson.md": "b2074c3ade4c84c346450c7080ee3ecdb48c218969e6df4a93090d65b603cce0",
+        "docs/teaching/drafts/hyena-long-convolution-models/mechanism-results.json": "c638510904c09b643f217d5ae55ad0c038eea613e18c7f086db4bf5b89fa6e92",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice-fits.npz": "50eeefa980aafbb319878fd791ce36ad6e11fe4b3ba1f0364977998cc6bfda52",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice-results.json": "7a71b0799bf5b4f88e6aaf76e24828a082733a98a35b9c7f10cb463d85416bc1",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice.data": "ebbae10c85d3c285e2a2489a37e42bc2ee8d91d15005e391a9962fa3389a114f",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice.names": "dd67d612a9c57a1230fbeed1e6e0a2130559f419b01765799627236bc7f6fff1",
+        "docs/teaching/drafts/hyena-long-convolution-models/splice_models.py": "b3157678c6594094e9a6d7f87df9f682ab9eca80d113752ca5451a9d8d3c1476",
+        "docs/teaching/drafts/hyena-long-convolution-models/visual-specifications.md": "8d3401bd0c0dbe3e028d12a200104f6c144f471454929238aab4fc7e6128ac39"
+      },
+      "coverage": [
+        {
+          "outcome": "Causal direct/FFT convolution, gated hierarchy and gradients",
+          "scratch": "convolution_mechanisms.py::direct/fft_convolution/gated/toeplitz",
+          "library": "splice_models.py::causal_convolution/ImplicitFilter/SequenceBlock",
+          "bridge": "lag orientation, zero-padding, autograd filter and gate paths",
+          "practice": "Practice 1–6; earlier actual direct/FFT gradient comparison",
+          "scope": "FFT primitive reused; no hidden trainable convolution API"
+        },
+        {
+          "outcome": "Block convolution and ordinary library route",
+          "scratch": "blocked_convolution.py::overlap_add_fft",
+          "library": "scipy.signal.oaconvolve",
+          "bridge": "same inputs, causal slice, retained overlap and incomplete blocks",
+          "practice": "New B=3 signed-filter exercise with solution",
+          "scope": "CPU real vectors; explicit transform cost, no speed claim"
+        },
+        {
+          "outcome": "Exact modal streaming and finite approximation",
+          "scratch": "convolution_mechanisms.py::modal/overlap_add",
+          "library": "NumPy state composition; SciPy Hankel/SVD diagnostic",
+          "bridge": "full versus carried state; finite truncation bound",
+          "practice": "Practice 7–10",
+          "scope": "Exact modal filter only; arbitrary implicit filter not assigned a fictitious finite recurrence"
+        },
+        {
+          "outcome": "Trainable biological sequence model and named families",
+          "scratch": "splice_models.py::SpliceReader/main",
+          "library": "nn.Module/Adam; token/data/group split pipeline",
+          "bridge": "actual gated/ungated/linear roles and retained fit protocol",
+          "practice": "Practice 5,6,10",
+          "scope": "HyenaDNA/StripedHyena/FlashFFTConv introduced with sources, not promised checkpoint reproductions"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 5 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions.",
+        "blocked_convolution.py equals its complete Python manuscript fence.",
+        "Integration author performed a bounded source consistency read; not formal phase-two independent review.",
+        "Executed seven-sample author probe for blocks1,2,3,8; direct, local overlap-add, blocked FFT and scipy.signal.oaconvolve agree to maximum observed absolute difference4.440892098500626e-16. No speed/training measurement."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [
+          "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.oaconvolve.html"
+        ],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/hyena-long-convolution-models/design.md",
+          "docs/teaching/drafts/hyena-long-convolution-models/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Independently assess blocked FFT boundaries, causal crop and changed N=10,M=5,B=3 exercise; seven-sample author checks are not a complete boundary campaign.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/design.md",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/distributed_ring.py",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/lesson.md",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/attention-partition-study.py",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/data-provenance.md",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/design.md",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/distributed_ring.py",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/lesson.md",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/movement-attention-model.json",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/movement_libras.data",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/partition-results.json",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/ring-attention-reference.py",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-calculations.py",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-results.json",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/attention-partition-study.py": "f9efea1d0b93ac632a14dfb265c8cd40f480f354effc54eb4fc4a0cc4ccfe9f1",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/data-provenance.md": "ff27e7ad41b55a58363de6fc5dc70d5dffacb86941a0dec0bc77a99b55261243",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/design.md": "00a55e22b358f1c034c2ca0cd899ec2e6b36edfc58be0365b099962e126b7a33",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/distributed_ring.py": "ec48dcaceeb572531112545ed4af0414916cd28d41439f3021f167dffa99c17a",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/lesson.md": "c871f13369660b069ee71de519b9a58ccd4f70778f6acda75cad35729ae96ffd",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/movement-attention-model.json": "fa2b2b1b0a85d4ede3a9962a94e16386c795012bf2b56b031d8d451a706d5cae",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/partition-results.json": "50fde98846546108d556188d9875d685d5a7089d1ded84a8e08bf0a43f871f3f",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/ring-attention-reference.py": "f28aad941b105046a5e51d0ab8ce9bb1dde88b560211498325a1513214c0f34c",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-calculations.py": "b759da93dc2fdbd799b3f6676faf904cee17137ccc9aaf34fc5447276c6a1364",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/systems-results.json": "568e7578f735680f956b07235566d86d16855d68192e59f0444d980141941404",
+        "docs/teaching/drafts/ring-attention-sequence-parallelism/visual-specifications.md": "2601c5d845090900e827f0f0c9df1746c99e782478dddb30638414154c299198"
+      },
+      "coverage": [
+        {
+          "outcome": "Stable online softmax, global masks and local ownership",
+          "scratch": "ring-attention-reference.py::ring_attention/dense_attention",
+          "library": "distributed_ring.py::ring_forward/rotate/layout",
+          "bridge": "global contiguous offsets and uneven packet lengths; dense SDPA oracle",
+          "practice": "Practice 1–5; three-rank eight-position exercise",
+          "scope": "Complete CPU/Gloo ring, no fused or overlapped performance claim"
+        },
+        {
+          "outcome": "Manual blockwise backward and gradient return",
+          "scratch": "ring-attention-reference.py::blockwise_backward; distributed_ring.py::ring_backward",
+          "library": "torch.distributed.batch_isend_irecv/P2POp and autograd comparison",
+          "bridge": "P−1 forward vs P backward transfers; dQ stays local; dK/dV return home",
+          "practice": "Practice 6–8; omitted-final-rotation solution",
+          "scope": "New real-process execution deferred; numerical code complete"
+        },
+        {
+          "outcome": "Communication/storage models, Ulysses and serving distinctions",
+          "scratch": "systems-calculations.py::layout/work_counts/cost; lesson.md §§5–8,12",
+          "library": "Named PyTorch context-parallel and DeepSpeed integration references",
+          "bridge": "actual ownership/work assumptions rather than guessed GPU curves",
+          "practice": "Practice 3–5,7",
+          "scope": "Alternative collectives, packed documents, GPU overlap/fused kernels and serving caches remain explicitly separate extensions"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 4 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions.",
+        "distributed_ring.py equals its complete Python manuscript fence.",
+        "Integration author performed a bounded source consistency read; not formal phase-two independent review."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [
+          "https://docs.pytorch.org/docs/2.14/distributed.html"
+        ],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/ring-attention-sequence-parallelism/design.md",
+          "docs/teaching/drafts/ring-attention-sequence-parallelism/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Execute the new CPU/Gloo real-process program at 1,2,3 ranks and independently compare values and dQ/dK/dV against the small dense oracle.",
+        "Verify changed eight-position/three-rank uneven ownership and omitted-return diagnosis. No real distributed run or GPU performance claim was made during writing.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/design.md",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lesson.md",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_library_bridge.py",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/visual-specifications.md",
+        "docs/teaching/topic-notes/advanced-optimizers-lion-sophia-prodigy-schedule-free.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/calculated-inputs.json",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/data-provenance.md",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/design.md",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/digits-400.csv",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/fitted-optimizer-states.json",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lesson.md",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_calculations.py",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_library_bridge.py",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_rules.py",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_study.py",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/study-results.json",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/visual-specifications.md",
+        "docs/teaching/topic-notes/advanced-optimizers-lion-sophia-prodigy-schedule-free.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/calculated-inputs.json": "0a3a27ffba9f2c4678d3ff966cb35daa21c2c7ec5f06e0632efc6a4315f3660f",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/data-provenance.md": "a99641d02cb0307352842ed3263c3e0217458619a10190269a2b71cea0b99a0f",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/design.md": "1c06d9ffb8e8ecced5a7031ae803547eb4ef280e5f28ad7e0b2cee07a8ea35da",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/fitted-optimizer-states.json": "1ef7c3d5ecfda062a8e9ac5b604369abac2e6b54ff11929938166e0b94c942a0",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lesson.md": "3590e17ffe2ddb5266d76487dd216d969917da3ba55b5e3130b188aa5fd08129",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_calculations.py": "fcb3cf3c8679d2e44d3e2b91200cc3d9f50501890c149b6942b122502e899b61",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_library_bridge.py": "4ab6557e0d4c0b065b3efa7519e1f110a7ed504fe04df1795f4d83ab331c32b2",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_rules.py": "5a11ed8a9de5728ceb1e6c36b4f84126a434893433c967b09e9f5002fa745f1c",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/optimizer_study.py": "fdc7fa01cb133e3d9baa2f35eeb89b25583b6f8971ab268ca4c9539e2c53bf74",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/study-results.json": "880353688c5565e1228d57e2b7299ed47449fad967e8a1102cfb976bb9db12eb",
+        "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/visual-specifications.md": "dd41f44c2143f7514d26973e8ebfc3897ff28755af2f27f759774f753d0bf5c5",
+        "docs/teaching/topic-notes/advanced-optimizers-lion-sophia-prodigy-schedule-free.md": "872c5ac6026e980befec64db30bf3466d5cf573fa88adcd20396cfe868dd88d1"
+      },
+      "coverage": [
+        {
+          "outcome": "AdamW and all four named scratch update rules",
+          "scratch": "optimizer_rules.py::Optimizer.step/evaluation_parameters",
+          "library": "optimizer_library_bridge.py::make_optimizer/update/switch",
+          "bridge": "Lion exact state parity; Sophia B scaling; Prodigy and Schedule-Free variant boundaries",
+          "practice": "Practice 1–6 and complete new weighted-objective/mode exercise",
+          "scope": "NumPy full paper rules vs pinned practical classes; no false all-method trajectory parity"
+        },
+        {
+          "outcome": "Model fitting, curvature refresh and saved continuation",
+          "scratch": "optimizer_study.py::main; optimizer_library_bridge.py::main",
+          "library": "Official pinned Lion/Sophia; prodigyopt1.1.2; schedulefree1.4.1; state_dict",
+          "bridge": "same data/model state, RNG, next update and correct x/y checkpoint representation",
+          "practice": "Practice 7–9; RNG-omission diagnostic",
+          "scope": "New package execution deferred; existing measured scratch fits preserved"
+        },
+        {
+          "outcome": "State costs and additional optimizer comparisons",
+          "scratch": "lesson.md §§8–9; optimizer_calculations.py",
+          "library": "Actual matrix/gradient owner in earlier optimization topic",
+          "bridge": "allocation counts vs peak memory; pointwise vs matrix direction",
+          "practice": "Practice 7,9",
+          "scope": "Muon/Adafactor are scoped comparisons, not advertised full implementations here"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 4 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions.",
+        "optimizer_library_bridge.py equals its complete Python manuscript fence.",
+        "Integration author performed a bounded source consistency read; not formal phase-two independent review."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [
+          "https://raw.githubusercontent.com/google/automl/b21d6ced9bc9b748e1c8ab9fdebf2c44c57e63ae/lion/lion_pytorch.py",
+          "https://raw.githubusercontent.com/Liuhong99/Sophia/2fc52f24d4bc008658111b0237a70953ada22398/sophia.py",
+          "https://github.com/konstmish/prodigy",
+          "https://github.com/facebookresearch/schedule_free",
+          "https://pypi.org/project/prodigyopt/1.1.2/",
+          "https://pypi.org/project/schedulefree/1.4.1/"
+        ],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/design.md",
+          "docs/teaching/drafts/advanced-optimizers-lion-sophia-prodigy-schedule-free/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Install declared/pinned original dependencies and execute all four optimizer_library_bridge.py methods; record actual Lion parity and resumed-state checks.",
+        "Assess Sophia pseudo-label curvature refresh/B scaling and weighted-objective exercise, Prodigy variant boundary, Schedule-Free train/eval checkpoint and RNG omission. Package code is written but unexecuted.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/design.md",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/solver_library_bridge.py",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/visual-specifications.md",
+        "docs/teaching/topic-notes/neural-ode-continuous-depth-models.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/author-checks.json",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/calculated-inputs.json",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/check_author_packet.py",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/data-provenance.md",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/design.md",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/fitted-models.json",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/iris.csv",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/neural_ode_study.py",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/ode_calculations.py",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/solver_library_bridge.py",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/study-results.json",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/visual-specifications.md",
+        "docs/teaching/topic-notes/neural-ode-continuous-depth-models.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/author-checks.json": "7de0b5a019d030e3a54873c3797801c46c6d33a4e9d0c633081fcd5b5f777715",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/calculated-inputs.json": "0c1be5a1e205387f244d36a9d5df909fb5fa95a49894428418bff825e697aa1e",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/check_author_packet.py": "f02445d85c27c145a7a80ea5bd9c7752c3208f165372b30d572e3585e2d52a37",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/data-provenance.md": "0c942b22745c5b19048fd11435e66dd0812a92c9d630cf60256eaca2efab0dd6",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/design.md": "799aa9ee3efee11085e97a42e74cfc1b2ff6ebca3280bae39bb0863721469efa",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/fitted-models.json": "346542dd802b87063454a57e19d39b64aea0ae12218a7f689345dc4b50f31b6f",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/iris.csv": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md": "d189e299d42cece7e154033465978eca5039175dba85dd4b0992b7a74655a8b8",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/neural_ode_study.py": "a8c05ebe2ee0096362cf7f4ced5ae41bdb8707d481e5c096ed0a0b1f043fb65b",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/ode_calculations.py": "f310e65439c7d860576220ca0d4462cde1ae264f41b54fbadfec58a92468b1c0",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/solver_library_bridge.py": "4ee845ecd7f34c5cc702bfa09efccbb344b9c421e827c8b4e26f2a08f0b9b0eb",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/study-results.json": "72bba64186b3e38137c8fc2a7137d5f41bbf75131aa04b5914bc90a1b1616b6b",
+        "docs/teaching/drafts/neural-ode-continuous-depth-models/visual-specifications.md": "c053b7729a69a00b3e6f2cdcc30131de1b92268f8da5f3cff1f787ad6fc2380b",
+        "docs/teaching/topic-notes/neural-ode-continuous-depth-models.md": "14ea0bcf313545e6958a904741a3ec1cb5b4f279a3be46f4b508355e06774e06"
+      },
+      "coverage": [
+        {
+          "outcome": "Euler/classical RK4 and adaptive error control",
+          "scratch": "neural_ode_study.py::integrate; ode_calculations.py::fixed_solve/adaptive_heun",
+          "library": "solver_library_bridge.py uses torchdiffeq.odeint",
+          "bridge": "matched Euler state/initial/parameter gradients; 3/8 versus classical RK4 distinguished",
+          "practice": "Practice 1–3; changed-rate resolution solution",
+          "scope": "Fixed-step kernels owned; adaptive Heun estimator differs from production dopri5"
+        },
+        {
+          "outcome": "Direct/continuous-adjoint differentiation and learned augmented flow",
+          "scratch": "ode_calculations.py::scalar_gradient; neural_ode_study.py::DepthClassifier/VectorField/main",
+          "library": "torchdiffeq.odeint_adjoint plus ordinary Torch training",
+          "bridge": "analytic exponential state/gradients; explicit solver/backward tolerances",
+          "practice": "Practice 4–5,9; new −4 stability task",
+          "scope": "Continuous derivative approximation not exact discrete-program derivative"
+        },
+        {
+          "outcome": "Observation jumps, density evolution and velocity/structure extensions",
+          "scratch": "ode_calculations.py::observations and local derived manuscript examples",
+          "library": "Tensor/autograd building blocks; named later generative owners",
+          "bridge": "time availability and objective/flow distinctions",
+          "practice": "Practice 6–8",
+          "scope": "CNF/flow matching/Hamiltonian ideas are scoped deeper introductions, not complete generative-training claims"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 4 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions.",
+        "solver_library_bridge.py equals its complete Python manuscript fence.",
+        "Integration author performed a bounded source consistency read; not formal phase-two independent review."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [
+          "https://github.com/rtqichen/torchdiffeq",
+          "https://github.com/rtqichen/torchdiffeq/blob/master/FAQ.md",
+          "https://pypi.org/project/torchdiffeq/0.2.5/"
+        ],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/neural-ode-continuous-depth-models/design.md",
+          "docs/teaching/drafts/neural-ode-continuous-depth-models/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Install torchdiffeq0.2.5 with declared Torch target and execute same-Euler, adaptive-direct and adjoint comparisons; capture actual tolerances/results.",
+        "Assess changed-rate stability and derivative contracts; analytic answers and source review are not package execution evidence.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/design.md",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/lesson.md",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/author-results.json",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/author_calculations.py",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/data-provenance.md",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/deployment_example.py",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/design.md",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/hybrid_mechanisms.py",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/inspect_stroke.py",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/lesson.md",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/mechanism-results.json",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/packet-checks.json",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/packet_checks.py",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.names",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.tes",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.tra",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/source-download.json",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke-fits.npz",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke-results.json",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke_models.py",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/author-results.json": "b5c58ed073e7f6f7b757a0ac1aec601092e7909d802f3677f97000b82befc4d1",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/author_calculations.py": "7d7891b4b8b2e5e1f6dd2b88984de0817c8951947993a92898fd3c4b3a28ca1b",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/data-provenance.md": "d32e63aead999de1e9dfc959fc039f1eb7a5a28af9baa5c023f6cc0851f395b1",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/deployment_example.py": "fe01f649636a705ecc5c08d2aad5a0408d251f669605e89cef924df896aa43ab",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/design.md": "e37f505db4d80a52ae6a3f5086ca4242a9d88f28b1c935fc5b52a17d1f4d11da",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/hybrid_mechanisms.py": "c449a8b2733ec6ca3c1211e4b75358142eba2e3d1f2f726fb89cb30f82a73c6b",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/inspect_stroke.py": "ec1a4290f35da91a2940b78ab310221e8e8ed1da4a31c7764418b2c7f4c6c79f",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/lesson.md": "8dc633d12cdbf077b938e4418c495dc6c52a4bd8def83b1c94ba29d0063fd030",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/mechanism-results.json": "0bc0df6a7a2ea6ee42e05d952e5a69100bdb6cefe36b2fa66c1bed5efc668841",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/packet-checks.json": "42990a7777c282f106c977b83c7230b3180fba2384cb98fb64341e2b288d9515",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/packet_checks.py": "84bd806e432ba4fc49eb29771f2b73d1e191491bf3d622e69efebfe7a986c9cb",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.names": "a90a76e1edac6f1b50f4b44db80587d7b92601fcbb153c83c2c3210c21b34f60",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.tes": "8bd03229c5c5291fefe43e45465dd948d2645bf23328b9d993e0b777666b2015",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/pendigits.tra": "e2b9eb9f0d0467e2b64a4816a3420edf2b8043447576f4b84337aba44a9f97d3",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/source-download.json": "f8ed1ce05202db530cf027c820a7c5908705dd4900e51b07ee2b566f534d7162",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke-fits.npz": "caf5ce4bb05fc2a033836dce431ec23b1dc91be4f1df8fbee41ca66a5571e3f6",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke-results.json": "8a29cdb71090e045acb9c1f7c32f6620e211c221122f94557ccb8d27e57ce421",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/stroke_models.py": "bda2789c50ae1bb246c4c60ed6e300ca1e121119f91f676210ebe67bc5040785",
+        "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/visual-specifications.md": "eee5f9a7e809f593c367ba9318ca6dbecacc93f0c1ad147dc872dfb05da0e148"
+      },
+      "coverage": [
+        {
+          "outcome": "Selective recurrence, causal convolution and attention cache",
+          "scratch": "stroke_models.py::SelectiveMixer/AttentionMixer",
+          "library": "nn.Linear/Conv1d and explicit Torch tensor operations",
+          "bridge": "full-versus-stream same weights, state and global offsets",
+          "practice": "Practice 1–3,5,7,9; request-swap exercise",
+          "scope": "Small complete hybrid; fused accelerator kernel engineering is beyond this lesson"
+        },
+        {
+          "outcome": "Residual hybrid training and deployment",
+          "scratch": "stroke_models.py::Layer/StrokeModel/train",
+          "library": "deployment_example.py::main uses Transformers AutoModelForCausalLM",
+          "bridge": "task/shape/state contract versus distinct full checkpoint config",
+          "practice": "Practice 6,10",
+          "scope": "Provisioned CUDA deployment example unexecuted; not local-model parity"
+        },
+        {
+          "outcome": "Experts and state/resource decisions",
+          "scratch": "hybrid_mechanisms.py::route/cache_bytes; ../mixture-of-experts-transformers-moe/moe_study.py",
+          "library": "Prepared MoE tensor dispatch owner; actual released model adapter",
+          "bridge": "selected mass/renormalization and active-versus-stored state",
+          "practice": "Practice 4,8,9",
+          "scope": "MoE owner prepared not yet implemented; local stroke FFN intentionally dense"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 6 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/design.md",
+          "docs/teaching/drafts/hybrid-ssm-transformer-architectures-jamba/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Assess cache/offset swap exercise and ownership/mode bridge; preserved Transformers GPU deployment route is not claimed executed by this revision.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/titans-multi-memory-architecture/design.md",
+        "docs/teaching/drafts/titans-multi-memory-architecture/lesson.md",
+        "docs/teaching/drafts/titans-multi-memory-architecture/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/titans-multi-memory-architecture/author-checks.json",
+        "docs/teaching/drafts/titans-multi-memory-architecture/bike-sharing-daily.csv",
+        "docs/teaching/drafts/titans-multi-memory-architecture/check_author_packet.py",
+        "docs/teaching/drafts/titans-multi-memory-architecture/data-provenance.md",
+        "docs/teaching/drafts/titans-multi-memory-architecture/design.md",
+        "docs/teaching/drafts/titans-multi-memory-architecture/experiment-protocol.md",
+        "docs/teaching/drafts/titans-multi-memory-architecture/lesson.md",
+        "docs/teaching/drafts/titans-multi-memory-architecture/mechanism-results.json",
+        "docs/teaching/drafts/titans-multi-memory-architecture/memory_mechanisms.py",
+        "docs/teaching/drafts/titans-multi-memory-architecture/neural_memory.py",
+        "docs/teaching/drafts/titans-multi-memory-architecture/rental-results.json",
+        "docs/teaching/drafts/titans-multi-memory-architecture/rental_memory_study.py",
+        "docs/teaching/drafts/titans-multi-memory-architecture/source-description.txt",
+        "docs/teaching/drafts/titans-multi-memory-architecture/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/titans-multi-memory-architecture/author-checks.json": "5690cc4b4ff4c06ce7466da4cc33bb1c54a2fba0fe9e2c319355e16a9b775d98",
+        "docs/teaching/drafts/titans-multi-memory-architecture/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+        "docs/teaching/drafts/titans-multi-memory-architecture/check_author_packet.py": "90fcb64e82fec3574a3696729db35d8e1c9b639816dbb256a2f8bf5c39ec0604",
+        "docs/teaching/drafts/titans-multi-memory-architecture/data-provenance.md": "446647378996491495f06e08034db00abb8d5c0c165c3f559680d390e8fa3384",
+        "docs/teaching/drafts/titans-multi-memory-architecture/design.md": "3d1a0e3d9edff88af6db61c3e0f8f6d99edc3d4f34c2808e7d044ef4677a8e34",
+        "docs/teaching/drafts/titans-multi-memory-architecture/experiment-protocol.md": "e1295e508c7f4f09f7af129dfa520353e31b8fd9659f44f3e82247a405a0a66a",
+        "docs/teaching/drafts/titans-multi-memory-architecture/lesson.md": "c4814624492201ac6cb2403a814e9ab3c6a6fdbb4d11a0e21c5e8aadd7226970",
+        "docs/teaching/drafts/titans-multi-memory-architecture/mechanism-results.json": "23f58d46147a2df876dc8163b7cea92f59cdd46c2806d13a1c5f081f65d7a375",
+        "docs/teaching/drafts/titans-multi-memory-architecture/memory_mechanisms.py": "328673472d47ba7ea89fd614343011fbd9963ecd38fbd537e23a18df56a8d5f6",
+        "docs/teaching/drafts/titans-multi-memory-architecture/neural_memory.py": "12cea1e0318840a4e31452b20ea867e1f6da2a42daf358a4fd4b7368a0790258",
+        "docs/teaching/drafts/titans-multi-memory-architecture/rental-results.json": "45e6b63c663377a8c8d0b20139594fc7636d01db350258613bd07603d6ff0261",
+        "docs/teaching/drafts/titans-multi-memory-architecture/rental_memory_study.py": "b0dbff77c25692fab151d4306293e290c19b32142a7b0148714c78ba9159d037",
+        "docs/teaching/drafts/titans-multi-memory-architecture/source-description.txt": "b92c8628622948bf0828c43a1b315d1517c3d7fd63654730d0dea379b8e88175",
+        "docs/teaching/drafts/titans-multi-memory-architecture/visual-specifications.md": "5dc6884ce99e445f99fd85f9bb4db600115eec048064fb494c8583d8bf41b0ab"
+      },
+      "coverage": [
+        {
+          "outcome": "Linear/nonlinear associative write, forgetting and momentum",
+          "scratch": "memory_mechanisms.py::linear_write; neural_memory.py::read_memory/write_memory",
+          "library": "torch.autograd.grad and explicit parameter tuples",
+          "bridge": "linear outer-product gradient; nonlinear finite differences; detach contract",
+          "practice": "Practice 1,2,5,7; rate-gradient exercise",
+          "scope": "Autograd primitive reused; no opaque memory learner"
+        },
+        {
+          "outcome": "Memory/attention composition and two learning loops",
+          "scratch": "memory_mechanisms.py::gated_sequence/scalar_outer/nonlinear_outer",
+          "library": "Torch differentiable fast weights plus NumPy topology oracle",
+          "bridge": "same inner state and outer objective; causal full/carry comparisons",
+          "practice": "Practice 3,5,8",
+          "scope": "MAG-topology teaching specialization; MAC/MAL are sourced architecture comparisons"
+        },
+        {
+          "outcome": "Causal stream fitting/replay and resource reasoning",
+          "scratch": "rental_memory_study.py::fit_initial/replay/run_study",
+          "library": "Torch optimizer for initialization; detached online updates",
+          "bridge": "availability boundary, state copy/reset and later forecast",
+          "practice": "Practice 4,6; serving-state exercise",
+          "scope": "No claim of production Titans checkpoint reproduction or infinite-memory guarantees"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 4 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/titans-multi-memory-architecture/design.md",
+          "docs/teaching/drafts/titans-multi-memory-architecture/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Assess retained/detached fast-weight graph and changed-rate finite-difference exercise; keep topology scope truthful.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "mini-batches-training-loops-gradient-accumulation",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/design.md",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author-results.json",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author_checks.py",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/data-provenance.md",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/design.md",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris-output.txt",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris.csv",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace-output.txt",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace_update.py",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/train_iris.py",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/visual-specifications.md"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author-results.json": "ab86f9783b6086faf3150f13076fceaf092adf4c540ebf28b4d11f7ae35a584d",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/author_checks.py": "9e51c6efcc27b42a936dace4696ee2d5948f3676c56dd0cce2fe251b64882a4c",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/data-provenance.md": "72c775683b1c359d08d3432edd151c305e7284377e3178ed58cb862cdf7e992e",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/design.md": "b9c48342f5a90ea791427f58ba2534e646b56ee43ba4f6255dcbc03a772b660f",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris-output.txt": "2408925f0b00a8732b7b0fdd50d33744f3f2a18877f9cc4952ef9f6aede5656e",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/iris.csv": "777674aa8e8ed6bc0a6758822616f02bceac793e0044a2676d9ee328316bf8b0",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md": "1f20f79b67d35d2f643f4151daa590993b3169b4d0f94ce7c4e7220f35760a69",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace-output.txt": "234151da8c926affc262c49f756bac1308c7b41b26b3f0a2aefa9e9d80f755bb",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/trace_update.py": "1087dc17806584c6f08bf97c3e523f25ba7d882735165e36da4d6aa23c9ca432",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/train_iris.py": "5d9782683eb1fc1811c94ebf0f107cdb39584fd1b770e86de545baba1ea05798",
+        "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/visual-specifications.md": "28fc5c86f8c342229625ec32070443c3944fd32c03799eaf9d1f07f2e9b95481"
+      },
+      "coverage": [
+        {
+          "outcome": "Accumulation, unequal denominators and tail groups",
+          "scratch": "lesson.md §§2–5; author_checks.py::gradient/scalar_paths; train_iris.py::train",
+          "library": "trace_update.py; PyTorch backward/zero_grad/SGD",
+          "bridge": "same group objective, per-chunk gradient additions, one parameter/state update",
+          "practice": "Practice 1–4; new 7-row microbatch solution",
+          "scope": "Scratch derivative/optimizer owners actually implemented and linked"
+        },
+        {
+          "outcome": "Mode/normalization/randomness and boundary operations",
+          "scratch": "author_checks.py::normalization_case/dropout_gradient; lesson.md §§7–8",
+          "library": "PyTorch modes, gradient clipping, AMP API described",
+          "bridge": "same per-example computation needed; unscale/clip/update ordering",
+          "practice": "Practice 5; normalization investigation",
+          "scope": "DDP/AMP described with operation contracts; no claimed multi-device runtime evidence"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 3 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/design.md",
+          "docs/teaching/drafts/mini-batches-training-loops-gradient-accumulation/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Assess seven-row microbatch tail denominators and paired parameter/momentum paths; preserve cross-example/randomness assumptions.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    },
+    {
+      "id": "neural-training-diagnostics-reproducible-experiments",
+      "status": "content-prepared",
+      "changedFiles": [
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/design.md",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/visual-specifications.md"
+      ],
+      "contentFiles": [
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/author-verification.json",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculation-results.json",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculations.py",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint-results.json",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/data-provenance.md",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/design.md",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/prediction-retention-check.json",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/split.json",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/verify_packet.py",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/visual-specifications.md",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine-results.json",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine.csv",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py"
+      ],
+      "sourceHashes": {
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/author-verification.json": "5c47803a03b66f20869b5567aea9c265c0172d9a5bbda802e03bb86b8f193dca",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculation-results.json": "6ad1f028f621e1d280b4c7b8a5a4b25849fce1fd108e88280452ea90571c9dfe",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/calculations.py": "f7f57cbae6af46e5a3dac8ff1a06afd001d881ea2fb8c6aab2766ea95cb23277",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint-results.json": "737d99c93c3a8e093054f0d8d09a6ba6fd0c831a5532f4c1940e72a2f18a1d76",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/checkpoint_replay.py": "f8c240f7e20e55845ff5ace0d445a193a8e80b96e4d1c6ae20d9345b014fb59f",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/data-provenance.md": "287e3306f83dcc950ac737062f993adc6dd98f078bbd1567e47a23980c3fcb63",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/design.md": "d9145695a2cc1519f532e4b09cd4af36d48f772aa490127194331de015f44e20",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/experiment-protocol.md": "e9d40df4e70499f3980936dd3ee367a4c53c2bf233843e068f563b8824115032",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md": "ae6cff7d6e22ebe0be9ec23467036785f48a9865b39a6626c3d929e420b71c05",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/prediction-retention-check.json": "b7cce268b375a827bcdf10d71a1fe36d3a9f80ada50dcc38398a55572346115d",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/split.json": "8204aed7bd9edff16f90355f6640629fc46e0e862820dfc87ba1dce7d3491e73",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/verify_packet.py": "3572f7e69cdfa2cdd6922727e9ecb10f99b38129eef915862e15f4d784bda0b2",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/visual-specifications.md": "5a3112d9db0cdd6cbf2f408ed551a11d47af2639f4e9a57a9cb894ffa4647323",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine-results.json": "7c8f520c4357379fc79e6d863890eecab4b131a543744357a24c965ce9af3774",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine.csv": "68386101f5ee41ef2a03d50bb8fe6dc5d4ac86aac31b6e987616be00a8c9c728",
+        "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/wine_diagnostics.py": "66d2476e085229b9a69e7cd7341d7bf2963f811efc016f905bbd63e05ef3635d"
+      },
+      "coverage": [
+        {
+          "outcome": "Fault localization, exact update and finite-difference diagnosis",
+          "scratch": "calculations.py::scalar_step/finite_difference; wine_diagnostics.py::fit/activation_probe",
+          "library": "nn.Module/SGD and direct tensor measurements",
+          "bridge": "same objective/rows and separate loss/gradient/parameter-change signals",
+          "practice": "Cases A–C; practical diagnosis synthesis",
+          "scope": "Derivative/loss/optimizer engines reused from actual implemented owners"
+        },
+        {
+          "outcome": "Checkpoint process reconstruction and controlled omissions",
+          "scratch": "checkpoint_replay.py::snapshot/restore/train_until",
+          "library": "state_dict, torch.save/load(weights_only=True), generator states",
+          "bridge": "uninterrupted versus restored trace and parameter comparisons",
+          "practice": "Case D; complete mid-group checkpoint solution",
+          "scope": "Current runnable checkpoint boundary is completed update; distributed/prefetch not certified"
+        },
+        {
+          "outcome": "Experimental protocol and evidence interpretation",
+          "scratch": "wine_diagnostics.py::load_inputs/main; experiment-protocol.md",
+          "library": "NumPy/PyTorch ordinary local experiment workflow",
+          "bridge": "declared roles/seeds/treatments and retained row predictions",
+          "practice": "Practical synthesis; uncertainty discussion",
+          "scope": "No invented package for scientific inference; different sampling sources remain distinct"
+        }
+      ],
+      "authorChecks": [
+        "Content-mode topic preflight and applicable destination notes consumed.",
+        "Python syntax parsed for all 4 current packet programs.",
+        "Relative Markdown file links checked outside code fences.",
+        "Outcome/owner/state/gradient/practice and prepared-versus-published scope read against current local definitions."
+      ],
+      "sources": {
+        "newPrimarySourcesInspected": [],
+        "retainedAnnotatedSources": [
+          "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/design.md",
+          "docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/lesson.md"
+        ],
+        "checkedAt": "2026-09-22"
+      },
+      "deferredChecks": [
+        "Assess mid-group checkpoint state accounting and distinguish it from the retained implemented after-update checkpoint boundary.",
+        "Reuse unchanged measured-study evidence where appropriate; author syntax/source checks are not independent implementation review.",
+        "Complete website/visual/lab implementation, affected independent review, responsive/accessibility/pointer/keyboard/theme/lazy-loading and production integration checks during an authorized finish phase."
+      ]
+    }
+  ]
+}

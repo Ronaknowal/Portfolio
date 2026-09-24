@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, PatchGrid, Heatmap, StepTrace, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -767,7 +768,7 @@ recon = model.decode(out.audio_codes, out.audio_scales, inputs["padding_mask"])`
       <H3>Codebook collapse</H3>
 
       <Prose>
-        The opposite failure: almost all encoder outputs map to the same one or two codes. Usually caused by an encoder that produces near-constant outputs — if the encoder's output has too little variation, nearest-neighbor is dominated by whichever codebook entry happens to be closest to the center of mass, and every feature maps there. Symptoms: nearly-uniform reconstructions, catastrophic KL-like divergence of the codebook entries from the encoder outputs, <Code>>95%</Code> of assignments to one or two codes. Fixes: increase the commitment loss coefficient <Code>β</Code>, add batch normalization to the encoder output, or restart the codebook entirely from a fresh k-means clustering of a batch of encoder outputs.
+        The opposite failure: almost all encoder outputs map to the same one or two codes. Usually caused by an encoder that produces near-constant outputs — if the encoder's output has too little variation, nearest-neighbor is dominated by whichever codebook entry happens to be closest to the center of mass, and every feature maps there. Symptoms: nearly-uniform reconstructions, catastrophic KL-like divergence of the codebook entries from the encoder outputs, <Code>{">95%"}</Code> of assignments to one or two codes. Fixes: increase the commitment loss coefficient <Code>β</Code>, add batch normalization to the encoder output, or restart the codebook entirely from a fresh k-means clustering of a batch of encoder outputs.
       </Prose>
 
       <H3>Posterior-collapse analog</H3>

@@ -1,0 +1,277 @@
+{
+  "ranAt": "2026-09-20T07:47:43.981Z",
+  "harness": "scripts/falsify-calibration.mjs",
+  "harnessSha256": "4f7d321dcbdac57667359572f6738bdefeb7a01710b8302733f2bf4e73f109d9",
+  "includedBrowserLayer": true,
+  "breakages": 36,
+  "caught": 36,
+  "citedExpectedGuard": 34,
+  "survivors": 0,
+  "results": [
+    {
+      "name": "the conformal rank computed with ordinary floating point",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: rank at n=24, alpha=0.440: module gives 15, the integer scan gives 14",
+      "cited": true
+    },
+    {
+      "name": "the rank clipped to n instead of returning infinity",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: threshold on subject 0 at alpha 0.010: undefined is not a finite number",
+      "cited": false
+    },
+    {
+      "name": "the set comparison made strict, dropping a score that equals the threshold",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: the weak comparison must keep the class whose score equals the threshold",
+      "cited": true
+    },
+    {
+      "name": "a forecast of exactly 1 dropped out of the last bin",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: the boundary fixture must keep its p=1 observation in the last bin",
+      "cited": true
+    },
+    {
+      "name": "an empty bin reporting an observed fraction of zero",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: an empty bin has no observed fraction, not a fraction of zero",
+      "cited": true
+    },
+    {
+      "name": "pool-adjacent-violators merging on ties as well as violations",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: a recorded merge does not violate the required order: 0 then 0",
+      "cited": true
+    },
+    {
+      "name": "a merge taking the average of two block means instead of the combined counts",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: the stack fit disagrees with the max-min solution[0]: 0.0078125 versus 0.125",
+      "cited": true
+    },
+    {
+      "name": "the grading rule treating a quantity with no value as zero",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: an empty set has no width to compare, which is a fourth answer and not zero",
+      "cited": true
+    },
+    {
+      "name": "the graded display rounded to six decimals, so a real change prints as no change",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: a rise of 1e-10 from 0.5 prints as \"0.500000\" either way: the graded display is coarser than the tolerance, so a learner would be told the number moved while seeing it ",
+      "cited": false
+    },
+    {
+      "name": "an empty bin given a minimum count-bar height",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: a count bar is proportional to its count: 2 versus 0",
+      "cited": true
+    },
+    {
+      "name": "an interval segment given a minimum drawn length",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: a segment's drawn length is its width, with no offset: 3 versus 0",
+      "cited": true
+    },
+    {
+      "name": "an unbounded threshold drawn as a point at the right-hand edge",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: an unbounded threshold must not be drawn as a point on the axis, however far right",
+      "cited": true
+    },
+    {
+      "name": "temperature multiplying the logits instead of dividing them",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: softmax at T=2[0]: 0.9796292071670796 versus 0.6285317192117624",
+      "cited": true
+    },
+    {
+      "name": "the reliability figure claiming an overestimate sits ABOVE the diagonal",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: the body must say that an overestimated positive probability sits BELOW the diagonal",
+      "cited": true
+    },
+    {
+      "name": "an investigation losing its gate, so a graded readout renders on first paint",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: ReliabilityLab has no gated readout at all",
+      "cited": true
+    },
+    {
+      "name": "the banknote role boundary moved, so eighty rows change job in silence",
+      "runner": "data",
+      "status": "CAUGHT",
+      "detail": "FAIL the four data roles do not partition the 480 rows: 460 distinct rows are assigned",
+      "cited": true
+    },
+    {
+      "name": "the independent rank scan accepting a rank one place short",
+      "runner": "data",
+      "status": "CAUGHT",
+      "detail": "FAIL checked/rank/k: 8 versus 9 (gap 1.0)",
+      "cited": true
+    },
+    {
+      "name": "a hand edit to a served program that the page displays",
+      "runner": "examples",
+      "status": "CAUGHT",
+      "detail": "FAIL reliability_bins.py differs from a fresh assembly out of the packet",
+      "cited": true
+    },
+    {
+      "name": "a single changed byte in the served banknote data",
+      "runner": "examples",
+      "status": "CAUGHT",
+      "detail": "FAIL the served banknote-subset.csv is not byte-identical to the packet's",
+      "cited": true
+    },
+    {
+      "name": "a JSX conditional whose two branches are the same",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "FAIL src/learn/components/lesson-labs/CalibrationLabs.jsx:39: a conditional whose branches are identical ('unchanged means within') � it can never render anything, so the phrase it was meant to carry ",
+      "cited": true
+    },
+    {
+      "name": "a raw control byte where a shell ate an escape",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "FAIL src/learn/components/lesson-labs/CalibrationLabs.jsx:39: raw control byte 0x08 (unnamed) � a shell ate an escape here",
+      "cited": true
+    },
+    {
+      "name": "a blanket stylesheet fill that would beat every presentation attribute",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "FAIL src/learn/components/lesson-labs/calibration-labs.css:69: `.cal-lesson svg.cal-plot rect` sets fill or stroke-width on a bare element type; a stylesheet rule beats a presentation attribute, so a ",
+      "cited": true
+    },
+    {
+      "name": "the wide-accent display block unwrapped onto one line",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "FAIL a display block carrying a wide accent is not wrapped: \\\\widehat{\\\\mathrm{ECE}}=\\\\sum_b\\\\frac{n_b}{n}\\\\left|\\\\bar y_b-\\\\bar p � the accent's own SVG can exceed a narrow column even when the visib",
+      "cited": true
+    },
+    {
+      "name": "a shell-eaten backslash in a plain math literal",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "FAIL src/learn/data/topics/calibration-conformal-prediction.jsx:121: the math literal '\\\\mathbb E[Y\\\\\\\\mid P]' has an odd run of 1 backslashes; a shell or an editor ate one, and KaTeX will render the ",
+      "cited": true
+    },
+    {
+      "name": "a shell-eaten backslash in a concatenated math literal",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "FAIL src/learn/data/topics/calibration-conformal-prediction.jsx:633: the math literal 'k=\\\\lceil 81\\\\\\\\times.9\\\\\\\\rceil=' has an odd run of 1 backslashes; a shell or an editor ate one, and KaTeX will ",
+      "cited": true
+    },
+    {
+      "name": "the hygiene checker file list truncated, so two thirds of the corpus is never read",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "only 59 source-hygiene checks ran; a block did not execute, so this PASS covers less than it claims",
+      "cited": true
+    },
+    {
+      "name": "the stylesheet rule unscoped from `svg.cal-plot` back to a bare `svg`",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "FAIL src/learn/components/lesson-labs/calibration-labs.css:43: `.cal-lesson svg` selects `svg` without naming this lesson's own `cal-plot` class. KaTeX renders accents, radicals and stretchy delimiter",
+      "cited": true
+    },
+    {
+      "name": "an <svg> drawn without the class every scoped rule names",
+      "runner": "sources",
+      "status": "CAUGHT",
+      "detail": "FAIL src/learn/components/lesson-labs/CalibrationShared.jsx:374: an <svg> without the `cal-plot` class. Every stylesheet rule for this lesson's diagrams names that class, so this one renders with the ",
+      "cited": true
+    },
+    {
+      "name": "a held-out test probability copied into an investigation fixture",
+      "runner": "models",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: a held-out assessment value appears among the investigation fixtures: 0.7182613044190139",
+      "cited": true
+    },
+    {
+      "name": "a stylesheet stroke width overriding every drawn interval segment",
+      "runner": "browser",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: line.cal-interval carries stroke-width 3 but paints at 1px — a stylesheet rule is overriding an attribute that encodes a quantity",
+      "cited": true
+    },
+    {
+      "name": "the graded baseline read under the applied quantity instead of the one being asked",
+      "runner": "browser",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: the AUC verdict does not quote the applied state's AUC (0.540000000000): \"=Your prediction matches: it has no value at all for the new cards. the ROC AUC went from 0.20",
+      "cited": true
+    },
+    {
+      "name": "a CSS fill turning the dashed diagonal into a filled shape",
+      "runner": "browser",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: cal-diagonal paints a fill of rgb(231, 185, 74); a CSS fill beats a fill=\"none\" attribute and turns an outline into a blob",
+      "cited": true
+    },
+    {
+      "name": "the graded ECE printed in the baseline caption, before any commitment",
+      "runner": "browser",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: the graded ECE 0.207700000000 is on screen before a prediction was recorded",
+      "cited": true
+    },
+    {
+      "name": "the SVG text rule narrowed so the inline figures stop matching it",
+      "runner": "browser",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: \"0\" has the declared font family \"Space Grotesk\", sans-serif; the lesson-root SVG text rule is not reaching it, so it has fallen back to the browser default",
+      "cited": true
+    },
+    {
+      "name": "the unscoped `svg` rule resizing the KaTeX accent SVG",
+      "runner": "browser",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: a KaTeX SVG in \"ECE^=∑bnbn∣yˉb−pˉb∣.\\begin{gathered}\\wid\" renders 9.078px tall inside a 4.641px box (default state at 1366 px), a factor of 1.956. KaTeX sizes these wit",
+      "cited": true
+    },
+    {
+      "name": "the table container class renamed, so the clipped-cell guard has nothing to inspect",
+      "runner": "browser",
+      "status": "CAUGHT",
+      "detail": "AssertionError [ERR_ASSERTION]: the layout guards have only 0 cells to inspect (default state at 1366 px), below the floor of 440: their subject set has drifted, so every empty-findings assertion belo",
+      "cited": true
+    }
+  ],
+  "restoredTreeVerifierOutput": {
+    "sources": "PASS: 85 source-hygiene checks over 19 files and 1910 escape sites � no eaten escape, no raw control byte, every required KaTeX sequence present, all 10 display blocks wrapped (1 carrying a wide accent), no conditional with identical branches, and no blanket paint rule that could beat a presentation attribute.",
+    "examples": "PASS: 5 programs executed and 63 oracles checked. Both trust-root JSON files regenerate byte for byte; the rank, rotation, isotonic fit and ECE are each recomputed by a second route.",
+    "data": "PASS: 285 data checks. 5376 of 5376 trust-root leaf paths asserted (0 uncovered), both experiments re-derived from the served CSV files.",
+    "browser": "PASS: 11 browser cases at 1366, 390 and 320 px; 640 shapes compared against their attributes, 175 SVG labels measured, 10 display formulas checked for overflow, and 51 distinct captures recorded.",
+    "models": "PASS: 549 grouped calibration model checks across 72 groups, including 98,200 rank cases recomputed by exact integer scanning (26 of which ordinary floating point gets wrong, 1 reachable through a control), 544 monotone fits against the max-min formula, 11,907 CQR score cases, 518,400 verdict-and-display pairs and 6,164 geometry checks."
+  },
+  "scope": "Each breakage is applied alone to a real source file, the verifier that should catch it is run for real, the file is restored and the restore is checked byte-identical by SHA-256. A breakage that leaves its verifier green is a SURVIVOR and means the guard does not work.",
+  "limitations": [
+    "The browser layer runs only with INCLUDE_BROWSER=1 against a running preview; without it those four breakages are not applied at all and are not counted.",
+    "A caught breakage that cites a different assertion is reported as such rather than counted as a clean catch; the citation is a substring match on the failure text."
+  ],
+  "passed": true
+}

@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-09-11T14:07:01.028Z",
+  "topicId": "multi-label-multi-output-learning",
+  "scope": "Only the readTime value changes from a bare number to an explicit reading/practice estimate. Lesson content, models, examples, investigations and styles are unchanged.",
+  "path": "src/learn/data/topics/multi-label-multi-output-learning.jsx",
+  "beforeSha256": "abab8f6fc140cb9f88cf5c7a15d33d724f74a32632978a48f959730b581ec456",
+  "afterSha256": "331e22b460f9aae9395f3ac05c3cefcc23e28329083564fa9f1bd2faa296528b",
+  "before": 100,
+  "after": "~100 min read + 2–3 hours practice",
+  "reusedAuthor": "docs/teaching/evidence/multioutput-author-review.json",
+  "reusedIndependent": "docs/teaching/evidence/multioutput-independent-review.json",
+  "uiVerification": "Pending final generated-metadata and production header check."
+}

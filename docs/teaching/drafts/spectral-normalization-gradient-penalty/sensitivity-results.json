@@ -1,0 +1,789 @@
+{
+  "circle": {
+    "matrix": [
+      [
+        3.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "singular_values": [
+      3.0,
+      1.0
+    ],
+    "frobenius": 3.1622776601683795,
+    "normalized": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.3333333333333333
+      ]
+    ],
+    "fresh_matrix": [
+      [
+        2.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "fresh_singular_values": [
+      2.2882456112707374,
+      0.8740320488976421
+    ]
+  },
+  "power": {
+    "generic": [
+      {
+        "step": 1,
+        "u": [
+          0.9938837346736188,
+          0.11043152607484653
+        ],
+        "v": [
+          0.9486832980505139,
+          0.31622776601683794
+        ],
+        "estimate": 2.8635642126552705,
+        "normalized_operator_norm": 1.0476454436543674
+      },
+      {
+        "step": 2,
+        "u": [
+          0.9999238008152206,
+          0.012344738281669388
+        ],
+        "v": [
+          0.9993148337667671,
+          0.03701166050988026
+        ],
+        "estimate": 2.9981729596356526,
+        "normalized_operator_norm": 1.0006093845781898
+      },
+      {
+        "step": 3,
+        "u": [
+          0.9999990591631162,
+          0.0013717408218972787
+        ],
+        "v": [
+          0.9999915325636433,
+          0.004115191492031454
+        ],
+        "estimate": 2.999977420180337,
+        "normalized_operator_norm": 1.0000075266632045
+      },
+      {
+        "step": 4,
+        "u": [
+          0.9999999883847136,
+          0.00015241578850551954
+        ],
+        "v": [
+          0.9999998954624373,
+          0.00045724732302809205
+        ],
+        "estimate": 2.9999997212331673,
+        "normalized_operator_norm": 1.0000000929222863
+      },
+      {
+        "step": 5,
+        "u": [
+          0.9999999998566014,
+          1.693508780600182e-05
+        ],
+        "v": [
+          0.9999999987094127,
+          5.080526335972223e-05
+        ],
+        "estimate": 2.999999996558434,
+        "normalized_operator_norm": 1.0000000011471888
+      },
+      {
+        "step": 6,
+        "u": [
+          0.9999999999982295,
+          1.8816764231555894e-06
+        ],
+        "v": [
+          0.9999999999840669,
+          5.645029269386819e-06
+        ],
+        "estimate": 2.9999999999575113,
+        "normalized_operator_norm": 1.000000000014163
+      },
+      {
+        "step": 7,
+        "u": [
+          0.9999999999999781,
+          2.0907515812876442e-07
+        ],
+        "v": [
+          0.9999999999998033,
+          6.272254743861836e-07
+        ],
+        "estimate": 2.999999999999475,
+        "normalized_operator_norm": 1.000000000000175
+      },
+      {
+        "step": 8,
+        "u": [
+          0.9999999999999997,
+          2.323057312541877e-08
+        ],
+        "v": [
+          0.9999999999999974,
+          6.969171937625615e-08
+        ],
+        "estimate": 2.9999999999999933,
+        "normalized_operator_norm": 1.0000000000000022
+      }
+    ],
+    "orthogonal": [
+      {
+        "step": 1,
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          0.0,
+          1.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 2,
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          0.0,
+          1.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 3,
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          0.0,
+          1.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 4,
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          0.0,
+          1.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 5,
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          0.0,
+          1.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 6,
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          0.0,
+          1.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 7,
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          0.0,
+          1.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 8,
+        "u": [
+          0.0,
+          1.0
+        ],
+        "v": [
+          0.0,
+          1.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      }
+    ],
+    "slow_gap": [
+      {
+        "step": 1,
+        "u": [
+          0.7141071470704031,
+          0.700036415126363
+        ],
+        "v": [
+          0.7106159308920413,
+          0.7035801295960804
+        ],
+        "estimate": 1.0050621858993973,
+        "normalized_operator_norm": 1.0049129438654425
+      },
+      {
+        "step": 2,
+        "u": [
+          0.7210340906277157,
+          0.6928995887952762
+        ],
+        "v": [
+          0.717580005699852,
+          0.6964760838821391
+        ],
+        "estimate": 1.0051616354587265,
+        "normalized_operator_norm": 1.0048135189113794
+      },
+      {
+        "step": 3,
+        "u": [
+          0.7278843155466198,
+          0.6856999512769626
+        ],
+        "v": [
+          0.7244689938107354,
+          0.6893073893459006
+        ],
+        "estimate": 1.0052609571609565,
+        "normalized_operator_norm": 1.0047142414169028
+      },
+      {
+        "step": 4,
+        "u": [
+          0.7346546588983308,
+          0.6784412518110742
+        ],
+        "v": [
+          0.7312796646965486,
+          0.6820777463026508
+        ],
+        "estimate": 1.0053600727872447,
+        "normalized_operator_norm": 1.0046151894613158
+      },
+      {
+        "step": 5,
+        "u": [
+          0.7413420981032909,
+          0.6711273303776347
+        ],
+        "v": [
+          0.738008924769956,
+          0.6747909505616486
+        ],
+        "estimate": 1.005458904768418,
+        "normalized_operator_norm": 1.0045164404134728
+      },
+      {
+        "step": 6,
+        "u": [
+          0.7479437572833156,
+          0.6637621079429863
+        ],
+        "v": [
+          0.744653824047689,
+          0.6674508838342739
+        ],
+        "estimate": 1.0055573764262005,
+        "normalized_operator_norm": 1.0044180706918873
+      },
+      {
+        "step": 7,
+        "u": [
+          0.7544569129694233,
+          0.6563495764245211
+        ],
+        "v": [
+          0.7512115621839951,
+          0.6600615038320911
+        ],
+        "estimate": 1.005655412208523,
+        "normalized_operator_norm": 1.0043201555311434
+      },
+      {
+        "step": 8,
+        "u": [
+          0.7608789991403698,
+          0.6488937884331683
+        ],
+        "v": [
+          0.7576794938466008,
+          0.6526268341130014
+        ],
+        "estimate": 1.0057529379173857,
+        "normalized_operator_norm": 1.004222768756121
+      }
+    ],
+    "rotated_weight_cached_vector": [
+      {
+        "step": 1,
+        "u": [
+          1.0,
+          0.0
+        ],
+        "v": [
+          1.0,
+          0.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 2,
+        "u": [
+          1.0,
+          0.0
+        ],
+        "v": [
+          1.0,
+          0.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 3,
+        "u": [
+          1.0,
+          0.0
+        ],
+        "v": [
+          1.0,
+          0.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 4,
+        "u": [
+          1.0,
+          0.0
+        ],
+        "v": [
+          1.0,
+          0.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 5,
+        "u": [
+          1.0,
+          0.0
+        ],
+        "v": [
+          1.0,
+          0.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 6,
+        "u": [
+          1.0,
+          0.0
+        ],
+        "v": [
+          1.0,
+          0.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 7,
+        "u": [
+          1.0,
+          0.0
+        ],
+        "v": [
+          1.0,
+          0.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      },
+      {
+        "step": 8,
+        "u": [
+          1.0,
+          0.0
+        ],
+        "v": [
+          1.0,
+          0.0
+        ],
+        "estimate": 1.0,
+        "normalized_operator_norm": 3.0
+      }
+    ]
+  },
+  "convolution": {
+    "valid_matrix": [
+      [
+        1.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        1.0
+      ]
+    ],
+    "disjoint_matrix": [
+      [
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    ],
+    "circular_matrix": [
+      [
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "kernel_norm": 1.4142135623730951,
+    "normalized_operator_norms": {
+      "valid": 1.224744871391589,
+      "disjoint": 1.0,
+      "circular": 1.414213562373095
+    }
+  },
+  "penalty": {
+    "weight": [
+      3.0,
+      4.0
+    ],
+    "strength": 2.0,
+    "initial": 32.0,
+    "gradient": [
+      9.6,
+      12.8
+    ],
+    "learning_rate": 0.1,
+    "updated": [
+      2.04,
+      2.7199999999999998
+    ],
+    "updated_norm": 3.4,
+    "updated_penalty": 11.52,
+    "norms": [
+      0,
+      0.5,
+      1,
+      2
+    ],
+    "two_sided": [
+      1,
+      0.25,
+      0,
+      1
+    ],
+    "one_sided": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "zero_centered": [
+      0,
+      0.25,
+      1,
+      4
+    ]
+  },
+  "missed_region": {
+    "function": "x+4*ReLU(x-1)",
+    "sampled_points": [
+      -0.5,
+      0,
+      0.5
+    ],
+    "sampled_gradients": [
+      1,
+      1,
+      1
+    ],
+    "sampled_penalty": 0,
+    "outside_point": 2,
+    "outside_gradient": 5,
+    "outside_unit_penalty": 16,
+    "fresh_knot": 2,
+    "fresh_probe": 1.5,
+    "fresh_probe_gradient": 1
+  },
+  "batch": {
+    "jacobian": [
+      [
+        0.5,
+        -0.5
+      ],
+      [
+        -0.5,
+        0.5
+      ]
+    ],
+    "gradient_of_sum": [
+      0.0,
+      0.0
+    ],
+    "self_derivatives": [
+      0.5,
+      0.5
+    ]
+  },
+  "composition": {
+    "first": [
+      [
+        3.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.3333333333333333
+      ]
+    ],
+    "second": [
+      [
+        0.3333333333333333,
+        0.0
+      ],
+      [
+        0.0,
+        3.0
+      ]
+    ],
+    "product_bound": 9.0,
+    "actual_norm": 1.0,
+    "residual_branch_norm": 0.5,
+    "residual_total_norm": 1.5
+  },
+  "margin": {
+    "weights": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "input": [
+      2.0,
+      0.0
+    ],
+    "logits": [
+      2.0,
+      0.0
+    ],
+    "gap": 2.0,
+    "joint_lipschitz": 1.0,
+    "pair_lipschitz": 1.4142135623730951,
+    "radius": 1.4142135623730951,
+    "boundary_perturbation": [
+      -1.0,
+      1.0
+    ],
+    "boundary_logits": [
+      1.0,
+      1.0
+    ]
+  },
+  "fresh_investigations": {
+    "convolution_normalized_norm": 1.1832159566199232,
+    "moved_probe_penalty": 10.666666666666666,
+    "margin_input": [
+      1.5,
+      0.25
+    ],
+    "margin_gap": 1.25,
+    "margin_radius": 0.8838834764831843
+  },
+  "normalization_gradient": {
+    "autograd": [
+      [
+        0.05754270522861571,
+        -0.3656322164364719
+      ],
+      [
+        -0.002178294093681754,
+        0.25054680597924095
+      ]
+    ],
+    "finite_difference": [
+      [
+        0.05754270522295712,
+        -0.3656322164369285
+      ],
+      [
+        -0.0021782941006520673,
+        0.2505468059799121
+      ]
+    ],
+    "max_error": 6.97031321550412e-12
+  },
+  "export": {
+    "max_error": 0.0
+  },
+  "frozen_model_checks": [
+    {
+      "method": "clipping",
+      "seed": 11,
+      "sample_error": 3.970802625596903e-08,
+      "critic_error": 4.5207159404814234e-09,
+      "latent_edit_error": 2.252962766347011e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.06137999059280669
+    },
+    {
+      "method": "clipping",
+      "seed": 29,
+      "sample_error": 6.400898694414181e-08,
+      "critic_error": 7.627340384286363e-09,
+      "latent_edit_error": 1.319409737021715e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.3763503449337216
+    },
+    {
+      "method": "clipping",
+      "seed": 47,
+      "sample_error": 5.1976649151352916e-08,
+      "critic_error": 7.800535800628339e-09,
+      "latent_edit_error": 3.2275743078180597e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.5181046065943291
+    },
+    {
+      "method": "gradient-penalty",
+      "seed": 11,
+      "sample_error": 7.711544480759613e-08,
+      "critic_error": 9.014368806958828e-08,
+      "latent_edit_error": 4.4360682127653206e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.16921636331185597
+    },
+    {
+      "method": "gradient-penalty",
+      "seed": 29,
+      "sample_error": 8.560356334896824e-08,
+      "critic_error": 1.0926686289103316e-07,
+      "latent_edit_error": 1.2146747163654936e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.09800358903508921
+    },
+    {
+      "method": "gradient-penalty",
+      "seed": 47,
+      "sample_error": 8.181317268096677e-08,
+      "critic_error": 5.752843973416688e-08,
+      "latent_edit_error": 5.380478873551198e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.17285353719875263
+    },
+    {
+      "method": "spectral-normalization",
+      "seed": 11,
+      "sample_error": 4.534800035482789e-08,
+      "critic_error": 2.0695011648808048e-08,
+      "latent_edit_error": 1.4326329011993266e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.4654572297167834
+    },
+    {
+      "method": "spectral-normalization",
+      "seed": 29,
+      "sample_error": 5.0881003244018785e-08,
+      "critic_error": 5.665962760081911e-08,
+      "latent_edit_error": 2.4136412368758187e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.36843299396739315
+    },
+    {
+      "method": "spectral-normalization",
+      "seed": 47,
+      "sample_error": 4.873844366981572e-08,
+      "critic_error": 5.766787306016319e-08,
+      "latent_edit_error": 2.155971606798701e-08,
+      "joint_swap_error": 0.0,
+      "latent_only_max_change": 0.3956808215493482
+    }
+  ]
+}

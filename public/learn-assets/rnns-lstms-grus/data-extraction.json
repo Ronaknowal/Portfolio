@@ -1,0 +1,25 @@
+{
+  "url": "https://archive.ics.uci.edu/static/public/81/pen+based+recognition+of+handwritten+digits.zip",
+  "archive_sha256": "1e02bea023613c2b11c9492f6f34caf975420455934f3527d270cee9a1f03b64",
+  "attribution": "E. Alpaydin and F. Alimoglu, Pen-Based Recognition of Handwritten Digits, UCI, DOI10.24432/C5MG6K",
+  "license": "CC BY 4.0, current UCI dataset record",
+  "sources": {
+    "pendigits.tra": {
+      "rows": 7494,
+      "sha256": "e2b9eb9f0d0467e2b64a4816a3420edf2b8043447576f4b84337aba44a9f97d3",
+      "unique_coordinate_vectors": 7494,
+      "selected_per_class": 60,
+      "selected_duplicate_candidates_skipped": 0
+    },
+    "pendigits.tes": {
+      "rows": 3498,
+      "sha256": "8bd03229c5c5291fefe43e45465dd948d2645bf23328b9d993e0b777666b2015",
+      "unique_coordinate_vectors": 3498,
+      "selected_per_class": 30,
+      "selected_duplicate_candidates_skipped": 0
+    }
+  },
+  "source_cross_split_duplicate_vectors": 0,
+  "extract_rows": 900,
+  "extract_sha256": "e9f7d82554a7704edd3d63b07f62b575572675bfa6927e8fea3c52ec879be82f"
+}

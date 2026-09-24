@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": [
+    "complete displayed program matches output",
+    "changed non-square table and signed offsets",
+    "unchanged input and independent output storage",
+    "one-cell zero case",
+    "seven invalid contract cases"
+  ],
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "stdout": "loop corrected: [[16.0, 16.0], [22.0, 22.0], [28.0, 28.0]]\nloop sensor means: [22.0, 22.0]\nsame shape: True\narray sensor means: [22.0, 22.0]\n",
+  "timestamp": "2026-09-21T18:19:36.858Z",
+  "scope": "bounded implementation-depth repair; browser/build integration is separate",
+  "sourceHashes": {
+    "src/learn/data/numpy-foundations-examples.js": "68bcbf0a78fd59c1cf72de5a8ff74e060d73a84a8553c609d711c3b5c60b6d4d",
+    "src/learn/data/topics/numpy-arrays-broadcasting-vectorization.jsx": "568dced21a2eecb5a4e4379f1e915a89cd6acd7f6e5cf73ae225e3424e0cdeaf",
+    "scripts/verify-numpy-implementation-depth.mjs": "a1d655ae50bdcdf5c6c2ffe4eaf01000ef65c24463ad52bd12b0944e9aec0a65"
+  }
+}

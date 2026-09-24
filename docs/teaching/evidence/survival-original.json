@@ -1,0 +1,46 @@
+{
+  "capturedAt": "2026-09-11T14:06:50.861Z",
+  "source": "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+  "archive": "docs\\teaching\\archive\\survival-original\\survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx.txt",
+  "sourceSha256": "f614bbe2627c7a34819e464a35d693a46a965e43ea15b17576151c3890f4ec60",
+  "programs": [
+    {
+      "index": 0,
+      "sourceLine": 213,
+      "path": "docs\\teaching\\archive\\survival-original\\program-0.py",
+      "sha256": "12f7ffdd022c985f37b90d77e73bfc6b1f2166bfafc84b7ed8cf878b51b7e9ba",
+      "code": "import numpy as np\n\nnp.random.seed(42)\n\ndef gen_survival_data(n=200, seed=42):\n    rng = np.random.RandomState(seed)\n    x = rng.binomial(1, 0.5, n)               # binary treatment\n    lam = 0.1 * np.exp(-0.7 * x)              # true beta = -0.7\n    T_event = rng.exponential(1.0 / lam)      # exponential event times\n    C = rng.uniform(5, 20, n)                 # uniform censoring\n    T_obs = np.minimum(T_event, C)\n    E = (T_event <= C).astype(int)            # 1 = event, 0 = censored\n    return T_obs, E, x\n\nT, E, x = gen_survival_data()\nprint(f\"n={len(T)}, events={E.sum()}, censored={len(T) - E.sum()}\")\n# n=200, events=113, censored=87\nprint(f\"event rate: {E.mean():.2f},  median observed time: {np.median(T):.2f}\")\n# event rate: 0.56,  median observed time: 7.23\n\ndef kaplan_meier(T, E):\n    idx = np.argsort(T)\n    T_s, E_s = T[idx], E[idx]\n    event_times = np.unique(T_s[E_s == 1])\n    S = 1.0\n    times, surv = [0.0], [1.0]\n    for t in event_times:\n        n_at_risk = np.sum(T_s >= t)\n        d = np.sum((T_s == t) & (E_s == 1))\n        S *= (1 - d / n_at_risk)\n        times.append(t)\n        surv.append(S)\n    return np.array(times), np.array(surv)\n\nT0, E0 = T[x == 0], E[x == 0]\nT1, E1 = T[x == 1], E[x == 1]\ntimes0, surv0 = kaplan_meier(T0, E0)\ntimes1, surv1 = kaplan_meier(T1, E1)\n\nprint(f\"KM control:   S(5.0)={np.interp(5.0, times0, surv0):.3f},  S(10.0)={np.interp(10.0, times0, surv0):.3f}\")\n# KM control:   S(5.0)=0.603,  S(10.0)=0.361\nprint(f\"KM treatment: S(5.0)={np.interp(5.0, times1, surv1):.3f},  S(10.0)={np.interp(10.0, times1, surv1):.3f}\")\n# KM treatment: S(5.0)=0.780,  S(10.0)=0.613"
+    },
+    {
+      "index": 1,
+      "sourceLine": 265,
+      "path": "docs\\teaching\\archive\\survival-original\\program-1.py",
+      "sha256": "96c52dbbff6928dfd36692c18426698339cd0da117df89775a25c887bab08ac0",
+      "code": "def log_rank_test(T0, E0, T1, E1):\n    \"\"\"\n    Log-rank statistic: chi-squared test of H0: S0(t) = S1(t) for all t.\n    At each event time, compare observed vs. expected events under H0.\n    \"\"\"\n    all_T = np.concatenate([T0, T1])\n    all_E = np.concatenate([E0, E1])\n    event_times = np.unique(all_T[all_E == 1])\n    O_minus_E = 0.0\n    V = 0.0\n    for t in event_times:\n        n0 = np.sum(T0 >= t)\n        n1 = np.sum(T1 >= t)\n        d0 = np.sum((T0 == t) & (E0 == 1))\n        d1 = np.sum((T1 == t) & (E1 == 1))\n        n = n0 + n1\n        d = d0 + d1\n        if n < 2:\n            continue\n        e0 = d * n0 / n                           # expected events in group 0\n        O_minus_E += (d0 - e0)\n        v = d * n0 * n1 * (n - d) / (n**2 * (n - 1))\n        V += v\n    chi2 = O_minus_E**2 / V\n    return chi2, O_minus_E\n\nchi2, ome = log_rank_test(T0, E0, T1, E1)\nprint(f\"Log-rank chi2={chi2:.3f},  O-E={ome:.3f}\")\n# Log-rank chi2=19.744,  O-E=23.460\nprint(f\"Critical value at alpha=0.05 (df=1): 3.841  ->  {'reject H0' if chi2 > 3.841 else 'fail to reject'}\")\n# Critical value at alpha=0.05 (df=1): 3.841  ->  reject H0"
+    },
+    {
+      "index": 2,
+      "sourceLine": 301,
+      "path": "docs\\teaching\\archive\\survival-original\\program-2.py",
+      "sha256": "0f39c5982bb9c2cfca613a2f26668e511f598c82b9f6b609b2a5eb2a76b44719",
+      "code": "def cox_score_hessian(beta, T, E, X):\n    \"\"\"\n    Score (gradient) and Hessian of log partial likelihood.\n    At each event time i, the risk set R(t_i) contributes a weighted\n    mean covariate x_bar and a variance term to the Hessian.\n    \"\"\"\n    n, d = X.shape\n    eta = X @ beta                            # linear predictor\n    score = np.zeros(d)\n    hessian = np.zeros((d, d))\n    for i in range(n):\n        if E[i] == 0:\n            continue\n        risk_set = T >= T[i]\n        w = np.exp(eta[risk_set])\n        w_sum = np.sum(w)\n        X_risk = X[risk_set]\n        x_bar = (w @ X_risk) / w_sum         # risk-set weighted covariate mean\n        score += X[i] - x_bar\n        X_c = X_risk - x_bar\n        hessian += -(w[:, None] * X_c).T @ X_c / w_sum\n    return score, hessian\n\ndef fit_cox_nr(T, E, X, max_iter=20, tol=1e-6):\n    \"\"\"Newton-Raphson: beta_{k+1} = beta_k - H^{-1} score\"\"\"\n    d = X.shape[1]\n    beta = np.zeros(d)\n    for it in range(max_iter):\n        score, hessian = cox_score_hessian(beta, T, E, X)\n        delta = np.linalg.solve(-hessian, score)\n        beta = beta + delta\n        if np.max(np.abs(delta)) < tol:\n            print(f\"Converged at iteration {it + 1}\")\n            break\n    return beta\n\nX_mat = x.reshape(-1, 1).astype(float)\nbeta_hat = fit_cox_nr(T, E, X_mat)\n# Converged at iteration 4\n\nprint(f\"Cox beta (treatment): {beta_hat[0]:.4f}\")\n# Cox beta (treatment): -0.8609\nprint(f\"Hazard ratio exp(beta): {np.exp(beta_hat[0]):.4f}\")\n# Hazard ratio exp(beta): 0.4228\nprint(f\"True beta=-0.7  ->  true HR={np.exp(-0.7):.4f}\")\n# True beta=-0.7  ->  true HR=0.4966"
+    },
+    {
+      "index": 3,
+      "sourceLine": 365,
+      "path": "docs\\teaching\\archive\\survival-original\\program-3.py",
+      "sha256": "5ad51796836091d6ff17ccbcf1c5abf8d2bf854d2b79106eb2320ae2b7add29c",
+      "code": "# pip install lifelines\nfrom lifelines import KaplanMeierFitter, CoxPHFitter\nfrom lifelines.datasets import load_rossi\n\nrossi = load_rossi()\n# Shape: (432, 9)\n# Columns: week, arrest, fin, age, race, wexp, mar, paro, prio\n# week = time to re-arrest or end of follow-up\n# arrest = 1 if arrested, 0 if censored\n\n# --- Kaplan-Meier ---\nkmf = KaplanMeierFitter()\nkmf.fit(rossi[\"week\"], event_observed=rossi[\"arrest\"])\nprint(f\"KM S(26 weeks): {kmf.survival_function_at_times(26).values[0]:.4f}\")\n# KM S(26 weeks): 0.8750\nprint(f\"KM median survival time: {kmf.median_survival_time_}\")\n# KM median survival time: inf     (most subjects were not re-arrested)\n\n# --- Cox PH ---\ncph = CoxPHFitter()\ncph.fit(rossi, duration_col=\"week\", event_col=\"arrest\")\ncph.print_summary(decimals=4, columns=[\"coef\", \"exp(coef)\", \"p\"])\n# ---\n# covariate    coef    exp(coef)     p\n# fin        -0.3794    0.6843    0.0474  (financial aid -> lower hazard)\n# age        -0.0574    0.9442    0.0090  (older -> lower hazard)\n# race        0.3139    1.3688    0.3081\n# wexp       -0.1498    0.8609    0.4803\n# mar        -0.4337    0.6481    0.2561\n# paro       -0.0849    0.9186    0.6646\n# prio        0.0915    1.0958    0.0014  (prior convictions -> higher hazard)\n# ---\nprint(f\"Concordance index: {cph.concordance_index_:.4f}\")\n# Concordance index: 0.6403"
+    },
+    {
+      "index": 4,
+      "sourceLine": 408,
+      "path": "docs\\teaching\\archive\\survival-original\\program-4.py",
+      "sha256": "a6db60309de67f41e7b7249c2ec64e69e9c8f9410e415a7cbc957228b84c7bb8",
+      "code": "from lifelines import WeibullAFTFitter\n\n# Accelerated Failure Time model: log(T) = beta^T x + sigma * epsilon\n# Parametric — assumes Weibull distribution for baseline\naft = WeibullAFTFitter()\naft.fit(rossi, duration_col=\"week\", event_col=\"arrest\")\nprint(f\"AFT concordance: {aft.concordance_index_:.4f}\")\n# AFT concordance: 0.6405\n\n# scikit-survival: sklearn-compatible API, adds RSF and GBSA\n# pip install scikit-survival\nfrom sksurv.ensemble import RandomSurvivalForest\nfrom sksurv.util import Surv\nimport pandas as pd\n\n# Build structured array required by sksurv\ny = Surv.from_dataframe(\"arrest\", \"week\", rossi)\nX_rsf = rossi.drop(columns=[\"week\", \"arrest\"])\n\nrsf = RandomSurvivalForest(n_estimators=100, min_samples_leaf=10, random_state=42)\nrsf.fit(X_rsf, y)\nprint(f\"RSF concordance: {rsf.score(X_rsf, y):.4f}\")\n# RSF concordance (training): 0.7089\n# Note: evaluate on held-out set in practice — training concordance is optimistic"
+    }
+  ],
+  "sharedBaseline": "docs/teaching/evidence/classical-ml-supervised-baseline.json",
+  "priorTopicOwnedSupportFiles": [],
+  "note": "Exact original body and code, including comments, preserved. Notebook dependencies will be restored explicitly for execution; claims and output comments are not presumed correct."
+}

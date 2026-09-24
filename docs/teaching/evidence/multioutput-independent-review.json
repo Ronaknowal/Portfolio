@@ -1,0 +1,167 @@
+{
+  "checkedAt": "2026-09-11T14:04:45.128Z",
+  "topicId": "multi-label-multi-output-learning",
+  "status": "closed; no open material findings",
+  "reviewer": "/root (independent of topic author)",
+  "sourceHashes": {
+    "src/learn/data/topics/multi-label-multi-output-learning.jsx": "abab8f6fc140cb9f88cf5c7a15d33d724f74a32632978a48f959730b581ec456",
+    "src/learn/data/multioutput-models.js": "0ba78a1478e6de9ae7b5e6bf81304f18c67094d1ceca4bdc398f6ab0d9604077",
+    "src/learn/data/multioutput-examples.js": "d4cab6b48c5c0b4a9375e5a23338727c6b7c5492dcdbc2705546f8e91dd2a591",
+    "src/learn/components/lesson-labs/MultioutputLabs.jsx": "da2a0eb21c143c404358608047ecfb506d946542761c76a8a439a62c0008ade2",
+    "src/learn/components/lesson-labs/MultioutputFigures.jsx": "bd949e0e5a4598f31c66fb8188da30b66b196da109aeee803d84014af70fb316",
+    "src/learn/components/lesson-labs/multioutput-labs.css": "43b68b086e332273a0500c5d1214259f58b897b90adc37bf80f0897f445a358b",
+    "src/learn/data/curriculum/blueprints/multi-label-multi-output-learning.js": "b36675c609fba6d4e9b4add1eddbdc0de51c34362252ddd4c5a1a17afd9cbeb2"
+  },
+  "evidence": [
+    {
+      "path": "docs/teaching/evidence/multioutput-author-review.json",
+      "sha256": "00bba65da684b662c4db66967f9ace216f0b29be65adac017729bfb647ae1944"
+    },
+    {
+      "path": "scratch/multioutput-independent/complementary-checks.json",
+      "sha256": "623758c4e697d3b5b67956ce6ba2116705a6e9fa7a7932520b456ce268ec0a3e"
+    }
+  ],
+  "cases": [
+    {
+      "kind": "whole-row permutation preserves aggregate metrics",
+      "order": [
+        3,
+        1,
+        0,
+        2
+      ]
+    },
+    {
+      "kind": "whole-row permutation preserves aggregate metrics",
+      "order": [
+        2,
+        3,
+        1,
+        0
+      ]
+    },
+    {
+      "kind": "consistent label permutation preserves aggregate metrics",
+      "order": [
+        2,
+        0,
+        1
+      ]
+    },
+    {
+      "kind": "consistent label permutation preserves aggregate metrics",
+      "order": [
+        1,
+        2,
+        0
+      ]
+    },
+    {
+      "kind": "fully unknown annotations remain undefined, not perfect or zero loss"
+    },
+    {
+      "kind": "replicated counts preserve actions and marginal action minimizes Hamming risk",
+      "counts": [
+        6,
+        5,
+        1,
+        8
+      ]
+    },
+    {
+      "kind": "replicated counts preserve actions and marginal action minimizes Hamming risk",
+      "counts": [
+        4,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "kind": "replicated counts preserve actions and marginal action minimizes Hamming risk",
+      "counts": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "kind": "replicated counts preserve actions and marginal action minimizes Hamming risk",
+      "counts": [
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "kind": "pooled covariance equals variance of conditional mean",
+      "low": 0.2,
+      "high": 0.7,
+      "highShare": 0.3
+    },
+    {
+      "kind": "pooled covariance equals variance of conditional mean",
+      "low": 0.8,
+      "high": 0.1,
+      "highShare": 0.6
+    },
+    {
+      "kind": "pooled covariance equals variance of conditional mean",
+      "low": 0.4,
+      "high": 0.4,
+      "highShare": 0.5
+    },
+    {
+      "kind": "pooled covariance equals variance of conditional mean",
+      "low": 0,
+      "high": 1,
+      "highShare": 0.25
+    },
+    {
+      "kind": "target translation changes means but preserves split objective",
+      "temperatureShift": 10,
+      "energyShift": -50
+    },
+    {
+      "kind": "target translation changes means but preserves split objective",
+      "temperatureShift": -7,
+      "energyShift": 230
+    },
+    {
+      "kind": "group norm shrinkage is orthogonally equivariant",
+      "angle": 0.5235987755982988
+    },
+    {
+      "kind": "group norm shrinkage is orthogonally equivariant",
+      "angle": 1.0471975511965976
+    },
+    {
+      "kind": "group norm shrinkage is orthogonally equivariant",
+      "angle": 1.5707963267948966
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/multioutput/browser/reverse-probability-tree-320.png",
+      "sha256": "1982b494cfea7a6cd57f51c65d905b6ae27009d0151c81b0f87b11b65abbb5cb"
+    },
+    {
+      "path": "scratch/multioutput/browser/shared-split-units-320.png",
+      "sha256": "8101bab63a5fc709991aee29f7bc4a89ec1db6196244c61a0b373593a300ea5b"
+    },
+    {
+      "path": "scratch/multioutput/browser/grouped-coefficients-320.png",
+      "sha256": "8eafd7beac8af54ed3f3fea8c06d05250a93c3687bcd1f429f39d373aefbbad9"
+    },
+    {
+      "path": "scratch/multioutput/browser/ridge-equation-320.png",
+      "sha256": "e676818ebf870119954f0c3adeb98ba1264469db0a18a2ce617f68676b8cdc61"
+    }
+  ],
+  "assessment": "Complete current body and pure model read; source-version, complementary invariance and selected visual checks passed. Unchanged full author native/browser evidence reused. Final production integration remains.",
+  "findings": [],
+  "limitations": "Existing author captures independently opened; no fresh independent execution of every interaction, learner study or user acceptance."
+}

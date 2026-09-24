@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-09-14T06:34:12.462Z",
+  "sourceHashes": {
+    "src/learn/data/gmm-models.js": "a04b58a2b4e5e46ac6f4f1cc1069f71e49328c350d0f5909513a580abe00dcb2",
+    "src/learn/data/gmm-iris-data.js": "2dfe2a5c028a0271f172b2ea38a2efbceae8eeeb0e35c95ca56d2f590b615611",
+    "src/learn/data/gmm-examples.js": "811b9139f69595c30fc0dd42c7366bc6f1c6fbbe6e8aa5a39f2c7c3c1ea7105a",
+    "src/learn/components/lesson-labs/GmmShared.jsx": "57c29475518b3052a8bf4e50b9b23aaba413885569f2a8e59c8e36ee71bc15d0",
+    "src/learn/components/lesson-labs/GmmLabs.jsx": "c941c458ace40303ea338fd556976e200be4caf006fec4876db0ac6d8f387531",
+    "src/learn/components/lesson-labs/GmmFigures.jsx": "165f946b13449913f70f4476a1095e112b3443c5f197973825f5417e61bd5c22",
+    "src/learn/components/lesson-labs/gmm-labs.css": "63588ff01ce924be969419cda2ded023227bb276e7a97989a908d727d675efd7",
+    "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx": "67538ac7e7b8da6d1b50a0ea301c05d467a2e4a22158498c470ce6df140c567c",
+    "src/learn/data/curriculum/blueprints/gaussian-mixture-models-gmm-em-algorithm.js": "374e2c6817992c0e9aadbe496e03ab25c83d41181b214c8702788b6a4ebfb60d"
+  },
+  "verifierHash": "a2af82b9720f426d04b2b4f48082471417090f2fde5f4dababc4ecdf789c6a6e",
+  "counts": {
+    "density identities": 1,
+    "responsibility versus author": 8,
+    "responsibility identities": 1,
+    "log-space evaluation": 1,
+    "EM trace versus author": 6,
+    "nondecrease along a start": 3,
+    "floor-active versus author": 3,
+    "asymmetric start versus author": 3,
+    "EM identities": 1,
+    "bound below the objective": 2,
+    "bound decomposition": 1,
+    "collapse versus author": 4,
+    "geometry versus author": 9,
+    "practice 4 versus author": 3,
+    "gallery eigenpairs": 7,
+    "plane geometry": 1,
+    "k-means limit versus author": 3,
+    "counts, criteria and limits": 1,
+    "real data structure": 1,
+    "candidate versus author": 16,
+    "weight prior versus author": 3,
+    "real data results": 1,
+    "displayed programs": 1,
+    "all responsibility crossing cases": 1
+  },
+  "totalGroupedChecks": 81,
+  "scope": "Browser mixture models against the content-phase native probes (responsibility, EM trace, null and floor variations, bound decomposition, collapse, plane geometry, small-variance limit, practice values), independent identities (numeric integration of the density, eigenpair mapping, a scanned constrained optimum, nondecrease along three starts, the bound below the objective for non-posterior allocations), and the generated Iris module: split membership, the frozen scaler recomputed from the training rows, all 16 candidates, the reserved test outcome and the narrow component.",
+  "limitations": [
+    "The Iris candidates are precomputed native fits; the browser reproduces their recorded outcomes, not the fitting.",
+    "Displayed program output is executed separately by scripts/verify-gmm-examples.py.",
+    "Rendering, interaction and independent review are separate steps."
+  ],
+  "passed": true
+}

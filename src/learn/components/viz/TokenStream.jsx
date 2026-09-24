@@ -9,9 +9,9 @@ export default function TokenStream({ tokens, highlight = null, label }) {
     : { color: palette[i % palette.length], ...t };
 
   return (
-    <div style={{ margin: "16px 0" }}>
+    <div style={{ margin: "16px 0", minWidth: 0, maxWidth: "100%" }}>
       {label && (
-        <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textDim, marginBottom: 6, letterSpacing: 1 }}>
+        <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textSecondary, marginBottom: 6, letterSpacing: 1 }}>
           {label.toUpperCase()}
         </div>
       )}
@@ -31,8 +31,11 @@ export default function TokenStream({ tokens, highlight = null, label }) {
                 background: `${color}${isHi ? "44" : "22"}`,
                 border: `1px solid ${color}${isHi ? "cc" : "55"}`,
                 color: isHi ? "#fff" : color,
-                whiteSpace: "pre",
-                transition: "all 0.15s ease",
+                whiteSpace: "pre-wrap",
+                overflowWrap: "anywhere",
+                minWidth: 0,
+                maxWidth: "100%",
+                transition: "background-color 0.15s ease, border-color 0.15s ease",
               }}
             >
               {txt}

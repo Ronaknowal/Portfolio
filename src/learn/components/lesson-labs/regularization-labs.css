@@ -1,0 +1,168 @@
+.rg-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.rg-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.rg-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.rg-investigation button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.rg-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.rg-investigation button:disabled { opacity: .4; cursor: default; }
+.rg-investigation :is(button, input, select, summary, [tabindex]):focus-visible { outline: 2px solid #a5c7b5; outline-offset: 3px; }
+.rg-question, .rg-caption, .rg-note, .rg-pending { font-size: .92rem; line-height: 1.75; }
+.rg-caption { color: #b5bfbb; }
+.rg-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.rg-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+
+.rg-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.rg-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.rg-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.rg-field > span { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .2rem .6rem; overflow-wrap: anywhere; }
+.rg-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.rg-field :is(select, input[type="number"], input[type="text"]) {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.rg-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.rg-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.rg-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .9rem 0; }
+.rg-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.rg-readout { border-left: 2px solid #e7b94a; padding-left: .85rem; line-height: 1.75; font-size: .93rem; }
+
+/* Predict, then check */
+.rg-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.rg-prediction > p { margin: 0 0 .55rem; }
+.rg-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.rg-prediction legend { padding: 0; font-weight: 600; }
+.rg-choices { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin: .5rem 0 .7rem; }
+.rg-choice { display: flex; align-items: center; gap: .45rem; min-height: 34px; }
+.rg-choice input { accent-color: #e7b94a; width: 18px; height: 18px; }
+.rg-numeric-guess { max-width: 21rem; margin-bottom: .6rem; }
+.rg-numeric-guess input {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.rg-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 3px solid #8eb9a5; }
+.rg-verdict.is-miss { border-left-color: #da9c86; }
+.rg-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.rg-reason textarea {
+  min-height: 52px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+.rg-reason { margin-bottom: .7rem; }
+
+.rg-table-scroll { overflow-x: auto; scrollbar-gutter: stable; max-width: 100%; margin: 1.1rem 0; }
+.rg-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+.rg-table-scroll caption { text-align: left; padding: .4rem 0 .8rem; color: #bac6bf; }
+.rg-table-scroll th, .rg-table-scroll td { padding: .5rem .6rem; border-bottom: 1px solid #303a35; text-align: left; white-space: nowrap; }
+.rg-table-scroll th { color: #d0ddd5; }
+/* Every other column holds a number that must not break; the last may wrap, so
+   a wide table shrinks to its container instead of truncating the cell that
+   usually carries the point. */
+.rg-table-scroll :is(th, td):last-child { white-space: normal; min-width: 6rem; }
+.rg-table-scroll tr.is-selected td { color: #f0e6c8; background: #1a2320; }
+.rg-table-scroll tr.is-zero td { color: #c9bfa6; }
+.rg-rows { max-height: 19rem; overflow-y: auto; }
+
+.rg-investigation details, .rg-figure details { margin: 1rem 0; }
+.rg-investigation summary, .rg-figure summary { cursor: pointer; color: #e7b94a; line-height: 1.7; min-height: 32px; }
+
+/* Plots */
+.rg-plot { margin: 1.3rem 0; }
+.rg-plot figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; }
+.rg-plot svg, .rg-figure svg { display: block; width: 100%; height: auto; }
+.rg-plot svg text, .rg-figure svg text, .rg-panel svg text, .rg-stage svg text { fill: #cfd7d2; font: 12px var(--font-mono, monospace); }
+.rg-plot svg { max-width: 560px; margin-inline: auto; }
+.rg-axis { stroke: #4a5650; }
+.rg-grid { stroke: #262d2a; }
+.rg-curve { fill: none; stroke-width: 1.8; }
+.rg-curve.is-total { stroke: #e7b94a; stroke-width: 2.2; }
+.rg-curve.is-data { stroke: #8eb9a5; stroke-dasharray: 5 3; }
+.rg-curve.is-penalty { stroke: #91aecf; stroke-dasharray: 2 3; }
+.rg-curve.is-faint { stroke: #4f6a5d; stroke-width: 1.2; stroke-dasharray: 3 3; }
+.rg-region { fill: none; stroke: #e7b94a; stroke-width: 1.8; }
+.rg-region.is-alt { stroke: #91aecf; stroke-dasharray: 4 3; }
+.rg-stem { stroke: #e7b94a; stroke-width: 2; }
+.rg-stem.is-data { stroke: #8eb9a5; }
+.rg-stem.is-penalty { stroke: #91aecf; }
+.rg-mark { fill: #e7b94a; }
+.rg-mark.is-hollow { fill: none; stroke: #e7b94a; stroke-width: 1.6; }
+.rg-observation { fill: #d8dcd9; }
+.rg-flow { fill: none; stroke: #8eb9a5; stroke-width: 1.4; }
+.rg-lane { fill: #121816; stroke: #46504b; }
+.rg-zero-mark { fill: none; stroke: #da9c86; stroke-width: 1.6; }
+
+/* Inline figures */
+.rg-figure { margin: 1.75rem 0; padding: 1.2rem 0; border-block: 1px solid #333; color: #d8d8d8; }
+.rg-figure figcaption { font-size: .94rem; line-height: 1.7; margin-bottom: 1rem; }
+.rg-figure p { font-size: .92rem; line-height: 1.7; }
+.rg-figure > svg { max-width: 560px; margin-inline: auto; }
+.rg-panels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+.rg-panels.is-stacked { grid-template-columns: minmax(0, 1fr); }
+.rg-panels.is-pair { grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); }
+.rg-panel { border: 1px solid #2b332f; border-radius: 4px; padding: .6rem; min-width: 0; }
+.rg-panel h4 { margin: 0 0 .4rem; font-size: .9rem; line-height: 1.5; color: #d0ddd5; }
+.rg-panel p { margin: .4rem 0 0; font-size: .84rem; line-height: 1.65; color: #b5bfbb; }
+.rg-panel svg { max-width: 100%; }
+
+/* Signed contribution bars */
+.rg-bars { display: grid; gap: .35rem; margin: 1rem 0; }
+.rg-bars > .rg-caption { margin: 0 0 .3rem; }
+.rg-bar-row { display: grid; grid-template-columns: minmax(7.5rem, 12rem) minmax(0, 1fr) minmax(6rem, auto); gap: .6rem; align-items: center; font: 12px/1.5 var(--font-mono, monospace); }
+.rg-bar-row.is-highlight { background: #1d2119; border-radius: 3px; box-shadow: inset 3px 0 0 #9a8347; }
+.rg-bar-row.is-highlight .rg-bar-name { color: #f0e6c8; padding-left: .4rem; }
+.rg-bar-name { overflow-wrap: anywhere; color: #cfd7d2; }
+.rg-bar-track { position: relative; height: 14px; background: #151c19; border-radius: 2px; }
+.rg-bar-zero { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #4a5650; }
+.rg-bar-fill { position: absolute; top: 2px; bottom: 2px; border-radius: 1px; }
+.rg-bar-fill.is-positive { background: #8eb9a5; }
+.rg-bar-fill.is-negative { background: #cf9191; background-image: repeating-linear-gradient(45deg, rgba(0,0,0,.3) 0 3px, transparent 3px 6px); }
+.rg-bar-exact-zero { position: absolute; left: 50%; top: -2px; transform: translateX(-50%); color: #da9c86; font-weight: 700; }
+.rg-bar-value { color: #bbc4bf; white-space: nowrap; text-align: right; }
+
+/* Stage flow inside an investigation */
+.rg-stage + .rg-stage { margin-top: 1.4rem; }
+.rg-stage > h4 { margin: 0 0 .4rem; font-size: 1rem; line-height: 1.6; color: #d8dcd9; }
+.rg-chips { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0; font: 12px/1.5 var(--font-mono, monospace); }
+.rg-chip { border: 1px solid #3b4642; border-radius: 3px; padding: .25rem .5rem; color: #b5bfbb; }
+.rg-chip.is-touched { border-color: #9a8347; color: #f0e6c8; background: #1d2119; }
+.rg-matrices { display: flex; flex-wrap: wrap; gap: .2rem .9rem; font-family: var(--font-mono, monospace); color: #cfd7d2; font-size: .85rem; }
+.rg-bits { font: 1rem/1.8 var(--font-mono, monospace); color: #f0e6c8; overflow-wrap: anywhere; }
+.rg-bits .rg-flag { color: #e7b94a; }
+.rg-bits .rg-payload { color: #8eb9a5; }
+
+.rg-practice { margin-block: 1.5rem; }
+.rg-practice details { border-left: 2px solid #77623b; padding: .7rem 1rem; }
+.rg-practice summary { color: #e2b55a; cursor: pointer; line-height: 1.6; }
+.rg-practice details + details { margin-top: .65rem; }
+.rg-route { border-left: 2px solid #8eb9a5; padding-left: .85rem; }
+.rg-lesson a { overflow-wrap: anywhere; }
+.rg-lesson code { overflow-wrap: anywhere; }
+
+@media (max-width: 620px) {
+  .rg-investigation header { gap: .65rem; }
+  .rg-panels { grid-template-columns: minmax(0, 1fr); }
+  .rg-figure { padding-block: 1rem; }
+  .rg-bar-row { grid-template-columns: minmax(0, 1fr) minmax(5.5rem, auto); }
+  .rg-bar-track { grid-column: 1 / -1; }
+  .rg-bar-value { text-align: left; }
+}
+
+.rg-row-group {
+  border: 1px solid #2b332f; border-radius: 4px; padding: .5rem .6rem .7rem; margin: 0; min-width: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem;
+}
+.rg-row-group legend { grid-column: 1 / -1; padding: 0 .3rem; font-size: .85rem; color: #d0ddd5; }
+@media (max-width: 520px) { .rg-row-group { grid-template-columns: minmax(0, 1fr); } }
+
+/* A full-width diagram is capped so its type is not magnified by the column:
+   the viewBox is ~340 units, so a wider box would scale 12px type to 22px. */
+.rg-figure > .rg-panel > svg, .rg-investigation .rg-stage > svg {
+  max-width: 440px; margin-inline: auto; display: block;
+}

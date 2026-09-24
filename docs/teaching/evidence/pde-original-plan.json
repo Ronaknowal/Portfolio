@@ -1,0 +1,102 @@
+{
+  "topic": {
+    "title": "Partial Differential Equations, Conservation & Boundary Conditions",
+    "level": "intermediate",
+    "blueprint": {
+      "summary": "Model quantities varying across space and time and identify what makes a physical problem fully specified.",
+      "outcomes": [
+        "Derive a simple conservation equation from a balance law",
+        "Distinguish initial conditions from boundary conditions and well-posedness questions"
+      ],
+      "prerequisites": [
+        "Multivariate Calculus & Gradients",
+        "Ordinary Differential Equations & Linear Systems"
+      ],
+      "sequence": [
+        "Track flux into and out of a short spatial interval",
+        "Introduce gradient, divergence and the Laplacian locally",
+        "Compare heat, wave and Poisson equations",
+        "Choose Dirichlet or Neumann conditions from the physical story",
+        "Check uniqueness or compatibility on a small example"
+      ],
+      "visual": {
+        "type": "spatial field and boundary-flux diagram",
+        "question": "How does changing the boundary affect the entire solution?",
+        "interaction": "Switch fixed-value and fixed-flux boundaries while tracking a conserved quantity"
+      },
+      "practice": {
+        "task": "Formulate a one-dimensional diffusion problem completely",
+        "success": "Equation, units, domain, initial state and boundary conditions are mutually consistent"
+      },
+      "misconceptions": [
+        "A differential equation alone need not determine a unique solution",
+        "Zero boundary value and zero boundary flux are not equivalent"
+      ],
+      "sources": [
+        "https://catalog.mit.edu/subjects/18/",
+        "https://ocw.mit.edu/courses/16-920j-numerical-methods-for-partial-differential-equations-sma-5212-spring-2003/"
+      ],
+      "depth": "specialist",
+      "reviewFocus": "Explain the differential operators needed here rather than assume a prior full vector-calculus course."
+    },
+    "id": "partial-differential-equations-conservation-boundary-conditions",
+    "trackId": "math-foundations",
+    "section": "Analysis, Symmetry & Spatial Differential Models",
+    "trackIds": [
+      "math-foundations"
+    ],
+    "prerequisiteStatus": "recorded",
+    "prerequisiteIds": [
+      "multivariate-calculus-gradients",
+      "ordinary-differential-equations-linear-systems"
+    ],
+    "designStatus": "topic-brief-ready",
+    "publicationStatus": "planned",
+    "teachingReview": "individual-review-required",
+    "domainStrategy": "mathematics"
+  },
+  "domainGuidance": {
+    "strategy": "mathematics",
+    "flow": [
+      "Pose a concrete question and identify known/unknown quantities",
+      "Link a small numerical case, a representation and defined notation",
+      "Derive the mechanism with justified intermediate steps",
+      "Interpret a complete worked result",
+      "Test a changed case, assumption and counterexample",
+      "Connect to a formal or applied deeper branch"
+    ],
+    "visuals": [
+      "Linked geometric and symbolic views",
+      "Labeled distributions and repeated samples",
+      "Stepwise derivation with exact-value inspection"
+    ],
+    "practice": "Hand calculation, explanation of a representation, flawed reasoning to repair, and independent transfer with an explained solution.",
+    "verification": "Check assumptions, conventions, proof steps, units, numerical approximations and independent reference values.",
+    "exampleAnchor": "Small vectors, measurements and uncertainty; connect exact operations to an interpreted decision.",
+    "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+    "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+  },
+  "authoringNotes": {
+    "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+    "workflow": "docs/teaching/topic-notes/README.md",
+    "destination": {
+      "path": "docs/teaching/topic-notes/partial-differential-equations-conservation-boundary-conditions.md",
+      "exists": true,
+      "markdown": "# Authoring notes: Partial Differential Equations, Conservation & Boundary Conditions\n\nCanonical topic ID: `partial-differential-equations-conservation-boundary-conditions`\n\n## 2026-09-11 — Carry the ODE boundary-value and eigenfunction bridge into spatial models\n\n- Status: open\n- Origin: [Ordinary Differential Equations & Linear Systems design](../ORDINARY-DIFFERENTIAL-EQUATIONS-LESSON-DESIGN.md), ODE50 sections12/13M in `src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx`.\n- Destination and rationale: this exact later title owns spatial domains, conservation and boundary conditions. Its current expanded plan covers heat/wave/Poisson and Dirichlet/Neumann choices but has no finished body at this scoped check. ODE50 supplies the initial-versus-boundary contrast; spatial eigenfunction and compatibility reasoning fits this destination more naturally than expanding the first ODE course into a full Sturm–Liouville chapter.\n- Already taught locally: y''+y=0,y(0)=0 has family b sin(t). Endpoint y(π)=0 allows every b, y(π)=1 allows none, and y(π/2)=1 selects b=1. Exact symbolic endpoints are distinguished from floating-point residuals. A shooting endpoint map can collapse or become ill-conditioned.\n- Proposed treatment: reassess during the destination design. Derive separation for at least one spatial boundary problem, show how the boundary conditions select or exclude modes, and connect the homogeneous nullspace to compatibility/nonuniqueness of a forced problem. If a Sturm–Liouville operator is introduced, define the coefficient/weight/domain/endpoint hypotheses and inner product locally; do not infer self-adjointness from a familiar differential expression alone. Preserve distinctions between initial conditions, boundary data and numerical boundary enforcement.\n- Learning benefit and practice: ask why a fixed-value versus zero-flux boundary changes the allowed constant mode; show both the spatial eigenfunction and its temporal coefficient. Use a changed boundary or incompatible source to assess reasoning rather than reciting sine series. Verify conservation and compatibility independently.\n- Sources and evidence: ODE50's exact analytical example and browser BVP model are the local bridge, not certification of a general spectral theorem. Lebl's [boundary-value chapter](https://www.jirka.org/diffyqs/html/bvp_section.html) and [Sturm–Liouville chapter map](https://www.jirka.org/diffyqs/html/diffyqs.html) are research leads; the complete specialist theorem sections have not been read in this scoped note. The future author must research and verify any new claims.\n- Resolution: open for destination author assessment; no PDE source, curriculum order or publication changed.\n"
+    },
+    "unassigned": {
+      "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+      "exists": true,
+      "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: open\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: unresolved in this narrow title/brief search. The first five DSA practice sets do not establish coverage of this family, and the current three-lesson request is not a full-catalogue audit.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: unassigned; no topic added and no existing lesson rewritten by this discovery.\n- Implementation/verification links: none yet.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+    }
+  },
+  "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction.",
+  "preservation": {
+    "archivedAt": "2026-09-11T07:05:05.237076+00:00",
+    "catalogueSource": "src/learn/data/curriculum/cross-domain-expansion.js",
+    "catalogueSha256": "7df04e0322ee80f99d9b6e2f4ecbff01e0a635f384041bc3bce9bf09f4930a9f",
+    "exactStartingEntry": "  plan(\"Partial Differential Equations, Conservation & Boundary Conditions\", \"intermediate\",\n    \"Model quantities varying across space and time and identify what makes a physical problem fully specified.\", [\"Multivariate Calculus & Gradients\", \"Ordinary Differential Equations & Linear Systems\"],\n    [\"Derive a simple conservation equation from a balance law\", \"Distinguish initial conditions from boundary conditions and well-posedness questions\"],\n    [\"Track flux into and out of a short spatial interval\", \"Introduce gradient, divergence and the Laplacian locally\", \"Compare heat, wave and Poisson equations\", \"Choose Dirichlet or Neumann conditions from the physical story\", \"Check uniqueness or compatibility on a small example\"],\n    [\"spatial field and boundary-flux diagram\", \"How does changing the boundary affect the entire solution?\", \"Switch fixed-value and fixed-flux boundaries while tracking a conserved quantity\"],\n    [\"Formulate a one-dimensional diffusion problem completely\", \"Equation, units, domain, initial state and boundary conditions are mutually consistent\"],\n    [\"A differential equation alone need not determine a unique solution\", \"Zero boundary value and zero boundary flux are not equivalent\"], [S.pde, S.numericalPde], \"specialist\", \"Explain the differential operators needed here rather than assume a prior full vector-calculus course.\"),\n",
+    "priorPublishedBody": false,
+    "priorCompletePrograms": 0
+  }
+}

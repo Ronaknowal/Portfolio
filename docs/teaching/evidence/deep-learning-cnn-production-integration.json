@@ -1,0 +1,425 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T00:02:25.403Z",
+  "base": "http://127.0.0.1:4194",
+  "manifestHash": "37081cfe9f87021b08870d76eb326c8dfe0a69908c830c03089356b25aeb4380",
+  "routes": [
+    {
+      "id": "weight-initialization-xavier-kaiming-p",
+      "loaded": [
+        "weight-initialization-xavier-kaiming-p"
+      ],
+      "anchors": 11,
+      "mathSvg": 17,
+      "colors": [
+        "rgb(226, 181, 90)"
+      ],
+      "next": "residual-connections-skip-connections",
+      "javascriptBytes": 1788651,
+      "exactDownloads": 7,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 2,
+              "description": "Forward second moment. Layer; pooled mean(h²). Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Backward sensitivity. Layer; RMS ∂probe/∂h. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Before observation positions on minus five to five. Mean 0.",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 5,
+              "description": "After observation positions on minus five to five. Mean 0.75.",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 12,
+              "description": "Equal-axis circle and transformed ellipse; gains 1.3784, 0.31623. Exact vectors below.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 14,
+              "description": "Recorded objective checkpoints. Full-batch updates; Cross-entropy. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 19,
+              "description": "Output logits · mean absolute value on the same 32 training rows. Recorded hidden width; Mean absolute coordinate. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 21,
+              "description": "Schematic normal density; retained interval from minus two to two standard deviations, tails outside.",
+              "labelCount": 3,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 2,
+              "description": "Forward second moment. Layer; pooled mean(h²). Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Backward sensitivity. Layer; RMS ∂probe/∂h. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Before observation positions on minus five to five. Mean 0.",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 5,
+              "description": "After observation positions on minus five to five. Mean 0.75.",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 12,
+              "description": "Equal-axis circle and transformed ellipse; gains 1.3784, 0.31623. Exact vectors below.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 14,
+              "description": "Recorded objective checkpoints. Full-batch updates; Cross-entropy. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 19,
+              "description": "Output logits · mean absolute value on the same 32 training rows. Recorded hidden width; Mean absolute coordinate. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 21,
+              "description": "Schematic normal density; retained interval from minus two to two standard deviations, tails outside.",
+              "labelCount": 3,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 2,
+              "description": "Forward second moment. Layer; pooled mean(h²). Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Backward sensitivity. Layer; RMS ∂probe/∂h. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Before observation positions on minus five to five. Mean 0.",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 5,
+              "description": "After observation positions on minus five to five. Mean 0.75.",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 12,
+              "description": "Equal-axis circle and transformed ellipse; gains 1.3784, 0.31623. Exact vectors below.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 14,
+              "description": "Recorded objective checkpoints. Full-batch updates; Cross-entropy. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 19,
+              "description": "Output logits · mean absolute value on the same 32 training rows. Recorded hidden width; Mean absolute coordinate. Exact values in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 21,
+              "description": "Schematic normal density; retained interval from minus two to two standard deviations, tails outside.",
+              "labelCount": 3,
+              "issues": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "residual-connections-skip-connections",
+      "loaded": [
+        "residual-connections-skip-connections"
+      ],
+      "anchors": 13,
+      "mathSvg": 3,
+      "colors": [
+        "rgb(226, 181, 90)"
+      ],
+      "next": "dropout-droppath-stochastic-depth",
+      "javascriptBytes": 1679109,
+      "exactDownloads": 4,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 7,
+              "description": "Mean cross-entropy (natural-log units): amber training, dashed white validation. Exact values appear in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 8,
+              "description": "Signed state after each discrete step. Exact values appear in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 7,
+              "description": "Mean cross-entropy (natural-log units): amber training, dashed white validation. Exact values appear in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 8,
+              "description": "Signed state after each discrete step. Exact values appear in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 7,
+              "description": "Mean cross-entropy (natural-log units): amber training, dashed white validation. Exact values appear in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 8,
+              "description": "Signed state after each discrete step. Exact values appear in the adjacent table.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dropout-droppath-stochastic-depth",
+      "loaded": [
+        "dropout-droppath-stochastic-depth"
+      ],
+      "anchors": 12,
+      "mathSvg": 7,
+      "colors": [
+        "rgb(226, 181, 90)"
+      ],
+      "next": "convolution-pooling-receptive-fields",
+      "javascriptBytes": 1783159,
+      "exactDownloads": 5,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 7,
+              "description": "Actual recorded loss points. Horizontal: optimizer updates. Vertical: cross-entropy (nats / example). Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 7,
+              "description": "Actual recorded loss points. Horizontal: optimizer updates. Vertical: cross-entropy (nats / example). Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 7,
+              "description": "Actual recorded loss points. Horizontal: optimizer updates. Vertical: cross-entropy (nats / example). Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "convolution-pooling-receptive-fields",
+      "loaded": [
+        "convolution-pooling-receptive-fields"
+      ],
+      "anchors": 13,
+      "mathSvg": 1,
+      "colors": [
+        "rgb(228, 183, 82)"
+      ],
+      "next": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "javascriptBytes": 1690725,
+      "exactDownloads": 4,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": []
+        },
+        {
+          "width": 390,
+          "findings": []
+        },
+        {
+          "width": 320,
+          "findings": []
+        }
+      ]
+    },
+    {
+      "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "loaded": [
+        "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet"
+      ],
+      "anchors": 13,
+      "mathSvg": 0,
+      "colors": [
+        "rgb(226, 181, 90)"
+      ],
+      "next": "depthwise-separable-dilated-convolutions",
+      "javascriptBytes": 1722907,
+      "exactDownloads": 6,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Two adjacent windows on the image-pixel index grid: indices 0 to 10, then 4 to 14.",
+              "labelCount": 3,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Two adjacent windows on the convolution-position index grid: indices 0 to 2, then 2 to 4.",
+              "labelCount": 3,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Recorded development correct counts out of120, updates0to400. Exact table below.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Two adjacent windows on the image-pixel index grid: indices 0 to 10, then 4 to 14.",
+              "labelCount": 3,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Two adjacent windows on the convolution-position index grid: indices 0 to 2, then 2 to 4.",
+              "labelCount": 3,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Recorded development correct counts out of120, updates0to400. Exact table below.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Two adjacent windows on the image-pixel index grid: indices 0 to 10, then 4 to 14.",
+              "labelCount": 3,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Two adjacent windows on the convolution-position index grid: indices 0 to 2, then 2 to 4.",
+              "labelCount": 3,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Recorded development correct counts out of120, updates0to400. Exact table below.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "recovery": [
+    {
+      "kind": "import",
+      "requests": 2,
+      "recovered": true
+    },
+    {
+      "kind": "render",
+      "requests": 2,
+      "recovered": true
+    }
+  ],
+  "verifierHash": "51b77a925c207b5ee10f17aa73762e5ed1df9223a8e8b87f7c24b9419099dcd7"
+}

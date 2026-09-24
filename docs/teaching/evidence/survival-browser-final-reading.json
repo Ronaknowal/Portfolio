@@ -1,0 +1,489 @@
+{
+  "checkedAt": "2026-09-11T15:26:18.963Z",
+  "sourceHashes": {
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "0f2f5e6e7c3f077057b6338a23cda6c88cf708186f007326b0d7e432b27ad15c",
+    "src/learn/data/survival-models.js": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+    "src/learn/data/survival-examples.js": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474",
+    "src/learn/components/lesson-labs/SurvivalLabs.jsx": "f52c0d019bd55946b197d836d1517cfe40979f9030d36c3691618a4c2edd7165",
+    "src/learn/components/lesson-labs/SurvivalFigures.jsx": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43",
+    "src/learn/components/lesson-labs/survival-labs.css": "299508e13f2930460d4a0456fe2c4c66cc95760da6c887bc2b618df9ec9e2b45",
+    "src/learn/components/lesson-labs/survival-figures.css": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498",
+    "src/learn/data/curriculum/blueprints/survival-analysis-cox-regression-kaplan-meier-hazard-models.js": "fc14e0d6ab39b48106e59305e0027d28cfa06f9b05074912786515e326e73602"
+  },
+  "records": [
+    {
+      "width": 1440,
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "prereqs": [
+        "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+        "/learn/path/full-curriculum/hypothesis-testing-confidence-intervals?module=math-foundations"
+      ],
+      "equations": [
+        {
+          "index": 0,
+          "text": "Y=min⁡(T,C),δ=I(T≤C).\\begin{gathered}Y=\\min(T,C),\\\\ \\delta=I(T\\le C).\\end{gathered}Y=min(T,C),δ=I(T≤C).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 1,
+          "text": "S^(t)=∏tj≤t(1−djnj),S(t)=P(T>t).\\begin{gathered}\\widehat S(t)=\\prod_{t_j\\le t}\\left(1-\\frac{d_j}{n_j}\\right),\\\\ S(t)=P(T>t).\\end{gathered}S(t)=tj​≤t∏​(1−nj​dj​​),S(t)=P(T>t).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 2,
+          "text": "Vlog⁡S(t)=∑tj≤tdjnj(nj−dj),Var⁡^[S^(t)]≈S^(t)2Vlog⁡S(t).\\begin{gathered}V_{\\log S}(t)=\\sum_{t_j\\le t}\\frac{d_j}{n_j(n_j-d_j)},\\\\ \\widehat{\\operatorname{Var}}[\\widehat S(t)]\\approx\\widehat S(t)^2V_{\\log S}(t).\\end{gathered}VlogS​(t)=tj​≤t∑​nj​(nj​−dj​)dj​​,Var[S(t)]≈S(t)2VlogS​(t).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 3,
+          "text": "RMST⁡(τ)=E[min⁡(T,τ)],RMST⁡(τ)=∫0τS(t) dt.\\begin{gathered}\\operatorname{RMST}(\\tau)=E[\\min(T,\\tau)],\\\\ \\operatorname{RMST}(\\tau)=\\int_0^\\tau S(t)\\,dt.\\end{gathered}RMST(τ)=E[min(T,τ)],RMST(τ)=∫0τ​S(t)dt.​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 4,
+          "text": "h(t)=lim⁡Δ↓0qΔ(t)Δ,h(t)=f(t)S(t),H(t)=∫0th(u) du,S(t)=e−H(t).\\begin{gathered}h(t)=\\lim_{\\Delta\\downarrow0}\\frac{q_\\Delta(t)}{\\Delta},\\\\ h(t)=\\frac{f(t)}{S(t)},\\\\ H(t)=\\int_0^t h(u)\\,du,\\\\ S(t)=e^{-H(t)}.\\end{gathered}h(t)=Δ↓0lim​ΔqΔ​(t)​,h(t)=S(t)f(t)​,H(t)=∫0t​h(u)du,S(t)=e−H(t).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 5,
+          "text": "L∝∏ifθ(yi)δiSθ(yi)1−δi,ℓi=δilog⁡hθ(yi)−Hθ(yi),ℓ(θ)=∑iℓi.\\begin{gathered}L\\propto\\prod_i f_\\theta(y_i)^{\\delta_i}S_\\theta(y_i)^{1-\\delta_i},\\\\ \\ell_i=\\delta_i\\log h_\\theta(y_i)-H_\\theta(y_i),\\\\ \\ell(\\theta)=\\sum_i\\ell_i.\\end{gathered}L∝i∏​fθ​(yi​)δi​Sθ​(yi​)1−δi​,ℓi​=δi​loghθ​(yi​)−Hθ​(yi​),ℓ(θ)=i∑​ℓi​.​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 6,
+          "text": "e1j=djpj,U=∑j(d1j−e1j),vj=djpj(1−pj)nj−djnj−1,(nj>1),V=∑jvj,Z2=U2/V(V>0).\\begin{gathered}e_{1j}=d_jp_j,\\\\ U=\\sum_j(d_{1j}-e_{1j}),\\\\ v_j=d_jp_j(1-p_j)\\frac{n_j-d_j}{n_j-1},\\\\ (n_j>1),\\qquad V=\\sum_jv_j,\\\\ Z^2=U^2/V\\quad(V>0).\\end{gathered}e1j​=dj​pj​,U=j∑​(d1j​−e1j​),vj​=dj​pj​(1−pj​)nj​−1nj​−dj​​,(nj​>1),V=j∑​vj​,Z2=U2/V(V>0).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 7,
+          "text": "h(t∣x)=h0(t)exTβ,h(t∣xa)h(t∣xb)=e(xa−xb)Tβ.\\begin{gathered}h(t\\mid x)=h_0(t)e^{x^T\\beta},\\\\ \\frac{h(t\\mid x_a)}{h(t\\mid x_b)}=e^{(x_a-x_b)^T\\beta}.\\end{gathered}h(t∣x)=h0​(t)exTβ,h(t∣xb​)h(t∣xa​)​=e(xa​−xb​)Tβ.​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 8,
+          "text": "πi(R)≈exiTβ∑k∈RexkTβ\\pi_i(R)\\approx\\frac{e^{x_i^T\\beta}}{\\sum_{k\\in R}e^{x_k^T\\beta}}πi​(R)≈∑k∈R​exkT​βexiT​β​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 9,
+          "text": "wk=exkTβ∑l∈RexlTβ,xˉw=∑k∈Rwkxk,U=∑events i(xi−xˉw,i),I=∑events i∑k∈RiwkzkizkiT.\\begin{gathered}w_k=\\frac{e^{x_k^T\\beta}}{\\sum_{l\\in R}e^{x_l^T\\beta}},\\\\ \\bar x_w=\\sum_{k\\in R}w_kx_k,\\\\ U=\\sum_{\\text{events }i}(x_i-\\bar x_{w,i}),\\\\ I=\\sum_{\\text{events }i}\\sum_{k\\in R_i}w_kz_{ki}z_{ki}^T.\\end{gathered}wk​=∑l∈R​exlT​βexkT​β​,xˉw​=k∈R∑​wk​xk​,U=events i∑​(xi​−xˉw,i​),I=events i∑​k∈Ri​∑​wk​zki​zkiT​.​",
+          "scroll": 743,
+          "client": 743
+        },
+        {
+          "index": 10,
+          "text": "LjBreslow=∏i∈DjexiTβWjdj,LjEfron=∏i∈DjexiTβ∏l=0dj−1(Wj−lEj/dj).\\begin{gathered}L_j^{\\mathrm{Breslow}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{W_j^{d_j}},\\\\ L_j^{\\mathrm{Efron}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{\\prod_{l=0}^{d_j-1}(W_j-lE_j/d_j)}.\\end{gathered}LjBreslow​=Wjdj​​∏i∈Dj​​exiT​β​,LjEfron​=∏l=0dj​−1​(Wj​−lEj​/dj​)∏i∈Dj​​exiT​β​.​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 11,
+          "text": "H^0(t)=∑tj≤tdj∑k∈RjexkTβ^,S^(t∣x)=exp⁡[−H^0(t)exTβ^].\\begin{gathered}\\widehat H_0(t)=\\sum_{t_j\\le t}\\frac{d_j}{\\sum_{k\\in R_j}e^{x_k^T\\widehat\\beta}},\\\\ \\widehat S(t\\mid x)=\\exp[-\\widehat H_0(t)e^{x^T\\widehat\\beta}].\\end{gathered}H0​(t)=tj​≤t∑​∑k∈Rj​​exkT​β​dj​​,S(t∣x)=exp[−H0​(t)exTβ​].​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 12,
+          "text": "hmix(t)=0.1e−0.1t+0.4e−0.4te−0.1t+e−0.4th_{\\mathrm{mix}}(t)=\\frac{0.1e^{-0.1t}+0.4e^{-0.4t}}{e^{-0.1t}+e^{-0.4t}}hmix​(t)=e−0.1t+e−0.4t0.1e−0.1t+0.4e−0.4t​",
+          "scroll": 743,
+          "client": 743
+        },
+        {
+          "index": 13,
+          "text": "A=δI(Y≤τ)GC(Y)s2,B=I(Y>τ)GC(τ)(1−s)2,BS^(τ)=1n∑i(Ai+Bi).\\begin{gathered}A=\\frac{\\delta I(Y\\le\\tau)}{G_C(Y)}s^2,\\\\ B=\\frac{I(Y>\\tau)}{G_C(\\tau)}(1-s)^2,\\\\ \\widehat{\\mathrm{BS}}(\\tau)=\\frac1n\\sum_i(A_i+B_i).\\end{gathered}A=GC​(Y)δI(Y≤τ)​s2,B=GC​(τ)I(Y>τ)​(1−s)2,BS(τ)=n1​i∑​(Ai​+Bi​).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 14,
+          "text": "qj(x)=sigmoid⁡(αj+xTb),Sj(x)=∏l=1j(1−ql(x)).\\begin{gathered}q_j(x)=\\operatorname{sigmoid}(\\alpha_j+x^Tb),\\\\ S_j(x)=\\prod_{l=1}^{j}(1-q_l(x)).\\end{gathered}qj​(x)=sigmoid(αj​+xTb),Sj​(x)=l=1∏j​(1−ql​(x)).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 15,
+          "text": "S(t)+∑kFk(t)=1,Fk(t)=∫0tS(u)hk(u) du.\\begin{gathered}S(t)+\\sum_k F_k(t)=1,\\\\ F_k(t)=\\int_0^t S(u)h_k(u)\\,du.\\end{gathered}S(t)+k∑​Fk​(t)=1,Fk​(t)=∫0t​S(u)hk​(u)du.​",
+          "scroll": 760,
+          "client": 760
+        }
+      ],
+      "overflow": [],
+      "geometry": [],
+      "bars": [
+        {
+          "label": "B x=0 ● event\n0.1538",
+          "color": "rgb(231, 185, 74)",
+          "width": 78.703125,
+          "height": 18
+        },
+        {
+          "label": "C x=1 ● event\n0.3077",
+          "color": "rgb(231, 185, 74)",
+          "width": 157.421875,
+          "height": 18
+        },
+        {
+          "label": "D x=-1 at risk\n0.0769",
+          "color": "rgb(100, 201, 217)",
+          "width": 39.34375,
+          "height": 18
+        },
+        {
+          "label": "E x=0 at risk\n0.1538",
+          "color": "rgb(100, 201, 217)",
+          "width": 78.703125,
+          "height": 18
+        },
+        {
+          "label": "F x=1 at risk\n0.3077",
+          "color": "rgb(100, 201, 217)",
+          "width": 157.421875,
+          "height": 18
+        }
+      ],
+      "captures": [
+        "final-cox-reading-1440.png",
+        "final-competing-reading-1440.png"
+      ]
+    },
+    {
+      "width": 390,
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "prereqs": [
+        "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+        "/learn/path/full-curriculum/hypothesis-testing-confidence-intervals?module=math-foundations"
+      ],
+      "equations": [
+        {
+          "index": 0,
+          "text": "Y=min⁡(T,C),δ=I(T≤C).\\begin{gathered}Y=\\min(T,C),\\\\ \\delta=I(T\\le C).\\end{gathered}Y=min(T,C),δ=I(T≤C).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 1,
+          "text": "S^(t)=∏tj≤t(1−djnj),S(t)=P(T>t).\\begin{gathered}\\widehat S(t)=\\prod_{t_j\\le t}\\left(1-\\frac{d_j}{n_j}\\right),\\\\ S(t)=P(T>t).\\end{gathered}S(t)=tj​≤t∏​(1−nj​dj​​),S(t)=P(T>t).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 2,
+          "text": "Vlog⁡S(t)=∑tj≤tdjnj(nj−dj),Var⁡^[S^(t)]≈S^(t)2Vlog⁡S(t).\\begin{gathered}V_{\\log S}(t)=\\sum_{t_j\\le t}\\frac{d_j}{n_j(n_j-d_j)},\\\\ \\widehat{\\operatorname{Var}}[\\widehat S(t)]\\approx\\widehat S(t)^2V_{\\log S}(t).\\end{gathered}VlogS​(t)=tj​≤t∑​nj​(nj​−dj​)dj​​,Var[S(t)]≈S(t)2VlogS​(t).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 3,
+          "text": "RMST⁡(τ)=E[min⁡(T,τ)],RMST⁡(τ)=∫0τS(t) dt.\\begin{gathered}\\operatorname{RMST}(\\tau)=E[\\min(T,\\tau)],\\\\ \\operatorname{RMST}(\\tau)=\\int_0^\\tau S(t)\\,dt.\\end{gathered}RMST(τ)=E[min(T,τ)],RMST(τ)=∫0τ​S(t)dt.​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 4,
+          "text": "h(t)=lim⁡Δ↓0qΔ(t)Δ,h(t)=f(t)S(t),H(t)=∫0th(u) du,S(t)=e−H(t).\\begin{gathered}h(t)=\\lim_{\\Delta\\downarrow0}\\frac{q_\\Delta(t)}{\\Delta},\\\\ h(t)=\\frac{f(t)}{S(t)},\\\\ H(t)=\\int_0^t h(u)\\,du,\\\\ S(t)=e^{-H(t)}.\\end{gathered}h(t)=Δ↓0lim​ΔqΔ​(t)​,h(t)=S(t)f(t)​,H(t)=∫0t​h(u)du,S(t)=e−H(t).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 5,
+          "text": "L∝∏ifθ(yi)δiSθ(yi)1−δi,ℓi=δilog⁡hθ(yi)−Hθ(yi),ℓ(θ)=∑iℓi.\\begin{gathered}L\\propto\\prod_i f_\\theta(y_i)^{\\delta_i}S_\\theta(y_i)^{1-\\delta_i},\\\\ \\ell_i=\\delta_i\\log h_\\theta(y_i)-H_\\theta(y_i),\\\\ \\ell(\\theta)=\\sum_i\\ell_i.\\end{gathered}L∝i∏​fθ​(yi​)δi​Sθ​(yi​)1−δi​,ℓi​=δi​loghθ​(yi​)−Hθ​(yi​),ℓ(θ)=i∑​ℓi​.​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 6,
+          "text": "e1j=djpj,U=∑j(d1j−e1j),vj=djpj(1−pj)nj−djnj−1,(nj>1),V=∑jvj,Z2=U2/V(V>0).\\begin{gathered}e_{1j}=d_jp_j,\\\\ U=\\sum_j(d_{1j}-e_{1j}),\\\\ v_j=d_jp_j(1-p_j)\\frac{n_j-d_j}{n_j-1},\\\\ (n_j>1),\\qquad V=\\sum_jv_j,\\\\ Z^2=U^2/V\\quad(V>0).\\end{gathered}e1j​=dj​pj​,U=j∑​(d1j​−e1j​),vj​=dj​pj​(1−pj​)nj​−1nj​−dj​​,(nj​>1),V=j∑​vj​,Z2=U2/V(V>0).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 7,
+          "text": "h(t∣x)=h0(t)exTβ,h(t∣xa)h(t∣xb)=e(xa−xb)Tβ.\\begin{gathered}h(t\\mid x)=h_0(t)e^{x^T\\beta},\\\\ \\frac{h(t\\mid x_a)}{h(t\\mid x_b)}=e^{(x_a-x_b)^T\\beta}.\\end{gathered}h(t∣x)=h0​(t)exTβ,h(t∣xb​)h(t∣xa​)​=e(xa​−xb​)Tβ.​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 8,
+          "text": "πi(R)≈exiTβ∑k∈RexkTβ\\pi_i(R)\\approx\\frac{e^{x_i^T\\beta}}{\\sum_{k\\in R}e^{x_k^T\\beta}}πi​(R)≈∑k∈R​exkT​βexiT​β​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 9,
+          "text": "wk=exkTβ∑l∈RexlTβ,xˉw=∑k∈Rwkxk,U=∑events i(xi−xˉw,i),I=∑events i∑k∈RiwkzkizkiT.\\begin{gathered}w_k=\\frac{e^{x_k^T\\beta}}{\\sum_{l\\in R}e^{x_l^T\\beta}},\\\\ \\bar x_w=\\sum_{k\\in R}w_kx_k,\\\\ U=\\sum_{\\text{events }i}(x_i-\\bar x_{w,i}),\\\\ I=\\sum_{\\text{events }i}\\sum_{k\\in R_i}w_kz_{ki}z_{ki}^T.\\end{gathered}wk​=∑l∈R​exlT​βexkT​β​,xˉw​=k∈R∑​wk​xk​,U=events i∑​(xi​−xˉw,i​),I=events i∑​k∈Ri​∑​wk​zki​zkiT​.​",
+          "scroll": 333,
+          "client": 333
+        },
+        {
+          "index": 10,
+          "text": "LjBreslow=∏i∈DjexiTβWjdj,LjEfron=∏i∈DjexiTβ∏l=0dj−1(Wj−lEj/dj).\\begin{gathered}L_j^{\\mathrm{Breslow}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{W_j^{d_j}},\\\\ L_j^{\\mathrm{Efron}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{\\prod_{l=0}^{d_j-1}(W_j-lE_j/d_j)}.\\end{gathered}LjBreslow​=Wjdj​​∏i∈Dj​​exiT​β​,LjEfron​=∏l=0dj​−1​(Wj​−lEj​/dj​)∏i∈Dj​​exiT​β​.​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 11,
+          "text": "H^0(t)=∑tj≤tdj∑k∈RjexkTβ^,S^(t∣x)=exp⁡[−H^0(t)exTβ^].\\begin{gathered}\\widehat H_0(t)=\\sum_{t_j\\le t}\\frac{d_j}{\\sum_{k\\in R_j}e^{x_k^T\\widehat\\beta}},\\\\ \\widehat S(t\\mid x)=\\exp[-\\widehat H_0(t)e^{x^T\\widehat\\beta}].\\end{gathered}H0​(t)=tj​≤t∑​∑k∈Rj​​exkT​β​dj​​,S(t∣x)=exp[−H0​(t)exTβ​].​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 12,
+          "text": "hmix(t)=0.1e−0.1t+0.4e−0.4te−0.1t+e−0.4th_{\\mathrm{mix}}(t)=\\frac{0.1e^{-0.1t}+0.4e^{-0.4t}}{e^{-0.1t}+e^{-0.4t}}hmix​(t)=e−0.1t+e−0.4t0.1e−0.1t+0.4e−0.4t​",
+          "scroll": 333,
+          "client": 333
+        },
+        {
+          "index": 13,
+          "text": "A=δI(Y≤τ)GC(Y)s2,B=I(Y>τ)GC(τ)(1−s)2,BS^(τ)=1n∑i(Ai+Bi).\\begin{gathered}A=\\frac{\\delta I(Y\\le\\tau)}{G_C(Y)}s^2,\\\\ B=\\frac{I(Y>\\tau)}{G_C(\\tau)}(1-s)^2,\\\\ \\widehat{\\mathrm{BS}}(\\tau)=\\frac1n\\sum_i(A_i+B_i).\\end{gathered}A=GC​(Y)δI(Y≤τ)​s2,B=GC​(τ)I(Y>τ)​(1−s)2,BS(τ)=n1​i∑​(Ai​+Bi​).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 14,
+          "text": "qj(x)=sigmoid⁡(αj+xTb),Sj(x)=∏l=1j(1−ql(x)).\\begin{gathered}q_j(x)=\\operatorname{sigmoid}(\\alpha_j+x^Tb),\\\\ S_j(x)=\\prod_{l=1}^{j}(1-q_l(x)).\\end{gathered}qj​(x)=sigmoid(αj​+xTb),Sj​(x)=l=1∏j​(1−ql​(x)).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 15,
+          "text": "S(t)+∑kFk(t)=1,Fk(t)=∫0tS(u)hk(u) du.\\begin{gathered}S(t)+\\sum_k F_k(t)=1,\\\\ F_k(t)=\\int_0^t S(u)h_k(u)\\,du.\\end{gathered}S(t)+k∑​Fk​(t)=1,Fk​(t)=∫0t​S(u)hk​(u)du.​",
+          "scroll": 350,
+          "client": 350
+        }
+      ],
+      "overflow": [],
+      "geometry": [],
+      "bars": [
+        {
+          "label": "B x=0 ● event\n0.1538",
+          "color": "rgb(231, 185, 74)",
+          "width": 23.015625,
+          "height": 18
+        },
+        {
+          "label": "C x=1 ● event\n0.3077",
+          "color": "rgb(231, 185, 74)",
+          "width": 46.046875,
+          "height": 18
+        },
+        {
+          "label": "D x=-1 at risk\n0.0769",
+          "color": "rgb(100, 201, 217)",
+          "width": 11.5,
+          "height": 18
+        },
+        {
+          "label": "E x=0 at risk\n0.1538",
+          "color": "rgb(100, 201, 217)",
+          "width": 23.015625,
+          "height": 18
+        },
+        {
+          "label": "F x=1 at risk\n0.3077",
+          "color": "rgb(100, 201, 217)",
+          "width": 46.046875,
+          "height": 18
+        }
+      ],
+      "captures": [
+        "final-cox-weight-paint-390.png",
+        "final-hazard-equation-390.png",
+        "final-censor-equation-390.png"
+      ]
+    },
+    {
+      "width": 320,
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "prereqs": [
+        "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+        "/learn/path/full-curriculum/hypothesis-testing-confidence-intervals?module=math-foundations"
+      ],
+      "equations": [
+        {
+          "index": 0,
+          "text": "Y=min⁡(T,C),δ=I(T≤C).\\begin{gathered}Y=\\min(T,C),\\\\ \\delta=I(T\\le C).\\end{gathered}Y=min(T,C),δ=I(T≤C).​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 1,
+          "text": "S^(t)=∏tj≤t(1−djnj),S(t)=P(T>t).\\begin{gathered}\\widehat S(t)=\\prod_{t_j\\le t}\\left(1-\\frac{d_j}{n_j}\\right),\\\\ S(t)=P(T>t).\\end{gathered}S(t)=tj​≤t∏​(1−nj​dj​​),S(t)=P(T>t).​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 2,
+          "text": "Vlog⁡S(t)=∑tj≤tdjnj(nj−dj),Var⁡^[S^(t)]≈S^(t)2Vlog⁡S(t).\\begin{gathered}V_{\\log S}(t)=\\sum_{t_j\\le t}\\frac{d_j}{n_j(n_j-d_j)},\\\\ \\widehat{\\operatorname{Var}}[\\widehat S(t)]\\approx\\widehat S(t)^2V_{\\log S}(t).\\end{gathered}VlogS​(t)=tj​≤t∑​nj​(nj​−dj​)dj​​,Var[S(t)]≈S(t)2VlogS​(t).​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 3,
+          "text": "RMST⁡(τ)=E[min⁡(T,τ)],RMST⁡(τ)=∫0τS(t) dt.\\begin{gathered}\\operatorname{RMST}(\\tau)=E[\\min(T,\\tau)],\\\\ \\operatorname{RMST}(\\tau)=\\int_0^\\tau S(t)\\,dt.\\end{gathered}RMST(τ)=E[min(T,τ)],RMST(τ)=∫0τ​S(t)dt.​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 4,
+          "text": "h(t)=lim⁡Δ↓0qΔ(t)Δ,h(t)=f(t)S(t),H(t)=∫0th(u) du,S(t)=e−H(t).\\begin{gathered}h(t)=\\lim_{\\Delta\\downarrow0}\\frac{q_\\Delta(t)}{\\Delta},\\\\ h(t)=\\frac{f(t)}{S(t)},\\\\ H(t)=\\int_0^t h(u)\\,du,\\\\ S(t)=e^{-H(t)}.\\end{gathered}h(t)=Δ↓0lim​ΔqΔ​(t)​,h(t)=S(t)f(t)​,H(t)=∫0t​h(u)du,S(t)=e−H(t).​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 5,
+          "text": "L∝∏ifθ(yi)δiSθ(yi)1−δi,ℓi=δilog⁡hθ(yi)−Hθ(yi),ℓ(θ)=∑iℓi.\\begin{gathered}L\\propto\\prod_i f_\\theta(y_i)^{\\delta_i}S_\\theta(y_i)^{1-\\delta_i},\\\\ \\ell_i=\\delta_i\\log h_\\theta(y_i)-H_\\theta(y_i),\\\\ \\ell(\\theta)=\\sum_i\\ell_i.\\end{gathered}L∝i∏​fθ​(yi​)δi​Sθ​(yi​)1−δi​,ℓi​=δi​loghθ​(yi​)−Hθ​(yi​),ℓ(θ)=i∑​ℓi​.​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 6,
+          "text": "e1j=djpj,U=∑j(d1j−e1j),vj=djpj(1−pj)nj−djnj−1,(nj>1),V=∑jvj,Z2=U2/V(V>0).\\begin{gathered}e_{1j}=d_jp_j,\\\\ U=\\sum_j(d_{1j}-e_{1j}),\\\\ v_j=d_jp_j(1-p_j)\\frac{n_j-d_j}{n_j-1},\\\\ (n_j>1),\\qquad V=\\sum_jv_j,\\\\ Z^2=U^2/V\\quad(V>0).\\end{gathered}e1j​=dj​pj​,U=j∑​(d1j​−e1j​),vj​=dj​pj​(1−pj​)nj​−1nj​−dj​​,(nj​>1),V=j∑​vj​,Z2=U2/V(V>0).​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 7,
+          "text": "h(t∣x)=h0(t)exTβ,h(t∣xa)h(t∣xb)=e(xa−xb)Tβ.\\begin{gathered}h(t\\mid x)=h_0(t)e^{x^T\\beta},\\\\ \\frac{h(t\\mid x_a)}{h(t\\mid x_b)}=e^{(x_a-x_b)^T\\beta}.\\end{gathered}h(t∣x)=h0​(t)exTβ,h(t∣xb​)h(t∣xa​)​=e(xa​−xb​)Tβ.​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 8,
+          "text": "πi(R)≈exiTβ∑k∈RexkTβ\\pi_i(R)\\approx\\frac{e^{x_i^T\\beta}}{\\sum_{k\\in R}e^{x_k^T\\beta}}πi​(R)≈∑k∈R​exkT​βexiT​β​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 9,
+          "text": "wk=exkTβ∑l∈RexlTβ,xˉw=∑k∈Rwkxk,U=∑events i(xi−xˉw,i),I=∑events i∑k∈RiwkzkizkiT.\\begin{gathered}w_k=\\frac{e^{x_k^T\\beta}}{\\sum_{l\\in R}e^{x_l^T\\beta}},\\\\ \\bar x_w=\\sum_{k\\in R}w_kx_k,\\\\ U=\\sum_{\\text{events }i}(x_i-\\bar x_{w,i}),\\\\ I=\\sum_{\\text{events }i}\\sum_{k\\in R_i}w_kz_{ki}z_{ki}^T.\\end{gathered}wk​=∑l∈R​exlT​βexkT​β​,xˉw​=k∈R∑​wk​xk​,U=events i∑​(xi​−xˉw,i​),I=events i∑​k∈Ri​∑​wk​zki​zkiT​.​",
+          "scroll": 263,
+          "client": 263
+        },
+        {
+          "index": 10,
+          "text": "LjBreslow=∏i∈DjexiTβWjdj,LjEfron=∏i∈DjexiTβ∏l=0dj−1(Wj−lEj/dj).\\begin{gathered}L_j^{\\mathrm{Breslow}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{W_j^{d_j}},\\\\ L_j^{\\mathrm{Efron}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{\\prod_{l=0}^{d_j-1}(W_j-lE_j/d_j)}.\\end{gathered}LjBreslow​=Wjdj​​∏i∈Dj​​exiT​β​,LjEfron​=∏l=0dj​−1​(Wj​−lEj​/dj​)∏i∈Dj​​exiT​β​.​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 11,
+          "text": "H^0(t)=∑tj≤tdj∑k∈RjexkTβ^,S^(t∣x)=exp⁡[−H^0(t)exTβ^].\\begin{gathered}\\widehat H_0(t)=\\sum_{t_j\\le t}\\frac{d_j}{\\sum_{k\\in R_j}e^{x_k^T\\widehat\\beta}},\\\\ \\widehat S(t\\mid x)=\\exp[-\\widehat H_0(t)e^{x^T\\widehat\\beta}].\\end{gathered}H0​(t)=tj​≤t∑​∑k∈Rj​​exkT​β​dj​​,S(t∣x)=exp[−H0​(t)exTβ​].​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 12,
+          "text": "hmix(t)=0.1e−0.1t+0.4e−0.4te−0.1t+e−0.4th_{\\mathrm{mix}}(t)=\\frac{0.1e^{-0.1t}+0.4e^{-0.4t}}{e^{-0.1t}+e^{-0.4t}}hmix​(t)=e−0.1t+e−0.4t0.1e−0.1t+0.4e−0.4t​",
+          "scroll": 263,
+          "client": 263
+        },
+        {
+          "index": 13,
+          "text": "A=δI(Y≤τ)GC(Y)s2,B=I(Y>τ)GC(τ)(1−s)2,BS^(τ)=1n∑i(Ai+Bi).\\begin{gathered}A=\\frac{\\delta I(Y\\le\\tau)}{G_C(Y)}s^2,\\\\ B=\\frac{I(Y>\\tau)}{G_C(\\tau)}(1-s)^2,\\\\ \\widehat{\\mathrm{BS}}(\\tau)=\\frac1n\\sum_i(A_i+B_i).\\end{gathered}A=GC​(Y)δI(Y≤τ)​s2,B=GC​(τ)I(Y>τ)​(1−s)2,BS(τ)=n1​i∑​(Ai​+Bi​).​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 14,
+          "text": "qj(x)=sigmoid⁡(αj+xTb),Sj(x)=∏l=1j(1−ql(x)).\\begin{gathered}q_j(x)=\\operatorname{sigmoid}(\\alpha_j+x^Tb),\\\\ S_j(x)=\\prod_{l=1}^{j}(1-q_l(x)).\\end{gathered}qj​(x)=sigmoid(αj​+xTb),Sj​(x)=l=1∏j​(1−ql​(x)).​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 15,
+          "text": "S(t)+∑kFk(t)=1,Fk(t)=∫0tS(u)hk(u) du.\\begin{gathered}S(t)+\\sum_k F_k(t)=1,\\\\ F_k(t)=\\int_0^t S(u)h_k(u)\\,du.\\end{gathered}S(t)+k∑​Fk​(t)=1,Fk​(t)=∫0t​S(u)hk​(u)du.​",
+          "scroll": 280,
+          "client": 280
+        }
+      ],
+      "overflow": [],
+      "geometry": [],
+      "bars": [
+        {
+          "label": "B x=0 ● event\n0.1538",
+          "color": "rgb(231, 185, 74)",
+          "width": 30.578125,
+          "height": 18
+        },
+        {
+          "label": "C x=1 ● event\n0.3077",
+          "color": "rgb(231, 185, 74)",
+          "width": 61.171875,
+          "height": 18
+        },
+        {
+          "label": "D x=-1 at risk\n0.0769",
+          "color": "rgb(100, 201, 217)",
+          "width": 15.28125,
+          "height": 18
+        },
+        {
+          "label": "E x=0 at risk\n0.1538",
+          "color": "rgb(100, 201, 217)",
+          "width": 30.578125,
+          "height": 18
+        },
+        {
+          "label": "F x=1 at risk\n0.3077",
+          "color": "rgb(100, 201, 217)",
+          "width": 61.171875,
+          "height": 18
+        }
+      ],
+      "captures": [
+        "final-cox-weight-paint-320.png",
+        "final-logrank-equation-320.png",
+        "final-score-equation-320.png",
+        "final-discrete-equation-320.png"
+      ]
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "scope": "Final mathematical line layout, prose, linked prerequisites and actual initial Cox bar painting. Earlier26states/69keyboard actions per width retained for unchanged behavioral mechanisms."
+}

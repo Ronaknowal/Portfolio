@@ -1,0 +1,1530 @@
+{
+  "authorFrozenAt": "2026-09-11T07:17:31.606714+00:00",
+  "topicId": "decision-theory-risk-cost-sensitive-decisions",
+  "status": "author-verified; independent review, production integration and user acceptance separate",
+  "productionSourceCount": 7,
+  "sources": [
+    {
+      "path": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+      "sha256": "4fc3db155c2e1eb243f23351202b3a1eb81aba68fa5df31d7b162bd38c34d7de",
+      "bytes": 63443
+    },
+    {
+      "path": "src/learn/data/decision-theory-models.js",
+      "sha256": "9778efca2609e6dc9605ecce0fc1c929d88c090863f64876976bb6819d572918",
+      "bytes": 18896
+    },
+    {
+      "path": "src/learn/data/decision-theory-examples.js",
+      "sha256": "04b1459c773fb7644ddbf6e5c4f3c3c1767b3ea236f5022079034bc0a603023a",
+      "bytes": 24164
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx",
+      "sha256": "af71ac05ca02f2685021705b0bfe7aab9a8d440bf0c32c987933109e810b260e",
+      "bytes": 23373
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx",
+      "sha256": "93e7ab812622522f1b562ec7e9b1d20aac4a509293c7994fb1f8e6581d8577bf",
+      "bytes": 1940
+    },
+    {
+      "path": "src/learn/components/lesson-labs/decision-theory-labs.css",
+      "sha256": "db4201fc7920ad5c8473feaee5e44887a871a9220eb42f5fe8cddfe620bc6728",
+      "bytes": 7447
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/decision-theory-risk-cost-sensitive-decisions.js",
+      "sha256": "e2aeba0b608b721cca100342d57b8d406051f425b1c0fcef24b5517a3f8dec5a",
+      "bytes": 6921
+    }
+  ],
+  "records": {
+    "models": {
+      "file": {
+        "path": "scratch/decision-theory-review/model-results.json",
+        "sha256": "6d88f3ba32c3f8bb901bf73e68c394b9bea2519a21cd5201c0cc71211e0f2a99",
+        "bytes": 1551
+      },
+      "result": {
+        "timestamp": "2026-09-11T07:02:58.748Z",
+        "status": "passed",
+        "cases": {
+          "binary": 48,
+          "signals": 21,
+          "provisioning": 55,
+          "allocations": 24,
+          "information": 112,
+          "tails": 200,
+          "utility": 24,
+          "contingent": 126,
+          "thresholds": 7
+        },
+        "invalid": 22,
+        "equations": 6,
+        "programs": 11,
+        "sources": [
+          {
+            "path": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+            "sha256": "4fc3db155c2e1eb243f23351202b3a1eb81aba68fa5df31d7b162bd38c34d7de"
+          },
+          {
+            "path": "src/learn/data/decision-theory-models.js",
+            "sha256": "9778efca2609e6dc9605ecce0fc1c929d88c090863f64876976bb6819d572918"
+          },
+          {
+            "path": "src/learn/data/decision-theory-examples.js",
+            "sha256": "04b1459c773fb7644ddbf6e5c4f3c3c1767b3ea236f5022079034bc0a603023a"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx",
+            "sha256": "55f1e96db7efb95afdc173166018a6e189b385c70c16259fc6283b455d1c9800"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx",
+            "sha256": "93e7ab812622522f1b562ec7e9b1d20aac4a509293c7994fb1f8e6581d8577bf"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/decision-theory-labs.css",
+            "sha256": "db4201fc7920ad5c8473feaee5e44887a871a9220eb42f5fe8cddfe620bc6728"
+          },
+          {
+            "path": "src/learn/data/curriculum/blueprints/decision-theory-risk-cost-sensitive-decisions.js",
+            "sha256": "e2aeba0b608b721cca100342d57b8d406051f425b1c0fcef24b5517a3f8dec5a"
+          }
+        ]
+      }
+    },
+    "native": {
+      "file": {
+        "path": "scratch/decision-theory-review/native-results.json",
+        "sha256": "66dbd48822e32c2113e60dfb714af5bc49f50eb3408440664a36b5b48b594716",
+        "bytes": 737
+      },
+      "result": {
+        "timestamp": "2026-09-11T07:03:04.046600+00:00",
+        "status": "passed",
+        "counts": {
+          "binary_exact_risks": 48,
+          "signal_policy_enumerations": 21,
+          "provisioning_exact_states": 55,
+          "capacity_subset_oracles": 24,
+          "information_four_policy_oracles": 112,
+          "tail_hinge_oracles": 200,
+          "high_precision_utility_states": 24,
+          "contingent_64_world_oracles": 126,
+          "frozen_thresholds": 7,
+          "actual_complete_program_stdout": 11,
+          "actual_changed_helper_calls": 46
+        },
+        "note": "Exact Fraction finite policies, independent hinge and world enumeration; 60-digit mpmath utility; actual displayed stdout and changed helper execution. Not independent author review or production integration."
+      }
+    },
+    "browser": {
+      "file": {
+        "path": "scratch/decision-theory-browser/results.json",
+        "sha256": "cc19e41fbe3f074fa2a6bc09e74a0c2bd25b7047b3ef01263e548fe8c7ee2821",
+        "bytes": 33593
+      },
+      "result": {
+        "checkedAt": "2026-09-11T07:02:26.033Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "anchors": [
+              "#1-from-a-forecast-to-something-you-can-do",
+              "#2-read-the-whole-table-before-deriving-a-threshold",
+              "#3-evaluate-a-whole-rule-not-just-one-observation",
+              "#4-which-summary-does-your-loss-actually-ask-for",
+              "#5-fallback-actions-and-shared-resources-change-the-problem",
+              "#6-a-usable-probability-and-an-honest-evaluation-are-different-requirements",
+              "#7-information-has-value-when-it-can-change-a-useful-action",
+              "#8-predicting-a-bad-outcome-is-not-estimating-how-much-an-action-helps",
+              "#9-uncertain-models-need-an-explicit-comparison-criterion",
+              "#10-randomization-can-help-one-guarantee-while-leaving-another-unchanged",
+              "#11-state-what-you-mean-by-caring-about-consequences",
+              "#12-inspect-first-then-allocate-information-and-capacity-together",
+              "#13-make-and-defend-a-changed-decision"
+            ],
+            "states": [
+              [
+                "loss-table",
+                0,
+                "Best action: Release"
+              ],
+              [
+                "loss-table",
+                0.125,
+                "Best actions (tie): Release or Quarantine"
+              ],
+              [
+                "loss-table",
+                1,
+                "Best action: Quarantine"
+              ],
+              [
+                "loss-table",
+                "identical rows"
+              ],
+              [
+                "procedure",
+                "prior .1"
+              ],
+              [
+                "procedure",
+                "exact prior .2 tie"
+              ],
+              [
+                "provisioning",
+                2,
+                10
+              ],
+              [
+                "provisioning",
+                10,
+                6
+              ],
+              [
+                "fallback",
+                ".075 tie"
+              ],
+              [
+                "fallback",
+                ".7 tie"
+              ],
+              [
+                "capacity",
+                0,
+                106.4
+              ],
+              [
+                "capacity",
+                2,
+                50.4
+              ],
+              [
+                "capacity",
+                6,
+                44.4
+              ],
+              [
+                "test",
+                "late signal 8.4"
+              ],
+              [
+                "test",
+                "prior .02 value .14"
+              ],
+              [
+                "test",
+                "null positive branch"
+              ],
+              [
+                "mixture",
+                0,
+                4
+              ],
+              [
+                "mixture",
+                0.4,
+                2.4
+              ],
+              [
+                "mixture",
+                1,
+                6
+              ],
+              [
+                "tail",
+                0.8,
+                32.5
+              ],
+              [
+                "tail",
+                0.9,
+                55
+              ],
+              [
+                "tail",
+                0.95,
+                100
+              ],
+              [
+                "tail",
+                0.99,
+                100
+              ],
+              [
+                "utility",
+                "90 lottery, 95 sure"
+              ],
+              [
+                "capstone",
+                "price 10.4 three-way tie"
+              ],
+              [
+                "capstone",
+                "price 12 no test"
+              ],
+              [
+                "capstone",
+                "capacity 1"
+              ]
+            ],
+            "keyboard": [
+              "Probability faulty 0.085",
+              "Prior probability of high state 0.31",
+              "Order quantity 2.25",
+              "Underage cost per unit (overage stays 1) 4.5",
+              "Probability faulty in fallback example 0.305",
+              "Fixed fallback loss 0.7",
+              "Quarantine slots for all six items 3",
+              "Prior faulty probability 0.09",
+              "Sensitivity P(+ | faulty) 0.81",
+              "False-positive P(+ | sound) 0.11",
+              "Test price 2.1",
+              "Probability of choosing rule A 0.41",
+              "Sure final outcome 96",
+              "Tail level alpha 0.91",
+              "Price of the one test 1.1",
+              "Available quarantine slots 3",
+              "Select ArrowDown/Enter",
+              "Select ArrowDown/Enter",
+              "Reset: Read the lower loss envelope",
+              "Reset: Hold the state fixed, then average the states",
+              "Reset: See the shortage behind the weighted average",
+              "Reset: Add a real fallback, then share limited slots",
+              "Information timing Space",
+              "Reset: Put the information on the correct side of the decision",
+              "Reset: Put the information on the correct side of the decision",
+              "Reset: Balance the two state risks",
+              "Reset: Change the consequence criterion explicitly",
+              "Reset: Test first; reallocate after the result",
+              "Reset: Test first; reallocate after the result",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter"
+            ],
+            "captures": [
+              "reading-intro-1440.png",
+              "reading-section-1-1440.png",
+              "reading-section-2-1440.png",
+              "reading-section-3-1440.png",
+              "reading-section-4-1440.png",
+              "reading-section-5-1440.png",
+              "reading-section-6-1440.png",
+              "reading-section-7-1440.png",
+              "reading-section-8-1440.png",
+              "reading-section-9-1440.png",
+              "reading-section-10-1440.png",
+              "reading-section-11-1440.png",
+              "reading-section-12-1440.png",
+              "reading-section-13-1440.png",
+              "risk-envelope-tie-1440.png",
+              "identical-loss-table-1440.png",
+              "fixed-state-versus-prior-1440.png",
+              "demand-surplus-quantile-1440.png",
+              "asymmetric-cost-curve-1440.png",
+              "fallback-region-1440.png",
+              "capacity-two-slots-1440.png",
+              "information-too-late-1440.png",
+              "impossible-signal-1440.png",
+              "contingent-test-tree-1440.png",
+              "minimax-certificate-plane-1440.png",
+              "utility-chord-1440.png",
+              "atom-aware-tail-1440.png",
+              "no-test-beats-priced-information-1440.png",
+              "changed-capacity-contingent-policy-1440.png",
+              "inline-figure-0-1440.png",
+              "inline-figure-1-1440.png",
+              "explained-practice-0-1440.png",
+              "explained-practice-9-1440.png",
+              "explained-practice-12-1440.png",
+              "explained-practice-13-1440.png",
+              "complete-capstone-program-1440.png",
+              "executed-capstone-output-1440.png",
+              "equation-0-1440.png",
+              "equation-1-1440.png",
+              "equation-2-1440.png",
+              "equation-3-1440.png",
+              "equation-4-1440.png",
+              "equation-5-1440.png",
+              "annotated-learning-resources-1440.png"
+            ],
+            "programs": [
+              "Evaluate the whole loss table",
+              "Average a complete rule in two different orders",
+              "Choose a quantity for the actual shortage and surplus costs",
+              "Integrate the batch consequence before choosing",
+              "Check the capacity allocation against every feasible subset",
+              "Freeze a threshold before opening the test labels",
+              "Fold the test tree using joint masses",
+              "Separate calibrated scores, action losses and intervention benefit",
+              "Compare worst loss, regret and a certified mixture",
+              "Split probability atoms when averaging the worst tail",
+              "Choose which item to test before allocating two slots"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2"
+            ],
+            "practice": 14,
+            "math": [
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "ra(p)=(1−p)L(a,0)+pL(a,1).r_a(p)=(1-p)L(a,0)+pL(a,1).ra​(p)=(1−p)L(a,0)+pL(a,1)."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "Δ(p)=(1−p)[L(1,0)−L(0,0)]+p[L(1,1)−L(0,1)].\\begin{aligned}\n      \\Delta(p)&=(1-p)\\bigl[L(1,0)-L(0,0)\\bigr]\\\\\n      &\\quad+p\\bigl[L(1,1)-L(0,1)\\bigr].\n    \\end{aligned}Δ(p)​=(1−p)[L(1,0)−L(0,0)]+p[L(1,1)−L(0,1)].​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "B(π,δ)=∑θπ(θ)R(θ,δ)=∑xP(x) r(δ(x)∣x).\\begin{aligned}\n      B(\\pi,\\delta)\n      &=\\sum_\\theta\\pi(\\theta)R(\\theta,\\delta)\\\\\n      &=\\sum_x P(x)\\,r(\\delta(x)\\mid x).\n    \\end{aligned}B(π,δ)​=θ∑​π(θ)R(θ,δ)=x∑​P(x)r(δ(x)∣x).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "F(q−)≤τ≤F(q),τ=cucu+co.\\begin{aligned}\n      F(q^-)&\\le \\tau\\le F(q),\\\\\n      \\tau&=\\frac{c_u}{c_u+c_o}.\n    \\end{aligned}F(q−)τ​≤τ≤F(q),=cu​+co​cu​​.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "CVaR⁡.9=5+.5.1=55.\\operatorname{CVaR}_{.9}\n      =\\frac{5+.5}{.1}=55.CVaR.9​=.15+.5​=55."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "CVaR⁡α(Z)=min⁡tΦα(t),Φα(t)=t+E[(Z−t)+]1−α.\\begin{aligned}\n        \\operatorname{CVaR}_\\alpha(Z)&=\\min_t\\Phi_\\alpha(t),\\\\\n        \\Phi_\\alpha(t)&=t+\\frac{\\mathbb E[(Z-t)_+]}{1-\\alpha}.\n      \\end{aligned}CVaRα​(Z)Φα​(t)​=tmin​Φα​(t),=t+1−αE[(Z−t)+​]​.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://www.stat.cmu.edu/~cshalizi/sml/21/lectures/02/lecture-02.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/resources/unit-8-decision-analysis-video-3/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/resources/unit-9-value-of-info-video-2/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/14-13-psychology-and-economics-spring-2020/resources/lec7-risk-pref-i/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.stat.berkeley.edu/~wfithian/courses/stat210a/models.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://scikit-learn.org/stable/modules/classification_threshold.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://scikit-learn.org/stable/modules/calibration.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/1-2L0LSIpoNnJ9fZabcMEhn2na6aPrj8o_transcript.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/14-13-psychology-and-economics-spring-2020/30de72ba97b788add155104f2ee49266_MIT14_13S20_lec7_8.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.math.washington.edu/~rtr/papers/rtr187-CVaR2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 390,
+            "anchors": [
+              "#1-from-a-forecast-to-something-you-can-do",
+              "#2-read-the-whole-table-before-deriving-a-threshold",
+              "#3-evaluate-a-whole-rule-not-just-one-observation",
+              "#4-which-summary-does-your-loss-actually-ask-for",
+              "#5-fallback-actions-and-shared-resources-change-the-problem",
+              "#6-a-usable-probability-and-an-honest-evaluation-are-different-requirements",
+              "#7-information-has-value-when-it-can-change-a-useful-action",
+              "#8-predicting-a-bad-outcome-is-not-estimating-how-much-an-action-helps",
+              "#9-uncertain-models-need-an-explicit-comparison-criterion",
+              "#10-randomization-can-help-one-guarantee-while-leaving-another-unchanged",
+              "#11-state-what-you-mean-by-caring-about-consequences",
+              "#12-inspect-first-then-allocate-information-and-capacity-together",
+              "#13-make-and-defend-a-changed-decision"
+            ],
+            "states": [
+              [
+                "loss-table",
+                0,
+                "Best action: Release"
+              ],
+              [
+                "loss-table",
+                0.125,
+                "Best actions (tie): Release or Quarantine"
+              ],
+              [
+                "loss-table",
+                1,
+                "Best action: Quarantine"
+              ],
+              [
+                "loss-table",
+                "identical rows"
+              ],
+              [
+                "procedure",
+                "prior .1"
+              ],
+              [
+                "procedure",
+                "exact prior .2 tie"
+              ],
+              [
+                "provisioning",
+                2,
+                10
+              ],
+              [
+                "provisioning",
+                10,
+                6
+              ],
+              [
+                "fallback",
+                ".075 tie"
+              ],
+              [
+                "fallback",
+                ".7 tie"
+              ],
+              [
+                "capacity",
+                0,
+                106.4
+              ],
+              [
+                "capacity",
+                2,
+                50.4
+              ],
+              [
+                "capacity",
+                6,
+                44.4
+              ],
+              [
+                "test",
+                "late signal 8.4"
+              ],
+              [
+                "test",
+                "prior .02 value .14"
+              ],
+              [
+                "test",
+                "null positive branch"
+              ],
+              [
+                "mixture",
+                0,
+                4
+              ],
+              [
+                "mixture",
+                0.4,
+                2.4
+              ],
+              [
+                "mixture",
+                1,
+                6
+              ],
+              [
+                "tail",
+                0.8,
+                32.5
+              ],
+              [
+                "tail",
+                0.9,
+                55
+              ],
+              [
+                "tail",
+                0.95,
+                100
+              ],
+              [
+                "tail",
+                0.99,
+                100
+              ],
+              [
+                "utility",
+                "90 lottery, 95 sure"
+              ],
+              [
+                "capstone",
+                "price 10.4 three-way tie"
+              ],
+              [
+                "capstone",
+                "price 12 no test"
+              ],
+              [
+                "capstone",
+                "capacity 1"
+              ]
+            ],
+            "keyboard": [
+              "Probability faulty 0.085",
+              "Prior probability of high state 0.31",
+              "Order quantity 2.25",
+              "Underage cost per unit (overage stays 1) 4.5",
+              "Probability faulty in fallback example 0.305",
+              "Fixed fallback loss 0.7",
+              "Quarantine slots for all six items 3",
+              "Prior faulty probability 0.09",
+              "Sensitivity P(+ | faulty) 0.81",
+              "False-positive P(+ | sound) 0.11",
+              "Test price 2.1",
+              "Probability of choosing rule A 0.41",
+              "Sure final outcome 96",
+              "Tail level alpha 0.91",
+              "Price of the one test 1.1",
+              "Available quarantine slots 3",
+              "Select ArrowDown/Enter",
+              "Select ArrowDown/Enter",
+              "Reset: Read the lower loss envelope",
+              "Reset: Hold the state fixed, then average the states",
+              "Reset: See the shortage behind the weighted average",
+              "Reset: Add a real fallback, then share limited slots",
+              "Information timing Space",
+              "Reset: Put the information on the correct side of the decision",
+              "Reset: Put the information on the correct side of the decision",
+              "Reset: Balance the two state risks",
+              "Reset: Change the consequence criterion explicitly",
+              "Reset: Test first; reallocate after the result",
+              "Reset: Test first; reallocate after the result",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter"
+            ],
+            "captures": [
+              "reading-intro-390.png",
+              "reading-section-1-390.png",
+              "reading-section-2-390.png",
+              "reading-section-3-390.png",
+              "reading-section-4-390.png",
+              "reading-section-5-390.png",
+              "reading-section-6-390.png",
+              "reading-section-7-390.png",
+              "reading-section-8-390.png",
+              "reading-section-9-390.png",
+              "reading-section-10-390.png",
+              "reading-section-11-390.png",
+              "reading-section-12-390.png",
+              "reading-section-13-390.png",
+              "risk-envelope-tie-390.png",
+              "identical-loss-table-390.png",
+              "fixed-state-versus-prior-390.png",
+              "demand-surplus-quantile-390.png",
+              "asymmetric-cost-curve-390.png",
+              "fallback-region-390.png",
+              "capacity-two-slots-390.png",
+              "information-too-late-390.png",
+              "impossible-signal-390.png",
+              "contingent-test-tree-390.png",
+              "minimax-certificate-plane-390.png",
+              "utility-chord-390.png",
+              "atom-aware-tail-390.png",
+              "no-test-beats-priced-information-390.png",
+              "changed-capacity-contingent-policy-390.png",
+              "inline-figure-0-390.png",
+              "inline-figure-1-390.png",
+              "explained-practice-0-390.png",
+              "explained-practice-9-390.png",
+              "explained-practice-12-390.png",
+              "explained-practice-13-390.png",
+              "complete-capstone-program-390.png",
+              "executed-capstone-output-390.png",
+              "equation-0-390.png",
+              "equation-1-390.png",
+              "equation-2-390.png",
+              "equation-3-390.png",
+              "equation-4-390.png",
+              "equation-5-390.png",
+              "annotated-learning-resources-390.png"
+            ],
+            "programs": [
+              "Evaluate the whole loss table",
+              "Average a complete rule in two different orders",
+              "Choose a quantity for the actual shortage and surplus costs",
+              "Integrate the batch consequence before choosing",
+              "Check the capacity allocation against every feasible subset",
+              "Freeze a threshold before opening the test labels",
+              "Fold the test tree using joint masses",
+              "Separate calibrated scores, action losses and intervention benefit",
+              "Compare worst loss, regret and a certified mixture",
+              "Split probability atoms when averaging the worst tail",
+              "Choose which item to test before allocating two slots"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2"
+            ],
+            "practice": 14,
+            "math": [
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "ra(p)=(1−p)L(a,0)+pL(a,1).r_a(p)=(1-p)L(a,0)+pL(a,1).ra​(p)=(1−p)L(a,0)+pL(a,1)."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "Δ(p)=(1−p)[L(1,0)−L(0,0)]+p[L(1,1)−L(0,1)].\\begin{aligned}\n      \\Delta(p)&=(1-p)\\bigl[L(1,0)-L(0,0)\\bigr]\\\\\n      &\\quad+p\\bigl[L(1,1)-L(0,1)\\bigr].\n    \\end{aligned}Δ(p)​=(1−p)[L(1,0)−L(0,0)]+p[L(1,1)−L(0,1)].​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "B(π,δ)=∑θπ(θ)R(θ,δ)=∑xP(x) r(δ(x)∣x).\\begin{aligned}\n      B(\\pi,\\delta)\n      &=\\sum_\\theta\\pi(\\theta)R(\\theta,\\delta)\\\\\n      &=\\sum_x P(x)\\,r(\\delta(x)\\mid x).\n    \\end{aligned}B(π,δ)​=θ∑​π(θ)R(θ,δ)=x∑​P(x)r(δ(x)∣x).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "F(q−)≤τ≤F(q),τ=cucu+co.\\begin{aligned}\n      F(q^-)&\\le \\tau\\le F(q),\\\\\n      \\tau&=\\frac{c_u}{c_u+c_o}.\n    \\end{aligned}F(q−)τ​≤τ≤F(q),=cu​+co​cu​​.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "CVaR⁡.9=5+.5.1=55.\\operatorname{CVaR}_{.9}\n      =\\frac{5+.5}{.1}=55.CVaR.9​=.15+.5​=55."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "CVaR⁡α(Z)=min⁡tΦα(t),Φα(t)=t+E[(Z−t)+]1−α.\\begin{aligned}\n        \\operatorname{CVaR}_\\alpha(Z)&=\\min_t\\Phi_\\alpha(t),\\\\\n        \\Phi_\\alpha(t)&=t+\\frac{\\mathbb E[(Z-t)_+]}{1-\\alpha}.\n      \\end{aligned}CVaRα​(Z)Φα​(t)​=tmin​Φα​(t),=t+1−αE[(Z−t)+​]​.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://www.stat.cmu.edu/~cshalizi/sml/21/lectures/02/lecture-02.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/resources/unit-8-decision-analysis-video-3/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/resources/unit-9-value-of-info-video-2/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/14-13-psychology-and-economics-spring-2020/resources/lec7-risk-pref-i/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.stat.berkeley.edu/~wfithian/courses/stat210a/models.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://scikit-learn.org/stable/modules/classification_threshold.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://scikit-learn.org/stable/modules/calibration.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/1-2L0LSIpoNnJ9fZabcMEhn2na6aPrj8o_transcript.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/14-13-psychology-and-economics-spring-2020/30de72ba97b788add155104f2ee49266_MIT14_13S20_lec7_8.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.math.washington.edu/~rtr/papers/rtr187-CVaR2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 320,
+            "anchors": [
+              "#1-from-a-forecast-to-something-you-can-do",
+              "#2-read-the-whole-table-before-deriving-a-threshold",
+              "#3-evaluate-a-whole-rule-not-just-one-observation",
+              "#4-which-summary-does-your-loss-actually-ask-for",
+              "#5-fallback-actions-and-shared-resources-change-the-problem",
+              "#6-a-usable-probability-and-an-honest-evaluation-are-different-requirements",
+              "#7-information-has-value-when-it-can-change-a-useful-action",
+              "#8-predicting-a-bad-outcome-is-not-estimating-how-much-an-action-helps",
+              "#9-uncertain-models-need-an-explicit-comparison-criterion",
+              "#10-randomization-can-help-one-guarantee-while-leaving-another-unchanged",
+              "#11-state-what-you-mean-by-caring-about-consequences",
+              "#12-inspect-first-then-allocate-information-and-capacity-together",
+              "#13-make-and-defend-a-changed-decision"
+            ],
+            "states": [
+              [
+                "loss-table",
+                0,
+                "Best action: Release"
+              ],
+              [
+                "loss-table",
+                0.125,
+                "Best actions (tie): Release or Quarantine"
+              ],
+              [
+                "loss-table",
+                1,
+                "Best action: Quarantine"
+              ],
+              [
+                "loss-table",
+                "identical rows"
+              ],
+              [
+                "procedure",
+                "prior .1"
+              ],
+              [
+                "procedure",
+                "exact prior .2 tie"
+              ],
+              [
+                "provisioning",
+                2,
+                10
+              ],
+              [
+                "provisioning",
+                10,
+                6
+              ],
+              [
+                "fallback",
+                ".075 tie"
+              ],
+              [
+                "fallback",
+                ".7 tie"
+              ],
+              [
+                "capacity",
+                0,
+                106.4
+              ],
+              [
+                "capacity",
+                2,
+                50.4
+              ],
+              [
+                "capacity",
+                6,
+                44.4
+              ],
+              [
+                "test",
+                "late signal 8.4"
+              ],
+              [
+                "test",
+                "prior .02 value .14"
+              ],
+              [
+                "test",
+                "null positive branch"
+              ],
+              [
+                "mixture",
+                0,
+                4
+              ],
+              [
+                "mixture",
+                0.4,
+                2.4
+              ],
+              [
+                "mixture",
+                1,
+                6
+              ],
+              [
+                "tail",
+                0.8,
+                32.5
+              ],
+              [
+                "tail",
+                0.9,
+                55
+              ],
+              [
+                "tail",
+                0.95,
+                100
+              ],
+              [
+                "tail",
+                0.99,
+                100
+              ],
+              [
+                "utility",
+                "90 lottery, 95 sure"
+              ],
+              [
+                "capstone",
+                "price 10.4 three-way tie"
+              ],
+              [
+                "capstone",
+                "price 12 no test"
+              ],
+              [
+                "capstone",
+                "capacity 1"
+              ]
+            ],
+            "keyboard": [
+              "Probability faulty 0.085",
+              "Prior probability of high state 0.31",
+              "Order quantity 2.25",
+              "Underage cost per unit (overage stays 1) 4.5",
+              "Probability faulty in fallback example 0.305",
+              "Fixed fallback loss 0.7",
+              "Quarantine slots for all six items 3",
+              "Prior faulty probability 0.09",
+              "Sensitivity P(+ | faulty) 0.81",
+              "False-positive P(+ | sound) 0.11",
+              "Test price 2.1",
+              "Probability of choosing rule A 0.41",
+              "Sure final outcome 96",
+              "Tail level alpha 0.91",
+              "Price of the one test 1.1",
+              "Available quarantine slots 3",
+              "Select ArrowDown/Enter",
+              "Select ArrowDown/Enter",
+              "Reset: Read the lower loss envelope",
+              "Reset: Hold the state fixed, then average the states",
+              "Reset: See the shortage behind the weighted average",
+              "Reset: Add a real fallback, then share limited slots",
+              "Information timing Space",
+              "Reset: Put the information on the correct side of the decision",
+              "Reset: Put the information on the correct side of the decision",
+              "Reset: Balance the two state risks",
+              "Reset: Change the consequence criterion explicitly",
+              "Reset: Test first; reallocate after the result",
+              "Reset: Test first; reallocate after the result",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter",
+              "Optional derivation Enter"
+            ],
+            "captures": [
+              "reading-intro-320.png",
+              "reading-section-1-320.png",
+              "reading-section-2-320.png",
+              "reading-section-3-320.png",
+              "reading-section-4-320.png",
+              "reading-section-5-320.png",
+              "reading-section-6-320.png",
+              "reading-section-7-320.png",
+              "reading-section-8-320.png",
+              "reading-section-9-320.png",
+              "reading-section-10-320.png",
+              "reading-section-11-320.png",
+              "reading-section-12-320.png",
+              "reading-section-13-320.png",
+              "risk-envelope-tie-320.png",
+              "identical-loss-table-320.png",
+              "fixed-state-versus-prior-320.png",
+              "demand-surplus-quantile-320.png",
+              "asymmetric-cost-curve-320.png",
+              "fallback-region-320.png",
+              "capacity-two-slots-320.png",
+              "information-too-late-320.png",
+              "impossible-signal-320.png",
+              "contingent-test-tree-320.png",
+              "minimax-certificate-plane-320.png",
+              "utility-chord-320.png",
+              "atom-aware-tail-320.png",
+              "no-test-beats-priced-information-320.png",
+              "changed-capacity-contingent-policy-320.png",
+              "inline-figure-0-320.png",
+              "inline-figure-1-320.png",
+              "explained-practice-0-320.png",
+              "explained-practice-9-320.png",
+              "explained-practice-12-320.png",
+              "explained-practice-13-320.png",
+              "complete-capstone-program-320.png",
+              "executed-capstone-output-320.png",
+              "equation-0-320.png",
+              "equation-1-320.png",
+              "equation-2-320.png",
+              "equation-3-320.png",
+              "equation-4-320.png",
+              "equation-5-320.png",
+              "annotated-learning-resources-320.png"
+            ],
+            "programs": [
+              "Evaluate the whole loss table",
+              "Average a complete rule in two different orders",
+              "Choose a quantity for the actual shortage and surplus costs",
+              "Integrate the batch consequence before choosing",
+              "Check the capacity allocation against every feasible subset",
+              "Freeze a threshold before opening the test labels",
+              "Fold the test tree using joint masses",
+              "Separate calibrated scores, action losses and intervention benefit",
+              "Compare worst loss, regret and a certified mixture",
+              "Split probability atoms when averaging the worst tail",
+              "Choose which item to test before allocating two slots"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2"
+            ],
+            "practice": 14,
+            "math": [
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "ra(p)=(1−p)L(a,0)+pL(a,1).r_a(p)=(1-p)L(a,0)+pL(a,1).ra​(p)=(1−p)L(a,0)+pL(a,1)."
+              },
+              {
+                "width": 280,
+                "scroll": 281,
+                "text": "Δ(p)=(1−p)[L(1,0)−L(0,0)]+p[L(1,1)−L(0,1)].\\begin{aligned}\n      \\Delta(p)&=(1-p)\\bigl[L(1,0)-L(0,0)\\bigr]\\\\\n      &\\quad+p\\bigl[L(1,1)-L(0,1)\\bigr].\n    \\end{aligned}Δ(p)​=(1−p)[L(1,0)−L(0,0)]+p[L(1,1)−L(0,1)].​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "B(π,δ)=∑θπ(θ)R(θ,δ)=∑xP(x) r(δ(x)∣x).\\begin{aligned}\n      B(\\pi,\\delta)\n      &=\\sum_\\theta\\pi(\\theta)R(\\theta,\\delta)\\\\\n      &=\\sum_x P(x)\\,r(\\delta(x)\\mid x).\n    \\end{aligned}B(π,δ)​=θ∑​π(θ)R(θ,δ)=x∑​P(x)r(δ(x)∣x).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "F(q−)≤τ≤F(q),τ=cucu+co.\\begin{aligned}\n      F(q^-)&\\le \\tau\\le F(q),\\\\\n      \\tau&=\\frac{c_u}{c_u+c_o}.\n    \\end{aligned}F(q−)τ​≤τ≤F(q),=cu​+co​cu​​.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "CVaR⁡.9=5+.5.1=55.\\operatorname{CVaR}_{.9}\n      =\\frac{5+.5}{.1}=55.CVaR.9​=.15+.5​=55."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "CVaR⁡α(Z)=min⁡tΦα(t),Φα(t)=t+E[(Z−t)+]1−α.\\begin{aligned}\n        \\operatorname{CVaR}_\\alpha(Z)&=\\min_t\\Phi_\\alpha(t),\\\\\n        \\Phi_\\alpha(t)&=t+\\frac{\\mathbb E[(Z-t)_+]}{1-\\alpha}.\n      \\end{aligned}CVaRα​(Z)Φα​(t)​=tmin​Φα​(t),=t+1−αE[(Z−t)+​]​.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://www.stat.cmu.edu/~cshalizi/sml/21/lectures/02/lecture-02.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/resources/unit-8-decision-analysis-video-3/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/resources/unit-9-value-of-info-video-2/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/14-13-psychology-and-economics-spring-2020/resources/lec7-risk-pref-i/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.stat.berkeley.edu/~wfithian/courses/stat210a/models.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://scikit-learn.org/stable/modules/classification_threshold.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://scikit-learn.org/stable/modules/calibration.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/ids-333-risk-and-decision-analysis-fall-2021/1-2L0LSIpoNnJ9fZabcMEhn2na6aPrj8o_transcript.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/14-13-psychology-and-economics-spring-2020/30de72ba97b788add155104f2ee49266_MIT14_13S20_lec7_8.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.math.washington.edu/~rtr/papers/rtr187-CVaR2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          }
+        ],
+        "errors": []
+      }
+    },
+    "finalBoundaries": {
+      "file": {
+        "path": "scratch/decision-theory-browser/final-boundaries.json",
+        "sha256": "2fe9499dcb318b7697d767dc57733620bf05e14b303f531e7edb403312aa0321",
+        "bytes": 3499
+      },
+      "result": {
+        "checkedAt": "2026-09-11T07:08:37.145Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "allEightCurrentLabsRendered": true,
+            "exactRuleTie": true,
+            "coOptimalTests": true,
+            "atomTail": true,
+            "endpointKeyboardAndRead": true,
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2"
+            ],
+            "math": [
+              {
+                "width": 760,
+                "scroll": 760
+              }
+            ],
+            "errors": [],
+            "capture": "final-cvar-endpoint-1440.png"
+          },
+          {
+            "width": 390,
+            "allEightCurrentLabsRendered": true,
+            "exactRuleTie": true,
+            "coOptimalTests": true,
+            "atomTail": true,
+            "endpointKeyboardAndRead": true,
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2"
+            ],
+            "math": [
+              {
+                "width": 350,
+                "scroll": 350
+              }
+            ],
+            "errors": [],
+            "capture": "final-cvar-endpoint-390.png"
+          },
+          {
+            "width": 320,
+            "allEightCurrentLabsRendered": true,
+            "exactRuleTie": true,
+            "coOptimalTests": true,
+            "atomTail": true,
+            "endpointKeyboardAndRead": true,
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2"
+            ],
+            "math": [
+              {
+                "width": 280,
+                "scroll": 280
+              }
+            ],
+            "errors": [],
+            "capture": "final-cvar-endpoint-320.png"
+          }
+        ],
+        "sources": [
+          {
+            "path": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+            "sha256": "4fc3db155c2e1eb243f23351202b3a1eb81aba68fa5df31d7b162bd38c34d7de"
+          },
+          {
+            "path": "src/learn/data/decision-theory-models.js",
+            "sha256": "9778efca2609e6dc9605ecce0fc1c929d88c090863f64876976bb6819d572918"
+          },
+          {
+            "path": "src/learn/data/decision-theory-examples.js",
+            "sha256": "04b1459c773fb7644ddbf6e5c4f3c3c1767b3ea236f5022079034bc0a603023a"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx",
+            "sha256": "af71ac05ca02f2685021705b0bfe7aab9a8d440bf0c32c987933109e810b260e"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx",
+            "sha256": "93e7ab812622522f1b562ec7e9b1d20aac4a509293c7994fb1f8e6581d8577bf"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/decision-theory-labs.css",
+            "sha256": "db4201fc7920ad5c8473feaee5e44887a871a9220eb42f5fe8cddfe620bc6728"
+          },
+          {
+            "path": "src/learn/data/curriculum/blueprints/decision-theory-risk-cost-sensitive-decisions.js",
+            "sha256": "e2aeba0b608b721cca100342d57b8d406051f425b1c0fcef24b5517a3f8dec5a"
+          }
+        ],
+        "scope": "After the final Object.hasOwn validation-only amendment: current-source rendering, valid-array interactions, exact ties, CVaR endpoint statement and narrow formula at all three widths. Full interaction/read evidence remains in results.json."
+      }
+    },
+    "formatConservation": {
+      "file": {
+        "path": "scratch/decision-theory-review/format-conservation.json",
+        "sha256": "2808461086ab9c37604fe417b6447824affdd07b62e00b171e35b1c879fef319",
+        "bytes": 838
+      },
+      "result": {
+        "timestamp": "2026-09-11T07:01:09.056Z",
+        "records": [
+          {
+            "file": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/data/decision-theory-models.js",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/data/curriculum/blueprints/decision-theory-risk-cost-sensitive-decisions.js",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/decision-theory-labs.css",
+            "normalizedASTConserved": true
+          }
+        ]
+      }
+    }
+  },
+  "evidenceFiles": [
+    {
+      "path": "scripts/generate-decision-theory-examples.py",
+      "sha256": "274137bbdf0d15ade7663bc41965a80a9bc89d679a133f68be893f9f123bcb48",
+      "bytes": 19025
+    },
+    {
+      "path": "scripts/format-decision-theory-source.cjs",
+      "sha256": "1ea929a8e716a6d1fa9d384e8181ffbf09b5f964c4cece6e7e54694a74f16cd2",
+      "bytes": 2523
+    },
+    {
+      "path": "scripts/fix-decision-prose-spacing.cjs",
+      "sha256": "032607187413a652ab8794db1903a377276d32b637583ca6060d3a368e45b1c3",
+      "bytes": 1333
+    },
+    {
+      "path": "scripts/verify-decision-theory-models.mjs",
+      "sha256": "66842f1649d9fc4264a3bb0fbc1029cba42b008003793596d23d36f3e2defac7",
+      "bytes": 7023
+    },
+    {
+      "path": "scripts/verify-decision-theory-native.py",
+      "sha256": "47f27bd4a2eb1a229f036f3053c66ae52afb45aa54d948316e3e3a586056c6b7",
+      "bytes": 9274
+    },
+    {
+      "path": "scripts/review-decision-theory-lesson.cjs",
+      "sha256": "4486d4d90934d659d18b98a1d4009e12ccc3d22e0865e1ce13729bba9c0f297f",
+      "bytes": 17339
+    },
+    {
+      "path": "scripts/review-decision-theory-final-boundaries.cjs",
+      "sha256": "5769987bbd0df7d50744eb19fdf61d57848aec77db96c2f999e7dd4c8889ecf8",
+      "bytes": 5072
+    },
+    {
+      "path": "scripts/finalize-decision-theory-review.py",
+      "sha256": "c8673828f4a68ea6edfbcf1058ccb7b8ffdebccc1120faaea5492654ba6a3478",
+      "bytes": 7551
+    },
+    {
+      "path": "docs/teaching/DECISION-THEORY-LESSON-DESIGN.md",
+      "sha256": "7b49fbec74cedbca68a1e12bc1e8091b0802df976987c15a4e8024db8c310298",
+      "bytes": 50970
+    },
+    {
+      "path": "docs/teaching/DECISION-THEORY-VERIFICATION.md",
+      "sha256": "40a6520648cb49d2fa4541dd067a1fc96f5d53f3885ecd8f10a319b017928d6e",
+      "bytes": 9255
+    }
+  ],
+  "originalPlan": {
+    "path": "docs/teaching/evidence/decision-theory-original-plan.json",
+    "sha256": "2276a78855447ab63816c65f01e66844c0cb05bf7a00175aa33d925a854855d6",
+    "bytes": 9180
+  },
+  "openedImages": [
+    {
+      "path": "scratch/decision-theory-browser/reading-intro-390.png",
+      "sha256": "615fcde52d5f2aa9497029a6f62ac33b50be0bb7bc92436cb75007dbcdb7d713",
+      "bytes": 94133
+    },
+    {
+      "path": "scratch/decision-theory-browser/reading-section-3-390.png",
+      "sha256": "5308f8ccc25e0763487f38ec9fec2a3105635607b37bd2e2070f2a1ba260c927",
+      "bytes": 83644
+    },
+    {
+      "path": "scratch/decision-theory-browser/capacity-two-slots-320.png",
+      "sha256": "02db1d1968874be86f09a05dcdbf511c368072b808ed31046f6a5f3ca89ac6f1",
+      "bytes": 53902
+    },
+    {
+      "path": "scratch/decision-theory-browser/contingent-test-tree-390.png",
+      "sha256": "c104d052cd8eae115ce1f842a27ca5c9ff0958434d4fb7513b6d146c48fe8211",
+      "bytes": 75073
+    },
+    {
+      "path": "scratch/decision-theory-browser/risk-envelope-tie-320.png",
+      "sha256": "a2a1c2fa9ede4b2a159761e68ef14890b12ae6494b838128ce2605ee4d361db7",
+      "bytes": 59897
+    },
+    {
+      "path": "scratch/decision-theory-browser/minimax-certificate-plane-320.png",
+      "sha256": "c5b47bd2fdf81aba9eacfb2576a744cd7eeecbe42fc4ee7e32d21c0800ac8f54",
+      "bytes": 66277
+    },
+    {
+      "path": "scratch/decision-theory-browser/utility-chord-390.png",
+      "sha256": "4213fb3a1c00611585ec3f6200ef7e96876d71553b1bdd4761ed414d986e79c3",
+      "bytes": 60342
+    },
+    {
+      "path": "scratch/decision-theory-browser/asymmetric-cost-curve-390.png",
+      "sha256": "6a1e0c8ba4454d1e2f92b768a553cd098ac0ac17ed7bdf3f5ff3ccfe94704428",
+      "bytes": 66552
+    },
+    {
+      "path": "scratch/decision-theory-browser/fixed-state-versus-prior-390.png",
+      "sha256": "8d68da326f6286f6610f44b8dcba7a43a3179b15c7ed6fbd410f94b369a83f4c",
+      "bytes": 66700
+    },
+    {
+      "path": "scratch/decision-theory-browser/atom-aware-tail-320.png",
+      "sha256": "c66271b52a979b3937b59625e87fba54e609af4b164c26761ebb8b038b31d76e",
+      "bytes": 69203
+    },
+    {
+      "path": "scratch/decision-theory-browser/changed-capacity-contingent-policy-390.png",
+      "sha256": "528cc1dabcd89fc196c88fe03fcdea4d651b969e09c17abb19d04b0a125d5afa",
+      "bytes": 64192
+    },
+    {
+      "path": "scratch/decision-theory-browser/inline-figure-0-390.png",
+      "sha256": "e7bc68978313466e09030e45b47a8f02f02f87d29293f98a59c8c8dc92fda563",
+      "bytes": 79336
+    },
+    {
+      "path": "scratch/decision-theory-browser/inline-figure-1-390.png",
+      "sha256": "3f56d386539ac910729dd17208069ea3cc0d4ba07a54d6aa3aba6b09a7c99c9d",
+      "bytes": 87358
+    },
+    {
+      "path": "scratch/decision-theory-browser/final-fallback-sampling-320.png",
+      "sha256": "2d6859d84f8df6df68580b7bdeeb4f986ce86403809d877062f1bc8cfd73ea22",
+      "bytes": 56153
+    },
+    {
+      "path": "scratch/decision-theory-browser/equation-0-320.png",
+      "sha256": "4fc6e843e72d326524bdc3ee17ac3903ab46e92b1bcd732a2b6665529c425ad2",
+      "bytes": 73154
+    },
+    {
+      "path": "scratch/decision-theory-browser/equation-2-320.png",
+      "sha256": "7daaaf549a9974264147073cec6a8fee9b10912e1d47cb3c3a1306161b577bfd",
+      "bytes": 70903
+    },
+    {
+      "path": "scratch/decision-theory-browser/equation-3-320.png",
+      "sha256": "456924b91533c8a6119334827d8a4fc43c4daf0a4a0c3580cbac459282a93798",
+      "bytes": 67289
+    },
+    {
+      "path": "scratch/decision-theory-browser/equation-4-320.png",
+      "sha256": "2f9195797fe7d7868291efaf295cb16b6fc8be5dc4c02c372a3fca466c162b0f",
+      "bytes": 62111
+    },
+    {
+      "path": "scratch/decision-theory-browser/final-cvar-endpoint-320.png",
+      "sha256": "d5b030c045f1dc6250f41253096f21dd5d628a6f466680027ee1e97868349df2",
+      "bytes": 74092
+    },
+    {
+      "path": "scratch/decision-theory-browser/complete-capstone-program-390.png",
+      "sha256": "7318d64163f8d4ac4dbd5b507e439d8eca21f447861da1cac6fed3fcf317c193",
+      "bytes": 73297
+    },
+    {
+      "path": "scratch/decision-theory-browser/executed-capstone-output-320.png",
+      "sha256": "ec896421756f1270d69d8bcd8a323495f6a9ec1735068d2c7ee6e25760828817",
+      "bytes": 72207
+    },
+    {
+      "path": "scratch/decision-theory-browser/explained-practice-12-320.png",
+      "sha256": "2ee69ad220bc4cd408687081316564761289c8dd4d4493e8a1c5912b464bfa30",
+      "bytes": 70129
+    },
+    {
+      "path": "scratch/decision-theory-browser/annotated-learning-resources-390.png",
+      "sha256": "b90012fdaa5963c2ad18805fe45d6e22fc137406cc6860ee06ecbd8cb832c343",
+      "bytes": 102702
+    },
+    {
+      "path": "scratch/decision-theory-browser/reading-section-1-1440.png",
+      "sha256": "b142d4dad64775ead68d09f04e425bb65dc7ebbb34bae52d14de9390e4090952",
+      "bytes": 188302
+    }
+  ],
+  "imageReview": "All 24 listed final images were actually opened with view_image. They include ordinary reading, both inline figures, distinct model geometries, exact ties, atom mass, changed allocations, equations, complete program/output, explained practice and resources. The other generated captures are automated evidence, not individually opened review.",
+  "finalAmendment": {
+    "changedSinceModelRecord": [
+      "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx"
+    ],
+    "description": "Only the Labs caption changed after the final model/native record: label 101 sampled probabilities, acknowledge thin boundaries between samples and distinguish the directly calculated risk readout. Final boundaries browser record hashes every current production file and asserts the caption at all three widths. No executable model or program changed afterward.",
+    "fullBrowserScope": "The comprehensive three-width run passed before the own-entry validation amendment and final caption. The focused current-source run checks valid-array interactions, exact ties, all eight mounted labs, CVaR endpoint text, the sampled-strip caption, fonts and narrow fit. Earlier hashes/results are preserved, not rewritten as final-source tests."
+  },
+  "resolvedFindings": [
+    "Root identified shared H2 auto-slug behavior; all 13 topic links now have verified real arrivals.",
+    "Exact finite action comparisons preserve co-optimal tests/rules/fallback actions and cumulative atom boundaries; all action sets, not just rounded risks, are checked.",
+    "Root's general CVaR alpha=0 attainment qualification is explicit; finite-support endpoint behavior is distinguished from an unbounded-below distribution.",
+    "Own-entry array validation rejects inherited entries; positive utility underflow is explicitly rejected. Both have actual regressions.",
+    "Opened narrow screenshots prompted larger labels and four wrapped equations, preserving all mathematical terms.",
+    "Browser harness was adapted to the actual code renderer's text nodes; the focused slider uses valid decimal input. Failed harness runs are not counted as passes."
+  ],
+  "knownLimits": [
+    "The source arguments establish finite contracts under declared assumptions; finite test enumeration alone is not a general proof or an independent whole-lesson review.",
+    "Synthetic costs, utility and intervention probabilities are stipulated, not estimated population truth, causal identification or advice about personal decisions.",
+    "The fallback action strip is a 101-point sample; selected-point risks use direct exact finite comparisons. Other geometric views follow their stated finite formulas.",
+    "Models interpret canonical written decimal Number inputs through rational arithmetic and reject nonrepresentable nonzero results. They are bounded teaching models, not arbitrary-precision statistical packages.",
+    "Complete Python examples use the standard library. Code/output blocks may scroll horizontally on phones; page, formulas and compact figures fit.",
+    "Selected source sections and some official transcripts/slides were read; verified video metadata is not full playback. Exact inspected scope is in the design and lesson annotations.",
+    "No shared catalogue/order changes or full production build were performed by this author. Root owns independent review and integration; user acceptance remains pending."
+  ]
+}

@@ -1,0 +1,75 @@
+.transfer-lesson { color: #c5cec9; min-width: 0; }
+.transfer-lesson a { color: #e2b55a; text-underline-offset: .2em; }
+.transfer-lesson a:hover { color: #f4d08b; }
+.transfer-lesson :is(button, input, select, summary, a):focus-visible { outline: 2px solid #e2b55a; outline-offset: 4px; }
+.transfer-lesson :is(p, li, td, dd, h3, h4, figcaption) { overflow-wrap: anywhere; }
+.transfer-lesson :is(ul, ol) { padding-left: 1.4rem; line-height: 1.85; }
+.transfer-lesson li { margin: .45rem 0; }
+.transfer-lesson .transfer-equation { max-width: 100%; overflow-x: auto; }
+.transfer-lesson .transfer-lab, .transfer-lesson .transfer-downloads { background: #0b100e; border: 1px solid #34483e; border-radius: 6px; padding: clamp(14px, 3vw, 24px); margin: 28px 0; min-width: 0; }
+.transfer-lesson .transfer-lab :is(h3,h4), .transfer-lesson .transfer-downloads h3 { color: #e3e9e5; line-height: 1.45; margin: 0 0 12px; }
+.transfer-lesson .transfer-lab p, .transfer-lesson .transfer-downloads p { line-height: 1.7; margin: 12px 0; }
+.transfer-lesson .transfer-eyebrow { color: #e2b55a; text-transform: uppercase; font-size: .73rem; letter-spacing: .09em; }
+.transfer-lesson .transfer-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 18px; margin: 18px 0; align-items: start; }
+.transfer-lesson .transfer-columns > * { min-width: 0; }
+.transfer-lesson :is(button, select, input[type=number]) { font: inherit; color: #f0d498; background: #141b17; border: 1px solid #708172; border-radius: 4px; min-height: 42px; padding: .5rem .65rem; max-width: 100%; }
+.transfer-lesson button { cursor: pointer; white-space: normal; line-height: 1.5; }
+.transfer-lesson button:hover:not(:disabled) { background: #263426; border-color: #e2b55a; }
+.transfer-lesson button[aria-pressed=true] { border-color: #e2b55a; color: #ffe6b7; box-shadow: inset 3px 0 #e2b55a; }
+.transfer-lesson button:disabled { color: #a8b0aa; border-color: #526055; background: #151917; cursor: not-allowed; }
+.transfer-lesson .transfer-field, .transfer-lesson .transfer-select { display: grid; gap: 7px; min-width: 0; color: #d0d9d2; }
+.transfer-lesson .transfer-field input[type=number] { width: 100%; box-sizing: border-box; min-width: 0; }
+.transfer-lesson select { width: 100%; min-width: 0; }
+.transfer-lesson input[type=range] { width: 100%; height: 32px; accent-color: #e2b55a; margin: 2px 0; }
+.transfer-lesson input[type=checkbox] { accent-color: #e2b55a; width: 18px; height: 18px; flex: 0 0 18px; margin: 4px 0 0; }
+.transfer-lesson .transfer-toggle { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; min-height: 32px; padding: 8px 0; line-height: 1.6; }
+.transfer-lesson .transfer-control-lanes { display: grid; gap: 4px; padding: 10px 0; border-block: 1px solid #34483e; }
+.transfer-lesson .transfer-error { color: #ffd1b8; font-size: .86rem; line-height: 1.5; }
+.transfer-lesson .transfer-note { color: #afc3b7; font-size: .94rem; }
+.transfer-lesson .transfer-readout { background: #101a14; border-left: 3px solid #9fc8b4; padding: 15px; min-width: 0; }
+.transfer-lesson .transfer-digit { margin: 12px 0; display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 12px; }
+.transfer-lesson .transfer-pixels { display: block; width: 96px; height: 96px; image-rendering: pixelated; border: 1px solid #526055; }
+.transfer-lesson .transfer-digit figcaption { font-size: .83rem; line-height: 1.6; }
+.transfer-lesson .transfer-stage-route { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; margin: 20px 0; }
+.transfer-lesson .transfer-stage-route span { display: block; color: #b9c7bd; font-size: .85rem; }
+.transfer-lesson .transfer-flow { display: grid; gap: 8px; text-align: center; max-width: 510px; margin: 20px auto; }
+.transfer-lesson .transfer-flow div { border: 1px solid #52705c; padding: 14px; line-height: 1.65; }
+.transfer-lesson .transfer-lora-route { display: grid; gap: 10px; border-left: 3px solid #e2b55a; padding: 12px 16px; margin: 18px 0; line-height: 1.8; }
+.transfer-lesson .transfer-partitions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 175px), 1fr)); gap: 12px; }
+.transfer-lesson .transfer-partitions > div { border: 1px solid #465a4c; padding: 14px; }
+.transfer-lesson details { margin: 16px 0; border-top: 1px solid #35483b; padding-top: 12px; }
+.transfer-lesson summary { cursor: pointer; min-height: 32px; color: #e2b55a; line-height: 1.7; padding: 6px 0; }
+.transfer-lesson .transfer-table-scroll { width: 100%; max-height: 620px; overflow: auto; margin: 12px 0; }
+.transfer-lesson table { border-collapse: collapse; width: 100%; line-height: 1.65; text-align: left; }
+.transfer-lesson :is(td, th) { padding: 10px; border-bottom: 1px solid #34483e; vertical-align: top; }
+.transfer-lesson th { color: #e1e8e3; font-weight: 600; }
+.transfer-lesson .transfer-id-list { min-width: 220px; }
+.transfer-lesson .transfer-code { max-width: 100%; overflow-x: auto; }
+.transfer-lesson .transfer-matrix { border: 1px solid #48614f; margin: 0; padding: 12px; min-width: 0; }
+.transfer-lesson .transfer-matrix legend { padding: 0 6px; color: #e2b55a; }
+.transfer-lesson .transfer-matrix-cells { display: grid; gap: 10px; }
+.transfer-lesson .transfer-matrix-cells label { font-size: .79rem; line-height: 1.5; }
+.transfer-lesson .transfer-test-report { border: 1px solid #a98b4d; padding: 16px; background: #19180e; margin: 18px 0; }
+.transfer-lesson .transfer-evidence-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 205px), 1fr)); gap: 12px; }
+.transfer-lesson .transfer-evidence-cards article { border: 1px solid #3f5446; padding: 14px; min-width: 0; }
+.transfer-lesson .transfer-evidence-cards article.is-selected { border-color: #e2b55a; }
+.transfer-lesson dl { margin: 12px 0; }
+.transfer-lesson dt { color: #aebfb4; font-size: .85rem; margin-top: 8px; }
+.transfer-lesson dd { color: #e0e6e1; margin: 0 0 7px; }
+.transfer-lesson :is(.transfer-trace, .transfer-schedule) { margin: 24px 0; min-width: 0; }
+.transfer-lesson .transfer-plot { width: 100%; height: auto; display: block; overflow: visible; margin: 12px 0; }
+.transfer-lesson .transfer-plot text { fill: #c4d1c8; font-family: inherit; font-size: 12px; }
+.transfer-lesson .transfer-retention { margin: 14px 0; }
+.transfer-lesson .transfer-bar { height: 12px; background: #2e3c32; margin: 8px 0 18px; overflow: hidden; }
+.transfer-lesson .transfer-bar i { display: block; background: #aacbb9; height: 100%; }
+.transfer-lesson .transfer-budget-decision { border-top: 1px solid #586b55; margin-top: 24px; padding-top: 24px; }
+.transfer-lesson .transfer-checkpoint-fields { display: grid; grid-template-columns: minmax(115px, 1fr) minmax(0, 2fr); gap: 12px; }
+.transfer-lesson .transfer-checkpoint-fields :is(dt, dd) { border-bottom: 1px solid #34483e; margin: 0; padding: 12px 0; }
+.transfer-lesson .transfer-probabilities { display: grid; gap: 4px; }
+@media (max-width: 480px) {
+  .transfer-lesson .transfer-stage-route { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .transfer-lesson .transfer-checkpoint-fields { display: block; }
+  .transfer-lesson .transfer-checkpoint-fields dt { border: 0; padding-bottom: 2px; }
+  .transfer-lesson .transfer-digit { grid-template-columns: 80px minmax(0, 1fr); }
+  .transfer-lesson .transfer-pixels { width: 80px; height: 80px; }
+}

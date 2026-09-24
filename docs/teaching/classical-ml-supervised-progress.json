@@ -1,0 +1,257 @@
+{
+  "scope": "First ten topics of Classical Machine Learning, in actual module order",
+  "baseline": "docs/teaching/evidence/classical-ml-supervised-baseline.json",
+  "topics": [
+    {
+      "id": "linear-logistic-regression",
+      "title": "Linear & Logistic Regression",
+      "moduleId": "classical-ml",
+      "modulePosition": 1,
+      "source": "./topics/linear-logistic-regression.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "38b8ecbcb48ee522c725104052fd57996217d2d82368e5e8573faae6f9180ac1",
+      "authorEvidence": "docs/teaching/evidence/linear-logistic-author-freeze.json",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "authorAmendment": "docs/teaching/evidence/linear-logistic-author-amendment.json",
+      "independentEvidence": "docs/teaching/evidence/linear-logistic-independent-review.json",
+      "reviewedFiles": {
+        "src/learn/data/topics/linear-logistic-regression.jsx": "01fc9b7a36cd61fa58db89e34a6d465abf91b68b3b1b7cd9a0208328119c2791",
+        "src/learn/data/linear-logistic-models.js": "9e33b78b08446964f0843a4b8999181377bad4b4d74b935d5bc16ead00f605c5",
+        "src/learn/data/linear-logistic-examples.js": "f1e553c31e937f12cbc6e9ef62cfee6e322c8275b4288343cc8724cc2c8872e3",
+        "src/learn/components/lesson-labs/LinearLogisticLabs.jsx": "5b6ecca121344575923bd4c78566300b5cc4929de1eb2671f66062a19e8b6870",
+        "src/learn/components/lesson-labs/linear-logistic-labs.css": "d3c111d30de29fec03a17990885647c019ded2c93e153637f59a91f9341a3c70",
+        "src/learn/data/curriculum/blueprints/linear-logistic-regression.js": "21a03684215efec028f1554edded746c7bc45c926b3f4236c25e3ea655059ecb"
+      },
+      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+    },
+    {
+      "id": "decision-trees-random-forests",
+      "title": "Decision Trees & Random Forests",
+      "moduleId": "classical-ml",
+      "modulePosition": 2,
+      "source": "./topics/decision-trees-random-forests.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "61fa8c63a35ddedba9bbdb98da4e50fc9df169f5b6c78b85b2b259da1382293f",
+      "authorEvidence": "docs/teaching/evidence/decision-tree-author-review.json",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "authorAmendment": "docs/teaching/evidence/decision-tree-input-amendment.json",
+      "independentEvidence": "docs/teaching/evidence/decision-tree-independent-review.json",
+      "reviewedFiles": {
+        "src/learn/data/topics/decision-trees-random-forests.jsx": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad",
+        "src/learn/data/decision-tree-models.js": "620aa4a621a7c3a0a381f1e4f61ddf79cc3a94ac118b65c44021c8e147aaded6",
+        "src/learn/data/decision-tree-examples.js": "949260f2041b803bd7cd7508113f29c8718a7a79c818a08e2fe0166c7589206e",
+        "src/learn/components/lesson-labs/DecisionTreeLabs.jsx": "5afdc9586c078acb18488d43b78bb3bfdcf6e7d7b0d336362ac7f610ae10d989",
+        "src/learn/components/lesson-labs/decision-tree-labs.css": "71d8f34b8df64d06c3869cfa9550dec3e3d00575c6ec712b62c907acac9925d3",
+        "src/learn/data/curriculum/blueprints/decision-trees-random-forests.js": "574b3155f5a414e97188510ddfd431343924270e4df75f771a1c517580444864"
+      },
+      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+    },
+    {
+      "id": "k-nearest-neighbors-knn",
+      "title": "K-Nearest Neighbors (KNN)",
+      "moduleId": "classical-ml",
+      "modulePosition": 3,
+      "source": "./topics/k-nearest-neighbors-knn.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "087b9237f79705557bad415f5a3dde1551b422962049e0992c8a6fd346670e25",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "authorEvidence": "docs/teaching/evidence/knn-author-review.json",
+      "authorAmendment": "docs/teaching/evidence/knn-input-amendment.json",
+      "independentEvidence": "docs/teaching/evidence/knn-independent-review.json",
+      "reviewedFiles": {
+        "src/learn/data/topics/k-nearest-neighbors-knn.jsx": "912c8deb930610864c1a448572d40cdb6bd9721aefeeec38b01e8be9d1523516",
+        "src/learn/data/knn-models.js": "cd71acac8f69c5e985f957a3fe9c611cc83ae1a57951d3e7e36871f3a9cabc74",
+        "src/learn/data/knn-examples.js": "f98fa95e5bd98573280e10c3b63d7556ca7a19b875757c013f5a0c5b2863537a",
+        "src/learn/data/knn-validation-data.js": "c1cd316cad24632438c21e790f3edfe91939e712bfb8d9fa0fae9500d0c91781",
+        "src/learn/components/lesson-labs/KnnLabs.jsx": "24562c1dc5d2be0873651eb4fa0e330a9692f4148005062f5c0e7386f2ddb37c",
+        "src/learn/components/lesson-labs/knn-labs.css": "664314ff9aca49f551ddfaedec63ba8d4716f71d82b0ace78ef9d7b755777d0a",
+        "src/learn/data/curriculum/blueprints/k-nearest-neighbors-knn.js": "43e77af81755130051ec81693e767ac5001d15322b0d2a745f28c89a82cf4929"
+      },
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+      "previousVerificationRecords": [
+        "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md"
+      ]
+    },
+    {
+      "id": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+      "title": "Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)",
+      "moduleId": "classical-ml",
+      "modulePosition": 4,
+      "source": "./topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "b53b13e7f10493318875e8fa02f0f654a9e6ea98e7bbcf1a7ec0bdd37eb80bc0",
+      "authorEvidence": "docs/teaching/evidence/gradient-boosted-trees-author-review.json",
+      "independentEvidence": "docs/teaching/evidence/gradient-boosted-trees-independent-review.json",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "reviewedFiles": {
+        "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx": "59aa6411f61cbc9ef8e9c96480a2111e7d46e518825aa5926aa5223f9507ac3f",
+        "src/learn/data/gradient-boosted-trees-models.js": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33",
+        "src/learn/data/gradient-boosted-trees-examples.js": "ca2caf17275775bb3713dc0049936c2c442d657f97c16359f7f7f02c201d2eda",
+        "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx": "bdd3bb820ea8c32e25fc53b2d4808dc25a1f324891f9949d7fb97c939c71d446",
+        "src/learn/components/lesson-labs/gradient-boosted-trees-labs.css": "10826dff530ae39c56feedcc80a15f94b8f4975f3a63c265894d34a54f6b660f",
+        "src/learn/data/curriculum/blueprints/gradient-boosted-trees-xgboost-lightgbm-catboost.js": "b77d10906ca1873053b92088f08385211b6a50b92d448aaf25b73ddb1a764e54"
+      },
+      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+    },
+    {
+      "id": "support-vector-machines-svm",
+      "title": "Support Vector Machines (SVM)",
+      "moduleId": "classical-ml",
+      "modulePosition": 5,
+      "source": "./topics/support-vector-machines-svm.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "edcc0b20c3c8dae6e74dac451c3b05df9eab899866a6db9f8a63b76c67b4baf4",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "authorEvidence": "docs/teaching/evidence/support-vector-machines-author-review.json",
+      "independentEvidence": "docs/teaching/evidence/support-vector-machines-independent-review.json",
+      "reviewedFiles": {
+        "src/learn/data/topics/support-vector-machines-svm.jsx": "6be84f25e70585a9337e5ad9f583c5bce6d2101d139b2e39370f459d2d6ca3e9",
+        "src/learn/data/support-vector-machines-models.js": "25c2e4161425e654eaef9f04a4f1486d60d5b5554170b81249407353d5d87d79",
+        "src/learn/data/support-vector-machines-examples.js": "296eceb16d17bb45d113b8db9239bf277e90ba47454834c3d741ff5262bbb084",
+        "src/learn/data/svm-validation-fixtures.js": "1652a24b8af8293e58c0466928be3f833b80dba563863513d8fa2d91cd51e0c0",
+        "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx": "579865b7fff0466d92e76468980680747ae6f16a091db34433df247999dae2ea",
+        "src/learn/components/lesson-labs/support-vector-machines-labs.css": "2269fea89d378c58848c7e85d78b7a6b14f9a24c36b12711dd9d64a4f9099e2a",
+        "src/learn/data/curriculum/blueprints/support-vector-machines-svm.js": "b708e36317e8fd4a152230cf4ab6694ea400dec3a144a71b0a3f31760561540c"
+      },
+      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "title": "Naive Bayes & Probabilistic Classifiers",
+      "moduleId": "classical-ml",
+      "modulePosition": 6,
+      "source": "./topics/naive-bayes-probabilistic-classifiers.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "79e60503d2ecbdf3fc2faeb58274f5a21cf6ce09ba3ccce9d9d3b840bba1d9b9",
+      "authorEvidence": "docs/teaching/evidence/naive-bayes-author-review.json",
+      "independentEvidence": "docs/teaching/evidence/naive-bayes-independent-review.json",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "reviewedFiles": {
+        "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "6a73f01a50c186b519e678b15a11b5ac80d663c45f9fb986162785ffe7cf4a95",
+        "src/learn/data/naive-bayes-models.js": "48d7ff7c4035bc469e45d0f030455992a007927edc3af4b36bf4b1d8130f4dba",
+        "src/learn/data/naive-bayes-examples.js": "c4b49e0871564320a19cb8adde2d50037c0f656ebb71ad10397422644624d8a3",
+        "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "edba8e94ac0bad70a2a93138fa117f0ef1f841ff4b10ea170ba9ab7b5bca7d23",
+        "src/learn/components/lesson-labs/naive-bayes-labs.css": "2bb500b3bb6acc27fafdaeacdc891499020674ba65660963b499f54167682228",
+        "src/learn/data/curriculum/blueprints/naive-bayes-probabilistic-classifiers.js": "f20e99c6de994a410b3c1977e203ec4712c486d884a4f18f606ab9bdf5fd9506"
+      },
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+      "previousVerificationRecords": [
+        "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md"
+      ]
+    },
+    {
+      "id": "ensemble-methods-stacking",
+      "title": "Ensemble Methods & Stacking",
+      "moduleId": "classical-ml",
+      "modulePosition": 7,
+      "source": "./topics/ensemble-methods-stacking.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "6edaa91e3c0e9ae2e17a907938ae16f2ccfd8b5c1f331ccc2335b8ece65a84fb",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "authorEvidence": "docs/teaching/evidence/ensemble-methods-author-review.json",
+      "independentEvidence": "docs/teaching/evidence/ensemble-methods-independent-review.json",
+      "reviewedFiles": {
+        "src/learn/data/topics/ensemble-methods-stacking.jsx": "53980d005996d206a0cd58d43dc0110bb222409bd52ac3b27a8db064e03dc911",
+        "src/learn/data/ensemble-methods-models.js": "53fc4d487c2bb98b37968c59ddde9307192f92e1141033a4625be34ff5351fd4",
+        "src/learn/data/ensemble-methods-examples.js": "11005149bc1daa90075a97e62de6c1c0fd09a111633cb0e6cb88dfb565a78a56",
+        "src/learn/data/ensemble-prediction-map.json": "7e06407ee3c81498e1b3c134935994e8bf114509c36f79e02565695f4e79d5a6",
+        "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "963c455d8c7d9d84417f68cbd4d8f55dd72f0c24c79f848d98528a7400f46f98",
+        "src/learn/components/lesson-labs/ensemble-methods-labs.css": "6afecccd96546833c7896891bb52dc3d5731105134463ecd3cf41d1f225e395e",
+        "src/learn/data/curriculum/blueprints/ensemble-methods-stacking.js": "926a7b4d9d873c6ee7ec86ceef5f960cd82776eda6ebd59c9a537847c3b1d62d"
+      },
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+      "previousVerificationRecords": [
+        "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md"
+      ]
+    },
+    {
+      "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+      "title": "Recommender Systems (Collaborative Filtering, Matrix Factorization)",
+      "moduleId": "classical-ml",
+      "modulePosition": 8,
+      "source": "./topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "6204b99f7a5314310d71e79814a4dfd45722132e374e45f457575bde2db5f057",
+      "authorEvidence": "docs/teaching/evidence/recommender-systems-author-review.json",
+      "independentEvidence": "docs/teaching/evidence/recommender-systems-independent-review.json",
+      "reviewedFiles": {
+        "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "66c718d1ff57ed35bd8735807578a746bc6f116783367bc17e1811e797a3d12c",
+        "src/learn/data/recommender-models.js": "f377edef34ade812337478b8cdaac9629f9686c3a42afd1807c37e565c286e05",
+        "src/learn/data/recommender-examples.js": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556",
+        "src/learn/components/lesson-labs/RecommenderLabs.jsx": "b1805aa2b0372af388be96711f89c019bdabc62b3930fab89c8ccb5099659650",
+        "src/learn/components/lesson-labs/RecommenderFigures.jsx": "09b459561ae5451e063d818e68a7b0ac4f3df89aa0acd70c4808f69708aa42a3",
+        "src/learn/components/lesson-labs/recommender-labs.css": "aa19be9eac4e20e9e82f1f8f1666a0def06fd15d1988f5979887c84aaac36d31",
+        "src/learn/data/curriculum/blueprints/recommender-systems-collaborative-filtering-matrix-factorization.js": "c2ef67a72f94f6702313b4508d915aa535009b79f81a85b0f907e2dc23186819"
+      },
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "integrationAmendment": "docs/teaching/evidence/recommender-integration-amendment.json",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+      "previousVerificationRecords": [
+        "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md"
+      ]
+    },
+    {
+      "id": "multi-label-multi-output-learning",
+      "title": "Multi-Label & Multi-Output Learning",
+      "moduleId": "classical-ml",
+      "modulePosition": 9,
+      "source": "./topics/multi-label-multi-output-learning.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "aecddb2f4e2ada15aaca824e3fa22a50d4825fbd010bc981c3a8a53a60bdbf75",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "authorEvidence": "docs/teaching/evidence/multioutput-author-review.json",
+      "independentEvidence": "docs/teaching/evidence/multioutput-independent-review.json",
+      "authorAmendment": "docs/teaching/evidence/multioutput-metadata-amendment.json",
+      "reviewedFiles": {
+        "src/learn/data/topics/multi-label-multi-output-learning.jsx": "331e22b460f9aae9395f3ac05c3cefcc23e28329083564fa9f1bd2faa296528b",
+        "src/learn/data/multioutput-models.js": "0ba78a1478e6de9ae7b5e6bf81304f18c67094d1ceca4bdc398f6ab0d9604077",
+        "src/learn/data/multioutput-examples.js": "d4cab6b48c5c0b4a9375e5a23338727c6b7c5492dcdbc2705546f8e91dd2a591",
+        "src/learn/components/lesson-labs/MultioutputLabs.jsx": "da2a0eb21c143c404358608047ecfb506d946542761c76a8a439a62c0008ade2",
+        "src/learn/components/lesson-labs/MultioutputFigures.jsx": "bd949e0e5a4598f31c66fb8188da30b66b196da109aeee803d84014af70fb316",
+        "src/learn/components/lesson-labs/multioutput-labs.css": "43b68b086e332273a0500c5d1214259f58b897b90adc37bf80f0897f445a358b",
+        "src/learn/data/curriculum/blueprints/multi-label-multi-output-learning.js": "b36675c609fba6d4e9b4add1eddbdc0de51c34362252ddd4c5a1a17afd9cbeb2"
+      },
+      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+    },
+    {
+      "id": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+      "title": "Survival Analysis (Cox Regression, Kaplan-Meier, Hazard Models)",
+      "moduleId": "classical-ml",
+      "modulePosition": 10,
+      "source": "./topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+      "status": "implementation-reviewed",
+      "baselineSha256": "f614bbe2627c7a34819e464a35d693a46a965e43ea15b17576151c3890f4ec60",
+      "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
+      "authorEvidence": "docs/teaching/evidence/survival-author-review.json",
+      "independentEvidence": "docs/teaching/evidence/survival-independent-review.json",
+      "integrationAmendment": "docs/teaching/evidence/survival-integration-amendment.json",
+      "reviewedFiles": {
+        "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "c2d614fe087b2268ccdf1a06cb13b40322cab513b0e31395d91c2349c595c59f",
+        "src/learn/data/survival-models.js": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+        "src/learn/data/survival-examples.js": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474",
+        "src/learn/components/lesson-labs/SurvivalLabs.jsx": "f52c0d019bd55946b197d836d1517cfe40979f9030d36c3691618a4c2edd7165",
+        "src/learn/components/lesson-labs/SurvivalFigures.jsx": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43",
+        "src/learn/components/lesson-labs/survival-labs.css": "299508e13f2930460d4a0456fe2c4c66cc95760da6c887bc2b618df9ec9e2b45",
+        "src/learn/components/lesson-labs/survival-figures.css": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498",
+        "src/learn/data/curriculum/blueprints/survival-analysis-cox-regression-kaplan-meier-hazard-models.js": "fc14e0d6ab39b48106e59305e0027d28cfa06f9b05074912786515e326e73602"
+      },
+      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+    }
+  ],
+  "resumeCheckpoint": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md#completed-checkpoint--11-september-2026",
+  "completedAt": "2026-09-11T15:37:24.384Z",
+  "status": "complete: all ten source-bound independent reviews and production integration passed",
+  "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+  "integrationEvidenceSha256": "c96547eacca32083ac2bf563ab33baf188e8ca4b534d6921e950652674283597",
+  "nextAction": "Await user direction. K-Means & Hierarchical Clustering is the actual next topic and is outside this completed ten-topic scope."
+}

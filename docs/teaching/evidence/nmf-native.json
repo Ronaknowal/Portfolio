@@ -1,0 +1,39 @@
+{
+  "verifiedAt": "2026-09-14T16:52:10.025916+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/nmf-examples.js",
+  "sourceHash": "7d6f704030abd4524b46127ff83defca977148ba8602ba02d709e1bf8ae66c86",
+  "verifier": "scripts/verify-nmf-examples.py",
+  "verifierHash": "5ed6b49e4f7cdb56860a705b7f750162072c7e4b0cd7b947a4dd5cf7515e10f5",
+  "versions": {
+    "numpy": "2.3.5",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "multiplicativeStep": {
+      "file": "nmf_step.py",
+      "codeHash": "b75511b9f0d8bacdf28a316351ac668ca7246cbe18de0c55d15f93002578c1a1",
+      "stdoutHash": "0a0e7b7ba934a3f72ed27701cdd825698bafac0b2d3269c4dcef99a37aef060a",
+      "stdout": "0 17.06\n1 0.03944744\n2 0.02823377\n10 0.00180608\n40 5e-08"
+    },
+    "digitDictionary": {
+      "file": "nmf_digits.py",
+      "codeHash": "f6b15d1b1ad710debcb19f102a089fd970fe8ca11e892b8ddd6bfbf689f29989",
+      "stdoutHash": "a19d33ceed046572adeb1b8a96c377cde02c863b4c69b3334919aa74af076981",
+      "stdout": "1 7 0.072144 0.072803\n1 19 0.072144 0.072803\n4 7 0.040409 0.041899\n4 19 0.040409 0.0419\n8 7 0.02475 0.025548\n8 19 0.025147 0.026315\n16 7 0.012295 0.013548\n16 19 0.012729 0.015289\nmean 0.069995\nPCA8 0.019678\nNMF8 0.025381\nfirst held-out source row 242\nfirst reconstructed image\n[[0.   0.02 0.19 0.68 0.76 0.37 0.08 0.01]\n [0.   0.06 0.5  0.78 0.87 0.53 0.14 0.  ]\n [0.   0.1  0.38 0.74 0.94 0.58 0.12 0.  ]\n [0.   0.03 0.2  0.92 0.97 0.47 0.07 0.  ]\n [0.   0.08 0.53 1.02 0.98 0.3  0.1  0.  ]\n [0.   0.12 0.72 0.89 0.81 0.26 0.18 0.  ]\n [0.   0.05 0.54 0.81 0.6  0.51 0.29 0.01]\n [0.   0.02 0.2  0.61 0.8  0.7  0.18 0.  ]]"
+    },
+    "wordPatterns": {
+      "file": "nmf_words.py",
+      "codeHash": "feff3cfa4fe595a9311fbfad30475a85e9ebdf4f45c6fce01852553542dce343",
+      "stdoutHash": "f620f195e6bb4615b35719656c2aa4abdf438a860525571d1d9710bceffa0c23",
+      "stdout": "['goal' 'orbit' 'rocket' 'team']\n[[0.5 0.  0.  0.5]\n [0.  0.5 0.5 0. ]]\n[[0. 3.]\n [0. 3.]\n [3. 0.]\n [3. 0.]\n [2. 2.]]\n[[0.5 0.5 0.5 0.5]]"
+    }
+  },
+  "oracles": 25,
+  "limits": [
+    "The digit program ran against the served copy of the supplied CSV; no network access was used.",
+    "One fixed split of one curated balanced subset; the reserved comparison is a single demonstration, and PCA wins it.",
+    "The five-document corpus is a constructed illustration of the arithmetic, not text-model evidence.",
+    "Numerical fitting can differ on other library versions."
+  ]
+}

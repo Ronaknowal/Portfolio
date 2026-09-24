@@ -1,0 +1,53 @@
+.decomposition-lab, .decomposition-inline { border-block: 1px solid #494132; margin: 28px 0; padding: 22px 0; color: #ded8cd; font-size: 15px; line-height: 1.7; }
+.decomposition-lab *, .decomposition-inline * { box-sizing: border-box; }
+.decomposition-lab h3 { margin: 8px 0 12px; font-size: 23px; color: #f0e6d0; line-height: 1.35; }
+.decomposition-eyebrow { font-size: 11px; letter-spacing: .08em; color: #dfbd73; }
+.decomposition-lab :is(button, input, select) { font: inherit; color: #ecd6a5; background: #211d15; border: 1px solid #766443; border-radius: 3px; min-height: 44px; padding: 8px 10px; max-width: 100%; }
+.decomposition-lab button { cursor: pointer; }
+.decomposition-lab button:disabled { opacity: .5; cursor: default; }
+.decomposition-lab :is(button, input, select, summary):focus-visible { outline: 2px solid #f0cf84; outline-offset: 4px; }
+.decomposition-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin: 20px 0; }
+.decomposition-controls label { display: grid; gap: 6px; flex: 1 1 180px; min-width: 0; }
+.decomposition-controls input[type=range] { width: 100%; accent-color: #e6ba62; }
+.decomposition-select { display: grid; gap: 6px; max-width: 100%; }
+.decomposition-select select { width: 100%; }
+.decomposition-matrix-row { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin: 18px 0; }
+.decomposition-matrix { max-width: 100%; overflow-x: auto; padding: 3px; }
+.decomposition-matrix table { border-collapse: collapse; border-inline: 2px solid #9a875c; font-variant-numeric: tabular-nums; }
+.decomposition-matrix caption { caption-side: top; text-align: left; padding: 0 5px 9px; color: #e4c785; font-size: 14px; line-height: 1.4; }
+.decomposition-matrix td { min-width: 52px; text-align: center; padding: 6px 9px; font-size: 16px; }
+.decomposition-matrix .decomposition-target { border-left: 1px solid #9a875c; color: #bcd5ad; }
+.decomposition-feedback { padding: 12px 16px; background: #192019; border-left: 2px solid #92ab87; }
+.decomposition-readout { color: #ecd093; font-variant-numeric: tabular-nums; }
+.decomposition-note { font-size: 13px; color: #c7bfaf; }
+.decomposition-lab details > summary { min-height: 44px; padding: 10px 0; color: #e5bd6f; cursor: pointer; }
+.decomposition-plane { margin: 16px 0; min-width: 0; max-width: 360px; }
+.decomposition-plane figcaption { color: #e6d0a1; font-size: 15px; margin-bottom: 8px; }
+.decomposition-plane svg { display: block; width: 100%; height: auto; background: #0e1517; }
+.decomposition-grid { stroke: #2b3231; stroke-width: .8; }
+.decomposition-axis { stroke: #9ba394; stroke-width: 1.4; }
+.decomposition-tick { fill: #d0c9b9; font-size: 14px; }
+.decomposition-axis-label { fill: #ece1c8; font-size: 16px; }
+.decomposition-legend { list-style: none; padding: 0; margin: 10px 0; font-size: 13px; }
+.decomposition-legend li { display: flex; align-items: baseline; gap: 9px; }
+.decomposition-legend li > span { display: inline-block; flex: 0 0 18px; border-top: 3px solid; }
+.decomposition-planes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.decomposition-factor-chain { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 22px 0; padding-left: 25px; }
+.decomposition-factor-chain li { padding: 8px 0; border-bottom: 1px solid #61553c; }
+.decomposition-factor-chain :is(strong, span) { display: block; }
+.decomposition-factor-chain strong { color: #e2c581; }
+.decomposition-factor-chain span { font-size: 14px; font-variant-numeric: tabular-nums; }
+.decomposition-inline figcaption { font-size: 18px; color: #e1c07a; margin-bottom: 14px; }
+.decomposition-dependency { display: grid; justify-items: start; border-left: 2px solid #98855c; padding-left: 20px; }
+.decomposition-dependency strong, .decomposition-dependency span { display: block; }
+.decomposition-dependency strong { color: #ece0bd; font-size: 20px; }
+.decomposition-up { font-size: 27px; line-height: 1.4; color: #afd39e; }
+.matrix-decomposition-lesson > details { margin: 24px 0; border-left: 2px solid #695b3b; padding-left: 18px; }
+.matrix-decomposition-lesson > details > summary { cursor: pointer; color: #e6c37e; padding: 12px 0; min-height: 44px; font-size: 17px; }
+.matrix-decomposition-lesson > details > summary:focus-visible { outline: 2px solid #f0cf84; outline-offset: 4px; }
+@media (max-width: 620px) {
+  .decomposition-planes { grid-template-columns: 1fr; }
+  .decomposition-matrix-row { gap: 12px; }
+  .decomposition-factor-chain { grid-template-columns: 1fr; }
+  .decomposition-lab h3 { font-size: 21px; }
+}

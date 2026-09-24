@@ -1,0 +1,146 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4184",
+  "checks": [
+    {
+      "width": 1440,
+      "check": "complete lesson and math; all navigation anchors resolve"
+    },
+    {
+      "width": 1440,
+      "check": "committed contrasting prediction, selected factor trace and painted edge encoding"
+    },
+    {
+      "width": 1440,
+      "check": "stale prediction and output retired, ungraded null, invalid factors, all ties and reset"
+    },
+    {
+      "width": 1440,
+      "check": "label-bias contrast and changed-prior null, independent transfer, stale prediction and reset"
+    },
+    {
+      "width": 1440,
+      "check": "BIO same-type rules, real default errors and marginal agreement, negative training direction"
+    },
+    {
+      "width": 1440,
+      "check": "keyboard editing and activation, no page overflow, SVG label bounds, exact native output shown"
+    },
+    {
+      "width": 390,
+      "check": "complete lesson and math; all navigation anchors resolve"
+    },
+    {
+      "width": 390,
+      "check": "committed contrasting prediction, selected factor trace and painted edge encoding"
+    },
+    {
+      "width": 390,
+      "check": "stale prediction and output retired, ungraded null, invalid factors, all ties and reset"
+    },
+    {
+      "width": 390,
+      "check": "label-bias contrast and changed-prior null, independent transfer, stale prediction and reset"
+    },
+    {
+      "width": 390,
+      "check": "BIO same-type rules, real default errors and marginal agreement, negative training direction"
+    },
+    {
+      "width": 390,
+      "check": "keyboard editing and activation, no page overflow, SVG label bounds, exact native output shown"
+    },
+    {
+      "width": 320,
+      "check": "complete lesson and math; all navigation anchors resolve"
+    },
+    {
+      "width": 320,
+      "check": "committed contrasting prediction, selected factor trace and painted edge encoding"
+    },
+    {
+      "width": 320,
+      "check": "stale prediction and output retired, ungraded null, invalid factors, all ties and reset"
+    },
+    {
+      "width": 320,
+      "check": "label-bias contrast and changed-prior null, independent transfer, stale prediction and reset"
+    },
+    {
+      "width": 320,
+      "check": "BIO same-type rules, real default errors and marginal agreement, negative training direction"
+    },
+    {
+      "width": 320,
+      "check": "keyboard editing and activation, no page overflow, SVG label bounds, exact native output shown"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "scratch/crf-implementation/trellis-contrast-1440.png",
+      "sha256": "71426e16c8de1557741f16f50f4155e19c61ba2e0af9717c7b6c2749f0277c8c"
+    },
+    {
+      "path": "scratch/crf-implementation/normalizers-1440.png",
+      "sha256": "c2da0d4788198c6bec796fdd5a32e3f1eebe9430da82121c7110b9a639a5b937"
+    },
+    {
+      "path": "scratch/crf-implementation/real-errors-1440.png",
+      "sha256": "a78f8bde4b7c743f6a88032e6e7da0c4b525b6f3799889640a649179bae8ea63"
+    },
+    {
+      "path": "scratch/crf-implementation/factor-chain-1440.png",
+      "sha256": "ceaabe9b0aa120f9036aad1a1d43c98f1ef551f2f6cb38d750e318ad882464ae"
+    },
+    {
+      "path": "scratch/crf-implementation/messages-1440.png",
+      "sha256": "fee2c688025db0d1ebb6f29de149764554900bf6f0da998d21a5e72b121254dc"
+    },
+    {
+      "path": "scratch/crf-implementation/counts-1440.png",
+      "sha256": "9af3d76359a756eb27629e499080e77d010e279139f04062374428439bd1b1b1"
+    },
+    {
+      "path": "scratch/crf-implementation/bio-rules-1440.png",
+      "sha256": "938dd5ee02304841a4b8aec9aafe3fc0695fdaadc1106781300a1ae07c9a087f"
+    },
+    {
+      "path": "scratch/crf-implementation/neural-flow-1440.png",
+      "sha256": "460a8c6aec3bea6ffb98c8ad352fa784ef85dba189dbbc36a3da3ea50c556e64"
+    },
+    {
+      "path": "scratch/crf-implementation/trellis-contrast-390.png",
+      "sha256": "4c6ac09f930b9faa012b8095a6b87f91219b1b5df8151e5bf3aa2d0215f20758"
+    },
+    {
+      "path": "scratch/crf-implementation/normalizers-390.png",
+      "sha256": "f87f6b5f10f1dc0dd17fe242e33b631fadea9d67acbfcfc93ff355f6d7abf16a"
+    },
+    {
+      "path": "scratch/crf-implementation/real-errors-390.png",
+      "sha256": "6dad307557fae4999c5ebf5bc07899c6e7ccb3fce2571fafbe2cbf84f7d3d7c0"
+    },
+    {
+      "path": "scratch/crf-implementation/factor-chain-390.png",
+      "sha256": "6c8b1b8827386f312ce73e43f09e55aa01e2bda14eeae565084263cca7183ed0"
+    },
+    {
+      "path": "scratch/crf-implementation/messages-390.png",
+      "sha256": "4eee58a133ff25f93816e459c511767386a60c9f4d17391bd9f8a3e9875dc1fe"
+    },
+    {
+      "path": "scratch/crf-implementation/counts-390.png",
+      "sha256": "fed186ae92653762954bfd7c85ca9923c17b4918ec59c5f6550f1312bd4efe3a"
+    },
+    {
+      "path": "scratch/crf-implementation/bio-rules-390.png",
+      "sha256": "339d47b46b6d0e353da974c3e024b1984027f666246cfef95817c467c56b4f38"
+    },
+    {
+      "path": "scratch/crf-implementation/neural-flow-390.png",
+      "sha256": "48103d7182cb841eab52d524552c504e450e7a329d0db725760b5a73b4865fe7"
+    }
+  ],
+  "errors": [],
+  "visualInspection": "Screenshots retained for a separate human/model visual pass; these assertions are not image inspection."
+}

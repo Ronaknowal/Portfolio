@@ -1,0 +1,1467 @@
+{
+  "topicId": "abstract-algebra-groups-symmetry-actions",
+  "frozenAt": "2026-09-11T08:09:21.646660+00:00",
+  "status": "author-verified; independent review and production integration pending",
+  "productionSources": [
+    {
+      "path": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+      "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca",
+      "bytes": 47602
+    },
+    {
+      "path": "src/learn/data/abstract-algebra-models.js",
+      "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c",
+      "bytes": 12467
+    },
+    {
+      "path": "src/learn/data/abstract-algebra-examples.js",
+      "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14",
+      "bytes": 22981
+    },
+    {
+      "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+      "sha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4",
+      "bytes": 22317
+    },
+    {
+      "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+      "sha256": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43",
+      "bytes": 8592
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+      "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421",
+      "bytes": 4767
+    }
+  ],
+  "supportingSources": [
+    {
+      "path": "docs/teaching/ABSTRACT-ALGEBRA-LESSON-DESIGN.md",
+      "sha256": "2f4f88b73655c33893a30c8908f8959d7db5c75a3783eba44cf4fc9bc8a83e66",
+      "bytes": 29093
+    },
+    {
+      "path": "docs/teaching/ABSTRACT-ALGEBRA-VERIFICATION.md",
+      "sha256": "2c315cb310bb187a5507fe9cbd57c219d50a1e57704e7bf6026da24bf6653678",
+      "bytes": 9751
+    },
+    {
+      "path": "docs/teaching/evidence/abstract-algebra-original-plan.json",
+      "sha256": "9ac89cb3ff652c61ff86d0da23ed3aef10d896987aa602c8dd3fefa8164aeee9",
+      "bytes": 7461
+    },
+    {
+      "path": "docs/teaching/topic-notes/graph-transformers-geometric-deep-learning.md",
+      "sha256": "f3315c8dd29d91810daa5005483aad3820d7c893719234b96470011e4017d01e",
+      "bytes": 4531
+    },
+    {
+      "path": "scripts/verify-abstract-algebra-design.py",
+      "sha256": "a0b7d20f96623e7224f07e08de20c90034d8928c140700894dd0cd751758e7b7",
+      "bytes": 8361
+    },
+    {
+      "path": "scripts/generate-abstract-algebra-examples.py",
+      "sha256": "9b650efca28b356397d8f9123b4ef1a406d2ff320adc23add8a2948e04d4c819",
+      "bytes": 10913
+    },
+    {
+      "path": "scripts/verify-abstract-algebra.mjs",
+      "sha256": "e21c9ca26f7c04f4dc0b10ba1609a0c9daebce117f0cb9e88ba2693e582411e2",
+      "bytes": 4816
+    },
+    {
+      "path": "scripts/verify-abstract-algebra.py",
+      "sha256": "eea371b320a64802b6ab8971172f9deb835571611f21817608cf0ea3c92cc63c",
+      "bytes": 8137
+    },
+    {
+      "path": "scripts/review-abstract-algebra-lesson.cjs",
+      "sha256": "99ded6782b3bfa40f1a6f028521fea25bb4e65d91926595827d4cfbed4aa6a85",
+      "bytes": 16401
+    },
+    {
+      "path": "scripts/review-abstract-algebra-reading.cjs",
+      "sha256": "1d6def2b2debf1fd2a3d3bf39b99a41916424d48197fdd7c9e6fc67074fea414",
+      "bytes": 8778
+    },
+    {
+      "path": "scripts/format-abstract-algebra-source.cjs",
+      "sha256": "2e41bf2ce5803aa19738dee93b6cbee4a48718b4590137bc8fcd08ee05a87ff4",
+      "bytes": 2653
+    },
+    {
+      "path": "scripts/finalize-abstract-algebra-review.py",
+      "sha256": "439b3084f10c92c14ccbf51b3d4cf942db02aac3a1d5f8c2d83de27499567245",
+      "bytes": 14807
+    }
+  ],
+  "sourceArchive": [
+    {
+      "path": "scratch/abstract-algebra-author-freeze/src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+      "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca",
+      "bytes": 47602
+    },
+    {
+      "path": "scratch/abstract-algebra-author-freeze/src/learn/data/abstract-algebra-models.js",
+      "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c",
+      "bytes": 12467
+    },
+    {
+      "path": "scratch/abstract-algebra-author-freeze/src/learn/data/abstract-algebra-examples.js",
+      "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14",
+      "bytes": 22981
+    },
+    {
+      "path": "scratch/abstract-algebra-author-freeze/src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+      "sha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4",
+      "bytes": 22317
+    },
+    {
+      "path": "scratch/abstract-algebra-author-freeze/src/learn/components/lesson-labs/abstract-algebra-labs.css",
+      "sha256": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43",
+      "bytes": 8592
+    },
+    {
+      "path": "scratch/abstract-algebra-author-freeze/src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+      "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421",
+      "bytes": 4767
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-11T08:03:19.945737+00:00",
+    "status": "passed",
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+        "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca"
+      },
+      {
+        "path": "src/learn/data/abstract-algebra-models.js",
+        "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c"
+      },
+      {
+        "path": "src/learn/data/abstract-algebra-examples.js",
+        "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+        "sha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+        "sha256": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+        "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421"
+      }
+    ],
+    "checks": {
+      "actual_program_stdout": 10,
+      "independent_distance_symmetries": 1,
+      "geometric_vertex_maps": 8,
+      "geometric_representation": 8,
+      "exact_inverse": 8,
+      "actual_composition_matrix_oracle": 64,
+      "actual_tracked_route": 64,
+      "label_source_destination": 64,
+      "all_256_subset_classifications": 256,
+      "changed_generated_subgroups": 256,
+      "all_subgroup_cosets": 10,
+      "D4_subgroup_count": 1,
+      "all_ternary_orbits": 162,
+      "all_ternary_stabilizers": 162,
+      "orbit_stabilizer_identity": 162,
+      "exact_reaching_transformations": 702,
+      "fixed_counts_by_enumeration": 36,
+      "Burnside_vs_full_enumeration": 6,
+      "independent_commutant_dimension": 1,
+      "changed_average_relation_oracle": 32,
+      "changed_rotation_offset_oracle": 32,
+      "exact_projection_pythagoras": 32,
+      "actual_native_changed_averages": 32,
+      "actual_two_route_matrix_oracle": 2560,
+      "actual_input_defect": 1280,
+      "actual_full_matrix_certificate": 1280,
+      "actual_input_to_pooled_output": 1280,
+      "all_bounded_modular_solutions": 649,
+      "unit_gcd_oracle": 649,
+      "actual_changed_capstone_output": 1,
+      "actual_changed_capstone_invariant_mean": 1,
+      "ternary_chiral_practice": 1,
+      "changed_modular_practice": 1
+    },
+    "invalidModelCases": 21,
+    "changedCapstoneStdout": "raw all-input defect: 13\nrepaired self / neighbor / opposite: ['19/2', '35/4', '33/4']\nrepaired output: ['133/4', '67/2', '37', '149/4']\nrepaired all-input defect: 0\nall transformed-input output means: ['141/4']\nassumption: the four positions should obey the same processing rule",
+    "environment": {
+      "sympy": "1.14.0"
+    },
+    "limits": "Finite exact arithmetic, enumeration and separately formulated matrix oracles check actual production exports; mathematical proofs and actual-font browser reading are recorded separately."
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T07:50:42.611Z",
+    "status": "passed",
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+        "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca"
+      },
+      {
+        "path": "src/learn/data/abstract-algebra-models.js",
+        "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c"
+      },
+      {
+        "path": "src/learn/data/abstract-algebra-examples.js",
+        "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+        "sha256": "94082bf82dac5ee84cae0787d83826a83dd6fbbf5ec5056c58cfec160c6e4049"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+        "sha256": "a7a955ba8069717fd8b92696795e9583fc9e09bfa438f1bc976c1150ecd73b3f"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+        "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421"
+      }
+    ],
+    "results": [
+      {
+        "width": 1440,
+        "publicFont": true,
+        "states": 44,
+        "actualPrograms": 10,
+        "sectionAnchors": 11,
+        "checkpointAndPracticeBlocks": 10,
+        "equations": 10,
+        "errors": [],
+        "failedContent": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 390,
+        "publicFont": true,
+        "states": 44,
+        "actualPrograms": 10,
+        "sectionAnchors": 11,
+        "checkpointAndPracticeBlocks": 10,
+        "equations": 10,
+        "errors": [],
+        "failedContent": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 320,
+        "publicFont": true,
+        "states": 44,
+        "actualPrograms": 10,
+        "sectionAnchors": 11,
+        "checkpointAndPracticeBlocks": 10,
+        "equations": 10,
+        "errors": [],
+        "failedContent": [],
+        "documentOverflow": false
+      }
+    ],
+    "images": [
+      {
+        "path": "scratch/abstract-algebra-browser/reading-1-1440.png",
+        "sha256": "5956d181d0639db01e3368cc878a658001af13d784c507e3e94f3a1a56d139d3",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-2-1440.png",
+        "sha256": "6e6ae3b3172a152d1027aad5bdce7d14eaf632c0908617485270e405ec8df503",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-3-1440.png",
+        "sha256": "f9d5533dd2aabc2c25f122c9bf6d9bd40f90b33f651ea5f207dc7006840b5c2c",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-4-1440.png",
+        "sha256": "c607eed539ad6d600599af42439cb92adf0983942120e20328ab0020c9c63163",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-5-1440.png",
+        "sha256": "fc8ef6580bbb70495bb2ec228d6671f98117bb155f1e24540079d2b65b6b5963",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-6-1440.png",
+        "sha256": "58a207f2f9259202745ce2a9dbd9f6a209f19c1e517c67b90e88e408554a1141",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-7-1440.png",
+        "sha256": "fde27633e587a80dc8c143bb4dc779d1428928c245bb0fec710c9a4e9e692db1",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-8-1440.png",
+        "sha256": "e240c8a97216c572a6606ff33c74ee0c97591d7450c834864db95265d605fb8e",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-9-1440.png",
+        "sha256": "944c3541ee0a30d95f073c5edac0522e731717a999fa3f2ef332edb9a11ddf01",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-10-1440.png",
+        "sha256": "20e2e043bcd2fee1f31a7b9530bbf72560b69ec835836ed0fb692a67d8982aef",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-11-1440.png",
+        "sha256": "19d3ba2b2a0d3f0c493555dade0654bc39ff8d27227e39f88322af34535c7061",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/cayley-and-action-1440.png",
+        "sha256": "0f86e4df84169fdd28fb9afbebf95be5760f5bc5a6037dda3c70ddc7422bc744",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/modular-division-1440.png",
+        "sha256": "6be1c77af8cc53dcabb2e4621b610b37591c3c22193d8067233683c7539220d7",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/composition-default-1440.png",
+        "sha256": "fa05f590cb6d8541ec26f5cabd676886038215b3d1a0e029e0ca73085b0cfbe6",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/composition-table-1440.png",
+        "sha256": "d3bf3abc1248875d86fdefec7ded2c267bf5ab5778660f92d44c8b8302d980f3",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/ternary-orbit-1440.png",
+        "sha256": "b3bd231a7bab0bec726f97aa88611d902a3e533fa24a6276642d0215a546b71b",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/fixed-cycle-tally-1440.png",
+        "sha256": "2a7b78f5d5a1c5358bcc26c973fa02ec7df57cb6387ee36631d7cc5361352fd4",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/bad-representative-1440.png",
+        "sha256": "88efe72df2e0c41dd1ca2dd0d1bffff1b5dd3ba793915765a06c84bcb9321fc8",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/normal-representative-1440.png",
+        "sha256": "b09619a00a2a2883cce6eb56538a047e4f0b20a9bdba37759295febc9e2c31ea",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/invalid-preserved-input-1440.png",
+        "sha256": "3775a4c1882129a1eab2846974a18a2a8058eda2e7a997c876b970ca308556b6",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/changed-sensor-route-1440.png",
+        "sha256": "de69980a2ac896152f7c3cfe2770b6a5e115278fb667ab25881e00f44e3e8007",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/all-input-certificate-1440.png",
+        "sha256": "02b4b85f153cee1838dd9834d1415bbd9b136644437a0a4ab7622f79d4d5ee1c",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/averaged-sensor-route-1440.png",
+        "sha256": "e95f334700e4f70abb4ac720e75771caf047635f5ec1a310a21b1f13454ec3bc",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/changed-practice-1440.png",
+        "sha256": "2fde75878f1ecbceb3d3abf72ef191259a3f9fe647d970f76b59b6bd9822b6ae",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/projection-proof-1440.png",
+        "sha256": "139bb7b3d0b4b223f4b2d01b15b0f91f61966ec05ffd5d052c38fcc3bb62f020",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/actual-program-1440.png",
+        "sha256": "91afa4364ec57838eb679db06b18d22ce65843fe576309afd8606172b723f0a6",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/references-1440.png",
+        "sha256": "bb161d6dbff0135ba381714304f91d5aae66a6e34de26072297dcd754e383a7d",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-1-390.png",
+        "sha256": "ac0ca8468179cb19de711af75e4bef90218b6f0f7f940f4cd0978c2cc74ac197",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-2-390.png",
+        "sha256": "fe93864450d3e8ad67ae08aa83f3432b3917ad611982252a07ad99a8659905d2",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-3-390.png",
+        "sha256": "e60ee41fd055ee5fa56ae5f39ef2e8ea411fba16ca74bff96655ee8c5aa346d5",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-4-390.png",
+        "sha256": "f094dde660d39b8b2473284ba6835e6acf1079fe6f7b5b0ba778eb559b76fd12",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-5-390.png",
+        "sha256": "093b0d46bef5f31822055e1e013544eba58ca32f79f4d1f5efa7ca7254876aeb",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-6-390.png",
+        "sha256": "1bff90712fef79b58da337acb01ac38685cdf704c7331e2f7a92fe2c824add0c",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-7-390.png",
+        "sha256": "e4e1ea513c4f6e6e9f737019545ab781939afb67d2079ce9ca98f699a110192c",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-8-390.png",
+        "sha256": "14b3d60228ddd9378e264b7cf54db9b35beed4d239bb5e909940e6dc8c4a4a7d",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-9-390.png",
+        "sha256": "3cbd6446388c692752c39c5e4728b6eecf938cfd62701dbcffb3fa727f61da1e",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-10-390.png",
+        "sha256": "a8f2cb686810095ea4fea7743ba631ee74db0342e127e9edcfb0680e5c5490ab",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-11-390.png",
+        "sha256": "02bd2fd27cafb4f71bbca71fc3ae4b9cb976e67144be739f9531f2beb2c7e9ff",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/cayley-and-action-390.png",
+        "sha256": "f67d1db0d3c430b69887041ee7d6ffe98fac08ba675bfd6d01f185183414e69a",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/modular-division-390.png",
+        "sha256": "a8c910d4973d8657e0014e8825b32d6aa681a7e655a92435e1cddc4878d981b2",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/composition-default-390.png",
+        "sha256": "da5f82334ca1786e64cdcb2887c68eb4c41534d22841dad39a7b79fc83c1c89c",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/composition-table-390.png",
+        "sha256": "b33290142dbbe746e1ece8526e0478a357107a83bae6311bd32dc660ba3a46b0",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/ternary-orbit-390.png",
+        "sha256": "743894b141181935c5709ed3f9d37982eb8e9d807cd416995c8bcdc7f1aa936f",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/fixed-cycle-tally-390.png",
+        "sha256": "4cd67ce0f42ca9c4cb1ff2b4607333b77bd1e11ca873f11eeacdf46d3e04ab08",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/bad-representative-390.png",
+        "sha256": "9136b42248466628e6ccb5710a70a36ce216a9825674086098d0bd30ecd66db2",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/normal-representative-390.png",
+        "sha256": "9c83c2bb27b96e23a3950ebcef16645180881d899d698b0e538b0dd36b4e49a3",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/invalid-preserved-input-390.png",
+        "sha256": "d2d4892157f2d81369d933f53295ea9f5701ea2b0ce9b44173357c3e7d6b67a3",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/changed-sensor-route-390.png",
+        "sha256": "699f70dee07e319c7508e8ef9ae7504d1b3b1be74833efdcd010a05c60e4f4ed",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/all-input-certificate-390.png",
+        "sha256": "d44ab6105b43a60f12342a4140e81a5c5bbac1bd7a67f4e9a23630754ac32809",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/averaged-sensor-route-390.png",
+        "sha256": "68de64ee0b818c2723c686ddb23bafb9fc53a27d63dd56c0659f56c13f41cfa4",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/changed-practice-390.png",
+        "sha256": "c3b05e93a576645fbd0d7be82c80807764006e0bae0a1c3131c3431353db518b",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/projection-proof-390.png",
+        "sha256": "fc42306d649638566ef0cac67b090579d5c82bff4f0a452b796f94e80cdfa192",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/actual-program-390.png",
+        "sha256": "71ebdba3cce035917e2363b086b153e994be0d043e250bcfce526a55a76aec2b",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/references-390.png",
+        "sha256": "f361befd4f75b82ca0cc1cd8a32f7e9a382bf495ad92f4be865f10e7cbc8bdeb",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/cayley-scrolled-390.png",
+        "sha256": "faaa730dbf3489a0463fbe9ba319059a4660d94b8b4220b334f99a1ca1cf608c",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-1-320.png",
+        "sha256": "65532d0c395f3942385371e4f3d79f77bf1cf8d0a8dd81438efee064380d14f6",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-2-320.png",
+        "sha256": "d8d0b58a99757c2b55ee5f4faa9653653c3b226732502995c65d37c2d83ceeca",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-3-320.png",
+        "sha256": "e338f0cf2b3f3c2742a9854c9d9642fafafc6aae1c04ca4fb4e6a6821b8af0c0",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-4-320.png",
+        "sha256": "9d8f4748bf7e9f573ed454299a755f4a87bb7faa8b7c9e8bf09deb00bcdcaf70",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-5-320.png",
+        "sha256": "626bc1abd6fcd7a09f1dba1e017d53fd79a9cbe4b91f9b1a2887d864bf214a60",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-6-320.png",
+        "sha256": "c67fa6c3c2f04b21d369f45ba5d56cfe8dcc445a97065bfca2a54e2f33336cf8",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-7-320.png",
+        "sha256": "7ccbd91a10d7cb59bc311c2ef1b7361a0769827a4cc7d8bef4397cfcfe7d57b9",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-8-320.png",
+        "sha256": "9375bdee9703af4400329827e4db39a7c73f4913e795c7dcc98625ad5e90a10c",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-9-320.png",
+        "sha256": "c0cb693dea86f415d70cf1db8cadc731f450425c2a604a41ce8c749b2de43f39",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-10-320.png",
+        "sha256": "7db013156cff6d0dff96271b0a6283fe5aab094a3cdcd8ddefb846419d949c8a",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/reading-11-320.png",
+        "sha256": "e499ab88044a107c764f82e53c7243fb4fa48ee896e4e9369e899aa8a4df0fd7",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/cayley-and-action-320.png",
+        "sha256": "db721d68bd44029324c80992a440d5f9d70151d3b916567a8365ae660a6288f9",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/modular-division-320.png",
+        "sha256": "e3a377aa65b50a7382c4a109a61a5d2f5e74a9398342f0e61560baefbceff7fa",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/composition-default-320.png",
+        "sha256": "1103e0df86f1e4eb46d00a4751dfe602f357a73ca0c1b3dbadf67ae8754f3393",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/composition-table-320.png",
+        "sha256": "996720908564a581527f7df01efb39c68e9fa44c2b6cc22580eaa11af8406874",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/ternary-orbit-320.png",
+        "sha256": "618b76aafa97b0ce859da8a0097f99ca9264398b72764fd6ebbe18fee777e057",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/fixed-cycle-tally-320.png",
+        "sha256": "84eadca0521d398b73ec9392689eba06893bbf2165cef5d29d4ceb9502525090",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/bad-representative-320.png",
+        "sha256": "deb841fbc3977416e8393c3f3ec131d2a2222edb48cd70a97562f0dd47a3d2d2",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/normal-representative-320.png",
+        "sha256": "fa72747f29a03dd77a2caad73233428bb1d42e94fd07d6c2765c14b41085af28",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/invalid-preserved-input-320.png",
+        "sha256": "8a07b3012f835cc4fc0bac08bfcf9af50924aea6bd7eb494e6269ca45aa4e981",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/changed-sensor-route-320.png",
+        "sha256": "e62133516e3935dd7e04a7246246a1ff64dc67549b46535c77289927a7ff3a24",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/all-input-certificate-320.png",
+        "sha256": "73dc5f8f3e5f3814d811dee90a77b1ea40dc5419540f21792a1f341b63a0537b",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/averaged-sensor-route-320.png",
+        "sha256": "62e3e32994b1eaf99e25b3b23bc96b2c81fd55c5253b084df00fb2320ce96cdc",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/changed-practice-320.png",
+        "sha256": "e59dba05f3f509fd97d7a019fb1c89964599c2132dcfb92997ad34c49e983319",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/projection-proof-320.png",
+        "sha256": "ec28ec3d4116ebf396645b022413639b76dd2a25415d9af89eb98ec7e75bc045",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/actual-program-320.png",
+        "sha256": "e97854251288b00bf1fbe714a8a02b3bc022a8b7ecec41dbcc3cf432d8478b52",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/references-320.png",
+        "sha256": "c0826195b0e095c725246c12950ac58f9206d6f33752de311dbfff549a634c83",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/cayley-scrolled-320.png",
+        "sha256": "9354396af1311eca3e7024fea02dff4d6ffd03e453b8a22de72051c0bf4ca8f2",
+        "opened": false
+      }
+    ]
+  },
+  "finalReading": {
+    "checkedAt": "2026-09-11T08:03:12.961Z",
+    "status": "passed",
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/abstract-algebra-groups-symmetry-actions.jsx",
+        "sha256": "b4751621d46a13d24e6ea13c181d1b7a1bae164e42fe432c3e5b023c835a83ca"
+      },
+      {
+        "path": "src/learn/data/abstract-algebra-models.js",
+        "sha256": "e7ddf0d824b7c8ed63ff45c8c43a6bd1a366da10ccf4ef300ebea8cf184f4f3c"
+      },
+      {
+        "path": "src/learn/data/abstract-algebra-examples.js",
+        "sha256": "10ef43539747b45173ffc746b068808644f7ef8063b5b6f9820b56b5b4e56a14"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+        "sha256": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+        "sha256": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/abstract-algebra-groups-symmetry-actions.js",
+        "sha256": "85590a23245a0d142c13a654a3e5f76a2e302b952143408818aa916c70b89421"
+      }
+    ],
+    "results": [
+      {
+        "width": 1440,
+        "publicFont": true,
+        "anchors": 11,
+        "actualPrograms": 10,
+        "equations": 10,
+        "actionGraphLabelsInside": true,
+        "sensorValuesSeparateFromPositions": true,
+        "optionWidths": [
+          {
+            "label": "Outer move g",
+            "available": 196.8,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Inner move h",
+            "available": 196.8,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Track starting vertex",
+            "available": 196.8,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Available colors",
+            "available": 325.79999999999995,
+            "maximum": 144.6298370361328
+          },
+          {
+            "label": "Allowed symmetries",
+            "available": 325.79999999999995,
+            "maximum": 209.6498565673828
+          },
+          {
+            "label": "Color at vertex 0",
+            "available": 131.8,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 1",
+            "available": 131.8,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 2",
+            "available": 131.8,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 3",
+            "available": 131.8,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Inspect one transformation",
+            "available": 713.8,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Subgroup H",
+            "available": 325.79999999999995,
+            "maximum": 150.29592895507812
+          },
+          {
+            "label": "Representative from H",
+            "available": 325.79999999999995,
+            "maximum": 8.998397827148438
+          },
+          {
+            "label": "Processing map",
+            "available": 325.79999999999995,
+            "maximum": 187.47659301757812
+          },
+          {
+            "label": "Data transformation g",
+            "available": 325.79999999999995,
+            "maximum": 19.455978393554688
+          }
+        ],
+        "errors": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 390,
+        "publicFont": true,
+        "anchors": 11,
+        "actualPrograms": 10,
+        "equations": 10,
+        "actionGraphLabelsInside": true,
+        "sensorValuesSeparateFromPositions": true,
+        "optionWidths": [
+          {
+            "label": "Outer move g",
+            "available": 303.79999999999995,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Inner move h",
+            "available": 303.79999999999995,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Track starting vertex",
+            "available": 303.79999999999995,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Available colors",
+            "available": 303.79999999999995,
+            "maximum": 144.6298370361328
+          },
+          {
+            "label": "Allowed symmetries",
+            "available": 303.79999999999995,
+            "maximum": 209.6498565673828
+          },
+          {
+            "label": "Color at vertex 0",
+            "available": 120.80000000000001,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 1",
+            "available": 120.80000000000001,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 2",
+            "available": 120.80000000000001,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 3",
+            "available": 120.80000000000001,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Inspect one transformation",
+            "available": 303.79999999999995,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Subgroup H",
+            "available": 303.79999999999995,
+            "maximum": 150.29592895507812
+          },
+          {
+            "label": "Representative from H",
+            "available": 303.79999999999995,
+            "maximum": 8.998397827148438
+          },
+          {
+            "label": "Processing map",
+            "available": 303.79999999999995,
+            "maximum": 187.47659301757812
+          },
+          {
+            "label": "Data transformation g",
+            "available": 303.79999999999995,
+            "maximum": 19.455978393554688
+          }
+        ],
+        "errors": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 320,
+        "publicFont": true,
+        "anchors": 11,
+        "actualPrograms": 10,
+        "equations": 10,
+        "actionGraphLabelsInside": true,
+        "sensorValuesSeparateFromPositions": true,
+        "optionWidths": [
+          {
+            "label": "Outer move g",
+            "available": 233.79999999999995,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Inner move h",
+            "available": 233.79999999999995,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Track starting vertex",
+            "available": 233.79999999999995,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Available colors",
+            "available": 233.79999999999995,
+            "maximum": 144.6298370361328
+          },
+          {
+            "label": "Allowed symmetries",
+            "available": 233.79999999999995,
+            "maximum": 209.6498565673828
+          },
+          {
+            "label": "Color at vertex 0",
+            "available": 85.80000000000001,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 1",
+            "available": 85.80000000000001,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 2",
+            "available": 85.80000000000001,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Color at vertex 3",
+            "available": 85.80000000000001,
+            "maximum": 9.743194580078125
+          },
+          {
+            "label": "Inspect one transformation",
+            "available": 233.79999999999995,
+            "maximum": 19.455978393554688
+          },
+          {
+            "label": "Subgroup H",
+            "available": 233.79999999999995,
+            "maximum": 150.29592895507812
+          },
+          {
+            "label": "Representative from H",
+            "available": 233.79999999999995,
+            "maximum": 8.998397827148438
+          },
+          {
+            "label": "Processing map",
+            "available": 233.79999999999995,
+            "maximum": 187.47659301757812
+          },
+          {
+            "label": "Data transformation g",
+            "available": 233.79999999999995,
+            "maximum": 19.455978393554688
+          }
+        ],
+        "errors": [],
+        "documentOverflow": false
+      }
+    ],
+    "images": [
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-1-1440.png",
+        "sha256": "5956d181d0639db01e3368cc878a658001af13d784c507e3e94f3a1a56d139d3",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-2-1440.png",
+        "sha256": "6e6ae3b3172a152d1027aad5bdce7d14eaf632c0908617485270e405ec8df503",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-3-1440.png",
+        "sha256": "f9d5533dd2aabc2c25f122c9bf6d9bd40f90b33f651ea5f207dc7006840b5c2c",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-4-1440.png",
+        "sha256": "8ccab5fb2fa126d1759d94c277a55d3182b42c0fb7b949b9d11fb963eb0aa68b",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-5-1440.png",
+        "sha256": "236dfa6e3af64191f0ff2891e49378357cc9ea46045141ea9e5852091845405a",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-6-1440.png",
+        "sha256": "2fd49041ce300ce15e707f200ffa63c1983a8ab718ed03e2f35cd660db9273b8",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-7-1440.png",
+        "sha256": "82467718ca80cfdb104efcd504c6111dc66a9bd289cef87b4976a7cbfda5261d",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-8-1440.png",
+        "sha256": "cb589b6fb57be737977b23eb88afcd8fafa3ddd97f158df7468e1a9a544aaac0",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-9-1440.png",
+        "sha256": "d057581b7a8d00ec626851c24f3636d6480ddfb1045f6ac9afb5ba263d7744c5",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-10-1440.png",
+        "sha256": "62f2d745898158c5c3100b719520730c8d43a054bcbffbcba268516503e0a9e9",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-11-1440.png",
+        "sha256": "230b8a9d09313eec70592b9a0004be30bb5aca9e20bcb68780dec331d8405297",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-cayley-1440.png",
+        "sha256": "269a8251038b507ff30670c61b039f26805cc7da48286e4fd948a9d90f6597f5",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-action-graph-1440.png",
+        "sha256": "06b4a8a174ca7f125d7deedc80f33136d50f2d71144d60defe2d29fdfcef67e6",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-composition-1440.png",
+        "sha256": "fa05f590cb6d8541ec26f5cabd676886038215b3d1a0e029e0ca73085b0cfbe6",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-modular-1440.png",
+        "sha256": "4db5a8c9d716e7251b475c91479abb8966616c3ea78ffd33661e68a3bf518219",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-normal-coset-1440.png",
+        "sha256": "09c8f193ab0522174642aaa67054bc083e9082e6d3cc9c7f78bd067d2593fcd2",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-bad-coset-1440.png",
+        "sha256": "17c13929d12d1bf95f1f1004e16c7b3408a72589bcc981bb2c902d8df7c0fe17",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-averaged-map-1440.png",
+        "sha256": "0eb518095b12a23b7083d87667dad2b8f59c42173295f783bbbfe48931d209bc",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-projection-proof-1440.png",
+        "sha256": "997c4e5a33c009a4dd69e90480f66edf30fb1d1ba8c1cf1a20fbd0ac0ad7948a",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-changed-solution-1440.png",
+        "sha256": "df65e153a228b5394f4137a43166775184d2f911dd0f081162a23fb3bbef64e3",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-program-1440.png",
+        "sha256": "d5fe1f638833c2a1a66de24204932fbe4330f21369beed8e36ab1793caed12d1",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-references-1440.png",
+        "sha256": "a325a1e98982a5b1ae030bca67280e75bf68dc6fcd9be406c12425965a1e05e5",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-1-390.png",
+        "sha256": "ac0ca8468179cb19de711af75e4bef90218b6f0f7f940f4cd0978c2cc74ac197",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-2-390.png",
+        "sha256": "2d0d08e9a9fe463397c772c9f1ad22c3c6617aeab661208fcd0c9d40c6e62d80",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-3-390.png",
+        "sha256": "e55c8ea73075c8944cac3535139acc91a38d278ba83f41ce3923cc3d9cff7e91",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-4-390.png",
+        "sha256": "949142c550990bd2c02915a6f70332d5135bb5c64dbadc684f964e834dae1556",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-5-390.png",
+        "sha256": "9f24ab887817ba2d8bcc03b2b82310e7284b2e563304affea0d2ebb7d6708add",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-6-390.png",
+        "sha256": "8400dfaf3bfe088b06f8751137efd34ff5ec1776db9b8b757711c6e9d90e6c84",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-7-390.png",
+        "sha256": "7286492539b195f625e026ec36988bab39f9184f07239b12b16fe5b5e7fcae2d",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-8-390.png",
+        "sha256": "64c5f87b99b39044d890a89efa507fe7f69e6883970545a5f523bb92d3995e6f",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-9-390.png",
+        "sha256": "e1a88b2fad961dd690b9d3bfc9a2a0a1196f6a6aa29e5782a9474171a5232d0d",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-10-390.png",
+        "sha256": "457a19c74751a3eada004f2688f2b329a8a29ba1ef06673d8dace2b64d5b3585",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-11-390.png",
+        "sha256": "aedc0dbb81bf1fdc7beeabae7004e443886b2510cc393dcb5ba56b13f6d72182",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-cayley-390.png",
+        "sha256": "1ab4e4b1aa77cd87219c89da7760899edfba412f85729d8d51509644ca660760",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-action-graph-390.png",
+        "sha256": "494331e1f1be58c39a655e3b52e3d4ab7680a5a183b8cc6c500cada3beba45fe",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-cayley-scrolled-390.png",
+        "sha256": "b3fb39851230e2ff640b452418c6d7d850e1ff1702bc6d4e4ad011e57675b355",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-composition-390.png",
+        "sha256": "3aec73c8ccb993df59fe17252332a2bcdc35a259a27ff9fa975d5104d563f37f",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-modular-390.png",
+        "sha256": "99ccbc8c4992b78e42fdda261e292a57d0a40706b6678ec9e3dc443f3997ebb9",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-normal-coset-390.png",
+        "sha256": "c074ffe1301303f70817e38f0f3238b4abcb3c33b2052a73cf1ce33e99b06ecf",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-bad-coset-390.png",
+        "sha256": "1467641c51287acdb60a6e5894d537584412cb9d6c5c6f9ed9774b15f746c801",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-averaged-map-390.png",
+        "sha256": "68de64ee0b818c2723c686ddb23bafb9fc53a27d63dd56c0659f56c13f41cfa4",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-projection-proof-390.png",
+        "sha256": "d68caf103d64e7eadae1c90c851b568fe0c1919eca8d733ab4a758f1edfb3d3a",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-changed-solution-390.png",
+        "sha256": "766f01ccf5a1717d1a686f13ae8ce533fe3756c4b201bfa0fde906c0de0c202f",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-program-390.png",
+        "sha256": "71ebdba3cce035917e2363b086b153e994be0d043e250bcfce526a55a76aec2b",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-references-390.png",
+        "sha256": "2375fde2d0ff8afc0dff3c0acdad87bf380ceae046fb80a6716872f8ac73f425",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-1-320.png",
+        "sha256": "65532d0c395f3942385371e4f3d79f77bf1cf8d0a8dd81438efee064380d14f6",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-2-320.png",
+        "sha256": "d8d0b58a99757c2b55ee5f4faa9653653c3b226732502995c65d37c2d83ceeca",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-3-320.png",
+        "sha256": "e338f0cf2b3f3c2742a9854c9d9642fafafc6aae1c04ca4fb4e6a6821b8af0c0",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-4-320.png",
+        "sha256": "9d8f4748bf7e9f573ed454299a755f4a87bb7faa8b7c9e8bf09deb00bcdcaf70",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-5-320.png",
+        "sha256": "eda6722955a582b4ad9ae7c44a094969ad6e18dd9861b4da13f8eb2a6c7b4c0a",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-6-320.png",
+        "sha256": "fdd44996fd69eebe05ff6adff9ebc5356641cecbc5477c5fe55568e2002ff2d2",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-7-320.png",
+        "sha256": "9ac2d5b31a897c7a8b1518b3be9e438120d9f922f97ce1a232b50f346e442cbe",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-8-320.png",
+        "sha256": "9fd07f021ad7495e7edd2aba2c059df13b1e1a592c0801bc317275b305fef928",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-9-320.png",
+        "sha256": "f922d8aa805760a65cf2157ca2d84a472d70d4742e6647183a95a0f60f9c75ab",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-10-320.png",
+        "sha256": "25f49bff2e2c5e77c8d0400ff20e7da2d9daf4f1f079801d9d2ca43247950188",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-11-320.png",
+        "sha256": "3eb8d9ae5031522d032805098c19bc8e874cc0da8876a5db7a0a68b935ee5aba",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-cayley-320.png",
+        "sha256": "8cdd2f5c12a809768648bcf8b5aac2f89bd49b29ca8cd32b5772140ffda2f601",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-action-graph-320.png",
+        "sha256": "45f7508baafb862ea8547975017a669dc8a49fd11aeb2ea562daa5cbe5c9a764",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-cayley-scrolled-320.png",
+        "sha256": "b43bdcf269686bddaaa758cf0ffbe95797417f161c22631a646e0febe6c54445",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-composition-320.png",
+        "sha256": "1103e0df86f1e4eb46d00a4751dfe602f357a73ca0c1b3dbadf67ae8754f3393",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-modular-320.png",
+        "sha256": "fa845144b338eb51347f053eb03ef316603f9150a9d2bf18ba7a14d8f8812864",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-normal-coset-320.png",
+        "sha256": "ab79f6cd5be1a59906a7c82518d835ea8923ff7db6a7291236cf70c8dc6c8b83",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-bad-coset-320.png",
+        "sha256": "4e4a9bd0da90f02cccad5c9f598db491fd2759c2a1868bec3b746a5e31724e62",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-averaged-map-320.png",
+        "sha256": "94573b1d664c017e30e600596607cfe6ccc7baea016aa4cf7d32a33d7d79650a",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-projection-proof-320.png",
+        "sha256": "5ee13172db494148835945fd341b8699d2a80cce58f80a836475a5594aabda6a",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-changed-solution-320.png",
+        "sha256": "8299410facffcf2a22ab416c49b82ab75f0f19cf2e4314012b933cb937adf87b",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-program-320.png",
+        "sha256": "ef0334844d8b80fcba3f72f7230b591a2b87b1497eefbff320dd154d1960846b",
+        "opened": false
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-references-320.png",
+        "sha256": "e1f4db04ab9f260fea254cce7fbc4677766d3096703b30f61545459e78fbfcc9",
+        "opened": false
+      }
+    ],
+    "scope": "Final reading and narrow display amendment closure after the comprehensive 44-state-per-width interaction pass. Adds visible scroll instruction, explicit column-header scope, separates action-loop labels from their curves, and fits every dropdown option by shortening labels and stacking phone controls; models/programs unchanged."
+  },
+  "openedImages": {
+    "recordedAt": "2026-09-11T08:09:21.646660+00:00",
+    "images": [
+      {
+        "path": "scratch/abstract-algebra-browser/final-normal-coset-390.png",
+        "sha256": "c074ffe1301303f70817e38f0f3238b4abcb3c33b2052a73cf1ce33e99b06ecf",
+        "bytes": 50414,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-cayley-scrolled-320.png",
+        "sha256": "b43bdcf269686bddaaa758cf0ffbe95797417f161c22631a646e0febe6c54445",
+        "bytes": 36238,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-projection-proof-320.png",
+        "sha256": "5ee13172db494148835945fd341b8699d2a80cce58f80a836475a5594aabda6a",
+        "bytes": 74711,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-changed-solution-390.png",
+        "sha256": "766f01ccf5a1717d1a686f13ae8ce533fe3756c4b201bfa0fde906c0de0c202f",
+        "bytes": 103227,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-3-390.png",
+        "sha256": "e55c8ea73075c8944cac3535139acc91a38d278ba83f41ce3923cc3d9cff7e91",
+        "bytes": 112052,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-5-320.png",
+        "sha256": "eda6722955a582b4ad9ae7c44a094969ad6e18dd9861b4da13f8eb2a6c7b4c0a",
+        "bytes": 66894,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-reading-6-1440.png",
+        "sha256": "2fd49041ce300ce15e707f200ffa63c1983a8ab718ed03e2f35cd660db9273b8",
+        "bytes": 241046,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-modular-320.png",
+        "sha256": "fa845144b338eb51347f053eb03ef316603f9150a9d2bf18ba7a14d8f8812864",
+        "bytes": 38545,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-references-390.png",
+        "sha256": "2375fde2d0ff8afc0dff3c0acdad87bf380ceae046fb80a6716872f8ac73f425",
+        "bytes": 101718,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-averaged-map-1440.png",
+        "sha256": "0eb518095b12a23b7083d87667dad2b8f59c42173295f783bbbfe48931d209bc",
+        "bytes": 146272,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-averaged-map-320.png",
+        "sha256": "94573b1d664c017e30e600596607cfe6ccc7baea016aa4cf7d32a33d7d79650a",
+        "bytes": 29228,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-composition-320.png",
+        "sha256": "1103e0df86f1e4eb46d00a4751dfe602f357a73ca0c1b3dbadf67ae8754f3393",
+        "bytes": 35445,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      },
+      {
+        "path": "scratch/abstract-algebra-browser/final-program-390.png",
+        "sha256": "71ebdba3cce035917e2363b086b153e994be0d043e250bcfce526a55a76aec2b",
+        "bytes": 77108,
+        "opened": true,
+        "reviewer": "author",
+        "method": "Actual view_image display inspected after final browser capture"
+      }
+    ],
+    "scope": "These thirteen final files were actually opened and visually inspected; the larger captured set is not claimed as opened."
+  },
+  "displayAmendment": {
+    "changedSources": [
+      {
+        "path": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+        "before": "94082bf82dac5ee84cae0787d83826a83dd6fbbf5ec5056c58cfec160c6e4049",
+        "after": "de0df6d2060175953cb211830d59fc019a25b078ac54bbe510894493f0e678f4"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/abstract-algebra-labs.css",
+        "before": "a7a955ba8069717fd8b92696795e9583fc9e09bfa438f1bc976c1150ecd73b3f",
+        "after": "25583e5a38a414f9c9b63b0149e504490ecfb3bfe53810696f967aeec086eb43"
+      }
+    ],
+    "scope": "Final reading and narrow display amendment closure after the comprehensive 44-state-per-width interaction pass. Adds visible scroll instruction, explicit column-header scope, separates action-loop labels from their curves, and fits every dropdown option by shortening labels and stacking phone controls; models/programs unchanged.",
+    "fullBehaviorRerunClaimed": false
+  },
+  "rawEvidence": [
+    {
+      "path": "scratch/abstract-algebra-verification/results.json",
+      "sha256": "f7cefa84ba35c48c9f8842d44aa2ddad5122e7752aee3880cd204fbea37cec05",
+      "bytes": 3060
+    },
+    {
+      "path": "scratch/abstract-algebra-browser/results.json",
+      "sha256": "0f4684e630cb0dc4af38c255879eae962bf9e542e3d0094bd7ce037422ee3d3f",
+      "bytes": 17967
+    },
+    {
+      "path": "scratch/abstract-algebra-browser/final-reading-results.json",
+      "sha256": "aaad8122c3892ae706c79e2e0717cb1a6a9d428cc7b8f532d708babf29ec8e92",
+      "bytes": 21556
+    },
+    {
+      "path": "scratch/abstract-algebra-browser/opened-images.json",
+      "sha256": "1d3d7c8db9daa59ee993b5cf3c77b82510a2cffd5a1727953016c07adeba6b7e",
+      "bytes": 4579
+    }
+  ],
+  "originalConservation": "Planned baseline archived unchanged; no legacy body or program existed.",
+  "limits": [
+    "Independent review pending",
+    "Production integration belongs to root",
+    "No user acceptance or beginner study claimed",
+    "No full video/transcript review claimed",
+    "Bounded finite educational models; local table/code/graph scrolling is intentional"
+  ]
+}

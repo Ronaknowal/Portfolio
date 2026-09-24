@@ -1,0 +1,25 @@
+.loss-observations { display: flex; flex-wrap: wrap; gap: 8px; }
+.loss-observations button { flex: 1 1 90px; font-size: 12px; }
+.loss-observations strong { display: block; font-size: 18px; margin-top: 5px; }
+.loss-observation-locations { padding-bottom: 10px; }
+.loss-location-scale { display: flex; justify-content: space-between; margin: 18px 60px 10px 25px; font-size: 13px; }
+.loss-location-row { display: grid; grid-template-columns: 18px minmax(0, 1fr) 52px; gap: 8px; align-items: center; font-size: 13px; margin: 14px 0; }
+.loss-location-track { position: relative; height: 16px; border-bottom: 1px solid #5e7166; margin-right: 8px; }
+.loss-location-dot { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: #8fc9b5; top: 11px; transform: translateX(-50%); }
+.loss-location-fit { position: absolute; height: 26px; top: 3px; border-left: 2px solid #e4b752; }
+.loss-check { display: flex; gap: 10px; align-items: center; line-height: 1.7; }
+.loss-check input { width: 20px; accent-color: #e4b752; }
+.loss-confusion { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+.loss-confusion > div { padding: 12px; border: 1px solid #668678; }
+.loss-confusion strong { display: block; font-size: 26px; color: #edc566; margin-top: 8px; }
+.loss-confusion > .loss-confusion-selected { border: 2px solid #e4b752; }
+.loss-confusion-selected span { font-size: 12px; color: #f0cd7c; }
+.loss-probability-shares > div { display: grid; grid-template-columns: 120px 1fr 90px; gap: 12px; align-items: center; margin: 16px 0; }
+.loss-probability-track { height: 24px; background: #202c26; }
+.loss-probability-track span { display: block; height: 100%; }
+.loss-coordinate-board { margin: 24px 0; }
+.loss-coordinate-board .neural-chart { max-width: 380px; }
+.loss-matrix-area { display: flex; gap: 20px; align-items: flex-end; padding: 20px 0; }
+.loss-matrix-small { width: 40px; height: 40px; background: #8fc9b5; }
+.loss-matrix-large { width: 160px; height: 160px; background: #e4b752; }
+@media(max-width: 600px) { .loss-probability-shares > div { grid-template-columns: 1fr 70px; } .loss-probability-shares strong { grid-column: 1 / -1; } }

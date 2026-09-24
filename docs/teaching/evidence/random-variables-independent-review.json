@@ -1,0 +1,483 @@
+{
+  "reviewedAt": "2026-09-11T04:57:11.831Z",
+  "topicId": "random-variables-expectation-covariance",
+  "reviewer": "/root",
+  "status": "independent-review-closed; amended final sources verified; production integration and user acceptance separate",
+  "authorRecord": {
+    "path": "docs/teaching/evidence/random-variables-author-review.json",
+    "sha256": "738af3b9169ca9125b872ddad613f8d79dbfe3cf6ee7edb5ef9b92b3ccd92773",
+    "bytes": 74892
+  },
+  "originalAuthorSources": [
+    {
+      "path": "src/learn/data/topics/random-variables-expectation-covariance.jsx",
+      "sha256": "e6e9ca9028b91d63b9f2da4c9a8764c7a02e2f508183f2ce8a51d702ca491b95",
+      "archive": "scratch/random-variables-independent/author-sources/random-variables-expectation-covariance.jsx"
+    },
+    {
+      "path": "src/learn/data/random-variables-models.js",
+      "sha256": "92df0406d812b8869552ee86f4d9585c6e4b28c0b511d0caf32c2ec57380c247",
+      "archive": "scratch/random-variables-independent/author-sources/random-variables-models.js"
+    },
+    {
+      "path": "src/learn/data/random-variables-examples.js",
+      "sha256": "53e0ab69268d61f8038da23f5001d948178fee6dbbdaddfe1d280f839444a9be",
+      "archive": "scratch/random-variables-independent/author-sources/random-variables-examples.js"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RandomVariableLabs.jsx",
+      "sha256": "5cea17825066806dea9164ceaf44749521256b5aac2b76b3ea708396b670763c",
+      "archive": "scratch/random-variables-independent/author-sources/RandomVariableLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/random-variable-labs.css",
+      "sha256": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f",
+      "archive": "scratch/random-variables-independent/author-sources/random-variable-labs.css"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/random-variables-expectation-covariance.js",
+      "sha256": "4135077be24b13160c30faae951dcae12433599d3ec75716f099c609ae62a698",
+      "archive": "scratch/random-variables-independent/author-sources/random-variables-expectation-covariance.js"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/learn/data/topics/random-variables-expectation-covariance.jsx",
+      "sha256": "ff2b5a4081005a6e48e0ba959e3eeccc53d99ba8d848d61e514ed4b5e93a5997",
+      "bytes": 45546,
+      "authorSha256": "e6e9ca9028b91d63b9f2da4c9a8764c7a02e2f508183f2ce8a51d702ca491b95",
+      "amended": true
+    },
+    {
+      "path": "src/learn/data/random-variables-models.js",
+      "sha256": "d8fbde33467bfa85ec4daa7c01817c29d1861d2cabc040a617e353aed3ebffc2",
+      "bytes": 10658,
+      "authorSha256": "92df0406d812b8869552ee86f4d9585c6e4b28c0b511d0caf32c2ec57380c247",
+      "amended": true
+    },
+    {
+      "path": "src/learn/data/random-variables-examples.js",
+      "sha256": "53e0ab69268d61f8038da23f5001d948178fee6dbbdaddfe1d280f839444a9be",
+      "bytes": 22125,
+      "authorSha256": "53e0ab69268d61f8038da23f5001d948178fee6dbbdaddfe1d280f839444a9be",
+      "amended": false
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RandomVariableLabs.jsx",
+      "sha256": "3a439003800b275917a1d8bd6972cb90288ad541f828f306f9c8cba1231252d5",
+      "bytes": 23904,
+      "authorSha256": "5cea17825066806dea9164ceaf44749521256b5aac2b76b3ea708396b670763c",
+      "amended": true
+    },
+    {
+      "path": "src/learn/components/lesson-labs/random-variable-labs.css",
+      "sha256": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f",
+      "bytes": 4848,
+      "authorSha256": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f",
+      "amended": false
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/random-variables-expectation-covariance.js",
+      "sha256": "4135077be24b13160c30faae951dcae12433599d3ec75716f099c609ae62a698",
+      "bytes": 5404,
+      "authorSha256": "4135077be24b13160c30faae951dcae12433599d3ec75716f099c609ae62a698",
+      "amended": false
+    }
+  ],
+  "sourceReview": [
+    "Complete twelve-section body, all eleven changed practices and explained solutions",
+    "All fourteen actual Python programs, pure model, seven investigations, scoped CSS, blueprint and design",
+    "Probability-preserving grouping, finite moment hypotheses, conditional and covariance proofs, transformation branches, population/sample distinction and numerical arithmetic contracts"
+  ],
+  "findingsResolved": [
+    "Sparse and inherited missing entries now reject before arithmetic; 109 complementary invalid inputs and exact conservation of 8488 admitted states checked.",
+    "Static hasIntegratedGuide metadata removes the legacy duplicate guide; one integrated introduction verified in the actual page.",
+    "Save/run instructions now precede the first optional Python program, with standard-library and execution boundaries.",
+    "Probability plot label margin increased after actual-font bounds exposed a tight lower edge. Rounded accessible readouts are labelled as rounded.",
+    "Author verification wording now describes the actual product of separately computed standard deviations; its original source freeze remains preserved."
+  ],
+  "native": {
+    "file": {
+      "path": "scratch/random-variables-independent/results.json",
+      "sha256": "9dfd897f6ab63cb226a9eb373b41f7c73ed8f89271dffc9470fbe95b736b63a9",
+      "bytes": 748
+    },
+    "result": {
+      "at": "2026-09-11T01:46:11.215180+00:00",
+      "passed": true,
+      "unchangedAdmittedStates": 8488,
+      "sparseOrInheritedInputsRejected": 109,
+      "changedLaws": {
+        "finite": 12,
+        "paired": 18,
+        "noise": 24,
+        "samples": 16,
+        "conditional": 5
+      },
+      "actualPrograms": [
+        "mapping",
+        "moments",
+        "indicators",
+        "joint",
+        "noise",
+        "matrix",
+        "conditioning",
+        "prediction",
+        "continuous",
+        "sample_mean",
+        "sample_covariance",
+        "stable",
+        "tails",
+        "dice"
+      ],
+      "changedNativeHelperChecks": 6,
+      "scope": "Independent exact finite laws and program execution. Original author outputs preserved; invalid-array fix has exact conservation checks for admitted states."
+    }
+  },
+  "browser": {
+    "file": {
+      "path": "scratch/random-variables-independent/browser-results.json",
+      "sha256": "7a69f82bd9cadb473457b2431fd3b6d1918b6d1e2eabca86c6d7bf72e699ef26",
+      "bytes": 8908
+    },
+    "result": {
+      "at": "2026-09-11T04:53:21.535Z",
+      "records": [
+        {
+          "width": 1440,
+          "actualPrograms": 14,
+          "equations": 17,
+          "investigations": 7,
+          "keyboardChecks": 16,
+          "invalidModelInputs": 3,
+          "errors": [],
+          "failedRequests": []
+        },
+        {
+          "width": 390,
+          "actualPrograms": 14,
+          "equations": 17,
+          "investigations": 7,
+          "keyboardChecks": 16,
+          "invalidModelInputs": 3,
+          "errors": [],
+          "failedRequests": []
+        },
+        {
+          "width": 320,
+          "actualPrograms": 14,
+          "equations": 17,
+          "investigations": 7,
+          "keyboardChecks": 16,
+          "invalidModelInputs": 3,
+          "errors": [],
+          "failedRequests": []
+        }
+      ],
+      "images": [
+        {
+          "path": "scratch/random-variables-independent/changed-outcome-law-1440.png",
+          "sha256": "c1206207c96865e539ca5897d9be6941c3712b197ec35779cdb9b6b8f18228c7",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1273
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-squared-loss-1440.png",
+          "sha256": "5e64d2681d10c59cb0af959ff134f5653694f814d9104954033f2036a0e89121",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1375
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-nonlinear-witness-1440.png",
+          "sha256": "531c605ca516fde208a28a787eff69b577a0ae74a315b6d17d835cf40d705ed4",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1540
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-noise-combination-1440.png",
+          "sha256": "c47d1975ce3a599d267770004b5b89ea9053f4371c7e611a18b8ce5b3ca22a6d",
+          "captureViewport": {
+            "width": 1440,
+            "height": 2018
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-group-mixture-1440.png",
+          "sha256": "90b79ee0e6c2f321ac0df2ca27acf7e9c072be22eb23a95551eb156563f6af88",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1437
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-two-preimages-1440.png",
+          "sha256": "9b1e9e1163778af9280f27b2bcaf195fd520841e672717093ae45e4b57b6213f",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1189
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-independent-versus-copies-1440.png",
+          "sha256": "ff27bded1925ebd55e9cb5831c79c6fcd61a5ef4aeced734731f3cd920a8ed24",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1229
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-dice-practice-1440.png",
+          "sha256": "6088ad558649b20fcb0c2b46b36313f162380025e24d0b0d330d86667b6a0ada",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/python-setup-1440.png",
+          "sha256": "ee2ca20b72caa543a4f7b896be56e8b24aa6a554c1ce6a7c3ebd68c7a49894b7",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-outcome-law-390.png",
+          "sha256": "d6f5ba834c67a7ff66e9c81b6645d850816fa02e781eac909d13ea552a799d7e",
+          "captureViewport": {
+            "width": 390,
+            "height": 2081
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-squared-loss-390.png",
+          "sha256": "a7c005c645144d506ad45fff0bcb971a061ee6ef77fe8ae31287b8b53b0eac00",
+          "captureViewport": {
+            "width": 390,
+            "height": 2029
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-nonlinear-witness-390.png",
+          "sha256": "0049d4029957e17ae7c341b3fa8dd20c19f17267d851cb943aaedf70043ae941",
+          "captureViewport": {
+            "width": 390,
+            "height": 2330
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-noise-combination-390.png",
+          "sha256": "e4ca1363e2fe191cd2bf94d562a67134934e2c07c6aa2f311deb7dbb75aa3d66",
+          "captureViewport": {
+            "width": 390,
+            "height": 2685
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-group-mixture-390.png",
+          "sha256": "70901ab5a710392c333f18a9d5f354be63d3dba864ed8e967eeec69a4bab3d49",
+          "captureViewport": {
+            "width": 390,
+            "height": 1929
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-two-preimages-390.png",
+          "sha256": "45d3db9c818a3351508d660a2db4ad093a889faee26f86af1860db416f046e8e",
+          "captureViewport": {
+            "width": 390,
+            "height": 1464
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-independent-versus-copies-390.png",
+          "sha256": "998e6e2af5920518a0c94f54b7aa0897cc2db7407a552613ef98d4573b0b9478",
+          "captureViewport": {
+            "width": 390,
+            "height": 2035
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-dice-practice-390.png",
+          "sha256": "0b89d8ef0c4abeaf4e4ef85c7c6eb97c70fea515c03006fd70e2c57534b088fb",
+          "captureViewport": {
+            "width": 390,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/python-setup-390.png",
+          "sha256": "6f5d207846c00bce64dda3d6b3541541a4d3fc9f02f5f6ced2328b4250819dc1",
+          "captureViewport": {
+            "width": 390,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-outcome-law-320.png",
+          "sha256": "a15b8294a8c850986ece337aec99cc231e3e271fb826a695a12c1bddfdcbce1e",
+          "captureViewport": {
+            "width": 320,
+            "height": 2135
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-squared-loss-320.png",
+          "sha256": "3adfcf21f413512345a22586c4ad4c0ed5c3df097b58d12ea0c40962bbf666ef",
+          "captureViewport": {
+            "width": 320,
+            "height": 1986
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-nonlinear-witness-320.png",
+          "sha256": "6fe7bae87443b8bfc1d9501e3f0a2f4b168e8a5291d1bda40bdd1ae66d9fa8e4",
+          "captureViewport": {
+            "width": 320,
+            "height": 2390
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-noise-combination-320.png",
+          "sha256": "89242fcc3c5bf23c436e9b03f95e410c9e3a85fd0aa03cb978ac8c104147c9e6",
+          "captureViewport": {
+            "width": 320,
+            "height": 2865
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-group-mixture-320.png",
+          "sha256": "2a0bcb59783e86392e35236db4bec30f4e0e535579d9d8454636059ed3a4e9cf",
+          "captureViewport": {
+            "width": 320,
+            "height": 2228
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-two-preimages-320.png",
+          "sha256": "0bcfc497999a20c48797acaf3e7d5173308ede332edcbcffda9e62e2b0e47665",
+          "captureViewport": {
+            "width": 320,
+            "height": 1518
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-independent-versus-copies-320.png",
+          "sha256": "84b70b6fc9e92873c996a8fff3a455d6a91e187c632f77fa8252ed968cc91cdb",
+          "captureViewport": {
+            "width": 320,
+            "height": 2033
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/changed-dice-practice-320.png",
+          "sha256": "da8c252e0479855b0b43baad427512fe08ce9b8501e534ec33bd98fc46488428",
+          "captureViewport": {
+            "width": 320,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/random-variables-independent/python-setup-320.png",
+          "sha256": "d7cedad48b879234eeeda8643ca1698c846c27016b52465b796a4d3233f60547",
+          "captureViewport": {
+            "width": 320,
+            "height": 1050
+          }
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/learn/data/topics/random-variables-expectation-covariance.jsx",
+          "sha256": "ff2b5a4081005a6e48e0ba959e3eeccc53d99ba8d848d61e514ed4b5e93a5997"
+        },
+        {
+          "path": "src/learn/data/random-variables-models.js",
+          "sha256": "d8fbde33467bfa85ec4daa7c01817c29d1861d2cabc040a617e353aed3ebffc2"
+        },
+        {
+          "path": "src/learn/data/random-variables-examples.js",
+          "sha256": "53e0ab69268d61f8038da23f5001d948178fee6dbbdaddfe1d280f839444a9be"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/RandomVariableLabs.jsx",
+          "sha256": "3a439003800b275917a1d8bd6972cb90288ad541f828f306f9c8cba1231252d5"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/random-variable-labs.css",
+          "sha256": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/random-variables-expectation-covariance.js",
+          "sha256": "4135077be24b13160c30faae951dcae12433599d3ec75716f099c609ae62a698"
+        }
+      ],
+      "browser": "152.0.4191.66",
+      "passed": true
+    }
+  },
+  "visuallyOpened": [
+    {
+      "path": "scratch/random-variables-independent/changed-outcome-law-390.png",
+      "sha256": "d6f5ba834c67a7ff66e9c81b6645d850816fa02e781eac909d13ea552a799d7e",
+      "bytes": 83521
+    },
+    {
+      "path": "scratch/random-variables-independent/changed-nonlinear-witness-320.png",
+      "sha256": "6fe7bae87443b8bfc1d9501e3f0a2f4b168e8a5291d1bda40bdd1ae66d9fa8e4",
+      "bytes": 94742
+    },
+    {
+      "path": "scratch/random-variables-independent/changed-squared-loss-1440.png",
+      "sha256": "5e64d2681d10c59cb0af959ff134f5653694f814d9104954033f2036a0e89121",
+      "bytes": 73251
+    },
+    {
+      "path": "scratch/random-variables-independent/changed-noise-combination-390.png",
+      "sha256": "e4ca1363e2fe191cd2bf94d562a67134934e2c07c6aa2f311deb7dbb75aa3d66",
+      "bytes": 125421
+    },
+    {
+      "path": "scratch/random-variables-independent/changed-group-mixture-1440.png",
+      "sha256": "90b79ee0e6c2f321ac0df2ca27acf7e9c072be22eb23a95551eb156563f6af88",
+      "bytes": 115856
+    },
+    {
+      "path": "scratch/random-variables-independent/changed-two-preimages-320.png",
+      "sha256": "0bcfc497999a20c48797acaf3e7d5173308ede332edcbcffda9e62e2b0e47665",
+      "bytes": 73939
+    },
+    {
+      "path": "scratch/random-variables-independent/changed-independent-versus-copies-390.png",
+      "sha256": "998e6e2af5920518a0c94f54b7aa0897cc2db7407a552613ef98d4573b0b9478",
+      "bytes": 83275
+    },
+    {
+      "path": "scratch/random-variables-independent/changed-dice-practice-320.png",
+      "sha256": "da8c252e0479855b0b43baad427512fe08ce9b8501e534ec33bd98fc46488428",
+      "bytes": 33507
+    },
+    {
+      "path": "scratch/random-variables-independent/python-setup-320.png",
+      "sha256": "d7cedad48b879234eeeda8643ca1698c846c27016b52465b796a4d3233f60547",
+      "bytes": 24305
+    }
+  ],
+  "sourceRecheck": {
+    "date": "2026-09-11",
+    "url": "https://www2.stat.duke.edu/courses/Fall19/sta721/lectures/NormalTheory/multnorm.pdf",
+    "scope": "Selected parsed block-Gaussian construction and independence conclusion, with singular definition context; not the entire notes. PDF screenshot fetch failed and is not claimed as visually reviewed."
+  },
+  "limitations": [
+    "Finite complementary tests are not proofs of arbitrary probability laws; derivations and their hypotheses were separately read.",
+    "The original author packet retains its earlier model/browser evidence; this packet binds only the final amendments and explicitly described complementary checks.",
+    "Nine of 27 reviewer captures were actually opened. The earlier failing pre-margin image was inspected but is not final evidence.",
+    "No real measurement data, full-video viewing, production deployment, observed beginner study or user acceptance is claimed."
+  ]
+}

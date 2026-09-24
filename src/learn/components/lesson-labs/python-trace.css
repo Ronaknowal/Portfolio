@@ -1,0 +1,13 @@
+.python-trace__code { white-space: pre-wrap; overflow-wrap: anywhere; padding: 14px; border: 1px solid #39332a; background: #080808; color: #ebd6aa; font-size: 14px; line-height: 1.7; }
+.python-trace button:disabled { opacity: .45; cursor: default; }
+.python-example { margin: 22px 0 30px; }
+.python-example__explanation { border-left: 2px solid #665334; padding-left: 16px; }
+.lesson-pilot .module-map { padding-left: 22px; }
+.lesson-pilot .module-map li { margin: 8px 0; }
+.broadcast-cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 12px 0; }
+.broadcast-cells button { display: flex; justify-content: space-between; padding: 12px; min-height: 48px; background: #111; color: #ccc; border: 1px solid #555; cursor: pointer; }
+.broadcast-cells button[aria-pressed="true"] { border: 2px solid #e2b55a; background: #282214; }
+.broadcast-cells button strong { color: #e2b55a; }
+.join-options { display: grid; gap: 10px; margin: 16px 0; }
+.join-options label { display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer; }
+.join-options input { width: 18px; height: 18px; flex-shrink: 0; accent-color: #e2b55a; }

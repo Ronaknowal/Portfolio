@@ -1,0 +1,58 @@
+.svm-lab, .svm-inline { margin: 2rem 0; color: #dedbd1; }
+.svm-lab { padding: clamp(13px,2.2vw,24px); background: #0c1316; border: 1px solid #354044; border-radius: 5px; }
+.svm-lab h3 { margin: 0 0 1rem; color: #f0e6d0; font-size: 1.18rem; }
+.svm-lab p, .svm-inline p { font-size: .93rem; line-height: 1.7; }
+.svm-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; margin: 1.2rem 0; }
+.svm-lab label { display: flex; flex-direction: column; gap: .45rem; min-width: 0; font-size: .86rem; }
+.svm-lab input[type=range] { min-height: 34px; width: 100%; accent-color: #efc36e; }
+.svm-lab select { width: 100%; min-width: 0; padding: .6rem; background: #121e23; border: 1px solid #637075; border-radius: 3px; color: #e6e3d8; font: inherit; }
+.svm-lab button { padding: .55rem .75rem; min-height: 40px; font: inherit; font-size: .84rem; background: #182427; color: #f0d398; border: 1px solid #66716d; border-radius: 3px; cursor: pointer; }
+.svm-lab button:hover:not(:disabled) { background: #293631; }
+.svm-lab button:disabled, .svm-lab input:disabled { opacity: .45; cursor: default; }
+.svm-lab :focus-visible, .svm-practice :focus-visible { outline: 2px solid #efc36e; outline-offset: 3px; }
+.svm-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1rem 0; }
+.svm-plots { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.1rem; }
+.svm-plot { margin: 1.2rem 0 .5rem; min-width: 0; }
+.svm-plot figcaption, .svm-inline figcaption { color: #e9ce98; font-size: .94rem; font-weight: 600; }
+.svm-plot svg { display: block; width: 100%; height: auto; overflow: visible; }
+.svm-plot svg text { font-family: inherit; font-size: 12px; fill: #cbd3cf; }
+.svm-grid { stroke: #334349; stroke-width: 1; }
+.svm-zero { stroke: #818d88; stroke-width: 1; }
+.svm-lab .svm-axis { font-size: .78rem; color: #bfc9c3; margin: .25rem 0; }
+.svm-legend { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .8rem; margin: .6rem 0; }
+.svm-readouts { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; border-top: 1px solid #384643; padding-top: 1rem; margin: 1.2rem 0; }
+.svm-readouts div { flex: 1 1 170px; }
+.svm-readouts dt { font-size: .78rem; color: #b5c3bc; line-height: 1.5; }
+.svm-readouts dd { margin: .25rem 0 0; font-size: 1.06rem; color: #eed29c; line-height: 1.5; overflow-wrap: anywhere; }
+.svm-data { margin: 1rem 0; font-size: .85rem; }
+.svm-data summary, .svm-practice summary { padding: .65rem 0; color: #e0c892; cursor: pointer; }
+.svm-data > div { overflow-x: auto; }
+.svm-data table { min-width: 100%; border-collapse: collapse; font-size: .8rem; }
+.svm-data td, .svm-data th { white-space: nowrap; padding: .55rem; border-bottom: 1px solid #354440; text-align: left; }
+.svm-scope { font-size: .81rem !important; color: #b6c3bc; }
+.svm-inline { border-top: 1px solid #38483f; border-bottom: 1px solid #38483f; padding: 1.2rem 0; }
+.svm-comparison { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; margin: 1rem 0; }
+.svm-comparison h4 { margin: .6rem 0; font-size: .93rem; color: #e8ded0; }
+.svm-comparison strong { color: #b7d8c9; font-size: .9rem; }
+.svm-matrix { display: grid; grid-template-columns: repeat(2,42px); width: fit-content; gap: 2px; border-left: 2px solid #aabbb1; border-right: 2px solid #aabbb1; padding: .4rem; }
+.svm-matrix span { padding: .35rem; text-align: center; background: #1b2b2b; color: #efc36e; }
+.svm-contributions { border-top: 1px solid #4b5751; padding-top: .6rem; }
+.svm-contributions > div { display: grid; grid-template-columns: 66px minmax(0,1fr) 62px; gap: .5rem; align-items: center; margin: .55rem 0; font-size: .82rem; }
+.svm-contribution-track { height: 20px; position: relative; background: #19292e; }
+.svm-contribution-track::after { content: ''; position: absolute; left: 50%; top: 0; height: 100%; border-left: 1px solid #c5cec0; }
+.svm-contribution-track i { position: absolute; top: 3px; height: 14px; }
+.svm-selection { display: grid; grid-template-columns: 56px repeat(3,minmax(0,1fr)); gap: .45rem; margin: 1rem 0; font-size: .82rem; align-items: center; text-align: center; }
+.svm-selection-row { display: contents; }
+.svm-selection button { padding: .45rem .2rem; min-width: 0; }
+.svm-selection button[aria-pressed=true] { background: #423721; border: 2px solid #efc36e; }
+.svm-lab .svm-check { flex-direction: row; gap: .6rem; align-items: center; margin: 1rem 0; }
+.svm-check input { width: 18px; height: 18px; flex: none; accent-color: #efc36e; }
+.svm-sequence-rows { display: flex; flex-direction: column; gap: 1rem; margin: 1rem 0; }
+.svm-sequence-rows > div { border-bottom: 1px solid #3c4b40; padding-bottom: .7rem; }
+.svm-sequence-rows strong { letter-spacing: .2em; font-size: 1.1rem; color: #efd6a6; }
+.svm-windows { display: flex; gap: .45rem; flex-wrap: wrap; margin-top: .6rem; }
+.svm-windows span { display: flex; flex-direction: column; padding: .45rem .65rem; border-bottom: 2px solid #87d9b1; background: #152c26; font-size: 1rem; }
+.svm-windows small { font-size: .73rem; color: #b1c5bc; }
+.svm-practice { border-top: 1px solid #3e493d; padding-top: 1rem; margin: 1.7rem 0; }
+.svm-practice p { line-height: 1.8; }
+@media (max-width: 650px) { .svm-plots, .svm-controls, .svm-comparison { grid-template-columns: minmax(0,1fr); } }

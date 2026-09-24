@@ -1,0 +1,221 @@
+{
+  "topicId": "differential-geometry-riemannian-manifolds",
+  "reviewedAt": "2026-09-11T00:25:10.411383+00:00",
+  "authorFreeze": "2026-09-11T00:01:01.517702+00:00",
+  "status": "bounded independent review complete; no unresolved material finding",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx",
+      "sha256": "0ff1f1983ec08941fea6d890c07ad8915a1b16aba81a99570a25d108f1ccd586"
+    },
+    {
+      "path": "src/learn/data/differential-geometry-models.js",
+      "sha256": "7d3118253a653ba4fc5d48fe1daae10a673e77ca346516414c918dd534eebd8f"
+    },
+    {
+      "path": "src/learn/data/differential-geometry-examples.js",
+      "sha256": "a4f5b8082c8f5cb60b8c59bc2a9b41b4a44e58119334640153f01c6bb2d3f866"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx",
+      "sha256": "08406fb8fe003d769c523c18cc079ee289121ac8b27dec32fec30ff309044c0a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/differential-geometry-labs.css",
+      "sha256": "fc11abfc545b289b3032445db4b331633c2d115b5751908e43f6474cb8433974"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/differential-geometry-riemannian-manifolds.js",
+      "sha256": "70d6ec5e1c39f00e2e5c2ac43b27264724cf67b7946dc12d7fdafef8fed35b71"
+    }
+  ],
+  "productionEdits": false,
+  "findings": [],
+  "native": {
+    "checkedAt": "2026-09-11T00:21:34.225548+00:00",
+    "passed": true,
+    "authorFreeze": "2026-09-11T00:01:01.517702+00:00",
+    "sources": [
+      {
+        "path": "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx",
+        "sha256": "0ff1f1983ec08941fea6d890c07ad8915a1b16aba81a99570a25d108f1ccd586"
+      },
+      {
+        "path": "src/learn/data/differential-geometry-models.js",
+        "sha256": "7d3118253a653ba4fc5d48fe1daae10a673e77ca346516414c918dd534eebd8f"
+      },
+      {
+        "path": "src/learn/data/differential-geometry-examples.js",
+        "sha256": "a4f5b8082c8f5cb60b8c59bc2a9b41b4a44e58119334640153f01c6bb2d3f866"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx",
+        "sha256": "08406fb8fe003d769c523c18cc079ee289121ac8b27dec32fec30ff309044c0a"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/differential-geometry-labs.css",
+        "sha256": "fc11abfc545b289b3032445db4b331633c2d115b5751908e43f6474cb8433974"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/differential-geometry-riemannian-manifolds.js",
+        "sha256": "70d6ec5e1c39f00e2e5c2ac43b27264724cf67b7946dc12d7fdafef8fed35b71"
+      }
+    ],
+    "actualPrograms": 14,
+    "originalCodeOutputConserved": true,
+    "rotatedMapTransportCases": 48,
+    "orientedSolidAngleLoops": 30,
+    "metricCases": 12,
+    "noncommutingCongruenceCases": 24,
+    "restrictedOptimizerCases": [
+      {
+        "initial": [
+          0.0,
+          1.0,
+          1.0
+        ],
+        "status": "stationary",
+        "value": 5.000000000000013,
+        "restrictedReference": 5.0
+      },
+      {
+        "initial": [
+          1.0,
+          0.0,
+          1.0
+        ],
+        "status": "stationary",
+        "value": 2.000000000000027,
+        "restrictedReference": 2.0
+      },
+      {
+        "initial": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "status": "stationary",
+        "value": 11.0,
+        "restrictedReference": 11.0
+      },
+      {
+        "initial": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "status": "stationary",
+        "value": 2.000000000000016,
+        "restrictedReference": 2.0
+      }
+    ],
+    "FisherArcIntegrals": 4,
+    "maximumAbsoluteDiscrepancy": 2.708944180085382e-14,
+    "limits": "Bounded complementary cases, not arbitrary-range floating-point certification or a rerun of the author suite."
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T00:23:08.874Z",
+    "results": [
+      {
+        "width": 1440,
+        "status": {
+          "actualFont": true,
+          "documentWidth": 1440
+        },
+        "keyboardStates": 3,
+        "changedMetric": true,
+        "reversedLoop": true,
+        "partialProgressReadoutContract": true,
+        "errors": []
+      },
+      {
+        "width": 390,
+        "status": {
+          "actualFont": true,
+          "documentWidth": 390
+        },
+        "keyboardStates": 3,
+        "changedMetric": true,
+        "reversedLoop": true,
+        "partialProgressReadoutContract": true,
+        "errors": []
+      },
+      {
+        "width": 320,
+        "status": {
+          "actualFont": true,
+          "documentWidth": 320
+        },
+        "keyboardStates": 3,
+        "changedMetric": true,
+        "reversedLoop": true,
+        "partialProgressReadoutContract": true,
+        "errors": []
+      }
+    ],
+    "captureNote": "Only the fixed navigation header is hidden while capturing individual investigations; behavior and lesson source remain unchanged."
+  },
+  "openedImages": [
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-6-320.png",
+      "sha256": "4c3fb07f2d06e8ee79745c0e4be13caad58c9e10aff8105d4fd96a25c4c6cccb",
+      "createdBy": "author",
+      "actuallyOpenedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-9-320.png",
+      "sha256": "c796ce3179c817db8f3c599fcd99f47d742bdfafa16abf09a09f405df0b43b51",
+      "createdBy": "author",
+      "actuallyOpenedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-capstone-reading-1440.png",
+      "sha256": "a4f902b02703ee1263b7d6ece946838278997b805b84ed0d2f74de71c564344b",
+      "createdBy": "author",
+      "actuallyOpenedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-1-390.png",
+      "sha256": "58016558dd3c949094079c45845f6a0a4f547086007473482267f141afb8e5b0",
+      "createdBy": "author",
+      "actuallyOpenedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/default-visual-10-320.png",
+      "sha256": "ba93a4c4776625f49762f6286bb0bb9366d90ac72f4ae24ae286c39c93a00874",
+      "createdBy": "author",
+      "actuallyOpenedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/differential-geometry-browser/final-equation-12-320.png",
+      "sha256": "0d83a886a146d6156b55da9338963e3e9c333c2d69124d8263e256454367d5bf",
+      "createdBy": "author",
+      "actuallyOpenedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/differential-geometry-independent-review/metric-changed-1440.png",
+      "sha256": "23a040f19e2941417bc20d30ad47550e0351100233c06c5dffd8062bbea09d21",
+      "createdBy": "independent reviewer",
+      "actuallyOpenedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/differential-geometry-independent-review/metric-changed-320.png",
+      "sha256": "7611952cfda44a194898b234492e3c01b466b67938023a59a63c6e2cca987d88",
+      "createdBy": "independent reviewer",
+      "actuallyOpenedByIndependentReviewer": true
+    },
+    {
+      "path": "scratch/differential-geometry-independent-review/transport-reversed-390.png",
+      "sha256": "3e21361fac38d1f9725ebf5d67dc231c8bdb0c6cad99ba1f94d26170afa420be",
+      "createdBy": "independent reviewer",
+      "actuallyOpenedByIndependentReviewer": true
+    }
+  ],
+  "record": "docs/teaching/DIFFERENTIAL-GEOMETRY-INDEPENDENT-REVIEW.md",
+  "limits": [
+    "Finite source/proof and complementary calculation review, not arbitrary-range numeric certification.",
+    "Author broad browser and native results retain separate attribution.",
+    "No external video playback or user acceptance is claimed.",
+    "Production integration remains parent-owned."
+  ]
+}

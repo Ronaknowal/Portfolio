@@ -1,0 +1,27 @@
+{
+  "source_ids": [
+    1,
+    11
+  ],
+  "image_shape": [
+    2,
+    1,
+    8,
+    8
+  ],
+  "mobile_shape": [
+    2,
+    8,
+    8,
+    8
+  ],
+  "context_shape": [
+    2,
+    4,
+    8,
+    8
+  ],
+  "stem_gradient_finite": true,
+  "stem_gradient_nonzero": true,
+  "mode": "randomly initialized train-mode, batch two; no fitted segmentation output"
+}

@@ -1,0 +1,52 @@
+{
+  "verifiedAt": "2026-09-12T03:58:19.379198+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/clustering-evaluation-examples.js",
+  "sourceHash": "b068474e41d0befab400dc751797e2046964af1463927813bf7ea85e5537b2f1",
+  "verifier": "scripts/verify-clustering-evaluation-examples.py",
+  "verifierHash": "04801d0d1f1328f13268267118dc21b79b73cb6666cd72061a2485bf94c87e41",
+  "csvHash": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "silhouette": {
+      "codeHash": "81b4c4718e7c6c7b4f1e8419c876cc893a449dc1a89d4971a152086910c3aeed",
+      "stdoutHash": "256e187ea0d37ec31aac928a4663b6325b85fe02fb8b403a22e56c909c3f1d7d",
+      "stdout": "scores: [0.8125, 0.857143, 0.75, 0.75, 0.857143, 0.8125]\nmean: 0.806548\nmatches library: True\ncommon scale unchanged: True\nchanged C: -0.75\nchanged mean: 0.459394"
+    },
+    "pairs": {
+      "codeHash": "b3d8ebe7d0d59bfde06645ad0293bdf11bf785ad6f58ccf323fa4ea3c14057e0",
+      "stdoutHash": "b284e80137ee6e7aed5cd722da3421f8ba78a8671b1091255134df9a8d03d6ea",
+      "stdout": "S A B M: 6 12 12 28\nRI: 0.571429\nARI: 0.125\nlibrary: 0.571429 0.125\nrenamed ARI: 0.125"
+    },
+    "chance": {
+      "codeHash": "b6e8b81958cd9904e0237354af44e8fea1351817e30830a3373674b100a571d1",
+      "stdoutHash": "290d7d829851c584bdf1d9a42c5ae433d6b80f5633f5db112287d7f71250285e",
+      "stdout": "assignments: 70\noverlap counts: [1, 16, 36, 16, 1]\nmean NMI: 0.114844\nadjusted means close to zero: True"
+    },
+    "iris": {
+      "codeHash": "26949e23cda6ecbe03319ebcc00e4e795a50e94ed6dd049b9aa3f423186129d1",
+      "stdoutHash": "75816e2f91040cbc313bf4673f2bd266884b48ecfc245b61f60436eaaccf30f0",
+      "stdout": "raw4 2 sil=0.681046 ARI=0.539922 AMI=0.653838 negative=0\nraw4 3 sil=0.552819 ARI=0.730238 AMI=0.755119 negative=0\nscaled4 2 sil=0.581750 ARI=0.568116 AMI=0.731585 negative=0\nscaled4 3 sil=0.459948 ARI=0.620135 AMI=0.655223 negative=2\npca2 2 sil=0.614520 ARI=0.568116 AMI=0.731585 negative=0\npca2 3 sil=0.509168 ARI=0.620135 AMI=0.655223 negative=0\nwhite2 2 sil=0.487163 ARI=0.568116 AMI=0.731585 negative=0\nwhite2 3 sil=0.479638 ARI=0.580252 AMI=0.611417 negative=1"
+    },
+    "probes": {
+      "codeHash": "67ea4af3a4b65a02516e61a31a6414f1c6b5490d24712bf58511ee1e63db165c",
+      "stdoutHash": "679280c17f45393208bf9d3da677832e4f6ccb43840c984e20bd9f92af789c97",
+      "stdout": "centers: [0.5, 6.5] probe labels: [0, 0, 1, 1, 1, 1]\ncenters: [2.5, 8.5] probe labels: [0, 0, 0, 0, 1, 1]\nprobe ARI: -0.071429\none-group ARI: 1.0"
+    },
+    "report": {
+      "codeHash": "bb99c6b050a7e85dbf902a62ac3c78123acf5fb7852a11616219d5e3f58c8415",
+      "stdoutHash": "079a504ce99fd9b5d6220de4d0cd2234261e062fd9da1a12ecbdc788057a7f2d",
+      "stdout": "split sizes: 90 30 30\nselected k: 2 selection silhouette: 0.556802\nreport distortion / baseline: 1.375135 4.673251\nreport species ARI: 0.628523"
+    }
+  },
+  "oracles": 11,
+  "limits": [
+    "Iris values are the scikit-learn bundled corrected copy, exported to the lesson CSV; no UCI download.",
+    "Single-threaded BLAS and OMP; fold-free programs, so no timing claims.",
+    "Manuscript-value oracles compare six-decimal printed values within 5e-7."
+  ]
+}

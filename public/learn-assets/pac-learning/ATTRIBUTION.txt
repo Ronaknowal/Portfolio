@@ -1,0 +1,49 @@
+Banknote Authentication
+Volker Lohweg (2012). UCI Machine Learning Repository.
+https://doi.org/10.24432/C55P57  ·  https://archive.ics.uci.edu/dataset/267/banknote+authentication
+Licensed CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
+banknote-subset.csv holds the unchanged bytes of the offline extract prepared for this
+curriculum, 21237 bytes, SHA-256 d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a.
+The upstream archive was retrieved on 12 September 2026 from
+https://archive.ics.uci.edu/static/public/267/banknote+authentication.zip, member
+data_banknote_authentication.txt; archive SHA-256
+1e2acd9a2085fadf3d8145c12d3d22af853320d52294a6590c2eaf75fdc05227, member SHA-256
+d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9. The original record has
+1372 rows, four continuous wavelet-derived image features and one binary class code, with no
+missing values.
+
+The extract is NumPy default_rng(23).permutation(1372) taken in that order, first 480 rows,
+each carrying its one-based source_row identifier from the original file. No measurement was
+transformed, no row was filtered and no column was dropped. Rows 1 to 320 of the file are the
+split name "pool", rows 321 to 400 are "development" and rows 401 to 480 are "test". All 480
+source_row identifiers are distinct and the three splits are disjoint.
+
+Comma separated, CRLF line endings, a header row and 480 data rows of seven columns:
+source_row, split, variance, skewness, curtosis, entropy, class. The source spelling
+"curtosis" is retained. The four measurements span variance -6.7387 to 6.5633, skewness
+-13.6779 to 12.7302, curtosis -5.2861 to 17.6052 and entropy -7.7853 to 2.1353. The class
+column holds 275 zeros and 205 ones over the whole file, and 41 zeros and 39 ones over the
+80 development rows.
+
+"class" is the source's own binary class code. This curriculum does not assign it a
+genuine-or-forged meaning, because the UCI record does not state which code is which.
+
+What this lesson does with it: all 320 pool rows are labelled training data. A fixed
+permutation of those 320 row positions, NumPy default_rng(44), defines nested training
+prefixes of 20, 40, 80, 160 and 320 examples. Three predeclared procedures are fitted at each
+size and scored on their own training prefix and on the fixed 80 development rows. The 80
+test rows are NOT evaluated by this lesson's program, and no final selected-model estimate is
+reported from them.
+
+Two other lessons in this curriculum serve the same extract under
+public/learn-assets/evaluation-metrics/ and public/learn-assets/semi-supervised-learning/.
+This lesson serves its own copy so that no other lesson's asset edit can change what this
+page teaches, and it never references theirs. The three copies are byte-identical today; that
+is a fact about today, not a dependency.
+
+Also served here, as downloads the lesson links rather than a dataset:
+  pac-calculations.py          SHA-256 33bad8e470ef16a5e5052620d0b747d1b880e734c9e440eff9a39d3db26ea51e
+  banknote-learning-curves.py  SHA-256 ab4f7106bd5c33ea07f5f199c530b269997328c2c96a3f9df67b296c5f9a29d9
+Both are the content packet's own programs, copied byte for byte from
+docs/teaching/drafts/pac-learning-vc-dimension/.

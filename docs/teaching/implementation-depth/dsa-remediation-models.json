@@ -1,0 +1,127 @@
+{
+  "status": "passed",
+  "scope": "author complementary contract/oracle checks",
+  "checks": [
+    {
+      "name": "Tree/bisect mixed mutations match independent set + scanning neighbor oracle",
+      "passed": true,
+      "cases": 250
+    },
+    {
+      "name": "Tree changed reservation exercise and duplicate releases",
+      "passed": true
+    },
+    {
+      "name": "Traversal includes loops, duplicate edges and isolated vertices against distance closure",
+      "passed": true,
+      "cases": 2048
+    },
+    {
+      "name": "Incoming reachability practice",
+      "passed": true
+    },
+    {
+      "name": "Local range structures every interval after mixed signed set/add updates",
+      "passed": true,
+      "cases": 400
+    },
+    {
+      "name": "Changed lazy update order gives totals 17 and 21",
+      "passed": true
+    },
+    {
+      "name": "Weighted routes enumerate simple paths; forests enumerate edge subsets",
+      "passed": true,
+      "cases": 50
+    },
+    {
+      "name": "Parallel-route changed practice, zero and signed edges",
+      "passed": true
+    },
+    {
+      "name": "All-overlap built-in/KMP/stream matching against slicing at every seam",
+      "passed": true,
+      "cases": 945
+    },
+    {
+      "name": "Changed chunk exercise includes empty pattern and empty chunk",
+      "passed": true
+    },
+    {
+      "name": "Reservoir exact choice-tree oracle, no frequency estimate",
+      "passed": true,
+      "cases": 60
+    },
+    {
+      "name": "Changed downsampling practice gives uniform pair counts",
+      "passed": true
+    },
+    {
+      "name": "Integer ticket route retains enormous-weight last occurrence",
+      "passed": true
+    },
+    {
+      "name": "Zero reservoir capacity does not consume stream",
+      "passed": true
+    },
+    {
+      "name": "Parallel/antiparallel flow certificates against every source-sink cut",
+      "passed": true,
+      "cases": 100
+    },
+    {
+      "name": "Changed two-exit bottleneck exercise",
+      "passed": true
+    },
+    {
+      "name": "Nondegenerate integer hulls: library corners, exact area and support witnesses",
+      "passed": true,
+      "cases": 100
+    },
+    {
+      "name": "Translation practice exposes conversion-order loss",
+      "passed": true
+    },
+    {
+      "name": "Branches from any old version preserve every old interval",
+      "passed": true,
+      "cases": 80
+    },
+    {
+      "name": "Historical two-position correction exercise",
+      "passed": true
+    },
+    {
+      "name": "File sorter: empty/duplicates/partial/multilevel, preserved input and cleaned workspace",
+      "passed": true,
+      "cases": 7
+    },
+    {
+      "name": "File sorter rejects truncated input and existing destinations without overwriting",
+      "passed": true
+    },
+    {
+      "name": "SQL changed duplicate/multicolumn ordering exercise",
+      "passed": true
+    }
+  ],
+  "sourceHashes": {
+    "scripts/verify-dsa-remediation-models.py": "a41e07f45ba3f96304a7756423fde183a2f9ffa4ea94f5c749412316e36e6787",
+    "public/learn-assets/trees-binary-search-trees/tree_mechanisms.py": "39099f533ffb4b5e918b7ba3245548a1ce29a5b49d7d4e8f7824bb1bb070e50e",
+    "public/learn-assets/trees-binary-search-trees/ordered_set_library.py": "8d02abdc6a518343fd74131634c7379f550d78c65eeaad4b1949a2b17044b16c",
+    "public/learn-assets/graphs-representations-bfs-dfs/graph_traversal_mechanisms.py": "2f4358605d331ef71c1600672665dc3449e60f51ad5a8d8db3de72706a6a7b12",
+    "public/learn-assets/graphs-representations-bfs-dfs/graph_library.py": "6040f9a74aff935e5fea4771f8b0f250ad8f44023e1b4f1f864e37c375c9ef91",
+    "public/learn-assets/segment-trees-fenwick-trees-range-queries/range_query_mechanisms.py": "9413acd5339f0c15c9a0dc3d6a03313dbe7bd07487e7efa081d7731fffd9f029",
+    "public/learn-assets/shortest-paths-spanning-trees-topological-ordering/weighted_graph_mechanisms.py": "ca38811f5b9a36afb0a68f01223d4060023e3fd1ef8ff96b1e3ad6fb6882e8a5",
+    "public/learn-assets/shortest-paths-spanning-trees-topological-ordering/weighted_graph_library.py": "f9ff45ae5d48f27f51b59fdf8e18e606acde6e62cdb6be881d7e7fdce763ca30",
+    "public/learn-assets/string-matching-prefix-functions-rolling-hashes/string_matching_mechanisms.py": "9ee6c186a21a17c1c10fc2099c45abae7d2f5afd2dc94b1b0803b5f7960b6a20",
+    "public/learn-assets/string-matching-prefix-functions-rolling-hashes/string_search_library.py": "0c699e1f85bbb02e72a08a3e5da16700e50482cc8e88a87685f8ab130c49e961",
+    "public/learn-assets/randomized-algorithms-sampling-error-guarantees/randomized_algorithm_mechanisms.py": "4d749bdf06d3bc542e390ba96a646b8393bebd40fcb79e4ec6e041c6a6613a0a",
+    "public/learn-assets/network-flow-minimum-cuts-bipartite-matching/network_flow_mechanisms.py": "518385eb3d2a76319832032dc0e11461ef8f5a9ef18d6ac4d2d1dc7eb38f40ea",
+    "public/learn-assets/network-flow-minimum-cuts-bipartite-matching/flow_library.py": "97363f87f128fe8b1c9270d8a395fcc637dafff55a95a0b8c64e572793c9e141",
+    "public/learn-assets/computational-geometry-robust-predicates-convex-hulls/computational_geometry_mechanisms.py": "6f599a25b5d506cd90d3865602776d115e9711c633222e31dd74282c28866e0f",
+    "public/learn-assets/persistent-data-structures-structural-sharing-versioned-queries/persistent_structures_mechanisms.py": "998da7fbed6c40b4833fc150708948502fb1dac4ff277cc1e6717c7d7cf2dd19",
+    "public/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/external_memory_mechanisms.py": "4e4bcce2b463dcfffbc92b2602bfa137cab3ad517fe58523c7f639558f26ed04",
+    "public/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/external_sort_stream.py": "545310f36b438387bc0f337c20e767474f68167400e53d70af989391bdfcb633"
+  }
+}

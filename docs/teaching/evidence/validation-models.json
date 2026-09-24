@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-09-16T16:13:56.959Z",
+  "command": "node scripts/verify-validation-models.mjs",
+  "stage": "author model verification; browser, independent and integration review are separate",
+  "groups": [
+    "Fold plans: remainder preservation, exactly-once partition, grouping leaks, stratification and refusals",
+    "One-nearest-neighbour run: the packet trace, an independent brute force, weighting identity, contrast, own-label null and tie rule",
+    "Selection on a criterion with no signal: exact enumeration, duplicate null, sixteen-rule saturation and the fair-label future",
+    "Constructed nested experiment: all three packet traces, the selection contrast, the protected-label null and the role-relative effect",
+    "Search coverage: hit probability, required draws, and the distinction from score proximity",
+    "Conditional versus expected error: exact mean-predictor risks, optimism, and the overlap counterexample",
+    "Acquisition: expected improvement against expected loss, the unchanged-EI null, and the TPE ratio",
+    "Successive halving: early ranking, the late-value null, the first-budget contrast, and exact resource accounting",
+    "Fit accounting matches the manuscript arithmetic",
+    "Published real experiment agrees with the manuscript sentences and keeps selection and assessment apart"
+  ],
+  "groupCount": 10,
+  "assertions": 17926,
+  "independentOracles": [
+    "array_split fold sizes recomputed for every n up to 40 and every k",
+    "400 randomised 1-NN runs graded against a brute-force nearest-eligible-neighbour search",
+    "200 randomised nested runs graded against a directly written stable-sort majority vote",
+    "all 16 fair-label patterns enumerated rather than sampled",
+    "leave-one-out accuracy variance of the fixed rule enumerated over every label pattern up to n=8",
+    "hit probabilities recomputed by repeated multiplication for 240 (p, T) pairs",
+    "all three retained packet traces compared value by value"
+  ],
+  "limits": [
+    "These are model checks. They say nothing about how the page renders, and nothing about penguins beyond the one recorded experiment.",
+    "Fit counts are exact; no runtime or speedup is asserted anywhere in this file."
+  ],
+  "sourceHashes": {
+    "src/learn/data/validation-models.js": "53ac50c510d51052765de8f82809e21ac72b11da4397012bd8f3ece31c062086",
+    "src/learn/data/validation-data.js": "6a7b1a5d9ef55846fb723967202498ef4f71add328b1e94e1ae8e320b317a0a0",
+    "src/learn/data/validation-examples.js": "d5c8677e86c0b7513ef6748624b26a910062b94925b53a29b41ba93ce556394b",
+    "scripts/verify-validation-models.mjs": "8cad1f39c2436ee49ac7c6ccf54a2b4690e41a8225330255ffb02ec7ec35ea73"
+  }
+}

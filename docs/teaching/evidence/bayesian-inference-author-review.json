@@ -1,0 +1,532 @@
+{
+  "topicId": "bayesian-inference-conjugate-priors",
+  "frozenAt": "2026-09-10T15:16:54.517Z",
+  "files": {
+    "src/learn/data/topics/bayesian-inference-conjugate-priors.jsx": "4457ede4ed46aebf690c4ce786e60611abc9a45a112606c95b1d283e1d3828de",
+    "src/learn/data/bayesian-inference-models.js": "71d0a3d5fa5a91135d493ffbdbbfe5063a27f6acbbcb8dca2130aef12935a3dc",
+    "src/learn/data/bayesian-inference-examples.js": "58f1f38e83cd5eae5934b9b9189aa8306e04ce7f2bbffaebaf9aab2da155ac47",
+    "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "4c277461f04ff580df50b5442cca6ceb78fa67de8a4630b98b2ca85ac7917da7",
+    "src/learn/components/lesson-labs/bayesian-inference-labs.css": "932602520f86292f3a6b5b3e7cd2eff8f85320d5a41f2ee1cdd79fcdfbb3aa7b",
+    "src/learn/data/curriculum/blueprints/bayesian-inference-conjugate-priors.js": "71cd75befbe4416c4d59e5c8f026ce580bab896b8b6820449cbdc45957288800"
+  },
+  "native": {
+    "at": "2026-09-10T15:09:28.038095+00:00",
+    "python": "3.12.14",
+    "scipy": "1.18.1",
+    "numpy": "2.3.5",
+    "independentNumericComparisons": 3667,
+    "exactSequenceReferenceStates": 6,
+    "executedExactOutputPrograms": [
+      "betaUpdate",
+      "batchPrediction",
+      "sequentialSensitivity",
+      "gammaExposure",
+      "dirichletCategories",
+      "normalPrecision",
+      "unknownVariance",
+      "predictivePatterns",
+      "modelEvidence",
+      "decisionLoss",
+      "nonconjugateGrid"
+    ],
+    "changedPracticeGrid": [
+      0.42054279975750425,
+      0.036292481534848244,
+      0.0006818201452880451
+    ],
+    "invalidModelInputs": 20,
+    "limits": "Bounded analytic teaching models; numerical comparisons are not arbitrary-parameter error proofs. No clinical data or benchmark measurements."
+  },
+  "interactions": {
+    "at": "2026-09-10T15:04:31.975Z",
+    "results": [
+      {
+        "width": 1440,
+        "at": "2026-09-10T15:04:05.543Z",
+        "anchors": [
+          "1. Eight visitors do not determine a rate",
+          "2. Derive the update and keep its uncertainty",
+          "3. Predict a batch with shared uncertainty",
+          "4. Add only new evidence and question the prior",
+          "5. Count events and the time you watched",
+          "6. Move from two outcomes to many",
+          "7. Combine noisy measurements by precision",
+          "8. Check what the model fails to describe",
+          "9. Compare models and choose an action",
+          "10. Practise the complete inference loop"
+        ],
+        "codeExamples": 11,
+        "visiblePracticeQuestions": 8,
+        "initialDisclosuresClosed": true,
+        "mathOverflow": [],
+        "svgOverflow": [],
+        "dimensions": {
+          "width": 1440,
+          "scroll": 1440
+        },
+        "errors": [],
+        "consoleErrors": [],
+        "environmental": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ]
+      },
+      {
+        "width": 390,
+        "at": "2026-09-10T15:04:16.528Z",
+        "anchors": [
+          "1. Eight visitors do not determine a rate",
+          "2. Derive the update and keep its uncertainty",
+          "3. Predict a batch with shared uncertainty",
+          "4. Add only new evidence and question the prior",
+          "5. Count events and the time you watched",
+          "6. Move from two outcomes to many",
+          "7. Combine noisy measurements by precision",
+          "8. Check what the model fails to describe",
+          "9. Compare models and choose an action",
+          "10. Practise the complete inference loop"
+        ],
+        "codeExamples": 11,
+        "visiblePracticeQuestions": 8,
+        "initialDisclosuresClosed": true,
+        "mathOverflow": [],
+        "svgOverflow": [],
+        "dimensions": {
+          "width": 390,
+          "scroll": 390
+        },
+        "errors": [],
+        "consoleErrors": [],
+        "environmental": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ]
+      },
+      {
+        "width": 320,
+        "at": "2026-09-10T15:04:31.975Z",
+        "anchors": [
+          "1. Eight visitors do not determine a rate",
+          "2. Derive the update and keep its uncertainty",
+          "3. Predict a batch with shared uncertainty",
+          "4. Add only new evidence and question the prior",
+          "5. Count events and the time you watched",
+          "6. Move from two outcomes to many",
+          "7. Combine noisy measurements by precision",
+          "8. Check what the model fails to describe",
+          "9. Compare models and choose an action",
+          "10. Practise the complete inference loop"
+        ],
+        "codeExamples": 11,
+        "visiblePracticeQuestions": 8,
+        "initialDisclosuresClosed": true,
+        "mathOverflow": [],
+        "svgOverflow": [],
+        "dimensions": {
+          "width": 320,
+          "scroll": 320
+        },
+        "errors": [],
+        "consoleErrors": [],
+        "environmental": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ]
+      }
+    ]
+  },
+  "reading": {
+    "at": "2026-09-10T15:12:18.240Z",
+    "results": [
+      {
+        "width": 1440,
+        "at": "2026-09-10T15:12:10.958Z",
+        "visibleAnsweredCheckpoints": 2,
+        "captures": 18,
+        "keyboard": [
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Failures"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Rate threshold"
+          },
+          {
+            "tag": "SELECT",
+            "outline": "solid",
+            "name": "Credible mass"
+          },
+          {
+            "tag": "BUTTON",
+            "outline": "solid",
+            "name": "Reset investigation"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Show explanation"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Show explanation"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Positive shapes below one are valid too"
+          },
+          {
+            "tag": "SELECT",
+            "outline": "solid",
+            "name": "Rate uncertainty"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Future batch size"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "At least this many successes"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Inspect every count probability"
+          },
+          {
+            "tag": "BUTTON",
+            "outline": "solid",
+            "name": "Reset investigation"
+          },
+          {
+            "tag": "DIV",
+            "outline": "solid",
+            "name": "The same 8/10 evidence under four declared priors"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "First interval events"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "First interval hours"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Second interval events"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Second interval hours"
+          },
+          {
+            "tag": "BUTTON",
+            "outline": "solid",
+            "name": "Reset investigation"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Where the multivariate normalizer and count prediction come from"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Prior standard deviation"
+          }
+        ],
+        "mathOverflow": [],
+        "dimensions": {
+          "viewport": 1440,
+          "page": 1440
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "at": "2026-09-10T15:12:14.675Z",
+        "visibleAnsweredCheckpoints": 2,
+        "captures": 18,
+        "keyboard": [
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Failures"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Rate threshold"
+          },
+          {
+            "tag": "SELECT",
+            "outline": "solid",
+            "name": "Credible mass"
+          },
+          {
+            "tag": "BUTTON",
+            "outline": "solid",
+            "name": "Reset investigation"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "PYTHONfrom math import comb, factorial\nfrom fractions import Fraction\n\n\ndef beta"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "OUTPUTposterior: (10, 4) mean: 5/7 mode: 3/4\n95% credible interval: (0.461868, 0"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Show explanation"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Show explanation"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Positive shapes below one are valid too"
+          },
+          {
+            "tag": "SELECT",
+            "outline": "solid",
+            "name": "Rate uncertainty"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Future batch size"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "At least this many successes"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Inspect every count probability"
+          },
+          {
+            "tag": "BUTTON",
+            "outline": "solid",
+            "name": "Reset investigation"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "PYTHONfrom math import comb, factorial\nfrom fractions import Fraction\n\n\ndef beta"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "OUTPUTintegrated mean, variance: (Fraction(50, 7), Fraction(160, 49))\nplug-in me"
+          },
+          {
+            "tag": "DIV",
+            "outline": "solid",
+            "name": "The same 8/10 evidence under four declared priors"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "PYTHONfrom fractions import Fraction\n\n\ndef summary(a, b):\n    return Fraction(a,"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "OUTPUTprior: (1, 1) posterior: (9, 3) mean: 3/4\nprior: (2, 2) posterior: (10, 4)"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "First interval events"
+          }
+        ],
+        "mathOverflow": [],
+        "dimensions": {
+          "viewport": 390,
+          "page": 390
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "at": "2026-09-10T15:12:18.224Z",
+        "visibleAnsweredCheckpoints": 2,
+        "captures": 18,
+        "keyboard": [
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Failures"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Rate threshold"
+          },
+          {
+            "tag": "SELECT",
+            "outline": "solid",
+            "name": "Credible mass"
+          },
+          {
+            "tag": "BUTTON",
+            "outline": "solid",
+            "name": "Reset investigation"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "PYTHONfrom math import comb, factorial\nfrom fractions import Fraction\n\n\ndef beta"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "OUTPUTposterior: (10, 4) mean: 5/7 mode: 3/4\n95% credible interval: (0.461868, 0"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Show explanation"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Show explanation"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Positive shapes below one are valid too"
+          },
+          {
+            "tag": "SELECT",
+            "outline": "solid",
+            "name": "Rate uncertainty"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "Future batch size"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "At least this many successes"
+          },
+          {
+            "tag": "SUMMARY",
+            "outline": "solid",
+            "name": "Inspect every count probability"
+          },
+          {
+            "tag": "BUTTON",
+            "outline": "solid",
+            "name": "Reset investigation"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "PYTHONfrom math import comb, factorial\nfrom fractions import Fraction\n\n\ndef beta"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "OUTPUTintegrated mean, variance: (Fraction(50, 7), Fraction(160, 49))\nplug-in me"
+          },
+          {
+            "tag": "DIV",
+            "outline": "solid",
+            "name": "The same 8/10 evidence under four declared priors"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "PYTHONfrom fractions import Fraction\n\n\ndef summary(a, b):\n    return Fraction(a,"
+          },
+          {
+            "tag": "DIV",
+            "outline": "auto",
+            "name": "OUTPUTprior: (1, 1) posterior: (9, 3) mean: 3/4\nprior: (2, 2) posterior: (10, 4)"
+          },
+          {
+            "tag": "INPUT",
+            "outline": "solid",
+            "name": "First interval events"
+          }
+        ],
+        "mathOverflow": [],
+        "dimensions": {
+          "viewport": 320,
+          "page": 320
+        },
+        "errors": []
+      }
+    ],
+    "captureCountCorrection": {
+      "at": "2026-09-10T15:35:32.436Z",
+      "reason": "Corrected hard-coded19 to18 actual saved captures per viewport; no new browser run or production source change."
+    }
+  },
+  "independent": {
+    "at": "2026-09-10T15:12:48.456915+00:00",
+    "status": "passed",
+    "closedFormRunReferenceStates": 30,
+    "conditionalRunCountPartitions": 11,
+    "batchVarianceIntegrals": 3,
+    "gammaUnitEquivalentMasses": 8,
+    "normalInverseGammaMixtureDensities": [
+      {
+        "x": -3,
+        "mixtureDensity": 0.007272351466641628
+      },
+      {
+        "x": 0,
+        "mixtureDensity": 0.05985589408486856
+      },
+      {
+        "x": 3.2,
+        "mixtureDensity": 0.17990866659063712
+      },
+      {
+        "x": 7,
+        "mixtureDensity": 0.04078607192301114
+      },
+      {
+        "x": 12,
+        "mixtureDensity": 0.0011141118824190047
+      }
+    ],
+    "changedDetectorPractice": {
+      "mean": 0.4205427997575042,
+      "tail": 0.03629248153484824,
+      "evidence": 0.0006818201452880453
+    },
+    "perfectReporting": {
+      "mean": 0.4285714285714285,
+      "tail": 0.01822281270840001,
+      "evidence": 0.000582750582750583
+    },
+    "uninformativeReporting": {
+      "mean": 0.5,
+      "tail": 0.21600000000000003,
+      "evidence": 0.0009529568999999997
+    },
+    "scope": "Complementary finite source/math review, not a duplicate browser or comprehensive runtime suite."
+  }
+}

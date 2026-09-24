@@ -1,0 +1,461 @@
+{
+  "capturedAt": "2026-09-21T17:04:12.067Z",
+  "ids": [
+    "perceptrons-neurons-activation-functions",
+    "backpropagation-automatic-differentiation",
+    "loss-functions-ce-mse-focal-contrastive-triplet",
+    "batch-layer-group-rms-normalization",
+    "transfer-learning-fine-tuning-strategies"
+  ],
+  "rows": {
+    "perceptrons-neurons-activation-functions": {
+      "revision": 2,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/perceptrons-neurons-activation-functions/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/author-calculations.py": "c422c8d58e736629ede88c8916f9225826d1c7c89b6a073d4a189a2e4c5c3806",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/calculated-inputs.json": "eaa74cbe9779af7f715dbc6d476a0e8a1e7c2f66b1c06130d482552866925fd6",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/data-provenance.md": "9afc15ad8ae91c7f000c225b7ff0b016d04477f8143c3d0612ebc692ec5ca1c8",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md": "6a190a2a11bb8fc02b12bac24fb0ea77fae96ac56ce111c84c9e8884fcee218e",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/lesson.md": "b0ab37f54a890637615e770e243cc4c3d67066498c821f6e56f1188571748c65",
+          "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md": "c40e81835a693cfc3990c7e0c01292c0e88673a5315f3c84a910b4d4d63edc07"
+        },
+        "completedAt": "2026-09-21T15:07:05.705Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md.",
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/perceptrons-neurons-activation-functions/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/author-calculations.py": "c422c8d58e736629ede88c8916f9225826d1c7c89b6a073d4a189a2e4c5c3806",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/calculated-inputs.json": "eaa74cbe9779af7f715dbc6d476a0e8a1e7c2f66b1c06130d482552866925fd6",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/data-provenance.md": "9afc15ad8ae91c7f000c225b7ff0b016d04477f8143c3d0612ebc692ec5ca1c8",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/design.md": "8306e4ad41ccfee7423beafce39d976220b1e6357c4eafb4a36516be5904aeae",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/lesson.md": "83eb54c413767c84ea4210bc3165327997d4f95a925060728cebe46cbfe53c5e",
+              "docs/teaching/drafts/perceptrons-neurons-activation-functions/visual-specifications.md": "86e7fad9b626c5ece257125e8adefc89badb5b64a02d31e9f965e1cf496f1273"
+            },
+            "completedAt": "2026-09-12T13:36:23.891Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        }
+      ]
+    },
+    "backpropagation-automatic-differentiation": {
+      "revision": 2,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/backpropagation-automatic-differentiation/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/author-calculations.py": "c76dbf1881e962a1cabd1d996ba65d391a0c0fa71bb26510b7da00920db62733",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/calculated-inputs.json": "c994b1d71a5ff8c3698e8db671080523beaa430431a9e54ace7349d48d51d342",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/data-provenance.md": "c0a51cd62f83132636013d64a2bce9335f831c49a088cc30a1a8c474c8089c23",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md": "2716fb0c32d442e8a72984d02ad31bd993418b433df01b24c222880e2d821419",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/lesson.md": "d4b4c5133706205c73acef77db958934c58223a4ee378ea0c3e9797c241c834a",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+          "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md": "f102a356f80bb4bf594ec57ac603ffebb1ebf0f78cc9a8e0403017eed66a7eeb"
+        },
+        "completedAt": "2026-09-21T15:07:05.711Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md.",
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/backpropagation-automatic-differentiation/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/author-calculations.py": "c76dbf1881e962a1cabd1d996ba65d391a0c0fa71bb26510b7da00920db62733",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/calculated-inputs.json": "c994b1d71a5ff8c3698e8db671080523beaa430431a9e54ace7349d48d51d342",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/data-provenance.md": "c0a51cd62f83132636013d64a2bce9335f831c49a088cc30a1a8c474c8089c23",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/design.md": "e889153c98e524147a8d145fb8c4f0bf05dc33a6638085eb776318a3f80942c0",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/lesson.md": "e1480f0d383682ff101e50d8033a495d0526e1a606de649c8a351dd2c507c7f5",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+              "docs/teaching/drafts/backpropagation-automatic-differentiation/visual-specifications.md": "7d6971a591b919c13db912b4b6c81cba326211b138001d417ac122d1c9234e2c"
+            },
+            "completedAt": "2026-09-12T13:36:23.900Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        }
+      ]
+    },
+    "loss-functions-ce-mse-focal-contrastive-triplet": {
+      "revision": 2,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/calculated-inputs.json": "4491b7c26e1bf726179d846d0f29864af56a1f992bcacf452a028fcc97b5c35a",
+          "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/data-provenance.md": "7890626b1f31ee60b07af161abcce0dae7494d6b7611bdc4de634fd4b18d8326",
+          "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/design.md": "5c4c8df0578481fee7bf71598e108ad6a90ddd7a657b6e5fada42b1b33725f84",
+          "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/lesson.md": "b7faa7305c88a3f14b3a0f33cf16d4c064da1c76f80d1c38e5302fa710516990",
+          "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/loss-experiments.py": "61957241283ed4195370455f371563922f217199a6689e2c403ba6c24d8a1149",
+          "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/visual-specifications.md": "4419b3f3d88b0013017a26290b5e324cfa59450b1e1a4d7e4c2d73ad368674de"
+        },
+        "completedAt": "2026-09-21T15:07:05.715Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md.",
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/calculated-inputs.json": "4491b7c26e1bf726179d846d0f29864af56a1f992bcacf452a028fcc97b5c35a",
+              "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/data-provenance.md": "7890626b1f31ee60b07af161abcce0dae7494d6b7611bdc4de634fd4b18d8326",
+              "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/design.md": "8f32a0f62c1180a9357e48e15bcaf33b4307280c72673625644cdd5f9304221b",
+              "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/lesson.md": "17f7cfee10f8e9a04826eae94a36c94cf94270ca0bcd65ffa743f09f7640fdfd",
+              "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/loss-experiments.py": "61957241283ed4195370455f371563922f217199a6689e2c403ba6c24d8a1149",
+              "docs/teaching/drafts/loss-functions-ce-mse-focal-contrastive-triplet/visual-specifications.md": "d4410bcf1f4b10a70a8cf439f87b511c1ac0d9efa2d613391a0882957148e26d"
+            },
+            "completedAt": "2026-09-12T13:37:47.153Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        }
+      ]
+    },
+    "batch-layer-group-rms-normalization": {
+      "revision": 2,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/batch-layer-group-rms-normalization/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/batch-layer-group-rms-normalization/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/batch-layer-group-rms-normalization/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/batch-layer-group-rms-normalization/calculated-inputs.json": "ca572c48c29bfcffbd1307e2b9913e839fcd397b94d0314a9b6397b76741bacc",
+          "docs/teaching/drafts/batch-layer-group-rms-normalization/data-provenance.md": "2e8b50fa69043904d2fe47a264575d821fb2a316834b8c6f6f3a590ed02241fe",
+          "docs/teaching/drafts/batch-layer-group-rms-normalization/design.md": "abe0e886f0cc0a1292c3881e33076737d908af556e264955fd82949a41dc20a8",
+          "docs/teaching/drafts/batch-layer-group-rms-normalization/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/batch-layer-group-rms-normalization/lesson.md": "d3e94f95be0f0efe5b0fa55acdde50761ef60cb2ce9eab156f5ca0598a0ff70c",
+          "docs/teaching/drafts/batch-layer-group-rms-normalization/normalization-experiments.py": "662f6ffd9f62e9874ae213af2054e51b801e79dd1ce20c744f76d551e3ca3cfb",
+          "docs/teaching/drafts/batch-layer-group-rms-normalization/visual-specifications.md": "e07a1c5201f29c202c515a47ad90ec4848bf42f277519bea350310e880d761c8"
+        },
+        "completedAt": "2026-09-21T15:07:05.719Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md.",
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/batch-layer-group-rms-normalization/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/batch-layer-group-rms-normalization/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/batch-layer-group-rms-normalization/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/batch-layer-group-rms-normalization/calculated-inputs.json": "ca572c48c29bfcffbd1307e2b9913e839fcd397b94d0314a9b6397b76741bacc",
+              "docs/teaching/drafts/batch-layer-group-rms-normalization/data-provenance.md": "2e8b50fa69043904d2fe47a264575d821fb2a316834b8c6f6f3a590ed02241fe",
+              "docs/teaching/drafts/batch-layer-group-rms-normalization/design.md": "d4d11e7424896b7ba9eb693ec6f51b9d640e8d5c9affed4c523d2a175eb8d7db",
+              "docs/teaching/drafts/batch-layer-group-rms-normalization/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/batch-layer-group-rms-normalization/lesson.md": "323174abfe99589a41c6af5dd7ac259d8a015f30f24799e4c747e03b8b0dd0c8",
+              "docs/teaching/drafts/batch-layer-group-rms-normalization/normalization-experiments.py": "662f6ffd9f62e9874ae213af2054e51b801e79dd1ce20c744f76d551e3ca3cfb",
+              "docs/teaching/drafts/batch-layer-group-rms-normalization/visual-specifications.md": "72ae2a9248d5b5f7db857f6017e36c15ecb2d9df3a47c93bfe469c96569da1b0"
+            },
+            "completedAt": "2026-09-12T13:37:47.161Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        }
+      ]
+    },
+    "transfer-learning-fine-tuning-strategies": {
+      "revision": 2,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/calculated-inputs.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/data-provenance.md": "f78c5962d98c2eddfbf6e5b082641ddba6047289b9053b2621a366111e6fb01a",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md": "9c04e1ef4fddae80008466c5c1e754fee69246fd7ceb01af6c9cca248e92b77c",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/lesson.md": "f6163f24c96c0e38d6e58d7a072da737d2f536719d1420d9e3b38634c14a9d61",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/transfer-experiments.py": "d95578cc66da09c2f0b55e1e1d695676a64f26f5426b47caa7e190ddf13c7c28",
+          "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md": "5feb8cf7cd5d285f8eea892b4f4c3d19d6c309e40149ee578d1f12f2575a16cb"
+        },
+        "completedAt": "2026-09-21T15:07:05.722Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "nextAction": "Content and topic-specific live-exploration specifications are complete. Under an authorized finish request, implement the prepared packet without learner prediction inputs or gates, then complete model/runtime, independent, accessibility and production review. See docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md.",
+      "previousRevisions": [
+        {
+          "revision": 1,
+          "deliveryMode": "content-first",
+          "record": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md",
+          "content": {
+            "status": "complete",
+            "manuscript": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/lesson.md",
+            "visualSpecifications": "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md",
+            "files": {
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/calculated-inputs.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/data-provenance.md": "f78c5962d98c2eddfbf6e5b082641ddba6047289b9053b2621a366111e6fb01a",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/design.md": "f5f3483251d23be1183d0bc0d1936d34afbbb6f7656196f49dc6d7ad4738dc89",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/lesson.md": "bfefe203893ab319fbed362b3d655d914c01a5003db197aa861735eb2c475483",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/transfer-experiments.py": "d95578cc66da09c2f0b55e1e1d695676a64f26f5426b47caa7e190ddf13c7c28",
+              "docs/teaching/drafts/transfer-learning-fine-tuning-strategies/visual-specifications.md": "7ba7d4cf067d68520ee386f5a14beb583616941e14abc27d3de59d7660bc6467"
+            },
+            "completedAt": "2026-09-12T14:37:49.310Z"
+          },
+          "implementation": {
+            "status": "not-started"
+          },
+          "nextAction": "On an explicit finish request, pass --work finish and consume the complete manuscript, specifications, design/research and offline inputs. Implement the lesson and visuals/labs, execute final displayed programs, complete independent correctness and learning-experience review, applicable fixes/checks and integration. Content is complete; implementation has not started."
+        }
+      ]
+    }
+  },
+  "allRowHashes": {
+    "abstract-algebra-groups-symmetry-actions": "5113403ba65ec5488ea0e0850f03ed74076e949604721dcc04988d114b6fe918",
+    "algebra-functions-exponentials-logarithms": "9305587ee0b8971bc3e8730dc55a4b17b172adddcfc7f6b0aeec70eb54c9736a",
+    "algorithm-correctness-loop-invariants-termination": "a53a2bd749efc761253958178bc106235375b56c1aa7bef7d840e741207ae8dc",
+    "arrays-strings-hash-maps": "c12d350a282c0a9f3826c0f264f08c6114be3797aa1bf7252ecd8288e40cc0c9",
+    "backtracking-divide-and-conquer": "38a59386dd6d9a315a2ddca8e75dfeca6db2983441b74a3b019c573617007872",
+    "bash-scripting-command-line-automation": "7bd513a403caf344dac1f71dc14afd7f1b54510ce1ecc838bf5a5ff6c58d210a",
+    "bayesian-inference-conjugate-priors": "658f37c4d8f9f82b8b4288c72f527a40dae5b341053fb2a09e2ad59abac1b04b",
+    "binary-search-sorting-two-pointer-patterns": "e987c39f8e0bcb645c78d1ad16184fa5935451441b6efdd52e56c75599dd5416",
+    "category-theory-emerging-use-in-ml": "558c928d8547e9e6ee12642ea7d50c04d079d7f2f626eeef217cbc3998f523ee",
+    "causal-inference-do-calculus": "b23d5e0b2e333ccb384837eb518188a9a3e241f1d39c423f5fce68ce34c92482",
+    "code-documentation-type-hints-api-design": "b8772e4915f6a74cceb018290d09d1abdbe9072eac7374083e4fc94f6b8545a1",
+    "combinatorial-optimization-approximation-algorithms": "5c5b9eb7377b45f4bf7537ad0503c618910cad9668ab44fb1029390d554857d4",
+    "complex-numbers-fourier-laplace-transforms": "2cdf391b3d0fe48fb05a6783a9bc336f92151df86466b4e10f33c36da9c51eed",
+    "complexity-analysis-recursion": "cde3ee6091ed207a46856447e8c20d7d159083768eabafc7649ddb0f5a7cd569",
+    "computational-geometry-robust-predicates-convex-hulls": "d7d7af9c07d9ff16733962aff51da2579b356ac0821a85de9de8714c69e7919a",
+    "concentration-inequalities-hoeffding-bernstein-chernoff": "6d629ef33fd5c5d49481be11f92d1f1600916898b6d6a46de8709c2e2d7eec69",
+    "conditioning-stability-numerical-analysis": "7f2ad4da5e85f05d8e8a090d28c7660cc5f92e30a887d6887c635258bfb6af17",
+    "constrained-multi-objective-optimization": "fa485c47f0278bbdcb9cab09068152f37e6efabfd6a730176204e2445a1d1018",
+    "convex-duality-lagrangian-methods-kkt-conditions": "e0a9c6bbd53df45c4cfc6c627985dbee38ae8a56ce9fe7456f7644b1b3d0a1fe",
+    "convex-optimization": "4f6427f6a3c40edde80726947f0fdd2a25b8f5f039ad1aff5d685c497bbc3b67",
+    "counting-combinatorics-mathematical-induction": "44e531fa7189c3ff0858fcf0fd401c37fd910b6b39c8d35cbf417b55e4281524",
+    "decision-theory-risk-cost-sensitive-decisions": "ab0659af0d9bd7941923517944824fde822d1b1a97f2d2ffe54227d64f5c9e1e",
+    "decision-trees-random-forests": "13bc04cc220029bab60952ced56543e00c90ab48648696b96e4330145f865c74",
+    "decorators-context-managers": "c9ddbc96e865df10a41be455518416a5dc145f7cc55ae14230ca72c8b736bd9e",
+    "differential-geometry-riemannian-manifolds": "d47a688cc52a171b9c85d8944c1b059e28a8ab65d843e06e7aa74e808060fcdd",
+    "disjoint-sets-union-find": "88ec2f9b7d03d49af50f7162584efcb92a28353cc576cbccb7374b7fa7713948",
+    "dynamic-programming-states-transitions-optimization": "d5b0a1f219eabd0ffabe0862c8eeba537167841fcfac3c7b88bbd57b5ea32dcb",
+    "dynamical-systems-theory-chaos": "f2698892cd3fa8484cd47dad2074a4cbc031420a4aa6e0d048854fa7ed232abe",
+    "eigenvalues-eigenvectors": "26388d182d9daaa4000ca83a197ed993a4343b773a67ad9c76cb185fab170e3a",
+    "ensemble-methods-stacking": "ee75761da21e9ee994ded13992b6a6d4fea17d1e5e3c18efeac84d867af91468",
+    "entropy-cross-entropy-kl-divergence": "b5588c68bebb75d5e153870c660a84fffa8839cf82231a479069158ccf259186",
+    "exponential-families-sufficient-statistics": "347d02693eebb213d5504a2271098466d4a9271871c3a27968917278501260aa",
+    "external-memory-algorithms-b-trees-i-o-complexity": "c01587f16e9ed50811984a0fe0b9360c127e154c1bc80523b993870cac5c1162",
+    "f-divergences-integral-probability-metrics": "596b388aaaffa31c97920871c2f26b880bd5aba44d523ea1b6ac69f2b0c3c7a8",
+    "functional-analysis-rkhs": "dab1ac5d1a8befc4436b50d879837b86849022842a473597ccf8fbe7fb5727d3",
+    "geometry-trigonometry-coordinate-reasoning": "03250796ac96b779ef011eee65458d61b6787d571254e8d135a2e4bc680eef63",
+    "git-github-collaborative-version-control": "730aabc3fc687dfc8e6b3e9d27a07298f67b9580545f0851b2e3f3846836f806",
+    "gradient-boosted-trees-xgboost-lightgbm-catboost": "c583579f7e1594e23bf0da9e5ee02c12accec758127be1aa1f180d00d0da4d40",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars": "d05f5ca6b8a768bde5d93a85e606097499ebcc377e04a89a6c45fe3d5aa8b848",
+    "graph-fundamentals-adjacency-laplacian-connectivity": "35a314a82905bf91274f8966f93eaa21ec63ab5a532592daf43438956b3091e7",
+    "graphs-representations-bfs-dfs": "dc5cee66d6e3e1ce210877bddf0b2dc065a23f2b52733f3621a135aadeadc0f3",
+    "greedy-algorithms-exchange-arguments": "7fcecbf18d60d78c00cf996aa053ec1f694a9a17f0057a81c344aeb8abc73eab",
+    "hashing-collision-resolution-amortized-analysis": "b89556a92ff3c3141de5b4ad7ad3ffd0bfc5e74f39dc5c08d563570a30288b6b",
+    "heaps-priority-queues-tries": "c003ee40563e22c5a4e54a36c86f1c0919299265e70c583714aee1a3ecc97dfc",
+    "hypothesis-testing-confidence-intervals": "bde5835f9ef16851d909e53cc185179d54c4603b78e219dfccc7e90d008cb934",
+    "it-calculus-stochastic-differential-equations": "59ffeca4faa694fd34362bc0e7638ea8c589ab9b5f9f8a55464802ca32c2538b",
+    "iterators-iterables-generators": "7f69a45b5adb375d6c1b0c96ce4dcec08404d4f7c0a5ea70c35e1f1fa01e6f31",
+    "k-means-hierarchical-clustering": "5df69595b80bd108310edebc7356e1636e31a7300d838fc9b3e1fb8fcc4d1f15",
+    "k-nearest-neighbors-knn": "2548cbba55894f7180cbfbe0c4d940ed6c96e80299af0d2b6dd91857d5af8036",
+    "learning-rate-schedules-cosine-warmup-onecyclelr": "9d191b876d027ae0cada5a7191c7106fb4fafa3b996e7d62a3060feae884973b",
+    "linear-logistic-regression": "861ae2b49f5c865a1789cf3b6caf8bf9dc2d2107c4ef553641937914a2a6eb87",
+    "linked-lists-stacks-queues": "e970abb421be7c8344188a647b5e7958f3f120dbb9a4c33df8084a7a45a5fab3",
+    "linux-basics-filesystems-processes": "b62b82aba85135feaa39a48690c0960e60eb4135ffbbb1158010cbcd068e258d",
+    "matplotlib-scientific-plotting": "e9b63a0b18eb9507219c24a36b1d223de1f90b0c65d0d901e2c188b4511138ba",
+    "matrix-calculus-jacobians": "d3103388cc03c05a0d0df2d7d17f6cd301b7b289555e7e5d0abb4fdb464e5f83",
+    "matrix-decompositions-svd-qr-cholesky-lu": "136a69718c5e742ef4d9b5ba5511511b8061b44ae77b7ec24194a9c1311e81d3",
+    "maximum-likelihood-map-estimation": "a3f9c194487b283f40460cdd8c46d9f16d465aa805af46cab010a7e58a177866",
+    "measure-theory-probability-spaces": "409ad32a9c97996356e7bd66fc05e2cdffd735efc93a2a01ad73c402534511a7",
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts": "1f3c13e413cf50cba36ee96ff1800344532053f39a6f2f0a8ec6f0bdd929b2d9",
+    "multi-label-multi-output-learning": "b14c45ecbb6c5364b7ebb3ffd16f49d71868cdf828466f440ee2ea253e0b33c8",
+    "multivariate-calculus-gradients": "7f2c0224f53821ba000c7716ca656c28568a368325c7e3d06a14b721fc857c3d",
+    "mutual-information-information-bottleneck": "94d40cd0c0eea4f59be90f8d01be053b62357a1f5c2e91c57ebafa93af1cdd2f",
+    "naive-bayes-probabilistic-classifiers": "2871d30c7589cecdbabaf3a8f5c39c48fdf7471a6ac3dd1a7eeb88ba7e23e2d0",
+    "network-flow-minimum-cuts-bipartite-matching": "1449552398e86bc18fd290c3bea81ddf2c2a3424fa1e591189b614bed1f422ca",
+    "non-convex-optimization-landscape": "bf82bd7ae27b454262493daf01d0b4c7fbd382724b36c016f551b01ac2aa5095",
+    "numerical-methods-finite-differences-quadrature-root-finding": "1baa1842bcfef6f475c91d1be71e798575c61a80ccb7ae08838b08a8864f3901",
+    "numerical-pdes-grids-finite-elements-stability": "22218f8b887e976aaecf52c3733f1f049a0326d465347bbb8817622853422d05",
+    "numpy-arrays-broadcasting-vectorization": "2c57f78f10092d3ff0f3fe048893bc9222606d05a2f456be751f0a4ed4e6542a",
+    "object-oriented-programming-in-python": "ca8f6775b81a27f58dbf985e791e45b6941b007df8f042da155a210a5f676493",
+    "optimal-transport-wasserstein-distance-sinkhorn": "46c2a77fbbadc01847bf31eaf83b00c99defcf3d9dd505c4d8c6a3606f41e111",
+    "ordinary-differential-equations-linear-systems": "45e0477c7de9cf8e7b12da564e3cb6b836a7156afccd11aefb105a9895dbf5f3",
+    "os-processes-virtual-memory-isolation": "ec2751237e6c5071bade70d61fdd64481c147e342c37bb829b5afaf24d4a51ab",
+    "pandas-data-wrangling-joins-grouping": "0199613a21cba5e35c4bcd0a71afdd40ec2f655bba8590bac51b7c002393cd6a",
+    "partial-differential-equations-conservation-boundary-conditions": "26df4d5e9b9196eaf6325daee4342a9182709a91f490663c4760bac6bd779c46",
+    "persistent-data-structures-structural-sharing-versioned-queries": "0f881cd2b6b9076b225ede0c0535ed85d8831fe73d8321a19343302a9e273bc2",
+    "probability-distributions-bayes-theorem": "b82f2416d2bcb0abe83fc0a22f66bea9ba1b744f0b5488193340f0f0d143eb47",
+    "python-basics-types-control-flow-functions-modules": "cfd1a70dc09cefd1719294fe918b5e5887f361b4f51af2b7a7e13370a23632ae",
+    "queueing-theory-m-m-1-m-g-1-little-s-law": "5db9cc6eedcf248bc35ec84b18d749bc8c4ba29c72c75891da9d6b725dd715e9",
+    "random-matrix-theory": "be8f657092d18c1973b3814e619ed7b1b54199d0d2fe55e1d13b2c705ae85e56",
+    "random-variables-expectation-covariance": "180e9e93b78cfa399d7ac2673bc45c0ce07a0408a7109d54832f35468a49f89b",
+    "randomized-algorithms-sampling-error-guarantees": "1e55dbb078cfda58dd1724262db680ff5d27e3b9de8cc9388616f4dc1c85a56d",
+    "randomized-linear-algebra": "417b12c618fe066960ec33a0995fbfe7f65e5d18de46c0abed5c34a589812de8",
+    "rate-distortion-theory": "625e78353af55c8aacef243454a7a7e5e9f5b36ca921ee89bbde6822047b1040",
+    "real-analysis-sequences-modes-of-convergence": "52d6d2d36b5ed48421c7d28ec911ba61381cae26426d2d0cb12b197d10b68ba5",
+    "recommender-systems-collaborative-filtering-matrix-factorization": "7fd8f2402998c1b422778e6963e74f519d2fec2cbae323cc1c1a9de8cbe806ac",
+    "reductions-p-np-computational-intractability": "c84055d3fa15e9384765a3fdd312fc38f0d2808395b1959fa38b76e6b92ca6e5",
+    "reproducible-notebooks-experiment-structure": "ad93c405688d9ad25e84a7c7de5d489cf84061c1e9a24848f81d105edb5de176",
+    "sampling-measurement-experimental-design": "6838013d9f7c28fe1ee4b25efe37b89363085d5392c68a446588c8be00f7df0f",
+    "scientific-file-formats-schemas-reliable-data-i-o": "cc6c41a8ee0d78334d8c8dc89829dc9bd66ee590c7af3602d79458047b0c8906",
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient": "dec84748d9af1b7665e2ce8ecf93328bd4c032b22e295546779d99cd37431631",
+    "segment-trees-fenwick-trees-range-queries": "e9b83232c89d06a3a415b1ab6f1d42fa3eb226452f44cbd92d41904baff53984",
+    "sets-logic-relations-proof-techniques": "4726e022c657593113f35bd1f471a43c9becf62b43143a21e5af426afe50adea",
+    "shortest-paths-spanning-trees-topological-ordering": "d0c56e277bfd9b26b21ab1bb10b1e96bc8a7e8fb95a66c066b4cf6e80deec525",
+    "single-variable-calculus-limits-derivatives-integrals": "b82324f6b6d962a38e99d8ceb9d05d6632fc704ac546630552a9967d9301f1c7",
+    "spectral-graph-theory": "fc904b587e9de107f0238a399452fe5c82ea190caac2fa6aa633e96da395d8a9",
+    "sql-relational-data-transactions-for-ml": "34f8fdc75a74fc08613013b39cb127800174c88185a01446e2f12ff07b52c217",
+    "stochastic-processes-markov-chains-brownian-motion-poisson": "3b7e84f71b67818b0d47dd95edb6653f57f31bb6021a706891992aa8a079c179",
+    "string-matching-prefix-functions-rolling-hashes": "5a94cad619071442b4f2e4cfbc3d13485cac04fde7207945acf7ab0d9debcab5",
+    "support-vector-machines-svm": "924f44d40496897207a292b079872e5ac82c08e2d711ee6cbf494c28d66def1c",
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models": "e58bdcb7e30ff0b09c8944bb1280e867d791f0e405d6dbd5d61a8c853f76e862",
+    "tensor-algebra-einsum-notation": "198623d56c0f62131e31a4b9e0aa5a07b435ed0b657ee07d4d1fc750217c82ce",
+    "testing-debugging-dependency-management": "e898623e37ace9e14317b05aed85a0be9d819d989d3dc8f112f0598a38786922",
+    "threads-concurrency-locks-deadlocks": "011edb1ffb9626723b1511a46797d04ba1cd1c70bf7107e5b0e633ca225912b4",
+    "topology-topological-data-analysis-tda": "935b72a3a8d761cd224e89423cea53182d77bc23c6e1c91e4cbfaa36619567e6",
+    "trees-binary-search-trees": "3f8c7b964a068a5d662178e3e9378a803c35eb6fcfe0126f20dd6f49ef10961a",
+    "variational-inference": "23d573e09a2d994da3ebbfebe981a8be11c61d369681acba7e0fbfc2779f85ee",
+    "vectors-matrices-tensor-operations": "3dcae8ccddd908205eacc5ae1d2a5544f3bd37acaa6996a3607973b38054fae0",
+    "pca-dimensionality-reduction": "d0254e652e0d07b106e832c3e2eb8d30ad6af4b01c563c3186af67edffc7b383",
+    "clustering-evaluation-validation-silhouette-ari-nmi": "11c72af03e16cb3ae2dc9db00781a0007f07b9ecd4767c4c4c8ce215027bdb80",
+    "dbscan-density-based-clustering": "46dc783fce940a287ef45c26f04f03ec6f1db02ed415a74794a0de4b6733a539",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof": "99d8c24407ee803b536c628f28819fecb29897aeebd710c6ea9dac9724a984ac",
+    "gaussian-mixture-models-gmm-em-algorithm": "96a7998952728ee5a9cbc8bd66931db86b63ff72c448dc79c7f42e3d8796ebf4",
+    "t-sne-umap-manifold-learning": "b1c783e829b95dfa88d93dacb1d6360f08e2b75e5ae4541f6ba714c41fbac3d8",
+    "independent-component-analysis-ica": "5ba108850f8b67c9180abe10eda32fe8d53129ae4b3851512744aafd2a595903",
+    "non-negative-matrix-factorization-nmf": "0beeb25b9e93756db3f1f34bee3d63229daf2a0e208ed4384d55e69de991f810",
+    "feature-scaling-encoding-imputation": "3b54a595e8a3f58019d2121d4b7e58831a75b993a506b3d67a10c1af53d581cc",
+    "cross-validation-hyperparameter-tuning": "6a8bbd566b8b3529a8f9cc1f31f440e34271c3853052d7847572f631ac51f6a8",
+    "regularization-l1-l2-elastic-net-dropout": "d58b97f0c9080bcf3c72fd821b4bc5374faa363571f1a2242b7f679580c6660d",
+    "feature-selection-importance-shap-permutation-mutual-info": "9b16acf138ac16b43ba9d85402c48769f54ca329597ed9fdf97c5f0266da164e",
+    "bias-variance-tradeoff-learning-curves": "2149937a9f57270c9b56d5ff96cd8f66f9c807b4c4fb6c0fe2958776675f081a",
+    "imbalanced-learning-smote-cost-sensitive-learning": "a655b06aab994c8a21b25d282306b30ef622aa0d9ad099e4158554c2c3f848c2",
+    "automl-neural-architecture-search-nas": "02e3bc02a75a1045e394a0bb520dbf71dd5edcf4613483551f836abb9f288967",
+    "hidden-markov-models-hmm": "b45806dd1d9c4025502ba79d2cd0c2b0772c9b369ea0ce47330ab9305e34314b",
+    "bayesian-networks-causal-graphical-models": "c8398dc0c9bccf1c86513ebb7d6108f541147d329c3dafd63d5562b0ed8be28a",
+    "conditional-random-fields-crf": "2c4bcd7f904d5b675ac3b9f3d4ca9e7936a0d1e82929704f2462dd420778d86d",
+    "gaussian-processes-gp": "6a9a574e8be2b70a1a054e3d31cbae7f4d7ab39751bdd4aa718abcbc97115e76",
+    "semi-supervised-learning-label-propagation-self-training-co-training": "8529984fb21d4618b553eba6dab7cf989679a1c4c9b232685b9ebbb17873aaaa",
+    "active-learning": "47290218e2a8b7790dd3b3183e6999a30fd5cc0a2864bd5169bcd3fece36c9fc",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae": "7ce3a3abf636ed13d6152e5d5688bc832550b5227966c1092c1ec10e8e258dee",
+    "pac-learning-vc-dimension": "4949a7e13c4ae7dc290276fdec3a95b7a6c2b4234dd17521ca015f30319e079a",
+    "calibration-conformal-prediction": "2638107d0dc7a0c4b990db211c997bc1c78818d38137706f0d7be107fd0cbc06",
+    "rademacher-complexity-generalization-bounds": "148efff3b325424d07bc8e590c7345305a7f6fa7d7ef698d5f6e4165de79fed9",
+    "ml-problem-formulation-baselines-data-leakage": "c6b395fef68e45eab08105ab374eac0756f78cd23f27a27b8beea57974e97861",
+    "time-series-validation-forecasting-baselines": "82c6402903adb09632ec218c0c9cd4e974468cdb2a6ef0168eec685944f651f6",
+    "end-to-end-supervised-learning-error-analysis": "7ea260546a318a89f7659bd377ac899b1f832740adb85669b54391ec08bd10a9",
+    "perceptrons-neurons-activation-functions": "44931ff77157d530dd4bd52d3a53f68fe5b057aeda73678b8b86dfdce6aaf270",
+    "backpropagation-automatic-differentiation": "3d7267d09509214493d9bd7a5a26f768f96869b7123e667c79b715d6152ce4e4",
+    "loss-functions-ce-mse-focal-contrastive-triplet": "9a68541ce457ec61f8548b16cd9a35c0d18a515a3cfbbf545ea4c557e410f1d7",
+    "batch-layer-group-rms-normalization": "698e552e3f1ec380a5d1bea159aff13dbfb32bc056307aab21063ffae5f20b98",
+    "transfer-learning-fine-tuning-strategies": "85dcf01bc870a6487d930987c90a52ce99b77f04a405d76e32a30cdab3608209",
+    "weight-initialization-xavier-kaiming-p": "998be458fb83273b5988ad8cb946fe1fa41e731c71a703262cb77775e65dcfe1",
+    "residual-connections-skip-connections": "9e3764daaef0118a0dfb104f573ec5733f768146bc2c5c448aaae9c84379618a",
+    "dropout-droppath-stochastic-depth": "14ceface21a26e859f39052a997958e488a40d565c051459fa2684b1cd1a74f6",
+    "convolution-pooling-receptive-fields": "a3d7f99815c91b5c784e03935d29fc88650445284a1ec224fafadf8f2d6e9d72",
+    "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet": "18c9f5b8d6c60cfc6433172450f338fa8ee34521f527d159705943dc075c4169",
+    "depthwise-separable-dilated-convolutions": "c9f26b838976f3916f0780592aa3dfed1ec70e574a0a9d5d2f214142f171d73f",
+    "convnext-modern-cnn-designs": "813c8394424610b38ddff0effe3e6bc17d00bcaa48f2b0d57439e66f014ead11",
+    "capsule-networks": "5bbbe148669c68ee66c54f5e5698371e99de709eb36a85636b0936aed783c968",
+    "rnns-lstms-grus": "ccfa7fb343d3f78d924f48f4cb17979c4e113c19114acd6abc57c6df8d33860f",
+    "sequence-to-sequence-encoder-decoder": "f917827b0727c0a734b6842d640a546c1baceb07b18c3ea10a512862ea4063dc",
+    "attention-mechanism-bahdanau-luong": "6a67d4298b8baab16373e666879ae57f79a68fd3fbad2a5acbad3d04e6256ad2",
+    "long-context-sequence-models-transformer-xl-griffin-perceiver": "6c44f35ce166e15973f7e661c395e43b1b307ad287675e4f0ec54e0b9485ac8c",
+    "state-space-models-s4-mamba-mamba-2": "7de8124e45bc8ba388123948c49636d6044bd337c1a4d9bc3f4ae87b19d4caf9",
+    "rwkv-linear-attention-models": "2d2a15f9865713b59c5f812aeee20208933dfea7755777018134eafcd6839673",
+    "self-attention-multi-head-attention": "afa463dfaebe654849604f0acc27a71b5517309c794de785316b40fa2ab119d9",
+    "transformer-block-architecture": "f629ff34b34f8395f4514cef8e74f6de7cfa404489ba32b2feed5490d1dd39d1",
+    "positional-encodings-sinusoidal-learned-rope-alibi": "94b1bf61301f33f5d2e8a6319e2ad1e7f9e30310e1e551418dbd6f3dfd6c9047",
+    "grouped-query-attention-gqa-multi-query-attention-mqa": "87b367e1fe9bcd8cb440c1fb2c5af72730cc315c4f227721581e76945845ae7a",
+    "multi-head-latent-attention-mla": "536eff082cafef46db7d84e4856d264677adf0e8775c109ac26192b124b68847",
+    "sparse-linear-attention-variants": "99d18af40c220d73b51cf49c78475b837e3e72e32b0d9684f25516a748160b34",
+    "vision-transformers-vit-deit-swin-dinov2": "474a30e0f212a6c0cade314876ecbb58ce888db3999e5233034ab213205c34f7",
+    "mixture-of-experts-transformers-moe": "c95870655512a077cc02705b5f359090041cfe4cdbd5fc6581b229c8de408a40",
+    "interleaved-cross-attention-architectures": "e030c708edec58323de8b6a38468339804fd025f81d92e1df8897f573e07ad00",
+    "message-passing-graph-convolutions-gcn-gat-graphsage": "dde205130728ce8f6afc9b27dd6a80f6dba5e0af4807196ae11d0c379f189dfa",
+    "graph-transformers-geometric-deep-learning": "a513ea2cdd1952f35a285fc0d4fd547bf251371e81e51edbb1a84e3711739dc2",
+    "boltzmann-machines-restricted-boltzmann-machines-rbm": "4b590958993d992b037ae4be4be0b6f6f6d55ab19d1e611b80bbcb4ccdf833f6",
+    "spectral-normalization-gradient-penalty": "06c40ec867afd2aa8a38fc1473b3cc205e8f3b834fedcdda739262cba20879a1",
+    "modern-hopfield-networks": "e655598ecf1cdfb65e4e5c17079ff97007b29799b0290c3fe5ff52f4b3232d6b",
+    "xlstm-extended-lstm": "c0179be9d01792061359182545f9a5225d079f02a175c0f1da6bc6c1c408e0b9",
+    "hyena-long-convolution-models": "be0d994683be1562e65b059c6f27280259d1fda490342b2820b45a6835eaf5ee",
+    "ring-attention-sequence-parallelism": "a007284144245846c24ef3b4d2527b17cd09916b9c9c276bcf2e016943a1be4d",
+    "advanced-optimizers-lion-sophia-prodigy-schedule-free": "c336d6c8450d55410f17b3083c20278f729f8bb4b5c37c9603461736b8d1c4d7",
+    "neural-ode-continuous-depth-models": "3b89ba6a41104805ef775ceba04de1e2d1f472a9c5372f8d54c28ab8d84ae1ad",
+    "hybrid-ssm-transformer-architectures-jamba": "d7ea6d92197525b063763aca63f82a9b1cbe75ebb6f564f6ae189c660de918dd",
+    "titans-multi-memory-architecture": "060384a67b625203f1f25e664319ca3f6274ccc11dc7e01b9edc687843db5d73",
+    "mini-batches-training-loops-gradient-accumulation": "f313e91d9639ddbebac91acb091c7633db2894d8dc4f9aa05aef03c1ab9662a5",
+    "neural-training-diagnostics-reproducible-experiments": "2a7bd7445faf75939d688a7061d4378b240c3066f0e72ec31b89fe386278ee09"
+  },
+  "manifestHash": "82d36413aeb679ba6587f97795573f4edeea26aec90c68a7d3875c2d9be4c407",
+  "oldRuntime": {
+    "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "8f14a5c65e37d55725a662687db15d98e6bc088301c38548e05f2ff2ffb8f521",
+    "src/learn/data/topics/backprop.jsx": "22d7afa2afdd3bb95d2ffe405dbb278f022a7c29aa56042208fb633e0498de3c",
+    "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx": "e2807fe079a8cc4aaadb64808a6be2f804a5e357b448c96ca364a92d15366ad8",
+    "src/learn/data/topics/batch-layer-group-rms-normalization.jsx": "e5f3ea37c493afe6a73821689fcf6dc9291a1681c0fdc79aed3e3b388843def9",
+    "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "705d8f9e92292c153025117dfabce4d95e315272e6cce635103c8ada2bee62d6"
+  },
+  "counts": {
+    "modules": 29,
+    "uniqueTopics": 1460,
+    "published": 231,
+    "topicBriefs": 620,
+    "prerequisiteReviewsRecorded": 728,
+    "guidedPaths": 10,
+    "contentComplete": 177,
+    "implementationComplete": 135
+  }
+}

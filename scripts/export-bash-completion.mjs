@@ -1,0 +1,16 @@
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {bashExamples,reportFiles,summaryPractice} from "../src/learn/data/bash-workflow-examples.js";
+import { argumentTrace } from "../src/learn/data/bash-workflow-models.js";
+import { pipelineStatus } from "../src/learn/data/bash-workflow-models.js";
+import { publicationTrace } from "../src/learn/data/bash-workflow-models.js";
+const source=await readFile('src/learn/data/topics/bash-scripting-command-line-automation.jsx','utf8');
+const outputs=Object.fromEntries([...source.split('function Example')[0].matchAll(/^  (\w+):`([\s\S]*?)`,?$/gm)].map(m=>[m[1],m[2]]));
+assert.deepEqual(Object.keys(outputs).sort(),Object.keys(bashExamples).sort());
+for(const name of Object.keys(bashExamples))assert.ok(source.includes(`<Example name="${name}"`));
+const argumentsCases=[],pipelineCases=[];
+for(const id of ['spaces','wildcard','empty'])for(const quoted of [false,true])argumentsCases.push({id,quoted,...argumentTrace(id,quoted)});
+for(const producer of [0,4])for(const consumer of [0,2])for(const pipefail of [false,true])pipelineCases.push({producer,consumer,pipefail,expected:pipelineStatus([producer,consumer],pipefail)});
+await mkdir('scratch/bash-completion-review',{recursive:true});
+await writeFile('scratch/bash-completion-review/fixtures.json',JSON.stringify({bashExamples,outputs,reportFiles,summaryPractice,argumentsCases,pipelineCases,publication:[publicationTrace(false),publicationTrace(true)]},null,2));
+console.log('Exported five exact-output Bash programs, full report/collection fixtures and sixteen lab configurations.');

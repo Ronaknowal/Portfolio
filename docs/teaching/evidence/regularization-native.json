@@ -1,0 +1,39 @@
+{
+  "verifiedAt": "2026-09-14T16:51:31.829574+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/regularization-examples.js",
+  "sourceHash": "1ba29d70893361a5048139d44556fc056e2ff2a53ac0be497e030dd985b9f65e",
+  "verifier": "scripts/verify-regularization-examples.py",
+  "verifierHash": "34b084fe280b16ce90317d7313ccf7a92fab3a6b8a4b636722b56ff9771edee0",
+  "versions": {
+    "numpy": "2.3.5",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "coordinateFit": {
+      "file": "coordinate_regularization.py",
+      "codeHash": "c9f66aaf41c7717de2fe41368855fe3a84542697ce26df115de02ebb2562c14c",
+      "stdoutHash": "9af96c4d492c8551e047386f2d6ec6f30cf0d8d83695776908c19438b18e5d15",
+      "stdout": "ridge [1.5 0.2] 0.0 1\nlasso [2. 0.] 0.0 1\nelastic_net [1.666667 0.      ] 0.0 1"
+    },
+    "airfoilComparison": {
+      "file": "airfoil_regularization.py",
+      "codeHash": "c1db783f029321cccd320ebda556c7f914db8df652f8cdcfe4ea0dc30bcfcbc5",
+      "stdoutHash": "1d44778f263034aa731b29480fba08144b74f901df01d1378000ddec2d08ac3f",
+      "stdout": "baseline mean MSE 45.072768\nOLS mean MSE 17.350268\nridge 0.001 17.315634 [20, 20, 20]\nridge 0.01 17.335789 [20, 20, 20]\nridge 0.1 17.6948 [20, 20, 20]\nridge 1 20.962663 [20, 20, 20]\nridge 10 34.763447 [20, 20, 20]\nridge 100 43.547835 [20, 20, 20]\nselected ridge 0.001 development CV MSE 17.315634 refit nonzero 20\nlasso 0.001 17.335409 [19, 20, 19]\nlasso 0.01 17.347152 [16, 17, 18]\nlasso 0.1 17.629206 [9, 9, 9]\nlasso 1 22.179353 [5, 4, 4]\nlasso 10 45.072768 [0, 0, 0]\nlasso 100 45.072768 [0, 0, 0]\nselected lasso 0.001 development CV MSE 17.335409 refit nonzero 20\nelastic_net 0.001 17.325484 [19, 20, 20]\nelastic_net 0.01 17.332697 [19, 18, 19]\nelastic_net 0.1 17.650934 [14, 16, 15]\nelastic_net 1 21.658337 [14, 15, 15]\nelastic_net 10 45.072768 [0, 0, 0]\nelastic_net 100 45.072768 [0, 0, 0]\nselected elastic_net 0.001 development CV MSE 17.325484 refit nonzero 20"
+    },
+    "dropoutMasks": {
+      "file": "dropout_masks.py",
+      "codeHash": "267944b62beb12e03fe10e6dbc22dee3907c872547fc142ce3b857ccd3435f1a",
+      "stdoutHash": "e62afc81a3d773486400fdbfb75d2dd51349816315e06febad72d56a71114892",
+      "stdout": "(0, 0) 0.25 0.0 0.5\n(0, 1) 0.25 -2.0 4.5\n(1, 0) 0.25 4.0 4.5\n(1, 1) 0.25 2.0 0.5\n1.0 2.5"
+    }
+  },
+  "oracles": 59,
+  "limits": [
+    "The airfoil program ran against the served copy of the supplied .dat; no network access was used.",
+    "One row-level split of one collection; the scores are development comparison and selection records.",
+    "No reserved row was predicted or scored by any program here.",
+    "Numerical fitting can differ on other library versions."
+  ]
+}

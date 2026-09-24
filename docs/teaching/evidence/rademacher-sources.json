@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-09-20T07:14:46.458693+00:00",
+  "verifier": "scripts/verify-rademacher-sources.py",
+  "verifierSha256": "bfbd8688570e47405d3e2bde55be3f94e6efc147a89e0ae92fa844c43b7d53d8",
+  "filesAudited": 16,
+  "filesDeclared": 16,
+  "checks": 110,
+  "displayBlocksChecked": 26,
+  "requiredKatexSequences": 28,
+  "scope": "Raw control bytes and undefined backslash escapes in every file this lesson owns, its own verifiers included; the KaTeX sequences the body depends on; that every display block is wrapped rather than left as one long line; that no JSX conditional has identical branches; that no backslash-u escape sits in JSX text, where it would render as six visible characters; that no table caption sits inside its own scroll box; that the SVG text rule is scoped at the lesson root and uses font longhands with no blanket fill; and that the models verifier contains no comparison of a value with itself.",
+  "limitations": [
+    "Text-level hygiene only. It does not parse JSX or KaTeX, and a wrapped block can still overflow: the rendered width is measured by scripts/verify-rademacher-browser.cjs.",
+    "The escape allow-list is deliberately broad; it catches a byte a shell replaced, not every questionable escape.",
+    "The self-comparison scan matches the `close(a, a, ...)` form only. A comparison laundered through a variable is not caught here; the falsification harness is what establishes that a guard can fire."
+  ],
+  "passed": true,
+  "failureNotes": []
+}

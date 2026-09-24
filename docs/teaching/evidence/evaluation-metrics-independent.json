@@ -1,0 +1,23 @@
+{
+  "reviewer": "semi_supervised_implementation",
+  "passed": true,
+  "numericAssertions": 11829,
+  "groups": [
+    "240 varied binary populations: rank-sum AUC, positive-credit AP, permutations, full tie groups and 1,200 threshold/cost/F2 cases",
+    "Probability exact zero/one boundaries retain zero or infinite mathematical loss, plus finite forecast and invalid domain",
+    "60 residual datasets: independent pair-difference SST/R2 identity, constant perfect targets and unit changes",
+    "720 retrieval cases across all 120 stable-ID permutations, both gain conventions, three cutoffs; no-relevance null",
+    "Exact packet/download/native stdout integrity; all 81 development candidate counts/costs, highest-threshold tie rule, frozen held-out counts/costs/AUC/AP"
+  ],
+  "source": {
+    "src/learn/data/evaluation-metrics-models.js": "97549ac98d40ddf268973a1b0f77324ea2b3e5df995d9f8209e4a89db5b464d8",
+    "src/learn/data/evaluation-metrics-examples.js": "ce05459062544fa56ae0bdbe41d75661c6cc52ff72a0cc7bfc226af840eff11f",
+    "src/learn/data/evaluation-metrics-data.json": "881aabf459fa106a9e768dcc32a442179b39b2fea3c551a0a16ff122e404d7ef",
+    "scripts/verify-evaluation-metrics-independent.mjs": "f91e9efc6e2d034957f8adc60a5adc0acc9c527b3c909fa7ec49ff67252851bd",
+    "public/learn-assets/evaluation-metrics/metrics-calculations.py": "72fa9caf94359b1051db3586c33bda624b5ee67dab2d9288c745d962f34e4205",
+    "public/learn-assets/evaluation-metrics/banknote-evaluation.py": "2c35728c8f62cfeb9eca0c3cae3b540d32776c6752d1b9b32566981a2512e009",
+    "public/learn-assets/evaluation-metrics/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn-assets/evaluation-metrics/banknote-evaluation-results.json": "01a04fea2fa91b177bc353a9f3ca2164e240b827eef83e9f911009662bf2c3b2",
+    "docs/teaching/evidence/evaluation-metrics-native.json": "97dcdf8f2f30206102aa61f35a53061116f7449da7cb7bad261dfaab26acb854"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "capturedAt": "2026-09-21T16:22:55.957Z",
+  "scopedSources": 296,
+  "unchangedSources": 282,
+  "files": [
+    {
+      "path": "src/learn/components/lesson-labs/BashFigures.jsx",
+      "beforeHash": "25fdf5d0ae386d1f62efda7a19e1143aae884b3c72044682897411f289ad8529",
+      "afterHash": "bd15e4ac4e8fc6b825fbbaabd0b10c63923d4cde1f76d1ddc3ad7695c7661b2c"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx",
+      "beforeHash": "b774007e463a7f1b9c0dbb80a34396cfd26fc73d7a1aec785fddfefe98d58dc6",
+      "afterHash": "a063a37f3bf10b68261a43c5948d0d075799fe7949a5c6f31e2bb60e3a4407a0"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/UnionFindLabs.jsx",
+      "beforeHash": "7498d26338577af4e66d8d993ee4e3522c43f3ad4b1e26e1dc6d8ef3374a1351",
+      "afterHash": "b64ad35a16eee6fb0bcd7f396f0b52fd895c5d5c4a5bd2ea48c8c4e14521e367"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/complexity-recursion-labs.css",
+      "beforeHash": "88fe71c88adffa90141c7c6453ab4ea22adaec7b9ccf195a563f277c1f4a6842",
+      "afterHash": "8549f4765ff4cd5f28f511c97297a15083b6d273a3843dda7b478cf91cde2c66"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/OrderedPatternLabs.jsx",
+      "beforeHash": "aee7e77fc6e1644aacc7e8a9aad36a22d7eff0ea601404c3291696f390e53e33",
+      "afterHash": "cce8e2f7e421214fc72eeef39bca798757c81d7715023f91520ff176995517b3"
+    },
+    {
+      "path": "src/learn/data/topics/backtracking-divide-and-conquer.jsx",
+      "beforeHash": "58df12c81aaf774c9d5cc86be95ffb3d731e6d1b983fe44bbc081e108d50d9c4",
+      "afterHash": "c3a974217a5e1db21beb5742027fc268e4039183dd7e7a34961f02a9846ba1c8"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx",
+      "beforeHash": "079ed0370e8038639256b685542b4d0b8932136f8aedf8564279ec12491b265d",
+      "afterHash": "26405bda60dc996357cbc61ebf05f3d75742afe26db7407c9c0ecd6367d5eae4"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx",
+      "beforeHash": "21dcc99ce26f9daad78019f7b84c5c0e7d76aa05ddcd5c3e0f3da0ca7dc1d47f",
+      "afterHash": "e91aeaddc71abaf0671fe7d58b03db8732c8e943523b5538112b19e5e16c5a25"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RangeQueryLabs.jsx",
+      "beforeHash": "10f60b4d1f3601f73e51aa2e61dd6629c7e488484b7ada80d1cf539d205741dc",
+      "afterHash": "0b71795717efb3b0480a6814059f67b0063cd5e4638b92e95beeb4177a537713"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/algorithm-correctness-labs.css",
+      "beforeHash": "72f336da3665c79411aeb87f4d5adc77bd589a0dab69d0fe9d4f896e141169cb",
+      "afterHash": "3ca967b83f268239744080f2c49c54d210a03987cafbde67ff48605f54cae229"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/WeightedGraphLabs.jsx",
+      "beforeHash": "722d16603979e38ed54aeb52f385739ddee9da768bc1485ea4963a16d713a25c",
+      "afterHash": "db8a914517c89dcd1c9ac369445b40bc7860cd593c74ae434c25449e0213805a"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/StringMatchingLabs.jsx",
+      "beforeHash": "75614f5666366bb5b2748b01a149b12553e417b9ffbabc4b6b47b903ceb152ff",
+      "afterHash": "9e7d044a76e2749d57f3b585955676a06727b4d7fa6ad28d4817405df1d56f3c"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/NetworkFlowLabs.jsx",
+      "beforeHash": "de36f0db1bf2a33158ae2ac449f4ffadd0a6451262dde6cf241aaea173091f95",
+      "afterHash": "641d694d87ff8ff296326609191cf1c3d99f6b1a7f6b4556455026e4bca7c9d2"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ComputationalGeometryLabs.jsx",
+      "beforeHash": "fba303d3bd8006408988e0428a0050f36b45e2a2436c604b49be21e19840aa13",
+      "afterHash": "6edb4c4dbc09d7b053db26c7f09ff7e3ae44a5f82fe94dd922ba52a7806e68bb"
+    }
+  ],
+  "baselineManifestHash": "0fe4f103b8a540facf3f999b333ec3756d05c99b532b9f137207cc066fd3cf79",
+  "baseline": {
+    "routes": 39,
+    "controls": 1099,
+    "actions": 158,
+    "outputChangingActions": 125,
+    "ranges": 18,
+    "errors": [],
+    "unlabeled": [],
+    "escapedContent": []
+  },
+  "additionalResponsiveFindings": [
+    {
+      "topic": "algorithm-correctness-loop-invariants-termination",
+      "measured": "Invariant select right edge329.765625px at320px viewport, document330px",
+      "repair": "Constrain the grid select to min-width0 and width100%"
+    },
+    {
+      "topic": "backtracking-divide-and-conquer",
+      "measured": "Unbroken recurrence paragraph scrollWidth317px within280px body; document337px",
+      "repair": "Allow line breaks at recurrence plus signs with ordinary spaces; no mathematical change"
+    },
+    {
+      "topic": "complexity-analysis-recursion",
+      "repair": "Constrain recurrence control labels/selects to min-width0,max-width100%"
+    },
+    {
+      "topic": "binary-search-sorting-two-pointer-patterns",
+      "repair": "Wrap minimum-width interval SVG in existing named keyboard-accessible local scroller"
+    }
+  ],
+  "harnessCorrections": [
+    "Reduced-motion context and two animation frames after instant centering prevent smooth-scroll coordinate races before actual pointer gestures.",
+    "Use exact Load ring around center selector; ring substring also matches other names.",
+    "Reset desktop viewport at start of each route, including after a failing preceding case."
+  ],
+  "layoutOnlyReview": {
+    "routes": 39,
+    "viewport": 320,
+    "candidates": 0,
+    "proposedDOMOverlays": [
+      "complexity-analysis-recursion",
+      "binary-search-sorting-two-pointer-patterns"
+    ],
+    "note": "Separate from final compiled verification; all routes reached without interaction-dependent early exits."
+  }
+}

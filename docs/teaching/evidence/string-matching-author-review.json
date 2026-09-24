@@ -1,0 +1,234 @@
+{
+  "recordedAt": "2026-09-10T11:32:41.195Z",
+  "sourceFreeze": "2026-09-10T11:27:40.195Z",
+  "sources": {
+    "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx": "2c7760c953a78e01c9dde655e4fe036d9552a8b8ca5cb4dee7f7683aa1b7403f",
+    "src/learn/data/string-matching-models.js": "6857a8decf367d569a3ba520dbfcd04f21ec83347647d997244ad2ed892759bb",
+    "src/learn/data/string-matching-examples.js": "006b33c4b902342700d99a2ea1b757b49f0781659cd424b90016817749961612",
+    "src/learn/components/lesson-labs/StringMatchingLabs.jsx": "cdd31069d4c146a8031554d612df61512daabdb55102fe9e45033c50d497b887",
+    "src/learn/components/lesson-labs/string-matching-labs.css": "1d1348b27c32d29a6a72091f72bfa5f85849981992fc1b3b767ccd14c108469b",
+    "src/learn/data/curriculum/blueprints/string-matching-prefix-functions-rolling-hashes.js": "efdae6ef725ccd51d07c6732d39b6696779a6ee4505c3bbd3f969be6596e2bda",
+    "src/learn/data/practice/string-matching-prefix-functions-rolling-hashes.js": "5aaedcbc43ce4ff1e2db9c03d38a36596b7d315d1abc439e49a155e9522d63ce"
+  },
+  "native": {
+    "checkedAt": "2026-09-10T11:27:42.405Z",
+    "nativePrograms": 11,
+    "prefixPatterns": 515,
+    "prefixStates": 10804,
+    "kmpCases": 8772,
+    "kmpStates": 90908,
+    "rollingCases": 26316,
+    "rollingWindows": 100110,
+    "streamPartitions": 10245,
+    "zPatterns": 515,
+    "invalidCases": 7,
+    "native": {
+      "search_cases": 8514,
+      "prefix_cases": 1096,
+      "stream_partitions": 10245,
+      "structure_cases": 1096,
+      "palindrome_cases": 1096,
+      "dna_cases": 8190,
+      "substring_queries": 5660,
+      "polynomial_pairs": 780
+    },
+    "scope": "Independent slicing, proper-border, direct BigInt polynomial and native enumeration oracles; no benchmark or universal interview guarantee."
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T11:28:14.034Z",
+    "results": [
+      {
+        "width": 1440,
+        "anchors": [
+          {
+            "href": "#1-decide-what-a-match-means",
+            "top": 100.25
+          },
+          {
+            "href": "#2-see-a-prefix-inside-a-suffix",
+            "top": 100.390625
+          },
+          {
+            "href": "#3-build-the-prefix-table",
+            "top": 99.609375
+          },
+          {
+            "href": "#4-search-without-forgetting-evidence",
+            "top": 99.78125
+          },
+          {
+            "href": "#5-carry-state-across-chunks",
+            "top": 100.15625
+          },
+          {
+            "href": "#6-use-borders-to-find-structure",
+            "top": 99.6875
+          },
+          {
+            "href": "#7-roll-a-candidate-fingerprint",
+            "top": 100
+          },
+          {
+            "href": "#8-query-fingerprints-and-state-their-guarantees",
+            "top": 99.875
+          },
+          {
+            "href": "#9-choose-the-symbols-you-are-matching",
+            "top": 100.140625
+          },
+          {
+            "href": "#10-another-exact-view-the-z-array",
+            "top": 99.671875
+          },
+          {
+            "href": "#11-build-and-explain-it-independently",
+            "top": 100.203125
+          },
+          {
+            "href": "#guided-dsa-practice",
+            "top": 89.671875
+          }
+        ],
+        "prefixStates": 65,
+        "kmpStates": 121,
+        "rollingWindows": 12,
+        "streamStates": 21,
+        "figures": [
+          "overlap",
+          "border-evidence",
+          "palindromic-prefix",
+          "unicode-coordinates",
+          "prefix-cancellation",
+          "z-reuse"
+        ],
+        "codeExamples": [
+          "A correct baseline and an explicit work count",
+          "Build prefix lengths, not text positions",
+          "Find every exact occurrence, including overlaps",
+          "Keep prefix state when a chunk ends",
+          "List borders and distinguish a period from whole copies",
+          "Roll a fingerprint, then verify the actual symbols",
+          "Cancel a prefix when comparing substring fingerprints",
+          "Name the offset space before normalizing text",
+          "Use a collision-free code for fixed-length DNA words",
+          "Turn a palindromic-prefix question into a border",
+          "Search with the Z array and a half-open evidence box"
+        ],
+        "overflow": {
+          "page": false,
+          "panels": []
+        }
+      },
+      {
+        "width": 390,
+        "anchors": [
+          {
+            "href": "#1-decide-what-a-match-means",
+            "top": 100.03125
+          },
+          {
+            "href": "#2-see-a-prefix-inside-a-suffix",
+            "top": 99.5
+          },
+          {
+            "href": "#3-build-the-prefix-table",
+            "top": 99.625
+          },
+          {
+            "href": "#4-search-without-forgetting-evidence",
+            "top": 100.15625
+          },
+          {
+            "href": "#5-carry-state-across-chunks",
+            "top": 100.109375
+          },
+          {
+            "href": "#6-use-borders-to-find-structure",
+            "top": 99.640625
+          },
+          {
+            "href": "#7-roll-a-candidate-fingerprint",
+            "top": 99.765625
+          },
+          {
+            "href": "#8-query-fingerprints-and-state-their-guarantees",
+            "top": 100.0625
+          },
+          {
+            "href": "#9-choose-the-symbols-you-are-matching",
+            "top": 100.296875
+          },
+          {
+            "href": "#10-another-exact-view-the-z-array",
+            "top": 99.609375
+          },
+          {
+            "href": "#11-build-and-explain-it-independently",
+            "top": 99.859375
+          },
+          {
+            "href": "#guided-dsa-practice",
+            "top": 89.578125
+          }
+        ],
+        "prefixStates": 65,
+        "kmpStates": 121,
+        "rollingWindows": 12,
+        "streamStates": 21,
+        "figures": [
+          "overlap",
+          "border-evidence",
+          "palindromic-prefix",
+          "unicode-coordinates",
+          "prefix-cancellation",
+          "z-reuse"
+        ],
+        "codeExamples": [
+          "A correct baseline and an explicit work count",
+          "Build prefix lengths, not text positions",
+          "Find every exact occurrence, including overlaps",
+          "Keep prefix state when a chunk ends",
+          "List borders and distinguish a period from whole copies",
+          "Roll a fingerprint, then verify the actual symbols",
+          "Cancel a prefix when comparing substring fingerprints",
+          "Name the offset space before normalizing text",
+          "Use a collision-free code for fixed-length DNA words",
+          "Turn a palindromic-prefix question into a border",
+          "Search with the Z array and a half-open evidence box"
+        ],
+        "overflow": {
+          "page": false,
+          "panels": []
+        }
+      }
+    ],
+    "pageErrors": []
+  },
+  "readingControls": {
+    "checkedAt": "2026-09-10T11:30:23.025Z",
+    "results": [
+      {
+        "width": 1440,
+        "finishPreviousResetKeyboard": [
+          "prefix-border",
+          "kmp-alignment",
+          "chunk-matcher",
+          "rolling-fingerprint"
+        ],
+        "introLinks": 12,
+        "annotatedSources": 6
+      },
+      {
+        "width": 390,
+        "finishPreviousResetKeyboard": [
+          "prefix-border",
+          "kmp-alignment",
+          "chunk-matcher",
+          "rolling-fingerprint"
+        ],
+        "introLinks": 12,
+        "annotatedSources": 6
+      }
+    ]
+  }
+}

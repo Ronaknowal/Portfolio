@@ -1,0 +1,189 @@
+{
+  "head_cases": [
+    {
+      "shape": [
+        512,
+        7,
+        7
+      ],
+      "classes": 1000,
+      "direct": 25089000,
+      "gap": 513000,
+      "two_hidden": 123642856
+    },
+    {
+      "shape": [
+        128,
+        7,
+        7
+      ],
+      "classes": 7,
+      "direct": 43911,
+      "gap": 903,
+      "two_hidden": 42504199
+    },
+    {
+      "shape": [
+        1,
+        1,
+        1
+      ],
+      "classes": 1,
+      "direct": 2,
+      "gap": 2,
+      "two_hidden": 16793601
+    },
+    {
+      "shape": [
+        16,
+        1,
+        1
+      ],
+      "classes": 3,
+      "direct": 51,
+      "gap": 51,
+      "two_hidden": 16863235
+    },
+    {
+      "shape": [
+        16,
+        3,
+        5
+      ],
+      "classes": 3,
+      "direct": 723,
+      "gap": 51,
+      "two_hidden": 17780739
+    }
+  ],
+  "changed_cam_practice": {
+    "map": [
+      [
+        -1.0,
+        0.0
+      ],
+      [
+        4.0,
+        -1.0
+      ]
+    ],
+    "score": 0.0,
+    "edited_map": [
+      [
+        -5.0,
+        0.0
+      ],
+      [
+        4.0,
+        -1.0
+      ]
+    ],
+    "edited_score": -1.0
+  },
+  "independent_python_cam_vs_saved_float32_max_error": 7.099608438920768e-06,
+  "gate_cells": {
+    "base": [
+      0.7310585786300049,
+      0.2689414213699951
+    ],
+    "changed": [
+      0.5,
+      0.5
+    ],
+    "permuted": [
+      0.7310585786300049,
+      0.2689414213699951
+    ],
+    "equal_shift": [
+      0.7310585786300049,
+      0.2689414213699951
+    ]
+  },
+  "scaling": [
+    {
+      "d": 2,
+      "w": 1,
+      "r": 1,
+      "parameters": 2,
+      "macs": 2
+    },
+    {
+      "d": 1,
+      "w": 1.4142135623730951,
+      "r": 1,
+      "parameters": 2.0000000000000004,
+      "macs": 2.0000000000000004
+    },
+    {
+      "d": 1,
+      "w": 1,
+      "r": 1.4142135623730951,
+      "parameters": 1,
+      "macs": 2.0000000000000004
+    },
+    {
+      "d": 1,
+      "w": 1,
+      "r": 1,
+      "parameters": 1,
+      "macs": 1
+    },
+    {
+      "d": 1,
+      "w": 1,
+      "r": 2,
+      "parameters": 1,
+      "macs": 4
+    },
+    {
+      "d": 1.5,
+      "w": 0.9237604307034013,
+      "r": 1.25,
+      "parameters": 1.28,
+      "macs": 2.0
+    }
+  ],
+  "eligibility": [
+    {
+      "parameter_budget": 5000,
+      "mac_budget": 60000,
+      "eligible": [
+        "parallel",
+        "inverted_gated"
+      ]
+    },
+    {
+      "parameter_budget": 4650,
+      "mac_budget": 76192,
+      "eligible": [
+        "plain",
+        "residual",
+        "parallel",
+        "inverted_gated"
+      ]
+    },
+    {
+      "parameter_budget": 2502,
+      "mac_budget": 41920,
+      "eligible": [
+        "parallel"
+      ]
+    },
+    {
+      "parameter_budget": 2501,
+      "mac_budget": 41920,
+      "eligible": []
+    },
+    {
+      "parameter_budget": 2502,
+      "mac_budget": 41919,
+      "eligible": []
+    }
+  ],
+  "practice_counts": {
+    "two3_middle64": 36864,
+    "one5_same32": 25600,
+    "projection24to48_weights": 1152,
+    "projection_macs": 73728
+  }
+}

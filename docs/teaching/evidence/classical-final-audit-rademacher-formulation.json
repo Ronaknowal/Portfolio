@@ -1,0 +1,401 @@
+{
+  "checkedAt": "2026-09-21T06:13:40.829824+00:00",
+  "review": "docs/teaching/CLASSICAL-FINAL-RADEMACHER-FORMULATION-AUDIT.md",
+  "status": "passed-review-and-targeted-checks",
+  "productionIntegration": "coordinator-owned; not claimed here",
+  "topics": {
+    "rademacher-complexity-generalization-bounds": {
+      "sourceHashes": {
+        "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "45e296f5283385254fb78a37a11fc6c2c3b74e99795758d9e5ca53cffc6d7020",
+        "src/learn/data/rademacher-models.js": "a1072262beb922f2a87822a1720a2fd5c2d1718b80ece9d1230d3784f4280c4b",
+        "src/learn/data/rademacher-data.js": "001572787c88eb965e334e50ac45e23e8f883f978642894019846fcaa0701701",
+        "src/learn/data/rademacher-examples.js": "f664f16c0bdb73aeddb2163d6f42505eaa18935f84a90de7a6716124f5c9398f",
+        "src/learn/components/lesson-labs/RademacherShared.jsx": "c3906e6c25c70b93cca9a9128c5dac5243ef03fcb313c600f42aa360aa405989",
+        "src/learn/components/lesson-labs/RademacherLabs.jsx": "bb6cc9d38cb3cd5f2b0fe0b0b3a3c867e0083a6ed8ee76958c5e11007443b57c",
+        "src/learn/components/lesson-labs/RademacherFigures.jsx": "65342fbbfcbcd36c1053b9c2cbda77f1a96d7528bb64450692a3f16f42b7de9b",
+        "src/learn/components/lesson-labs/rademacher-labs.css": "0d58d413f557a97d0815df8d46d8430b7dc44136d16ca2625f70bce5fb017488",
+        "src/learn/data/curriculum/blueprints/rademacher-complexity-generalization-bounds.js": "c2e20f91ccd60feed956382789f6b797bc314969a18a006f37ea461e2eaafc3a",
+        "public/learn-assets/rademacher/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "public/learn-assets/rademacher/ATTRIBUTION.txt": "b86580a701352718985734c405b57a1249982e0b308a05ae11b42e01111f63d5",
+        "public/learn-assets/rademacher/complexity_calculations.py": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+        "public/learn-assets/rademacher/bounded_norm_experiment.py": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836"
+      },
+      "changedSourceHashes": {
+        "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "45e296f5283385254fb78a37a11fc6c2c3b74e99795758d9e5ca53cffc6d7020",
+        "src/learn/data/rademacher-models.js": "a1072262beb922f2a87822a1720a2fd5c2d1718b80ece9d1230d3784f4280c4b",
+        "src/learn/components/lesson-labs/RademacherShared.jsx": "c3906e6c25c70b93cca9a9128c5dac5243ef03fcb313c600f42aa360aa405989",
+        "src/learn/components/lesson-labs/RademacherLabs.jsx": "bb6cc9d38cb3cd5f2b0fe0b0b3a3c867e0083a6ed8ee76958c5e11007443b57c",
+        "src/learn/components/lesson-labs/RademacherFigures.jsx": "65342fbbfcbcd36c1053b9c2cbda77f1a96d7528bb64450692a3f16f42b7de9b"
+      },
+      "unchangedFromHistoricalBrowser": {
+        "src/learn/data/rademacher-data.js": "001572787c88eb965e334e50ac45e23e8f883f978642894019846fcaa0701701",
+        "src/learn/data/rademacher-examples.js": "f664f16c0bdb73aeddb2163d6f42505eaa18935f84a90de7a6716124f5c9398f",
+        "src/learn/components/lesson-labs/rademacher-labs.css": "0d58d413f557a97d0815df8d46d8430b7dc44136d16ca2625f70bce5fb017488",
+        "src/learn/data/curriculum/blueprints/rademacher-complexity-generalization-bounds.js": "c2e20f91ccd60feed956382789f6b797bc314969a18a006f37ea461e2eaafc3a",
+        "public/learn-assets/rademacher/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "public/learn-assets/rademacher/ATTRIBUTION.txt": "b86580a701352718985734c405b57a1249982e0b308a05ae11b42e01111f63d5",
+        "public/learn-assets/rademacher/complexity_calculations.py": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+        "public/learn-assets/rademacher/bounded_norm_experiment.py": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836"
+      },
+      "contentCheckpointPreserved": true,
+      "contentFiles": {
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/author-checks.json": "99811c8ffa5a0171cd4faaa65e8e07cbb90c83de9836418a463582edc59de0b3",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/bounded_norm_experiment.py": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/checked-results.json": "aa990e932d68b371ca1e680b9ee52e97fec81bfbf17cb5dcf52ded190f8fcc6b",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/complexity_calculations.py": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/data-provenance.md": "0a08917c637fa3df737a75c49e4c6264ce5d0206f5a4457fd45c0dc4338e96f9",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/design.md": "4354e396231c38ff274523e22d6fdd01fa732008520de50eb7bf1d7fe26bc837",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/experiment-results.json": "26caac6ec64c9223a1ee225c01d7fe8adaf74e6e023fb1e6440ed88be1648c20",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/lesson.md": "a3a938040b9992076d0cd8bba500ec67149a0eda166bd7af7ae893496f77aef4",
+        "docs/teaching/drafts/rademacher-complexity-generalization-bounds/visual-specifications.md": "5eb4ced8251e25a2cabffc4cdec8fdfcb1827f72492b1a4a7a4d6d42c4dba317"
+      },
+      "originalDesign": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/design.md",
+      "manuscript": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/lesson.md",
+      "visualSpecifications": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/visual-specifications.md",
+      "nativeAndDataReuse": {
+        "rerun": false,
+        "receipts": {
+          "docs/teaching/evidence/rademacher-native.json": "113070764c497341786995ff0967bbcd13cab130e7e9d78dd7b9cb1a1aec8156",
+          "docs/teaching/evidence/rademacher-data.json": "88b1b69bb7e80c625d06b1e20ec4e172e62ca149c571c807cdf10ac917e58b96"
+        },
+        "byteMatches": [
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/lesson.md",
+            "sha256": "a3a938040b9992076d0cd8bba500ec67149a0eda166bd7af7ae893496f77aef4",
+            "match": true,
+            "role": "executed manuscript"
+          },
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/complexity_calculations.py",
+            "sha256": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+            "match": true,
+            "role": "executed packet program"
+          },
+          {
+            "path": "public/learn-assets/rademacher/complexity_calculations.py",
+            "sha256": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+            "match": true,
+            "role": "served program"
+          },
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/bounded_norm_experiment.py",
+            "sha256": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836",
+            "match": true,
+            "role": "executed packet program"
+          },
+          {
+            "path": "public/learn-assets/rademacher/bounded_norm_experiment.py",
+            "sha256": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836",
+            "match": true,
+            "role": "served program"
+          },
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/checked-results.json",
+            "sha256": "aa990e932d68b371ca1e680b9ee52e97fec81bfbf17cb5dcf52ded190f8fcc6b",
+            "match": true,
+            "role": "reproduced result"
+          },
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/experiment-results.json",
+            "sha256": "26caac6ec64c9223a1ee225c01d7fe8adaf74e6e023fb1e6440ed88be1648c20",
+            "match": true,
+            "role": "reproduced result"
+          },
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/checked-results.json",
+            "sha256": "aa990e932d68b371ca1e680b9ee52e97fec81bfbf17cb5dcf52ded190f8fcc6b",
+            "match": true,
+            "role": "data verification input"
+          },
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/experiment-results.json",
+            "sha256": "26caac6ec64c9223a1ee225c01d7fe8adaf74e6e023fb1e6440ed88be1648c20",
+            "match": true,
+            "role": "data verification input"
+          },
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/author-checks.json",
+            "sha256": "99811c8ffa5a0171cd4faaa65e8e07cbb90c83de9836418a463582edc59de0b3",
+            "match": true,
+            "role": "data verification input"
+          },
+          {
+            "path": "docs/teaching/drafts/rademacher-complexity-generalization-bounds/lesson.md",
+            "sha256": "a3a938040b9992076d0cd8bba500ec67149a0eda166bd7af7ae893496f77aef4",
+            "match": true,
+            "role": "data verification input"
+          },
+          {
+            "path": "src/learn/data/rademacher-examples.js",
+            "sha256": "f664f16c0bdb73aeddb2163d6f42505eaa18935f84a90de7a6716124f5c9398f",
+            "match": true,
+            "role": "displayed example module"
+          },
+          {
+            "path": "scripts/verify-rademacher-examples.py",
+            "sha256": "2e08e6dc31da503e6649afe7cb864a09bd89ac1d3ca3455cf89bc79bce8dd9e3",
+            "match": true,
+            "role": "native verifier"
+          },
+          {
+            "path": "public/learn-assets/rademacher/banknote-subset.csv",
+            "sha256": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+            "match": true,
+            "role": "served dataset"
+          },
+          {
+            "path": "src/learn/data/rademacher-data.js",
+            "sha256": "001572787c88eb965e334e50ac45e23e8f883f978642894019846fcaa0701701",
+            "match": true,
+            "role": "generated browser data"
+          },
+          {
+            "path": "scripts/verify-rademacher-data.py",
+            "sha256": "6e3b25738afe4c7278c9c8aa8513d389dfa1dc3901d694a7103592d5da8ddc6c",
+            "match": true,
+            "role": "data verifier"
+          }
+        ]
+      }
+    },
+    "ml-problem-formulation-baselines-data-leakage": {
+      "sourceHashes": {
+        "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "7523c32e31e15b1ea3324a71fa7c18a005b208f6b47a58e626b97d1604afcc88",
+        "src/learn/data/formulation-models.js": "fc6fbb3436db0a44de721e3ca7412fef02fce7bc2ccefbe50dfb2ad4febc7558",
+        "src/learn/data/formulation-data.js": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+        "src/learn/data/formulation-examples.js": "f4ee3741cab02b659abdecc6ec312ab058a4869ea341e435523842620f8b0f43",
+        "src/learn/components/lesson-labs/FormulationShared.jsx": "29b5754fdffea19f9c1ffb6a7fbe410e870f3c9e8fbc2f6a5bd520299aefb15b",
+        "src/learn/components/lesson-labs/FormulationLabs.jsx": "6c0cba949341337d25d9c105eab82181279f9b1a5150321e75033faadf397641",
+        "src/learn/components/lesson-labs/FormulationFigures.jsx": "70ac1916f25678e5540e65b01c93686234a5490616f93697cd8fbaef98c821a3",
+        "src/learn/components/lesson-labs/formulation-labs.css": "83474ebe65bb9a50b317969a82e9622801da013b37351ce237219b088910915f",
+        "src/learn/data/curriculum/blueprints/ml-problem-formulation-baselines-data-leakage.js": "6f90b8dad21372d9ba27e57bab7290e2ce844eb61fe7065da22f1187fab925fa",
+        "public/learn-assets/problem-formulation/bank-additional.csv": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+        "public/learn-assets/problem-formulation/ATTRIBUTION.txt": "110376a5d04c375d813a9804b7e7e4869c7443ad2ebee181d55066b46d73dae2",
+        "public/learn-assets/problem-formulation/bank-marketing-variable-description.txt": "10045462a4c026f858dffa159370c4270510230c1fc63c6c91ca51bba4b3df26",
+        "public/learn-assets/problem-formulation/formulation-calculations.py": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0"
+      },
+      "changedSourceHashes": {
+        "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "7523c32e31e15b1ea3324a71fa7c18a005b208f6b47a58e626b97d1604afcc88",
+        "src/learn/components/lesson-labs/FormulationLabs.jsx": "6c0cba949341337d25d9c105eab82181279f9b1a5150321e75033faadf397641"
+      },
+      "unchangedFromHistoricalBrowser": {
+        "src/learn/data/formulation-models.js": "fc6fbb3436db0a44de721e3ca7412fef02fce7bc2ccefbe50dfb2ad4febc7558",
+        "src/learn/data/formulation-data.js": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+        "src/learn/data/formulation-examples.js": "f4ee3741cab02b659abdecc6ec312ab058a4869ea341e435523842620f8b0f43",
+        "src/learn/components/lesson-labs/FormulationShared.jsx": "29b5754fdffea19f9c1ffb6a7fbe410e870f3c9e8fbc2f6a5bd520299aefb15b",
+        "src/learn/components/lesson-labs/FormulationFigures.jsx": "70ac1916f25678e5540e65b01c93686234a5490616f93697cd8fbaef98c821a3",
+        "src/learn/components/lesson-labs/formulation-labs.css": "83474ebe65bb9a50b317969a82e9622801da013b37351ce237219b088910915f",
+        "src/learn/data/curriculum/blueprints/ml-problem-formulation-baselines-data-leakage.js": "6f90b8dad21372d9ba27e57bab7290e2ce844eb61fe7065da22f1187fab925fa",
+        "public/learn-assets/problem-formulation/bank-additional.csv": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+        "public/learn-assets/problem-formulation/ATTRIBUTION.txt": "110376a5d04c375d813a9804b7e7e4869c7443ad2ebee181d55066b46d73dae2",
+        "public/learn-assets/problem-formulation/bank-marketing-variable-description.txt": "10045462a4c026f858dffa159370c4270510230c1fc63c6c91ca51bba4b3df26",
+        "public/learn-assets/problem-formulation/formulation-calculations.py": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0"
+      },
+      "contentCheckpointPreserved": true,
+      "contentFiles": {
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/author-calculations.py": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/bank-additional.csv": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/calculated-inputs.json": "d694b6546ba00e7bc6d4592d21e973a4f7faa3d81551b252762b5b7d26b405a7",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/data-provenance.md": "50d9fd58e1204f3d343a5b0f6fd33409e1a4106451ff61a1c1a071aba215fd17",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/data-source.json": "78122b8a8cc8d1c06ff8e705846bb233fdc63a19ff51dd27c160ed67ce534904",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/design.md": "0981602928d9c301696935b3fbbc5e8aa976eb41210a46be996e0dd08994c02f",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/lesson.md": "1ff63549d7055024cdc8a4a982d1af05b6c575e305b824f88f90d8f0642b3139",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/source-description.txt": "10045462a4c026f858dffa159370c4270510230c1fc63c6c91ca51bba4b3df26",
+        "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/visual-specifications.md": "b11a6b4a77e67d3485f92d0588779b3cbfd16a2e4366e32dab4f6c4af87f0d5d"
+      },
+      "originalDesign": "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/design.md",
+      "manuscript": "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/lesson.md",
+      "visualSpecifications": "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/visual-specifications.md",
+      "nativeAndDataReuse": {
+        "rerun": false,
+        "receipts": {
+          "docs/teaching/evidence/formulation-native.json": "037ec75a147c7415a1f6bb69eee83374efa9ac6d39920612f632766235d87ae9",
+          "docs/teaching/evidence/formulation-data.json": "c816b8390bc6a56dc1cf523619c492378bf6fbe642c5ddf0cad8ca23f256ab03"
+        },
+        "byteMatches": [
+          {
+            "path": "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/lesson.md",
+            "sha256": "1ff63549d7055024cdc8a4a982d1af05b6c575e305b824f88f90d8f0642b3139",
+            "match": true,
+            "role": "executed manuscript"
+          },
+          {
+            "path": "scripts/verify-formulation-examples.py",
+            "sha256": "e95e3d4f2998db42a9c694280362e403272439a6772e66d6b7403590fc3cbab0",
+            "match": true,
+            "role": "native verifier"
+          },
+          {
+            "path": "src/learn/data/formulation-examples.js",
+            "sha256": "f4ee3741cab02b659abdecc6ec312ab058a4869ea341e435523842620f8b0f43",
+            "match": true,
+            "role": "displayed example module"
+          },
+          {
+            "path": "public/learn-assets/problem-formulation/formulation-calculations.py",
+            "sha256": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0",
+            "match": true,
+            "role": "executed served program"
+          },
+          {
+            "path": "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/calculated-inputs.json",
+            "sha256": "d694b6546ba00e7bc6d4592d21e973a4f7faa3d81551b252762b5b7d26b405a7",
+            "match": true,
+            "role": "reproduced result"
+          },
+          {
+            "path": "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/author-calculations.py",
+            "sha256": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0",
+            "match": true,
+            "role": "packet calculation program"
+          },
+          {
+            "path": "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/bank-additional.csv",
+            "sha256": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+            "match": true,
+            "role": "packet dataset"
+          },
+          {
+            "path": "public/learn-assets/problem-formulation/bank-additional.csv",
+            "sha256": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+            "match": true,
+            "role": "served dataset"
+          },
+          {
+            "path": "src/learn/data/formulation-data.js",
+            "sha256": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+            "match": true,
+            "role": "generated browser data"
+          },
+          {
+            "path": "scripts/verify-formulation-data.py",
+            "sha256": "9182931fdff0bb906c4c0b30f66a6ecff27a6278bb8104fb68cd1dc5ffe88e28",
+            "match": true,
+            "role": "data verifier"
+          }
+        ]
+      }
+    }
+  },
+  "sourceHashes": {
+    "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "45e296f5283385254fb78a37a11fc6c2c3b74e99795758d9e5ca53cffc6d7020",
+    "src/learn/data/rademacher-models.js": "a1072262beb922f2a87822a1720a2fd5c2d1718b80ece9d1230d3784f4280c4b",
+    "src/learn/data/rademacher-data.js": "001572787c88eb965e334e50ac45e23e8f883f978642894019846fcaa0701701",
+    "src/learn/data/rademacher-examples.js": "f664f16c0bdb73aeddb2163d6f42505eaa18935f84a90de7a6716124f5c9398f",
+    "src/learn/components/lesson-labs/RademacherShared.jsx": "c3906e6c25c70b93cca9a9128c5dac5243ef03fcb313c600f42aa360aa405989",
+    "src/learn/components/lesson-labs/RademacherLabs.jsx": "bb6cc9d38cb3cd5f2b0fe0b0b3a3c867e0083a6ed8ee76958c5e11007443b57c",
+    "src/learn/components/lesson-labs/RademacherFigures.jsx": "65342fbbfcbcd36c1053b9c2cbda77f1a96d7528bb64450692a3f16f42b7de9b",
+    "src/learn/components/lesson-labs/rademacher-labs.css": "0d58d413f557a97d0815df8d46d8430b7dc44136d16ca2625f70bce5fb017488",
+    "src/learn/data/curriculum/blueprints/rademacher-complexity-generalization-bounds.js": "c2e20f91ccd60feed956382789f6b797bc314969a18a006f37ea461e2eaafc3a",
+    "public/learn-assets/rademacher/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn-assets/rademacher/ATTRIBUTION.txt": "b86580a701352718985734c405b57a1249982e0b308a05ae11b42e01111f63d5",
+    "public/learn-assets/rademacher/complexity_calculations.py": "fd1f1c8a1edc3ef30ce6e73850cdb5438bc397260c4f1cec12be3f3fa1649654",
+    "public/learn-assets/rademacher/bounded_norm_experiment.py": "ec054516c565d4f5c621fc7124ca8254e47c52f5aedefd3f470a2cbe4f48c836",
+    "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "7523c32e31e15b1ea3324a71fa7c18a005b208f6b47a58e626b97d1604afcc88",
+    "src/learn/data/formulation-models.js": "fc6fbb3436db0a44de721e3ca7412fef02fce7bc2ccefbe50dfb2ad4febc7558",
+    "src/learn/data/formulation-data.js": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+    "src/learn/data/formulation-examples.js": "f4ee3741cab02b659abdecc6ec312ab058a4869ea341e435523842620f8b0f43",
+    "src/learn/components/lesson-labs/FormulationShared.jsx": "29b5754fdffea19f9c1ffb6a7fbe410e870f3c9e8fbc2f6a5bd520299aefb15b",
+    "src/learn/components/lesson-labs/FormulationLabs.jsx": "6c0cba949341337d25d9c105eab82181279f9b1a5150321e75033faadf397641",
+    "src/learn/components/lesson-labs/FormulationFigures.jsx": "70ac1916f25678e5540e65b01c93686234a5490616f93697cd8fbaef98c821a3",
+    "src/learn/components/lesson-labs/formulation-labs.css": "83474ebe65bb9a50b317969a82e9622801da013b37351ce237219b088910915f",
+    "src/learn/data/curriculum/blueprints/ml-problem-formulation-baselines-data-leakage.js": "6f90b8dad21372d9ba27e57bab7290e2ce844eb61fe7065da22f1187fab925fa",
+    "public/learn-assets/problem-formulation/bank-additional.csv": "7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50",
+    "public/learn-assets/problem-formulation/ATTRIBUTION.txt": "110376a5d04c375d813a9804b7e7e4869c7443ad2ebee181d55066b46d73dae2",
+    "public/learn-assets/problem-formulation/bank-marketing-variable-description.txt": "10045462a4c026f858dffa159370c4270510230c1fc63c6c91ca51bba4b3df26",
+    "public/learn-assets/problem-formulation/formulation-calculations.py": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0"
+  },
+  "freshChecks": [
+    {
+      "command": "node scripts/verify-rademacher-models.mjs --no-evidence",
+      "passed": true,
+      "groupedAssertions": 327,
+      "groups": 52,
+      "kernelChecks": 1005,
+      "rampChecks": 7230,
+      "movementChecks": 410,
+      "lossChecks": 16001,
+      "geometryChecks": 1205,
+      "hullChecks": 252
+    },
+    {
+      "command": "node scripts/verify-formulation-models.mjs --no-evidence",
+      "passed": true,
+      "groupedAssertions": 138,
+      "groups": 60,
+      "asKnownChecks": 50700,
+      "asKnownNulls": 2197,
+      "geometryChecks": 1800,
+      "capacityChecks": 300,
+      "exchangeChecks": 58675,
+      "rankingNulls": 300,
+      "costChecks": 144
+    },
+    {
+      "command": "scratch/lesson-tools/Scripts/python.exe scripts/verify-rademacher-sources.py --no-evidence",
+      "passed": true,
+      "checks": 110,
+      "files": 16
+    },
+    {
+      "command": "scratch/lesson-tools/Scripts/python.exe scripts/verify-formulation-sources.py --no-evidence",
+      "passed": true,
+      "assertions": 82,
+      "scans": 58,
+      "files": 16,
+      "parsedSources": 11
+    },
+    {
+      "command": "node scripts/verify-rademacher-formulation-audit.cjs",
+      "environment": {
+        "LEARNING_BASE_URL": "http://127.0.0.1:4184",
+        "PLAYWRIGHT_PACKAGE": "C:/Users/ronak/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright"
+      },
+      "passed": true,
+      "cases": [
+        "Absolute convention: every table maximum is nonnegative and averages to the displayed .5; average-first uses the same convention.",
+        "Editable integer outputs 2 and 0 retain their actual values in prediction choices.",
+        "Zero budget and zero signed sum: unique origin, zero optimum, zero complexity, and correct equality explanation.",
+        "First-input preset preserves three- and five-row observation/label alignment.",
+        "Margin scale comparison starts from learner-committed nondefault inputs; an out-of-ball coefficient cannot receive a vacuous/unchanged verdict.",
+        "Manual zero candidate does not disclose its assessment errors before the selection commitment.",
+        "Other-entity null remains a null when querying sensor B; translation refuses a preset exceeding the value editor range.",
+        "An unfinished exchange is retired by typed and preset capacity changes before membership can become invalid.",
+        "Measured capacity 50\u219225 gives .48; subsequent reversal preserves both membership and precision against the actual previous state."
+      ],
+      "pageErrors": [],
+      "receipt": "docs/teaching/evidence/classical-final-audit-rademacher-formulation-browser.json",
+      "receiptSha256": "8ef3ab29a8ace56155188d748b285ffe896bacb5c5955192298c138a44ea781b"
+    }
+  ],
+  "limitations": [
+    "Retained native/data execution is reused after byte matching; not a fresh native execution or refit.",
+    "Historical browser evidence is not a current whole-lesson pass for edited sources.",
+    "Fresh browser work uses Edge only, selected 1366/320 px states, not assistive technology.",
+    "Root owns final production build, three-width integration, downloads, and central checkpoint binding.",
+    "No source-mutating falsification or lesson expansion."
+  ],
+  "verifierHashes": {
+    "scripts/verify-rademacher-models.mjs": "ea2756f276e066c7bb2866a286329c35e44c87aa6049aa1d57ec7df524d4f06a",
+    "scripts/verify-formulation-models.mjs": "702797003df9784ac860ca2b5b6180e8f6b719d41f0359e674b590e649bc0846",
+    "scripts/verify-rademacher-sources.py": "bfbd8688570e47405d3e2bde55be3f94e6efc147a89e0ae92fa844c43b7d53d8",
+    "scripts/verify-formulation-sources.py": "6d8dc03247e7ca683534b71866a53174c0a818bd322002f4b9eb2284edf0401b",
+    "scripts/verify-rademacher-formulation-audit.cjs": "231caaf1f049a780bcab239cc536c55a0a17357a5630d8e9ee86cee29571bf3d"
+  },
+  "screenshots": {
+    "docs/teaching/evidence/screenshots/classical-final-rademacher-absolute-desktop.png": "10161cbb37275f79e113c01b71576881019de52a7ae7853a5d8396e3b12de4bd",
+    "docs/teaching/evidence/screenshots/classical-final-rademacher-zero-budget-desktop.png": "fe8fead6e7e91bae07c919713cb6546d61be82775b6d5048998820b9e6c6e410",
+    "docs/teaching/evidence/screenshots/classical-final-rademacher-zero-budget-320.png": "5fc09b60247f8ba6826be1dd6e5eddbceb39c01aa12d1c43e5bf9d45d74c53ff",
+    "docs/teaching/evidence/screenshots/classical-final-formulation-other-entity-320.png": "b8a55b325f2c333f0948964961634c9cc856ec7ae97d99b4f7cd9a97d100af23",
+    "docs/teaching/evidence/screenshots/classical-final-formulation-membership-null-desktop.png": "48ba4358e178c336b0980fc05783ac91a7a15c448a0c4b98313e26207b5b3b74",
+    "docs/teaching/evidence/screenshots/classical-final-formulation-membership-null-320.png": "9ea1d7ef09848c63a1ba9fbf72c8b859382493c0823c99d733b4bc7f32480ad6"
+  },
+  "retainedFiguresVisuallyInspected": {
+    "docs/teaching/evidence/screenshots/rademacher-figure-13-390.png": "bc0b47cd5f01e50e68eb2db645c4b5acb98d0471c6f7e67181cce9cfb6d02216",
+    "docs/teaching/evidence/screenshots/rademacher-figure-15-320.png": "4b55e4d09c4385727a3340f765ad801b803a86d8cd01ce44089cb9a88a1ce364",
+    "docs/teaching/evidence/screenshots/formulation-figure-4-320.png": "210f49419dab8eb31cd4bf471a1f7be7b9347a30a667cf2943b53da0286f46f6",
+    "docs/teaching/evidence/screenshots/formulation-figure-5-320.png": "aab8b98d5c2934c3d664721d603b630188a4a49d1ccb9e31694e334ff9680156"
+  },
+  "reportSha256": "7f011f4cb0e3590a33d4eacdf7ba27ace9fb002d51420b6695e8551dab4ee225"
+}

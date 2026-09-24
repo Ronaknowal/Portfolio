@@ -1,0 +1,2 @@
+// Recorded from the canonical program; see the source-bound native receipt.
+export default "4 chains x 2000 retained; 1000 tuning per chain; divergences 0\nrank R-hat 1.0014; bulk ESS 3010.8; tail ESS 3816.2\nmean: estimate 0.711610; exact 0.714286; MCSE 0.002112; error/MCSE 1.27\nP(theta > .70): estimate 0.567500; exact 0.579394; MCSE 0.008598; error/MCSE 1.38\nChanged data (n=6, successes=1): exact mean 0.300000; exact tail 0.004290894\nSupport, finite diagnostics, precision and exact-target checks: passed";

@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "comparisons": 84,
+  "checks": [
+    "30 multiclass committees: joint-entropy identity and member/class permutation invariance",
+    "12 multi-anchor batches: exhaustive three-center optimum and 90-degree rotation invariance",
+    "symmetric binary entropy ties select the documented first identifier",
+    "seeded default query4: control and committed query both choose unused0",
+    "all candidate queries already observed: explicit exhausted state without invalid acquisition",
+    "changed weighted family: hidden expected survivors, exact15/16 versus1/16 conditioning and3/1 grading",
+    "three deterministic classes: disagreementln3, symmetric votes, keyboard commitment",
+    "editable symmetric entropy tie usesID A while farthest-first selectsC; chosen radius4 graded correctly",
+    "390px informative screenshots, distinct curve run, no page overflow or runtime errors"
+  ],
+  "screenshots": [
+    {
+      "file": "scratch/active-learning-independent-review/weighted-threshold-390.png",
+      "sha256": "b5a1f4b3c9399d8cf1821dd0645dda9f25f235b21b3ba131625978134c4c16bc"
+    },
+    {
+      "file": "scratch/active-learning-independent-review/three-class-committee-390.png",
+      "sha256": "f30dee80c150fd26a8e2488144a96b8e536ba6313d61645e2f326799d0866a5c"
+    },
+    {
+      "file": "scratch/active-learning-independent-review/symmetric-entropy-batch-390.png",
+      "sha256": "4b511f8a0d8e4f4eb02fee6bc5346ef177d8055ffdca68ca22f6b4b62c8482b7"
+    },
+    {
+      "file": "scratch/active-learning-independent-review/single-run-curve-390.png",
+      "sha256": "c70cc6f3040468a40f9603c12127b93cc5817b8617824198245590e5799667ae"
+    }
+  ],
+  "source": {
+    "src/learn/data/topics/active-learning.jsx": "8b9625ede081ede0346d115c7a663e73bfff7546d48e146b388e0b3de67a2354",
+    "src/learn/data/active-learning-models.js": "c81e43283416988c407902a82b44ae00abfa6a57c0e10e9ddd2071e10d243b77",
+    "src/learn/data/active-learning-experiment.json": "3befab1a8639cdefc4a1ce025a537b34a1dfbba3edb073babc004d55967c9fa7",
+    "src/learn/data/active-learning-examples.js": "beb5cfce5537faf2635442410d35eefb5cfa88168fbc63081e626f4bc63d3717",
+    "src/learn/components/lesson-labs/ActiveLearningFigures.jsx": "13da1373decb1d6a906efc75ac96e61625743f87ab848b391954167f26782926",
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "c4e12b49b2889ebd17dfd6b79b48f81f67c66ecc29f393200485934e9b57dc7d",
+    "src/learn/components/lesson-labs/active-learning.css": "38ab68e14876fa820c23c7e52e0f7bafae1a11abd5ac98f4028b7265a4b999be",
+    "src/learn/data/curriculum/blueprints/active-learning.js": "79678ef5fcaa210993bef9c3867f51033acfc9d260babbcf388dcf663b0ae425",
+    "public/learn/downloads/active-learning/banknote-active-learning.py": "2b31d98bd4402385ca48ef588ff133da75261f31c8bb1edda632e02633221c74",
+    "public/learn/downloads/active-learning/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn/downloads/active-learning/data-provenance.md": "55c3c10542818a6f608d2eb5d6563d288f584c39a211343dc5a290a9a9cd7d10",
+    "scripts/review-active-learning-independent.cjs": "f69952e44fb3eded0773b3a8c740951609f182048e522bba47c82670820ea6cc"
+  }
+}

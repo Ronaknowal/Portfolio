@@ -1,0 +1,50 @@
+Bike Sharing Dataset — daily member
+====================================
+
+Served by the lesson "Time-Series Validation & Forecasting Baselines" at
+/learn-assets/time-series-validation/bike-sharing-daily.csv
+
+Source record  https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset
+Creator        Hadi Fanaee-T, LIAAD, University of Porto (2013)
+DOI            https://doi.org/10.24432/C5W894
+Licence        CC BY 4.0  https://creativecommons.org/licenses/by/4.0/
+Retrieved      2026-09-12
+Provider archive  https://archive.ics.uci.edu/static/public/275/bike%2Bsharing%2Bdataset.zip
+Archive SHA-256   b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401
+Member            day.csv
+Member SHA-256    a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be
+Bytes             57569
+Changes           Filename only. The daily CSV bytes are unchanged.
+
+Required citation
+-----------------
+Fanaee-T, Hadi, and Gama, Joao, "Event labeling combining ensemble detectors and
+background knowledge", Progress in Artificial Intelligence (2013): pp. 1-15,
+Springer Berlin Heidelberg, doi:10.1007/s13748-013-0040-3.
+
+What the file contains
+----------------------
+731 consecutive calendar days, 1 January 2011 to 31 December 2012, of recorded
+Capital Bikeshare rentals in Washington, DC, with the provider's weather and
+calendar columns. The lesson uses only the date column and `cnt`, the total
+recorded rentals. The unchanged provider description is retained with the
+content packet at
+docs/teaching/drafts/time-series-validation-forecasting-baselines/source-description.txt
+
+What the target is, and is not
+------------------------------
+`cnt` is the number of rentals the system RECORDED. It is not unmet demand, not
+the number of bicycles a station needed, and not a causal effect of weather. The
+file carries no report-arrival timestamps, so this lesson states an explicit
+replay assumption: each day's count is known at the end of that day. A
+deployment whose counts arrive later needs a different availability rule, and
+the lesson's reporting-delay investigation exists to show what changes.
+
+Ownership
+---------
+This lesson serves its own copy of this file. No other lesson's directory is
+read, and this copy must not be read by another lesson: a path that works today
+would silently follow someone else's edit tomorrow.
+
+The complete author program is served beside it as forecast-experiments.py. It
+writes the packet's calculated-inputs.json and downloads nothing.

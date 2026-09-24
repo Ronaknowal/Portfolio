@@ -1,0 +1,71 @@
+const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+
+(async () => {
+  fs.mkdirSync('scratch/numpy-foundations', { recursive: true });
+  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const errors = [], results = [];
+  try {
+    const page = await browser.newPage();
+    page.on('pageerror', error => errors.push(error.message));
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto('http://127.0.0.1:5173/learn/path/ml-foundations/numpy-arrays-broadcasting-vectorization');
+      await page.locator('.numpy-broadcast-lab').waitFor();
+      assert.equal(await page.locator('.numpy-lab').count(), 4);
+      assert.equal(await page.locator('.reader-header h1').innerText(), 'NumPy: Arrays, Broadcasting & Vectorization');
+      assert.ok(await page.locator('a[href="/learn/topic/scientific-file-formats-schemas-reliable-data-i-o"]').count());
+      const selection = page.locator('.numpy-selection-lab');
+      await selection.getByRole('button', { name: 'Reveal selection result' }).click();
+      await selection.getByRole('button', { name: /^Selection result 1: 24/ }).click();
+      assert.match(await selection.locator('[role="status"]').innerText(), /X\[1, 0\] = 24/);
+      await selection.getByLabel('Array selection').selectOption('column2d');
+      await selection.getByRole('button', { name: 'Reveal selection result' }).click();
+      assert.match(await selection.locator('figcaption').last().innerText(), /\(3, 1\)/);
+      await selection.screenshot({ path: `scratch/numpy-foundations/selection-${width}.png` });
+      const memory = page.locator('.numpy-memory-lab');
+      await memory.getByRole('button', { name: 'Write 99 through picked' }).click();
+      assert.match(await memory.locator('[role="status"]').innerText(), /X\[1, 0\] changed/);
+      await memory.getByLabel('Selection storage').selectOption('copy');
+      await memory.getByRole('button', { name: 'Write 99 through picked' }).click();
+      assert.match(await memory.locator('[role="status"]').innerText(), /X\[1, 0\] remains 24/);
+      await memory.getByRole('button', { name: 'Undo write' }).click();
+      assert.equal(await memory.getByRole('button', { name: 'Write 99 through picked' }).isEnabled(), true);
+      await memory.screenshot({ path: `scratch/numpy-foundations/memory-${width}.png` });
+      const broadcast = page.locator('.numpy-broadcast-lab');
+      await broadcast.getByRole('button', { name: 'Reveal broadcast result' }).click();
+      const target = broadcast.getByRole('button', { name: /^Broadcast result 2, 1: 28/ });
+      await target.focus();
+      await page.keyboard.press('Enter');
+      assert.match(await broadcast.locator('.numpy-equation').innerText(), /32 − 4 = 28/);
+      const keyboardFocus = await target.evaluate(el => ({ active: el === document.activeElement, outline: getComputedStyle(el).outlineStyle }));
+      assert.equal(keyboardFocus.active, true);
+      assert.notEqual(keyboardFocus.outline, 'none');
+      await broadcast.screenshot({ path: `scratch/numpy-foundations/broadcast-${width}.png` });
+      await broadcast.getByLabel('Broadcast investigation').selectOption('invalid');
+      await broadcast.getByRole('button', { name: 'Reveal broadcast result' }).click();
+      assert.match(await broadcast.locator('[role="status"]').innerText(), /ValueError: no compatible broadcast/);
+      await broadcast.getByRole('button', { name: 'Reset broadcast lab' }).click();
+      assert.equal(await broadcast.getByLabel('Broadcast investigation').inputValue(), 'sensor');
+      const reduction = page.locator('.numpy-reduction-lab');
+      await reduction.getByLabel('Axis to average over').selectOption('1');
+      await reduction.getByLabel('Keep the reduced axis').selectOption('true');
+      await reduction.getByRole('button', { name: 'Reveal reduction result' }).click();
+      await reduction.getByRole('button', { name: /^Mean result 2, 0: 31/ }).click();
+      assert.match(await reduction.locator('[role="status"]').innerText(), /\(30 \+ 32\) ÷ 2 = 31 °C/);
+      assert.match(await reduction.locator('[role="status"]').innerText(), /\(3, 1\)/);
+      await reduction.screenshot({ path: `scratch/numpy-foundations/reduction-${width}.png` });
+      await page.getByText('Full runnable solution and reasoning', { exact: true }).click();
+      assert.equal(await page.locator('.numpy-lesson').getByText('numpy_energy_report.py', { exact: true }).isVisible(), true);
+      const anchors = await page.locator('.numpy-lesson nav a').evaluateAll(els => els.map(el => ({ href: el.hash, valid: !!document.getElementById(el.hash.slice(1)) })));
+      assert.ok(anchors.every(item => item.valid), JSON.stringify(anchors));
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+      assert.ok(overflow <= 1, `page overflow ${width}: ${overflow}`);
+      results.push({ width, labs: 4, selectionAndCellMapping: true, memoryWriteUndoCopy: true, broadcastInvalidReset: true, reductions: true, keyboardFocus, anchors: anchors.length, overflow });
+    }
+    assert.deepEqual(errors, []);
+    fs.writeFileSync('scratch/numpy-foundations/browser-results.json', JSON.stringify({ checkedAt: new Date().toISOString(), results, errors }, null, 2));
+    console.log(JSON.stringify(results, null, 2));
+  } finally { await browser.close(); }
+})().catch(error => { console.error(error); process.exitCode = 1; });

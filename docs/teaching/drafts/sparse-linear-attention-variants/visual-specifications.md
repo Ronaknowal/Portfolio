@@ -1,0 +1,163 @@
+# Sparse & Linear Attention — visual and investigation contracts
+
+## Live exploration contract — 21 September 2026
+
+Open each investigation with its current inputs, intermediate mechanism and complete current output visible. Apply valid edits to meaningful entities immediately and update diagrams, tables, units and causal explanation together. No prediction entry, predicted-answer choices, commitment, prediction grading or answer-unlock feature is part of this packet, even optionally. Model predictions and mathematical masks/gates remain subject matter.
+
+Use the topic-specific controls and checked fixtures below. Pair sliders or direct manipulation with labeled keyboard/numeric controls; keep presets as starting points, not the only editable values. A pinned baseline preserves its inputs, seed, units and outputs while the current case changes. Explain both a meaningful contrast and an unchanged/null result, then connect the observed effect to a practical design decision. Reset restores the stated fixture and current result. Invalid text has a local explanation and a clearly identified last valid result; never silently clamp or pair new inputs with old output.
+
+Step/Back and bounded Run controls advance a real computation or reveal its chronological stages, not permission to view an answer. Show the current state and its result throughout. Keep exact small calculations live. For costly frozen inference, debounce or run bounded work with pending/current state labels and stale-result cancellation; inspect saved measurements without implying fresh training. Respect reduced motion, keep focus stable and avoid announcing every animation frame. Independent written practice and its hints/solutions stay separate.
+
+Phase two must test default results without any action, meaningful edits, quick consecutive edits, valid extremes, null/invalid cases, reset, linked-view agreement, keyboard operation and readable phone layouts. The mathematical/reference checks already specified below remain; these live browser checks have not been performed in this content-only revision.
+
+### Topic-specific live route
+**Expose the approximation and legal path.** Edit sparse edges, feature-memory writes/evictions, random-feature settings, compression coefficients, block layout and supported real trajectories.
+**See the consequence.** Show removed mass, reachability, normalized summaries, approximation error, future influence and tile occupancy live under a fixed random draw.
+**Decision connection.** Choose sparsity or approximation by accessible information, numerical error and actual block work, not a single sparsity percentage.
+
+
+Content-first specification, 13 September 2026. No figure/lab UI has been implemented. The manuscript is complete prose with explicit placements; its worked examples teach without operating a lab. Required offline inputs, actual model weights and executed author calculations accompany this specification. Formal model/runtime, independent, browser and accessibility checks belong to phase two.
+
+## Representation and state rules
+
+Choose the picture for the mechanism: directed information paths for masks; feature-row/value-column outer products for recurrent state; original-position-to-summary flows for leakage; seeded distributions for approximation; tile occupancy for hardware work; observed coordinate traces for learned effects. Share fonts, controls and accessibility conventions, not a generic rectangular readout as the teaching metaphor.
+
+Zero-based positions throughout; row t is receiving query/output, column j is source key. Information arrow j→t. Causal window W counts **all legal keys including self**. Values may be signed. Use distinct encodings for observed data, calculated weights, a learner's hypothetical edit, and a forecast. Units and dimensions stay on the views: position index, coordinate units, probability, scalar count, bytes, or relative Frobenius error. No invented timing, quality frontier, semantic attention label or ground truth for an edited trajectory.
+
+Each investigation follows the live exploration contract above: current results are visible immediately, valid entity edits update all linked views, and comparisons explain the mechanism. Reset restores the declared inputs and recomputes their result. No prediction or answer-submission state is retained.
+
+Show current calculations and exact values alongside each graph. Author JSON supplies reference evidence for phase-two parity checks; it is not a reason to hide live results. No answer choices, prediction fields, correctness verdicts or result-unlock action belongs to these investigations.
+
+For invalid input, explain the actual local issue: empty legal row, future edge in causal mode, non-finite number, zero feature denominator, incompatible matrix dimensions. Keep a stable valid baseline and disable dependent computation. Do not silently add epsilon or legal edges to make a broken proposal pass. If the declared real model uses a floor, display its declared policy in the model explanation and whether active for the inspected state; do not generalize it to hand fixtures.
+
+## Inline figures
+
+### F1 — Four memory representations, one query (§1)
+
+Four linked diagrams use the same six numbered records and one incoming query. Dense shows every legal key/value record; sparse highlights an explicitly listed subset; sequence compression shows a 2×6 coefficient matrix into two key/value summaries; feature attention shows writes into a 2×2 S and length-2 z. An independent execution overlay groups dense pair cells into tiles, leaving every dense connection present. These are schematic operator distinctions, not trained probabilities. Each panel labels what is retained and what calculation changes. Avoid area proportionality suggesting uncomputed real memory savings.
+
+Text equivalent lists the four transformations. On narrow screens present vertical panels with repeated query/record labels; no tiny four-column text. The learner can interpret this static figure without controls. Phase two verifies diagrams match equations, tensor orientation and overlay exactness.
+
+### F2 — Removing mass and renormalizing (§2)
+
+Use `removed_mass_worked` from mechanism-results.json. Three probability bars .5/.25/.25 align with scalar values 2/−1/4. A removed final bar is patterned, then the retained .5/.25 bars stretch to 2/3 and 1/3. Display products and sum 1.75→1.00, removed mass .25, and separately the bound 2.00. Distinguish probability units from value/output units. A constant-value mini-panel shows the exact null. This is an ungraded explanation. Do not autoanimate continuously; render both states with arrows or use a step control for chronological computation. Mobile stacks before/after; signed values remain visible in text.
+
+### F3 — Causality changes a global hub (§2)
+
+Use worked graphs L=12, W=3, source 2, target 11. Three layered graph diagrams show local only, hub 6 and hub 0 after two attention layers. They use distinct node copies for input/layer1/layer2. Only hub 6 supports source 2→6→11. The matrix inset uses the same legal edges; forbidden future cells stay visibly unavailable. Residual/self paths are labelled. Caption distinguishes possible dependence from learned influence and two layers from two parallel heads. Provide a path list and “no path” text. On mobile focus on the chosen source/target route and give the full edge table on demand.
+
+### F4 — A key writes a row pattern, a query reads it (§3)
+
+Use feature_worked: key features [1,0],[0,1],[1,1], scalar values 2,−1,3. Show each outer product, prefix S and z, then query [2,1] read. Final S=[5,2]ᵀ,z=[2,2], numerator 12, denominator 6, output 2. Feature axes and value columns persist through every stage; sum contributions exactly. A second scalar slot compares histories [1,3] and [2,2] with unit keys: same state 4, z=2 and output 2 despite different first values. The collision is constructed, not a trained memory assessment. Render one write per row on narrow screens; text equations remain sufficient without color.
+
+### F5 — Random features: estimation before normalization (§4)
+
+Use a three-stage flow x,y→fixed projections→positive feature products→kernel estimate, followed by a clearly separate row-normalization box. Explain the Gaussian expectation identity by cancelling squared norms; do not draw a probability distribution over outputs with fabricated heights. For variance use the analytic formula and a labelled numeric point (x=y=1,m=64, stored value), not a measured convergence curve. Fixed-radius 1D expectation≈1.384 versus Gaussian≈2.718 is an exact distribution comparison; orthogonal direction/radius roles are labelled. A static “same key units” strip shows one common scale applied to all key writes.
+
+### F6 — Follow a future value through sequence compression (§5)
+
+`projection_worked`: value row 1,2,9 through coefficients .5,0,.5 into one summary 5, then the earlier position 0 output. Draw the last value's contribution 4.5 reaching an earlier query in warning pattern; distinguish this from a legal direct edge. Parallel prefix-only diagram sees .5. Keep coefficient meaning explicit: prefix coefficients are not renormalized. Nyström companion uses `nystrom_worked`: Q4×2,K4×2,V4×1, two segment-mean landmarks, F4×2,A2×2,B2×4, A⁺ and right-associated BV→A⁺(BV)→F(...). Use computed matrices and output, not fake probability labels on A⁺ or FA⁺B. Caption explains this is a noncausal constructed approximation; the pseudoinverse handles singularity but the saved matrix need not itself be singular.
+
+### F7 — Selection, reading and reuse have different costs (§6)
+
+Three separate, source-labelled architecture diagrams: NSA compression/selection/window branches with separate normalizers and sigmoid output gates; V3.2-Exp lightning indexer→top-k indices→main MLA selected read; V4.1 CSA2 Full/Reindex/Reuse lanes with old/new memory, old/new index queries, selected indices and each layer's local window. NSA is not rendered as one joint softmax; V4.1 is not rendered as NSA's three outputs. DSA indexer full-prefix comparisons remain a visible cost. V4.1 initial full candidate scan remains present even when later reindexing uses a bounded pool. Mark “architecture description; no reproduced production timings.” Future CED ownership note explains the cross-layer memory source; avoid inventing a fixed cache-replay guarantee or cross-version cache format.
+
+### F8 — Real trajectories, actual outcomes (§7)
+
+Use data/provenance and exact values from author-results.json,forecast-models.json. Static observed source row 77, prefix 32 coordinate plot has x/y axes in original units, numbered sampled points, and the true next point distinct from model forecasts. Do not join the true future into the observed prefix. A forecast zoom inset can make modest differences legible, with explicit smaller axis limits; retain the whole trace for context. Source-point edit is marked hypothetical. The model comparison table uses all declared baselines/models with no winner-colored ranking. RMSE chart, if used, starts at zero or visibly labels a zoom; table retains exact values.
+
+Random-feature plot uses all 24 saved trials from random-feature-results.json. x=feature count 16/64/256 (categorical positions or labelled log2 scale); y=relative whole-head output error, dimensionless, zero baseline. Thin connected seed trajectories and three mean markers reveal seed 5 / seed 6 reversals. Show precise values on keyboard focus; no fitted line/extrapolation/confidence interval from eight arbitrary seeds. On phone, show three columns with an accessible result table and a selected seed line. Rendered visibility of those reversals and forecast differences must be checked in phase two, not asserted from this specification.
+
+## I1 — Design a legal path and a sparse read
+
+**Hurdle:** a mask changes both possible information routes and the normalized numerical read. Two coordinated tabs answer distinct questions while sharing graph conventions.
+
+Show two-layer reachability and the actual intermediate path nodes immediately as edges change. Distinguish a valid path from one introduced by a global/hub node. Selecting a source/destination is an inspection choice; editing the edge set changes the model.
+
+**Fresh numerical input:** `removed_mass_fresh`, four scores log[1,3,2,4], values[[-2,1],[1,2],[3,−1],[0,4]], proposed removal of key 1, retaining 0,2,3. Baseline weights .1,.3,.2,.4 yield output [.7,2.1]. Changed output [4/7,15/7]≈[.571429,2.142857]. Ask both direction or numerical output in the current live view; tolerance 1e−5 when rounded. Removed mass .3. The learner edits values, finite logits or selected keys, with at least one retained legal key. Recompute dense row and subset softmax independently. Constant vectors [2,−1] give identical outputs despite altered weights; zero-logit common shift also preserves probabilities.
+
+**Feedback:** explain re-normalization and show per-key contribution changes, not simply “correct.” The graph result uses a categorical equality check and actual route; numerical result reports coordinate error and the reason a removed probability can have small or large output effect. Reset clears both tabs independently. Switching tabs does not claim both passed.
+
+**Rendering/verification:** native SVG graph and keyboard-operable matrix cells; path list for screen readers. Future cells disabled with explanation in causal mode. Query/key orientation persistent. Sparse masked/gather equality fixture already passed float64; phase two ports and checks nonempty/one-key/full-mask controls and reference paths. Limit matrices 16×16 and four layers; no full curriculum state loaded.
+
+## I2 — Write, read and evict a feature memory
+
+Show the current query, three record rows, S, z, normalized weights and read output together. Editing or replacing a record updates its matrix contribution, denominator and next read immediately. Compare with an immutable baseline to explain which cells changed and why.
+
+**Checked results, author-only:** baseline S[[4,4],[5,1]],z[4,4],denominator 16, weights 7/16,5/16,4/16, output[1.1875,.4375]. Changed S[[0,6],[1,3]],same z, output[.1875,.9375]. Negative stored entries, if learner creates them, retain a diverging scale. Evicting first original record gives S[[3,5],[3,3]],z[3,2],output[4/3,14/9]. Constant values[2,−2] yield[2,−2] for any positive-overlap query. Hand fixture code verifies explicit pair sums against state reads.
+
+**Actions:** edit actual nonnegative feature components 0–8, signed value components −8..8, append a record up to eight, set query, evict oldest. Step highlights precisely one outer product and its matching z write. Back reverses the state view to a saved prefix; applying edits invalidates/rebuilds from the affected point. A proposed eviction subtracts the known original contribution, not a guessed inverse of the normalized output. Query-only changes do not rewrite S/z. Collision demonstration is ungraded; learner can create their own collision after solving the fresh case.
+
+**Live feedback:** show baseline → current operation → actual matrix difference → new normalized read. Use the current contribution terms in the explanation. The learner can compare a write and an eviction without submitting a predicted result.
+
+**Layout/runtime:** row-feature/column-value matrix is primary view, not a scalar dashboard. Keyboard table editing plus optional pointer edits, patterned positive/negative color, spoken operation list. On mobile records precede matrix and query read; no horizontal required scrolling for 2×2 default. Limit features≤4,values≤3,records≤8. Phase two verifies append/back/evict/reference agreement, null, zero-denominator behavior and live recomputation.
+
+## I3 — Compare a fixed random approximation with exact softmax
+
+**Fresh input:** `random_features_fresh` contains four 2D already-scaled query/key vectors, four 2D values and seed 5's fixed 64×2 Gaussian projection array. The first task starts m=8 and stages editing key 1 from[.2,.8] to [−.4,1.2]. The learner can observe whether output at query 0 changes and whether output at query 3 changes; may additionally predict one numeric coordinate. Exact/approximate outputs remain hidden. in the current live view, query 0 is unchanged causally, while query 3 changes according to saved results; display actual difference without asserting its sign for arbitrary edits. The next task proposes 8→64 features with the same nested projection array and asks whether the selected error decreases; calculate, do not force a general “more always better” answer.
+
+**Actions:** edit real Q/K/V entries within −2..2, select 8/16/32/64 features, choose one of a bounded saved seed set or explicitly generate fixed-seed projections once. Recompute exact causal softmax, sampled positive feature weights and output. The defined inputs are already scaled; a separate width/scale lesson is not silently reapplied. Give sample distribution and seed. Store the exact sampled projection in the fixed comparison snapshot so a reset/resize never resamples it.
+
+**Null/contrast evidence:** mechanism-results includes baseline m8/m64, changed-key m8, exact output, and constant value[2,−1] null. A constant value gives that same output for every row for both normalized operators, independent of feature error. Before phase-two reveal compare numeric results to these saved arrays; do not copy author JSON directly into visible answer labels.
+
+**Second, ungraded observed-data view:** actual trained head's 8 seeds × 3 feature counts and its source Q/K/V from random-feature-results. Allow seed highlighting and inspect weights; present all 24 results and nonmonotonic cases. These are prerecorded operator evaluations, not live-trained Performer models. A user edit belongs to a separately labelled custom operator experiment and does not inherit the observed aggregate table.
+
+The additional saved author checks establish the fresh problem's actual relative errors: m8 gives 0.07823265999 and m64 gives 0.13450358670. The computed result for this particular nested draw is **an increase**. Changing key 1 leaves query 0 exactly unchanged and changes the last query's output by maximum coordinate difference 0.04451735849. Show these current results as soon as the inputs are valid.
+
+**Representation/runtime:** compare output vectors and aligned exact/approximate weight rows, then seed trajectories. Kernel estimate versus normalized ratio have separate labels. A stable common key scale is used; no per-key normalization or denominator epsilon in this operator. With bounded values, underflow risk remains checked. Small computations on explicit run only; optionally worker if extended, never training. Mobile selected query row and numeric table replace an unreadably small 4×4 heatmap. Phase two tests seed preservation, causal earlier null, constant-value null, feature count and live comparison binding.
+
+## I4 — Find and repair a compressed future leak
+
+**Fresh input:** `projection_fresh`, four scalar values[4,−2,3,8], one summary coefficient row[.25,.5,0,.25], earlier query position 1. Proposed future edit: value 3 becomes −4. Query/key logits need not be invented: there is one summary slot, hence its softmax weight 1. Ask for full-summary and prefix-summary outputs before/after, immediately computed.
+
+**Checked author result:** full 2→−1, prefix 0→0. Learner changes value or coefficient, selects query position 0–3, and moves the edited position. A zero coefficient yields no influence even in full summary; moving a nonzero-weight edit into the prefix can change both. Prefix updates use the original coefficients, not an implicit re-normalization. The worked three-value example from §5 is a separate ungraded tab.
+
+**View:** source positions flow through labelled coefficients into full and prefix summaries in parallel; future paths patterned, zero coefficients visibly absent. After run, highlight exactly the contributing terms and earlier output difference. Optional deeper toggle displays the separately computed two-landmark Nyström fixture and right-associated operations, but this is not falsely another computed problem; a future independently editable matrix experiment may be added only if it improves learning.
+
+**Controls/limits:** signed coefficients −2..2 and values −10..10, lengths 3–6, one summary for the core causal diagnosis. Do not introduce a generic triangular mask over summary slots as a repair. Keyboard coefficient/value table; mobile vertical paths and exact term list. Phase two verifies full/prefix outputs, future/null/inside-prefix contrasts, edited-input invalidation and no accidental leak from preprocessing.
+
+## I5 — Make token sparsity and tile occupancy disagree
+
+**Fresh input:** `tiles_fresh`, an 8×8 noncausal layout mask with eight edges in rows 0–3, columns 0–1, tile size 2. The proposed change uses one edge per row at column 3i mod 8, preserving eight total edges. Ask occupied tile count and candidate cell count before/after. Expect 2→8 tiles and 8→32 candidate cells; this differs from the diagonal worked example's 4→8 tiles. Empty rows are permitted because this exercise counts layouts rather than evaluating a softmax row.
+
+**Actions:** toggle actual mask cells, set block size 1/2/4, optionally constrain the number of edges while relocating them. Show pending cell changes as soon as the inputs are valid. Display edge count, occupied tiles and candidate cells in different columns. At block size 1, candidate count equals edge count; at block size 8, every nonempty mask occupies one 64-cell tile. With the same block occupancy, relocating edges within occupied tiles gives an exact candidate-count null.
+
+**Feedback:** explain which tiles became newly occupied or empty. No time estimate, hardware-speed ratio or promise that candidate count equals all executed FLOPs. Use an overlaid grid and an explicit tile-status key. Keyboard-operable cells expose row, column and selected state; provide a text occupancy table and large enough targets. Narrow view may show one tile at a time with an overall coarse map. Phase two confirms exact stored masks/counts, same-edge constraint, zero-edge count, Reset restores the stated inputs and immediately displays their computed result.
+
+## I6 — Intervene on an observed trajectory, inspect three different states
+
+**Fresh baseline:** selected saved models, source 77's first 27 observed points, final input position 26. Proposed edit: frame 19, y→1−y. This is distinct from the solved prefix-32/frame-23-x example. while exploring, show the observed prefix, selected edit and three operator definitions. Hide forecasts, true next point, error zoom, attention/state values and changed outcomes. show whether each final forecast can change, then optionally select an expected direction for one coordinate. The categorical question computed comparisons architectural possible dependence separately from observed numerical change.
+
+**Author-only results:** baseline dense [.6296581626,.3126600981]→remote edit [.6286870241,.3062442541]; window [.6356546283,.3032837510]→same; kernel [.6274772286,.3129609823]→[.6272431612,.3104737103]. True next point [.6344299912,.3032400012] belongs only to the unedited observed record. Use numeric tolerance 1e−5 for the portable float32 model. All outputs before 19 are exactly unchanged. The three payloads are 5,184 / 960 / 864 bytes, with metadata exclusions explicit.
+
+**Checked boundary contrast:** fresh-controls.json reuses saved weights only and moves the proposed edit to frame 25 y. Dense→[.6276981235,.2915234566], window→[.6235215664,.2912737131], kernel→[.6265653372,.3094049692]. All three change and all strictly earlier outputs remain exactly unchanged. This prevents the lab from teaching “the window never responds.” Reset to the original is also an exact null. Reloading source weights reproduced the baseline exactly. No additional fitting was performed for these controls.
+
+**Actions:** drag or numerically edit an observed point within default bounds 0–1; choose frame/coordinate. Optional bounded custom coordinates outside 0–1 are clearly labelled distribution changes rather than silently clipped. Select head 0–2, prefix length 8–44, and an edit position within the prefix. Prefix changes recompute current outputs and reset the selected future comparison. Run recomputes the full small model from the edited prefix and may also compare incremental inference. No live training or fitting inside the browser. A pasted-trajectory editor may accept 8–44 x/y rows with explicit validation; it has no claimed ground truth.
+
+**Recompute contract:** port exact model shapes and parameters from author-calculations.py. Ordinary fixed sinusoidal addition, width 24, base 10000; pre-LayerNorm epsilon 1e−5; PyTorch's default exact-erf GELU, not an unannounced tanh approximation; QKV reshape to three heads of width eight; softmax scale √8; W=5 total keys. Kernel positive branch x+1 / exp(x) receives Q/K divided by 8^.25; denominator floor 1e−9. Residual/FFN/final norm/output follow the program. Traces remain based on this computed state. An optional explicit kernel-pair-weight view must reconstruct the actual feature-kernel row and label it clearly; the main state view is S/z, not an invented softmax map.
+
+**Layout:** the observed trajectory stays primary; three forecasts use distinct marker shapes. Whole trace plus labelled local zoom makes modest differences visible without magnifying them into quality claims. The selected point links to the dense individual KV row, window retained/evicted row, and kernel outer-product contribution. Display S, an 8×8 matrix for one head, on demand with key-feature rows/value columns. Mobile uses model tabs with persistent baseline/edit, an exact table and one selected head rather than three tiny graphs. The text summary names the edit, legality, actual delta, causal null and payload scope.
+
+**Performance:** load model assets only when the investigation is opened, with deduplicated requests. No training histories or full author JSON in the initial article bundle. Bound length at 44; compute on explicit run and cancel stale jobs. Use a worker or bounded functions if profiling warrants; an offscreen lab does not continue animation/computation. Persist only user learning state, not duplicated full models in local storage. Release model caches when appropriate rather than retaining all curriculum topics.
+
+## Phase-two verification and accessibility handoff
+
+Author arithmetic and real calculations have passed; **no rendered visibility or browser interaction has been verified**. Implement semantic topic-owned models/figures/labs and downloadable program assets. Replace packet-relative provenance/program links with actual published asset links while preserving full source access. Do not import draft JSON containing all training history into article layout.
+
+Check displayed numerical examples against mechanism-results and fresh controls against saved models; separately test the actual UI live update/edit/reset flow. Test causal masks, query/key orientation, subset renormalization, positive-denominator validation, common random projection state, sequence-summary leakage, the tile exercise's noncausal context, full-prefix/incremental agreement and float32 tolerances. Observe nulls as well as changed outcomes. A generic “computation passed” label does not establish visual teaching quality.
+
+Capture desktop and narrow-phone informative states: graph with hub-4 path and hub-0 failure, feature write/read after a meaningful entity edit, random seed-5 reversal, projection future leak before/after repair, tile mask with the same edges/different occupancy, and real trajectory remote-null/near-contrast forecast zoom. Verify text labels, legend, units, mathematical readability and keyboard focus/announcements. These are deferred required evidence, not author claims of passed rendering.
+
+All hints/solutions in the manuscript start closed; fresh lab answers are not duplicated in ordinary introductory text. Help readers understand the page without labs through F1–F8 and worked prose. Retain an explicit core/deeper route and honest next-topic link. Phase-two authors can improve representations where useful, but must preserve the defined operators, learning goals and observed-versus-constructed boundary.
+
+## Precise fixture and scope details retained for implementation
+
+**Legal-path fixture.** `graphs.fresh_local`: L=10,W=2,source=1,target=9,layers=2. A causal global hub at 4 enables path 1→4→9; local-only and hub 0 do not. Allow legal-edge edits, moved hub/source/target, 1–4 layers,W=1–8,L=4–16. Boolean reachability includes residual/self links, shows an actual path and labels it possible dependence; it does not invent a trained nonzero output.
+
+**Memory arithmetic.** Use rational labels where possible and tolerance 1e−8 otherwise. Show whether the denominator changed from actual key/query terms. A zero-overlap query has an invalid normalized read; never silently floor this manual operator.
+
+## Written implementation route and placement — 22 September 2026
+
+Extend the existing sequence-compression diagram with E/F length-axis maps and the three Nyström factors. Factor dimensions and multiplication order show why no L×L matrix is required. Include the 7-to-3 uneven segments and the width1 gathered-window null. Show derived count changes separately from the retained 0.25091 fixture error; no claim of universal error curves.
+
+Use topic-owned responsive diagrams and local scrolling for code/matrices. Long filenames and links wrap within the reader at 320px. Show source/setup/download dependencies at the relevant explanation; deferred Python programs load only on request. Keep labels outside geometric marks where possible, fixed scale comparisons truthful, and current results visible during edits. No learner prediction field, submit button, answer lock or optional prediction gate is specified. Existing numerical/interaction checks still apply, and optional package/checkpoint routes carry their actual unexecuted status until phase two supplies evidence.

@@ -1,0 +1,229 @@
+{
+  "topicId": "randomized-algorithms-sampling-error-guarantees",
+  "authorReview": "complete",
+  "userAcceptance": "pending",
+  "integration": "root-owned, separate",
+  "recordedAt": "2026-09-10T12:23:19.154536+00:00",
+  "sourceFreeze": "2026-09-10T12:19:28.658518+00:00",
+  "source": {
+    "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx": {
+      "sha256": "e759c9895f04e8b018ec3cbf06d149aadd6e53b759fe2b6b742eb1d53603f4bf",
+      "modifiedAt": "2026-09-10T12:19:28.491835+00:00"
+    },
+    "src/learn/data/randomized-algorithm-models.js": {
+      "sha256": "637f2f9b4ede19506348a0c5ade5f8d18eba3bc688e00e4ac7c892d49c3817b7",
+      "modifiedAt": "2026-09-10T12:19:28.554034+00:00"
+    },
+    "src/learn/data/randomized-algorithm-examples.js": {
+      "sha256": "59a3e6399781b18d4810a8b76ece8172741b5570b152178c63399ee486fa04b2",
+      "modifiedAt": "2026-09-10T12:19:28.566771+00:00"
+    },
+    "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx": {
+      "sha256": "404688d9d04789fca9b8f8c2af7f3c336abaa8c00367c9c8bdca21ccf3cf71c6",
+      "modifiedAt": "2026-09-10T12:19:28.635814+00:00"
+    },
+    "src/learn/components/lesson-labs/randomized-algorithm-labs.css": {
+      "sha256": "02d76f9ff6214b5984a26a7ae147e4205421035b2aeba558220c7ad158e94fa1",
+      "modifiedAt": "2026-09-10T12:19:28.658518+00:00"
+    },
+    "src/learn/data/curriculum/blueprints/randomized-algorithms-sampling-error-guarantees.js": {
+      "sha256": "ea970bcbbe2dfee6f126a09b1a4e040cdc3e1fd96b4cf19a7b594b53481f6172",
+      "modifiedAt": "2026-09-10T12:19:28.641815+00:00"
+    },
+    "src/learn/data/practice/randomized-algorithms-sampling-error-guarantees.js": {
+      "sha256": "67b00ac1a2c5532617866462e36c096f62289ed1e344b5b0bf7cd17349d13996",
+      "modifiedAt": "2026-09-10T12:19:28.647540+00:00"
+    }
+  },
+  "native": {
+    "checkedAt": "2026-09-10T12:20:31.464Z",
+    "completePrograms": 11,
+    "traceStates": 26478,
+    "invalidCases": 8,
+    "native": {
+      "mappingCases": 1054,
+      "shufflePaths": 874,
+      "reservoirPaths": 10158,
+      "weightedTickets": 1536,
+      "filteredSamplePaths": 818,
+      "invalidNativeInputs": 11,
+      "zeroCapacityDoesNotConsume": true,
+      "selectionCases": 18045,
+      "exactExpectationCases": 210,
+      "errorMatrixProbes": 324,
+      "majorityDistributions": 30,
+      "sampleBudgets": 20,
+      "handExercises": {
+        "six_sided_rejection_expected": "4/3",
+        "three_attempt_timeout": "1/64",
+        "five_record_pair_probability": "1/10",
+        "three_vote_error_at_one_third": "7/27",
+        "five_independent_probe_misses": "1/32",
+        "estimation_005_001": 1060,
+        "two_hundred_checks_rounds": 15
+      }
+    }
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T12:19:49.412Z",
+    "results": [
+      {
+        "width": 1440,
+        "anchors": [
+          {
+            "href": "#1-name-what-randomness-is-allowed-to-change",
+            "top": 99.84375
+          },
+          {
+            "href": "#2-build-an-unbiased-choice",
+            "top": 100.4375
+          },
+          {
+            "href": "#3-shuffle-without-favoring-a-permutation",
+            "top": 99.71875
+          },
+          {
+            "href": "#4-keep-a-fair-sample-from-a-growing-stream",
+            "top": 99.59375
+          },
+          {
+            "href": "#5-find-an-exact-answer-with-random-work",
+            "top": 100.484375
+          },
+          {
+            "href": "#6-verify-a-large-claim-with-a-small-random-probe",
+            "top": 100.046875
+          },
+          {
+            "href": "#7-spend-an-error-budget-deliberately",
+            "top": 99.875
+          },
+          {
+            "href": "#8-replay-an-experiment-without-changing-its-claim",
+            "top": 100.015625
+          },
+          {
+            "href": "#9-reconstruct-the-guarantee-yourself",
+            "top": 100.171875
+          },
+          {
+            "href": "#guided-dsa-practice",
+            "top": 90.484375
+          }
+        ],
+        "mappingCases": 12,
+        "shuffleSteps": 9,
+        "reservoirSteps": 24,
+        "selectionSteps": 30,
+        "probeCases": 12,
+        "budgetCases": 16,
+        "figures": [
+          "probability-tree",
+          "weighted-tickets",
+          "subset-counterexample",
+          "majority-errors",
+          "replay-state"
+        ],
+        "examples": [
+          "rejection",
+          "weighted",
+          "shuffle",
+          "reservoir",
+          "filtered",
+          "selection",
+          "expectedWork",
+          "verification",
+          "amplification",
+          "estimation",
+          "replay"
+        ]
+      },
+      {
+        "width": 390,
+        "anchors": [
+          {
+            "href": "#1-name-what-randomness-is-allowed-to-change",
+            "top": 99.625
+          },
+          {
+            "href": "#2-build-an-unbiased-choice",
+            "top": 100.265625
+          },
+          {
+            "href": "#3-shuffle-without-favoring-a-permutation",
+            "top": 100.09375
+          },
+          {
+            "href": "#4-keep-a-fair-sample-from-a-growing-stream",
+            "top": 99.953125
+          },
+          {
+            "href": "#5-find-an-exact-answer-with-random-work",
+            "top": 100.25
+          },
+          {
+            "href": "#6-verify-a-large-claim-with-a-small-random-probe",
+            "top": 99.609375
+          },
+          {
+            "href": "#7-spend-an-error-budget-deliberately",
+            "top": 100.03125
+          },
+          {
+            "href": "#8-replay-an-experiment-without-changing-its-claim",
+            "top": 99.734375
+          },
+          {
+            "href": "#9-reconstruct-the-guarantee-yourself",
+            "top": 99.921875
+          },
+          {
+            "href": "#guided-dsa-practice",
+            "top": 89.71875
+          }
+        ],
+        "mappingCases": 12,
+        "shuffleSteps": 9,
+        "reservoirSteps": 24,
+        "selectionSteps": 30,
+        "probeCases": 12,
+        "budgetCases": 16,
+        "figures": [
+          "probability-tree",
+          "weighted-tickets",
+          "subset-counterexample",
+          "majority-errors",
+          "replay-state"
+        ],
+        "examples": [
+          "rejection",
+          "weighted",
+          "shuffle",
+          "reservoir",
+          "filtered",
+          "selection",
+          "expectedWork",
+          "verification",
+          "amplification",
+          "estimation",
+          "replay"
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T12:19:28.658Z",
+    "files": [
+      "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+      "src/learn/data/randomized-algorithm-models.js",
+      "src/learn/data/randomized-algorithm-examples.js",
+      "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx",
+      "src/learn/data/curriculum/blueprints/randomized-algorithms-sampling-error-guarantees.js",
+      "src/learn/data/practice/randomized-algorithms-sampling-error-guarantees.js",
+      "src/learn/components/lesson-labs/randomized-algorithm-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  }
+}

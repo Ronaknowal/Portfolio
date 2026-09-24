@@ -1,0 +1,631 @@
+{
+  "reviewCompletedAt": "2026-09-10T18:53:28.775275+00:00",
+  "result": "No actionable mathematical defect found in bounded independent review; identified prose joins repaired by author.",
+  "authorFreeze": "2026-09-10T18:50:00.943703+00:00",
+  "finalProductionHashes": {
+    "src/learn/data/topics/spectral-graph-theory.jsx": "3f9acc7d7c524e9dbb145818c4ceacdf8c0b84179f0e88016e8e5fe061935e8d",
+    "src/learn/data/spectral-graph-models.js": "9612dfa5e766706dcad6b7e7b7edd5d54efaf0ae34585c108607ca007377b61e",
+    "src/learn/data/spectral-graph-examples.js": "ad9b8bcfe1fda36648b9560ac662f2b5afca9be886cc04e970a9373879b2b8f4",
+    "src/learn/components/lesson-labs/SpectralLab.jsx": "9dbfd43637a70d8aeb627962c434b47223ec986bc152ec3a642b01d3e48e12a0",
+    "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "c93a6233ad4eab3d023e5ada39215d2a29050ada228d29470bb65d25d580c496",
+    "src/learn/components/lesson-labs/spectral-graph-labs.css": "6f877f9a9a2f316d28b9782119ececf6dc9b45ab901f2655ebad70be3f8cd5c1",
+    "src/learn/data/curriculum/blueprints/spectral-graph-theory.js": "a2b03f010850cc14115e57b1a77e6a630c6e86da8c58d64e593177b588ad4755"
+  },
+  "independentNumericalEvidence": {
+    "checkedAt": "2026-09-10T18:38:47.677128+00:00",
+    "allPassed": true,
+    "weightedMedianExactThresholds": [
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            3
+          ]
+        ],
+        "raw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "median": "-1/4",
+        "expectedVolume": "3",
+        "expectedCut": "3",
+        "smallSideProbabilities": [
+          "0",
+          "0",
+          "0",
+          "1"
+        ],
+        "bestThresholdConductance": "1"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            3
+          ]
+        ],
+        "raw": [
+          2,
+          -1,
+          4,
+          -3
+        ],
+        "median": "-5/3",
+        "expectedVolume": "130/29",
+        "expectedCut": "130/29",
+        "smallSideProbabilities": [
+          "9/29",
+          "0",
+          "25/29",
+          "4/29"
+        ],
+        "bestThresholdConductance": "1"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            3
+          ]
+        ],
+        "raw": [
+          1,
+          1,
+          -2,
+          -2
+        ],
+        "median": "-5/4",
+        "expectedVolume": "5",
+        "expectedCut": "1",
+        "smallSideProbabilities": [
+          "1",
+          "1",
+          "0",
+          "0"
+        ],
+        "bestThresholdConductance": "1/5"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            5
+          ],
+          [
+            2,
+            3,
+            7
+          ]
+        ],
+        "raw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "median": "-7/34",
+        "expectedVolume": "7",
+        "expectedCut": "7",
+        "smallSideProbabilities": [
+          "0",
+          "0",
+          "0",
+          "1"
+        ],
+        "bestThresholdConductance": "1"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            5
+          ],
+          [
+            2,
+            3,
+            7
+          ]
+        ],
+        "raw": [
+          2,
+          -1,
+          4,
+          -3
+        ],
+        "median": "13/17",
+        "expectedVolume": "298/29",
+        "expectedCut": "298/29",
+        "smallSideProbabilities": [
+          "0",
+          "9/29",
+          "4/29",
+          "25/29"
+        ],
+        "bestThresholdConductance": "1"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            5
+          ],
+          [
+            2,
+            3,
+            7
+          ]
+        ],
+        "raw": [
+          1,
+          1,
+          -2,
+          -2
+        ],
+        "median": "-18/17",
+        "expectedVolume": "12",
+        "expectedCut": "8",
+        "smallSideProbabilities": [
+          "1",
+          "1",
+          "0",
+          "0"
+        ],
+        "bestThresholdConductance": "2/3"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            3,
+            0,
+            1
+          ]
+        ],
+        "raw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "median": "-1/4",
+        "expectedVolume": "2",
+        "expectedCut": "2",
+        "smallSideProbabilities": [
+          "0",
+          "0",
+          "0",
+          "1"
+        ],
+        "bestThresholdConductance": "1"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            3,
+            0,
+            1
+          ]
+        ],
+        "raw": [
+          2,
+          -1,
+          4,
+          -3
+        ],
+        "median": "-3/2",
+        "expectedVolume": "76/29",
+        "expectedCut": "76/29",
+        "smallSideProbabilities": [
+          "9/29",
+          "0",
+          "25/29",
+          "4/29"
+        ],
+        "bestThresholdConductance": "1"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            3,
+            0,
+            1
+          ]
+        ],
+        "raw": [
+          1,
+          1,
+          -2,
+          -2
+        ],
+        "median": "-3/2",
+        "expectedVolume": "4",
+        "expectedCut": "2",
+        "smallSideProbabilities": [
+          "1",
+          "1",
+          "0",
+          "0"
+        ],
+        "bestThresholdConductance": "1/2"
+      }
+    ],
+    "changedSpectralCoordinateCases": 3,
+    "heatAndRidgeIndependentMatrixFunctions": 18,
+    "exactChangedCircuits": [
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            3
+          ]
+        ],
+        "endpoints": [
+          0,
+          1
+        ],
+        "exact": "1/2"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            3
+          ]
+        ],
+        "endpoints": [
+          0,
+          3
+        ],
+        "exact": "11/6"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            3
+          ]
+        ],
+        "endpoints": [
+          1,
+          2
+        ],
+        "exact": "1"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            5
+          ],
+          [
+            2,
+            3,
+            7
+          ]
+        ],
+        "endpoints": [
+          0,
+          1
+        ],
+        "exact": "8/31"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            5
+          ],
+          [
+            2,
+            3,
+            7
+          ]
+        ],
+        "endpoints": [
+          0,
+          3
+        ],
+        "exact": "80/217"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            5
+          ],
+          [
+            2,
+            3,
+            7
+          ]
+        ],
+        "endpoints": [
+          1,
+          2
+        ],
+        "exact": "5/31"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            3,
+            0,
+            1
+          ]
+        ],
+        "endpoints": [
+          0,
+          1
+        ],
+        "exact": "3/4"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            3,
+            0,
+            1
+          ]
+        ],
+        "endpoints": [
+          0,
+          3
+        ],
+        "exact": "3/4"
+      },
+      {
+        "edges": [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            3,
+            1
+          ],
+          [
+            3,
+            0,
+            1
+          ]
+        ],
+        "endpoints": [
+          1,
+          2
+        ],
+        "exact": "3/4"
+      }
+    ],
+    "embeddingChecks": "Unequal-degree disconnected components; explicit isolate rejection; vertex permutation; orthogonal zero-subspace rotation; three actual Lloyd traces and occupied center means.",
+    "repeatedBlockChecks": "Analytic square-cycle basis; whole projector and ridge invariant; one retained direction changes.",
+    "reviewedModelSha256": "9612dfa5e766706dcad6b7e7b7edd5d54efaf0ae34585c108607ca007377b61e"
+  },
+  "independentScriptSha256": "9f84e6bbc3fdfd3ed9874d186b76c72e83ddf883b04497b9b43d93b25257c623",
+  "authorRecordSha256": "d805b43eee6c393d7c2f0cb60a14e18cd36b6450f472e668481b7fb959c51133",
+  "finalProseScope": "Source strings checked for bridge spacing, reference spacing and literal Unicode escape regression. Author owns final rendered-question assertions.",
+  "openedFinalCoordinateImage": {
+    "path": "scratch/spectral-browser/coordinates-final-320.png",
+    "sha256": "72335a3f012438c9d5067505f637ed99fc3c1db258fa4b91cd51b9c02847eb71",
+    "scope": "Reviewer opened the narrow coordinate correspondence; full interaction/reading browser suite belongs to author."
+  },
+  "limits": [
+    "Finite complementary proof/calculation review, not exhaustive mathematical verification.",
+    "No new broad browser run or source edits by independent reviewer.",
+    "Production integration and user acceptance remain separate."
+  ]
+}

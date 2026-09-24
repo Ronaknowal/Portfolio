@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "formulasRenderedWithoutErrors": 138,
+  "completeManuscriptHeadings": 10,
+  "exactNativePrograms": 2,
+  "namedFigures": 6,
+  "investigations": "Three contracts, with I1 split into direct and spatial mounts",
+  "source": {
+    "src/learn/data/topics/gaussian-processes-gp.jsx": "9fcb1beae5e2261240b3f43b60a334ba60633f33fab83ee65fbe4924647a3446"
+  }
+}

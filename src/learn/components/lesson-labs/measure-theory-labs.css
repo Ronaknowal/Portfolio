@@ -1,0 +1,55 @@
+.measure-lab, .measure-inline { margin: 30px 0; padding: 22px 0; border-block: 1px solid #3b4245; color: #bdbdbd; font-family: Arial, sans-serif; font-size: 1rem; line-height: 1.8; min-width: 0; }
+.measure-lab h3, .measure-inline figcaption { color: #eee; font-size: 1.18rem; font-weight: 650; line-height: 1.5; margin: 0 0 16px; }
+.measure-lab h4 { color: #eee; margin: 8px 0; }
+.measure-lab p, .measure-inline p { margin: 14px 0; }
+.measure-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 18px 24px; margin: 20px 0; }
+.measure-controls label { display: flex; flex: 1 1 260px; flex-direction: column; gap: 7px; min-width: 0; }
+.measure-controls label:has(select) { flex-basis: 100%; }
+.measure-controls label strong, .measure-gold { color: #e2b55a; }
+.measure-controls input[type=range] { width: 100%; min-height: 44px; margin: 0; accent-color: #e2b55a; }
+.measure-controls select, .measure-controls button, .measure-controls input[type=text], .measure-cell button { background: #151515; border: 1px solid #666; border-radius: 3px; color: #eee; font: inherit; line-height: 1.5; padding: 9px 12px; min-height: 44px; max-width: 100%; }
+.measure-controls button, .measure-cell button { cursor: pointer; }
+.measure-lab :focus-visible, .measure-practice :focus-visible { outline: 2px solid #e2b55a; outline-offset: 4px; }
+.measure-cells { display: flex; flex-wrap: wrap; gap: 16px; margin: 20px 0; }
+.measure-cell { flex: 1 1 150px; padding: 12px; border: 1px solid #596164; }
+.measure-cell.split { border-color: #ff9db2; }
+.measure-cell > span, .measure-cell > strong { display: block; font-size: .93rem; margin: 6px 0; }
+.measure-cell strong { color: #eee; }
+.measure-cell.split > strong { color: #ff9db2; }
+.measure-cell > div { display: flex; flex-wrap: wrap; gap: 6px; }
+.measure-cell button { min-width: 44px; }
+.measure-cell button[aria-pressed=true] { background: #e2b55a; color: #141414; border-color: #e2b55a; }
+.measure-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 24px; margin: 24px 0; }
+.measure-metrics div { border-top: 1px solid #333; padding-top: 10px; min-width: 0; }
+.measure-metrics dt { color: #aaa; font-size: .9rem; }
+.measure-metrics dd { color: #eee; margin: 5px 0 0; overflow-wrap: anywhere; }
+.measure-note { color: #aaa; font-size: .88rem; }
+.measure-lab summary, .measure-practice summary { cursor: pointer; min-height: 44px; padding-block: 9px; }
+.measure-set-list { overflow-wrap: anywhere; }
+.measure-map { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.measure-map > div { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 10px; border-left: 3px solid #555; }
+.measure-map > div.selected { border-color: #e2b55a; background: #e2b55a0c; }
+.measure-map strong { color: #eee; }
+.measure-map > div > span:last-child { flex-basis: 100%; font-size: .87rem; }
+.measure-prefix { display: grid; grid-template-columns: 110px 1fr 45px; gap: 12px; align-items: center; margin: 14px 0; }
+.measure-prefix > div { height: 18px; background: #282828; }
+.measure-prefix i { display: block; height: 100%; background: #e2b55a; }
+.measure-two-plots { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.measure-plot { width: min(100%, 410px); height: auto; display: block; margin: 22px auto 0; }
+.measure-plot text, .measure-cell-plot text { font: 16px Arial, sans-serif; fill: #bbb; }
+.measure-axes path { stroke: #888; fill: none; }
+.measure-cantor-row { margin: 15px 0; }
+.measure-cantor-row p { margin: 3px 0; font-size: .92rem; }
+.measure-cantor-row svg { width: 100%; height: 22px; }
+.measure-cell-plot { width: min(100%, 315px); height: auto; display: block; margin: 0 auto; }
+.measure-practice { border-top: 1px solid #3b4245; padding-top: 22px; margin: 30px 0; }
+.measure-lesson .lesson-sources li { margin-bottom: 14px; }
+.measure-lesson details > summary { line-height: 1.7; }
+.measure-lab [role=alert] { border-left: 3px solid #ff9db2; padding-left: 12px; color: #ffbdcc; }
+@media (max-width: 620px) {
+  .measure-metrics, .measure-two-plots, .measure-map { grid-template-columns: 1fr; }
+  .measure-controls { gap: 14px; }
+  .measure-controls label { flex-basis: 100%; }
+  .measure-plot text { font-size: 18px; }
+  .measure-prefix { grid-template-columns: 90px 1fr 42px; gap: 8px; font-size: .92rem; }
+}

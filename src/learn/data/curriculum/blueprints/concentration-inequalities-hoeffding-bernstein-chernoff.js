@@ -1,0 +1,20 @@
+export default {
+  summary: 'Turn explicit random-sampling assumptions into a finite-sample deviation guarantee, derive its mechanism, budget observations and diagnose when the theorem does not fit.',
+  outcomes: ['Define the random quantity, center, tail event, absolute tolerance and failure probability without mixing them', 'Derive Markov, Chebyshev and exponential-Markov bounds and identify where independence enters', 'Derive bounded Hoeffding and invert it for a sample size or radius, including unequal known ranges', 'Derive bounded Bernstein and distinguish known variance bounds, exact inversion and convenient relaxations', 'Use and compare Bernoulli Chernoff/KL and multiplicative tails with exact finite probabilities', 'Diagnose copied/dependent observations and justify the separate without-replacement comparison', 'Allocate error over finite families and repeated times without assuming those failure events are independent', 'Interpret practical guarantees conditionally and solve changed cases with independent checks'],
+  prerequisites: ["Probability Distributions & Bayes' Theorem"],
+  sequence: ['Name the event with a finite count distribution and fixed threshold', 'Move from event indicators to moments and exponential domination', 'Control bounded log-MGF curvature and optimize Hoeffding', 'Turn the inequality into an explicit sample/radius budget', 'Use a justified variance bound in Bernstein and invert the quadratic', 'Derive rare-count Chernoff and distinguish absolute and relative deviation', 'Compare independent, copied and without-replacement sampling laws', 'Budget simultaneous selection and monitoring errors', 'Apply, diagnose and practise with changed data and assumptions'],
+  visual: {
+    type: 'Exact discrete tails, exponential domination/objective curves, precision/variance radius curves, contrasted sampling laws and family-error budgets',
+    question: 'Which event is bounded, how does the bound arise, and what assumption changes its validity?',
+    interaction: 'Change finite thresholds or λ, compare actual tail mass with theorem guarantees, vary sample/variance/error budgets and contrast dependence/selection structures.'
+  },
+  practice: {
+    task: 'Derive and evaluate changed bounds, repair false assumptions and build a scoped sampling or monitoring guarantee.',
+    success: 'Correct event/units and theorem hypotheses; independently checked finite probabilities and sample counts; explains conservative bounds, variance uncertainty, dependence and simultaneous coverage.'
+  },
+  misconceptions: ['A concentration bound is an exact tail probability or posterior probability of a parameter', 'A sufficient sample count is necessarily minimal for a known distribution', 'Mean and variance alone imply exponential tails', 'Identical marginals or zero correlation imply independence', 'An estimated zero variance can be substituted into a known-variance theorem', 'Absolute and relative error are interchangeable for rare events', 'Without replacement is independent, or arbitrary dependence shares its favorable comparison', 'A fixed-time guarantee automatically survives selection or optional stopping', 'Union bounds require independent failure events', 'A generic bootstrap repairs distribution shift or dependent sampling'],
+  sources: ['https://cs.uwaterloo.ca/~r5olivei/courses/2025-spring-cs466/lecture-notes/lecture3/', 'https://www.stat.berkeley.edu/~bartlett/courses/2014spring-cs281bstat241b/lectures/04-notes.pdf', 'https://www.stat.berkeley.edu/~stark/Teach/S240/Notes/ch1.pdf', 'https://ocw.mit.edu/courses/18-200-principles-of-discrete-applied-mathematics-spring-2024/resources/18200-lecture-9-version-2_mp4/', 'https://arxiv.org/html/1810.08240'],
+  depth: 'specialist',
+  reviewFocus: 'Exact events/inclusive count thresholds; independence/known ranges/variance cap; constants and log bases; fixed versus simultaneous coverage; without-replacement theorem scope; finite probability numerics and graph provenance.',
+  designRecord: 'docs/teaching/CONCENTRATION-INEQUALITIES-LESSON-DESIGN.md'
+};

@@ -1,0 +1,679 @@
+{
+  "startedAt": "2026-09-11T14:06:12.204Z",
+  "completedAt": "2026-09-11T14:06:26.062Z",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/support-vector-machines-svm.jsx",
+      "sha256": "d8630ad1c8ef4907822faf9a30fda26a9669fc264061830b99c3cc7dd27eb788"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-models.js",
+      "sha256": "873741e3c48087dd6980bfde9fef523b939bd7521fe6930ffe8aaef5995e2daa"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-examples.js",
+      "sha256": "61a0c2b9fb0c1b93ec6d37811a2b9cb10eafc6743e116301fcb683fb7a7c99b1"
+    },
+    {
+      "path": "src/learn/data/svm-validation-fixtures.js",
+      "sha256": "1652a24b8af8293e58c0466928be3f833b80dba563863513d8fa2d91cd51e0c0"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx",
+      "sha256": "579865b7fff0466d92e76468980680747ae6f16a091db34433df247999dae2ea"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/support-vector-machines-labs.css",
+      "sha256": "2269fea89d378c58848c7e85d78b7a6b14f9a24c36b12711dd9d64a4f9099e2a"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/support-vector-machines-svm.js",
+      "sha256": "b708e36317e8fd4a152230cf4ab6694ea400dec3a144a71b0a3f31760561540c"
+    }
+  ],
+  "records": [
+    {
+      "width": 320,
+      "states": [
+        {
+          "name": "margin default",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "scale 0.5",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "scale 3",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "rotated misclassification",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "support 3",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "support 1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "support 0.5",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "support 0.25",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "separate C0.1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "separate C0.25",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "separate C0.5",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "separate C1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "separate C2",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "conflict C0.1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "conflict C0.25",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "conflict C0.5",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "conflict C1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "conflict C2",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "conflict shifted bias",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "linear C0.05",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "linear C1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "linear C4",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "poly C0.05",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "poly C1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "poly C4",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "rbf C0.05",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "rbf C1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "rbf C4",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "gamma 0.05",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "gamma 4",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "expanded polynomial contributions",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "pair 1,2",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "pair 0,2",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "pair 0,1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "duplicate nonzero gain",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "duplicate endpoint committed",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            },
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 0",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 2",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 3",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 4",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 5",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 6",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 7",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual saved model 8",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "actual training rows",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "tube epsilon0 C0.1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "tube epsilon0 C2",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "tube epsilon2 C0.1",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        },
+        {
+          "name": "tube epsilon2 C2",
+          "geometry": [
+            {
+              "labels": [],
+              "finite": true
+            }
+          ]
+        }
+      ],
+      "screenshots": [
+        {
+          "path": "scratch/support-vector-machines-verification/browser/margin-geometry-320.png",
+          "sha256": "4824bf57a56a27ee011cfd9c326a39b6610c42cfdf982ce1521e3c5cabe342ed"
+        },
+        {
+          "path": "scratch/support-vector-machines-verification/browser/conflicting-bias-320.png",
+          "sha256": "e513493c2205c5e7e65b6666b1758a8071094d367ab416e2c3c6e52c6ed9688b"
+        },
+        {
+          "path": "scratch/support-vector-machines-verification/browser/zero-curvature-pair-320.png",
+          "sha256": "f32bc7f246f96845613718121d399337dfdfdcf1b6ea645a1a72582b856b3f86"
+        }
+      ],
+      "errors": [],
+      "failedRequests": [],
+      "keyboard": [
+        "Normal angle",
+        "Boundary offset",
+        "Score scale",
+        "Reset margin",
+        "Point D coordinate",
+        "Reset support point",
+        "Penalty C",
+        "Two-point fixture",
+        "Position in optimal bias interval",
+        "Reset soft margin",
+        "Kernel",
+        "Kernel penalty C",
+        "RBF gamma",
+        "Query x1",
+        "Query x2",
+        "Reset kernel",
+        "Pair fixture",
+        "Selected coefficient pair",
+        "Commit segment optimum",
+        "Reset pair moves",
+        "C 0.1 gamma 0.1 validation 90.0 percent",
+        "C 0.1 gamma 1 validation 95.0 percent",
+        "C 0.1 gamma 10 validation 95.0 percent",
+        "C 1 gamma 0.1 validation 90.0 percent",
+        "C 1 gamma 1 validation 97.5 percent",
+        "C 1 gamma 10 validation 95.0 percent",
+        "C 10 gamma 0.1 validation 92.5 percent",
+        "C 10 gamma 1 validation 95.0 percent",
+        "C 10 gamma 10 validation 92.5 percent",
+        "",
+        "Reset validation",
+        "Target amplitude a",
+        "Tube epsilon",
+        "Regression penalty C",
+        "Reset regression tube"
+      ],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size2"
+      ],
+      "disclosures": 33,
+      "programs": 14,
+      "anchors": 11,
+      "equations": [
+        {
+          "width": 280,
+          "content": 280,
+          "text": "xprojected=x−f(x)∥w∥2w,dsigned(x)=f(x)∥w∥,dlabel(x,y)=yf(x)∥w∥.\\begin{aligned}x_{\\rm proje"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "min⁡w,b12∥w∥2subject toyi(w⋅xi+b)≥1.\\begin{gathered}\\min_{w,b}\\frac12\\|w\\|^2\\\\\\text{subjec"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "P(w,b)=12∥w∥2+C∑iℓi,ℓi=max⁡(0,1−yif(xi)).\\begin{aligned}P(w,b)&=\\frac12\\|w\\|^2+C\\sum_i\\ell"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "L=12∥w∥2+C∑iξi+∑iαi(1−ξi−yifi)−∑iβiξi.\\begin{aligned}L={}&\\frac12\\|w\\|^2+C\\sum_i\\xi_i\\\\&+\\"
+        },
+        {
+          "width": 280,
+          "content": 328,
+          "text": "Maximize D(α)=∑iαi−12∑i,jαiαjyiyjKij,Kij=xi⋅xj,0≤αi≤C,∑iαiyi=0.\\begin{aligned}\\text{Maximi"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "k(x,z)=(x⋅z)2,ϕ(x)=(x12,2x1x2,x22),ϕ(x)⋅ϕ(z)=k(x,z).\\begin{aligned}k(x,z)&=(x\\cdot z)^2,\\\\"
+        },
+        {
+          "width": 280,
+          "content": 323,
+          "text": "k(x,z)=exp⁡(−γ∥x−z∥2),γ>0.k(x,z)=\\exp(-\\gamma\\|x-z\\|^2),\\qquad\\gamma>0.k(x,z)=exp(−γ∥x−z∥2"
+        },
+        {
+          "width": 280,
+          "content": 280,
+          "text": "αj′=αj+δ,αi′=αi−sδ,s=yiyj,0≤αi′,αj′≤C.\\begin{aligned}\\alpha'_j&=\\alpha_j+\\delta,\\\\\\alpha'_"
+        },
+        {
+          "width": 280,
+          "content": 292,
+          "text": "ℓϵ(y,f)=max⁡(0,∣y−f∣−ϵ),P(w,b)=12∥w∥2+C∑iℓϵ(yi,fi).\\begin{aligned}\\ell_\\epsilon(y,f)&=\\max"
+        },
+        {
+          "width": 280,
+          "content": 312,
+          "text": "di=αi−αi∗,D=∑iyidi−ϵ∑i(αi+αi∗)−12∑i,jdidjKij,0≤αi,αi∗≤C,∑idi=0,f(x)=∑idik(xi,x)+b.\\begin{a"
+        }
+      ],
+      "failure": "AssertionError [ERR_ASSERTION]: [{\"width\":280,\"content\":280,\"text\":\"xprojected=x−f(x)∥w∥2w,dsigned(x)=f(x)∥w∥,dlabel(x,y)=yf(x)∥w∥.\\\\begin{aligned}x_{\\\\rm proje\"},{\"width\":280,\"content\":280,\"text\":\"min⁡w,b12∥w∥2subject toyi(w⋅xi+b)≥1.\\\\begin{gathered}\\\\min_{w,b}\\\\frac12\\\\|w\\\\|^2\\\\\\\\\\\\text{subjec\"},{\"width\":280,\"content\":280,\"text\":\"P(w,b)=12∥w∥2+C∑iℓi,ℓi=max⁡(0,1−yif(xi)).\\\\begin{aligned}P(w,b)&=\\\\frac12\\\\|w\\\\|^2+C\\\\sum_i\\\\ell\"},{\"width\":280,\"content\":280,\"text\":\"L=12∥w∥2+C∑iξi+∑iαi(1−ξi−yifi)−∑iβiξi.\\\\begin{aligned}L={}&\\\\frac12\\\\|w\\\\|^2+C\\\\sum_i\\\\xi_i\\\\\\\\&+\\\\\"},{\"width\":280,\"content\":328,\"text\":\"Maximize D(α)=∑iαi−12∑i,jαiαjyiyjKij,Kij=xi⋅xj,0≤αi≤C,∑iαiyi=0.\\\\begin{aligned}\\\\text{Maximi\"},{\"width\":280,\"content\":280,\"text\":\"k(x,z)=(x⋅z)2,ϕ(x)=(x12,2x1x2,x22),ϕ(x)⋅ϕ(z)=k(x,z).\\\\begin{aligned}k(x,z)&=(x\\\\cdot z)^2,\\\\\\\\\"},{\"width\":280,\"content\":323,\"text\":\"k(x,z)=exp⁡(−γ∥x−z∥2),γ>0.k(x,z)=\\\\exp(-\\\\gamma\\\\|x-z\\\\|^2),\\\\qquad\\\\gamma>0.k(x,z)=exp(−γ∥x−z∥2\"},{\"width\":280,\"content\":280,\"text\":\"αj′=αj+δ,αi′=αi−sδ,s=yiyj,0≤αi′,αj′≤C.\\\\begin{aligned}\\\\alpha'_j&=\\\\alpha_j+\\\\delta,\\\\\\\\\\\\alpha'_\"},{\"width\":280,\"content\":292,\"text\":\"ℓϵ(y,f)=max⁡(0,∣y−f∣−ϵ),P(w,b)=12∥w∥2+C∑iℓϵ(yi,fi).\\\\begin{aligned}\\\\ell_\\\\epsilon(y,f)&=\\\\max\"},{\"width\":280,\"content\":312,\"text\":\"di=αi−αi∗,D=∑iyidi−ϵ∑i(αi+αi∗)−12∑i,jdidjKij,0≤αi,αi∗≤C,∑idi=0,f(x)=∑idik(xi,x)+b.\\\\begin{a\"}]\n    at C:\\Personal Projects and files\\Portfolio\\Portfolio\\scripts\\review-support-vector-machines-lesson.cjs:176:9"
+    }
+  ]
+}

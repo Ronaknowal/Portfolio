@@ -1,0 +1,57 @@
+{
+  "reviewedAt": "2026-09-21T14:50:59.567Z",
+  "reviewer": "live_exploration_classical_early",
+  "scope": "Bounded independent source review of the live-exploration migration; not a new full lesson or numerical-model audit.",
+  "verdict": "No unresolved substantive findings in reviewed interfaces",
+  "findings": [
+    {
+      "id": "late-assessment-boundary",
+      "status": "fixed-and-source-verified",
+      "file": "src/learn/components/lesson-labs/RademacherLabs.jsx",
+      "finding": "Live stage evaluation opened the frozen assessment automatically despite promising a separate inspection boundary.",
+      "repair": "Selection and bound calculations remain live. A distinct Inspect the frozen assessment report action opens assessment data without learner guesses, and the seen flag stays true across reset. Selection receives only validation fields."
+    },
+    {
+      "id": "late-calibration-copy",
+      "status": "fixed-and-source-verified",
+      "file": "src/learn/components/lesson-labs/CalibrationLabs.jsx",
+      "finding": "Two captions still said the learner was graded on a change.",
+      "repair": "Captions now describe current-input comparisons; no learner-grading claim."
+    }
+  ],
+  "reviewedProperties": [
+    "useLiveResult keys evaluation to model-input and comparison-reference serialization; updating a result does not re-trigger the effect indefinitely.",
+    "Calculation failures and explicitly blocked drafts retain the last successful result with a visible problem description.",
+    "Snapshot and preset operations update a comparison reference explicitly; reset changes the epoch so equal initial inputs still recalculate.",
+    "Multi-stage evaluation uses functional per-stage state merges, avoiding lost updates when two child results publish in one React commit.",
+    "Active learning query previews derive from current eligible hypotheses and query inputs. Acquiring an oracle label is an algorithm/data action, with bounded hypotheses and queries; manual oracle labels are not learner predictions.",
+    "Rademacher fitting/validation/assessment roles remain distinct after the repaired explicit assessment inspection.",
+    "Time-series forecasts and actual-error tables derive from the same result.inputs; current controls determine origin, season and declared data edit."
+  ],
+  "limitations": [
+    "Source inspection of these six interfaces only; browser and production evidence belong to their owning worker/root.",
+    "The full preexisting numerical models and all late-topic lesson prose were not independently re-reviewed."
+  ],
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "6f8461b3afdf19a410357a02b51a56b779e8cc0ccd508ae170975cf739b34cec",
+    "src/learn/components/lesson-labs/RademacherShared.jsx": "e9c55b341c0f75404069bd64354cc1af753804b03f07b092a4a642ca4228102a",
+    "src/learn/components/lesson-labs/RademacherLabs.jsx": "7c06d70cd9d3f826ac5f8a8a25d1a79ac416bd7d180a7f33f4dc54deed8730db",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "5ee25fe3937620fb989e5a8ff62d2b74aecdbc4735aa4e4437c611834344da06",
+    "src/learn/components/lesson-labs/CalibrationLabs.jsx": "08ccec0a08106b2ff8b453c84b357918f33f6e0b059d9c2b19ac15703ffde9f8"
+  },
+  "followup": {
+    "checkedAt": "2026-09-21T15:02:39.730Z",
+    "reason": "Final visible-copy cleanup in TimeSeries, Rademacher and Calibration; reread current question/note/description clauses, explicit assessment control and data-role conditions. No unresolved substantive state/protocol issue in the reviewed paths.",
+    "changedFiles": [
+      "src/learn/components/lesson-labs/RademacherLabs.jsx",
+      "src/learn/components/lesson-labs/TimeSeriesLabs.jsx",
+      "src/learn/components/lesson-labs/CalibrationLabs.jsx"
+    ],
+    "previousSourceHashes": {
+      "src/learn/components/lesson-labs/RademacherLabs.jsx": "0f3d3d8520cf46ec95c329be5ce9e9e099a2c4b04121c9200924eca7135f4b23",
+      "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "b245d186d19932f426dcbedbd2f7facd82d0dbac50a1371220986618b5f36945",
+      "src/learn/components/lesson-labs/CalibrationLabs.jsx": "cff1528731065b05d15b90dc6430aa791ddf584ecc5acfde98ea19754f810f36"
+    }
+  }
+}

@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -870,7 +871,7 @@ vs provisioned            | unpredictable; cost efficiency    | overhead wastes 
       </Prose>
 
       <Callout accent="purple">
-        Forced decisions: multi-region deployment (US + EU) with strict routing by user geography — data residency requirements force this. Single-tier per region is possible since the user base is small and regionally isolated. Long-context workers (>80k context) required — "large" tier only. Structured output requires constrained decoding at the inference layer. Free choices: stateless vs. stateful routing (stateless is simpler; no conversation history needed for document review); dedicated vs. shared capacity (shared is cheaper for the bursty business-hours pattern, but PTU-style dedicated capacity gives predictable latency for high-value clients); semantic caching (could cache similar legal queries, but the risk of wrong-answer cache hits is too high for legal work — skip it).
+        Forced decisions: multi-region deployment (US + EU) with strict routing by user geography — data residency requirements force this. Single-tier per region is possible since the user base is small and regionally isolated. Long-context workers ({">"}80k context) required — "large" tier only. Structured output requires constrained decoding at the inference layer. Free choices: stateless vs. stateful routing (stateless is simpler; no conversation history needed for document review); dedicated vs. shared capacity (shared is cheaper for the bursty business-hours pattern, but PTU-style dedicated capacity gives predictable latency for high-value clients); semantic caching (could cache similar legal queries, but the risk of wrong-answer cache hits is too high for legal work — skip it).
       </Callout>
 
       <H3>Exercise 4 — identify where to cache</H3>

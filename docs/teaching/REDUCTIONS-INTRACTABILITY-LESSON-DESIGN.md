@@ -1,0 +1,35 @@
+# Reductions, P, NP & Computational Intractability — design
+
+Stable ID `reductions-p-np-computational-intractability`; DSA position 17. Scoped authoring under the active 74-topic goal. Preserve title, position and shared memberships. Exact topic-plan CLI read on 10 September 2026; no destination note exists. Unassigned bit-manipulation inbox is unrelated: Boolean assignments use explicit booleans/product, not unexplained bit tricks.
+
+## Finish line and scope
+
+Explain the distinction between an instance, a candidate witness, checking one witness, and deciding whether any witness exists. State P/NP using input-bit length and polynomial certificate/verifier bounds; reason correctly about many-one reductions and both directions of answer equivalence. Construct 3-CNF-to-clique, recover witnesses, carry it through graph complement to independent set/vertex cover, and separate NP membership from NP hardness. Use hardness evidence to choose an explicit practical contract: bounded exact search, pseudopolynomial numerical DP, parameterized search, restricted structure, or approximation with a certificate. P versus NP remains unresolved; neither a browser experiment nor an exponential baseline proves a lower bound for every algorithm.
+
+Prerequisite bridge: Complexity/Recursion's input size and exponential work; Correctness's implications and invariants; Backtracking's choose/undo and DP's state meaning. Explain truth values, literals, clauses, conjunction/disjunction, certificate quantifiers, graph clique/independent-set/cover definitions locally. No hidden theory-of-computation machine prerequisites.
+
+Core: certificate versus search; decision/search/optimization; P, NP and complement caveat; encoding size; reductions and transfer direction; a complete two-way 3-CNF-to-clique proof and polynomial output size; NP-completeness; choices for a hard problem. Deeper branches: self-reducing SAT search with a decision oracle, long-clause-to-three-literal conversion, parameterized cover branch proof and approximation bound. Cook–Levin is accurately stated as an external foundational theorem; a full computation-tableau proof and broad complexity hierarchy are explicitly outside this algorithms lesson.
+
+## Mechanism support
+
+| Hurdle | Representation / concrete contract | Learner action and evidence |
+| --- | --- | --- |
+| One invalid assignment vs impossibility | SAT clause circuit: variable switches feed literal truth cells, each clause's OR, and whole formula's AND. Default 3 clauses over x,y,z. | Toggle certificate variables, count satisfied clauses; reveal exhaustive tiny truth table separately. Unsatisfiable preset prevents conflating one failure with no witness. |
+| Reduction direction and compatible witnesses | Input conversion flow inline; occurrence graph arranged by clause, edges only between distinct clauses and noncomplementary literals. Never merge repeated literal occurrences. | Choose one occurrence per clause; selected pair grid exposes a contradiction, repeat within a clause, or a clique. Recover a consistent assignment and compare SAT result with exhaustive clique existence. Bounded presets include an unsatisfiable contradictory pair. |
+| Numeric magnitude vs input length | Computed binary digits beside target-DP slot count, and exact candidate counts (not wall-clock benchmark). | Vary power-of-two target; an extra encoding bit doubles target range. No allocated huge DP table. |
+| Exact budget, feasible approximation and lower bound | Small vertex graph with selected cover, uncovered edges, disjoint matching edges, and visible lower/upper bound interval. | Edit bounded graph, run deterministic matching approximation, compare exhaustive optimum and bounded edge-branch search for chosen k. All snapshots derive from same graph. |
+
+Use normal textual tables alongside geometry, readable node/literal labels, keyboard buttons/selects, explicit applied/draft state, reset and invalid-input preservation. No timers, random layout, hidden dependencies or generic one-panel trace shell. Figures are computational/structural, not empirical performance claims.
+
+## Programs and independent practice
+
+Complete Python 3.12 standard-library programs: SAT certificate/search; 3-CNF occurrence reduction plus clique-to-assignment witness; clique/complement/cover identity; SAT decision-oracle search; long-clause existential extension; subset sum witness and pseudopolynomial cost; edge-branch k-cover; matching 2-approximation; restricted weighted path independent set. Each supplies explicit supported input contracts, deterministic outputs, witness semantics, resource costs and direct executable verification. Oracle calls are not magically free: native toy SAT oracle enumerates assignments, so the wrapper is not a polynomial-time SAT algorithm.
+
+Local independent tasks: reverse reduction error, soundness/completeness failure, literal occurrence identity, no-certificate quantifier, polynomial output encoding, SAT self-reduction consistency, cover lower/upper certificates, edge-budget branch, restricted path vs arbitrary graph, and timeouts versus infeasibility. Hints and explained solutions; no platform quota. Three official LeetCode tasks revisit DP/backtracking for complexity-contract transfer: 416,198,698, with their actual bounded numerical/structural inputs.
+
+## Sources, decisions and evidence plan
+
+Reviewed Clay P versus NP page (explicitly Unsolved), Cook formal description, MIT 6.006 fall 2011 computational-complexity video resource/typed notes, MIT 6.046 2015 fixed-parameter and approximation notes, and Virginia Tech OpenDSA 3SAT-to-clique resource. Written sources verify formal claims; resource page inspection does not claim video playback. Re-derive the small examples and proofs rather than reproduce source wording. MIT fixed-parameter note contains an apparent kernel edge-count typo and approximation notes use loose optimization-class terminology: do not copy either. Local code and prose use precise decision/optimization separation and no unproved best-known runtime claims.
+
+Independent validation: enumerate assignments vs all graph subsets for reduction equivalence and every recovered witness; exhaustive small graph covers for exact branch and approximation bound; disjoint matching validity/maximality; independent subset combinations for DP witnesses; exact truth tables for existential 3CNF extensions and search oracle; path-subset oracle. Verify input rejection, immutable browser snapshots and extremes. Browser desktop1440/mobile390/320, actual screenshots opened, reading flow, changed input, reset, keyboard/disclosures, anchors, no overflow/errors. Root owns publication registration, generated artifacts, global practice map and integrated build. Status: complete source implemented and author-verified; see [final evidence](REDUCTIONS-INTRACTABILITY-VERIFICATION.md). Root integration and user approval remain separate. Deeper weighted-approximation and bipartite exact-cover discoveries are saved against their precise destination topics.
+

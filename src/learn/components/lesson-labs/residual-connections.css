@@ -1,0 +1,54 @@
+.residual-lesson { --res-bg: #111; --res-line: #424242; --res-text: #e8e8e8; --res-muted: #bcbcbc; --res-gold: #e2b55a; min-width: 0; color: var(--res-text); }
+.residual-lesson :is(p,li,td,th,figcaption,h3,h4,output,a,label) { overflow-wrap: anywhere; }
+.residual-lesson :is(a,summary) { color: var(--res-gold); }
+.residual-lesson :is(ul,ol) { padding-left: 1.4rem; line-height: 1.8; }
+.residual-lesson li { margin: .6rem 0; }
+.residual-lesson .res-equation { max-width: 100%; overflow-x: auto; }
+.residual-lesson .mechanism-program pre { background: #101010; border-color: var(--res-line); color: var(--res-text); }
+.residual-lesson .res-lab,.residual-lesson .res-route { border: 1px solid var(--res-line); padding: clamp(14px,3vw,24px); margin: 28px 0; background: var(--res-bg); border-radius: 5px; min-width: 0; }
+.residual-lesson .res-lab :is(h3,h4) { line-height: 1.5; margin: 0 0 12px; color: var(--res-text); }
+.residual-lesson .res-lab p { line-height: 1.75; }
+.residual-lesson .res-eyebrow { color: var(--res-gold); font-size: .77rem; letter-spacing: .07em; text-transform: uppercase; }
+.residual-lesson .res-controls,.residual-lesson .res-columns { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,200px),1fr)); gap: 16px; margin: 18px 0; align-items: start; }
+.residual-lesson .res-controls > *,.residual-lesson .res-columns > * { min-width: 0; }
+.residual-lesson .res-field { display: grid; gap: 6px; font-size: .9rem; min-width: 0; }
+.residual-lesson :is(button,select,input[type=number]) { font: inherit; color: var(--res-gold); background: #1a1a1a; border: 1px solid #626262; border-radius: 4px; padding: .55rem .65rem; min-height: 42px; max-width: 100%; min-width: 0; box-sizing: border-box; }
+.residual-lesson :is(button,select,input,summary,a):focus-visible { outline: 2px solid var(--res-gold); outline-offset: 4px; }
+.residual-lesson button { cursor: pointer; line-height: 1.5; white-space: normal; }
+.residual-lesson button:hover:not(:disabled),.residual-lesson button[aria-pressed=true] { border-color: var(--res-gold); background: #24211b; }
+.residual-lesson button:disabled { color: #aaa; cursor: not-allowed; background: #171717; }
+.residual-lesson input[type=range] { width: 100%; accent-color: var(--res-gold); height: 32px; margin: 0; }
+.residual-lesson select { display: block; width: 100%; margin-top: 6px; }
+.residual-lesson .res-toggle { display: flex; align-items: start; gap: 10px; line-height: 1.7; padding: 12px 0; }
+.residual-lesson input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--res-gold); margin-top: 4px; flex: 0 0 20px; }
+.residual-lesson .res-error { color: #ffcb9e; font-size: .84rem; line-height: 1.6; }
+.residual-lesson .res-readout { border-left: 3px solid var(--res-gold); padding: 12px 16px; background: #181818; line-height: 1.8; }
+.residual-lesson .res-value { font-family: ui-monospace,monospace; font-variant-numeric: tabular-nums; }
+.residual-lesson .res-lane { border: 1px solid var(--res-line); padding: 14px; margin: 12px 0; line-height: 1.8; }
+.residual-lesson .res-lane strong { color: var(--res-gold); }
+.residual-lesson .res-flow { display: grid; gap: 8px; text-align: center; margin: 20px auto; max-width: 600px; }
+.residual-lesson .res-flow > div { padding: 12px; border: 1px solid var(--res-line); line-height: 1.75; }
+.residual-lesson .res-join { border-color: var(--res-gold) !important; }
+.residual-lesson .res-gradient { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.residual-lesson .res-gradient > div { border-top: 1px solid var(--res-line); padding-top: 12px; }
+.residual-lesson .res-signed { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; line-height: 1.7; }
+.residual-lesson .res-signed b { padding: 6px; background: #202020; }
+.residual-lesson .res-signed b:last-child { color: var(--res-gold); }
+.residual-lesson .res-table { max-width: 100%; overflow: auto; margin: 18px 0; max-height: 570px; }
+.residual-lesson table { width: 100%; border-collapse: collapse; text-align: left; line-height: 1.7; }
+.residual-lesson :is(th,td) { padding: 10px; border-bottom: 1px solid var(--res-line); vertical-align: top; }
+.residual-lesson th { color: var(--res-text); }
+.residual-lesson caption { text-align: left; color: var(--res-muted); padding: 10px 0; }
+.residual-lesson details { border-top: 1px solid var(--res-line); padding-top: 12px; margin: 18px 0; }
+.residual-lesson summary { cursor: pointer; line-height: 1.7; min-height: 32px; }
+.residual-lesson .res-plot { width: 100%; height: auto; display: block; }
+.residual-lesson .res-plot text { fill: var(--res-text); font-family: inherit; font-size: 12px; }
+.residual-lesson .res-plot line { stroke: #686868; }
+.residual-lesson .res-plot .res-train { stroke: var(--res-gold); fill: var(--res-gold); }
+.residual-lesson .res-plot .res-validation { stroke: #eee; fill: #eee; }
+.residual-lesson .res-plot .res-path { fill: none; stroke-width: 2; }
+.residual-lesson .res-digit { display: flex; gap: 16px; align-items: center; margin: 14px 0; }
+.residual-lesson .res-pixels { flex: 0 0 80px; width: 80px; height: 80px; }
+.residual-lesson .res-digit figcaption { font-size: .85rem; line-height: 1.7; }
+.residual-lesson .res-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+@media(max-width:600px) { .residual-lesson .res-gradient { grid-template-columns: 1fr; } .residual-lesson .res-live-table :is(table,tbody,tr,td,th) { display: block; width: auto; } .residual-lesson .res-live-table thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); } .residual-lesson .res-live-table td::before { content: attr(data-label) ': '; color: var(--res-muted); } .residual-lesson .res-live-table tbody tr { margin: 14px 0; border: 1px solid var(--res-line); } }

@@ -1,0 +1,65 @@
+# Attention and graph content-writing revision — 22 September 2026
+
+The 12 packets assigned to the attention group now contain the written mechanism, ordinary-library route, implementation bridge and changed-constraint practice required by the current [writing revision](PREPARED-WRITING-REVISION.md). Their manuscripts, design ownership maps and visual/lab specifications are updated together. This is **content prepared**, not implementation complete or a new publication. The central ledger and live lesson assets are owned by the root reconciliation and were not edited by this author.
+
+The exact per-topic files, ownership decisions, dependencies and SHA-256 inputs are in [prepared-attention-writing.json](prepared-attention-writing.json). [Bounded author-check receipts](prepared-attention-writing-author-checks.json) record the small executed examples separately from optional package routes that have only been authored and source-reviewed. Existing real datasets, fitted artifacts and their original evidence were retained; no training campaign was rerun merely to refresh an unchanged result.
+
+## What is now written
+
+| Prepared topic | Concrete addition and retained owner |
+| --- | --- |
+| RWKV & Linear Attention Models | Retains positive-kernel state, stable RWKV-4 read/write timing, gated/delta state and RWKV-7 update code. Adds `rwkv_checkpoint_state.py`: the ordinary official-package route with a supplied checkpoint/tokenizer, full versus chunked/tokenwise continuation, independent state branches and measured state-byte inventory. The manuscript distinguishes a mathematical update from an entire released architecture. |
+| Self-Attention & Multi-Head Attention | Extends the complete inline scratch/MHA program with matched input and all projection gradients and an equal SGD update. Explicit packed weights, head layout, mask polarity, cotangent and output projection connect the routes. Existing full classification program and held-out study remain the empirical owner. |
+| Transformer Block Architecture | Extends the complete manual/TransformerEncoderLayer comparison for both pre- and post-normalization with input/all-parameter gradients and an equal update. Dropout, activation, biases and epsilon are controlled. The residual, normalization and feed-forward operators retain their actual prerequisite owners. |
+| Positional Encodings | Adds `position_library_bridge.py` for explicit-offset adjacent-pair RoPE and additive ALiBi composed with SDPA, plus direct indexing versus Embedding and repeated-position gradient accumulation. Changes distinguish a common coordinate shift, a wrongly reset query rotation and a separately wrong causal mask. |
+| GQA & MQA | Adds a specific explanation and customization task for the existing complete shared-K/V gradient program: repeated-head copies accumulate into the shared parameter, while optimizer identity remains shared. Six-query/two-KV and unequal key/value-width variations extend the ordinary SDPA bridge. |
+| Multi-Head Latent Attention | Adds `mla_sdpa_bridge.py`: absorbed queries, shared latent/rotary keys, explicit original content-plus-rotary scaling, latent values and post-mixture value expansion. It compares outputs, all six differentiable inputs/factors and one update, without claiming to reproduce an entire DeepSeek checkpoint. |
+| Sparse & Linear Attention Variants | Adds `attention_compression_bridges.py`: learned Linformer sequence projections and SDPA equivalence, segment-landmark Nyström with a tolerance-controlled pseudoinverse, and an actually gathered causal window compared with the dense mask oracle. It covers non-divisible segments, factor order, gradients and storage, while retaining the earlier positive/random-feature and sparse-selection owners. |
+| Vision Transformers | Adds `vision_library_bridge.py` mapping scratch Swin V1 QKV/output weights, relative-bias orientation and patch-merge order to torchvision. It states the exact boundary where the scratch strict padding mask and library finite mask differ. Existing patch, ViT, DeiT, real-study and DINOv2 application material is preserved; the design identifies the self-distillation owner for full training objectives. |
+| Mixture-of-Experts Transformers | Makes the existing registered expert modules, gather/dispatch/index-add, dense gradient oracle and full training path an explicit ownership chain. Explains where top-1 task gradients vanish, where auxiliary gradients enter, and why dropless routing, capacity overflow and distributed placement are different contracts. |
+| Interleaved Cross-Attention | Adds `cross_attention_cache.py`: one-time source K/V projection, query-dependent availability masks, full-MHA versus streaming reads, memory-edit isolation and explicit cache invalidation identities. The lesson explains that shared memory does not imply shared answers and that future-contaminated encoder features cannot be repaired solely by masking the final read. |
+| Message Passing, GCN, GAT & GraphSAGE | Adds the complete sparse `graph_library_bridge.py`, an independent dense oracle and matched PyG constructors/parameters. It specifies source-to-target edges, receiving degrees, loops, duplicate-edge policy, isolated nodes, receiver-group stable softmax, feature/parameter gradients and an equal update. All three advertised core operators have written library routes. |
+| Graph Transformers & Geometric Deep Learning | Adds `gps_library_bridge.py`: a complete manual local/global block and matched GPSConv, scalar structural inputs, packed graph IDs/edge offsets, gradients/update, separate-versus-batched equivalence, cross-graph isolation and relabeling. The manuscript explicitly explains the two residual branches' `2*x` contribution and keeps geometric vectors distinct from invariant scalar features. |
+
+Eight new programs accompany the manuscript changes; the two basic attention/block examples are complete inline programs. This preserves the established lesson flow rather than attaching a generic appendix and claiming it closes every outcome. Each design's new table maps individual outcomes to the actual program or prerequisite section, the normal tool, the comparison, changed practice and the boundary. Existing prepared prerequisites are identified as prepared, rather than being mislabeled as published. Advanced accelerator kernels, full checkpoint reproduction and distributed expert execution retain their real later owners; this does not delegate any of the supplied core tensor/graph mechanisms to phase two.
+
+The GPS program imports the Message Passing packet's `graph_library_bridge.py`. Its manuscript gives both links and explains placing the files together. The GPS checkpoint includes that prerequisite file in `contentFiles` and `sourceHashes`, so changing the shared operator invalidates the dependent preparation. No duplicated private implementation is introduced.
+
+## Author checks and evidence limits
+
+All Python files included in these 12 packets were parsed during the writing handoff. Targeted CPU float64 probes used the existing Python 3.12.14 / PyTorch 2.14.0+cpu environment. These are small operator/gradient examples, not fresh fits or independent implementation reviews:
+
+| Probe | Observed result |
+| --- | --- |
+| Inline self-attention/MHA | Output error about `5.55e-17`; head weights, input/projection gradients and equal update pass. |
+| Inline pre-/post-normalized Transformer block | Both modes pass output, input/parameter gradients and equal update. The printed record labels `pre_norm` separately from check status; `pre_norm: False` means post-normalization, not a failed check. |
+| RoPE, ALiBi, Embedding bridge | Same-output and gradient assertions pass; a repeated position ID accumulates two rows' gradients. |
+| Absorbed MLA/SDPA | Maximum output error about `4.44e-16`, gradient error about `3.33e-16`; equal update passes. |
+| Linformer, gathered window and Nyström | API errors about `1.11e-16`; all-landmark reconstruction error about `1.44e-15`; finite gradients. Three-landmark output error is about `0.251` for this fixture, explicitly an approximation example rather than a guarantee. |
+| Cross-attention projected-memory cache | Full/streaming API error about `5.55e-17`; forbidden-memory isolation and stale-identity rejection pass. |
+| Sparse GCN/GraphSAGE/GAT versus independent dense oracle | Nine cases span a path with an isolate, directed edge editing and no edges. Maximum output error about `5.55e-17` and parameter-gradient error about `2.78e-16`; equal updates pass. This does **not** execute PyG. |
+
+**The PyG GCN/SAGE/GAT and GPS programs, torchvision Swin program and official RWKV checkpoint program remain unexecuted package routes.** Compatible optional packages/checkpoints were not installed or fetched for this content-only request. Their code, setup, state/shape settings, assertions, explanations and reasoned expected behavior are written; no observed package parity, benchmark, full-model quality or publication is asserted. The graph code has a separate executed `--scratch-only` path. Historical fit evidence remains attached to its own original sources and is not relabeled as a new run.
+
+## Sources used for the new bridges
+
+Primary contracts were read on 22 September 2026. The authored routes state the targeted contract/version; phase two must record the environment actually used and adapt deliberately if it differs.
+
+- PyG 2.9.0 [GCNConv](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GCNConv.html), [SAGEConv](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.SAGEConv.html), [GATConv](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.GATConv.html) and [GPSConv source](https://pytorch-geometric.readthedocs.io/en/latest/_modules/torch_geometric/nn/conv/gps_conv.html): edge convention, normalization, parameter ownership, residual branches and batch-aware global attention.
+- PyTorch 2.14 [scaled dot-product attention](https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html): scale override, boolean/additive masks, grouped query behavior and explicit dropout setting.
+- Torchvision 0.29 [Swin implementation](https://docs.pytorch.org/vision/stable/_modules/torchvision/models/swin_transformer.html): relative-index/parameter layout, finite masking, padding and V1 patch merging.
+- Official [ChatRWKV API example](https://github.com/BlinkDL/ChatRWKV/blob/main/API_DEMO.py): environment-before-import setup, model strategy, tokenizer, forward/state interface and independent branching.
+
+These sources supplement the original primary papers and data references already in each packet. They do not replace the topic-specific derivations, resource analysis or frozen studies.
+
+## What finishing must do
+
+The two specialist notes now explicitly say **Content disposition: prepared; Implementation status: open**: [Message Passing](../topic-notes/message-passing-graph-convolutions-gcn-gat-graphsage.md) and [Graph Transformers](../topic-notes/graph-transformers-geometric-deep-learning.md). Their old discovery proposals remain historical records; the new disposition supersedes the instruction to write missing bridge code.
+
+The earlier [Interleaved Cross-Attention discovery](../topic-notes/interleaved-cross-attention-architectures.md) also records an adapted prepared-content disposition for source dependencies and cache ownership. Its release-specific selective-replay and checkpoint-quality claims are not adopted or inferred from the generic program. That note is included in the Interleaved packet's source binding.
+
+Finishing must execute and independently review the supplied code in the relevant native environments, investigate any discrepancies, integrate the authored prose/downloads and topic-specific diagrams/labs, and verify the rendered behavior and source-bound numerical outputs. It must not design an absent core implementation or infer execution from the written expected result. Exact API versions, masks, dropout, dtype, scale, shapes, loop policy, cache identity and gradient targets are already specified in the programs and manuscripts.
+
+The visual specifications place controls at the relevant mechanism rather than imposing one repeated lab format. Editable graph edges, head ownership, positional offsets, latent factors, window/landmark dimensions and cache availability are connected to visible intermediate changes. Residual diagrams use distinct local/global branches; batch diagrams visibly prevent cross-graph attention. Existing labs stay directly playable, with no learner prediction entry, answer-unlock or grading gate. Any remaining mathematical prediction terminology refers to a model's task; separate derivation practice remains separate from access to the lab.
+
+Full browser/layout checks, optional-package execution, fitted-model reproduction and independent implementation review remain deferred. No live page, runtime bundle or implementation checkpoint was changed by this content-authoring work.

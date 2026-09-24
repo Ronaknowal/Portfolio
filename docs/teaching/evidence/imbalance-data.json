@@ -1,0 +1,92 @@
+{
+  "checkedAt": "2026-09-15T19:36:09.704363+00:00",
+  "mode": "read-only",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1"
+  },
+  "datasetSha256": "7cf61776fc04f527f93bf57a327b863893a1225d82df02d457e8950173218258",
+  "datasetBytes": 94976,
+  "packetCalculatedInputsSha256": "1e48991ae587815a31535b9e4e27be678d64a42bc98b26b729df5ed9199fbfc3",
+  "servedCopy": "public/learn-assets/imbalanced-learning/yeast.data",
+  "servedMatchesPacket": true,
+  "sourceRows": 1484,
+  "studyRows": 1462,
+  "duplicateIdentifiers": 22,
+  "roles": {
+    "fitting": {
+      "records": 600,
+      "positives": 21
+    },
+    "tuning": {
+      "records": 200,
+      "positives": 7
+    },
+    "inspection": {
+      "records": 200,
+      "positives": 7
+    },
+    "reserve": {
+      "records": 462,
+      "positives": 16
+    }
+  },
+  "rolesDisjointAndCovering": true,
+  "reservePredictionsComputed": false,
+  "fits": 5,
+  "worstNewtonAgainstLbfgsParameterGap": 7.206810754833981e-07,
+  "neighbourTiesAtK": 0,
+  "totalChecks": 10514,
+  "trustRootChecks": 28,
+  "trustRootScalarLeaves": 18239,
+  "trustRootLeavesReDerived": 18239,
+  "trustRootCoverage": 1.0,
+  "trustRootSweepFieldsChecked": 8000,
+  "selectedThresholds": {
+    "original": 0.14500574144149464,
+    "balanced_weight": 0.7408725512485014,
+    "random_over": 0.7061158880883859,
+    "random_under": 0.7725687726079359,
+    "smote": 0.7592716750213055
+  },
+  "tunedCosts": {
+    "original": 72,
+    "balanced_weight": 51,
+    "random_over": 53,
+    "random_under": 55,
+    "smote": 49
+  },
+  "averagePrecisions": {
+    "original": 0.17345928903779548,
+    "balanced_weight": 0.27331655272831745,
+    "random_over": 0.2786786568339966,
+    "random_under": 0.1935498123809812,
+    "smote": 0.27261478220557506
+  },
+  "topTenPositives": {
+    "original": 2,
+    "balanced_weight": 1,
+    "random_over": 2,
+    "random_under": 2,
+    "smote": 1
+  },
+  "lowestTunedCost": "smote",
+  "highestAveragePrecision": "random_over",
+  "bestTopTen": [
+    "original",
+    "random_over",
+    "random_under"
+  ],
+  "moduleSha256": "02c9bb5eeee3e0266e3a9ec741155c646ee88bdd3686142ab81739ae5ac498c6",
+  "verifierSha256": "d69b70a89cdf82d46fb6724304f9b6778c7d3b57df9e21088344633eaf7beec5",
+  "scope": "Recomputed the whole declared Yeast study from the served file: first-occurrence identity repair by a plain scan, the four role identities and their positive counts, hand-computed standardisation, the oversampling/undersampling draws, the SMOTE neighbour ranking by an explicit (distance, index) sort and all 558 interpolations, and all five logistic fits by damped Newton iteration on the analytic Hessian rather than the packet's L-BFGS-B call. Thresholds, confusion counts, average precision, ROC-AUC and Brier were then recomputed from the packet's saved scores by direct definition and cross-checked against scikit-learn. Also re-derived the packet's constructed fixtures -- the trust root that verify-imbalance-models.mjs consumes as ground truth -- from their declared settings alone, and checked that a fresh regeneration of src/learn/data/imbalance-data.js is byte-identical.",
+  "limitations": [
+    "The role splits are library shuffles; they are reproduced and matched, not derived from first principles.",
+    "One random split of one historical collection, with no protein-family grouping available.",
+    "Development results only; no reserved protein was predicted or scored.",
+    "Numerical fitting can differ on other library versions."
+  ],
+  "passed": true
+}

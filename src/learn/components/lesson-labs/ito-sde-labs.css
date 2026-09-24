@@ -1,0 +1,82 @@
+.ito-lab,.ito-figure { margin: 1.8rem 0; padding: 1.2rem; border: 1px solid #364251; border-radius: 5px; background: #0b111a; color: #e0e6ed; }
+.ito-lab { border-left: 3px solid #e3b351; }
+.ito-lab h3 { margin: 0 0 .7rem; font-size: 1.2rem; color: #f5f6fa; }
+.ito-lab h4 { margin: .6rem 0; font-size: 1rem; }
+.ito-lab p,.ito-figure figcaption { line-height: 1.75; }
+.ito-figure figcaption { margin-top: .85rem; color: #c0ccdc; font-size: .94rem; }
+.ito-controls { display: flex; flex-wrap: wrap; gap: .8rem 1rem; align-items: end; }
+.ito-control { display: flex; flex: 1 1 190px; flex-direction: column; gap: .5rem; min-width: 0; margin: .6rem 0; }
+.ito-control select,.ito-seed input { background: #141f2e; color: #edf2f8; border: 1px solid #78889c; border-radius: 3px; font: inherit; min-height: 44px; width: 100%; max-width: 100%; padding: .45rem; }
+.ito-control input { width: 100%; min-height: 44px; accent-color: #eabd65; }
+.ito-lab button { min-height: 44px; padding: .5rem .75rem; border: 1px solid #897347; border-radius: 3px; background: #182233; color: #f1d38f; cursor: pointer; font: inherit; }
+.ito-lab button:disabled,.ito-control select:disabled { opacity: .45; cursor: default; }
+.ito-lab :focus-visible,.ito-figure :focus-visible { outline: 3px solid #9fcfff; outline-offset: 3px; }
+.ito-seed { display: flex; flex-wrap: wrap; align-items: end; gap: .7rem; margin: .8rem 0; }
+.ito-seed label { display: flex; flex-direction: column; gap: .4rem; width: 150px; max-width: 100%; }
+.ito-seed>span { font-size: .86rem; padding-bottom: .5rem; color: #c6d2e4; }
+.ito-seed [role=alert] { flex-basis: 100%; margin: 0; color: #ffc5c5; }
+.ito-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: .9rem 0; }
+.ito-plot { overflow-x: auto; margin: 1rem 0; }
+.ito-axis-label { margin: .5rem 0; color: #d4dfed; font-size: .9rem; line-height: 1.6; overflow-wrap: anywhere; }
+.ito-plot svg { display: block; width: 100%; min-width: 425px; }
+.ito-plot.compact svg { min-width: 0; max-width: 550px; margin: auto; }
+.ito-plot.compact text { font-size: 20.5px; }
+.ito-plot text { fill: #d4dfed; font: 17px system-ui,sans-serif; }
+.ito-plot line { stroke: #334359; stroke-width: 1; }
+.ito-plot .ito-correction { stroke: #f5c366; stroke-width: 3; }
+.ito-plot .ito-cursor { stroke: #cfdae9; stroke-dasharray: 3 4; }
+.ito-plot .ito-median-marker { stroke: #f5c366; stroke-width: 2; }
+.ito-plot .ito-mean-marker { stroke: #90c5ff; stroke-width: 2; stroke-dasharray: 6 4; }
+.ito-scroll-hint { display: none; font-size: .85rem; color: #b5c8df; }
+.ito-metrics { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,175px),1fr)); gap: .8rem 1rem; margin: 1rem 0; }
+.ito-metrics div { min-width: 0; }
+.ito-metrics dt { color: #b9c9dd; font-size: .85rem; }
+.ito-metrics dd { margin: .3rem 0 0; color: #f6d08b; overflow-wrap: anywhere; }
+.ito-scaling,.ito-conventions,.ito-duality,.ito-mean-median,.ito-step-columns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.1rem; }
+.ito-scaling>div,.ito-conventions>div,.ito-duality>div,.ito-step-columns>div { display: flex; flex-direction: column; gap: .55rem; min-width: 0; }
+.ito-conventions { grid-template-columns: 1fr; }
+.ito-conventions>div+div { border-top: 1px solid #3b4b60; padding-top: .9rem; }
+.ito-conventions span,.ito-duality span { overflow-wrap: anywhere; }
+.ito-scale-bar { height: 13px; background: #253043; }
+.ito-scale-bar i { display: block; height: 100%; background: #f5c366; }
+.ito-scale-bar.noise i { background: #90c5ff; }
+.ito-value-pair { display: flex; flex-direction: column; gap: .5rem; }
+.ito-information { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .65rem; margin: 1.3rem 0; }
+.ito-information>div { display: flex; flex-direction: column; gap: .6rem; padding: .75rem; border: 1px solid #566b86; min-width: 0; }
+.ito-information span { font-size: .87rem; color: #b9c9dd; }
+.ito-information .ito-increment { border-style: dashed; border-color: #c29b50; }
+.ito-information strong { overflow-wrap: anywhere; }
+.ito-readout,.ito-identity { overflow-wrap: anywhere; }
+.ito-identity { border-top: 1px solid #586678; border-bottom: 1px solid #586678; padding: .85rem 0; color: #a9dfc9; }
+.ito-table { overflow-x: auto; margin: .75rem 0; }
+.ito-table table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+.ito-table th,.ito-table td { text-align: left; padding: .55rem .7rem; white-space: nowrap; border-bottom: 1px solid #364457; }
+.ito-table .selected { background: #23374a; }
+.ito-lab details { margin: 1rem 0; }
+.ito-lab summary { min-height: 44px; padding: .65rem 0; color: #eed295; cursor: pointer; }
+.ito-mean-median { border-top: 1px solid #56677d; border-bottom: 1px solid #56677d; padding: 1rem 0; }
+.ito-mean-median>div { display: flex; flex-direction: column; gap: .4rem; }
+.ito-mean-median strong { color: #f5c366; font-size: 1.3rem; }
+.ito-mean-median small { color: #bac7d8; line-height: 1.5; }
+.ito-restoring { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; padding: .8rem 0; }
+.ito-restoring strong { color: #77dfb2; }
+.ito-budget { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ito-budget>div { display: flex; flex-direction: column; gap: .5rem; }
+.ito-budget i { display: block; min-height: 12px; background: #90c5ff; }
+.ito-budget .removal i { background: #eea5bd; }
+.ito-noise-group { border-top: 1px solid #5a6f88; border-bottom: 1px solid #5a6f88; padding: .85rem 0; display: flex; flex-direction: column; gap: .7rem; }
+.ito-noise-group>div { display: flex; flex-wrap: wrap; gap: .35rem; }
+.ito-noise-group>div>span { padding: .3rem .45rem; border: 1px solid #3c6987; font-size: .85rem; color: #a3ceef; }
+.ito-noise-group>div>span.negative { color: #edb3c9; border-color: #865566; }
+.ito-step-columns { margin: 1rem 0; }
+.ito-step-columns>div { border-left: 2px solid #d5b572; padding-left: .75rem; overflow-wrap: anywhere; }
+.ito-step-columns>div+div { border-color: #90c5ff; }
+.ito-sample-result { margin: 1rem 0; border-left: 2px solid #77dfb2; padding-left: 1rem; }
+@media(max-width: 580px) { .ito-scroll-hint { display: block; } }
+@media(max-width: 480px) {
+  .ito-lab,.ito-figure { padding: .8rem; }
+  .ito-control { flex-basis: 100%; }
+  .ito-scaling,.ito-duality,.ito-information,.ito-mean-median,.ito-step-columns,.ito-budget { grid-template-columns: 1fr; }
+  .ito-information>div { padding: .7rem; }
+  .ito-restoring { justify-content: start; }
+}

@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T15:18:44.771Z",
+  "revisedRows": 173,
+  "unchangedRows": 4,
+  "historyPreserved": true,
+  "contentComplete": 177,
+  "implementationComplete": 135,
+  "preparedImplementationNotStarted": 42,
+  "checkpointFileComparisons": 3685,
+  "productionSourceFiles": 1700,
+  "publicationCount": 231,
+  "publicationUnchanged": true,
+  "ledgerSha256": "eed1e2593205aea364bc6b2b9f0335e3c5aa0cfe183a4ccba65281d2870f7286",
+  "manifestSha256": "bc2bb677008a8589977fac1846c793e886b2310956bb9b803a6c60c107f4d11e",
+  "reportHashes": {
+    "AGENTS.md": "a0876e75d5c0931b8e7012ed07dda987fe252c04451f5e4b9aba7872332409bf",
+    "LESSON-AUTHORING-HANDOFF.md": "7cf2b4b452ae95aa9b4d02b2531367347f835d9ce69e98b8380c10285e29caa2",
+    "LESSON-TEACHING-STANDARD.md": "aa4454d0762cca945cb085cabd6f8a6de779dbea24e7a57e22e7af5035a9f6c2",
+    "docs/teaching/TOPIC-DESIGN-BRIEF.md": "8ff982798c527f9bddcf5e7804682673fb3b5e55729325dab290d972a4cc191c",
+    "docs/teaching/DOMAIN-PLAYBOOK.md": "3762fcce6f7d2c29bde7ad90b81f8368b6dd3732c406827d06ba2d835b4e6512",
+    "docs/engineering/LEARNING-CODE-STANDARD.md": "0b12a73f903f28ad4ad142e3a66e9febf50c6504b27c1e18789b58c960de6e3e",
+    "docs/teaching/LIVE-EXPLORATION-IMPLEMENTATION.md": "adcda289fc7e366a30b757a3566304dc9b0f81348b0c64dfa2844f8e810ee470",
+    "docs/teaching/LIVE-EXPLORATION-FOUNDATIONS.md": "63d10df4785f30de35543833be8907a7ea7f9dbe4286434353e7571cc6fd23bf",
+    "docs/teaching/LIVE-EXPLORATION-CLASSICAL-EARLY.md": "b43c3153ef520427188f57429a56fcbfcf9e3490956db35d72d9fea06d55dc90",
+    "docs/teaching/LIVE-EXPLORATION-CLASSICAL-LATE.md": "2e86f4a308e73017adb34e6ce71dad87b7ed749d6b9125b48d763d950bde1b5a",
+    "docs/teaching/LIVE-EXPLORATION-PREPARED-CONTENT.md": "8e08f7a16868c3c52838db1bef035b795a847eb213147f117002873cdcd67168"
+  },
+  "finalCommands": {
+    "curriculum": "passed:29 modules,1460 topics,620 briefs,10 paths",
+    "contentImportBoundary": "passed:1061 source files;235 direct math imports",
+    "runtimeOrganization": "passed:66 data exports,62 runtime modules,29 retired files",
+    "phaseLedger": "passed:177 tracked topics,8 behavior groups",
+    "inventory": "177 content complete,135 implementation complete"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-09-10T20:43:23.578458+00:00",
+  "passed": true,
+  "programs": 12,
+  "finitePathLaws": 12,
+  "markovStates": 196,
+  "absorptionStates": 195,
+  "arrivalStates": 170,
+  "splittingLaws": 1080,
+  "continuousClockStates": 97,
+  "brownianStates": 144,
+  "basisCovarianceMaps": 48,
+  "conditionalBridges": 576,
+  "nativeChangedInputs": 26,
+  "invalidBrowserModelInputs": 34,
+  "nativeInvalidInputs": 24,
+  "nativeCapRejections": 2,
+  "originalProgramsPreserved": 3,
+  "strictInteriorRepeatableUniformDraws": 30000,
+  "numericComparisons": 160451,
+  "maximumAbsoluteError": 2.9103830456733704e-11,
+  "method": "Actual Python stdout; Fraction path enumeration/closed forms; NumPy matrix powers/inverses and covariance transforms; SciPy Poisson/binomial, expm, Gaussian quadrature and conditioning/reflected densities. Finite contracts only, no simulation claimed to prove distributional theorems."
+}

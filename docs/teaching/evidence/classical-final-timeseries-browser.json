@@ -1,0 +1,179 @@
+{
+  "startedAt": "2026-09-21T06:00:40.220Z",
+  "passed": true,
+  "base": "http://127.0.0.1:4184",
+  "cases": [
+    "28 origin/horizon selections keep the future editor independent of concealed source outcomes",
+    "No outcome table or verdict before issuing",
+    "Issue/reveal gates and exact seasonal forecast1162 and MAE7298/7",
+    "Future replacement changes MAE by1000/7 but leaves issued forecasts identical; reset closes saved-ridge gate",
+    "Uniform shift refuses98 and admits95 without silently clipping any input",
+    "Eight-horizon wrap copies observed position5 and scores only four supplied outcomes",
+    "Empty eligible set is expressible and correctly graded",
+    {
+      "name": "Reading geometry at1366",
+      "layout": {
+        "width": 1366,
+        "document": 1366,
+        "errors": 0,
+        "radicals": [
+          59.625,
+          16.984375
+        ]
+      }
+    },
+    {
+      "name": "Reading geometry at390",
+      "layout": {
+        "width": 390,
+        "document": 390,
+        "errors": 0,
+        "radicals": [
+          59.625,
+          16.984375
+        ]
+      }
+    },
+    {
+      "name": "Reading geometry at320",
+      "layout": {
+        "width": 320,
+        "document": 320,
+        "errors": 0,
+        "radicals": [
+          59.625,
+          16.984375
+        ]
+      }
+    },
+    "Keyboard Enter resets the committed donor state and dependent horizon"
+  ],
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-issued-desktop.png",
+      "sha256": "560a998c6ec3ea66e7d7955c63f79cdd5f716c378b5b8a414626ca0ab481e3c4"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-1-1366.png",
+      "sha256": "463bff5a743fe15e528edd3a88fb21235ffe12cd12251dc7845f136209741c97"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-2-1366.png",
+      "sha256": "edde943b15aa0c5cb65108dab8516a33d63384133018c407db70cf6e53125d49"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-3-1366.png",
+      "sha256": "4800a425b20a72b0f94baf2d96296400285db1a5c9d6e9400493106503eeb06b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-4-1366.png",
+      "sha256": "6f0d85a070649fc9aaa348368611f7d3eef3883bc2a068963bc14ee3cd6b7b46"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-5-1366.png",
+      "sha256": "068ff6619f02539e2bfccbcad90b5ddd6cf8d3877e287277f4a05c77dd93f1d2"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-6-1366.png",
+      "sha256": "d739343105be6083b828b8550c1feacce64318f6b3a0772ae29c6fd9668b25d8"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-donor-eight-1366.png",
+      "sha256": "2b6f1246dfbc834b151fb49fc2ff296b2d295f3c7e25a5e3f333c33072101bfb"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-counterfactual-1366.png",
+      "sha256": "0c80cc3b6bda25abc6ffbc4794ec4a6355fb22c526462cb2909dbdd78e9ccfb4"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-1-390.png",
+      "sha256": "871582c8bf7063ad8de86c4adf9a7d071725b0e615ef5fd2aae03b64a5d24e7e"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-2-390.png",
+      "sha256": "7c4ca5ceab8c3f9aeccee34569d2cb590ced48fdc6d71eca1b6e794d76c801a8"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-3-390.png",
+      "sha256": "73fcd7d9b9f6861278102fc554029fc50266c533f0f74e078af914be925e171b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-4-390.png",
+      "sha256": "eb3eadf00c7b27a561fd23ab4e01ad95deb8814d6caf4d11c3ac54201632bfc2"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-5-390.png",
+      "sha256": "5d4bf796648c65b5aca4221fd11418def37c4e98f4bbc2b8b8deeaa1a7774f3b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-6-390.png",
+      "sha256": "c3d8dc498e10e1c58e0336a6fe1c95e6ba4a5cd4f654edb6ff0bb926ebd0a29c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-donor-eight-390.png",
+      "sha256": "dfc44152d729fe2eb70f7174594587777897808be6bf2a6dbacdbc8c57a003c1"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-counterfactual-390.png",
+      "sha256": "602e62b41ddfd1f6734f75d8786056631dd51644de6600d637db27385707ba73"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-1-320.png",
+      "sha256": "6492c1cc891db8780b002ce4cff17c89e6fc9f7a1bcbd5ddb1ac53d2019d77a7"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-2-320.png",
+      "sha256": "52323db237065996209b3a7574d19b0779ad10417dcece6752edb4604cfabe73"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-3-320.png",
+      "sha256": "4d7e4792951a5058cecf472397ffadeae20927cf343af58ee39665a4a7c8dde9"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-4-320.png",
+      "sha256": "add652db17fb14c12751a4cdc3073db52e031e330a8de44a03b7abc717c609e7"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-5-320.png",
+      "sha256": "8170176db9da0c9c2fc7fbefeedb0dd7ed8a3cf7b622554deeb486ec9ca33728"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-figure-diagram-6-320.png",
+      "sha256": "4a3042896ca75763a928166c8d65fe603ac7a78b7d5c334c03208e06347c8664"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-donor-eight-320.png",
+      "sha256": "f259309ab6128d25a70973d40042dd9ce0e5320aecfc0bde51f741fc6a9b8e88"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-counterfactual-320.png",
+      "sha256": "98e2694eb4bb947e8b6ace79d286753332a7c98438fbf6fae35ccc097884d7cd"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-development-desktop.png",
+      "sha256": "ffcd2ffad8c15c187935a9ee71bb853dab1a5be2f8c496e2e7f5be2be15031f3"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-timeseries-sliding-h7-third-origin.png",
+      "sha256": "93b32b0a1404237afb3d1e96c7aa87a7755e9f48eb8812855032e982b1c25273"
+    }
+  ],
+  "limitations": [
+    "Targeted final audit on a dev server; production integration is separate.",
+    "Automated checks plus separately recorded image inspection; no observed beginner study."
+  ],
+  "sources": {
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "b371b3569679548e6c51910c4fd24a03b0156e0785588ee042e0dd06ce374840",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "29012d6be65cef405b0f77054e9f4e06843380855d303c258116ab106830e5ba",
+    "src/learn/components/lesson-labs/TimeSeriesFigures.jsx": "5dd72400f07b12b078bda3ef254b764208dad85b7da425d81c9c556f7f21058e",
+    "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+    "src/learn/components/lesson-labs/timeseries-labs.css": "c54a6fe11d21324dcb0efab9d4cefcb76bba403532696d656f723e540301deba",
+    "src/learn/data/timeseries-models.js": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18"
+  },
+  "completedAt": "2026-09-21T06:01:03.539Z",
+  "captureCleanup": {
+    "at": "2026-09-21T06:21:37.894Z",
+    "count": 8,
+    "change": "Hide .learn-nav in screenshot only; source states recreated, no additional numerical campaign."
+  }
+}

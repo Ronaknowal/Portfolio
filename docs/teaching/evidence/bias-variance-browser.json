@@ -1,0 +1,127 @@
+{
+  "startedAt": "2026-09-16T16:57:06.534Z",
+  "completedAt": "2026-09-16T16:57:38.688Z",
+  "topicId": "bias-variance-tradeoff-learning-curves",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "52363a0a31af9f7c2f5f25f844613c919e3809f1a850adbe78408bd809534a03",
+  "sourceHashes": {
+    "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx": "b5654b19703e712e557462d095f8995ad120253eba17ef371a67b1a6c5eed0ef",
+    "src/learn/data/bias-variance-models.js": "0c02c8e0772cd2eed0f690d4c27611942fa42ac98a7975bd6c3bee15b95d9379",
+    "src/learn/data/bias-variance-data.js": "f6e4a912ab961c03c633aaef9a5ba645774c8cabf5fe22169e5be109ef9a3a82",
+    "src/learn/data/bias-variance-examples.js": "fb2acb3099d5898f07939043b7dcccaa51146aa9c310011a579708436ff815a7",
+    "src/learn/components/lesson-labs/BiasVarianceShared.jsx": "93ce7e4676434eef3708e8a1bf15cb38b80c9277f0c2c81c71d7cd6cc5eca3eb",
+    "src/learn/components/lesson-labs/BiasVarianceLabs.jsx": "7a54f50f40264e9842165061fef5d483b98da7dfe744ed53053b3d1a4264b5fb",
+    "src/learn/components/lesson-labs/BiasVarianceFigures.jsx": "f5028401937fbee9df678a6db74fc2b37108f81937872df61091b111c6206e80",
+    "src/learn/components/lesson-labs/bias-variance-labs.css": "6c7ad43d001785f22ef0189d07371727ec4b882f14a8eda0f60ab2c753e3bf93",
+    "src/learn/data/curriculum/blueprints/bias-variance-tradeoff-learning-curves.js": "4b796e6cd32e0a4dc5b4662441faa923f4b26e5089a0d34a98d5d65755501682",
+    "public/learn-assets/bias-variance/airfoil-self-noise.dat": "74c75fd71783f1e6b71f8a622b993dc592897a97cd689c5090a07147a1b097b3"
+  },
+  "moduleTopicCount": 39,
+  "dataset": {
+    "file": "/learn-assets/bias-variance/airfoil-self-noise.dat",
+    "sha256": "74c75fd71783f1e6b71f8a622b993dc592897a97cd689c5090a07147a1b097b3",
+    "bytes": 59984,
+    "reservedPredictionsComputed": false
+  },
+  "records": [
+    {
+      "case": "Complete visible code and output for three programs, eleven route anchors, seven figures, eight practice tasks, all twenty recorded validation means, the served unchanged dataset with its hash and attribution, current metadata and module sequence"
+    },
+    {
+      "case": "Prediction ruler: nothing preselected and no decomposition on first paint, a fall from 11/3 to 5/3 attributed to the spread alone, both exact nulls (a permutation and a translation) reporting no moved term, the collapsed setup showing an exact zero variance, the six-pair enumeration, and an edit that retires both the prediction and its feedback"
+    },
+    {
+      "case": "Finite worlds: no curves before a prediction, the default line-against-quadratic verdict, the flat-truth reversal, two exact nulls with their own explanations, practice 2's louder-noise fixture at 23/32 and 55/32 with its interpolation weights, the thirty-two-world design showing the 0.340278 → 0.3625 reversal, and a world selector that leaves every averaged term alone"
+    },
+    {
+      "case": "Figures carry their required content: the cross terms are named rather than dropped, the reserved block has a blocked arrow, the crossover size is drawn from the model layer, the trajectory names its own last-round minimum, the optimism triple appears with its doubled gap, and the asymptotic curve says where it is undefined"
+    },
+    {
+      "case": "Plotted coordinates read back from the combined learning-curve plot: four polylines, each point at its own fitted size and at its validation mean rather than its training mean, and the crossover stem at the size its label names"
+    },
+    {
+      "case": "Sequential figure regressions: all 200 fold points inside their shared 0–60 axes, four painted 2.2px curves, proportional subset bars without a minimum-width floor, corrected leverage and mixed-product prose, and one filled continuation arrow"
+    },
+    {
+      "case": "The grading contract off its happy path: a wrong direction renders the mismatch branch naming both the recorded and the calculated outcome, a numeric guess is reported outside its tolerance, the committed state is echoed, and a guess inside tolerance is reported as inside"
+    },
+    {
+      "case": "Sequential numeric boundary and causal feedback: inclusive decimal tolerance endpoints pass, just-outside answers fail, translation does not claim the average stayed fixed, and simultaneous variance/noise or bias/noise changes are not attributed to a single term"
+    },
+    {
+      "case": "Keyboard reach into the investigation, focus moving on rather than being dropped, and a displayed program whose Python indentation survives on the page"
+    },
+    {
+      "case": "No label leaves its own SVG, overlaps another label, is crossed by a straight foreground line, or is run through by a curve, at five widths, with both investigations committed",
+      "curveSamplingNote": "Curves and flow arrows are sampled along their own geometry and tested against every label box, because the shared inspector reads straight lines only. A label with an opaque backplate may be crossed by up to 2% of a curve length; a label without one may not be crossed at all."
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure, and never another lesson's dataset",
+      "requestedScripts": [
+        "assets/index-DURIzA7i.js",
+        "assets/Reader-DPAjQxzi.js",
+        "assets/LevelBadge-DddBXgFz.js",
+        "assets/bias-variance-tradeoff-learning-curves-D6elSO1U.js",
+        "assets/Code-B3RTx-28.js",
+        "assets/Callout-DXZUTroA.js",
+        "assets/Math-4xFhPSUK.js",
+        "assets/LessonElements-BBkyWgSE.js",
+        "assets/RunnableExample-BKVo7iWq.js"
+      ],
+      "rawScriptBytes": 1485679,
+      "gzipEstimateBytes": 335679,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout: no horizontal overflow, readable formula grouping, every deeper branch rendered, and every numeric table stacked into labelled rows"
+    },
+    {
+      "case": "Narrow 320px layout: no horizontal overflow, readable formula grouping, every deeper branch rendered, and every numeric table stacked into labelled rows"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-spread-initial-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-spread-inward-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-spread-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-spread-enumerated-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-worlds-default-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-worlds-flat-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-worlds-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-worlds-louder-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-worlds-five-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-worlds-selected-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-4-round30-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-1-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-2-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-3-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-4-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-5-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-6-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-7-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-spread-mismatch-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-spread-multiple-causes-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-spread-390.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-worlds-390.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-1-390.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-2-390.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-4-390.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-5-390.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-6-390.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-7-390.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-spread-320.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-3-320.png",
+    "docs\\teaching\\evidence\\screenshots\\bias-variance-figure-7-320.png"
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states, not defaults only: the ruler before any commitment, a matched fall attributed to the spread alone, both exact nulls, the enumerated pair table, the fitted-world bundles under four different mechanisms including the thirty-two-world design, an inspected boosting round, and every inline figure at desktop and at 320 or 390 px. They require separate visual inspection."
+}

@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T15:12:57.146Z",
+  "base": "http://127.0.0.1:4191",
+  "manifestHash": "bc2bb677008a8589977fac1846c793e886b2310956bb9b803a6c60c107f4d11e",
+  "sourceHashes": {
+    "src/learn/Reader.jsx": "97fd3a48d56f18045a0a3ab2ad919ca331797d68a1806510e40623c8c4cc2f5a",
+    "src/learn/components/TopicContent.jsx": "cd1ff2a425af7db9a3f3a2c45626fbd1fe0059d81d8389df95ff9bd28b7f2925",
+    "src/learn/components/LessonBoundary.jsx": "2fceb882434d1d8c00c12e64b0c87b8653e9d98640a2e0022ccf0e3b97892df8",
+    "src/learn/hooks/useTopicResource.js": "b6dd4e9e58f9249069b53537df62f9aa8b4d3c85c3ab82a8975f773d0d95f984",
+    "src/learn/data/lesson-loader.js": "0b4d61e11702db430a71692b76f34b5efaaf8c3552c45f708d69f23b8e829bc7"
+  },
+  "verifierSha256": "35fb4f6ac85467096174076e50d30864d7d0f546d893aceab24ff259d3ae2ffc",
+  "records": [
+    {
+      "check": "Only selected lesson and shared dependencies load",
+      "id": "python-basics-types-control-flow-functions-modules",
+      "decodedJsBytes": 1397938,
+      "gzipEstimateBytes": 276091
+    },
+    {
+      "check": "Only selected lesson and shared dependencies load",
+      "id": "k-means-hierarchical-clustering",
+      "decodedJsBytes": 1753411,
+      "gzipEstimateBytes": 388439
+    },
+    {
+      "check": "Completion persists and Next follows module sequence"
+    },
+    {
+      "check": "Only selected lesson and shared dependencies load",
+      "id": "feature-selection-importance-shap-permutation-mutual-info",
+      "decodedJsBytes": 1787516,
+      "gzipEstimateBytes": 395223
+    },
+    {
+      "check": "Published lesson error recovers after reload",
+      "failure": "import",
+      "attempts": 2
+    },
+    {
+      "check": "Published lesson error recovers after reload",
+      "failure": "render",
+      "attempts": 2
+    }
+  ],
+  "limitations": "Three representative loading closures and two controlled recovery paths; gzip figures are estimates, not latency benchmarks."
+}

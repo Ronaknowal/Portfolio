@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "reviewer": "/root/decision_depth_prose",
+  "torch": "2.14.0+cpu",
+  "sourceHash": "a2b4a7308d2e70c768dcea22d7d422cd7882d163d45e938ef31ce8c07d1c7cca",
+  "completeBuilderParameters": {
+    "lenet": 61706,
+    "alexnet": 61100840,
+    "vgg16": 138357544,
+    "resnet18": 11689512,
+    "efficientnet_b0": 5288548
+  },
+  "maxSavedCAMError": 7.099608438920768e-06,
+  "checks": [
+    "All five full builders: declared meta shapes and independent parameter totals",
+    "Executed seven-class GAP head exercise at two image sizes; 3,591 head parameters",
+    "Actual ChannelGate spatial-permutation equivariance preserves global context",
+    "Fixed p1 division-by-zero; p0/p1/eval identities, real row-sharing and invalid-rate rejection",
+    "B0 complete16-block schedule and squeeze width from each block incoming width",
+    "Every saved image/class: scalar CAM reconstruction, spatial-permutation null and signed single-cell intervention"
+  ],
+  "limits": [
+    "No12-fit rerun",
+    "Meta shape/count execution is not numerical full-model fitting",
+    "No pretrained weights downloaded",
+    "No browser or screenshot review"
+  ]
+}

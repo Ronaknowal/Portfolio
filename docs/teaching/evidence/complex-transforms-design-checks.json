@@ -1,0 +1,19 @@
+{
+  "at": "2026-09-11T04:55:44.394687+00:00",
+  "status": "design-fixtures-passed; no production implementation or browser claim",
+  "checks": {
+    "complexProductAndDivision": 2,
+    "exactFourPointDftAndInverseEnergy": 3,
+    "phaseAwareAliasSamples": 16,
+    "linearAndCircularConvolutions": 2,
+    "symbolicStepResponseIdentities": 2,
+    "independentTimeDomainFilterIntegrals": 41,
+    "finiteWeightedLaplaceIntegrals": 81
+  },
+  "maximumResponseAbsoluteDifference": 2.7755575615628914e-15,
+  "maximumWeightedIntegralRelativeDifference": 6.497620586731631e-16,
+  "libraries": {
+    "numpy": "2.3.5",
+    "sympy": "1.14.0"
+  }
+}

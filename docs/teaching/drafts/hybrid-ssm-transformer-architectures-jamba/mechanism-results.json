@@ -1,0 +1,557 @@
+{
+  "reads": {
+    "worked": {
+      "states": [
+        [
+          2.0,
+          1.0,
+          2.0
+        ],
+        [
+          8.0,
+          1.5,
+          5.333333333333333
+        ],
+        [
+          8.0,
+          1.75,
+          4.571428571428571
+        ]
+      ],
+      "weights": [
+        0.8181818181818181,
+        0.09090909090909088,
+        0.09090909090909088
+      ],
+      "attention": 2.636363636363636,
+      "summary": 4.571428571428571
+    },
+    "collision": {
+      "states": [
+        [
+          6.0,
+          1.0,
+          6.0
+        ],
+        [
+          8.0,
+          1.5,
+          5.333333333333333
+        ],
+        [
+          8.0,
+          1.75,
+          4.571428571428571
+        ]
+      ],
+      "weights": [
+        0.8181818181818181,
+        0.09090909090909088,
+        0.09090909090909088
+      ],
+      "attention": 5.727272727272726,
+      "summary": 4.571428571428571
+    },
+    "uniform_query": {
+      "states": [
+        [
+          2.0,
+          1.0,
+          2.0
+        ],
+        [
+          8.0,
+          1.5,
+          5.333333333333333
+        ],
+        [
+          8.0,
+          1.75,
+          4.571428571428571
+        ]
+      ],
+      "weights": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "attention": 4.333333333333333,
+      "summary": 4.571428571428571
+    },
+    "constant_null": {
+      "states": [
+        [
+          4.0,
+          1.0,
+          4.0
+        ],
+        [
+          6.0,
+          1.5,
+          4.0
+        ],
+        [
+          7.0,
+          1.75,
+          4.0
+        ]
+      ],
+      "weights": [
+        0.8181818181818181,
+        0.09090909090909088,
+        0.09090909090909088
+      ],
+      "attention": 3.999999999999999,
+      "summary": 4.0
+    },
+    "fresh": {
+      "states": [
+        [
+          3.0,
+          1.0,
+          3.0
+        ],
+        [
+          10.25,
+          1.75,
+          5.857142857142857
+        ],
+        [
+          8.6875,
+          2.3125,
+          3.7567567567567566
+        ],
+        [
+          11.515625,
+          2.734375,
+          4.211428571428572
+        ]
+      ],
+      "weights": [
+        0.4,
+        0.1,
+        0.4,
+        0.1
+      ],
+      "attention": 2.9,
+      "summary": 4.211428571428572
+    },
+    "fresh_changed_key": {
+      "states": [
+        [
+          3.0,
+          1.0,
+          3.0
+        ],
+        [
+          10.25,
+          1.75,
+          5.857142857142857
+        ],
+        [
+          8.6875,
+          2.3125,
+          3.7567567567567566
+        ],
+        [
+          11.515625,
+          2.734375,
+          4.211428571428572
+        ]
+      ],
+      "weights": [
+        0.3076923076923077,
+        0.3076923076923077,
+        0.3076923076923077,
+        0.07692307692307693
+      ],
+      "attention": 4.0769230769230775,
+      "summary": 4.211428571428572
+    }
+  },
+  "memory": [
+    {
+      "length": 0,
+      "hybrid": {
+        "kv": 0,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 16515072,
+        "total_GiB": 0.015380859375
+      },
+      "attention": {
+        "kv": 0,
+        "recurrent": 0,
+        "convolution": 0,
+        "total": 0,
+        "total_GiB": 0.0
+      },
+      "ssm": {
+        "kv": 0,
+        "recurrent": 16777216,
+        "convolution": 2097152,
+        "total": 18874368,
+        "total_GiB": 0.017578125
+      },
+      "window_hybrid": {
+        "kv": 0,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 16515072,
+        "total_GiB": 0.015380859375
+      }
+    },
+    {
+      "length": 1024,
+      "hybrid": {
+        "kv": 16777216,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 33292288,
+        "total_GiB": 0.031005859375
+      },
+      "attention": {
+        "kv": 134217728,
+        "recurrent": 0,
+        "convolution": 0,
+        "total": 134217728,
+        "total_GiB": 0.125
+      },
+      "ssm": {
+        "kv": 0,
+        "recurrent": 16777216,
+        "convolution": 2097152,
+        "total": 18874368,
+        "total_GiB": 0.017578125
+      },
+      "window_hybrid": {
+        "kv": 16777216,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 33292288,
+        "total_GiB": 0.031005859375
+      }
+    },
+    {
+      "length": 4096,
+      "hybrid": {
+        "kv": 67108864,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 83623936,
+        "total_GiB": 0.077880859375
+      },
+      "attention": {
+        "kv": 536870912,
+        "recurrent": 0,
+        "convolution": 0,
+        "total": 536870912,
+        "total_GiB": 0.5
+      },
+      "ssm": {
+        "kv": 0,
+        "recurrent": 16777216,
+        "convolution": 2097152,
+        "total": 18874368,
+        "total_GiB": 0.017578125
+      },
+      "window_hybrid": {
+        "kv": 67108864,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 83623936,
+        "total_GiB": 0.077880859375
+      }
+    },
+    {
+      "length": 16384,
+      "hybrid": {
+        "kv": 268435456,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 284950528,
+        "total_GiB": 0.265380859375
+      },
+      "attention": {
+        "kv": 2147483648,
+        "recurrent": 0,
+        "convolution": 0,
+        "total": 2147483648,
+        "total_GiB": 2.0
+      },
+      "ssm": {
+        "kv": 0,
+        "recurrent": 16777216,
+        "convolution": 2097152,
+        "total": 18874368,
+        "total_GiB": 0.017578125
+      },
+      "window_hybrid": {
+        "kv": 67108864,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 83623936,
+        "total_GiB": 0.077880859375
+      }
+    },
+    {
+      "length": 65536,
+      "hybrid": {
+        "kv": 1073741824,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 1090256896,
+        "total_GiB": 1.015380859375
+      },
+      "attention": {
+        "kv": 8589934592,
+        "recurrent": 0,
+        "convolution": 0,
+        "total": 8589934592,
+        "total_GiB": 8.0
+      },
+      "ssm": {
+        "kv": 0,
+        "recurrent": 16777216,
+        "convolution": 2097152,
+        "total": 18874368,
+        "total_GiB": 0.017578125
+      },
+      "window_hybrid": {
+        "kv": 67108864,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 83623936,
+        "total_GiB": 0.077880859375
+      }
+    },
+    {
+      "length": 262144,
+      "hybrid": {
+        "kv": 4294967296,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 4311482368,
+        "total_GiB": 4.015380859375
+      },
+      "attention": {
+        "kv": 34359738368,
+        "recurrent": 0,
+        "convolution": 0,
+        "total": 34359738368,
+        "total_GiB": 32.0
+      },
+      "ssm": {
+        "kv": 0,
+        "recurrent": 16777216,
+        "convolution": 2097152,
+        "total": 18874368,
+        "total_GiB": 0.017578125
+      },
+      "window_hybrid": {
+        "kv": 67108864,
+        "recurrent": 14680064,
+        "convolution": 1835008,
+        "total": 83623936,
+        "total_GiB": 0.077880859375
+      }
+    }
+  ],
+  "routing": {
+    "worked": {
+      "probabilities": [
+        0.5,
+        0.25,
+        0.125,
+        0.125
+      ],
+      "selected": [
+        0,
+        1
+      ],
+      "weights": [
+        0.5,
+        0.25
+      ],
+      "selected_mass": 0.75,
+      "output": [
+        1.0,
+        0.25
+      ],
+      "boundary_tie": false
+    },
+    "renormalized": {
+      "probabilities": [
+        0.5,
+        0.25,
+        0.125,
+        0.125
+      ],
+      "selected": [
+        0,
+        1
+      ],
+      "weights": [
+        0.6666666666666666,
+        0.3333333333333333
+      ],
+      "selected_mass": 0.75,
+      "output": [
+        1.3333333333333333,
+        0.33333333333333337
+      ],
+      "boundary_tie": false
+    },
+    "changed_selected": {
+      "probabilities": [
+        0.2666666666666667,
+        0.13333333333333336,
+        0.5333333333333332,
+        0.06666666666666668
+      ],
+      "selected": [
+        2,
+        0
+      ],
+      "weights": [
+        0.5333333333333332,
+        0.2666666666666667
+      ],
+      "selected_mass": 0.7999999999999999,
+      "output": [
+        -0.533333333333333,
+        -0.2666666666666667
+      ],
+      "boundary_tie": false
+    },
+    "fresh": {
+      "probabilities": [
+        0.08333333333333334,
+        0.25000000000000006,
+        0.5,
+        0.16666666666666669
+      ],
+      "selected": [
+        2,
+        1
+      ],
+      "weights": [
+        0.5,
+        0.25000000000000006
+      ],
+      "selected_mass": 0.75,
+      "output": [
+        0.2500000000000002,
+        2.0
+      ],
+      "boundary_tie": false
+    },
+    "fresh_changed_unselected": {
+      "probabilities": [
+        0.15384615384615385,
+        0.23076923076923078,
+        0.46153846153846145,
+        0.15384615384615385
+      ],
+      "selected": [
+        2,
+        1
+      ],
+      "weights": [
+        0.46153846153846145,
+        0.23076923076923078
+      ],
+      "selected_mass": 0.6923076923076923,
+      "output": [
+        0.23076923076923084,
+        1.8461538461538458
+      ],
+      "boundary_tie": false
+    },
+    "zero_outputs_null": {
+      "probabilities": [
+        0.5,
+        0.25,
+        0.125,
+        0.125
+      ],
+      "selected": [
+        0,
+        1
+      ],
+      "weights": [
+        0.5,
+        0.25
+      ],
+      "selected_mass": 0.75,
+      "output": [
+        0.0,
+        0.0
+      ],
+      "boundary_tie": false
+    },
+    "ties": {
+      "probabilities": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "selected": [
+        0,
+        1
+      ],
+      "weights": [
+        0.25,
+        0.25
+      ],
+      "selected_mass": 0.5,
+      "output": [
+        0.5,
+        0.5
+      ],
+      "boundary_tie": true
+    }
+  },
+  "fresh_memory": {
+    "kv": 9437184,
+    "recurrent": 884736,
+    "convolution": 221184,
+    "total": 10543104,
+    "total_GiB": 0.00981903076171875
+  },
+  "fresh_memory_double": {
+    "kv": 18874368,
+    "recurrent": 884736,
+    "convolution": 221184,
+    "total": 19980288,
+    "total_GiB": 0.01860809326171875
+  },
+  "ffn": {
+    "one_expert": 176160768,
+    "total": 47915728896,
+    "active": 8455716864,
+    "baseline_dense": 5637144576,
+    "full_bf16_weight_bytes_using_rounded_52B": 104000000000
+  },
+  "attention_arithmetic": [
+    {
+      "length": 1024,
+      "projection_flops": 85899345920,
+      "ideal_causal_pair_flops": 8598323200,
+      "one_new_token_pair_flops": 16793600
+    },
+    {
+      "length": 32768,
+      "projection_flops": 2748779069440,
+      "ideal_causal_pair_flops": 8796361457664,
+      "one_new_token_pair_flops": 536887296
+    },
+    {
+      "length": 262144,
+      "projection_flops": 21990232555520,
+      "ideal_causal_pair_flops": 562952100904960,
+      "one_new_token_pair_flops": 4294983680
+    }
+  ]
+}

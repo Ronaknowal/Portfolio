@@ -1,0 +1,666 @@
+{
+  "reviewedAt": "2026-09-14T06:44:48.525Z",
+  "scope": "Classical ML positions 12–16: prepared-content conservation and implementation correctness audit",
+  "status": "complete",
+  "topics": [
+    {
+      "id": "pca-dimensionality-reduction",
+      "revision": 1,
+      "contentCompletedAt": "2026-09-11T21:51:11.450Z",
+      "implementationCompletedAt": "2026-09-11T22:38:39.939514+00:00",
+      "browserEvidence": "docs/teaching/evidence/pca-browser.json",
+      "browserEvidenceHash": "8305fe2ebc91b00b328c9fda6d54eb3e4089db5d7eafde76f80d0d0db8bec2a3",
+      "browserBuildManifestHash": "10404f01682dc98eb65b71fa452e936cb5e229e893247295f094a1b424b16a5b",
+      "browserCases": 14,
+      "browserSourcesCurrent": true,
+      "nativeEvidence": "docs/teaching/evidence/pca-native.json",
+      "nativeEvidenceHash": "e88a6b6318e418ef36f74de202eb8464165cef59434411df701448b5a6992ba6",
+      "nativeSourceCurrent": true,
+      "nativeVerifierCurrent": true,
+      "displayedPrograms": 8,
+      "reviewedContentFiles": {
+        "docs/teaching/drafts/pca-dimensionality-reduction/lesson.md": "779d461fda06484aa620aa28d67267665b96ccb83bf3fcb281c54d491cdf6148",
+        "docs/teaching/drafts/pca-dimensionality-reduction/visual-specifications.md": "20033e9b558b4aa5f8d6402485d1b967e4bbf70cb52a82cf70b2ce3c02c404bd",
+        "docs/teaching/drafts/pca-dimensionality-reduction/data-provenance.md": "ad6cf535bb0b6afab9fd383891c6ee17cf93bc492935964757e9f4bcc9baf842",
+        "docs/teaching/drafts/pca-dimensionality-reduction/wine.csv": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f",
+        "docs/teaching/drafts/pca-dimensionality-reduction/author-calculations.json": "2b2fc3dcf06b9d50ca0bafaef2d85a283d613d7606fd5855d53437107b3382f9",
+        "docs/teaching/PCA-LESSON-DESIGN.md": "7cd3021f902b1c7122a045eba633352184fac8f59032040d89e650e720ebe98b"
+      },
+      "reviewedImplementationFiles": {
+        "src/learn/data/topics/pca-dimensionality-reduction.jsx": "e242fc5a5d5300441abc797705a85fdceeb1997d02094be3c7d382b59e25b403",
+        "src/learn/data/pca-models.js": "68fe8a36470a7351c7d0e73bc84339502912eaa8f405892d4b1b709fdedf1b21",
+        "src/learn/data/pca-wine-data.js": "d5964935fb9bd4af7e4164fb1275fcdee339b5720267ad6e7cdf7ba85e141e84",
+        "src/learn/data/pca-examples.js": "166065296261d699661c0b48dd89e853882a084d2b6fe272fc0102a5a046265b",
+        "src/learn/components/lesson-labs/PcaLabs.jsx": "f7f6077243b3b20858c3e7e618bb07f4d2ab2174907cf2b491808f89f8710d2c",
+        "src/learn/components/lesson-labs/PcaFigures.jsx": "a0c2d03847f7b55c5250bf77ccf2e150aeaaa946fd920aec4b883645fba54a79",
+        "src/learn/components/lesson-labs/pca-labs.css": "6b4044f60f0dab5aae4b4ec7c95b88e3d07724b31d209c8797a92e2e2c0caea1",
+        "src/learn/data/curriculum/blueprints/pca-dimensionality-reduction.js": "229de2e79201b983ab78feffd8c8667d180fea8902107c9d2297cf938ee5ff2d",
+        "public/learn-assets/pca/wine.csv": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f"
+      }
+    },
+    {
+      "id": "clustering-evaluation-validation-silhouette-ari-nmi",
+      "revision": 1,
+      "contentCompletedAt": "2026-09-11T23:07:58.553Z",
+      "implementationCompletedAt": "2026-09-12T03:58:34.859700+00:00",
+      "browserEvidence": "docs/teaching/evidence/clustering-evaluation-browser.json",
+      "browserEvidenceHash": "dd559cb28881fa3808ab1161f10217bf4f5709bf18dde36f270e5504225e50dd",
+      "browserBuildManifestHash": "10404f01682dc98eb65b71fa452e936cb5e229e893247295f094a1b424b16a5b",
+      "browserCases": 13,
+      "browserSourcesCurrent": true,
+      "nativeEvidence": "docs/teaching/evidence/clustering-evaluation-native.json",
+      "nativeEvidenceHash": "da309d5efb48aa3b3242e89d29226420ad9036205aee1c38debf28dfb3895a10",
+      "nativeSourceCurrent": true,
+      "nativeVerifierCurrent": true,
+      "displayedPrograms": 6,
+      "reviewedContentFiles": {
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/author-calculations.json": "925361b5497c5c3946b4d89ee0870bea2cf6abd0596cf7027f5ba99f67625625",
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/author-input-probes.py": "16a76156bc1e31f20d15fbf68da08b097cc324e2157774275759c105845693a9",
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/data-provenance.md": "2c27d3ebcccd2d62e18f03f34238b40f75b411a9ccf4ef06f5b5780cfd67fd9a",
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/iris.csv": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a",
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/lesson.md": "4f35ac5d1c7ea4bdfffbf974e52517183a6e5f543359651ff0cd0f10244400ff",
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/report-author-calculation.json": "363d0ba60cb2e319d9aa6a8a6fb857f734c8e3fa9467048e2b5ba632f0a8d498",
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/report-author-calculation.py": "f4d3838d3779bae545d1e9a744b29fc706cbc79f1320491f9c59d287fb35996d",
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/visual-input-calculations.json": "56adfac716f95191ee57160440b04307872524064496fa4c1daeb9acccd4e015",
+        "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/visual-specifications.md": "6546b674535f7ea43a6bab30df77cefb2caf9ef733fc3c0fb54211b78e52ed5f",
+        "docs/teaching/CLUSTERING-EVALUATION-LESSON-DESIGN.md": "d13c2bc11ba49fc409c87697f5e7ec085c3340b070bb074ab7b7f2335ae053c5"
+      },
+      "reviewedImplementationFiles": {
+        "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": "7030b810c96280027569f8b3a93f50a7f40981057dd8c891c88d82c5a59e60ac",
+        "src/learn/data/clustering-evaluation-models.js": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e",
+        "src/learn/data/clustering-evaluation-data.js": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07",
+        "src/learn/data/clustering-evaluation-examples.js": "b068474e41d0befab400dc751797e2046964af1463927813bf7ea85e5537b2f1",
+        "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": "1ec16771da4357c07c81f42134d2e0f5925d820aeaa44ec42fd02b9d49e0be14",
+        "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c",
+        "src/learn/components/lesson-labs/clustering-evaluation-labs.css": "b9f1a76d7109f1e8f4ada1bc09457651bb8e4d40cfb7904ae3038aeeb3aaac15",
+        "src/learn/data/curriculum/blueprints/clustering-evaluation-validation-silhouette-ari-nmi.js": "bc58927e0091123a854906b1ece87e81a0097ff0452c5dd4332fabf0d68cfaba",
+        "public/learn-assets/clustering-evaluation/iris.csv": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a"
+      }
+    },
+    {
+      "id": "dbscan-density-based-clustering",
+      "revision": 1,
+      "contentCompletedAt": "2026-09-11T23:07:58.562Z",
+      "implementationCompletedAt": "2026-09-12T03:58:34.908095+00:00",
+      "browserEvidence": "docs/teaching/evidence/dbscan-browser.json",
+      "browserEvidenceHash": "7efeadf5f58205ee94f5e899f8c875ec08be6e1133d7bbe400afe29f5ef80bbf",
+      "browserBuildManifestHash": "ce69cea977ca306542dad142f65783fa6650f603b61daa9599b11b38da3d0f21",
+      "browserCases": 12,
+      "browserSourcesCurrent": true,
+      "nativeEvidence": "docs/teaching/evidence/dbscan-native.json",
+      "nativeEvidenceHash": "f4b866bfbc6762f0611a42fea173680c4d7d67eea08f86296412989f790d6f67",
+      "nativeSourceCurrent": true,
+      "nativeVerifierCurrent": true,
+      "displayedPrograms": 9,
+      "reviewedContentFiles": {
+        "docs/teaching/drafts/dbscan-density-based-clustering/author-calculations.json": "58fca03512d78077d789bbb073258015fe1c20778c4a4f54fd8cedc1f01d57a6",
+        "docs/teaching/drafts/dbscan-density-based-clustering/author-calculations.py": "92d48eb4b5bc6c0ce1b4e43ff7a55baf4a81f36421cb3b1fb08a9d10b45110cf",
+        "docs/teaching/drafts/dbscan-density-based-clustering/data-provenance.md": "f631945dfa2a61411c6b4550be24ce82df4da14331235d969039e3fa2e31767c",
+        "docs/teaching/drafts/dbscan-density-based-clustering/iris.csv": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651",
+        "docs/teaching/drafts/dbscan-density-based-clustering/lesson.md": "8e884b5d3177f098f44c7ab8732e227da3fa5fce048e71475d5ee4698d46e7f0",
+        "docs/teaching/drafts/dbscan-density-based-clustering/supplementary-author-calculations.json": "2ab45c3d20752c99ae76081c02ff311e6fa4701a40a1b4aba390d30162e501c7",
+        "docs/teaching/drafts/dbscan-density-based-clustering/supplementary-author-calculations.py": "1e46745162102ab9a9427c8dd82cb800c56e91c798dd59f30213df5402916cb5",
+        "docs/teaching/drafts/dbscan-density-based-clustering/visual-specifications.md": "b089b3176ed3b74e9b9b14087e0097623cc697460a3d93e4472ae2fcaa27813a",
+        "docs/teaching/DBSCAN-LESSON-DESIGN.md": "25ba3d5366173f31c6327c171ce011059586a8393fbdf1d66abceec7c0aababb"
+      },
+      "reviewedImplementationFiles": {
+        "src/learn/data/topics/dbscan-density-based-clustering.jsx": "5a1cc13ec51cb4c6f8d3287e268cec5f02b4bab09c2f6cfe45b92e69dea3855e",
+        "src/learn/data/dbscan-models.js": "cd32c82e8ee50030d7d2670f05b0a28d4b29629a122bea391b1f9bb88eb921b6",
+        "src/learn/data/dbscan-iris-data.js": "4361a654de47ef3f8b97643f7339accf15af8489dfdb238633c8a6b214c1cfae",
+        "src/learn/data/dbscan-examples.js": "b27124dbfa1154b62879418e3d178e64201771b5b0e3b4597b8c764f0aa0ac2e",
+        "src/learn/components/lesson-labs/DbscanLabs.jsx": "db1a1b86de5d6508fa708036569864998131b794881a6b4637b0e45ea6cd261f",
+        "src/learn/components/lesson-labs/DbscanFigures.jsx": "3b047ec31e69f4124b1aca9b534ff5e26720288b343a8efda55a43348b5310f1",
+        "src/learn/components/lesson-labs/dbscan-labs.css": "27dc2cb98a8f662353737c69f497c636c466e5ad5c8c78499cb224255ea3eb9f",
+        "src/learn/data/curriculum/blueprints/dbscan-density-based-clustering.js": "dab9435c28905f188596e21ea81e3b34d54cac50cc8548a360971bb277562784",
+        "public/learn-assets/dbscan/iris.csv": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651"
+      }
+    },
+    {
+      "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+      "revision": 2,
+      "contentCompletedAt": "2026-09-11T23:18:43.934Z",
+      "implementationCompletedAt": "2026-09-13T14:01:20.817219+00:00",
+      "browserEvidence": "docs/teaching/evidence/anomaly-detection-browser.json",
+      "browserEvidenceHash": "18a28b22933650277b8f5fbb865c71c01838fcd0a2555444a151989821ab6676",
+      "browserBuildManifestHash": "f48635cfb5787d1e9e8b63f6c04f54d15ba5370005b0817f5e77ba11be45ee64",
+      "browserCases": 13,
+      "browserSourcesCurrent": true,
+      "nativeEvidence": "docs/teaching/evidence/anomaly-native.json",
+      "nativeEvidenceHash": "6efeb279429b513d38dc03a933089769fe5113e28216e83baa0f17cc6603589e",
+      "nativeSourceCurrent": true,
+      "nativeVerifierCurrent": true,
+      "displayedPrograms": 5,
+      "reviewedContentFiles": {
+        "docs/teaching/ANOMALY-DETECTION-LESSON-DESIGN.md": "d67de6cbb8bb64a2f32f464fa7b1d00b24f34c7e09bf88db03b1c7d547c8130c",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/NAB-LICENSE.txt": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/author-calculations.json": "72907abc78905ad719ff5df25b65d769c8bd8b55019c2da4f6c06e7ab2c69721",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/author-calculations.py": "3ca185ee392c93954dedc073ada679bdfbee454cbf33a2db9be06d7b9a8a1908",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/check-manuscript-calculations.py": "8d3d635013b5aa17ad4e1e0b9a90d6d83db0d7c463c681759f5606beea02d76b",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/content-author-checkpoint.json": "fa33528a8ac88f7729fbb821929fa14008896a21e461063eeb666b87e7874b15",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/dataset-provenance.md": "cbe2729d2b85fee81598e7374a3a442cc5d33f788c82894d9ce5eafc3dcf821e",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/dataset-source.json": "9e18e1d9b2b147a701ff4261c3eb6b590842407a1f18124c9562919c74a3eee9",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/lesson.md": "aac80854ec802bcd384e96bd5fb42648709caf003362f20d665d5f4917c8c100",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/machine_temperature_system_failure.csv": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/manuscript-calculations.json": "ad3f5efa0ca6032c90408d007089059a178de8aae9e1a7d7b7a83c3226d065c0",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-derived-scores.csv": "ae1222f93dc6c5098a8e97c2e402c2ca4c59594cc9ed3f4e4cef02efebb80cc6",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-event-windows.json": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-source-readme.md": "1d32963e44a52323b44affff374a1222ebe5ef19ef8f7f6c6fd7a747aa52db30",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/original-published-lesson.jsx": "b8aab5255ab5bc1fb6d3a8bfb002cc640e705a459c2a9f319fe8452d667aea8e",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/prepare-temperature-visual-inputs.py": "53ab0fac9026bb9f3015d0d191b20800f8ff40b8a37743d9d1929a554299dfc7",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-input-calculation.json": "677267cff242fc4629073e62988b9f8e905fa6612526fc4c19b171b7db3f8fa9",
+        "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-specifications.md": "00f022a527237228e5063ef1512b4e4cc4daf7bfb1ea8f4ec79531460620447b"
+      },
+      "reviewedImplementationFiles": {
+        "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx": "c6ef41d5727c1587f1e4f6e28f08dc30b7a42b19bad33c2a53cbd24d3cf7c932",
+        "src/learn/data/anomaly-detection-models.js": "7d8a2dd0225426f507a2e57ff7d8dcf2c1f3e6233c7097b0b6e9d7bafa782d67",
+        "src/learn/data/anomaly-temperature-data.js": "750d462024c0321687bd1b98c8f0755616351f60d5b9465d1f6dfc59d53625d4",
+        "src/learn/data/anomaly-detection-examples.js": "472d6bfbc707a848fb77795444ab6f0666639e44c75d009797c8ef781a8066b2",
+        "src/learn/components/lesson-labs/AnomalyDetectionShared.jsx": "7678139fc40508674b417f1b62629a29c6687c8545cbcfe0fbcc33a3012e8143",
+        "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": "7b35cf945bc94e68115941086a85a54419c02446da0ef4c26ddb82ea43ba1b87",
+        "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx": "8196d9141e801a2460f861f93b7749ab36c1fafefb9701a49fce493dbc439b82",
+        "src/learn/components/lesson-labs/AnomalyDetectionFigures.jsx": "0a171ecf655d23c712af7e1a70a8310ae34e3ea655a3bae7052c5e88db6a7884",
+        "src/learn/components/lesson-labs/anomaly-detection-labs.css": "4f066dc8dad28ce9921e36f1085555514f10066a35b156d739fe1f3d5f86b164",
+        "src/learn/data/curriculum/blueprints/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.js": "82ad9dc1d288ea831868aa682a386c5e36ab3e8e2d4722c8daad5985f63e51d8",
+        "public/learn-assets/anomaly-detection/machine_temperature_system_failure.csv": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+        "public/learn-assets/anomaly-detection/nab-event-windows.json": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+        "public/learn-assets/anomaly-detection/NAB-LICENSE.txt": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3"
+      }
+    },
+    {
+      "id": "gaussian-mixture-models-gmm-em-algorithm",
+      "revision": 1,
+      "contentCompletedAt": "2026-09-12T08:19:28.607Z",
+      "implementationCompletedAt": "2026-09-14T05:31:14.024691+00:00",
+      "browserEvidence": "docs/teaching/evidence/gmm-browser.json",
+      "browserEvidenceHash": "dd5717f62371f010a88c5fd78cd4bf685253e62eed909e8160b864a472dbeb6a",
+      "browserBuildManifestHash": "ce69cea977ca306542dad142f65783fa6650f603b61daa9599b11b38da3d0f21",
+      "browserCases": 12,
+      "browserSourcesCurrent": true,
+      "nativeEvidence": "docs/teaching/evidence/gmm-native.json",
+      "nativeEvidenceHash": "9076ad950dcbd10f1a267741baaca78032956eb1f29a0a496adec3ff4e650207",
+      "nativeSourceCurrent": true,
+      "nativeVerifierCurrent": true,
+      "displayedPrograms": 3,
+      "reviewedContentFiles": {
+        "docs/teaching/GMM-LESSON-DESIGN.md": "490db7215b0c6b81b57dbfa5fddc863100c1efdc6a102f8a0f2b14aa9e7c686e",
+        "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/author-calculations.py": "8ee73509089edf90732be8b6a30558691de02879f50222579094f9f244b78204",
+        "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/checked-results.json": "c3f18e2bac5636b3de21fdf4e6bf5e1e77d0e4bd16fe5178e215a7d499e267c4",
+        "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/data-provenance.md": "9fe73d6ce056afe6fa940795fbc71681b291be2acf2b868b584ebba8fc6d5818",
+        "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/iris.csv": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+        "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/lesson.md": "f5af9c95de0c3fd5066e3944fa92280b2b321e31c4bc3ae3e970df168e4d76d6",
+        "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/visual-specifications.md": "1d96bb1392b3f49f6f83aea42687ef3516f7d4e7d408d5a8de5a963fc9f6a85f"
+      },
+      "reviewedImplementationFiles": {
+        "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx": "67538ac7e7b8da6d1b50a0ea301c05d467a2e4a22158498c470ce6df140c567c",
+        "src/learn/data/gmm-models.js": "a04b58a2b4e5e46ac6f4f1cc1069f71e49328c350d0f5909513a580abe00dcb2",
+        "src/learn/data/gmm-iris-data.js": "2dfe2a5c028a0271f172b2ea38a2efbceae8eeeb0e35c95ca56d2f590b615611",
+        "src/learn/data/gmm-examples.js": "811b9139f69595c30fc0dd42c7366bc6f1c6fbbe6e8aa5a39f2c7c3c1ea7105a",
+        "src/learn/components/lesson-labs/GmmShared.jsx": "57c29475518b3052a8bf4e50b9b23aaba413885569f2a8e59c8e36ee71bc15d0",
+        "src/learn/components/lesson-labs/GmmLabs.jsx": "c941c458ace40303ea338fd556976e200be4caf006fec4876db0ac6d8f387531",
+        "src/learn/components/lesson-labs/GmmFigures.jsx": "165f946b13449913f70f4476a1095e112b3443c5f197973825f5417e61bd5c22",
+        "src/learn/components/lesson-labs/gmm-labs.css": "63588ff01ce924be969419cda2ded023227bb276e7a97989a908d727d675efd7",
+        "src/learn/data/curriculum/blueprints/gaussian-mixture-models-gmm-em-algorithm.js": "374e2c6817992c0e9aadbe496e03ab25c83d41181b214c8702788b6a4ebfb60d",
+        "public/learn-assets/gmm/iris.csv": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7"
+      }
+    }
+  ],
+  "totalBrowserCases": 64,
+  "totalDisplayedPrograms": 31,
+  "conservation": {
+    "baselineFileCount": 100,
+    "unchangedFileCount": 79,
+    "changedFiles": [
+      "docs/teaching/PCA-LESSON-DESIGN.md",
+      "src/learn/data/topics/pca-dimensionality-reduction.jsx",
+      "src/learn/data/pca-models.js",
+      "src/learn/components/lesson-labs/PcaLabs.jsx",
+      "docs/teaching/CLUSTERING-EVALUATION-LESSON-DESIGN.md",
+      "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx",
+      "docs/teaching/DBSCAN-LESSON-DESIGN.md",
+      "src/learn/components/lesson-labs/DbscanLabs.jsx",
+      "src/learn/components/lesson-labs/DbscanFigures.jsx",
+      "docs/teaching/ANOMALY-DETECTION-LESSON-DESIGN.md",
+      "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx",
+      "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx",
+      "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx",
+      "src/learn/components/lesson-labs/AnomalyDetectionFigures.jsx",
+      "docs/teaching/GMM-LESSON-DESIGN.md",
+      "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx",
+      "src/learn/data/gmm-models.js",
+      "src/learn/components/lesson-labs/GmmShared.jsx",
+      "src/learn/components/lesson-labs/GmmLabs.jsx",
+      "src/learn/components/lesson-labs/GmmFigures.jsx",
+      "src/learn/components/lesson-labs/gmm-labs.css"
+    ],
+    "allPreparedManuscriptsSpecificationsAndOfflineInputsUnchanged": true,
+    "otherLedgerEntriesUnchanged": true,
+    "otherLedgerEntryCount": 172,
+    "otherLedgerEntriesHash": "e9a2b8a2abbaab3489b658d5f5bb31ffa957c8b34f8ce66491756b62d95ef324"
+  },
+  "sourceComparison": {
+    "docs/teaching/drafts/pca-dimensionality-reduction/lesson.md": {
+      "before": "779d461fda06484aa620aa28d67267665b96ccb83bf3fcb281c54d491cdf6148",
+      "after": "779d461fda06484aa620aa28d67267665b96ccb83bf3fcb281c54d491cdf6148"
+    },
+    "docs/teaching/drafts/pca-dimensionality-reduction/visual-specifications.md": {
+      "before": "20033e9b558b4aa5f8d6402485d1b967e4bbf70cb52a82cf70b2ce3c02c404bd",
+      "after": "20033e9b558b4aa5f8d6402485d1b967e4bbf70cb52a82cf70b2ce3c02c404bd"
+    },
+    "docs/teaching/drafts/pca-dimensionality-reduction/data-provenance.md": {
+      "before": "ad6cf535bb0b6afab9fd383891c6ee17cf93bc492935964757e9f4bcc9baf842",
+      "after": "ad6cf535bb0b6afab9fd383891c6ee17cf93bc492935964757e9f4bcc9baf842"
+    },
+    "docs/teaching/drafts/pca-dimensionality-reduction/wine.csv": {
+      "before": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f",
+      "after": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f"
+    },
+    "docs/teaching/drafts/pca-dimensionality-reduction/author-calculations.json": {
+      "before": "2b2fc3dcf06b9d50ca0bafaef2d85a283d613d7606fd5855d53437107b3382f9",
+      "after": "2b2fc3dcf06b9d50ca0bafaef2d85a283d613d7606fd5855d53437107b3382f9"
+    },
+    "docs/teaching/PCA-LESSON-DESIGN.md": {
+      "before": "071165afb9c9a17f6775ca7153f65c333ccd52144aab98a8286173e9d48d1d1e",
+      "after": "7cd3021f902b1c7122a045eba633352184fac8f59032040d89e650e720ebe98b"
+    },
+    "src/learn/data/topics/pca-dimensionality-reduction.jsx": {
+      "before": "62feff1cda950a8006a100e5f62b5673e52ae510425316c2c7e5487823682d94",
+      "after": "e242fc5a5d5300441abc797705a85fdceeb1997d02094be3c7d382b59e25b403"
+    },
+    "src/learn/data/pca-models.js": {
+      "before": "f7c7afd488c6fb50b62baeedbf2c03050e84741be3df47a51f7c5635e6a09bac",
+      "after": "68fe8a36470a7351c7d0e73bc84339502912eaa8f405892d4b1b709fdedf1b21"
+    },
+    "src/learn/data/pca-wine-data.js": {
+      "before": "d5964935fb9bd4af7e4164fb1275fcdee339b5720267ad6e7cdf7ba85e141e84",
+      "after": "d5964935fb9bd4af7e4164fb1275fcdee339b5720267ad6e7cdf7ba85e141e84"
+    },
+    "src/learn/data/pca-examples.js": {
+      "before": "166065296261d699661c0b48dd89e853882a084d2b6fe272fc0102a5a046265b",
+      "after": "166065296261d699661c0b48dd89e853882a084d2b6fe272fc0102a5a046265b"
+    },
+    "src/learn/components/lesson-labs/PcaLabs.jsx": {
+      "before": "af2946c78ce3aa2220235c5dc6daca7a55ccfee1546111d39e03f751df83b685",
+      "after": "f7f6077243b3b20858c3e7e618bb07f4d2ab2174907cf2b491808f89f8710d2c"
+    },
+    "src/learn/components/lesson-labs/PcaFigures.jsx": {
+      "before": "a0c2d03847f7b55c5250bf77ccf2e150aeaaa946fd920aec4b883645fba54a79",
+      "after": "a0c2d03847f7b55c5250bf77ccf2e150aeaaa946fd920aec4b883645fba54a79"
+    },
+    "src/learn/components/lesson-labs/pca-labs.css": {
+      "before": "6b4044f60f0dab5aae4b4ec7c95b88e3d07724b31d209c8797a92e2e2c0caea1",
+      "after": "6b4044f60f0dab5aae4b4ec7c95b88e3d07724b31d209c8797a92e2e2c0caea1"
+    },
+    "src/learn/data/curriculum/blueprints/pca-dimensionality-reduction.js": {
+      "before": "229de2e79201b983ab78feffd8c8667d180fea8902107c9d2297cf938ee5ff2d",
+      "after": "229de2e79201b983ab78feffd8c8667d180fea8902107c9d2297cf938ee5ff2d"
+    },
+    "public/learn-assets/pca/wine.csv": {
+      "before": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f",
+      "after": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/author-calculations.json": {
+      "before": "925361b5497c5c3946b4d89ee0870bea2cf6abd0596cf7027f5ba99f67625625",
+      "after": "925361b5497c5c3946b4d89ee0870bea2cf6abd0596cf7027f5ba99f67625625"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/author-input-probes.py": {
+      "before": "16a76156bc1e31f20d15fbf68da08b097cc324e2157774275759c105845693a9",
+      "after": "16a76156bc1e31f20d15fbf68da08b097cc324e2157774275759c105845693a9"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/data-provenance.md": {
+      "before": "2c27d3ebcccd2d62e18f03f34238b40f75b411a9ccf4ef06f5b5780cfd67fd9a",
+      "after": "2c27d3ebcccd2d62e18f03f34238b40f75b411a9ccf4ef06f5b5780cfd67fd9a"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/iris.csv": {
+      "before": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a",
+      "after": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/lesson.md": {
+      "before": "4f35ac5d1c7ea4bdfffbf974e52517183a6e5f543359651ff0cd0f10244400ff",
+      "after": "4f35ac5d1c7ea4bdfffbf974e52517183a6e5f543359651ff0cd0f10244400ff"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/report-author-calculation.json": {
+      "before": "363d0ba60cb2e319d9aa6a8a6fb857f734c8e3fa9467048e2b5ba632f0a8d498",
+      "after": "363d0ba60cb2e319d9aa6a8a6fb857f734c8e3fa9467048e2b5ba632f0a8d498"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/report-author-calculation.py": {
+      "before": "f4d3838d3779bae545d1e9a744b29fc706cbc79f1320491f9c59d287fb35996d",
+      "after": "f4d3838d3779bae545d1e9a744b29fc706cbc79f1320491f9c59d287fb35996d"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/visual-input-calculations.json": {
+      "before": "56adfac716f95191ee57160440b04307872524064496fa4c1daeb9acccd4e015",
+      "after": "56adfac716f95191ee57160440b04307872524064496fa4c1daeb9acccd4e015"
+    },
+    "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/visual-specifications.md": {
+      "before": "6546b674535f7ea43a6bab30df77cefb2caf9ef733fc3c0fb54211b78e52ed5f",
+      "after": "6546b674535f7ea43a6bab30df77cefb2caf9ef733fc3c0fb54211b78e52ed5f"
+    },
+    "docs/teaching/CLUSTERING-EVALUATION-LESSON-DESIGN.md": {
+      "before": "5050e1ffb6f284b758248f2e07fd368cdfb9e22d5b53990c2810fba08086850c",
+      "after": "d13c2bc11ba49fc409c87697f5e7ec085c3340b070bb074ab7b7f2335ae053c5"
+    },
+    "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": {
+      "before": "7030b810c96280027569f8b3a93f50a7f40981057dd8c891c88d82c5a59e60ac",
+      "after": "7030b810c96280027569f8b3a93f50a7f40981057dd8c891c88d82c5a59e60ac"
+    },
+    "src/learn/data/clustering-evaluation-models.js": {
+      "before": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e",
+      "after": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e"
+    },
+    "src/learn/data/clustering-evaluation-data.js": {
+      "before": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07",
+      "after": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07"
+    },
+    "src/learn/data/clustering-evaluation-examples.js": {
+      "before": "b068474e41d0befab400dc751797e2046964af1463927813bf7ea85e5537b2f1",
+      "after": "b068474e41d0befab400dc751797e2046964af1463927813bf7ea85e5537b2f1"
+    },
+    "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": {
+      "before": "25e0fa7be1179ec58cad947b3e21acc17eac6f53bb36aa222f65e281a1519173",
+      "after": "1ec16771da4357c07c81f42134d2e0f5925d820aeaa44ec42fd02b9d49e0be14"
+    },
+    "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": {
+      "before": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c",
+      "after": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c"
+    },
+    "src/learn/components/lesson-labs/clustering-evaluation-labs.css": {
+      "before": "b9f1a76d7109f1e8f4ada1bc09457651bb8e4d40cfb7904ae3038aeeb3aaac15",
+      "after": "b9f1a76d7109f1e8f4ada1bc09457651bb8e4d40cfb7904ae3038aeeb3aaac15"
+    },
+    "src/learn/data/curriculum/blueprints/clustering-evaluation-validation-silhouette-ari-nmi.js": {
+      "before": "bc58927e0091123a854906b1ece87e81a0097ff0452c5dd4332fabf0d68cfaba",
+      "after": "bc58927e0091123a854906b1ece87e81a0097ff0452c5dd4332fabf0d68cfaba"
+    },
+    "public/learn-assets/clustering-evaluation/iris.csv": {
+      "before": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a",
+      "after": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a"
+    },
+    "docs/teaching/drafts/dbscan-density-based-clustering/author-calculations.json": {
+      "before": "58fca03512d78077d789bbb073258015fe1c20778c4a4f54fd8cedc1f01d57a6",
+      "after": "58fca03512d78077d789bbb073258015fe1c20778c4a4f54fd8cedc1f01d57a6"
+    },
+    "docs/teaching/drafts/dbscan-density-based-clustering/author-calculations.py": {
+      "before": "92d48eb4b5bc6c0ce1b4e43ff7a55baf4a81f36421cb3b1fb08a9d10b45110cf",
+      "after": "92d48eb4b5bc6c0ce1b4e43ff7a55baf4a81f36421cb3b1fb08a9d10b45110cf"
+    },
+    "docs/teaching/drafts/dbscan-density-based-clustering/data-provenance.md": {
+      "before": "f631945dfa2a61411c6b4550be24ce82df4da14331235d969039e3fa2e31767c",
+      "after": "f631945dfa2a61411c6b4550be24ce82df4da14331235d969039e3fa2e31767c"
+    },
+    "docs/teaching/drafts/dbscan-density-based-clustering/iris.csv": {
+      "before": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651",
+      "after": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651"
+    },
+    "docs/teaching/drafts/dbscan-density-based-clustering/lesson.md": {
+      "before": "8e884b5d3177f098f44c7ab8732e227da3fa5fce048e71475d5ee4698d46e7f0",
+      "after": "8e884b5d3177f098f44c7ab8732e227da3fa5fce048e71475d5ee4698d46e7f0"
+    },
+    "docs/teaching/drafts/dbscan-density-based-clustering/supplementary-author-calculations.json": {
+      "before": "2ab45c3d20752c99ae76081c02ff311e6fa4701a40a1b4aba390d30162e501c7",
+      "after": "2ab45c3d20752c99ae76081c02ff311e6fa4701a40a1b4aba390d30162e501c7"
+    },
+    "docs/teaching/drafts/dbscan-density-based-clustering/supplementary-author-calculations.py": {
+      "before": "1e46745162102ab9a9427c8dd82cb800c56e91c798dd59f30213df5402916cb5",
+      "after": "1e46745162102ab9a9427c8dd82cb800c56e91c798dd59f30213df5402916cb5"
+    },
+    "docs/teaching/drafts/dbscan-density-based-clustering/visual-specifications.md": {
+      "before": "b089b3176ed3b74e9b9b14087e0097623cc697460a3d93e4472ae2fcaa27813a",
+      "after": "b089b3176ed3b74e9b9b14087e0097623cc697460a3d93e4472ae2fcaa27813a"
+    },
+    "docs/teaching/DBSCAN-LESSON-DESIGN.md": {
+      "before": "0d5074d936424372d76cfa1535a9f0e294661f58c4fca34d805339f7b1a768e1",
+      "after": "25ba3d5366173f31c6327c171ce011059586a8393fbdf1d66abceec7c0aababb"
+    },
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx": {
+      "before": "5a1cc13ec51cb4c6f8d3287e268cec5f02b4bab09c2f6cfe45b92e69dea3855e",
+      "after": "5a1cc13ec51cb4c6f8d3287e268cec5f02b4bab09c2f6cfe45b92e69dea3855e"
+    },
+    "src/learn/data/dbscan-models.js": {
+      "before": "cd32c82e8ee50030d7d2670f05b0a28d4b29629a122bea391b1f9bb88eb921b6",
+      "after": "cd32c82e8ee50030d7d2670f05b0a28d4b29629a122bea391b1f9bb88eb921b6"
+    },
+    "src/learn/data/dbscan-iris-data.js": {
+      "before": "4361a654de47ef3f8b97643f7339accf15af8489dfdb238633c8a6b214c1cfae",
+      "after": "4361a654de47ef3f8b97643f7339accf15af8489dfdb238633c8a6b214c1cfae"
+    },
+    "src/learn/data/dbscan-examples.js": {
+      "before": "b27124dbfa1154b62879418e3d178e64201771b5b0e3b4597b8c764f0aa0ac2e",
+      "after": "b27124dbfa1154b62879418e3d178e64201771b5b0e3b4597b8c764f0aa0ac2e"
+    },
+    "src/learn/components/lesson-labs/DbscanLabs.jsx": {
+      "before": "9369ebb8c80e6d7d1c0a4bac7a1202370de4cc0eefd7f66fdc006780552aa70e",
+      "after": "db1a1b86de5d6508fa708036569864998131b794881a6b4637b0e45ea6cd261f"
+    },
+    "src/learn/components/lesson-labs/DbscanFigures.jsx": {
+      "before": "88873bc306dff08d29961d02c80c0b3602efef3f548ab48dc3d010c2aa9a1201",
+      "after": "3b047ec31e69f4124b1aca9b534ff5e26720288b343a8efda55a43348b5310f1"
+    },
+    "src/learn/components/lesson-labs/dbscan-labs.css": {
+      "before": "27dc2cb98a8f662353737c69f497c636c466e5ad5c8c78499cb224255ea3eb9f",
+      "after": "27dc2cb98a8f662353737c69f497c636c466e5ad5c8c78499cb224255ea3eb9f"
+    },
+    "src/learn/data/curriculum/blueprints/dbscan-density-based-clustering.js": {
+      "before": "dab9435c28905f188596e21ea81e3b34d54cac50cc8548a360971bb277562784",
+      "after": "dab9435c28905f188596e21ea81e3b34d54cac50cc8548a360971bb277562784"
+    },
+    "public/learn-assets/dbscan/iris.csv": {
+      "before": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651",
+      "after": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651"
+    },
+    "docs/teaching/ANOMALY-DETECTION-LESSON-DESIGN.md": {
+      "before": "8bdcfb0ddee76d15e8c7c794d36ce3b62796bebc1ef0e3d88065a5f58900f863",
+      "after": "d67de6cbb8bb64a2f32f464fa7b1d00b24f34c7e09bf88db03b1c7d547c8130c"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/NAB-LICENSE.txt": {
+      "before": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3",
+      "after": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/author-calculations.json": {
+      "before": "72907abc78905ad719ff5df25b65d769c8bd8b55019c2da4f6c06e7ab2c69721",
+      "after": "72907abc78905ad719ff5df25b65d769c8bd8b55019c2da4f6c06e7ab2c69721"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/author-calculations.py": {
+      "before": "3ca185ee392c93954dedc073ada679bdfbee454cbf33a2db9be06d7b9a8a1908",
+      "after": "3ca185ee392c93954dedc073ada679bdfbee454cbf33a2db9be06d7b9a8a1908"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/check-manuscript-calculations.py": {
+      "before": "8d3d635013b5aa17ad4e1e0b9a90d6d83db0d7c463c681759f5606beea02d76b",
+      "after": "8d3d635013b5aa17ad4e1e0b9a90d6d83db0d7c463c681759f5606beea02d76b"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/content-author-checkpoint.json": {
+      "before": "fa33528a8ac88f7729fbb821929fa14008896a21e461063eeb666b87e7874b15",
+      "after": "fa33528a8ac88f7729fbb821929fa14008896a21e461063eeb666b87e7874b15"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/dataset-provenance.md": {
+      "before": "cbe2729d2b85fee81598e7374a3a442cc5d33f788c82894d9ce5eafc3dcf821e",
+      "after": "cbe2729d2b85fee81598e7374a3a442cc5d33f788c82894d9ce5eafc3dcf821e"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/dataset-source.json": {
+      "before": "9e18e1d9b2b147a701ff4261c3eb6b590842407a1f18124c9562919c74a3eee9",
+      "after": "9e18e1d9b2b147a701ff4261c3eb6b590842407a1f18124c9562919c74a3eee9"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/lesson.md": {
+      "before": "aac80854ec802bcd384e96bd5fb42648709caf003362f20d665d5f4917c8c100",
+      "after": "aac80854ec802bcd384e96bd5fb42648709caf003362f20d665d5f4917c8c100"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/machine_temperature_system_failure.csv": {
+      "before": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+      "after": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/manuscript-calculations.json": {
+      "before": "ad3f5efa0ca6032c90408d007089059a178de8aae9e1a7d7b7a83c3226d065c0",
+      "after": "ad3f5efa0ca6032c90408d007089059a178de8aae9e1a7d7b7a83c3226d065c0"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-derived-scores.csv": {
+      "before": "ae1222f93dc6c5098a8e97c2e402c2ca4c59594cc9ed3f4e4cef02efebb80cc6",
+      "after": "ae1222f93dc6c5098a8e97c2e402c2ca4c59594cc9ed3f4e4cef02efebb80cc6"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-event-windows.json": {
+      "before": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+      "after": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-source-readme.md": {
+      "before": "1d32963e44a52323b44affff374a1222ebe5ef19ef8f7f6c6fd7a747aa52db30",
+      "after": "1d32963e44a52323b44affff374a1222ebe5ef19ef8f7f6c6fd7a747aa52db30"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/original-published-lesson.jsx": {
+      "before": "b8aab5255ab5bc1fb6d3a8bfb002cc640e705a459c2a9f319fe8452d667aea8e",
+      "after": "b8aab5255ab5bc1fb6d3a8bfb002cc640e705a459c2a9f319fe8452d667aea8e"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/prepare-temperature-visual-inputs.py": {
+      "before": "53ab0fac9026bb9f3015d0d191b20800f8ff40b8a37743d9d1929a554299dfc7",
+      "after": "53ab0fac9026bb9f3015d0d191b20800f8ff40b8a37743d9d1929a554299dfc7"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-input-calculation.json": {
+      "before": "677267cff242fc4629073e62988b9f8e905fa6612526fc4c19b171b7db3f8fa9",
+      "after": "677267cff242fc4629073e62988b9f8e905fa6612526fc4c19b171b7db3f8fa9"
+    },
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-specifications.md": {
+      "before": "00f022a527237228e5063ef1512b4e4cc4daf7bfb1ea8f4ec79531460620447b",
+      "after": "00f022a527237228e5063ef1512b4e4cc4daf7bfb1ea8f4ec79531460620447b"
+    },
+    "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx": {
+      "before": "5bda9ff857407173d79091c9fa00884f67df5c038aea2967c25b69b8ee35bc0a",
+      "after": "c6ef41d5727c1587f1e4f6e28f08dc30b7a42b19bad33c2a53cbd24d3cf7c932"
+    },
+    "src/learn/data/anomaly-detection-models.js": {
+      "before": "7d8a2dd0225426f507a2e57ff7d8dcf2c1f3e6233c7097b0b6e9d7bafa782d67",
+      "after": "7d8a2dd0225426f507a2e57ff7d8dcf2c1f3e6233c7097b0b6e9d7bafa782d67"
+    },
+    "src/learn/data/anomaly-temperature-data.js": {
+      "before": "750d462024c0321687bd1b98c8f0755616351f60d5b9465d1f6dfc59d53625d4",
+      "after": "750d462024c0321687bd1b98c8f0755616351f60d5b9465d1f6dfc59d53625d4"
+    },
+    "src/learn/data/anomaly-detection-examples.js": {
+      "before": "472d6bfbc707a848fb77795444ab6f0666639e44c75d009797c8ef781a8066b2",
+      "after": "472d6bfbc707a848fb77795444ab6f0666639e44c75d009797c8ef781a8066b2"
+    },
+    "src/learn/components/lesson-labs/AnomalyDetectionShared.jsx": {
+      "before": "7678139fc40508674b417f1b62629a29c6687c8545cbcfe0fbcc33a3012e8143",
+      "after": "7678139fc40508674b417f1b62629a29c6687c8545cbcfe0fbcc33a3012e8143"
+    },
+    "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": {
+      "before": "c701677eea974b9cb0881057b38ffcfe7685d5ea8dd607c14081594b45cba118",
+      "after": "7b35cf945bc94e68115941086a85a54419c02446da0ef4c26ddb82ea43ba1b87"
+    },
+    "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx": {
+      "before": "95e626b4f9bb64ae94f431e1742112ce794ad7979f027217925442fcbf6e6cbf",
+      "after": "8196d9141e801a2460f861f93b7749ab36c1fafefb9701a49fce493dbc439b82"
+    },
+    "src/learn/components/lesson-labs/AnomalyDetectionFigures.jsx": {
+      "before": "0ea3774ef1dfe62f1437eb28d81bd5cf72d9c7312cd123cf957f2c8695c2733c",
+      "after": "0a171ecf655d23c712af7e1a70a8310ae34e3ea655a3bae7052c5e88db6a7884"
+    },
+    "src/learn/components/lesson-labs/anomaly-detection-labs.css": {
+      "before": "4f066dc8dad28ce9921e36f1085555514f10066a35b156d739fe1f3d5f86b164",
+      "after": "4f066dc8dad28ce9921e36f1085555514f10066a35b156d739fe1f3d5f86b164"
+    },
+    "src/learn/data/curriculum/blueprints/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.js": {
+      "before": "82ad9dc1d288ea831868aa682a386c5e36ab3e8e2d4722c8daad5985f63e51d8",
+      "after": "82ad9dc1d288ea831868aa682a386c5e36ab3e8e2d4722c8daad5985f63e51d8"
+    },
+    "public/learn-assets/anomaly-detection/machine_temperature_system_failure.csv": {
+      "before": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+      "after": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4"
+    },
+    "public/learn-assets/anomaly-detection/nab-event-windows.json": {
+      "before": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+      "after": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1"
+    },
+    "public/learn-assets/anomaly-detection/NAB-LICENSE.txt": {
+      "before": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3",
+      "after": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3"
+    },
+    "docs/teaching/GMM-LESSON-DESIGN.md": {
+      "before": "b6ef73666a840596e7c6637d6007d171dcd0173c72bca82538ea102c33ec1f57",
+      "after": "490db7215b0c6b81b57dbfa5fddc863100c1efdc6a102f8a0f2b14aa9e7c686e"
+    },
+    "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/author-calculations.py": {
+      "before": "8ee73509089edf90732be8b6a30558691de02879f50222579094f9f244b78204",
+      "after": "8ee73509089edf90732be8b6a30558691de02879f50222579094f9f244b78204"
+    },
+    "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/checked-results.json": {
+      "before": "c3f18e2bac5636b3de21fdf4e6bf5e1e77d0e4bd16fe5178e215a7d499e267c4",
+      "after": "c3f18e2bac5636b3de21fdf4e6bf5e1e77d0e4bd16fe5178e215a7d499e267c4"
+    },
+    "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/data-provenance.md": {
+      "before": "9fe73d6ce056afe6fa940795fbc71681b291be2acf2b868b584ebba8fc6d5818",
+      "after": "9fe73d6ce056afe6fa940795fbc71681b291be2acf2b868b584ebba8fc6d5818"
+    },
+    "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/iris.csv": {
+      "before": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+      "after": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7"
+    },
+    "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/lesson.md": {
+      "before": "f5af9c95de0c3fd5066e3944fa92280b2b321e31c4bc3ae3e970df168e4d76d6",
+      "after": "f5af9c95de0c3fd5066e3944fa92280b2b321e31c4bc3ae3e970df168e4d76d6"
+    },
+    "docs/teaching/drafts/gaussian-mixture-models-gmm-em-algorithm/visual-specifications.md": {
+      "before": "1d96bb1392b3f49f6f83aea42687ef3516f7d4e7d408d5a8de5a963fc9f6a85f",
+      "after": "1d96bb1392b3f49f6f83aea42687ef3516f7d4e7d408d5a8de5a963fc9f6a85f"
+    },
+    "src/learn/data/topics/gaussian-mixture-models-gmm-em-algorithm.jsx": {
+      "before": "3ce55287a38be38c516f027ed0b59c968e09306d0d5a863ed3df7480a7a1fb57",
+      "after": "67538ac7e7b8da6d1b50a0ea301c05d467a2e4a22158498c470ce6df140c567c"
+    },
+    "src/learn/data/gmm-models.js": {
+      "before": "fad049a3b67173781cd12905075f8aceb042f2e606f4d425607164d781f508e0",
+      "after": "a04b58a2b4e5e46ac6f4f1cc1069f71e49328c350d0f5909513a580abe00dcb2"
+    },
+    "src/learn/data/gmm-iris-data.js": {
+      "before": "2dfe2a5c028a0271f172b2ea38a2efbceae8eeeb0e35c95ca56d2f590b615611",
+      "after": "2dfe2a5c028a0271f172b2ea38a2efbceae8eeeb0e35c95ca56d2f590b615611"
+    },
+    "src/learn/data/gmm-examples.js": {
+      "before": "811b9139f69595c30fc0dd42c7366bc6f1c6fbbe6e8aa5a39f2c7c3c1ea7105a",
+      "after": "811b9139f69595c30fc0dd42c7366bc6f1c6fbbe6e8aa5a39f2c7c3c1ea7105a"
+    },
+    "src/learn/components/lesson-labs/GmmShared.jsx": {
+      "before": "895f16029200aab09ca4b4737edc0a673b4e042f79829fd10125b6c05e5b4004",
+      "after": "57c29475518b3052a8bf4e50b9b23aaba413885569f2a8e59c8e36ee71bc15d0"
+    },
+    "src/learn/components/lesson-labs/GmmLabs.jsx": {
+      "before": "48f442b157069f4cb0196e327958d17f2a917a3d7822528d892ca979b86ea47a",
+      "after": "c941c458ace40303ea338fd556976e200be4caf006fec4876db0ac6d8f387531"
+    },
+    "src/learn/components/lesson-labs/GmmFigures.jsx": {
+      "before": "7bca1326ef6bdc0a85cb92bd6a53b215cd672443cef712066495e34c443544fe",
+      "after": "165f946b13449913f70f4476a1095e112b3443c5f197973825f5417e61bd5c22"
+    },
+    "src/learn/components/lesson-labs/gmm-labs.css": {
+      "before": "6c24d6d16319abc01d08d4ab303414aa6bd1d696833d1ab717e3b250770255f2",
+      "after": "63588ff01ce924be969419cda2ded023227bb276e7a97989a908d727d675efd7"
+    },
+    "src/learn/data/curriculum/blueprints/gaussian-mixture-models-gmm-em-algorithm.js": {
+      "before": "374e2c6817992c0e9aadbe496e03ab25c83d41181b214c8702788b6a4ebfb60d",
+      "after": "374e2c6817992c0e9aadbe496e03ab25c83d41181b214c8702788b6a4ebfb60d"
+    },
+    "public/learn-assets/gmm/iris.csv": {
+      "before": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+      "after": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7"
+    }
+  },
+  "limitations": [
+    "Browser runs retain their own build hashes; unchanged-topic results are reused after isolated repairs elsewhere.",
+    "Native program execution and model/data checks are reused only for matching relevant source bytes, not relabeled as a fresh runtime execution.",
+    "No learner study, exhaustive bug guarantee, user acceptance, commit or deployment is claimed."
+  ],
+  "integration": {
+    "verifiedAt": "2026-09-14T06:46:36.151Z",
+    "curriculum": "passed",
+    "phaseLedgerBehaviorGroups": 8,
+    "allFiveEffectiveContentPhases": "complete",
+    "allFiveEffectiveImplementationPhases": "complete",
+    "inventory": {
+      "modules": 28,
+      "uniqueTopics": 1218,
+      "published": 228,
+      "topicBriefs": 357,
+      "guidedPaths": 7,
+      "contentComplete": 176,
+      "implementationComplete": 111
+    },
+    "scopedDiffCheck": "passed",
+    "localDocumentLinksChecked": 224,
+    "finalBuildManifestHash": "f48635cfb5787d1e9e8b63f6c04f54d15ba5370005b0817f5e77ba11be45ee64"
+  }
+}

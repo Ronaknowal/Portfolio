@@ -1,0 +1,64 @@
+{
+  "verifiedAt": "2026-09-11T22:35:40.565134+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/pca-examples.js",
+  "sourceHash": "166065296261d699661c0b48dd89e853882a084d2b6fe272fc0102a5a046265b",
+  "verifier": "scripts/verify-pca-examples.py",
+  "verifierHash": "ff32863ccb24924d150dc9c8f8abd0dd6795a0dd11690f84775070bb589cafd8",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "svd": {
+      "codeHash": "fe42ad577c0750618f1a7874398e04a3a60265b4b4a31d21ffaee4a8c835d3d9",
+      "stdoutHash": "2d05fb12a73aa85977bd3536acd86c604cbd0838c5cad8ee10ec17832d14a563",
+      "stdout": "[6.     0.6667]\n[0.9 0.1]\n[[1.5 0.5]\n [1.5 0.5]\n [4.5 3.5]\n [4.5 3.5]]\n0.25"
+    },
+    "library": {
+      "codeHash": "ffd03360c7425e7ad8d430042124be9abf0adfb3952b502ef5e4d0c12a5ec5a4",
+      "stdoutHash": "76619984a167fac7e40672f0fe9da77b75c43d832f2829a9beb1bb6d331886ef",
+      "stdout": "(1, 2) (4, 1)\n[[5.5 4.5]]",
+      "continues": "svd"
+    },
+    "wineScaling": {
+      "codeHash": "cc546bd52e5709399b6c71660977fdfa5f83620b1fc279e70f81526fe705710e",
+      "stdoutHash": "11e9647511ec95620c01cf16b5f9e545b6e42cb4423e7c225740b9f296f7ac89",
+      "stdout": "(178, 13) [59 71 48]\n[0.9981 0.0017]\n[0.362  0.1921 0.1112]\n0.5541"
+    },
+    "budget": {
+      "codeHash": "c6fd16dd9c263760f1fa0755d1613840e34cd66dda4fedb407b7e6640b10bd70",
+      "stdoutHash": "6e5ff1f1e5322710316d80645c22bd0005ab97285c8ce204ae1af0a56e55f185",
+      "stdout": "133 45\n1.0963\n0 1.0\n2 0.4281\n7 0.1265\n8 0.096\n10 0.0521\n13 0.0\n8"
+    },
+    "originalUnits": {
+      "codeHash": "af750522dada9d560d70eea13bcc0e939b6ec3eaf1b4778ceb22ad2f1e986ad5",
+      "stdoutHash": "5f6bf5605f38c94ba2296739523b4411a1ec83a08020aad2ec979ad4dc72dfc9",
+      "stdout": "(45, 13)",
+      "continues": "budget"
+    },
+    "eigen": {
+      "codeHash": "673ea093bbb7f07e37534872abfae0cf3467fe1f13e5076e6fe3ddb455c8807d",
+      "stdoutHash": "cfa543ddff6c4d8d1114663105934f248fbb1bba2f215e1b0fea549dbe7e4494",
+      "stdout": "[6.     0.6667]\nTrue\n2.0",
+      "continues": "svd"
+    },
+    "gaussian": {
+      "codeHash": "8c25331bf103594dd22430cc1ad75b29cacd4fdea7ac96214c11dfeba10899bb",
+      "stdoutHash": "3dded2d4d7ef89e21607b9ddd314f06e5752d32bc9820ea29a6198cb6e43958d",
+      "stdout": "0.2459"
+    },
+    "pipeline": {
+      "codeHash": "622cd1d199871211910ba5b9f1f6474129d6b9da0ac0a9cfa66d3ceb36022d70",
+      "stdoutHash": "0e3243a342be4ccc52d31d22c4526c6ae0368046af7989b39a75450dd520a45e",
+      "stdout": "None [0.9722 0.9722 0.9722 1.     1.    ] 0.9833\n2 [0.9444 0.9722 0.9167 0.9714 0.9714] 0.9552\n8 [0.9722 0.9722 0.9722 0.9714 1.    ] 0.9776"
+    }
+  },
+  "oracles": 12,
+  "limits": [
+    "Wine values come from the scikit-learn bundled mirror of UCI Wine; no UCI download was made.",
+    "Fold accuracies are development evidence with n_jobs=1 and single-threaded BLAS; they are not a final test result or a timing benchmark.",
+    "The whitening probe checks ddof conventions on the four-point fixture only."
+  ]
+}

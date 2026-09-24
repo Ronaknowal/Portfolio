@@ -1,0 +1,46 @@
+{
+  "verifiedAt": "2026-09-14T22:53:23.310402+00:00",
+  "stage": "native data derivation for the browser lesson; model, example and browser review are separate",
+  "mode": "read-only comparison",
+  "generator": "scripts/verify-selection-data.py",
+  "generatorHash": "dd3e6bbdb92e9612935beb1d62a7a6460d00860d01a55c480e523b34c3fa7668",
+  "module": "src/learn/data/selection-data.js",
+  "moduleHash": "6bae5793a66a6531ba5470607b1bf554837430ddae86dcce6b2cb4dd68e45937",
+  "moduleBytes": 25738,
+  "dataset": {
+    "file": "public/learn-assets/feature-selection/wine.data",
+    "sha256": "6be6b1203f3d51df0b553a70e57b8a723cd405683958204f96d23d7cd6aea659",
+    "bytes": 10782
+  },
+  "versions": {
+    "numpy": "2.3.5",
+    "scikit-learn": "1.9.1"
+  },
+  "warnings": [],
+  "fits": {
+    "selectionCv": 9,
+    "selectedRefit": 1,
+    "fourFieldRefit": 1,
+    "total": 11
+  },
+  "reservedScored": false,
+  "checks": [
+    "Dataset bytes and SHA-256 match the checkpointed archive member; 178 rows, 14 columns, no missing entry.",
+    "All four row-ID sets (138/40/100/38) and the three inner fold memberships reproduce the packet exactly.",
+    "Nine inner candidate fits reproduce every selected mask, all thirteen MI estimates in nats, every fold prediction and correct count.",
+    "The size rule selects six; the refit mask, its 36/38 inspection result and the majority 15/38 baseline reproduce.",
+    "The predeclared four-field tree reproduces node for node, including thresholds at full double precision and normalised leaf values.",
+    "Impurity importances match sklearn's feature_importances_ and an independent weighted-decrease recomputation.",
+    "All twenty donor orderings and all eighty accuracy decreases reproduce; means and population SDs match the packet.",
+    "All twelve explained cases reproduce their sixteen coalition values and four attributions, each reconstructing within 1e-10.",
+    "Both recorded input contrasts and the class-3 contrast reference reproduce exactly.",
+    "Every control bound strictly contains the observed fitting column and admits the manuscript's contrast edits."
+  ],
+  "limits": [
+    "One row-level stratified split of one small historical collection.",
+    "Inner fold scores participated in selection; they are not independent performance estimates.",
+    "No reserved row was predicted or scored.",
+    "Numerical estimates can differ on other library versions."
+  ],
+  "passed": true
+}

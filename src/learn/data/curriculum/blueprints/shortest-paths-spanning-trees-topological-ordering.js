@@ -1,0 +1,20 @@
+export default {
+  summary: 'Choose and prove weighted-route, minimum-network and dependency-order algorithms, with explicit frontier state, edge-budget relaxation, negative-cycle influence, cut exchange, cycle witnesses and critical-path schedules.',
+  outcomes: [
+    'Distinguish shortest-path, spanning-forest and topological objectives before choosing an algorithm',
+    'Implement nonnegative lazy Dijkstra with strict relaxations, ticket ties, stale rejection and edge-identified route witnesses',
+    'Derive layered Bellman–Ford, source-target negative-cycle influence, finite tight-edge witnesses and budgeted routes',
+    'Implement 0/1 deque routes, Floyd–Warshall and Johnson reweighting with their exact state and output contracts',
+    'Prove tied-weight cut exchange and implement Kruskal, lazy Prim and implicit dense geometric Prim',
+    'Return complete Kahn/DFS orders or actual directed cycle witnesses, separating residual blocked vertices',
+    'Solve signed DAG routes and unlimited-capacity earliest schedules with a critical-chain certificate',
+  ],
+  prerequisites: ['Graphs: Representations, BFS & DFS', 'Heaps, Priority Queues & Tries', 'Greedy Algorithms & Exchange Arguments'],
+  sequence: ['Separate graph objectives and weight conventions', 'Relax routes and justify safe minimum extraction', 'Add an edge-budget dimension for signed costs', 'Specialize priorities and all-pairs state', 'Exchange edges across safe cuts', 'Emit ready jobs and return cycle witnesses', 'Use dependency order for routes and schedules', 'Practice changed objectives, constraints and proofs'],
+  visual: { type: 'Weighted directed geometry, priority-entry ledger, distance-generation matrix, accepted-edge component forest, ready-job frontier and a computed critical-path timeline', question: 'Which candidate, connection or dependency is safe to trust now, and which invariant certifies it?', interaction: 'Edit bounded exact graph edges, trace Dijkstra and Bellman–Ford, switch source and forest growth method, manually choose ready jobs, and expose negative-cycle influence or blocked descendants.' },
+  practice: { task: 'Recover and verify finite route witnesses, classify changed negative-cycle reach, prove tie-safe cut/cycle rules, compare hop-sensitive transformations, and derive a schedule under changed resource constraints.', success: 'Explain initialization, preservation, termination, output/witness identity and actual implementation costs; match independent tiny-path/cycle, spanning-subset, permutation and chain oracles.' },
+  misconceptions: ['BFS minimizes unequal weighted cost', 'First discovery finalizes a weighted distance', 'A heap proves a greedy rule', 'Every vertex in a graph with a negative cycle is unbounded', 'Layered and in-place passes have identical edge budgets', 'Every lightest cut edge belongs to every MST', 'Prim and Dijkstra use the same priority meaning', 'A Kahn residual is an actual cycle witness', 'A topological order is an optimal resource schedule', 'Adding a constant to every edge preserves shortest routes'],
+  sources: ['https://algs4.cs.princeton.edu/44sp/', 'https://algs4.cs.princeton.edu/43mst/', 'https://algs4.cs.princeton.edu/42digraph/', 'https://docs.python.org/3/library/heapq.html#priority-queue-implementation-notes', 'https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/mit6_006s20_lec14/'],
+  depth: 'core',
+  reviewFocus: 'Exact source-target negative-cycle influence; strict stale/live/final contracts; layered row-copy cost and witness generation; Floyd pivot order and pair classification; Johnson telescoping and global rejection; occurrence IDs/ties/disconnected forest; exchange quantifiers; active-stack cycle versus blocked residual; DAG negative weights and unlimited-capacity schedule assumptions. Browser trace/display overhead is separate from native complexity.',
+};

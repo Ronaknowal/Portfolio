@@ -1,0 +1,2898 @@
+{
+  "checkedAt": "2026-09-21T16:12:20.147Z",
+  "scope": "39 Classical ML lessons: control and default-layout triage, not exhaustive content audit",
+  "baselineProductionRecord": "docs/teaching/evidence/lesson-control-production-source.json",
+  "baselineManifestHash": "0fe4f103b8a540facf3f999b333ec3756d05c99b532b9f137207cc066fd3cf79",
+  "initialSurvey": {
+    "checkedAt": "2026-09-21T15:57:18.992Z",
+    "base": "http://127.0.0.1:4194",
+    "results": [
+      {
+        "390": {
+          "controls": 21,
+          "unlabeled": [],
+          "rangeCount": 7,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Back"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 21,
+          "unlabeled": [],
+          "rangeCount": 7,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Back"
+          ],
+          "fauxControls": []
+        },
+        "id": "linear-logistic-regression"
+      },
+      {
+        "390": {
+          "controls": 23,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 23,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "decision-trees-random-forests"
+      },
+      {
+        "390": {
+          "controls": 21,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Previous step"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 21,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Previous step"
+          ],
+          "fauxControls": []
+        },
+        "id": "k-nearest-neighbors-knn"
+      },
+      {
+        "390": {
+          "controls": 31,
+          "unlabeled": [],
+          "rangeCount": 11,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Previous tree",
+            "Previous sample"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 31,
+          "unlabeled": [],
+          "rangeCount": 11,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Previous tree",
+            "Previous sample"
+          ],
+          "fauxControls": []
+        },
+        "id": "gradient-boosted-trees-xgboost-lightgbm-catboost"
+      },
+      {
+        "390": {
+          "controls": 35,
+          "unlabeled": [],
+          "rangeCount": 10,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 35,
+          "unlabeled": [],
+          "rangeCount": 10,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "support-vector-machines-svm"
+      },
+      {
+        "390": {
+          "controls": 30,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Back",
+            "Remove one money",
+            "Remove one win",
+            "Remove one meeting",
+            "Remove one agenda"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 30,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Back",
+            "Remove one money",
+            "Remove one win",
+            "Remove one meeting",
+            "Remove one agenda"
+          ],
+          "fauxControls": []
+        },
+        "id": "naive-bayes-probabilistic-classifiers"
+      },
+      {
+        "390": {
+          "controls": 24,
+          "unlabeled": [],
+          "rangeCount": 7,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Back",
+            "Back"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 24,
+          "unlabeled": [],
+          "rangeCount": 7,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Back",
+            "Back"
+          ],
+          "fauxControls": []
+        },
+        "id": "ensemble-methods-stacking"
+      },
+      {
+        "390": {
+          "controls": 27,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 27,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "multi-label-multi-output-learning"
+      },
+      {
+        "390": {
+          "controls": 79,
+          "unlabeled": [],
+          "rangeCount": 15,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Move item 2 up",
+            "Move item 3 down"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 79,
+          "unlabeled": [],
+          "rangeCount": 15,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Move item 2 up",
+            "Move item 3 down"
+          ],
+          "fauxControls": []
+        },
+        "id": "recommender-systems-collaborative-filtering-matrix-factorization"
+      },
+      {
+        "390": {
+          "controls": 30,
+          "unlabeled": [],
+          "rangeCount": 13,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 30,
+          "unlabeled": [],
+          "rangeCount": 13,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "survival-analysis-cox-regression-kaplan-meier-hazard-models"
+      },
+      {
+        "390": {
+          "controls": 28,
+          "unlabeled": [],
+          "rangeCount": 5,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Undo last draw"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 28,
+          "unlabeled": [],
+          "rangeCount": 5,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Undo last draw"
+          ],
+          "fauxControls": []
+        },
+        "id": "k-means-hierarchical-clustering"
+      },
+      {
+        "390": {
+          "controls": 31,
+          "unlabeled": [],
+          "rangeCount": 9,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Remove selected",
+            "Back"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 31,
+          "unlabeled": [],
+          "rangeCount": 9,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Remove selected",
+            "Back"
+          ],
+          "fauxControls": []
+        },
+        "id": "pca-dimensionality-reduction"
+      },
+      {
+        "390": {
+          "controls": 97,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 97,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "clustering-evaluation-validation-silhouette-ari-nmi"
+      },
+      {
+        "390": {
+          "controls": 35,
+          "unlabeled": [],
+          "rangeCount": 8,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 35,
+          "unlabeled": [],
+          "rangeCount": 8,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "dbscan-density-based-clustering"
+      },
+      {
+        "390": {
+          "controls": 36,
+          "unlabeled": [],
+          "rangeCount": 4,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Apply setup",
+            "Apply M-step",
+            "Back one half-step"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 36,
+          "unlabeled": [],
+          "rangeCount": 4,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Apply setup",
+            "Apply M-step",
+            "Back one half-step"
+          ],
+          "fauxControls": []
+        },
+        "id": "gaussian-mixture-models-gmm-em-algorithm"
+      },
+      {
+        "390": {
+          "controls": 48,
+          "unlabeled": [],
+          "rangeCount": 10,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 48,
+          "unlabeled": [],
+          "rangeCount": 10,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof"
+      },
+      {
+        "390": {
+          "controls": 57,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Undo edit",
+            "Undo edit",
+            "Undo edit",
+            "Undo edit"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 53,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Undo edit",
+            "Undo edit",
+            "Undo edit",
+            "Undo edit"
+          ],
+          "fauxControls": []
+        },
+        "id": "t-sne-umap-manifold-learning"
+      },
+      {
+        "390": {
+          "controls": 25,
+          "unlabeled": [],
+          "rangeCount": 1,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Undo edit",
+            "Undo edit",
+            "Undo edit"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 25,
+          "unlabeled": [],
+          "rangeCount": 1,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Undo edit",
+            "Undo edit",
+            "Undo edit"
+          ],
+          "fauxControls": []
+        },
+        "id": "independent-component-analysis-ica"
+      },
+      {
+        "390": {
+          "controls": 139,
+          "unlabeled": [],
+          "rangeCount": 2,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Apply setup and restart",
+            "Update W",
+            "Back one phase"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 139,
+          "unlabeled": [],
+          "rangeCount": 2,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Apply setup and restart",
+            "Update W",
+            "Back one phase"
+          ],
+          "fauxControls": []
+        },
+        "id": "non-negative-matrix-factorization-nmf"
+      },
+      {
+        "390": {
+          "controls": 59,
+          "unlabeled": [],
+          "rangeCount": 3,
+          "overflow": false,
+          "clippedControls": [
+            {
+              "label": "row 0 foldfold 0fold 1",
+              "html": "<select id=\"_r_12_\"><option value=\"0\">fold 0</option><option value=\"1\">fold 1</option></select>"
+            },
+            {
+              "label": "row 1 foldfold 0fold 1",
+              "html": "<select id=\"_r_15_\"><option value=\"0\">fold 0</option><option value=\"1\">fold 1</option></select>"
+            },
+            {
+              "label": "row 2 foldfold 0fold 1",
+              "html": "<select id=\"_r_18_\"><option value=\"0\">fold 0</option><option value=\"1\">fold 1</option></select>"
+            },
+            {
+              "label": "row 3 foldfold 0fold 1",
+              "html": "<select id=\"_r_1b_\"><option value=\"0\">fold 0</option><option value=\"1\">fold 1</option></select>"
+            },
+            {
+              "label": "row 4 foldfold 0fold 1",
+              "html": "<select id=\"_r_1e_\"><option value=\"0\">fold 0</option><option value=\"1\">fold 1</option></select>"
+            },
+            {
+              "label": "row 5 foldfold 0fold 1",
+              "html": "<select id=\"_r_1h_\"><option value=\"0\">fold 0</option><option value=\"1\">fold 1</option></select>"
+            }
+          ],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 59,
+          "unlabeled": [],
+          "rangeCount": 3,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "feature-scaling-encoding-imputation"
+      },
+      {
+        "390": {
+          "controls": 80,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 80,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "cross-validation-hyperparameter-tuning"
+      },
+      {
+        "390": {
+          "controls": 64,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 64,
+          "unlabeled": [],
+          "rangeCount": 6,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "regularization-l1-l2-elastic-net-dropout"
+      },
+      {
+        "390": {
+          "controls": 85,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 85,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "feature-selection-importance-shap-permutation-mutual-info"
+      },
+      {
+        "390": {
+          "controls": 34,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 34,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "bias-variance-tradeoff-learning-curves"
+      },
+      {
+        "390": {
+          "controls": 102,
+          "unlabeled": [],
+          "rangeCount": 12,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 102,
+          "unlabeled": [],
+          "rangeCount": 12,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "imbalanced-learning-smote-cost-sensitive-learning"
+      },
+      {
+        "390": {
+          "controls": 185,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Move Standardized neighbors, k = 9 earlier",
+            "Move Tree, depth 5 later"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 185,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Move Standardized neighbors, k = 9 earlier",
+            "Move Tree, depth 5 later"
+          ],
+          "fauxControls": []
+        },
+        "id": "automl-neural-architecture-search-nas"
+      },
+      {
+        "390": {
+          "controls": 71,
+          "unlabeled": [],
+          "rangeCount": 1,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Validate and apply this row",
+            "Discard the edit",
+            "Remove the last recording"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 71,
+          "unlabeled": [],
+          "rangeCount": 1,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Validate and apply this row",
+            "Discard the edit",
+            "Remove the last recording"
+          ],
+          "fauxControls": []
+        },
+        "id": "hidden-markov-models-hmm"
+      },
+      {
+        "390": {
+          "controls": 35,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 35,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "conditional-random-fields-crf"
+      },
+      {
+        "390": {
+          "controls": 85,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Sum out the next variable",
+            "B (query endpoint)",
+            "E (query endpoint)",
+            "Restore the measured values"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 85,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Sum out the next variable",
+            "B (query endpoint)",
+            "E (query endpoint)",
+            "Restore the measured values"
+          ],
+          "fauxControls": []
+        },
+        "id": "bayesian-networks-causal-graphical-models"
+      },
+      {
+        "390": {
+          "controls": 63,
+          "unlabeled": [
+            "<input min=\"-0.95\" max=\"0.95\" step=\"any\" type=\"number\" value=\"0.5\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"2\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"0\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"2\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"-1\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"0\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"2\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"-1\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"4\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">"
+          ],
+          "rangeCount": 21,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Remove candidate 1",
+            "Remove candidate 2"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 63,
+          "unlabeled": [
+            "<input min=\"-0.95\" max=\"0.95\" step=\"any\" type=\"number\" value=\"0.5\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"2\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"0\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"2\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"-1\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"0\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"2\">",
+            "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"-1\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">",
+            "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"4\">",
+            "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25\">"
+          ],
+          "rangeCount": 21,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Remove candidate 1",
+            "Remove candidate 2"
+          ],
+          "fauxControls": []
+        },
+        "id": "gaussian-processes-gp"
+      },
+      {
+        "390": {
+          "controls": 34,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "One synchronous update",
+            "Show equilibrium"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 34,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "One synchronous update",
+            "Show equilibrium"
+          ],
+          "fauxControls": []
+        },
+        "id": "semi-supervised-learning-label-propagation-self-training-co-training"
+      },
+      {
+        "390": {
+          "controls": 60,
+          "unlabeled": [],
+          "rangeCount": 2,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Remove member 1",
+            "Remove member 2",
+            "Remove L1",
+            "Previous geometric step"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 60,
+          "unlabeled": [],
+          "rangeCount": 2,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Remove member 1",
+            "Remove member 2",
+            "Remove L1",
+            "Previous geometric step"
+          ],
+          "fauxControls": []
+        },
+        "id": "active-learning"
+      },
+      {
+        "390": {
+          "controls": 68,
+          "unlabeled": [],
+          "rangeCount": 1,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Move D1 up",
+            "Move D5 down"
+          ],
+          "fauxControls": [
+            {
+              "label": "A T1 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T2 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T3 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T4 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T5 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T1 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T2 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T3 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T4 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T5 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T1 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T2 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T3 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T4 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T5 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T1 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T2 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T3 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T4 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T5 forecast",
+              "tab": 0
+            }
+          ]
+        },
+        "1366": {
+          "controls": 68,
+          "unlabeled": [],
+          "rangeCount": 1,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Move D1 up",
+            "Move D5 down"
+          ],
+          "fauxControls": [
+            {
+              "label": "A T1 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T2 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T3 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T4 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T5 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T1 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T2 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T3 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T4 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T5 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T1 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T2 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T3 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T4 forecast",
+              "tab": 0
+            },
+            {
+              "label": "A T5 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T1 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T2 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T3 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T4 forecast",
+              "tab": 0
+            },
+            {
+              "label": "B T5 forecast",
+              "tab": 0
+            }
+          ]
+        },
+        "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae"
+      },
+      {
+        "390": {
+          "controls": 74,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Start",
+            "Back"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 74,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Start",
+            "Back"
+          ],
+          "fauxControls": []
+        },
+        "id": "pac-learning-vc-dimension"
+      },
+      {
+        "390": {
+          "controls": 156,
+          "unlabeled": [],
+          "rangeCount": 4,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Start the merges again"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 156,
+          "unlabeled": [],
+          "rangeCount": 4,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Start the merges again"
+          ],
+          "fauxControls": []
+        },
+        "id": "calibration-conformal-prediction"
+      },
+      {
+        "390": {
+          "controls": 108,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 108,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "rademacher-complexity-generalization-bounds"
+      },
+      {
+        "390": {
+          "controls": 51,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Add 5 to every value",
+            "Restore the model ranking",
+            "Choose one selected and one unselected opportunity to exchange"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 51,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Add 5 to every value",
+            "Restore the model ranking",
+            "Choose one selected and one unselected opportunity to exchange"
+          ],
+          "fauxControls": []
+        },
+        "id": "ml-problem-formulation-baselines-data-leakage"
+      },
+      {
+        "390": {
+          "controls": 58,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Add 5 to every value",
+            "Back to the first origin"
+          ],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 58,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [
+            "Add 5 to every value",
+            "Back to the first origin"
+          ],
+          "fauxControls": []
+        },
+        "id": "time-series-validation-forecasting-baselines"
+      },
+      {
+        "390": {
+          "controls": 39,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "1366": {
+          "controls": 39,
+          "unlabeled": [],
+          "rangeCount": 0,
+          "overflow": false,
+          "clippedControls": [],
+          "tinySvg": [],
+          "disabled": [],
+          "fauxControls": []
+        },
+        "id": "end-to-end-supervised-learning-error-analysis"
+      }
+    ]
+  },
+  "initialKeyboardSurvey": {
+    "checkedAt": "2026-09-21T16:02:21.925Z",
+    "base": "http://127.0.0.1:4194",
+    "records": [
+      {
+        "id": "decision-trees-random-forests",
+        "controls": [
+          {
+            "label": "Query x1: 4",
+            "before": "4",
+            "after": "4.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Query x2: 3",
+            "before": "3",
+            "after": "3.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Complexity cost alpha: 0.04",
+            "before": "0.04",
+            "after": "0.05",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Number of trees: 6",
+            "before": "6",
+            "after": "7",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Predictor count B: 20",
+            "before": "20",
+            "after": "21",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Average correlation rho: 0.3",
+            "before": "0.3",
+            "after": "0.4",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "linear-logistic-regression",
+        "controls": [
+          {
+            "label": "Intercept (hours): 0",
+            "before": "0",
+            "after": "0.05",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Slope (hours per 100 km): 1",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Intercept b: -1",
+            "before": "-1",
+            "after": "-0.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Weight w: 1",
+            "before": "1",
+            "after": "1.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Feature x: 2",
+            "before": "2",
+            "after": "1.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Warning threshold: 0.5",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Weight w: 2",
+            "before": "2",
+            "after": "2.25",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "k-nearest-neighbors-knn",
+        "controls": [
+          {
+            "label": "Query x1: 3.1",
+            "before": "3.1",
+            "after": "3.2",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Query x2: 2.9",
+            "before": "2.9",
+            "after": "3",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Neighbors k: 5",
+            "before": "5",
+            "after": "6",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Regression query: 2.5",
+            "before": "2.5",
+            "after": "3",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Regression neighbors: 3",
+            "before": "3",
+            "after": "4",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Dimensions: 10",
+            "before": "10",
+            "after": "11",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+        "controls": [
+          {
+            "label": "Correction learning rate",
+            "before": "0.5",
+            "after": "0.6",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Rows sent left",
+            "before": "2",
+            "after": "3",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Leaf L2 lambda",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Leaf L1 alpha",
+            "before": "0",
+            "after": "0.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "New-leaf gamma",
+            "before": "0",
+            "after": "0.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Newton learning rate",
+            "before": "0.3",
+            "after": "0.35",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Missing-row target",
+            "before": "8",
+            "after": "9",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Prior strength",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Validation learning rate",
+            "before": "0.3",
+            "after": "0.35",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Correction tree depth",
+            "before": "2",
+            "after": "3",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Inspect boosting round",
+            "before": "1",
+            "after": "2",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "support-vector-machines-svm",
+        "controls": [
+          {
+            "label": "Normal angle",
+            "before": "0",
+            "after": "5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Boundary offset",
+            "before": "0",
+            "after": "0.05",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Score scale",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Point D coordinate",
+            "before": "2",
+            "after": "2.05",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Position in optimal bias interval",
+            "before": "0",
+            "after": "0.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "RBF gamma",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Query x1",
+            "before": "0.5",
+            "after": "0.6",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Query x2",
+            "before": "0.5",
+            "after": "0.6",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Target amplitude a",
+            "before": "2",
+            "after": "2.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Tube epsilon",
+            "before": "0.5",
+            "after": "0.75",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "naive-bayes-probabilistic-classifiers",
+        "controls": [
+          {
+            "label": "Reading in mV",
+            "before": "0",
+            "after": "0.1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Interval width in mV",
+            "before": "0.4",
+            "after": "0.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Probe x",
+            "before": "0",
+            "after": "0.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Probe y",
+            "before": "0",
+            "after": "0.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Number of recorded copies",
+            "before": "3",
+            "after": "4",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Number of reliability bins",
+            "before": "4",
+            "after": "5",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "ensemble-methods-stacking",
+        "controls": [
+          {
+            "label": "Model A: probability of delay0.51",
+            "before": "0.51",
+            "after": "0.52",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Model B: probability of delay0.51",
+            "before": "0.51",
+            "after": "0.52",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Model C: probability of delay0.01",
+            "before": "0.01",
+            "after": "0.02",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Relative weight of model C1",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Weight on forecast A0.5",
+            "before": "0.5",
+            "after": "0.51",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Horizontal grid index16",
+            "before": "16",
+            "after": "17",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Vertical grid index12",
+            "before": "12",
+            "after": "13",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+        "controls": [
+          {
+            "label": "Proposed score 0.5",
+            "before": "0.5",
+            "after": "0.6",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Minimum co-raters 1",
+            "before": "1",
+            "after": "2",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Shrinkage s 0",
+            "before": "0",
+            "after": "1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Shared rotation in degrees 0",
+            "before": "0",
+            "after": "15",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Learning rate η 0.05",
+            "before": "0.05",
+            "after": "0.06",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Local penalty λ 0.1",
+            "before": "0.1",
+            "after": "0.2",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Requested updates 1",
+            "before": "1",
+            "after": "2",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Confidence multiplier α 2",
+            "before": "2",
+            "after": "3",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Once-per-user penalty λ 1",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Sampled item's first factor 1",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Pair step size 0.1",
+            "before": "0.1",
+            "after": "0.15",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Visible slots K 3",
+            "before": "3",
+            "after": "4",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Logging probability of A 0.8",
+            "before": "0.8",
+            "after": "0.85",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Target probability of A 0.5",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Independent requests 100",
+            "before": "100",
+            "after": "120",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "multi-label-multi-output-learning",
+        "controls": [
+          {
+            "label": "Count 00 6",
+            "before": "6",
+            "after": "7",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Count 01 5",
+            "before": "5",
+            "after": "6",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Count 10 1",
+            "before": "1",
+            "after": "2",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Count 11 8",
+            "before": "8",
+            "after": "9",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Fraction in high-probability group 0.5",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Validation threshold 0.5",
+            "before": "0.5",
+            "after": "0.51",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Unpenalized output 1 coefficient 3",
+            "before": "3",
+            "after": "3.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Unpenalized output 2 coefficient 4",
+            "before": "4",
+            "after": "4.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Penalty λ 2",
+            "before": "2",
+            "after": "2.25",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+        "controls": [
+          {
+            "label": "Inspect day 4",
+            "before": "4",
+            "after": "5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Administrative follow-up ends 9",
+            "before": "9",
+            "after": "8",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Restricted horizon in days 9",
+            "before": "9",
+            "after": "8.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Multiplier 1",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Weibull shape 2",
+            "before": "2",
+            "after": "2.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Already running for days 4",
+            "before": "4",
+            "after": "5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Next interval in days 3",
+            "before": "3",
+            "after": "4",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Cox coefficient beta 0.6931",
+            "before": "0.693147180559945",
+            "after": "0.733147180559945",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Inspect elapsed days 6",
+            "before": "6",
+            "after": "6.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Predicted survival at day 5 0.6",
+            "before": "0.6",
+            "after": "0.65",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Chance follow-up lasts to day 10 0.5",
+            "before": "0.5",
+            "after": "0.6",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Observe through day 6",
+            "before": "6",
+            "after": "5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Analytic competing hazard per day 0.3",
+            "before": "0.3",
+            "after": "0.35",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "pca-dimensionality-reduction",
+        "controls": [
+          {
+            "label": "Reference angle (degrees from the first axis)0°",
+            "before": "0",
+            "after": "1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Proposed angle45°",
+            "before": "45",
+            "after": "46.8",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Rectangle half-width a2",
+            "before": "2",
+            "after": "2.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Rectangle half-height b1",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Unit multiplier on the second reading× 1",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Allowed validation error as a fraction of the mean-only baseline0.1",
+            "before": "0.1",
+            "after": "0.11",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Explore a different k for the record below8",
+            "before": "8",
+            "after": "9",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Horizontal spread a10",
+            "before": "10",
+            "after": "10.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Vertical spread b1",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "clustering-evaluation-validation-silhouette-ari-nmi",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "dbscan-density-based-clustering",
+        "controls": [
+          {
+            "label": "Radius ε, meters1",
+            "before": "1",
+            "after": "1.125",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Count m, rows including self4",
+            "before": "4",
+            "after": "5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Count m2",
+            "before": "2",
+            "after": "3",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Radius ε in standardized units0.5",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Count m, rows including self5",
+            "before": "5",
+            "after": "6",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Middle group offset from the left group0.75",
+            "before": "0.75",
+            "after": "0.875",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Spacing inside the right group0.75",
+            "before": "0.75",
+            "after": "0.875",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Radius ε to test0.25",
+            "before": "0.25",
+            "after": "0.375",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+        "controls": [
+          {
+            "label": "P0 position slider",
+            "before": "0",
+            "after": "0.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "P1 position slider",
+            "before": "1",
+            "after": "1.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "P2 position slider",
+            "before": "2",
+            "after": "2.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "P3 position slider",
+            "before": "3",
+            "after": "3.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "P4 position slider",
+            "before": "12",
+            "after": "12.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Query position slider",
+            "before": "4",
+            "after": "4.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Kernel width gamma slider",
+            "before": "1",
+            "after": "1.05",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Fault prevalence (percent) slider",
+            "before": "0.1",
+            "after": "0.15",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Sensitivity: faults flagged (percent) slider",
+            "before": "80",
+            "after": "81",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "False-positive rate (percent) slider",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "gaussian-mixture-models-gmm-em-algorithm",
+        "controls": [
+          {
+            "label": "Measurement x slider",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Weight of A slider",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Variance of A slider",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Correlation ρ slider",
+            "before": "0.75",
+            "after": "0.8",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "t-sne-umap-manifold-learning",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "independent-component-analysis-ica",
+        "controls": [
+          {
+            "label": "Angle slider",
+            "before": "45",
+            "after": "45.5",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "non-negative-matrix-factorization-nmf",
+        "controls": [
+          {
+            "label": "Amount a of component 1 slider",
+            "before": "2",
+            "after": "2.25",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Amount b of component 2 slider",
+            "before": "1",
+            "after": "1.25",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "feature-scaling-encoding-imputation",
+        "controls": [
+          {
+            "label": "Bill divisor (mm per unit) slider",
+            "before": "1.000001",
+            "after": "1.500001",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Mass divisor (g per unit) slider",
+            "before": "0.000001",
+            "after": "10.000001",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Smoothing α slider",
+            "before": "2",
+            "after": "2.5",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "cross-validation-hyperparameter-tuning",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "regularization-l1-l2-elastic-net-dropout",
+        "controls": [
+          {
+            "label": "Data preference z slider",
+            "before": "0.4",
+            "after": "0.5",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Strength λ slider",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Mixing fraction ρ slider",
+            "before": "1",
+            "after": "0.9",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Strength λ slider",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Mixing fraction ρ slider",
+            "before": "1",
+            "after": "0.9",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Keep probability q slider",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "feature-selection-importance-shap-permutation-mutual-info",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "bias-variance-tradeoff-learning-curves",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "imbalanced-learning-smote-cost-sensitive-learning",
+        "controls": [
+          {
+            "label": "Gate you are starting from0.7",
+            "before": "0.7",
+            "after": "0.71",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Gate you are moving to0.9",
+            "before": "0.9",
+            "after": "0.91",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Posterior p for this case0.1",
+            "before": "0.1",
+            "after": "0.11",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Cost of a false alarm, c_FP1 units",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Cost of a missed positive, c_FN12 units",
+            "before": "12",
+            "after": "12.1",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Population probability p0.1",
+            "before": "0.1",
+            "after": "0.11",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Positive class weight w₊9",
+            "before": "9",
+            "after": "9.1",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Negative class weight w₋1",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Interpolation fraction u0.5",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Trial gate on the tuning scores0.5",
+            "before": "0.5",
+            "after": "0.51",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Hypothetical cost of a false alarm1",
+            "before": "1",
+            "after": "1.1",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Hypothetical cost of a missed positive12",
+            "before": "12",
+            "after": "12.1",
+            "valueChanged": true,
+            "resultChanged": false
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "automl-neural-architecture-search-nas",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "hidden-markov-models-hmm",
+        "controls": [
+          {
+            "label": "Self-transition probability a0.7At a = 1 the state is absorbing: it never leaves, and there is no finite mean duration to report.",
+            "before": "0.7",
+            "after": "0.71",
+            "valueChanged": true,
+            "resultChanged": false
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "bayesian-networks-causal-graphical-models",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "conditional-random-fields-crf",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "gaussian-processes-gp",
+        "controls": [
+          {
+            "label": "Covariance ρ slider",
+            "before": "0.5035",
+            "after": "0.513",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Observed value slider",
+            "before": "2",
+            "after": "2.04",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Noise variance slider",
+            "before": "0.2488",
+            "after": "0.25875",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Reading 1 position slider",
+            "before": "0",
+            "after": "0.025",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Reading 1 value slider",
+            "before": "1",
+            "after": "1.04",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Reading 2 position slider",
+            "before": "2",
+            "after": "2.025",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Reading 2 value slider",
+            "before": "-1",
+            "after": "-0.96",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Target position slider",
+            "before": "1",
+            "after": "1.025",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "RBF length slider",
+            "before": "0.997",
+            "after": "1.0165",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Reading noise variance slider",
+            "before": "0.2488",
+            "after": "0.25875",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Reading 1 position slider",
+            "before": "0",
+            "after": "0.025",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Reading 1 value slider",
+            "before": "1",
+            "after": "1.04",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Reading 2 position slider",
+            "before": "2",
+            "after": "2.025",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Reading 2 value slider",
+            "before": "-1",
+            "after": "-0.96",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Target to clarify slider",
+            "before": "1",
+            "after": "1.025",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Probe RBF length slider",
+            "before": "0.997",
+            "after": "1.0165",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Existing reading noise variance slider",
+            "before": "0.2488",
+            "after": "0.25875",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Candidate 1 position slider",
+            "before": "1",
+            "after": "1.025",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Candidate 1 noise variance slider",
+            "before": "0.2488",
+            "after": "0.25875",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Candidate 2 position slider",
+            "before": "4",
+            "after": "3.975",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Candidate 2 noise variance slider",
+            "before": "0.2488",
+            "after": "0.25875",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": [
+          "<input min=\"-0.95\" max=\"0.95\" step=\"any\" type=\"number\" value=\"0.513\">",
+          "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"2.04\">",
+          "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25875\">",
+          "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"0.025\">",
+          "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"1.04\">",
+          "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"2.025\">",
+          "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"-0.96\">",
+          "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1.025\">",
+          "<input min=\"0.1\" max=\"4\" step=\"any\" type=\"number\" value=\"1.0165\">",
+          "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25875\">",
+          "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"0.025\">",
+          "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"1.04\">",
+          "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"2.025\">",
+          "<input min=\"-4\" max=\"4\" step=\"any\" type=\"number\" value=\"-0.96\">",
+          "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1.025\">",
+          "<input min=\"0.1\" max=\"4\" step=\"any\" type=\"number\" value=\"1.0165\">",
+          "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25875\">",
+          "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"1.025\">",
+          "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25875\">",
+          "<input min=\"-1\" max=\"4\" step=\"any\" type=\"number\" value=\"3.975\">",
+          "<input min=\"0.01\" max=\"2\" step=\"any\" type=\"number\" value=\"0.25875\">"
+        ]
+      },
+      {
+        "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+        "controls": [
+          {
+            "label": "Unlabeled point U0",
+            "before": "-1",
+            "after": "-0.99",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Unlabeled point U1",
+            "before": "0",
+            "after": "0.01",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Unlabeled point U2",
+            "before": "1",
+            "after": "1.01",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Unlabeled point U3",
+            "before": "3",
+            "after": "3.01",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "k-means-hierarchical-clustering",
+        "controls": [
+          {
+            "label": "Lloyd process phase2 of 4",
+            "before": "1",
+            "after": "2",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [
+          "locator.evaluate: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.reader-article input[type=range]').nth(1)\u001b[22m\n"
+        ]
+      },
+      {
+        "id": "active-learning",
+        "controls": [
+          {
+            "label": "Member 1 class 0 probability slider",
+            "before": "0.95",
+            "after": "0.96",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Member 2 class 0 probability slider",
+            "before": "0.05",
+            "after": "0.06",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+        "controls": [
+          {
+            "label": "Decision threshold (forecasts stay fixed)",
+            "before": "0.5",
+            "after": "0.55",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "pac-learning-vc-dimension",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "calibration-conformal-prediction",
+        "controls": [
+          {
+            "label": "Forecast for class 1 · group A0.20",
+            "before": "0.2",
+            "after": "0.21",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Actual class-1 rate · group A0.30",
+            "before": "0.3",
+            "after": "0.31",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Forecast for class 1 · group B0.80",
+            "before": "0.8",
+            "after": "0.81",
+            "valueChanged": true,
+            "resultChanged": false
+          },
+          {
+            "label": "Actual class-1 rate · group B0.90",
+            "before": "0.9",
+            "after": "0.91",
+            "valueChanged": true,
+            "resultChanged": false
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "rademacher-complexity-generalization-bounds",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "ml-problem-formulation-baselines-data-leakage",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "time-series-validation-forecasting-baselines",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      },
+      {
+        "id": "end-to-end-supervised-learning-error-analysis",
+        "controls": [],
+        "errors": [],
+        "unlabeled": []
+      }
+    ]
+  },
+  "finalKMeansKeyboardSurvey": {
+    "checkedAt": "2026-09-21T16:11:07.586Z",
+    "base": "http://127.0.0.1:4194",
+    "records": [
+      {
+        "id": "k-means-hierarchical-clustering",
+        "controls": [
+          {
+            "label": "Lloyd process phase2 of 4",
+            "before": "1",
+            "after": "2",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Weight on squared vertical differences1",
+            "before": "1",
+            "after": "1.01",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Draw position in the cumulative probability line0.5",
+            "before": "0.5",
+            "after": "0.501",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Cut height0.7071",
+            "before": "0.707106781186548",
+            "after": "0.818249004261309",
+            "valueChanged": true,
+            "resultChanged": true
+          },
+          {
+            "label": "Requested palette size3",
+            "before": "3",
+            "after": "4",
+            "valueChanged": true,
+            "resultChanged": true
+          }
+        ],
+        "errors": [],
+        "unlabeled": []
+      }
+    ]
+  },
+  "dispositions": {
+    "gaussian-processes-gp": "Repaired 21 unnamed typed fields and slider snapping; final focused receipt verifies exact synchronization and behavior.",
+    "k-means-hierarchical-clustering": "Intermediate-weight RangeError repaired; 800 domain model cases and all five keyboard ranges pass.",
+    "feature-scaling-encoding-imputation": "Offscreen controls belong to a labelled, focusable horizontal table region; retained.",
+    "recommender-systems-collaborative-filtering-matrix-factorization": "Unchanged loss for an unrated cell under the explicit objective is the taught valid null.",
+    "imbalanced-learning-smote-cost-sensitive-learning": "Initial result-diff heuristic used a control-only wrapper; corrected section scope confirmed all 12 live changes.",
+    "hidden-markov-models-hmm": "Initial result-diff heuristic used a control-only wrapper; corrected section scope confirmed the live change.",
+    "calibration-conformal-prediction": "Initial result-diff heuristic used a control-only wrapper; corrected figure scope confirmed all four live changes."
+  },
+  "finalFocusedReceipt": "docs/teaching/evidence/classical-control-followup-browser.json"
+}

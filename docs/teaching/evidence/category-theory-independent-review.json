@@ -1,0 +1,187 @@
+{
+  "topicId": "category-theory-emerging-use-in-ml",
+  "reviewer": "scientific_visual_improvements",
+  "reviewedAt": "2026-09-11T00:12:45.745720+00:00",
+  "status": "Independent source/proof, complementary execution and named visual review passed; no unresolved material finding.",
+  "production": [
+    {
+      "path": "src/learn/data/topics/category-theory-emerging-use-in-ml.jsx",
+      "sha256": "b4eec093fa40a2daa11a2c88299f5e9e21148dd980d4d10d5e8fb9fda44f2382",
+      "bytes": 48208
+    },
+    {
+      "path": "src/learn/data/category-theory-models.js",
+      "sha256": "75ba527d2ee1a67cb84af56e52119f0f1ae5e11e6c916b974e74ec09bf15f770",
+      "bytes": 9777
+    },
+    {
+      "path": "src/learn/data/category-theory-examples.js",
+      "sha256": "130fb496e82ec5e387f3e08f3eef2421bcca8281b8a33a0b47944666c57ce593",
+      "bytes": 21193
+    },
+    {
+      "path": "src/learn/components/lesson-labs/CategoryTheoryLabs.jsx",
+      "sha256": "21ea46af7a2330b962d9f5cab0dad2d15811549ec54ca975121220fa33f46c69",
+      "bytes": 22328
+    },
+    {
+      "path": "src/learn/components/lesson-labs/category-theory-labs.css",
+      "sha256": "6da55514358eebcab7bc018e6bb19e79e7c842758ac4a21e4a71aeb43cef5083",
+      "bytes": 10186
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/category-theory-emerging-use-in-ml.js",
+      "sha256": "0f6516d1304442d1975fb2d3c14a77f5df8beeff3510429099c931d9c06c685d",
+      "bytes": 4482
+    }
+  ],
+  "authorRecord": {
+    "path": "docs/teaching/evidence/category-theory-author-review.json",
+    "sha256": "d1b462d98d32dd467f4e925073aa2cc40f77ef984a5ecdb4422494bc5efb28ab",
+    "bytes": 23729
+  },
+  "initialAuthorRecord": {
+    "path": "docs/teaching/evidence/category-theory-author-review-before-entity-fix.json",
+    "sha256": "9104044c65d16062d7c93d6a1a0759a909c67503578c1324cabaaff257dd33db",
+    "bytes": 21222
+  },
+  "initialBodySha256": "bbb866c7ac5fcbb1bd2b87c191d90e37f63d0b033665f93de51941fa6658e120",
+  "actualScope": [
+    "Full twelve-section body, all eleven actual programs and interpretations, all twelve practice solutions and both checkpoints",
+    "Complete model and lab sources, individual brief, design and author verification; relevant responsive/focus styles",
+    "Primary-source passages independently read: Riehl Yoneda/dual note, products/pullbacks and adjunction; Fritz FinStoch and copying; Backprop as Functor theorem III.2",
+    "Eight named author-generated screenshots actually opened by the reviewer; author full browser runs remain separately attributed"
+  ],
+  "findings": [
+    {
+      "severity": "minor learner-visible notation error",
+      "location": "Section 7, positive-evidence condition for Bayes reversal",
+      "before": "q(y)&gt ; 0",
+      "after": "q(y)&gt; 0",
+      "status": "Resolved by author; literal symbol inspected in final narrow capture and all three width text results.",
+      "scopeProof": "Reversing the entity edit and edited-line CRLF/LF change reconstructs the original exact body SHA; other five production sources match initial freeze."
+    }
+  ],
+  "complementaryExecution": {
+    "passed": true,
+    "checkedAt": "2026-09-11T00:08:30.115522+00:00",
+    "counts": {
+      "actual_programs": 11,
+      "rectangular_channel_states": 60,
+      "unequal_size_pullbacks": 256,
+      "off_grid_tangent_pairings": 18,
+      "two_point_mediator_problems": 48,
+      "nonrepresentable_yoneda_candidates": 1152,
+      "changed_tetrahedron_quotients": 16,
+      "actual_shared_parameter_changes": 5,
+      "changed_compatible_migrations": 1944
+    },
+    "maximumAbsoluteFloatError": 2.842170943040401e-14,
+    "yoneda": [
+      {
+        "functor": "powerset",
+        "candidate_families": 1024,
+        "compatible": [
+          0,
+          2,
+          1,
+          3
+        ]
+      },
+      {
+        "functor": "constant_two",
+        "candidate_families": 128,
+        "compatible": [
+          0,
+          1
+        ]
+      }
+    ],
+    "limits": "Finite changed inputs support implementation; universal statements use the independent source proof review."
+  },
+  "verificationScripts": [
+    {
+      "path": "scripts/verify-category-theory-independent.mjs",
+      "sha256": "cfdb87915862f3664851f9bb4c4a860862993f052be064ab2dc96139f46ae92d",
+      "bytes": 1745
+    },
+    {
+      "path": "scripts/verify-category-theory-independent.py",
+      "sha256": "56a4a2e4a10c4c6680bc9cf18a3b2b183a46bdb1e110afff15be0b0f57052bd8",
+      "bytes": 10031
+    }
+  ],
+  "visualReview": {
+    "attribution": "Screenshots captured by author and actually opened by this independent reviewer.",
+    "images": [
+      {
+        "path": "scratch/category-theory-browser/default-lab-3-320.png",
+        "sha256": "cbf04959294db65399f8a02c26a54dbaeec27e3e085ed5005a4d369a0f0c1399",
+        "bytes": 59920
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-5-320.png",
+        "sha256": "f4e97f9e66cfa274f72c03a40ccf59263e0d9e1cf25266994acce83180de6a02",
+        "bytes": 74819
+      },
+      {
+        "path": "scratch/category-theory-browser/inline-0-320.png",
+        "sha256": "4f1a0a0ddb2698dfbf29e892f42d15655f780a35e43d4e2706f285ea5376771b",
+        "bytes": 53652
+      },
+      {
+        "path": "scratch/category-theory-browser/default-lab-4-320.png",
+        "sha256": "95992b1e35ac97f6af13f3aef228a4fa6d8eafb7863e5eb08ab8e0fe5ae89ba0",
+        "bytes": 66409
+      },
+      {
+        "path": "scratch/category-theory-browser/naturality-counterexample-1440.png",
+        "sha256": "c73568b20bb8500ad74cc50ed58e1b2e06b9a337da4365aecb849bdf767101d8",
+        "bytes": 59866
+      },
+      {
+        "path": "scratch/category-theory-browser/reading-10-320.png",
+        "sha256": "2a099d1ea64cb7a68032ab9f164aeefee64a687432c08ff6d310a62ae4077e09",
+        "bytes": 72665
+      },
+      {
+        "path": "scratch/category-theory-browser/reading-12-390.png",
+        "sha256": "e3e4d0575d0badadbfb049d593435b0a3fb9d3d10b0e20fab00e8d5e43863829",
+        "bytes": 71601
+      },
+      {
+        "path": "scratch/category-theory-browser/conditional-text-320.png",
+        "sha256": "618559219d7c5bfb84872eed5513bf11c2b7304b36340ab37fdd1b22eeaed1f4",
+        "bytes": 25154
+      }
+    ]
+  },
+  "authorFocusedRepairEvidence": {
+    "verifiedAt": "2026-09-11T00:07:11.214Z",
+    "passed": true,
+    "bodySha256": "b4eec093fa40a2daa11a2c88299f5e9e21148dd980d4d10d5e8fb9fda44f2382",
+    "records": [
+      {
+        "width": 1440,
+        "text": "With prior p(x) and channel P(y|x), q(y)=\u03a3_x p(x)P(y|x). For q(y)> 0, the reverse conditional is R(x|y)=p(x)P(y|x)/q(y). It depends on the prior. Sending an input through P and drawing from R generally does not recover that exact input. If q(y)=0, the formula is undefined; choosing an arbitrary row is an extra convention.",
+        "errors": []
+      },
+      {
+        "width": 390,
+        "text": "With prior p(x) and channel P(y|x), q(y)=\u03a3_x p(x)P(y|x). For q(y)> 0, the reverse conditional is R(x|y)=p(x)P(y|x)/q(y). It depends on the prior. Sending an input through P and drawing from R generally does not recover that exact input. If q(y)=0, the formula is undefined; choosing an arbitrary row is an extra convention.",
+        "errors": []
+      },
+      {
+        "width": 320,
+        "text": "With prior p(x) and channel P(y|x), q(y)=\u03a3_x p(x)P(y|x). For q(y)> 0, the reverse conditional is R(x|y)=p(x)P(y|x)/q(y). It depends on the prior. Sending an input through P and drawing from R generally does not recover that exact input. If q(y)=0, the formula is undefined; choosing an arbitrary row is an extra convention.",
+        "errors": []
+      }
+    ]
+  },
+  "limits": [
+    "The reviewer did not rerun or claim the author full 272-state browser matrix as independent evidence.",
+    "Finite cases support implementation, not universal proofs or unconstrained numerical guarantees.",
+    "Selected primary passages were read; entire books, papers and videos were not reviewed.",
+    "No production file was changed by this reviewer. Root owns integrated production checks and rollout status."
+  ]
+}

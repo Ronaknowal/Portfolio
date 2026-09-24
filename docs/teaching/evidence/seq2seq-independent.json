@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "reviewer": "convnext_finish",
+  "cases": 4,
+  "comparedValues": 3328,
+  "maxAbsoluteDifference": 2.7755575615628914e-15,
+  "checks": [
+    "Actual public batch shift agrees with visual tracks through EOS and every padded input",
+    "Browser sequential source contexts match independent native unsorted packed batch, including min/max allowed source lengths",
+    "Every browser teacher-forced state and probability matches native batch through real tokens, EOS and ignored padding",
+    "Nonfinite,empty and deliberately incorrect fixtures fail the comparison guard"
+  ],
+  "sources": {
+    "src/learn/data/seq2seq-models.js": "65ba6497a54757796d1f81c47efb3d1a4edf06fd1d9130f394c879f20bf8ab14",
+    "src/learn/components/lesson-labs/Seq2SeqLabs.jsx": "5bc5cfdf7fb81ee7a145bdbeae3c8ac21fefcd2e99cee88dadc94a2cf4333f02",
+    "src/learn/components/lesson-labs/seq2seq-labs.css": "3c88e1f45b5d218c736caaaa9701cf660cc5a8e3a3241eabb88c2ea84e37dc78",
+    "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx": "89233695226e731c169a13c12a6f066103e0d5260f1495e317466c2220b3c004",
+    "scripts/verify-seq2seq-independent.py": "ec5b862005bef98c771596c59f2655c873cfb3de4517df417755b67a8e91aaf3",
+    "scripts/verify-seq2seq-independent.mjs": "7f65c9af49be16dab14fcad2376e47e5e90d55211eb73442afed9f017deff987"
+  },
+  "limits": "Complements existing native/generated/beam evidence without rerunning fits. Browser interaction and final build evidence are separate."
+}

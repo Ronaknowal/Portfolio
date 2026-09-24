@@ -1,0 +1,26 @@
+{
+  "savedAt": "2026-09-11T14:21:43.904Z",
+  "purpose": "Exact previous author-reviewed model/program sources retained before the sparse-input and stable-norm amendments. Original source hashes verified.",
+  "files": [
+    {
+      "path": "src/learn/data/decision-tree-models.js",
+      "sha256": "c518194566df93953774c47fa76e373d078b280d73310d2f6e9cf3b8b25bea1c",
+      "archived": "docs/teaching/archive/tree-knn-input-amendment/decision-tree-models.js"
+    },
+    {
+      "path": "src/learn/data/knn-models.js",
+      "sha256": "b9eb84f09a36ed8cdad9b392de8c1d4e074fc33353e065f646e188a7ef9bb48b",
+      "archived": "docs/teaching/archive/tree-knn-input-amendment/knn-models.js"
+    },
+    {
+      "path": "src/learn/data/knn-examples.js",
+      "archived": "docs/teaching/archive/tree-knn-input-amendment/knn-examples.js",
+      "sha256": "b07eacd797f1e489ee16b9a27d2a74e16a782e08620c101c51246335aa3d0264"
+    },
+    {
+      "path": "scratch/knn-native/example-runs.json",
+      "archived": "docs/teaching/archive/tree-knn-input-amendment/example-runs.json",
+      "sha256": "d8e5859106c4fa7e6b5dcff0fc6b92d6547f3702e5af44ba0f9d539dc4999537"
+    }
+  ]
+}

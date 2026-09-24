@@ -1,8 +1,16 @@
-// Auto-generated from knowledge-map.html
-// Each track contains sections, each section contains topic objects with title and level.
-// Topics are processed into full topic objects by topics/index.js
+// Live catalogue. The original entries came from knowledge-map.html; that
+// historical snapshot must not overwrite maintained additions and plans.
+import * as gpuExpansion from "./curriculum/gpu-expansion.js";
+import * as neuralExpansion from "./curriculum/neural-expansion.js";
+import * as crossExpansion from "./curriculum/cross-domain-expansion.js";
+import { authoredBlueprints } from "./curriculum/blueprints/index.js";
+import { buildQuantitativeTradingSections } from "./curriculum/quantitative-trading.js";
+import { systemDesignDefinition } from "./curriculum/system-design.js";
+import { systemDesignCoverage } from "./curriculum/system-design-coverage.js";
+import { quantitativeTradingCoverage } from "./curriculum/quantitative-trading-coverage.js";
+import { buildQuantumComputingSections } from "./curriculum/quantum-computing.js";
 
-export const trackDefinitions = [
+const baseTrackDefinitions = [
   {
     id: "math-foundations",
     title: "Mathematical & Statistical Foundations",
@@ -194,6 +202,7 @@ export const trackDefinitions = [
           { title: "RNNs, LSTMs & GRUs", level: "foundation" },
           { title: "Sequence-to-Sequence & Encoder-Decoder", level: "intermediate" },
           { title: "Attention Mechanism (Bahdanau, Luong)", level: "intermediate" },
+          { title: "Long-Context Sequence Models (Transformer-XL, Griffin, Perceiver)", level: "advanced" },
           { title: "State Space Models (S4, Mamba, Mamba-2)", level: "advanced" },
           { title: "RWKV & Linear Attention Models", level: "frontier" },
         ],
@@ -282,6 +291,18 @@ export const trackDefinitions = [
           { title: "DAPO (Dynamic Adaptive Policy Optimization)", level: "advanced" },
           { title: "Knowledge Distillation for LLMs (DeepSeek-R1-Distill, CoT Distillation)", level: "advanced" },
           { title: "RL for Reasoning (DeepSeek-R1 Style)", level: "frontier" },
+          {
+            title: "Typed Decision Models & Calibrated Neural Decision Systems",
+            level: "advanced",
+            subtopics: [
+              "Jev and Laya evidence boundaries", "Schema-conditioned classification", "Dynamic candidate labels",
+              "Option-marker decision heads", "ModernBERT and mmBERT", "Choice, ordinal score and truth probability",
+              "Proper scoring rules", "Spherical score and ranked probability score", "RLCD and probability-reporting policies",
+              "REINFORCE with group baselines", "Held-out temperature calibration", "Entropy and confidence",
+              "Cost-sensitive abstention", "Label-order sensitivity and truncation", "Distribution shift",
+              "Scratch implementation and library integration", "Reproducible decision-model evaluation",
+            ],
+          },
         ],
       },
       {
@@ -341,6 +362,7 @@ export const trackDefinitions = [
           { title: "MDPs, Bellman Equations & Dynamic Programming", level: "foundation" },
           { title: "Value Iteration & Policy Iteration", level: "foundation" },
           { title: "Monte Carlo & Temporal Difference (TD) Methods", level: "foundation" },
+          { title: "On-Policy, Off-Policy & Importance Sampling", level: "foundation" },
           { title: "Q-Learning & SARSA", level: "foundation" },
           { title: "Exploration vs Exploitation (ε-greedy, UCB, Thompson Sampling)", level: "foundation" },
         ],
@@ -350,6 +372,7 @@ export const trackDefinitions = [
         topics: [
           { title: "DQN & Rainbow Extensions", level: "intermediate" },
           { title: "Policy Gradient Methods (REINFORCE, A2C)", level: "intermediate" },
+          { title: "Policy Gradients, Baselines & Generalized Advantage Estimation (GAE)", level: "intermediate" },
           { title: "PPO (Proximal Policy Optimization)", level: "intermediate" },
           { title: "TRPO (Trust Region Policy Optimization)", level: "intermediate" },
           { title: "Representation Learning for RL (CURL, DrQ, Data Augmentation)", level: "intermediate" },
@@ -364,6 +387,7 @@ export const trackDefinitions = [
         name: "Advanced RL",
         topics: [
           { title: "Model-Based RL (Dreamer, MuZero, World Models)", level: "advanced" },
+          { title: "Landmark RL Systems (AlphaGo, AlphaZero & MuZero)", level: "advanced" },
           { title: "Hierarchical RL (Options, Goal-Conditioned, HAM)", level: "advanced" },
           { title: "Multi-Agent RL (MARL)", level: "advanced" },
           { title: "Offline RL & Conservative Q-Learning (CQL)", level: "advanced" },
@@ -410,6 +434,7 @@ export const trackDefinitions = [
         name: "Diffusion Models",
         topics: [
           { title: "Denoising Diffusion Probabilistic Models (DDPM)", level: "intermediate" },
+          { title: "Diffusion Forward/Reverse Processes & DDIM Sampling", level: "intermediate" },
           { title: "Score-Based Models & SDEs", level: "intermediate" },
           { title: "Latent Diffusion & Stable Diffusion", level: "advanced" },
           { title: "Classifier-Free Guidance (CFG)", level: "advanced" },
@@ -597,9 +622,39 @@ export const trackDefinitions = [
   },
   {
     id: "computational-neuroscience",
-    title: "Computational Neuroscience & Neuro-Inspired AI",
-    description: "Spiking neural networks, brain-computer interfaces, neuromorphic computing, and biologically-inspired learning",
+    title: "Computational Neuroscience, Neural Data & BCI",
+    description: "Neuroscience foundations, neural dynamics, data analysis, decoding, fMRI, electrophysiology, and brain-inspired AI",
     sections: [
+      {
+        name: "Neuroscience Foundations",
+        topics: [
+          { title: "Neurons, Synapses & Neural Signaling", level: "foundation" },
+          { title: "Plasticity, Sensory Systems & Motor Systems", level: "foundation" },
+          { title: "Internally Generated States & Neural Correlates of Behavior", level: "foundation" },
+        ],
+      },
+      {
+        name: "Neural Data Analysis & Decoding",
+        topics: [
+          { title: "Hodgkin-Huxley & Leaky Integrate-and-Fire Models", level: "intermediate" },
+          { title: "Brian2, Nengo & Neural Simulation Workflows", level: "intermediate" },
+          { title: "Spike Trains, Local Field Potentials & Neural Population Activity", level: "foundation" },
+          { title: "Dimensionality Reduction & Manifold Analysis for Neural Data", level: "intermediate" },
+          { title: "Neural Population Dynamics & Latent-State Models", level: "advanced" },
+          { title: "Movement, Speech & Sensory-State Decoding", level: "advanced" },
+          { title: "Multi-Dimensional Output Prediction & Closed-Loop Decoding", level: "advanced" },
+        ],
+      },
+      {
+        name: "Neuroimaging, Electrophysiology & BCI",
+        topics: [
+          { title: "Human fMRI: Experimental Design, Preprocessing & GLM", level: "intermediate" },
+          { title: "Functional Connectivity & Representational Similarity Analysis", level: "advanced" },
+          { title: "In-Vivo & Awake-Behaving Electrophysiology", level: "advanced" },
+          { title: "Non-Human Primate Electrophysiology", level: "advanced" },
+          { title: "Closed-Loop Brain-Computer Interfaces", level: "frontier" },
+        ],
+      },
       {
         name: "Neural Computation",
         topics: [
@@ -648,7 +703,7 @@ export const trackDefinitions = [
   },
   {
     id: "hardware-systems",
-    title: "Hardware, Systems & GPU Optimization",
+    title: "GPU, CUDA & Large-Scale ML Systems",
     description: "CPU/GPU architecture, CUDA programming, distributed training, profiling, and custom AI accelerators",
     sections: [
       {
@@ -935,7 +990,7 @@ export const trackDefinitions = [
   },
   {
     id: "agents-tool-use",
-    title: "Agents, Tool Use & Prompting",
+    title: "Agentic AI & Tool-Using Systems",
     description: "Prompt engineering, agentic systems, multi-agent architectures, structured output, and planning",
     sections: [
       {
@@ -953,6 +1008,8 @@ export const trackDefinitions = [
         topics: [
           { title: "Function Calling & Tool Use", level: "intermediate" },
           { title: "ReAct (Reasoning + Acting)", level: "intermediate" },
+          { title: "Plan-and-Execute Workflows & Task Decomposition", level: "intermediate" },
+          { title: "Reflection, Self-Critique & Recovery Loops", level: "intermediate" },
           { title: "Agentic Frameworks", level: "intermediate" },
           { title: "Agent Orchestration Patterns (Sequential, Parallel, Hierarchical, Handoff)", level: "intermediate" },
           { title: "Multi-Agent Systems & Agent Communication", level: "advanced" },
@@ -964,7 +1021,7 @@ export const trackDefinitions = [
           { title: "Agent Evaluation & Benchmarks (SWE-bench, WebArena, GAIA)", level: "advanced" },
           { title: "Agent Safety & Sandboxing (Permission Systems, Action Boundaries)", level: "advanced" },
           { title: "Agentic RAG & Deep Research (Multi-Step Retrieval)", level: "advanced" },
-          { title: "Planning & Reasoning in Agents", level: "frontier" },
+          { title: "Long-Horizon Agents, Planning & Reliable Execution", level: "frontier" },
           { title: "Agent-to-Agent Communication Protocols (A2A, MCP Extensions)", level: "frontier" },
         ],
       },
@@ -1722,4 +1779,248 @@ export const trackDefinitions = [
       },
     ],
   },
+  {
+    id: "programming-scientific-computing",
+    title: "Programming & Scientific Computing",
+    description: "Python, the scientific Python stack, reproducible research practice, and essential developer tools",
+    sections: [
+      {
+        name: "Python Foundations",
+        topics: [
+          { title: "Python Basics: Types, Control Flow, Functions & Modules", level: "foundation" },
+          { title: "Object-Oriented Programming in Python", level: "foundation" },
+          { title: "Iterators, Iterables & Generators", level: "intermediate" },
+          { title: "Decorators & Context Managers", level: "intermediate" },
+          { title: "Testing, Debugging & Dependency Management", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Scientific Python",
+        topics: [
+          { title: "NumPy: Arrays, Broadcasting & Vectorization", level: "foundation" },
+          { title: "Pandas: Data Wrangling, Joins & Grouping", level: "foundation" },
+          { title: "Matplotlib & Scientific Plotting", level: "foundation" },
+          { title: "Reproducible Notebooks & Experiment Structure", level: "intermediate" },
+          { title: "Code Documentation, Type Hints & API Design", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Developer Workflow",
+        topics: [
+          { title: "Git, GitHub & Collaborative Version Control", level: "foundation" },
+          { title: "Linux Basics, Filesystems & Processes", level: "foundation" },
+          { title: "Bash Scripting & Command-Line Automation", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "data-structures-algorithms",
+    title: "Data Structures & Algorithms",
+    description: "Core data structures, algorithmic patterns, complexity analysis, and problem-solving practice",
+    sections: [
+      {
+        name: "Core Data Structures",
+        topics: [
+          { title: "Arrays, Strings & Hash Maps", level: "foundation" },
+          { title: "Linked Lists, Stacks & Queues", level: "foundation" },
+          { title: "Trees & Binary Search Trees", level: "foundation" },
+          { title: "Heaps, Priority Queues & Tries", level: "intermediate" },
+          { title: "Graphs: Representations, BFS & DFS", level: "intermediate" },
+          { title: "Disjoint Sets & Union-Find", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Algorithmic Patterns",
+        topics: [
+          { title: "Complexity Analysis & Recursion", level: "foundation" },
+          { title: "Binary Search, Sorting & Two-Pointer Patterns", level: "foundation" },
+          { title: "Backtracking & Divide-and-Conquer", level: "intermediate" },
+          { title: "Greedy Algorithms & Exchange Arguments", level: "intermediate" },
+          { title: "Dynamic Programming: States, Transitions & Optimization", level: "intermediate" },
+          { title: "Segment Trees, Fenwick Trees & Range Queries", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "jax-ecosystem",
+    title: "JAX & Functional ML",
+    description: "JAX transformations, its ecosystem, and implementation-focused deep learning and RL projects",
+    sections: [
+      {
+        name: "JAX Fundamentals",
+        topics: [
+          { title: "JAX Arrays, Pure Functions & Functional State", level: "foundation" },
+          { title: "JIT Compilation with jit", level: "foundation" },
+          { title: "Automatic Differentiation with grad", level: "foundation" },
+          { title: "Vectorization with vmap", level: "intermediate" },
+          { title: "Parallelism with pmap, pjit & Sharding", level: "advanced" },
+        ],
+      },
+      {
+        name: "Ecosystem & Projects",
+        topics: [
+          { title: "Flax, Equinox & PyTree-Based Model Design", level: "intermediate" },
+          { title: "Optax Optimizers & Training Loops", level: "intermediate" },
+          { title: "Implement an MLP & CNN in JAX", level: "intermediate" },
+          { title: "Implement a Transformer in JAX", level: "advanced" },
+          { title: "Implement PPO in JAX", level: "advanced" },
+          { title: "Implement a Diffusion Model in JAX", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "robotics-embodied-ai",
+    title: "Robotics, Embodied AI & Simulation",
+    description: "Control, kinematics, simulation, embodied learning, and vision-language-action systems",
+    sections: [
+      {
+        name: "Robotics Math & Control",
+        topics: [
+          { title: "Coordinate Frames, Transformations & Robot State", level: "foundation" },
+          { title: "Forward & Inverse Kinematics", level: "foundation" },
+          { title: "Robot Dynamics & State-Space Models", level: "intermediate" },
+          { title: "PID Control, Kalman Filters & State Estimation", level: "intermediate" },
+          { title: "Model Predictive Control, CEM & Latent Planning", level: "advanced" },
+        ],
+      },
+      {
+        name: "Simulation & Embodied Learning",
+        topics: [
+          { title: "Gymnasium API & Reinforcement Learning Environments", level: "foundation" },
+          { title: "MuJoCo, Isaac Sim & Isaac Lab", level: "intermediate" },
+          { title: "Navigation, Manipulation & Locomotion", level: "intermediate" },
+          { title: "Sim-to-Real Transfer & Domain Randomization", level: "advanced" },
+          { title: "Vision-Language-Action Models & Robot Foundation Models", level: "frontier" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "drosophila-fly-embodiment",
+    title: "Drosophila & Fly Embodiment",
+    description: "Biomechanically grounded fly simulation, closed-loop behaviour, reproducible experiments, and scientific communication",
+    sections: [
+      {
+        name: "Fly Simulation Foundations",
+        topics: [
+          { title: "Drosophila Biology, Nervous System & Biomechanics", level: "foundation" },
+          { title: "NeuroMechFly, FlyGym & Flybody", level: "intermediate" },
+          { title: "MuJoCo & Gymnasium-Based Fly Environments", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Virtual Behaviour & Biological Plausibility",
+        topics: [
+          { title: "Virtual Terrains, Tasks & Compelling Demonstrations", level: "intermediate" },
+          { title: "Walking, Turning, Escape & Sensory-Guided Behaviour", level: "intermediate" },
+          { title: "Motor Control, Sensory Feedback & Closed-Loop Behaviour", level: "advanced" },
+          { title: "Biomechanical Constraints & Comparing Simulated with Real Behaviour", level: "advanced" },
+        ],
+      },
+      {
+        name: "Reproducible Science & Extensions",
+        topics: [
+          { title: "Experiment Logging, Configuration & Reproducible Workflows", level: "foundation" },
+          { title: "Scientific Visualization, Video Rendering & Behavioural Trajectories", level: "intermediate" },
+          { title: "From Fly Embodiment to Virtual Mouse Systems", level: "frontier" },
+        ],
+      },
+    ],
+  },
 ];
+
+// Reuse stable topics across paths; keep foundational additions ahead of the
+// historical catalogue. Module topic order is the reader's sequence.
+const expansionSections = {
+  ...(crossExpansion.crossDomainSections || {}),
+  "hardware-systems": gpuExpansion.gpuSections || [],
+  "computational-neuroscience": neuralExpansion.neuralSections || [],
+};
+const existingBlueprints = {
+  ...(gpuExpansion.gpuExistingBlueprints || {}),
+  ...(neuralExpansion.neuralExistingBlueprints || {}),
+};
+const prerequisiteOverrides = {
+  ...(crossExpansion.crossDomainPrerequisites || {}),
+  ...(gpuExpansion.gpuPrerequisites || {}),
+  ...(neuralExpansion.neuralPrerequisites || {}),
+  'Linked Lists, Stacks & Queues': ['Arrays, Strings & Hash Maps', 'Object-Oriented Programming in Python'],
+};
+const maintainedTrackDefinitions = baseTrackDefinitions.map((track) => {
+  const additions = expansionSections[track.id] || [];
+  const foundations = additions.filter((section) => section.topics.every((topic) => topic.level === "foundation"));
+  const branches = additions.filter((section) => !foundations.includes(section));
+  let sections = [...foundations, ...track.sections, ...branches];
+  if (track.id === "programming-scientific-computing") {
+    const interfaces = additions.find(section => section.name === "Data Interfaces & Persistent Data");
+    // Data I/O uses NumPy; these additions belong inside the scientific workflow,
+    // after arrays and before Pandas, rather than before Python itself.
+    sections = [...track.sections.map(section => section.name === "Scientific Python" ? {
+      ...section, name: "Scientific Python & Data Workflows",
+      topics: [section.topics[0], ...interfaces.topics, ...section.topics.slice(1)],
+    } : section), ...branches];
+  }
+  return {
+    ...track,
+    ...(track.id === "hardware-systems" ? { title: "GPU Engineering, CUDA & Large-Scale Systems", description: "Architecture, C/C++, correct kernels, profiling, compilers, distributed systems, portability and GPU engineering practice" } : {}),
+    ...(track.id === "computational-neuroscience" ? { title: "Neural Engineering & Computational Neuroscience", description: "Biological foundations, neural signals, instrumentation, BCI, stimulation, neuroprosthetics, computational models and clinical translation" } : {}),
+    sections: sections.map((section) => ({
+      ...section,
+      topics: section.topics.map((value) => {
+        const topic = typeof value === "string" ? { title: value, level: "foundation" } : value;
+        // An authored lesson design takes precedence over its initial plan.
+        const blueprint = authoredBlueprints[topic.title] || topic.blueprint || existingBlueprints[topic.title];
+        const prerequisites = prerequisiteOverrides[topic.title];
+        return { ...topic, ...(blueprint ? { blueprint } : {}), ...(prerequisites ? { prerequisites } : {}) };
+      }),
+    })),
+  };
+});
+
+const sharedTopicsByTitle = new Map(maintainedTrackDefinitions.flatMap(track =>
+  track.sections.flatMap(section => section.topics.map(topic => [topic.title, topic]))
+));
+
+const resolvedTrackDefinitions = [
+  ...maintainedTrackDefinitions.map(track => track.id === "quantitative-finance" ? {
+    ...track,
+    title: "Quantitative Trading, Financial Markets & Investment Engineering",
+    description: "Institutional markets, research, portfolio risk, derivatives, execution, HFT engineering, hedge fund operations and professional trading practice",
+    sections: buildQuantitativeTradingSections(track.sections),
+  } : track.id === "quantum-ai" ? {
+    ...track,
+    title: "Quantum Computing, Information & Engineering",
+    description: "Quantum states, algorithms, software, physical hardware, control, error correction, cryptography, networks, sensing and evidence-based applications",
+    sections: buildQuantumComputingSections(track.sections),
+  } : track),
+  {
+    ...systemDesignDefinition,
+    sections: systemDesignDefinition.sections.map(section => ({
+      ...section,
+      topics: section.topics.map(topic => {
+        if (!topic.sharedTitle) return topic;
+        const shared = sharedTopicsByTitle.get(topic.sharedTitle);
+        if (!shared) throw new Error(`Unknown shared system design topic: ${topic.sharedTitle}`);
+        return shared;
+      }),
+    })),
+  },
+];
+
+// Apply authored plans after all catalogue expansions. A future implemented
+// lesson must replace its starting brief even when its module was added later.
+const namedCoverage = { ...systemDesignCoverage, ...quantitativeTradingCoverage };
+export const trackDefinitions = resolvedTrackDefinitions.map(track => ({
+  ...track,
+  sections: track.sections.map(section => ({
+    ...section,
+    topics: section.topics.map(topic => ({
+      ...topic,
+      ...(authoredBlueprints[topic.title] ? { blueprint: authoredBlueprints[topic.title] } : {}),
+      ...(namedCoverage[topic.title] ? { subtopics: namedCoverage[topic.title] } : {}),
+    })),
+  })),
+}));

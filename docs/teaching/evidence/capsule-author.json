@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "groups": [
+    "Complete11section source and lab JSX parse;17 closed manuscript disclosures and full implementation/reference flow retained",
+    "All256 grouping coordinates and both batches preserve channel, location, type and coordinate identity",
+    "Allrouting trace fields match independent NumPy fixtures; zero, symmetry, permutation, rotation and temperature boundaries preserve the intended contract",
+    "Actual finite perturbations match independent formula evaluations; radial/tangent derivatives and zero behavior agree with native probes",
+    "Every EM sufficient statistic and responsibility matches native; inactive and absent evidence have honest distinct outcomes",
+    "Exact binary weights and all14 changed-image encodes/decodes match nativefloat64; latent mask null and corruption contracts pass",
+    "Every compact figure value retains its immutable run identity and same-count/different-prediction contrast"
+  ],
+  "largestNativeDoubleError": 3.3306690738754696e-16,
+  "boundedInference": {
+    "runtime": "v22.18.0",
+    "warmedRuns": 40,
+    "medianMs": 3.4242000000000417,
+    "p95Ms": 6.133600000000001,
+    "limit": "Node timing only; final browser latency measured separately. No training occurs in the reader."
+  },
+  "sources": {
+    "src/learn/data/topics/capsule-networks.jsx": "3851e28799ffa6558af92fbd210fa28533a34d6d116e8e19776db62cbe77581d",
+    "src/learn/data/capsule-models.js": "f7b487a168aa79419826a09dbc30def7c63d9fd93b0a272f048fed1f59b49d70",
+    "src/learn/data/capsule-measurements.json": "8efdf10928daa851fbccada070a362f4fd31aae9bba50f1fae85327752ba42f7",
+    "src/learn/components/lesson-labs/CapsuleLabs.jsx": "226fa654912fe5f2b3a8f5a99d5dcdd7fb0d14a2fef11e4bc193708125bbfc58",
+    "src/learn/components/lesson-labs/capsules.css": "f5cc6c9888a369263d009d43413d189f991d4058a7b501fe8d862f8611937a59",
+    "scripts/generate-capsule-lesson.mjs": "5be5a67dbd11f8a31ba3095341c07c697365a6d57088a103234de972a6edef8e",
+    "public/learn-assets/capsule-networks/frozen-model.f32": "6ddc09bb463b9ba876692ad070a61b319b5e5dbdf57c824af8bad3355ed78b59",
+    "public/learn-assets/capsule-networks/frozen-model.json": "10b8aab33ab57f289fc15aa20b4124eb5f5ed9a48dbdc068ea14d532d762074a"
+  },
+  "limits": "Author source/model checks; independent review, production browser/perceptual checks remain separate.",
+  "lastScopedReview": "Visible editable-grid horizontal-scroll/row-column hint only; reconstructing source before insertion matches the previously passed author hash. JSX parsed; no numerical/native code changed."
+}

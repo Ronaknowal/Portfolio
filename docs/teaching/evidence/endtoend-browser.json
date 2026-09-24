@@ -1,0 +1,385 @@
+{
+  "startedAt": "2026-09-21T00:11:52.574Z",
+  "finishedAt": "2026-09-21T00:12:15.739Z",
+  "status": "passed",
+  "route": "http://127.0.0.1:4197/learn/path/full-curriculum/end-to-end-supervised-learning-error-analysis?module=classical-ml",
+  "distDir": "dist-e2e",
+  "buildManifestSha256": "6eb58a5eb3d6f708855f52de7cfc2d7459749af460ef25d1cce3ed754547d01e",
+  "sourceHashes": {
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "016b5710687c6844b382dbe7230fbc0ad47b5ff8f853b5df645ef7616d48bea5",
+    "src/learn/data/endtoend-models.js": "fbf1d7bf371380dc2630d84f226d1a7f23f539cd5c596bd82978be10d95863ad",
+    "src/learn/data/endtoend-data.js": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+    "src/learn/data/endtoend-examples.js": "f17d70ef6a313ff0d6922fa06c224cace3681170d7b69652103813d73e5c1952",
+    "src/learn/components/lesson-labs/EndToEndShared.jsx": "95e87750838ebcfcb3ecebf189e91db961702fdaac5140afc2b34182f3f20aac",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "d64cdda9661a3d8336520ac146520cecfdcb7bac9306c842b82335b9bd1a7063",
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx": "329c6b155b42938d9590e9980e219bd8f5ad71be4bccdd21cc57dfae17d58cde",
+    "src/learn/components/lesson-labs/endtoend-labs.css": "d9eb9abd61c9fd59433d6a9ac6f01a52952d599693fa30d4b5f201bbb523a8f3",
+    "src/learn/data/curriculum/blueprints/end-to-end-supervised-learning-error-analysis.js": "b94116e2cd1b099d93a942cfd8c778cf67295797c759366f1bc12b8e74ce3da6",
+    "public/learn-assets/end-to-end/wine.csv": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+    "public/learn-assets/end-to-end/wine_study.py": "e0dcd56d83d241228d0c92f5308a102fb11ba90fbc8adfec9c4bd201714beecc",
+    "public/learn-assets/end-to-end/ATTRIBUTION.txt": "03704a5fab646d98eac72b95e44b39103367565d3b7a9495104a2733f574941e"
+  },
+  "verifierSha256": "d58645ca233cbe4b99fc4ab838495ae2b8b5c17b8710ee3838cd8f497a796111",
+  "records": [
+    {
+      "case": "The lesson renders at position 39 with every section and a working route list",
+      "sections": 9,
+      "anchors": 9
+    },
+    {
+      "case": "Every printed score carries one of the four roles, visibly as well as in an attribute, and every number that does not is a declared exemption with a stated reason",
+      "scores": 37,
+      "rolesBeforeGate": [
+        "validation",
+        "training"
+      ],
+      "declaredFixtures": 2,
+      "declaredExemptions": 3,
+      "declaredProgramOutputs": 1
+    },
+    {
+      "case": "No held-out quantity is in the document before the decision is frozen",
+      "pinnedQuantities": [
+        "0.972222",
+        "0.966667",
+        "0.128708",
+        "0.858",
+        "0.995"
+      ],
+      "sealedRegions": 3
+    },
+    {
+      "case": "Every SVG KaTeX renders keeps a nonzero width AND height on the real page",
+      "katexSvgs": 3,
+      "measurements": [
+        {
+          "width": 203.625,
+          "height": 24.766,
+          "declaredWidth": "400em",
+          "declaredHeight": "1.28em",
+          "computedHeight": "24.7656px",
+          "inside": "display"
+        },
+        {
+          "width": 18.078,
+          "height": 74.375,
+          "declaredWidth": "0.875em",
+          "declaredHeight": "3.6em",
+          "computedHeight": "74.375px",
+          "inside": "display"
+        },
+        {
+          "width": 18.078,
+          "height": 74.375,
+          "declaredWidth": "0.875em",
+          "declaredHeight": "3.6em",
+          "computedHeight": "74.375px",
+          "inside": "display"
+        }
+      ]
+    },
+    {
+      "case": "No label leaves its SVG, no shape runs through a label, nothing is painted invisibly",
+      "shapesSampled": 92
+    },
+    {
+      "case": "The slice explorer withholds its graded count until a prediction is committed, then names the specimens that moved",
+      "gradedCount": 3,
+      "slice": 17
+    },
+    {
+      "case": "The held-out report is absent before both commitments and complete after them",
+      "reportScores": 4,
+      "reportRoles": [
+        "held-out",
+        "validation"
+      ],
+      "scoresAfter": 52,
+      "rolesAfter": [
+        "validation",
+        "training",
+        "selection",
+        "held-out"
+      ]
+    },
+    {
+      "case": "A selection the study never evaluated on the test rows is refused a held-out number rather than given one"
+    },
+    {
+      "case": "The acceptance queue withholds the proposed ledger until a prediction is committed",
+      "baselineCost": 14,
+      "proposedCost": 12
+    },
+    {
+      "case": "Every graded numeric question grades the quantity it names, checked against the number the page itself displays for that quantity, with a neighbouring value rejected",
+      "questions": [
+        {
+          "quantityKey": "slice-candidate-errors",
+          "displayed": 3
+        },
+        {
+          "quantityKey": "acceptance-proposed-cost",
+          "displayed": 12
+        }
+      ]
+    },
+    {
+      "case": "No horizontal overflow, no overflowing display math and no collapsed KaTeX SVG at 390px",
+      "width": 390,
+      "displayBlocks": 4,
+      "katexMeasurements": [
+        {
+          "width": 203.625,
+          "height": 24.766,
+          "declaredWidth": "400em",
+          "declaredHeight": "1.28em",
+          "computedHeight": "24.7656px",
+          "inside": "display"
+        },
+        {
+          "width": 16.938,
+          "height": 69.688,
+          "declaredWidth": "0.875em",
+          "declaredHeight": "3.6em",
+          "computedHeight": "69.6875px",
+          "inside": "display"
+        },
+        {
+          "width": 16.938,
+          "height": 69.688,
+          "declaredWidth": "0.875em",
+          "declaredHeight": "3.6em",
+          "computedHeight": "69.6875px",
+          "inside": "display"
+        }
+      ]
+    },
+    {
+      "case": "No horizontal overflow, no overflowing display math and no collapsed KaTeX SVG at 320px",
+      "width": 320,
+      "displayBlocks": 4,
+      "katexMeasurements": [
+        {
+          "width": 203.625,
+          "height": 24.766,
+          "declaredWidth": "400em",
+          "declaredHeight": "1.28em",
+          "computedHeight": "24.7656px",
+          "inside": "display"
+        },
+        {
+          "width": 16.938,
+          "height": 69.688,
+          "declaredWidth": "0.875em",
+          "declaredHeight": "3.6em",
+          "computedHeight": "69.6875px",
+          "inside": "display"
+        },
+        {
+          "width": 16.938,
+          "height": 69.688,
+          "declaredWidth": "0.875em",
+          "declaredHeight": "3.6em",
+          "computedHeight": "69.6875px",
+          "inside": "display"
+        }
+      ]
+    },
+    {
+      "case": "No table clips a column at desktop, and every caption sits outside its scroll box as a sibling paragraph rather than inside the table",
+      "tables": 13,
+      "siblingCaptions": 13
+    },
+    {
+      "case": "Fresh route requests only this lesson and its shared closure, and never another lesson's Wine table",
+      "requestedScripts": 8,
+      "rawScriptBytes": 1710989,
+      "gzipEstimateBytes": 369258
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-page-desktop-before-gate.png",
+      "digest": "7e0a6bdb0c83d37a68d445680f2da3941cb5daa183d7c09672c43a687084b64f",
+      "bytes": 209217,
+      "name": "page-desktop-before-gate"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-1-desktop.png",
+      "digest": "1fbec8ed867b2fcd7d1176526e910fc7da500853aab6c107a4bda84cc8456871",
+      "bytes": 19110,
+      "name": "figure-1-desktop"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-2-desktop.png",
+      "digest": "32b5b369866ee5ac2e215917bb95b102b49150b50845f48156cfc5a64321272b",
+      "bytes": 13769,
+      "name": "figure-2-desktop"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-3-desktop.png",
+      "digest": "2169c644866e075f2a1dddc1be0cab765c22dc390fa63ee4a8e26d0eb6d1a092",
+      "bytes": 9137,
+      "name": "figure-3-desktop"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-4-desktop.png",
+      "digest": "6049423e536d2cb37e9904bcb9b25a6605e503fc4b92a7131b40eb69e79bb5dd",
+      "bytes": 13300,
+      "name": "figure-4-desktop"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-5-desktop.png",
+      "digest": "7a9c54363d928dc1ee5b94ca2bf83929a70936b94b85e9dd73a8054742f47c52",
+      "bytes": 21670,
+      "name": "figure-5-desktop"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-6-desktop.png",
+      "digest": "e5354dc98098ef9d201743fe84cd8f6712800099b61b5b17e647cce59980765b",
+      "bytes": 6513,
+      "name": "figure-6-desktop"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-7-desktop.png",
+      "digest": "2577cf896eb7c2c9a66e17e597fd8076b7ba924a5d885c58143ecf980564883c",
+      "bytes": 13562,
+      "name": "figure-7-desktop"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-b-before.png",
+      "digest": "52b87853c6d43dc99d3f6e5a748be2d333a993eb6d68b7466c9c2012cae49c5d",
+      "bytes": 206641,
+      "name": "investigation-b-before"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-b-after.png",
+      "digest": "6e0ed1b61992baf7eeb5a5bb7a4b9449c4ef36a3b15da34975181de9b85e735d",
+      "bytes": 267480,
+      "name": "investigation-b-after"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-d-before.png",
+      "digest": "759e191a67ee1486dc276910786c6b3c746a3711fb58a7e2b5e49c4da4f3c213",
+      "bytes": 171942,
+      "name": "investigation-d-before"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-d-selection-made.png",
+      "digest": "2ea4a0f68834c404395a6198cb7f8154f85546e9858718e3533b369748696219",
+      "bytes": 267868,
+      "name": "investigation-d-selection-made"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-d-report-open.png",
+      "digest": "076a77efce3654432a0f64ca7f1dfc46bc3a52da7cce1578d5d944debb9621b1",
+      "bytes": 276219,
+      "name": "investigation-d-report-open"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-held-out-report.png",
+      "digest": "7c99150007f8cf819536b55d4d42a4f97843c2c40e1f60e00495e80e4ce1c20e",
+      "bytes": 68614,
+      "name": "held-out-report"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-d-refused.png",
+      "digest": "705d42c53214bb982b24cea244a8ced24b1feb720ffa5386d1831c55905be125",
+      "bytes": 223970,
+      "name": "investigation-d-refused"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-c-before.png",
+      "digest": "5929556dc9b511669f74163b1ff001d43ebd63492090d6b152909065936f2c40",
+      "bytes": 205241,
+      "name": "investigation-c-before"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-c-after.png",
+      "digest": "456835cfdafd88320eb5afe06ec3165dde13d23ff2fa447ba73af022dadb33ef",
+      "bytes": 263696,
+      "name": "investigation-c-after"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-b-graded-with-number.png",
+      "digest": "c9908ad00b8104f2206db2c7a0eafa76b2102456ee9e4762cf82c9e78179817f",
+      "bytes": 271211,
+      "name": "investigation-b-graded-with-number"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-investigation-c-graded-with-number.png",
+      "digest": "527a7a6b27f1a6562fc7119ea9d31d5ae0109c210a96049d92235eac8dd37056",
+      "bytes": 268104,
+      "name": "investigation-c-graded-with-number"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-page-390.png",
+      "digest": "88b10fe38d7f6317f6de5400e7c0133c2c44b83139f3500eae07579a1d41b6e9",
+      "bytes": 79610,
+      "name": "page-390"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-1-390.png",
+      "digest": "5e428642b40e23a9f69a2ff31784ce40bc42b1504d44e6869808d03fc7ec9771",
+      "bytes": 17857,
+      "name": "figure-1-390"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-2-390.png",
+      "digest": "a0ae2eb8fd091ccfe4c288eaf5ee45cf32e052557783fcfbac79d34eb9a5a0d6",
+      "bytes": 13092,
+      "name": "figure-2-390"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-3-390.png",
+      "digest": "afe19f94b9cb6037236766126ed32f1d052d8cbfc4c5b3b76bddca9785fa3a1c",
+      "bytes": 9217,
+      "name": "figure-3-390"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-4-390.png",
+      "digest": "a7d9e62cd05ef73780d739bd94741ce9e215a2758f75908f60039eb476a44d04",
+      "bytes": 12303,
+      "name": "figure-4-390"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-page-320.png",
+      "digest": "712fbc44e8ad1b12d33af8035df8c3c11c715d68cade58712e96ce14e81f58ce",
+      "bytes": 66326,
+      "name": "page-320"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-1-320.png",
+      "digest": "62b4f6060820da17db1195f15bec8e30631270bf117dcb56ba1cf2644c9fd81d",
+      "bytes": 15514,
+      "name": "figure-1-320"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-2-320.png",
+      "digest": "61e7f433a45e3e8e02c514f6437c100717390aabee1e141dc157a5dff9eded4e",
+      "bytes": 13852,
+      "name": "figure-2-320"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-3-320.png",
+      "digest": "6b1ef5c5b7119358f432d8f147a988ca6302e949e39ff6a461cd408670e5a4ba",
+      "bytes": 8776,
+      "name": "figure-3-320"
+    },
+    {
+      "file": "docs/teaching/evidence/screenshots/endtoend-figure-4-320.png",
+      "digest": "1995ad6a049d1033edcc74e6e183affc109eda69521c2707c78976a43acfc1eb",
+      "bytes": 11527,
+      "name": "figure-4-320"
+    }
+  ],
+  "screenshotCount": 29,
+  "visualInterpretation": "Screenshots capture informative states, not defaults only: the page before the held-out gate opens, each investigation before any commitment and after one, the selection made, the report open, a refused selection, and every inline figure at desktop plus a selection at 390 and 320 px. They require separate visual inspection; a recorded digest proves identity, not legibility.",
+  "limitations": [
+    "A passing run is not a reading of the page. The captures above must be opened and looked at.",
+    "The painted-against-declared check catches a stylesheet overriding an attribute, a shape painting black with no stroke, and a shape painting the page ground. It does NOT catch a shape that is painted correctly and then COVERED by a later sibling; the figure-by-figure visual pass covers that.",
+    "The held-out property is asserted on rendered text. It establishes that the quantities are not in the document; it does not establish that the JavaScript bundle lacks them, which it does not and cannot, since the page computes the report once the gate opens.",
+    "Model correctness is checked by scripts/verify-endtoend-models.mjs, data regeneration by scripts/verify-endtoend-data.py and program execution by scripts/verify-endtoend-examples.py.",
+    "Screen-reader behaviour is not simulated here; roles, labels and descriptions are asserted structurally."
+  ]
+}

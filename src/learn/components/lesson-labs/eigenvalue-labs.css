@@ -1,0 +1,215 @@
+.eigen-lab,.eigen-inline {
+  margin: 2rem 0;
+  padding: 1.5rem 0;
+  border-block: 1px solid #eabf6140;
+  color: var(--text-primary,#eeeadd);
+}
+.eigen-lab h3 {
+  font-size: 1.4rem;
+  margin: .4rem 0 1rem;
+}
+.eigen-lab p,.eigen-inline p {
+  line-height: 1.65;
+}
+.eigen-eyebrow {
+  font-size: .75rem;
+  letter-spacing: .06em;
+  color: #eabf61;
+}
+.eigen-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  margin: 1.4rem 0;
+}
+.eigen-controls label {
+  display: flex;
+  flex: 1 1 200px;
+  flex-direction: column;
+  gap: .65rem;
+  min-width: 0;
+}
+.eigen-controls button,.eigen-controls select {
+  min-height: 44px;
+  border: 1px solid #eabf6166;
+  border-radius: 3px;
+  padding: .65rem;
+  background: #eabf6114;
+  color: inherit;
+  font: inherit;
+  max-width: 100%;
+}
+.eigen-controls select {
+  width: 100%;
+}
+.eigen-controls option {
+  background: #171810;
+  color: #eeeadd;
+}
+.eigen-controls button {
+  cursor: pointer;
+}
+.eigen-controls button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+.eigen-range input {
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  accent-color: #eabf61;
+}
+.eigen-lab :is(button,input,select,summary):focus-visible {
+  outline: 2px solid #eabf61;
+  outline-offset: 4px;
+}
+.eigen-columns {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  align-items: start;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+.eigen-plane,.eigen-history {
+  width: 100%;
+  max-width: 370px;
+  display: block;
+  background: #0e1515;
+  color: #e6e2d1;
+}
+.eigen-plane text,.eigen-history text {
+  font-family: monospace;
+  font-size: 11px;
+  fill: currentColor;
+}
+.eigen-axis {
+  stroke: #b9b6aa;
+  stroke-width: 1;
+}
+.eigen-grid {
+  stroke: #b9b6aa24;
+  stroke-width: 1;
+}
+.eigen-reference-line {
+  stroke: #b9b6aa;
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.eigen-matrix {
+  justify-self: start;
+  width: max-content;
+  border-inline: 1px solid #b9b6aa;
+  margin: .5rem 0;
+  border-collapse: collapse;
+  max-width: 100%;
+}
+.eigen-matrix caption {
+  white-space: nowrap;
+  text-align: left;
+  padding: .35rem;
+  font-weight: 600;
+}
+.eigen-matrix td {
+  padding: .6rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.eigen-readings {
+  margin: 1rem 0;
+}
+.eigen-readings dt {
+  margin-top: .8rem;
+  font-size: .85rem;
+  color: #b9b6aa;
+}
+.eigen-readings dd {
+  margin: .2rem 0;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.eigen-feedback {
+  border-left: 3px solid #adca9b;
+  background: #adca9b14;
+  padding: .8rem 1rem;
+  line-height: 1.6;
+}
+.eigen-lab details {
+  margin: 1rem 0;
+}
+.eigen-lab summary {
+  cursor: pointer;
+  min-height: 44px;
+  line-height: 1.5;
+  padding: .6rem 0;
+}
+.eigen-caption {
+  font-size: .8rem;
+  color: #b9b6aa;
+}
+.eigen-data {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: .9rem;
+}
+.eigen-data caption {
+  text-align: left;
+  padding: .5rem 0;
+}
+.eigen-data :is(td,th) {
+  text-align: left;
+  padding: .6rem .3rem;
+  border-bottom: 1px solid #b9b6aa30;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.eigen-inline figcaption {
+  font-weight: 600;
+}
+.eigen-flow {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 1.2rem;
+  padding-left: 1.3rem;
+}
+.eigen-flow li {
+  padding: .5rem;
+  border-bottom: 1px solid #eabf6140;
+}
+.eigen-flow span {
+  display: block;
+  line-height: 1.6;
+  margin-top: .5rem;
+  overflow-wrap: anywhere;
+}
+.eigen-mixing {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+.eigen-mixing>div {
+  border-left: 2px solid #adca9b;
+  padding-left: 1rem;
+}
+@media(max-width:620px) {
+  .eigen-columns {
+    grid-template-columns: 1fr;
+  }
+  .eigen-flow {
+    grid-template-columns: 1fr;
+  }
+  .eigen-mixing {
+    grid-template-columns: 1fr;
+  }
+  .eigen-lab h3 {
+    font-size: 1.25rem;
+  }
+  .eigen-data {
+    font-size: .8rem;
+  }
+  .eigen-controls {
+    gap: .8rem;
+  }
+}
