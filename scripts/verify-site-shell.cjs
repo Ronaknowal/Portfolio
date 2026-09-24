@@ -143,7 +143,7 @@ async function capture(page, name, fullPage = false) {
         await page.locator('.reader-article').last().waitFor();
         assert.ok((await page.title()).includes('Perceptrons'));
       } else await page.locator('#projects').waitFor();
-      await page.getByRole('link', { name: 'ronak.ai — Home', exact: true }).click();
+      await page.getByRole('link', { name: 'ronak.sh — Home', exact: true }).click();
       await page.locator('.home-destinations').waitFor();
       assert.equal(await page.evaluate(() => scrollY), 0);
     }

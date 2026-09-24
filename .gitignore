@@ -16,6 +16,7 @@ node_modules/
 /dist/
 /dist-*/
 /.vite/
+/.wrangler/
 /apps/*/dist/
 /apps/*/.vite/
 /apps/*/.next/

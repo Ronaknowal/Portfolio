@@ -1,8 +1,9 @@
 # Repository structure and extension contract
 
-Updated 23 September 2026. The repository is a personal publishing and learning
+Updated 25 September 2026. The repository is a personal publishing and learning
 site, with room for independently deployed applications. The npm package is
-`ronak-site`; the existing checkout directory and deployment domain are unchanged.
+`ronak-site`; the checkout directory is unchanged. The intended custom domain is
+`ronak.sh`; [DEPLOYMENT.md](DEPLOYMENT.md) owns its domain and HTTPS setup.
 
 ## Boundaries
 
@@ -97,12 +98,19 @@ change does not create empty packages, backend stubs, hosting accounts or deploy
 
 ## Hosting
 
-The existing host is GitHub Pages with root-relative URLs and the unchanged
-`public/CNAME`. `writeSiteEntries` emits entry files for published site sections,
-Learn discovery pages and every published article, with escaped page metadata.
-It also emits `.nojekyll` and `404.html`. Direct article URLs resolve to real files.
-The fallback renders existing nested Learn links but Pages still returns HTTP 404
-for fallback-only URLs. It is recovery, not a universal HTTP rewrite or SSR.
+The deployment target is Cloudflare Workers Static Assets with root-relative URLs.
+`.github/workflows/deploy-cloudflare.yml` builds and validates `dist/`, then deploys
+it using `wrangler.jsonc`. The initial configuration enables `workers.dev`; attaching
+`ronak.sh` is a separate migration step after the build and DNS are verified.
+`assets.not_found_handling` is explicitly `single-page-application`, so unmatched
+page URLs receive the root HTML with HTTP 200 before React resolves the route.
+
+`writeSiteEntries` still emits entry files for published site sections, Learn
+discovery pages and every published article, with escaped page metadata. Existing
+files take precedence over the SPA fallback. `.nojekyll`, `404.html` and
+`public/CNAME` are retained for the existing GitHub Pages deployment during migration;
+they do not configure a Cloudflare custom domain. Pages settings control its domain,
+and Pages fallback-only URLs still return HTTP 404 before client-side recovery.
 
 For indexing/social previews requiring fully rendered article bodies, introduce
 tested static prerendering or an SSR-capable host; do not claim that this client

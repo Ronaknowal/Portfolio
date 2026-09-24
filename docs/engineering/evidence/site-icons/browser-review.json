@@ -1,0 +1,160 @@
+{
+  "checkedAt": "2026-09-24T15:54:21.356Z",
+  "routes": [
+    {
+      "route": "/",
+      "links": [
+        {
+          "rel": "icon",
+          "href": "/favicon.ico",
+          "sizes": "16x16 32x32 48x48"
+        },
+        {
+          "rel": "icon",
+          "href": "/favicon.svg?v=ronak-sh",
+          "sizes": "any"
+        },
+        {
+          "rel": "apple-touch-icon",
+          "href": "/apple-touch-icon.png",
+          "sizes": "180x180"
+        }
+      ]
+    },
+    {
+      "route": "/portfolio",
+      "links": [
+        {
+          "rel": "icon",
+          "href": "/favicon.ico",
+          "sizes": "16x16 32x32 48x48"
+        },
+        {
+          "rel": "icon",
+          "href": "/favicon.svg?v=ronak-sh",
+          "sizes": "any"
+        },
+        {
+          "rel": "apple-touch-icon",
+          "href": "/apple-touch-icon.png",
+          "sizes": "180x180"
+        }
+      ]
+    },
+    {
+      "route": "/learn",
+      "links": [
+        {
+          "rel": "icon",
+          "href": "/favicon.ico",
+          "sizes": "16x16 32x32 48x48"
+        },
+        {
+          "rel": "icon",
+          "href": "/favicon.svg?v=ronak-sh",
+          "sizes": "any"
+        },
+        {
+          "rel": "apple-touch-icon",
+          "href": "/apple-touch-icon.png",
+          "sizes": "180x180"
+        }
+      ]
+    },
+    {
+      "route": "/learn/paths",
+      "links": [
+        {
+          "rel": "icon",
+          "href": "/favicon.ico",
+          "sizes": "16x16 32x32 48x48"
+        },
+        {
+          "rel": "icon",
+          "href": "/favicon.svg?v=ronak-sh",
+          "sizes": "any"
+        },
+        {
+          "rel": "apple-touch-icon",
+          "href": "/apple-touch-icon.png",
+          "sizes": "180x180"
+        }
+      ]
+    },
+    {
+      "route": "/articles",
+      "links": [
+        {
+          "rel": "icon",
+          "href": "/favicon.ico",
+          "sizes": "16x16 32x32 48x48"
+        },
+        {
+          "rel": "icon",
+          "href": "/favicon.svg?v=ronak-sh",
+          "sizes": "any"
+        },
+        {
+          "rel": "apple-touch-icon",
+          "href": "/apple-touch-icon.png",
+          "sizes": "180x180"
+        }
+      ]
+    },
+    {
+      "route": "/does-not-exist",
+      "links": [
+        {
+          "rel": "icon",
+          "href": "/favicon.ico",
+          "sizes": "16x16 32x32 48x48"
+        },
+        {
+          "rel": "icon",
+          "href": "/favicon.svg?v=ronak-sh",
+          "sizes": "any"
+        },
+        {
+          "rel": "apple-touch-icon",
+          "href": "/apple-touch-icon.png",
+          "sizes": "180x180"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "asset": "/favicon.svg?v=ronak-sh",
+      "status": 200,
+      "contentType": "image/svg+xml",
+      "width": 150,
+      "height": 150
+    },
+    {
+      "asset": "/favicon.ico",
+      "status": 200,
+      "contentType": "image/x-icon",
+      "width": 48,
+      "height": 48
+    },
+    {
+      "asset": "/apple-touch-icon.png",
+      "status": 200,
+      "contentType": "image/png",
+      "width": 180,
+      "height": 180
+    }
+  ],
+  "icoSizes": [
+    16,
+    32,
+    48
+  ],
+  "passed": true,
+  "sourceHashes": {
+    "index.html": "e3f5a9f4fdbc56abef76c61e05c2c4613a4d93e5b1390a83bea54de48e200788",
+    "public/favicon.svg": "426348770b3e980dd4ce81bfa7ae26ad1cc8ef8b3a88bb01813eebb103f6e6d6",
+    "public/favicon.ico": "99c7a9fbec5f1dfa89753fbbdbe9be33ce6c66b7104a3be6b67fc76caed29aff",
+    "public/apple-touch-icon.png": "cb12ce9726363ff56a3b8991ff003ad541ca6e19ea0cf010cb8391cd979faa8c"
+  }
+}

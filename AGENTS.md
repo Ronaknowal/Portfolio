@@ -1,6 +1,6 @@
 # Working in this repository
 
-This is the ronak.ai personal site, with Home, Portfolio, Learn and Articles.
+This is the ronak.sh personal site, with Home, Portfolio, Learn and Articles.
 Read [README.md](README.md) for commands and [the repository contract](docs/engineering/REPOSITORY-STRUCTURE.md) for ownership, imports, publishing and deployment.
 
 ## Choose the task's instructions

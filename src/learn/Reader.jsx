@@ -45,7 +45,7 @@ export default function Reader() {
   const currentModule = navigationGroups.find(group => group.id === currentModuleId);
 
   useEffect(() => {
-    if (topic) document.title = `${topic.title} · Learn · ronak.ai`;
+    if (topic) document.title = `${topic.title} · Learn · ronak.sh`;
   }, [topic]);
 
   useEffect(() => {

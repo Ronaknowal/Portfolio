@@ -41,6 +41,6 @@ function ArticleBody({ article }) {
 export default function ArticleReader() {
   const { slug } = useParams();
   const article = articles.find(item => item.slug === slug);
-  useEffect(() => { document.title = `${article?.title || "Article not found"} · ronak.ai`; }, [article]);
+  useEffect(() => { document.title = `${article?.title || "Article not found"} · ronak.sh`; }, [article]);
   return <ArticleLayout reader>{article ? <ArticleBody key={slug} article={article} /> : <div className="article-missing"><p className="site-eyebrow">404 / Article not found</p><h1>This article isn’t available.</h1><p>It may not be published, or the address may have changed.</p><Link to="/articles">Browse published articles →</Link></div>}</ArticleLayout>;
 }

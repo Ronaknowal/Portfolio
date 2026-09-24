@@ -264,7 +264,7 @@ export default function LearnHub({ view = "explore" }) {
   const pageHeading = pageHeadings[view];
 
   useEffect(() => {
-    document.title = `${view === "explore" ? "Learn" : view[0].toUpperCase() + view.slice(1)} · ronak.ai`;
+    document.title = `${view === "explore" ? "Learn" : view[0].toUpperCase() + view.slice(1)} · ronak.sh`;
     window.scrollTo(0, 0);
   }, [view, requestedGroup]);
 
@@ -309,7 +309,7 @@ export default function LearnHub({ view = "explore" }) {
         )}
       </main>
       <footer className="workspace-footer">
-        <Link to="/learn">ronak.ai / learn</Link>
+        <Link to="/learn">ronak.sh / learn</Link>
         <span>Concepts → implementations → evidence.</span>
         <Link to="/learn/path/full-curriculum">Complete curriculum ↗</Link>
       </footer>

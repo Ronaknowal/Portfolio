@@ -11,9 +11,9 @@ export async function writeSiteEntries(repositoryRoot, outputRoot) {
   const html = await readFile(path.join(outputRoot, "index.html"), "utf8");
   const articles = await readArticles(repositoryRoot);
   const pages = [
-    ...siteSections.filter(section => section.href !== "/").map(section => ({ route: section.href, title: `${section.label} · ronak.ai`, summary: section.description })),
-    ...["paths", "modules", "catalogue", "projects"].map(view => ({ route: `/learn/${view}`, title: "Learn · ronak.ai", summary: "Deep concepts and guided builds." })),
-    ...articles.map(article => ({ route: `/articles/${article.slug}`, title: `${article.title} · ronak.ai`, summary: article.summary })),
+    ...siteSections.filter(section => section.href !== "/").map(section => ({ route: section.href, title: `${section.label} · ronak.sh`, summary: section.description })),
+    ...["paths", "modules", "catalogue", "projects"].map(view => ({ route: `/learn/${view}`, title: "Learn · ronak.sh", summary: "Deep concepts and guided builds." })),
+    ...articles.map(article => ({ route: `/articles/${article.slug}`, title: `${article.title} · ronak.sh`, summary: article.summary })),
   ];
   for (const page of pages) {
     const directory = path.join(outputRoot, page.route.slice(1));

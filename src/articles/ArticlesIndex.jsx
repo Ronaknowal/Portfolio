@@ -11,7 +11,7 @@ export default function ArticlesIndex() {
   const tags = useMemo(() => [...new Set(articles.flatMap(article => article.tags))].sort(), []);
   const filtered = useMemo(() => articles.filter(article => (!tag || article.tags.includes(tag)) &&
     `${article.title} ${article.summary} ${article.tags.join(" ")}`.toLowerCase().includes(query.trim().toLowerCase())), [query, tag]);
-  useEffect(() => { document.title = "Articles · ronak.ai"; }, []);
+  useEffect(() => { document.title = "Articles · ronak.sh"; }, []);
   function updateFilter(key, value) {
     const next = new URLSearchParams(params);
     if (value) next.set(key, value); else next.delete(key);

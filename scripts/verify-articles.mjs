@@ -57,7 +57,7 @@ try {
   await writeFile(path.join(outputRoot, "index.html"), '<html><head><title>Original</title><meta name="description" content="Original" /></head><body><div id="root"></div></body></html>');
   await writeSiteEntries(fixtureRoot, outputRoot);
   const entry = await readFile(path.join(outputRoot, "articles/escaped-metadata/index.html"), "utf8");
-  assert.ok(entry.includes('<title>Prices: $` &lt;model&gt; &amp; &quot;data&quot; · ronak.ai</title>'));
+  assert.ok(entry.includes('<title>Prices: $` &lt;model&gt; &amp; &quot;data&quot; · ronak.sh</title>'));
   assert.ok(entry.includes('content="Quotes &quot; and &lt;tags&gt; must stay text."'));
   await assert.rejects(() => readFile(path.join(outputRoot, "articles/private-draft/index.html")), { code: "ENOENT" });
   assert.equal(await readFile(path.join(outputRoot, "404.html"), "utf8"), await readFile(path.join(outputRoot, "index.html"), "utf8"));

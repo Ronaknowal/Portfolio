@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-22T19:12:52.274Z",
+  "checkedAt": "2026-09-24T15:36:12.558Z",
   "base": "http://127.0.0.1:4195",
   "checks": [
     {
@@ -175,30 +175,30 @@
   "errors": [],
   "homePayload": [
     {
-      "file": "/assets/index-0oJRoRSd.js",
-      "decodedBytes": 245254,
-      "encodedBytes": 78316
+      "file": "/assets/index-DZzqdX4c.js",
+      "decodedBytes": 246698,
+      "encodedBytes": 78658
     },
     {
-      "file": "/assets/index-YEerEn9o.css",
-      "decodedBytes": 11514,
-      "encodedBytes": 2828
+      "file": "/assets/index-BzpxkV_7.css",
+      "decodedBytes": 12512,
+      "encodedBytes": 2996
     }
   ],
   "sourceHashes": {
-    "index.html": "2da230fbb851e5b8213fbbccd2ef206d43313779619da2a83383258530a33c32",
-    "src/main.jsx": "fbd6cb117767b3bd45dcb932a793e20cccac669919401b38b841f08ee8011a32",
-    "src/index.css": "2da3f4f1117562b036bec3fc244492e4663a88a6ff06ade78676ca8493c0bec3",
-    "src/Portfolio.jsx": "5a4a359e6a85aa4c27a3669bb56c667819157301d152f519840ce83d0793a3fa",
-    "src/site/SiteHeader.jsx": "09a7b28ddc59927b6c311ce1ce3251898ca3f5ada039c3f998b1a222287502b5",
-    "src/site/SiteRoutes.jsx": "e41618aed9e58d135a9191ab25f2e471840ce1d3e40fc091408b3c7b9be34e6c",
-    "src/site/Home.jsx": "0449f6cc83bc8e6936feb5d1ed1cc7d65f3fb7f9c1ca3289dc07feec471ccc79",
-    "src/site/sections.js": "65b70a8f654b54b25fb6c37c272eb118aa8845c06a8691b8ab5818a12adf80be",
-    "src/site/site.css": "4977fd76d336690da76ed5fa7decdcdf2b0d71d965d5ae5475dff2d341bbc8e0",
-    "src/site/home.css": "7f551e75b7eb4a03a0b5ec1dc7f43b1c3ee9ebd176dd26c038212af9d10f9bd8",
-    "src/learn/components/LearningNav.jsx": "a65bcf43561c86070d02dbe943d06b8bba1ba7eb11f73b0daff15389efa274fb",
-    "src/learn/learning-base.css": "84880691b3e7e74c47827b101c25bb681067cbc7c2c7fcdda2b6f7d9f1ca1786",
-    "src/learn/Reader.jsx": "b580833a6209bb975632664288b4a81344b14e6a2b94585a94aaee1eb59cc546"
+    "index.html": "e67125f827ea83fee8057c2ecfebbb8b05e52ed18793bf4774494fdeef9d52c0",
+    "src/main.jsx": "f1c0477057045933f9fe9a8192bb59034f125eba2d63e024575ff1d79ec76728",
+    "src/index.css": "18449db81bb7eca80cd13a55c7e0374ab719d0d8b91c2194a19aea2af83e21bd",
+    "src/portfolio/Portfolio.jsx": "954cfb30cfc2f6ad1c5b17194c86ceccb323cbf979b5b981f4e2caaee47343ad",
+    "src/shared/layout/SiteHeader.jsx": "4a98a57739c64f3d4548a3a5a6021bc3835d1fcd88bdf15f7186ede1c160cbd5",
+    "src/app/SiteRoutes.jsx": "f266aba4798586bd8e45a61d4dcfcef748098f6e3b959595523c753f6d5983c5",
+    "src/home/Home.jsx": "b1ec286d30b3ac8aade69326ebc6a5ea3584294c3ecbd11c9b9ddf9a23022a03",
+    "src/app/navigation.js": "75276a6b68053ca13de5212079a8561b35ff653d84c8a32249a7d53683cd93b0",
+    "src/shared/layout/site-shell.css": "ce1436cc7aa637c282cf7c58e12665a2f3829dca90a242da48b2c4c126af2265",
+    "src/home/home.css": "d5d8f8e4733acfb9106fd683e65411d40e1779142937a85ef3387d11e5339f46",
+    "src/learn/components/LearningNav.jsx": "9a853faccdf2f58e966d36f2a1a6ab2949cba30595f2ef8db15d649fbbe7da83",
+    "src/learn/learning-base.css": "f0576e46ca19bd904a468b4651b5e8ade51ef8276aa3b35d62277549a1d881d9",
+    "src/learn/Reader.jsx": "0c3c64561cbe7d20255f919ca3fee4ce23f2ac97d20ba7087ec92157cf9ecc6a"
   },
   "passed": true
 }

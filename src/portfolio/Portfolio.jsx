@@ -1647,7 +1647,7 @@ export default function Portfolio() {
           built with curiosity, caffeine, and gradient descent
           <br />
           <span style={{ color: "#333" }}>
-            © {new Date().getFullYear()} ronak.ai — still training
+            © {new Date().getFullYear()} ronak.sh — still training
           </span>
         </div>
       </footer>

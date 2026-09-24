@@ -18,7 +18,7 @@ function HomeEntry() {
 }
 
 function MissingPage() {
-  useEffect(() => { document.title = "Page not found · ronak.ai"; }, []);
+  useEffect(() => { document.title = "Page not found · ronak.sh"; }, []);
   return <><SiteHeader /><main id="site-main" className="site-recovery" tabIndex={-1}><span className="site-eyebrow">404 / Page not found</span><h1>Let’s find your way back.</h1><p>This address doesn’t point to a published page. Start at home to explore the portfolio or learning workspace.</p><Link to="/">Back to home →</Link></main></>;
 }
 

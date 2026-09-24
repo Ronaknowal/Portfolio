@@ -1,4 +1,4 @@
-# ronak.ai
+# ronak.sh
 
 A personal site with a home, portfolio, learning workspace and articles. This is
 one React/Vite application with independently loaded sections, not a portfolio
@@ -60,12 +60,19 @@ is versioned but excluded from production imports; it is **not secret storage**.
 
 ## Deployment
 
-The existing GitHub Pages workflow installs from the lockfile, verifies content
-and ignore rules, builds, checks output boundaries, and deploys `dist/`. The domain
-in `public/CNAME` is unchanged. Top-level sections and published articles receive
-real HTML entry files so direct URLs work on Pages; `404.html` supplies SPA
-recovery for other nested URLs. Rendering still uses React. This is not full
-server rendering; see [hosting details](docs/engineering/REPOSITORY-STRUCTURE.md#hosting).
+The Cloudflare workflow (`.github/workflows/deploy-cloudflare.yml`) installs from
+the lockfile, verifies content and ignore rules, builds, checks output boundaries,
+and deploys `dist/` to Workers Static Assets. Add the `CLOUDFLARE_API_TOKEN` and
+`CLOUDFLARE_ACCOUNT_ID` repository Actions secrets before publishing to `main`.
+`wrangler.jsonc` initially enables a `workers.dev` address for verification; the
+intended custom domain is `ronak.sh`. See [domain and HTTPS setup](docs/engineering/DEPLOYMENT.md)
+for the remaining account, DNS and redirect steps.
+
+The existing GitHub Pages workflow is retained during migration. Top-level sections
+and published articles receive real HTML entry files, while Cloudflare's explicit
+SPA fallback serves other nested URLs. `public/CNAME` and `404.html` remain for
+Pages compatibility. Rendering still uses React; this is not full server rendering.
+See [hosting details](docs/engineering/REPOSITORY-STRUCTURE.md#hosting).
 
 Do not deploy backend services by putting their source in `public/`. A usable
 tool, a portfolio showcase and a Learn build guide can link to the same project,
