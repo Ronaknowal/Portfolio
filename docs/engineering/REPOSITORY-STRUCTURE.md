@@ -100,8 +100,10 @@ change does not create empty packages, backend stubs, hosting accounts or deploy
 
 The deployment target is Cloudflare Workers Static Assets with root-relative URLs.
 `.github/workflows/deploy-cloudflare.yml` builds and validates `dist/`, then deploys
-it using `wrangler.jsonc`. The initial configuration enables `workers.dev`; attaching
-`ronak.sh` is a separate migration step after the build and DNS are verified.
+it using `wrangler.jsonc`, which configures the `ronak.sh` custom domain and retains
+`workers.dev` for verification. The Cloudflare zone must be **Active** before this
+configuration is pushed; deployment creates the domain's DNS record and certificate.
+Enable **Always Use HTTPS** separately in the Cloudflare dashboard after verification.
 `assets.not_found_handling` is explicitly `single-page-application`, so unmatched
 page URLs receive the root HTML with HTTP 200 before React resolves the route.
 

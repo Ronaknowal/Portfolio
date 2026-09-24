@@ -64,9 +64,11 @@ The Cloudflare workflow (`.github/workflows/deploy-cloudflare.yml`) installs fro
 the lockfile, verifies content and ignore rules, builds, checks output boundaries,
 and deploys `dist/` to Workers Static Assets. Add the `CLOUDFLARE_API_TOKEN` and
 `CLOUDFLARE_ACCOUNT_ID` repository Actions secrets before publishing to `main`.
-`wrangler.jsonc` initially enables a `workers.dev` address for verification; the
-intended custom domain is `ronak.sh`. See [domain and HTTPS setup](docs/engineering/DEPLOYMENT.md)
-for the remaining account, DNS and redirect steps.
+`wrangler.jsonc` configures `ronak.sh` as a custom domain and retains `workers.dev`
+for verification. The `ronak.sh` Cloudflare zone must be **Active** before pushing
+this configuration; deployment creates its DNS record and HTTPS certificate.
+See [domain and HTTPS setup](docs/engineering/DEPLOYMENT.md) for the remaining
+dashboard HTTPS and redirect steps.
 
 The existing GitHub Pages workflow is retained during migration. Top-level sections
 and published articles receive real HTML entry files, while Cloudflare's explicit

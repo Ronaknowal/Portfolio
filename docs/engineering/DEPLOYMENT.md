@@ -8,8 +8,9 @@ query strings.
 
 ## Repository configuration
 
-- `wrangler.jsonc` names the Worker `ronak-site`, uploads `dist/`, enables
-  `workers.dev`, and sets the explicit single-page-application fallback.
+- `wrangler.jsonc` names the Worker `ronak-site`, uploads `dist/`, configures the
+  `ronak.sh` custom domain, retains `workers.dev`, and sets the explicit
+  single-page-application fallback.
 - `.github/workflows/deploy-cloudflare.yml` runs on pushes to `main` or manual runs
   on `main`. It checks credentials, installs locked dependencies, checks repository
   and article content, builds, checks output boundaries, and deploys with Wrangler 4.
@@ -17,12 +18,11 @@ query strings.
   during migration. Disable that workflow only after Cloudflare and the redirects
   have been verified.
 
-The configuration alone does not change any domain or publish local edits. Commit
-and push the reviewed changes to run the workflow. Include the branding changes,
-SVG/ICO/touch icons and any required source files in that reviewed commit; avoid
-staging unrelated work wholesale.
+Local configuration changes take effect when deployed. Wait until the `ronak.sh`
+Cloudflare zone is **Active**, then commit and push the reviewed changes to run
+the workflow. Avoid staging unrelated work wholesale.
 
-## Account setup and first deployment
+## Account setup and deployment
 
 1. In Cloudflare, create an **Edit Cloudflare Workers** API token scoped to the
    intended account and domain zone. Copy that account's **Account ID**, not Zone ID.
@@ -31,8 +31,9 @@ staging unrelated work wholesale.
    files and chat. The workflow uses repository secrets, not environment secrets.
 3. Open **Workers & Pages** and complete any account or `workers.dev` subdomain
    setup requested by Cloudflare.
-4. Publish the reviewed changes to `main`. In GitHub Actions, open **Deploy to
-   Cloudflare** and verify that the build and deployment succeed.
+4. Complete the DNS migration below and confirm the `ronak.sh` zone is **Active**
+   before publishing the reviewed changes to `main`. In GitHub Actions, open
+   **Deploy to Cloudflare** and verify that the build and deployment succeed.
 5. Open the exact `workers.dev` URL reported by the deployment. Check the home
    page, icons, `/portfolio`, `/learn`, `/articles`, and a nested lesson URL.
 
@@ -72,8 +73,7 @@ status or proof of a specific cause. Recheck DNS before the cutover.
 
 ## Attach ronak.sh and enable HTTPS
 
-Once the Worker is verified and the zone is active, add this top-level property to
-`wrangler.jsonc` and publish the change through the same workflow:
+The custom domain is already configured in `wrangler.jsonc`:
 
 ```json
 "routes": [
@@ -81,11 +81,10 @@ Once the Worker is verified and the zone is active, add this top-level property 
 ]
 ```
 
-Retain the existing `name`, `compatibility_date`, `workers_dev` and `assets`
-properties. Cloudflare creates the custom domain's DNS record and certificate.
-Resolve any conflicting record for this exact hostname before attaching it.
-Alternatively, add the Custom Domain in the Worker's **Settings → Domains & Routes**,
-then record the same route in Wrangler so later deployments preserve it.
+Once the Worker is verified and the zone is **Active**, commit and push this
+configuration through the same workflow. Resolve any conflicting DNS record for
+`ronak.sh` before deployment. Cloudflare creates the custom domain's DNS record
+and certificate automatically; no separate dashboard domain attachment is needed.
 
 Once the certificate is active, verify `https://ronak.sh` and enable **SSL/TLS →
 Edge Certificates → Always Use HTTPS**. No purchased SSL certificate is needed.
